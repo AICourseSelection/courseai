@@ -1,0 +1,78 @@
+// Gets spring-boot
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.1.5.RELEASE'
+    }
+}
+
+// Plugins
+apply plugin: 'application'
+apply plugin: 'checkstyle'
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+// Property overrides
+checkstyle.showViolations = true
+sourceCompatibility=1.8
+version = '1.0'
+defaultTasks 'build','run'
+
+// Repos
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+// Dependencies
+dependencies {
+    checkstyle('com.puppycrawl.tools:checkstyle:5.9')
+    compile(
+        'com.google.guava:guava:12.+',
+        'commons-collections:commons-collections',
+        'org.apache.logging.log4j:log4j-slf4j-impl:2.0.1',
+        'org.apache.logging.log4j:log4j-core:2.0.1',
+        'joda-time:joda-time:2.+',
+        'org.slf4j:slf4j-api',
+        'org.springframework.boot:spring-boot-starter-jetty',
+        'javax.ws.rs:javax.ws.rs-api:2.0',
+        'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.6',
+        'org.jboss.resteasy:resteasy-client:3.0.2.Final',
+        'org.apache.solr:solr-solrj:6.4.0'
+    )
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'ch.qos.logback'
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    testCompile(
+        'junit:junit:4.11',
+        'org.mockito:mockito-core:1.+',
+        'org.springframework.boot:spring-boot-starter-test:1.1.+'
+    )
+}
+
+// Test properties
+test {
+    testLogging.showStandardStreams = true
+}
+
+// Compile options
+compileJava {
+    // Show all @Deprecated notices
+    options.compilerArgs << '-Xlint:unchecked'
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+// Gradle wrapper, only use once on a project
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
