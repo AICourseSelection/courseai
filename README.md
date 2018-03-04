@@ -4,4 +4,5 @@ Personalised course discovery experience that employs AI. Students can interact 
 # Audit Landing Page
 ## Project Audit 1 - Week 3
 The requirements of Project Audit 1 are detailed in this [word document](Project_Audit_1.docx). 
-Section 5 of the Project Audit is contained in this [chart](Courseai%20Project%20Plan.pdf). 
+Section 5 of the Project Audit is contained in this [chart](Courseai%20Project%20Plan.pdf).  
+Please also find our team organisation chart [here](Meet%20Our%20Team%20-%20Org%20Chart.pdf). 
