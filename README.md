@@ -15,8 +15,8 @@ Personalised course discovery experience that employs AI. Students can interact 
    10. [Tooling](#tooling)
    11. [References](#references)
 
-## [Meet our Team](PDF/Team_Org_Chart.pdf)
-![Team Organisation Chart](Images/Team_Org_Chart.png)
+## [Meet our Team](Documentation/Audit_1/PDF/Team_Org_Chart.pdf)
+![Team Organisation Chart](Documentation/Audit_1/Images/Team_Org_Chart.png)
 
 ## Client's Vision
 Vision: Empowering University Students to get the most out of their studies, through optimisation of course selection and scheduling.
@@ -28,8 +28,8 @@ This proof of concept matters because the university:
 *   wants to make it as easy as possible for qualified students to select the right courses for them and become enduring members of the university’s community
 *   wishes to provide great experiences to its prospective and existing students that build their continued engagement with the university.
 
-## [Key Stakeholders](PDF/Stakeholders.pdf)
-![Image of Stakeholders](Images/Stakeholders.png)
+## [Key Stakeholders](Documentation/Audit_1/PDF/Stakeholders.pdf)
+![Image of Stakeholders](Documentation/Audit_1/Images/Stakeholders.png)
 
 ## Client and Stakeholder Expectations:
 * Accenture
@@ -58,10 +58,10 @@ The aim of this project is to simplify the course selection process for universi
 9. 4th  May -  Complete project poster
 10. 8th  May - TechLauncher Showcase  
 
-### [Project Timeline](PDF/Schedule_with_Milestones.pdf)
-![Project Timeline](Images/Schedule_with_Milestones.png)
+### [Project Timeline](Documentation/Audit_1/PDF/Schedule_with_Milestones.pdf)
+![Project Timeline](Documentation/Audit_1/Images/Schedule_with_Milestones.png)
 
-### [Gantt Chart of Tasks](PDF/Gantt_Chart.pdf)
+### [Gantt Chart of Tasks](Documentation/Audit_1/PDF/Gantt_Chart.pdf)
 
 ## Technical and Other Constraints
 Our primary limitations and technical constraints are (1) the quality or availability of our course and degree requirements data, (2) the quality of software which we can use for our interactive agent (chatbot) (3) the capabilities of the recommendation model that we create, which will depend on the AI technology that is available to us. *Note that some of the technologies and have not been completely committed to, and may change throughout the ideate and define phases (see schedule).*
