@@ -13,6 +13,7 @@ Personalised course discovery experience that employs AI. Students can interact 
    8. [Resources, Risks and Potential Costs](#resources-risks-and-potential-costs)
    9. [NDA and IP Concerns](#nda-and-ip-concerns)
    10. [Tooling](#tooling)
+   11. [References](#references)
 
 ## [Meet our Team](PDF/Team_Org_Chart.pdf)
 ![Team Organisation Chart](Images/Team_Org_Chart.png)
@@ -79,15 +80,15 @@ Web-scraping limitations:
 Amazon Web Services’ customisable chatbot product “Amazon Lex” is being considered as an option for the creation of our chatbot. As it stands it is one of the better choices, especially given that some members of our team already have a good understanding of the documentation and capabilities of this product.
 
 Key limitations:
--   Lex does not support integration with Google, Viber, Twitter or Skype. [1]
+-   Lex does not support integration with Google, Viber, Twitter or Skype. [[1]](#references)
 -   Lex does not support explicit context switching. This means that once it perceives the user to have a certain intent, it will not change without being explicitly informed.
--   For the first year, Lex allows users to process up to 10,000 text requests and 5,000 speech requests per month for free. Following this first year, the pricing is $.00075 per text request. [2]
+-   For the first year, Lex allows users to process up to 10,000 text requests and 5,000 speech requests per month for free. Following this first year, the pricing is $.00075 per text request. [[2]](#references)
 
 Security:
 -   Lex will store data from conversations automatically. Since the user identities are not matched with the conversations and AWS provides security, we do not believe that storing this data is a legitimate security risk.
 
 Reliability:
--   Amazon Web Services has a great reputation for providing reliable products [3]. Amazon, being one of the largest organisations worldwide has AWS well protected from potential server failures.
+-   Amazon Web Services has a great reputation for providing reliable products [[3]](#references). Amazon, being one of the largest organisations worldwide has AWS well protected from potential server failures.
 
 ### Recommendation model generation
 Our model will require some form of recommendation algorithm, which is highly dependent on existing technology. Current Natural Language Processing techniques have found use in recommendation software, including advertising and search engine recommendations. However, they are still relatively limited in their effectiveness.
