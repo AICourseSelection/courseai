@@ -1,8 +1,9 @@
-INFS2005
-INFS4201
-INFS1001
-INFS4500
-INFS4004
-INFS2024
-INFS3024
-INFS4205
+"http://programsandcourses.anu.edu.au/2018/course/INFS2005",
+"http://programsandcourses.anu.edu.au/2018/course/INFS4201",
+"http://programsandcourses.anu.edu.au/2018/course/INFS1001",
+"http://programsandcourses.anu.edu.au/2018/course/INFS4500",
+"http://programsandcourses.anu.edu.au/2018/course/INFS4004",
+"http://programsandcourses.anu.edu.au/2018/course/INFS2024",
+"http://programsandcourses.anu.edu.au/2018/course/INFS3024",
+"http://programsandcourses.anu.edu.au/2018/course/INFS4205",
+NOTHING

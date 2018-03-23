@@ -1,5 +1,6 @@
-MKTG2033
-MKTG2031
-MKTG4500
-MKTG3023
-MKTG2002
+"http://programsandcourses.anu.edu.au/2018/course/MKTG2033",
+"http://programsandcourses.anu.edu.au/2018/course/MKTG2031",
+"http://programsandcourses.anu.edu.au/2018/course/MKTG4500",
+"http://programsandcourses.anu.edu.au/2018/course/MKTG3023",
+"http://programsandcourses.anu.edu.au/2018/course/MKTG2002",
+NOTHING
