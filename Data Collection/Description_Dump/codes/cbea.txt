@@ -4,4 +4,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/CBEA5920",
 "http://programsandcourses.anu.edu.au/2018/course/CBEA5921",
 "http://programsandcourses.anu.edu.au/2018/course/CBEA3066",
-NOTHING

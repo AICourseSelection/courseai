@@ -9,4 +9,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/HIST2141",
 "http://programsandcourses.anu.edu.au/2018/course/HIST1215",
 "http://programsandcourses.anu.edu.au/2018/course/HIST4012",
-NOTHING

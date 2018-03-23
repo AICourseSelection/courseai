@@ -25,4 +25,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/LAWS4300",
 "http://programsandcourses.anu.edu.au/2018/course/LAWS1203",
 "http://programsandcourses.anu.edu.au/2018/course/LAWS4001",
-NOTHING

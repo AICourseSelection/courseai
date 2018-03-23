@@ -6,4 +6,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/INFS2024",
 "http://programsandcourses.anu.edu.au/2018/course/INFS3024",
 "http://programsandcourses.anu.edu.au/2018/course/INFS4205",
-NOTHING

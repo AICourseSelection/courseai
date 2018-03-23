@@ -29,4 +29,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/EMSC3002",
 "http://programsandcourses.anu.edu.au/2018/course/EMSC1006",
 "http://programsandcourses.anu.edu.au/2018/course/EMSC4006",
-NOTHING

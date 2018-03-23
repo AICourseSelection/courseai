@@ -14,4 +14,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/FINM3009",
 "http://programsandcourses.anu.edu.au/2018/course/FINM3010",
 "http://programsandcourses.anu.edu.au/2018/course/FINM4017",
-NOTHING

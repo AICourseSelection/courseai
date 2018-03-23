@@ -15,4 +15,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/LING4011",
 "http://programsandcourses.anu.edu.au/2018/course/LING2008",
 "http://programsandcourses.anu.edu.au/2018/course/LING3025",
-NOTHING

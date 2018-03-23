@@ -5,4 +5,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/EMET4007",
 "http://programsandcourses.anu.edu.au/2018/course/EMET1001",
 "http://programsandcourses.anu.edu.au/2018/course/EMET3020",
-NOTHING

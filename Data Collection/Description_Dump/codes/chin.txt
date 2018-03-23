@@ -9,4 +9,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/CHIN1013",
 "http://programsandcourses.anu.edu.au/2018/course/CHIN2014",
 "http://programsandcourses.anu.edu.au/2018/course/CHIN3022",
-NOTHING

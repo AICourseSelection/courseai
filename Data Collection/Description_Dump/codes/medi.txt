@@ -2,4 +2,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/MEDI3005",
 "http://programsandcourses.anu.edu.au/2018/course/MEDN4001",
 "http://programsandcourses.anu.edu.au/2018/course/MEDI4000A",
-NOTHING

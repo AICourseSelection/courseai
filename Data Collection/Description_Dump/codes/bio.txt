@@ -21,4 +21,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/BIOL2001",
 "http://programsandcourses.anu.edu.au/2018/course/BIOL3113",
 "http://programsandcourses.anu.edu.au/2018/course/BIOL3002",
-NOTHING

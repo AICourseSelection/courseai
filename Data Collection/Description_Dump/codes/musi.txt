@@ -20,4 +20,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/MUSI3321",
 "http://programsandcourses.anu.edu.au/2018/course/MUSI4401",
 "http://programsandcourses.anu.edu.au/2018/course/MUSI2211",
-NOTHING

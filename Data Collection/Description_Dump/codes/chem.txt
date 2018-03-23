@@ -9,4 +9,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/CHEM3060",
 "http://programsandcourses.anu.edu.au/2018/course/CHEM2210",
 "http://programsandcourses.anu.edu.au/2018/course/CHEM3201",
-NOTHING

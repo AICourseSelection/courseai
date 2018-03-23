@@ -28,4 +28,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/ASIA1999",
 "http://programsandcourses.anu.edu.au/2018/course/ASIA2026",
 "http://programsandcourses.anu.edu.au/2018/course/ASIA3551",
-NOTHING

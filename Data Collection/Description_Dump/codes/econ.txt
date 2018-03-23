@@ -26,4 +26,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/ECON3099",
 "http://programsandcourses.anu.edu.au/2018/course/ECON3110",
 "http://programsandcourses.anu.edu.au/2018/course/ECON2141",
-NOTHING

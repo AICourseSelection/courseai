@@ -69,4 +69,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/ARTH2097",
 "http://programsandcourses.anu.edu.au/2018/course/ARTV2617",
 "http://programsandcourses.anu.edu.au/2018/course/ARTS5923",
-NOTHING

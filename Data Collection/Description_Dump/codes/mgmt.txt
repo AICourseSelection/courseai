@@ -11,4 +11,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/MGMT1003",
 "http://programsandcourses.anu.edu.au/2018/course/MGMT2006",
 "http://programsandcourses.anu.edu.au/2018/course/MGMT4018",
-NOTHING

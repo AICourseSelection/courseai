@@ -31,4 +31,3 @@
 "http://programsandcourses.anu.edu.au/2018/course/ENGN3331",
 "http://programsandcourses.anu.edu.au/2018/course/ENGN2225",
 "http://programsandcourses.anu.edu.au/2018/course/ENGN4221",
-NOTHING
