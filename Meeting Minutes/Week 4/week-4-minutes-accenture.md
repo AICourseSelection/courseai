@@ -1,3 +1,5 @@
+## Accenture Meeting - Week 4 - Minutes
+
 ## Before pizza
 
 Audit 2 in two weeks
@@ -6,7 +8,7 @@ Audit 2 in two weeks
 	- Any other requirements (Joseph: find out)?
 	
 ## After pizza
-	
+
 Derrick: Should we move on to ideate? <br/>
 Everyone: yes
 
@@ -39,7 +41,7 @@ Before next meeting:
  - Agree on what type of prototype is chosen and the basic use cases.
  - Look into the technological aspects for the prototype and long term (Tom).
  - Can SELT Data be obtained?
- 
+
 --
 
 To consider for the prototype:
