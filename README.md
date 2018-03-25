@@ -58,8 +58,8 @@ The aim of this project is to simplify the course selection process for universi
 9. 4th  May -  Complete project poster
 10. 8th  May - TechLauncher Showcase  
 
-### [Project Timeline](Documentation/Audit_2/PDF/Schedule_with_Milestones.pdf)
-![Project Timeline](Documentation/Audit_2/Images/Schedule_with_Milestones.png)
+### [Project Timeline](Documentation/Audit_2/PDF/Schedule_With_Milestones.pdf)
+![Project Timeline](Documentation/Audit_2/Images/Schedule_With_Milestones.png)
 
 ### [Gantt Chart of Tasks](Documentation/Audit_1/PDF/Gantt_Chart.pdf)
 
