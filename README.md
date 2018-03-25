@@ -15,7 +15,10 @@ A personalised course discovery experience that employs AI. Students can interac
    10. [Tooling](#tooling)
    11. [References](#references)
 
+## [Project Progress](Documentation/overview.md)
+
 ## [Meet our Team](Documentation/Audit_1/PDF/Team_Org_Chart.pdf)
+
 ![Team Organisation Chart](Documentation/Audit_1/Images/Team_Org_Chart.png)
 
 ## Client's Vision

@@ -1,23 +1,23 @@
 ## Accenture Meeting - Week 4 - Minutes
 
-## Before pizza
+### First part
 
 Audit 2 in two weeks
 	- What to build for a prototype ?
 	- Focus on the presentation
 	- Any other requirements (Joseph: find out)?
 	
-## After pizza
+### Second part
 
-Derrick: Should we move on to ideate? <br/>
+Derrick: Should we move on to ideate?
 Everyone: yes
 
-Derrick: Change the order of the questions in the survey?<br/>
+Derrick: Change the order of the questions in the survey?
 There was a general consensus that the longer questions in the beginning would deter users from filling the whole thing.
 
 TO DO immediately:
 
-* Distribute survey<br/>
+* Distribute survey
 * Final poll question (Jack and Joseph)
 
 --
