@@ -34,7 +34,7 @@ We would like to gather information on new and current undergraduate students wo
 
 1. We interview counsellors about what students most frequently ask them to do with course selection, scheduling, and/or enrolment. 
 
-2. Allow us toobserve a few counselling sessions given permission from the counsellors and/orthe students. 
+2. Allow us to observe a few counselling sessions given permission from the counsellors and/orthe students. 
 
 3. Allow us to listen to or keep audio recordings of counselling sessions. 
 
