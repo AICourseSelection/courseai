@@ -5,6 +5,7 @@
 * **[Timeline with Milestones](Audit_2/PDF/Schedule_With_Milestones.pdf)**
 * **[Audit Presentation](Audit_2/Powerpoint/Audit_Presentation.pptx)**
 * [AI Architecture](Audit_2/PDF/AI_Architecture.pdf)
+* [User Stories for our Features](Audit_2/user_stories_for_features.md)
 
 ## Sprint 3
 
