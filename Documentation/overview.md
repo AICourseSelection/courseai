@@ -8,7 +8,7 @@
 
 ## Sprint 3
 
-* Survey Results and Decision Document
+* [Survey Results and Decision Document](Sprint_3/Documentation/Survey_Result_Documentation.xlsx)
 * [Provisional Feature List](Sprint_3/feature_list.md)
 * [Accenture meeting minutes](../Meeting_Minutes/Week_5/week-5-minutes-accenture.md)
 
