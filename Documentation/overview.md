@@ -18,8 +18,7 @@
   * Take the survey: https://www.surveymonkey.com/r/BcssCAx
 * [Results of Academic Program Officer (APO) interview at Fenner Hall](../Data%20Collection/tom-interview-conclusions.md)
 * [Main takeaways from Chatbot imitation experiment](../Data%20Collection/Facebook_chatbot_questions.md)
-* [Correspondence with ANUSA](Sprint_2/Email_Correspondence/ANUSA_Survey.md)
-* [Correspondence with Planning and Performance Measurement (PPM)](Sprint_2/Email_Correspondence/PPM_Survey.md)
+* [Correspondence with ANUSA, PPM, and Evaluations for Survey Deployment](Sprint_2/Email_Correspondence/Survey_Deployment.md)
 * [Correspondence with ANU Student Services](Sprint_2/Email_Correspondence/ANU_Student_Services.md)
 * [Accenture meeting minutes](../Meeting_Minutes/Week_4/week-4-minutes-accenture.md)
 
