@@ -17,7 +17,7 @@ Not many students enquire about this. The feature to suggest overloaded timetabl
 
 ### Course Credits
 
-No enquiries so far. There <i>may</i> be enquiries next semester. The ability to present partial schedules shoud not be a major priority either.
+No enquiries so far. There *may* be enquiries next semester. The ability to present partial schedules shoud not be a major priority either.
 
 _Note from Manal_: The low number of questions on this topic could also be due to the fact that people generally talk about course credit transfer <i>before</i> they take admission. Secondly, this feature would be automatically supported if we are also catering to continuing students (which I think we are).
 
