@@ -1,0 +1,11 @@
+PREFIX luc: <http://www.ontotext.com/connectors/lucene#>
+PREFIX inst: <http://www.ontotext.com/connectors/lucene/instance#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.ontotext.com/connectors/lucene#>
+
+SELECT DISTINCT ?subject {
+  ?search a inst:courseSearch ;   
+      luc:query "glossary:algol, description:algol";
+      luc:entities ?entity .
+  ?entity rdfs:related_subject ?subject
+} LIMIT 100
