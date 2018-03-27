@@ -43,3 +43,14 @@ for idx in range(len(titles)):
 
     for i in features:
         print(i)
+
+
+
+
+
+
+'{ "query": { "multi_match" : { "query" : "data structures", "fields": ["code^4", "title^3", "description^1.5", "outcome"]} } }'
+
+
+
+
