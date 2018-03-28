@@ -1,8 +1,11 @@
+#import libraries
 library('rvest')
 
+#sink the output
 sink("output.txt")
 pac <- read_html("http://programsandcourses.anu.edu.au/2018/course/COMP3620/")
 
+#pack desciption
 description <- pac %>%
   #  html_nodes("intro__degree-description__text") %>%
   #  html_nodes(".copy p") %>%
@@ -43,8 +46,7 @@ description
 #    as.array()
 #}
 
-#diff loop
-
+#set computing var
 computing <- c ("COMP4560", "COMP3560",
                 "COMP2550",
                 "COMP3550",
