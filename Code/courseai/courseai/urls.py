@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('search/<query>', include('search.urls')),
+    path(r'search', include('search.urls')),
     path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='static_pages/home.html'), name='home'),
 ]

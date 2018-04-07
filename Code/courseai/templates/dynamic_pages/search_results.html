@@ -25,10 +25,10 @@
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-6 offset-md-3">
-            <form action="myaction" method="post">
+            <form action="search" method="get">
                 <div class="form-row">
                     <div class="col-10">
-                        <input type="text" name="name" class="form-control" value="<%= originalQuery %>"
+                        <input type="text" name="query" class="form-control" value="{{ query }}"
                                placeholder="Type a question, topic, or course...">
                     </div>
                     <div class="col-2">
@@ -40,18 +40,18 @@
     </div>
     <div class="row" style="margin-top: 30px;">
         <table id="course-table" class="table table-striped table-hover">
-            <% successfulHits.forEach(function(hit){ %>
+            {% for code, title in response %}
             <tr>
-                <td class="course-code"><a href="http://programsandcourses.anu.edu.au/course/<%= hit[0] %>"
-                                           target="_blank"><%= hit[0] %></a>
+                <td class="course-code"><a href="http://programsandcourses.anu.edu.au/course/{{ code }}"
+                                           target="_blank">{{ code }}</a>
                 </td>
-                <td class="course-title" data-title="<%= hit[0] %>">
-                    <a href="http://programsandcourses.anu.edu.au/course/<%= hit[0] %>"
-                       target="_blank"><%= hit[1] %></a>
+                <td class="course-title" data-title="{{ code }}">
+                    <a href="http://programsandcourses.anu.edu.au/course/{{ code }}"
+                       target="_blank">{{ title }}</a>
                 </td>
                 <td class="max-right"></td>
             </tr>
-            <% }); %>
+            {% endfor %}
         </table>
     </div>
 </div>
