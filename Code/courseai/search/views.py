@@ -12,7 +12,6 @@ def search_response(search_query, request):
     :return: search response
     """
     return search.execute_search(search_query, request)
-    raise NotImplementedError("Search is not implemented.")
 
 def index(request):
     original_query = request.GET['query']
