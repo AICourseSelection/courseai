@@ -2,46 +2,78 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views import generic
 from django.views.generic import View
+from django.template import loader
+from django.http import HttpResponse
 from .forms import UserForm
+from .models import Student
 
-
-class UserFormView(View):
-    form_class = UserForm
-    template_name = 'static_pages/registration.html'
-
-    def get(self, request):
-        form = self.form_class(None)
-        return render(request, self.template_name, {'form': form})
-
-
-    def post(self, request):
-        form = self.form_class(request.POST)
-
-        if form.is_valid():
-            user = form.save(commit=False)
-
-            # clean data
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user.set_password(password)
-            user.save()
-
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect('search:index')
-
-        return render(request, self.template_name, {'form': form})
 
 # Create your views here.
 
+
 def index(request):
-    raise NotImplementedError("Blah")
+    # if reached here from home page
+    if 'uname' in request.POST and 'year' not in request.POST:
+        username = request.POST['uname']
+        template = loader.get_template('dynamic_pages/degree_builder.html')
+
+        # if there is no existing entry in the database, add the person to the database and redirect them to the degree page
+        try:
+            student = Student.objects.filter(name=username).get()
+
+            context = {
+                'username': username,
+                'start_year': student.start_year,
+                'start_semester': student.start_semester,
+                'interests': student.interests,
+                'degree': student.degree
+            }
+
+        except Student.DoesNotExist:
+
+            Student.objects.create(name=username)
+
+            context = {
+                'username': username,
+                'start_year': "",
+                'start_semester': "",
+                'interests': "",
+                'degree': ""
+            }
+
+        return HttpResponse(template.render(context, request))
+
+    if 'uname' in request.POST and 'year' in request.POST:
+        # save data in database
+        username = request.POST['uname']
+        template = loader.get_template('dynamic_pages/degree_builder.html')
+
+        start_year = request.POST['year']
+        start_semester = request.POST['semester']
+        interests = request.POST['interests']
+        degree = request.POST['degree']
+
+        Student.objects.filter(name=username).update(start_year=start_year, start_semester=start_semester, interests=interests, degree=degree)
+
+        context = {
+            'username': username,
+            'start_year': start_year,
+            'start_semester': start_semester,
+            'interests': interests,
+            'degree': degree
+        }
+
+        print("reached here")
+        print(Student.objects.all())
+
+        return HttpResponse(template.render(context, request))
+
+    raise NotImplementedError("Page seems to have been refreshed")
+
 
 def get_degree(request):
     raise NotImplementedError("Get degree not implemented")
+
 
 def update_degree(request):
     raise NotImplementedError("Update degree not implemented")

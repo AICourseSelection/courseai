@@ -21,5 +21,5 @@ urlpatterns = [
     path(r'search', include('search.urls')),
     path(r'degree', include('degree_builder.urls')),
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='static_pages/home.html'), name='home'),
+    path('', TemplateView.as_view(template_name='static_pages/registration.html'), name='registration'),
 ]
