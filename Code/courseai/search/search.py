@@ -8,7 +8,7 @@ from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 
 
-def __raw_search(search_object, phrase, request):
+def raw_search(search_object, phrase):
     q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description', 'outcome^1.5'])
     response = search_object.query(q).execute()
 
@@ -20,7 +20,7 @@ def __raw_search(search_object, phrase, request):
     return course_list
 
 
-def __filtered_search(search_object, phrase, filter_string, request):
+def __filtered_search(search_object, phrase, filter_string):
     q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description^1.5', 'outcome'])
     q2 = Q('bool',
            should=[Q('match_phrase', title=filter_string),
@@ -55,14 +55,14 @@ def execute_search(phrase, request):
 
         quote_positions = [pos for pos, char in enumerate(phrase) if char == c][:2]
         if len(quote_positions) < 2 or quote_positions[1] - quote_positions[0] < 2:
-            response = __raw_search(s, phrase, request)
+            response = raw_search(s, phrase)
 
         else:
             f_string = phrase[quote_positions[0] + 1: quote_positions[1]]
-            response = __filtered_search(s, phrase, f_string, request)
+            response = __filtered_search(s, phrase, f_string)
 
     else:
-        response = __raw_search(s, phrase, request)
+        response = raw_search(s, phrase)
 
     context = {
         'query': phrase,

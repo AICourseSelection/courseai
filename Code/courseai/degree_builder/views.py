@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from .forms import UserForm
 from .models import Student
 
-
+from degree_builder import recommender
 # Create your views here.
 
 
@@ -26,7 +26,8 @@ def index(request):
                 'start_year': student.start_year,
                 'start_semester': student.start_semester,
                 'interests': student.interests,
-                'degree': student.degree
+                'degree': student.degree,
+                'recommended_courses': recommender.get_recommendations(student.interests, student.degree)
             }
 
         except Student.DoesNotExist:
@@ -38,7 +39,8 @@ def index(request):
                 'start_year': "",
                 'start_semester': "",
                 'interests': "",
-                'degree': ""
+                'degree': "",
+                'recommended_courses': ""
             }
 
         return HttpResponse(template.render(context, request))
@@ -60,15 +62,13 @@ def index(request):
             'start_year': start_year,
             'start_semester': start_semester,
             'interests': interests,
-            'degree': degree
+            'degree': degree,
+            'recommended_courses': recommender.get_recommendations(interests, degree)
         }
-
-        print("reached here")
-        print(Student.objects.all())
 
         return HttpResponse(template.render(context, request))
 
-    raise NotImplementedError("Page seems to have been refreshed")
+    raise NotImplementedError("Page seems to have been refreshed or something")
 
 
 def get_degree(request):
