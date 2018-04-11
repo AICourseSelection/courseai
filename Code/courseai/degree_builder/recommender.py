@@ -7,6 +7,7 @@ def get_recommendations(interests, completed_courses):
     client = Elasticsearch()
     s = Search(using=client, index='courses')
     recommendations = []
+    interests = interests.split(',')
 
     for interest in interests:
         course_list = search.raw_search(s, interest)
