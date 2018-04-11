@@ -2,7 +2,14 @@
 # AI Course Selection
 A personalised course discovery experience that employs AI. Students can interact with a digital persona for personalised course information and selection support, completing transactions including enrolling in a course, selecting subjects and scheduling classes.
 
+**View our project project by clicking on this link:**
+
+### [Project Progress](Documentation/overview.md)
+
+This is an overview of the artifacts we have produced, organised by sprint and audit. It contains quick access to our output, documentation, and meeting notes. 
+
 ## Table of Contents
+
    1. [Meet our Team](#meet-our-team)
    2. [Client's Vision](#clients-vision)
    3. [Key Stakeholders](#key-stakeholders)
@@ -15,7 +22,7 @@ A personalised course discovery experience that employs AI. Students can interac
    10. [Tooling](#tooling)
    11. [References](#references)
 
-## [Project Progress](Documentation/overview.md)
+
 
 ## [Meet our Team](Documentation/Audit_1/PDF/Team_Org_Chart.pdf)
 

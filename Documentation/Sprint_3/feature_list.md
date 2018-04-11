@@ -12,8 +12,12 @@
 * Courses by area, title, description, level
 * Simple program and course questions
 
+### Interactive Degree Planner
+
+
+
 ## Stretch goals
-* **Interactive Degree Planner**
+* **Enrolment Transaction Capabilities**
 * **Course Recommendation by:**
   * SELT Reviews
   * Opportunity for majors/minors/specialisations
