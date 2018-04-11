@@ -1,0 +1,30 @@
+body {
+    margin-top: 50px;
+    font-family: "Gill Sans MT", sans-serif;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #f0fAff;
+}
+
+.max-right {
+    width: 350px;
+    min-width: 0;
+}
+
+td.course-code {
+    width: 40px;
+    font-weight: bold;
+}
+
+.popover {
+    min-width: 350px;
+}
+
+.vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
