@@ -13,7 +13,7 @@ for index, row in d.iterrows():
         desc = str(row[3])
         lo = str(row[4])
         
-        if len(code) != 8:
+        if len(code) != 8 or (not title.strip()) or (not desc.strip()) or (not lo.strip()):
             continue
 
         if not '1' <= code[4] <= '9':
@@ -35,6 +35,8 @@ for index, row in d.iterrows():
         
         desc = desc.replace("åÊ", ' ')
         lo = lo.replace("åÊ", ' ')
+        desc = desc.replace('\', '')
+        lo = lo.replace('\', '')
         desc = bytes(desc, 'utf-8').decode('utf-8', 'ignore')
         lo = bytes(lo, 'utf-8').decode('utf-8', 'ignore')
 

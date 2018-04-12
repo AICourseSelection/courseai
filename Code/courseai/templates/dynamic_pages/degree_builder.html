@@ -14,7 +14,16 @@
   <textarea rows="10" cols="50" name="degree" form="degree_builder">
         {{ degree }}
   </textarea>
-    <button type="submit">Login</button>
+    <button type="submit">Update</button>
+
+    <div class="container">
+        {% if recommended_courses %}
+            <p>Recommended Courses</p>
+            {% for course in recommended_courses %}
+                <ul> {{ course }}</ul>
+            {% endfor %}
+        {% endif %}
+    </div>
 </form>
 
 
