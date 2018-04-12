@@ -1,46 +1,46 @@
-    "http://programsandcourses.anu.edu.au/2018/course/VIET2003",
-    "http://programsandcourses.anu.edu.au/2018/course/VIET3002",
-    "http://programsandcourses.anu.edu.au/2018/course/VIET3003",
-    "http://programsandcourses.anu.edu.au/2018/course/VIET3015",
-    "http://programsandcourses.anu.edu.au/2018/course/HIST2243",
-    "http://programsandcourses.anu.edu.au/2018/course/ANTH2130",
-    "http://programsandcourses.anu.edu.au/2018/course/ASIA2109",
-    "http://programsandcourses.anu.edu.au/2018/course/COMP5923",
-    "http://programsandcourses.anu.edu.au/2018/course/ENGN5923",
-    "http://programsandcourses.anu.edu.au/2018/course/ARTS5923",
-    "http://programsandcourses.anu.edu.au/2018/course/ASIA5923",
-    "http://programsandcourses.anu.edu.au/2018/course/SCNC5924",
-    "http://programsandcourses.anu.edu.au/2018/course/SCNC5923",
-    "http://programsandcourses.anu.edu.au/2018/course/CBEA5923",
-    "http://programsandcourses.anu.edu.au/2018/course/ARTV2819",
-    "http://programsandcourses.anu.edu.au/2018/course/ANUC1121",
-    "http://programsandcourses.anu.edu.au/2018/course/DESN1002",
-    "http://programsandcourses.anu.edu.au/2018/course/PSYC3015",
-    "http://programsandcourses.anu.edu.au/2018/course/WARS3001",
-    "http://programsandcourses.anu.edu.au/2018/course/WARS1003",
-    "http://programsandcourses.anu.edu.au/2018/course/WARS2004",
-    "http://programsandcourses.anu.edu.au/2018/course/WARS1001",
-    "http://programsandcourses.anu.edu.au/2018/course/POLS3022",
-    "http://programsandcourses.anu.edu.au/2018/course/ENVS3005",
-    "http://programsandcourses.anu.edu.au/2018/course/ENVS2020",
-    "http://programsandcourses.anu.edu.au/2018/course/PHYS2017",
-    "http://programsandcourses.anu.edu.au/2018/course/ENVS2004",
-    "http://programsandcourses.anu.edu.au/2018/course/ANUC1710",
-    "http://programsandcourses.anu.edu.au/2018/course/COMP1710",
-    "http://programsandcourses.anu.edu.au/2018/course/PHIL1007",
-    "http://programsandcourses.anu.edu.au/2018/course/ASIA2304",
-    "http://programsandcourses.anu.edu.au/2018/course/PHYS3301",
-    "http://programsandcourses.anu.edu.au/2018/course/ENGN4536",
-    "http://programsandcourses.anu.edu.au/2018/course/PHYS3058",
-    "http://programsandcourses.anu.edu.au/2018/course/ARTV2038",
-    "http://programsandcourses.anu.edu.au/2018/course/ECHI3009",
-    "http://programsandcourses.anu.edu.au/2018/course/ARCH3025",
-    "http://programsandcourses.anu.edu.au/2018/course/HIST2136",
-    "http://programsandcourses.anu.edu.au/2018/course/GEND3016",
-    "http://programsandcourses.anu.edu.au/2018/course/BIAN4009",
-    "http://programsandcourses.anu.edu.au/2018/course/MUSI2211",
-    "http://programsandcourses.anu.edu.au/2018/course/MUSI3313",
-    "http://programsandcourses.anu.edu.au/2018/course/HUMN4001",
-    "http://programsandcourses.anu.edu.au/2018/course/ASIA3551",
-    "http://programsandcourses.anu.edu.au/2018/course/CRIM2006",
-    "http://programsandcourses.anu.edu.au/2018/course/DESN2011"
+VIET2003
+VIET3002
+VIET3003
+VIET3015
+HIST2243
+ANTH2130
+ASIA2109
+COMP5923
+ENGN5923
+ARTS5923
+ASIA5923
+SCNC5924
+SCNC5923
+CBEA5923
+ARTV2819
+ANUC1121
+DESN1002
+PSYC3015
+WARS3001
+WARS1003
+WARS2004
+WARS1001
+POLS3022
+ENVS3005
+ENVS2020
+PHYS2017
+ENVS2004
+ANUC1710
+COMP1710
+PHIL1007
+ASIA2304
+PHYS3301
+ENGN4536
+PHYS3058
+ARTV2038
+ECHI3009
+ARCH3025
+HIST2136
+GEND3016
+BIAN4009
+MUSI2211
+MUSI3313
+HUMN4001
+ASIA3551
+CRIM2006
+DESN2011
