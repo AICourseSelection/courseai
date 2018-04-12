@@ -1,5 +1,5 @@
-"http://programsandcourses.anu.edu.au/2018/course/KORE3015",
-"http://programsandcourses.anu.edu.au/2018/course/KORE1020",
-"http://programsandcourses.anu.edu.au/2018/course/KORE2521",
-"http://programsandcourses.anu.edu.au/2018/course/KORE3012",
-"http://programsandcourses.anu.edu.au/2018/course/KORE1201"
+KORE3015
+KORE1020
+KORE2521
+KORE3012
+KORE1201
