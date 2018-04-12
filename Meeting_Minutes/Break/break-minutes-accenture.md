@@ -1,8 +1,8 @@
-| intelligent search | degree planner |
+| Intelligent search | Degree planner |
 |-----------------------|--------------|
 | have a foundation    |  ANU has a similar thing|
-| q&a (data issue) |Basics already done by ANU|
-| a lot of competition | Need more foundation| 
+| Q&A (data issue) |Basics already done by ANU|
+| a lot of competition | Need more foundation|
 | no meaning on its own| very useful. It is the demand |
 | | can be a stand-alone product; can also benefit from the search|
 
