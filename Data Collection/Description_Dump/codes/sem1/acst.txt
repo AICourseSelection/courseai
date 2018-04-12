@@ -1,4 +1,4 @@
-"http://programsandcourses.anu.edu.au/2018/course/ACST4031",
-"http://programsandcourses.anu.edu.au/2018/course/ACST4600",
-"http://programsandcourses.anu.edu.au/2018/course/ACST4060",
-"http://programsandcourses.anu.edu.au/2018/course/ACST3001"
+ACST4031
+ACST4600
+ACST4060
+ACST3001
