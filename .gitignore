@@ -1,4 +1,6 @@
 Code/web-scraping/.ipynb_checkpoints
 Code/server/.idea
 Code/courseai/.idea
-.gitignore
+Code/courseai/venv
+*.pyc
+*.pyo
