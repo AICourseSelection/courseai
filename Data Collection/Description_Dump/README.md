@@ -9,7 +9,7 @@
   
 ### Usage
 
- - Use file(s) from [Tabulated][caRD], **ignore** [raw dump][caT].
+ - Use file(s) from [Tabulated][caT], **ignore** [raw dump][caRD].
 
    [caT]: <https://github.com/AICourseSelection/courseai/tree/master/Data%20Collection/Description_Dump/Tabulated>
    [caRD]: <https://github.com/AICourseSelection/courseai/tree/master/Data%20Collection/Description_Dump/raw%20dump>
