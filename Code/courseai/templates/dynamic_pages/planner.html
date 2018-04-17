@@ -1,0 +1,166 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+    <title>Degree Builder</title>
+</head>
+<body>
+<div class="planner-container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="h1 text-center">Plan Your Degree</div>
+        </div>
+    </div>
+    <div class="row top-margin">
+        <div class="col-12 h3 text-center" id="degree-title" tabindex="1">
+            <div id="edit-button" class="btn btn-info" tabindex="2">Edit</div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-3" id="right-panel">
+            <div class="form-row">
+                <label class="h5 text-center" for="add-course" style="width: 100%">Add a
+                    course</label>
+                <input type="text" name="query" class="form-control" id="add-course" tabindex="3"
+                       placeholder="Interest, subject area, course code... ">
+            </div>
+        </div>
+        <div class="col-6" id="centre-panel" style="min-width: 618px;">
+            <div id="plan-grid"></div>
+        </div>
+        <div class="col-3" id="left-panel">
+            <h5>Panel 3 Test</h5>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+    var dp = {
+        "degree_program": "Bachelor of Advanced Computing (Honours)",
+        "start_year": 2016,
+        "start_semester": 1,
+        "courses": {
+            "2016S1": [
+                {
+                    "code": "COMP1130",
+                    "title": "Introduction to Programming and Algorithms (Advanced)"
+                },
+                {
+                    "code": "MATH1115",
+                    "title": "Advanced Mathematics and Applications 1"
+                },
+                {
+                    "code": "STAT1003",
+                    "title": "Statistical Techniques"
+                },
+                {
+                    "code": "Elective Course"
+                }
+            ],
+            "2016S2": [
+                {
+                    "code": "COMP1140",
+                    "title": "Introduction to Software Systems (Advanced)"
+                },
+                {
+                    "code": "MATH1116",
+                    "title": "Advanced Mathematics and Applications 2"
+                },
+                {
+                    "code": "COMP2600",
+                    "title": "Statistical Techniques"
+                },
+                {
+                    "code": "Elective Course"
+                }
+            ],
+            "2017S1": [
+                {
+                    "code": "COMP2100",
+                    "title": "Software Construction"
+                },
+                {
+                    "code": "COMP2300",
+                    "title": "Introduction to Computer Systems"
+                },
+                {
+                    "code": "COMP2550",
+                    "title": "Advanced Computing R&D Methods"
+                },
+                {
+                    "code": "Elective Course"
+                }
+            ],
+            "2017S2": [
+                {
+                    "code": "COMP2130",
+                    "title": "Software Analysis and Design"
+                },
+                {
+                    "code": "COMP2310",
+                    "title": "Concurrent and Distributed Systems"
+                },
+                {
+                    "code": "COMP2560",
+                    "title": "Studies in Advanced Computing R&D"
+                },
+                {
+                    "code": "Elective Course"
+                }
+            ]
+        }
+    };
+    const title_text = dp["degree_program"] + " starting " + dp["start_year"] + " Semester " + dp["start_semester"];
+    var title_box = $('#degree-title');
+    title_box.prepend(title_text);
+    title_box.hover(function () {
+        $('#edit-button').fadeIn(150);
+    }, function () {
+        $('#edit-button').fadeOut(150);
+    });
+
+    var tab_index_count = 4;
+    var grid = $('#plan-grid');
+    var course_dict = dp["courses"];
+    for (var session in course_dict) {
+        if (course_dict.hasOwnProperty(session)) {
+            const year = session.split('S')[0];
+            const sem = session.split('S')[1];
+            var first_cell = '<div class="first-cell">' +
+                '<div class="h4">' + year + '</div>' +
+                '<div class="h5">Semester ' + sem + '</div>' +
+                '</div>';
+            var row = $('<div class="plan-row"/>');
+            row.append(first_cell);
+            const course_list = course_dict[session];
+            for (var i in course_list) {
+                const course = course_list[i];
+                var cell = $('<div class="plan-cell" tabindex="'+tab_index_count+'"/>');
+                tab_index_count++;
+                cell.append('<div class="course-code">' + course['code'] + '</div>');
+                cell.append('<div class="course-title">' + (course['title'] || "") + '</div>');
+                row.append(cell);
+            }
+            grid.append(row);
+        }
+    }
+
+</script>
+</body>
+</html>
