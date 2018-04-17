@@ -33,6 +33,10 @@ body {
     margin-right: 5px;
 }
 
+.popover {
+    box-shadow: 5px 2px 10px 0px #00000055;
+}
+
 .popover-error {
     background-color: #f2dede;
     border-color: #a94442;
@@ -63,7 +67,7 @@ body {
 
 #edit-button {
     float: right;
-    margin-left: -51px;
+    margin-left: -100%;
     display: none;
 }
 
@@ -123,8 +127,8 @@ body {
 
 .course-code {
     font-weight: bold;
-    color: #4354a1;
-    text-decoration: underline;
+    /*color: #4354a1;*/
+    /*text-decoration: underline;*/
 }
 
 .course-title {
