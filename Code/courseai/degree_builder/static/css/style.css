@@ -29,10 +29,8 @@ body {
 }
 
 .sem-buttons {
-    float: left;
-    margin-left: -182px;
-    margin-right: 10px;
-    max-width: 182px;
+    float: right;
+    margin-right: 5px;
 }
 
 .popover-error {
