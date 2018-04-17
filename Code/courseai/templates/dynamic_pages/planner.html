@@ -151,7 +151,7 @@
             const course_list = course_dict[session];
             for (var i in course_list) {
                 const course = course_list[i];
-                var cell = $('<div class="plan-cell" tabindex="'+tab_index_count+'"/>');
+                var cell = $('<div class="plan-cell" tabindex="' + tab_index_count + '"/>');
                 tab_index_count++;
                 cell.append('<div class="course-code">' + course['code'] + '</div>');
                 cell.append('<div class="course-title">' + (course['title'] || "") + '</div>');
@@ -160,6 +160,22 @@
             grid.append(row);
         }
     }
+
+    $('.plan-cell').each(function () {
+        const code = $(this).find('.course-code').text();
+        if (code === "Elective Course") return;
+        const title = $(this).find('.course-title').text();
+        $(this).popover({
+            trigger: 'click',
+            title: 'Related Courses to ' + code,
+            placement: 'right',
+            html: true,
+            content: '<ul class="list-group">' +
+            '<a href="javascript:void(0)" class="list-group-item list-group-item-action"><strong>COMP4670</strong> Introduction to Statistical Machine Learning</a>' +
+            '<a href="javascript:void(0)" class="list-group-item list-group-item-action"><strong>COMP4680</strong> Advanced Topics in Statistical Machine Learning</a>' +
+            '</ul>'
+        });
+    });
 
 </script>
 </body>
