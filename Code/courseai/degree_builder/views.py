@@ -1,17 +1,27 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.views import generic
-from django.views.generic import View
-from django.template import loader
 from django.http import HttpResponse
-from .forms import UserForm
-from .models import Student
+from django.template import loader
 
 from degree_builder import recommender
+from .models import Student
+
+
 # Create your views here.
 
-
 def index(request):
+    return HttpResponse(loader.get_template('dynamic_pages/index.html').render())
+
+
+def planner(request):
+    template = loader.get_template('dynamic_pages/planner.html')
+    context = dict()
+    if 'test' in request.GET:
+        context['degree'] = 'Bachelor of Advanced Computing (Honours)'
+        context['start_year'] = 2016
+        context['start_semester'] = 1
+    return HttpResponse(template.render(context))
+
+
+def user_login(request):
     # if reached here from home page
     if 'uname' in request.POST and 'year' not in request.POST:
         username = request.POST['uname']
@@ -55,7 +65,8 @@ def index(request):
         interests = request.POST['interests']
         degree = request.POST['degree']
 
-        Student.objects.filter(name=username).update(start_year=start_year, start_semester=start_semester, interests=interests, degree=degree)
+        Student.objects.filter(name=username).update(start_year=start_year, start_semester=start_semester,
+                                                     interests=interests, degree=degree)
 
         context = {
             'username': username,

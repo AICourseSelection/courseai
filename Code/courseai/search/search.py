@@ -42,12 +42,15 @@ def __filtered_search(search_object, phrase, filter_string):
 
 def course_search(search_object, phrase):
     # this search object should use the index called degrees
-    q = Q('regexp', name=phrase + "*")
+    q = Q('regexp', name="*" + phrase + "*")
     response = search_object.query(q).execute()
 
     degree_list = [(hit['_source']['name'] for hit in response['hits']['hits'])]
 
     return degree_list
+
+
+def degree_list()
 
 
 # need a way to run initiate Elastic instance only once

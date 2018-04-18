@@ -1,0 +1,146 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+    <title>Degree Builder</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="h1 text-center">AI Enhanced ANU Degree Builder</div>
+        </div>
+    </div>
+    <div class="row top-margin bottom-margin">
+        <div class="col-md-10 offset-md-1">
+            <form action="course-search" method="get">
+                <div class="form-row">
+                    <div class="col" style="margin-right: 69px">
+                        <div style="float: left; width: 100%;">
+                            <input type="text" name="query" class="form-control"
+                                   placeholder="Type an interest of yours, subject, or course title">
+                        </div>
+                    </div>
+                    <div class="col search-button">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr/>
+    <div class="row top-margin">
+        <div class="col-md-6">
+            <h3>Build Your Degree Plan</h3>
+            <form id="planform" action="planner" method="get">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" name="startyear" class="form-control" required
+                               placeholder="Start Year" maxlength="4" minlength="4">
+                    </div>
+                    <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
+                        <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
+                                type="radio" id="sem_1" name="semester" required>Semester 1</label>
+                        <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
+                                type="radio" id="sem_2" name="semester">Semester 2</label>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-top: 15px">
+                    <div class="col-12">
+                        <input type="text" name="degreeName" class="typeahead form-control" required
+                               placeholder="Degree Name" autocomplete="off" data-toggle="popover">
+                    </div>
+                </div>
+                <div class="form-row top-margin bottom-margin">
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Plan Your Degree</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 bottom-margin">
+            <h3>Sign in for a personalised experience</h3>
+            <form id="loginform" action="login" method="post">{% csrf_token %}
+                <div class="form-row">
+                    <input type="text" name="uname" class="form-control" placeholder="Username" required>
+                </div>
+                <div class="form-row" style="margin-top: 15px">
+                    <input type="password" name="pass" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-row top-margin bottom-margin text-center">
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-secondary btn-lg">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="{% static "js/bootstrap3-typeahead.js" %}"></script>
+<script>
+    const degreeList = ["Bachelor of Science",
+        "Bachelor of Actuarial Studies",
+        "Bachelor of Engineering (Honours)",
+        "Bachelor of Advanced Computing (Honours)",
+        "Bachelor of Advanced Computing (Research and Development) (Honours)",
+        "Bachelor of Engineering (Research and Development) (Honours)",
+        "Bachelor of Philosophy (Honours)",
+        "Bachelor of Arts",
+        "Bachelor of Economics",
+        "Bachelor of Accounting",
+        "Bachelor of Genetics",
+        "Bachelor of Political Science"
+    ];
+
+    var degreeDicts = [];
+    for (i in degreeList) {
+        degreeDicts.push({name: degreeList[i]})
+    }
+
+    var degreeInput = $("input[name=degreeName]");
+
+    degreeInput.popover({
+        trigger: 'manual',
+        placement: 'bottom',
+        html: true,
+        content: '<div id="degreeWrongPopover">Please choose a degree from the list.</div>'
+    });
+
+    $(".typeahead").typeahead({source: degreeList});
+
+    $("#planform").submit(function (e) {
+        if (!degreeList.includes(degreeInput.val())) {
+            e.preventDefault();
+            degreeInput.popover('show');
+            var popover = $("#degreeWrongPopover").parent().parent();
+            popover.addClass('popover-error');
+            popover.click(function (e) {
+                degreeInput.popover('hide')
+            });
+            popover.css('cursor', 'pointer');
+            degreeInput.keydown(function () {
+                degreeInput.popover('hide')
+            });
+        }
+    });
+</script>
+</body>
+</html>

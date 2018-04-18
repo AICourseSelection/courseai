@@ -19,7 +19,7 @@ def search_response(search_query, request):
 
 def index(request):
     if 'query' not in request.GET:
-        template = loader.get_template('static_pages/home.html')
+        template = loader.get_template('static_pages/search.html')
         return HttpResponse(template.render({}, request))
 
     original_query = request.GET['query']
