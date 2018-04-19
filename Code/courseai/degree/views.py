@@ -22,7 +22,7 @@ def all_degrees():
     results = []
 
     for degree in degree_list:
-        results.append({"code": degree.code, "name": degree.name})
+        results.append({"code": degree.code, "title": degree.name})
 
     return JsonResponse({"response": results})
 
