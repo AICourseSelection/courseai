@@ -50,9 +50,6 @@ def course_search(search_object, phrase):
     return degree_list
 
 
-def degree_list()
-
-
 # need a way to run initiate Elastic instance only once
 
 def execute_search(phrase, request):
