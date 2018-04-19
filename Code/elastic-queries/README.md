@@ -1,6 +1,6 @@
 ## Configuring elastic-search indices
 
-* Download elasticsearch from https://www.elastic.co/downloads/elasticsearch. Ensure that it is version 6.2.x.
+* Download elasticsearch from https://www.elastic.co/downloads/elasticsearch. Ensure that it is version 6.2.3.
 * Follow the first three steps on that page
 * If the repository isn't up to date, do a `git pull`.
 * In your terminal, in the `courseai` directory, run `cd Code/elastic-queries`.
