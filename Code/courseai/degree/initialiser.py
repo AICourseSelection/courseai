@@ -12,4 +12,3 @@ def fill_degree_table():
             requirements = "Not available"
             d = Degree(code=code, name=name, requirements=requirements)
             d.save()
-

@@ -35,8 +35,10 @@ for index, row in d.iterrows():
         
         desc = desc.replace("åÊ", ' ')
         lo = lo.replace("åÊ", ' ')
-        desc = desc.replace('\', '')
-        lo = lo.replace('\', '')
+        desc = desc.replace('\
+', '')
+        lo = lo.replace('\
+', '')
         desc = bytes(desc, 'utf-8').decode('utf-8', 'ignore')
         lo = bytes(lo, 'utf-8').decode('utf-8', 'ignore')
 
@@ -52,6 +54,7 @@ for index, row in d.iterrows():
         lo = lo.replace('{', ' ')
         desc = desc.replace('}', ' ')
         lo = lo.replace('}', ' ')
+        area = code[:4]
         
         regex = "^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*"
         re.match(regex, desc)
@@ -60,5 +63,5 @@ for index, row in d.iterrows():
         # form the JSON
         print("{ \"index\" : { \"_index\": \"courses\", \"_type\": \"_doc\" ,\"_id\": \"" + str(count_index) +"\"}}")
         count_index += 1
-        print("{ \"code\":\"" + code +"\", \"title\":\"" + title + "\", \"description\": \"" + desc + "\", \"outcome\": \"" + lo + "\" }")
+        print("{ \"code\":\"" + code +"\", \"title\":\"" + title + "\", \"description\": \"" + desc + "\", \"outcome\": \"" + lo + "\", \"area\": \"" + area + "\"  }")
        
