@@ -23,9 +23,10 @@ def index(request):
         return HttpResponse(template.render({}, request))
 
     original_query = request.GET['query']
+    areas = request.GET.get('subject_area', None)
 
     if original_query.isspace():
-        raise NotImplementedError("Empty strings not handled yet")
-    return search.execute_search(original_query, request)
+        raise NotImplementedError("Empty strings to be handled on client side")
+    return search.execute_search(original_query, request, areas=areas)
 
 

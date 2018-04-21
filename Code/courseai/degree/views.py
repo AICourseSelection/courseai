@@ -1,21 +1,30 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.template import loader
+from .models import Degree
 
-import csv
+from . import initialiser
+
+DATABASE_INITIALISED = False
+
+
+def initialise_database():
+    global DATABASE_INITIALISED
+    initialiser.fill_degree_table()
+    DATABASE_INITIALISED = True
 
 
 def all_degrees():
-    return_data = {}
+    if not DATABASE_INITIALISED:
+        initialise_database()
+
+    degree_list = Degree.objects.all()
     results = []
-    with open('data/degree-info.csv') as degree_info:
-        degrees = csv.reader(degree_info, delimiter=';')
-        for row in degrees:
-            code = row[0]
-            name = row[1]
-            results.append((code, name))
-    return_data['response'] = results
-    return JsonResponse(return_data)
+
+    for degree in degree_list:
+        results.append({"code": degree.code, "title": degree.name})
+
+    return JsonResponse({"response": results})
 
 
 
