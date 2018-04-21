@@ -8,9 +8,28 @@ from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 
 
-def raw_search(search_object, phrase):
+# returns Q object
+# areas should not be None
+def area_filter(areas):
+    if areas is None:
+        raise AssertionError("Argument to areas must not be None")
+
+    area_filters = []
+
+    for area in areas:
+        area_filters.append(Q('match', area=area))
+
+    return Q('bool', should=area_filters, minimum_should_match=1)
+
+
+def raw_search(search_object, phrase, areas=None):
     q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description', 'outcome^1.5'])
-    response = search_object.query(q).execute()
+
+    if areas is not None:
+        q3 = area_filter(areas)
+        response = search_object.query(q).query(q3).execute()
+    else:
+        response = search_object.query(q).execute()
 
     for hit in response['hits']['hits']:
         print(hit['_score'], hit['_source']['title'])
@@ -20,7 +39,7 @@ def raw_search(search_object, phrase):
     return course_list
 
 
-def __filtered_search(search_object, phrase, filter_string):
+def __filtered_search(search_object, phrase, filter_string, areas=None):
     q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description^1.5', 'outcome'])
     q2 = Q('bool',
            should=[Q('match_phrase', title=filter_string),
@@ -30,7 +49,11 @@ def __filtered_search(search_object, phrase, filter_string):
            minimum_should_match=1
            )
 
-    response = search_object.query(q).query(q2).execute()
+    if areas is not None:
+        q3 = area_filter(areas)
+        response = search_object.query(q).query(q2).query(q3).execute()
+    else:
+        response = search_object.query(q).query(q2).execute()
 
     for hit in response['hits']['hits']:
         print(hit['_score'], hit['_source']['title'])
@@ -52,7 +75,7 @@ def course_search(search_object, phrase):
 
 # need a way to run initiate Elastic instance only once
 
-def execute_search(phrase, request):
+def execute_search(phrase, request, areas=None):
     client = Elasticsearch()
     s = Search(using=client, index='courses')
 
@@ -65,14 +88,14 @@ def execute_search(phrase, request):
 
         quote_positions = [pos for pos, char in enumerate(phrase) if char == c][:2]
         if len(quote_positions) < 2 or quote_positions[1] - quote_positions[0] < 2:
-            response = raw_search(s, phrase)
+            response = raw_search(s, phrase, areas)
 
         else:
             f_string = phrase[quote_positions[0] + 1: quote_positions[1]]
-            response = __filtered_search(s, phrase, f_string)
+            response = __filtered_search(s, phrase, f_string, areas)
 
     else:
-        response = raw_search(s, phrase)
+        response = raw_search(s, phrase, areas)
 
     context = {
         'query': phrase,

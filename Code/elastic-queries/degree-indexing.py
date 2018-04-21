@@ -24,8 +24,7 @@ for index, row in d.iterrows():
         
         code = code.replace("åÊ", ' ')
         requirements = requirements.replace("åÊ", ' ')
-        requirements = requirements.replace('\', '')
-
+        requirements = requirements.replace('\', ' ')
         requirements = requirements.replace('\\', ' ')
         degree_name = degree_name.replace('\\', ' ')
         code = code.replace('\\', ' ')

@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
+    'degree.apps.DegreeConfig',
     'degree_builder.apps.DegreeBuilderConfig',
     'search.apps.SearchConfig',
     'django.contrib.admin',
