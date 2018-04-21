@@ -85,7 +85,7 @@ body {
     padding: 5px;
     display: flex;
     width: 100%;
-    min-width: 618px;
+    min-width: 628px;
 }
 
 .plan-row:hover {
@@ -118,7 +118,7 @@ body {
     padding: 5px;
     margin: 2px;
     width: 12%;
-    min-width: 106px;
+    min-width: 116px;
 }
 
 #plan-table {
@@ -171,6 +171,27 @@ body {
     height: 60px;
     animation: spin 2s linear infinite;
 }
+
+/*#filter-icons .badge {*/
+    /*margin: 0 .2rem;*/
+/*}*/
+
+.filter-delete {
+    margin-right: -.2rem;
+    cursor: pointer;
+    padding: 0 .3rem;
+    border-radius: .2rem;
+}
+
+.filter-delete:hover {
+    background-color: #ffffff50;;
+}
+
+.filter-delete:active {
+    background-color: #00336650;
+
+}
+
 
 /*#left-panel {*/
 /*background-color: #a9ebad;*/

@@ -34,6 +34,8 @@
                     course</label>
                 <input type="text" name="query" class="form-control" id="add-course" tabindex="3"
                        placeholder="Interest, subject area, course code... " autocomplete="off">
+                <div id="filter-icons" class="mt-1">
+                </div>
             </div>
             <div id="search-results-list" style="margin: .5rem -5px">
                 <div class="card alert-info mb-2">
@@ -41,7 +43,8 @@
                          data-target="#results-courses">
                         Courses
                     </div>
-                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2" style="font-size: 3rem; display: none"></div>
+                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                         style="font-size: 3rem; display: none"></div>
                     <div id="results-courses" class="collapse">
                         <div class="card-body list-group list-group-flush">
                         </div>
@@ -52,7 +55,8 @@
                          data-target="#results-majors">
                         Majors, Minors, and Specialisations
                     </div>
-                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2" style="font-size: 3rem; display: none"></div>
+                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                         style="font-size: 3rem; display: none"></div>
                     <div id="results-majors" class="collapse">
                         <div class="card-body">
                         </div>
@@ -114,7 +118,7 @@
                 },
                 {
                     "code": "COMP2600",
-                    "title": "Statistical Techniques"
+                    "title": "Formal Methods in Software Engineering"
                 },
                 {
                     "code": "Elective Course"
@@ -173,8 +177,8 @@
             const year = session.split('S')[0];
             const sem = session.split('S')[1];
             var first_cell = '<div class="first-cell">' +
-                '<div class="h4">' + year + '</div>' +
-                '<div class="h5">Semester ' + sem + '</div>' +
+                '<div class="row-year h4">' + year + '</div>' +
+                '<div class="row-sem h5">Semester ' + sem + '</div>' +
                 '</div>';
             var row = $('<div class="plan-row"/>');
             row.append(first_cell);
@@ -200,7 +204,7 @@
             title: code,
             placement: 'right',
             html: true,
-            content: '<div class="result-title mb-1">'+title+'</div>\n<h6 class="mt-2">Description</h6>\n<div class="result-description">desc</div>\n<h6 class="mt-2">Learning Outcomes</h6>\n<div class="result-learning">lo</div>\n<h6 class="mt-2">Related Courses</h6>\n<div class="list-group">\n    ' +
+            content: '<div class="result-title mb-1">' + title + '</div>\n<h6 class="mt-2">Description</h6>\n<div class="result-description">desc</div>\n<h6 class="mt-2">Learning Outcomes</h6>\n<div class="result-learning">lo</div>\n<h6 class="mt-2">Related Courses</h6>\n<div class="list-group">\n    ' +
             '<div class="draggable-course result-course list-group-item list-group-item-action">\n        ' +
             '<span class="course-code">COMP4670</span>\n        ' +
             '<span class="course-title">Introduction to Statistical Machine Learning</span>\n    ' +
@@ -229,6 +233,8 @@
                 var resultsList = $('#search-results-list');
                 resultsList.find('.fa-refresh').css({'display': 'inline-block'});
                 resultsList.find('.collapse').css({'display': 'none'});
+                resultsList.find('.result-course').popover('hide');
+
             },
             success: updateSearchResults,
             error: function (data) {
@@ -243,6 +249,7 @@
         if (response.length > 0) {
             var results = $('#results-courses');
             var cbody = $(results.find('.card-body'));
+            cbody.find('.result-course').popover('dispose');
             cbody.empty();
             for (var i = 0; i < response.length; i++) {
                 const code = response[i]['code'];
@@ -263,6 +270,40 @@
         }
         console.log('Course search successful')
     }
+
+    $('#results-courses').on('hide.bs.collapse', function () {
+        console.log('collapse');
+        $(this).find('.result-course').popover('hide');
+    });
+
+    const current_filters = new Set();
+
+    $('.plan-cell').click(function () {
+        if ($(this).find('.course-code').text() === 'Elective Course') {
+            var first_cell = $(this).parent().find('.first-cell');
+            const year = first_cell.find('.row-year').text();
+            const sem = first_cell.find('.row-sem').text();
+            const badge_text = 'My ' + year + ' ' + sem;
+            if (current_filters.has(badge_text)) {
+                return;
+            }
+            var filter_icon = $('<span class="badge badge-primary">' + badge_text +
+                '</span>');
+            var delete_button = $('<a class="filter-delete">×</a>');
+            delete_button.click(deleteFilter);
+            filter_icon.append(delete_button);
+            $('#filter-icons').append(filter_icon, ' ');
+            current_filters.add(badge_text);
+        }
+    });
+
+    function deleteFilter() {
+        current_filters.delete(this.previousSibling.textContent);
+        $(this).parent().remove();
+    }
+
+    $('.filter-delete').click(deleteFilter)
+
 </script>
 </body>
 </html>
