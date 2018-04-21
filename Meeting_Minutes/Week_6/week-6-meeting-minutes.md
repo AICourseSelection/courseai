@@ -6,7 +6,7 @@
 | Positive points | Negative points | Others |
 |-----------------|-----------------|---------|
 |Demonstrated value |   didn't highlight the drawbacks of the existing system     |  Still needs more direction|
-| Presentations had a good design |     |     
+| Presentations had a good design |     |
 
 
 ### Bradley's feedback
@@ -22,10 +22,9 @@
 * Quality over quantity- keep everything up to date. Don't delete old stuff.
 * Keep the presentatiom short and powerful.
 * Take pictures of weekly meetings and upload them? Depicts a good client relationship
-	
-	
+
 ### Top features:
-	
+
 * Interactive degreee planner $\leftarrow$ **This is the main feature**
 * Intelligent Search (a comprehensive database)
 
@@ -54,9 +53,9 @@
 	* sign in with ANU uid?
 	* testing data
 	* degree and start year
-	* isis
+	* ISIS
 
-	
+
 ### Stretch
 
 * Prereq diagram
@@ -67,4 +66,8 @@
 * Course recommendations
 
 
-<h3>TODO:</h3> Create a spreadsheet with all the features- mark the ones that we are gonna prioritise (lookup scrum poker). List these on trello with the effort points for them (create tags too). break into sprints (One for each week, where tasks are assigned).
+#### TODO
+
+* Create a spreadsheet with all the features- mark the ones that we are gonna prioritise (lookup scrum poker).
+* List these on trello with the effort points for them (create tags too). 
+* Break into sprints (One for each week, where tasks are assigned).
