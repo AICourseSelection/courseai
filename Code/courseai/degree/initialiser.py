@@ -85,7 +85,6 @@ def fill_degree_table():
                     requirements[year].append(data)
 
                 if (("Year" in data[0:10]) or ("year" in data[0:10])):
-                    global year
                     l = [int(data) for data in data.split() if data.isdigit()]
 
                     if(not (l == [])):
