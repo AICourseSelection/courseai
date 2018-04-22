@@ -1,22 +1,14 @@
+from builtins import Exception
+
 from django.http import JsonResponse
-from django.shortcuts import render
-from django.template import loader
+
+from . import degree_plan_helper
+from . import initialiser
 from .models import Degree
 
-from . import initialiser
+initialiser.initialise_database()
 
-DATABASE_INITIALISED = False
-
-
-def initialise_database():
-    global DATABASE_INITIALISED
-    initialiser.fill_degree_table()
-    DATABASE_INITIALISED = True
-
-
-def all_degrees():
-    if not DATABASE_INITIALISED:
-        initialise_database()
+def all_degrees(request):
 
     degree_list = Degree.objects.all()
     results = []
@@ -25,6 +17,20 @@ def all_degrees():
         results.append({"code": degree.code, "title": degree.name})
 
     return JsonResponse({"response": results})
+
+def degree_plan(request):
+    try:
+        code=request.GET['query']
+        starting_year=request.GET['start_year_sem']
+        return degree_plan_helper.generate_degree_plan(code, starting_year)
+    except(Exception):
+        raise Exception("Please provide a valid degree code and starting year")
+
+
+
+
+
+
 
 
 
