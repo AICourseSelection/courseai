@@ -6,7 +6,7 @@ from . import degree_plan_helper
 from . import initialiser
 from .models import Degree
 
-initialiser.initialise_database()
+# initialiser.initialise_database()
 
 def all_degrees(request):
 
