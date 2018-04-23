@@ -9,3 +9,8 @@ class Degree(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PreviousStudentDegree(models.Model):
+    code = models.CharField(max_length=10)
+    courses_taken = models.TextField()
