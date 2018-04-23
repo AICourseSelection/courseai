@@ -85,8 +85,8 @@
     </div>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -96,24 +96,18 @@
         crossorigin="anonymous"></script>
 <script src="{% static "js/bootstrap3-typeahead.js" %}"></script>
 <script>
-    const degreeList = ["Bachelor of Science",
-        "Bachelor of Actuarial Studies",
-        "Bachelor of Engineering (Honours)",
-        "Bachelor of Advanced Computing (Honours)",
-        "Bachelor of Advanced Computing (Research and Development) (Honours)",
-        "Bachelor of Engineering (Research and Development) (Honours)",
-        "Bachelor of Philosophy (Honours)",
-        "Bachelor of Arts",
-        "Bachelor of Economics",
-        "Bachelor of Accounting",
-        "Bachelor of Genetics",
-        "Bachelor of Political Science"
-    ];
+    $.ajax({
+        url: 'degree/all',
+        success: function (data) {
+            console.log(data);
+            var degreeDicts = [];
+            for (i in data.response) {
+                degreeDicts.push({name: data.response[i].title})
+            }
 
-    var degreeDicts = [];
-    for (i in degreeList) {
-        degreeDicts.push({name: degreeList[i]})
-    }
+            $(".typeahead").typeahead({source: degreeDicts});
+        }
+    });
 
     var degreeInput = $("input[name=degreeName]");
 
@@ -123,8 +117,6 @@
         html: true,
         content: '<div id="degreeWrongPopover">Please choose a degree from the list.</div>'
     });
-
-    $(".typeahead").typeahead({source: degreeList});
 
     $("#planform").submit(function (e) {
         if (!degreeList.includes(degreeInput.val())) {
