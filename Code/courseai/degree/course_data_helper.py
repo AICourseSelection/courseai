@@ -18,5 +18,10 @@ def get_data(code):
                     # "prerequisite_text":hit['_source']['prereq_text'],
                     # "prerequisites": eval(str(hit['_source']['pre_req_cnf']))
     } for hit in response['hits']['hits']][0]
-
     return course_list
+
+def get_all():
+    client = Elasticsearch()
+    s = Search(using=client, index='courses')
+    response = s.execute()
+    return response['hits']['hits']

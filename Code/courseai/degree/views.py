@@ -8,10 +8,9 @@ from . import degree_plan_helper
 from . import initialiser
 from .models import Degree, PreviousStudentDegree
 
-
 from . import course_data_helper
 
-# initialiser.initialise_database()
+
 
 def all_degrees(request):
 
@@ -41,7 +40,8 @@ def degree_plan(request):
 
         code = eval(data)["code"]
         courses=eval(data)["courses"]
-        PreviousStudentDegree(code=code,courses_taken=courses).save()
+        prev=PreviousStudentDegree(code=code,courses_taken=courses)
+        prev.save()
         degree_list = PreviousStudentDegree.objects.all()
 
         for degree in degree_list:
