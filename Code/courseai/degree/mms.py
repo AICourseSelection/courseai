@@ -14,10 +14,10 @@ def get_mms_data(code):
         return get_major_data(code[:-4])
 
     if code[-4:] == "-MIN":
-        return get_minor_data(code)
+        return get_minor_data(code[:-4])
 
     if code[-5:] == "-SPEC":
-        return get_spec_data(code)
+        return get_spec_data(code[:-5])
 
     return JsonResponse({"error": "code must end with -MAJ, -MIN or -SPEC"})
 
