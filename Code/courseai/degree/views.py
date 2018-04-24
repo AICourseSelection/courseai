@@ -57,6 +57,18 @@ def mms_request(request):
         raise Exception("Malformed JSON as input. Expects a field called query.")
 
 
+def all_majors(request):
+    return mms.all_majors()
+
+
+def all_minors(request):
+    return mms.all_minors()
+
+
+def all_specs(request):
+    return mms.all_specs()
+
+
 def course_data(request):
     try:
         code = request.GET['query']
