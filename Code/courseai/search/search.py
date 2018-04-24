@@ -1,6 +1,5 @@
-from builtins import NotImplementedError
-
-from django.http import HttpResponse
+import json
+from django.http import JsonResponse
 from django.template import loader
 
 from elasticsearch import Elasticsearch
@@ -34,8 +33,10 @@ def raw_search(search_object, phrase, areas=None):
     for hit in response['hits']['hits']:
         print(hit['_score'], hit['_source']['title'])
 
-    course_list = [(hit['_source']['code'], hit['_source']['title']) for hit in response['hits']['hits']]
-
+    course_list = []
+    for hit in response['hits']['hits']:
+        course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+        course_list.append(course)
     return course_list
 
 
@@ -58,7 +59,10 @@ def __filtered_search(search_object, phrase, filter_string, areas=None):
     for hit in response['hits']['hits']:
         print(hit['_score'], hit['_source']['title'])
 
-    course_list = [(hit['_source']['code'], hit['_source']['title']) for hit in response['hits']['hits']]
+    course_list = []
+    for hit in response['hits']['hits']:
+        course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+        course_list.append(course)
 
     return course_list
 
@@ -79,10 +83,6 @@ def execute_search(phrase, request, areas=None):
     client = Elasticsearch()
     s = Search(using=client, index='courses')
 
-    template = loader.get_template('dynamic_pages/search_results.html')
-
-    response = None
-
     if '\"' in phrase:
         c = '\"'
 
@@ -97,8 +97,6 @@ def execute_search(phrase, request, areas=None):
     else:
         response = raw_search(s, phrase, areas)
 
-    context = {
-        'query': phrase,
-        'response': response
-    }
-    return HttpResponse(template.render(context, request))
+    resp = {'query': phrase, 'response': response}
+
+    return JsonResponse(resp)
