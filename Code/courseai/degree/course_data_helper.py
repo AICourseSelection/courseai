@@ -8,14 +8,15 @@ def get_data(code):
     client = Elasticsearch()
     s = Search(using=client, index='courses')
     response = s.query(q).execute()
-    print(response['hits'])
-
+    print("****")
+    print(response['hits']['hits'])
+    print("****")
     course_list = [{"course_code":hit['_source']['code'],
                     "title": hit['_source']['title'],
                     "description":hit['_source']['description'],
                     "learning_outcomes":hit['_source']['outcome'],
-                    "prerequisite_text":hit['_source']['prereq_text'],
-                    "prerequisites": eval(str(hit['_source']['pre_req_cnf']))
+                    # "prerequisite_text":hit['_source']['prereq_text'],
+                    # "prerequisites": eval(str(hit['_source']['pre_req_cnf']))
     } for hit in response['hits']['hits']][0]
 
     return course_list
