@@ -273,7 +273,7 @@
             curr_search_request.abort();
         }
         curr_search_request = $.ajax({
-            url: 'https://private-dc05d-courseai.apiary-mock.com/search',
+            url: 'search?query=' + $(this).val(),
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -294,11 +294,11 @@
 
     function updateSearchResults(data) {
         var response = data['response'];
+        var results = $('#results-courses');
+        var cbody = $(results.find('.card-body'));
+        cbody.find('.result-course').popover('dispose');
+        cbody.empty();
         if (response.length > 0) {
-            var results = $('#results-courses');
-            var cbody = $(results.find('.card-body'));
-            cbody.find('.result-course').popover('dispose');
-            cbody.empty();
             for (var i = 0; i < response.length; i++) {
                 const code = response[i]['code'];
                 const title = response[i]['title'];
@@ -309,13 +309,14 @@
                     '</div>');
                 item.each(popoverSetup);
                 cbody.append(item);
-
             }
-            var resultsList = $('#search-results-list');
-            resultsList.find('.fa-refresh').css({'display': 'none'});
-            resultsList.find('.collapse').css({'display': ''});
-            results.collapse('show');
+        } else {
+            cbody.append('<div class="m-2">No courses found.</div>');
         }
+        var resultsList = $('#search-results-list');
+        resultsList.find('.fa-refresh').css({'display': 'none'});
+        resultsList.find('.collapse').css({'display': ''});
+        results.collapse('show');
         console.log('Course search successful')
     }
 
