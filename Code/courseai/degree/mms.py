@@ -62,3 +62,30 @@ def get_spec_data(code):
     res = responses[0]['_source']
 
     return JsonResponse(res)
+
+
+def all_majors():
+    client = Elasticsearch()
+    responses = Search(using=client, index='majors').query("match", code="MAJ")
+    count = responses.count()
+    result = responses[0:count].execute().to_dict()
+    res = {'response': result['hits']['hits']}
+    return JsonResponse(res)
+
+
+def all_minors():
+    client = Elasticsearch()
+    responses = Search(using=client, index='minors').query("match", code="MIN")
+    count = responses.count()
+    result = responses[0:count].execute().to_dict()
+    res = {'response': result['hits']['hits']}
+    return JsonResponse(res)
+
+
+def all_specs():
+    client = Elasticsearch()
+    responses = Search(using=client, index='specialisations').query("match", code="SPEC")
+    count = responses.count()
+    result = responses[0:count].execute().to_dict()
+    res = {'response': result['hits']['hits']}
+    return JsonResponse(res)
