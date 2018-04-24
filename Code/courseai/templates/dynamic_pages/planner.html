@@ -209,6 +209,11 @@
             content: '<div class="result-title mb-1">' + title + '</div>\n' +
             '<div class="d-flex">\n' +
             '    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
+            '</div>',
+            template: '<div class="popover course-popover" role="tooltip">\n' +
+            '    <div class="arrow"></div>\n' +
+            '    <h3 class="popover-header"></h3>\n' +
+            '    <div class="popover-body"></div>\n' +
             '</div>'
         });
         $(this).on('show.bs.popover', popoverData)
@@ -221,12 +226,21 @@
             return;
         }
         $.ajax({
-            url: 'https://private-dc05d-courseai.apiary-mock.com/degree/coursedata/course_code',
+            url: 'degree/coursedata',
+            data: {'query': code},
             success: function (data) {
+                var curr_popover = $(popover.tip);
+                if (!data.response) {
+                    curr_popover.find('.fa-refresh').css({'display': 'none'});
+                    curr_popover.find('.popover-body').append(
+                        '<div class="alert-danger my-1 px-1" style="border-radius: .2rem">' +
+                        'This courses\'s information could not be retrieved. Please try again. </div>');
+                    return
+                }
                 const html = '<h6 class="mt-2">Description</h6>\n' +
-                    '<div class="result-description">' + data.description + '</div>\n' +
+                    '<div class="result-description">' + data.response.description + '</div>\n' +
                     '<h6 class="mt-2">Learning Outcomes</h6>\n' +
-                    '<div class="result-learning">' + data.learning_outcomes + '</div>\n' +
+                    '<div class="result-learning">' + data.response.learning_outcomes + '</div>\n' +
                     '<h6 class="mt-2">Related Courses</h6>\n' +
                     '<div class="list-group">\n' +
                     '    <div class="draggable-course result-course list-group-item list-group-item-action">\n' +
@@ -240,7 +254,6 @@
                     '</div>';
                 popover.config.content = $(popover.config.content).first().html();
                 popover.config.content += html;
-                var curr_popover = $(popover.tip);
                 curr_popover.find('.fa-refresh').css({'display': 'none'});
                 curr_popover.find('.popover-body').append(html);
                 popover['data-received'] = true;

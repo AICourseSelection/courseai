@@ -192,6 +192,9 @@ body {
 
 }
 
+.course-popover {
+    max-width: 400px;
+}
 
 /*#left-panel {*/
 /*background-color: #a9ebad;*/
