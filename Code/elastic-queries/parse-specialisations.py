@@ -19,7 +19,7 @@ for index, row in data.iterrows():
     meta_index = {}
     meta_index['_index'] = 'specialisations'
     meta_index['_type'] = '_doc'
-    meta_index['id'] = int(doc_index + 1)
+    meta_index['_id'] = int(doc_index + 1)
     meta_data['index'] = meta_index
     doc_index += 1
 
