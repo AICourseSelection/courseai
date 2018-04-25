@@ -100,6 +100,6 @@ def mms_by_name(name, index_name):
     if not responses:
         return JsonResponse({})
 
-    res = responses[0]['_source']
+    res = {'responses': responses}
 
     return JsonResponse(res)
