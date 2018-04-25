@@ -89,3 +89,17 @@ def all_specs():
     result = responses[0:count].execute().to_dict()
     res = {'response': result['hits']['hits']}
     return JsonResponse(res)
+
+
+def mms_by_name(name, index_name):
+    client = Elasticsearch()
+    response = Search(using=client, index=index_name).query("match",
+                                                          name=name).execute().to_dict()  # the to_dict() works like magic
+
+    responses = response['hits']['hits']
+    if not responses:
+        return JsonResponse({})
+
+    res = responses[0]['_source']
+
+    return JsonResponse(res)
