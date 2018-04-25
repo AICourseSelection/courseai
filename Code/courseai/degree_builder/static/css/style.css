@@ -137,6 +137,10 @@ body {
 
 }
 
+.mms-code {
+    display: none;
+}
+
 #search-results-list .card-header {
     padding: 0;
     white-space: normal;
@@ -160,6 +164,10 @@ body {
 }
 
 .result-course {
+    cursor: pointer;
+}
+
+.result-mms {
     cursor: pointer;
 }
 
