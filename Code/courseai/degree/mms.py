@@ -16,7 +16,7 @@ def get_mms_data(code):
     if code[-4:] == "-MIN":
         return get_minor_data(code[:-4])
 
-    if code[-5:] == "-SPEC":
+    if code[-5:] in ["-SPEC", "-HSPC"]:
         return get_spec_data(code[:-5])
 
     return JsonResponse({"error": "code must end with -MAJ, -MIN or -SPEC"})
@@ -94,11 +94,11 @@ def all_specs():
 def mms_by_name(name, index_name):
     client = Elasticsearch()
     response = Search(using=client, index=index_name).query("match",
-                                                          name=name).execute().to_dict()  # the to_dict() works like magic
+                                                            name=name).execute().to_dict()  # the to_dict() works like magic
 
     responses = response['hits']['hits']
-    if not responses:
-        return JsonResponse({})
+
+    responses = [r['_source'] for r in responses if '_source' in r]
 
     res = {'responses': responses}
 
