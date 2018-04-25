@@ -9,5 +9,5 @@ urlpatterns = [
     path('mms', views.mms_request),
     path('majors', views.all_majors),
     path('minors', views.all_minors),
-    path('specs', views.all_specs)
+    path('specs', views.all_specs),
 ]

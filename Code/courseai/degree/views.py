@@ -58,15 +58,27 @@ def mms_request(request):
 
 
 def all_majors(request):
-    return mms.all_majors()
+    try:
+        name = request.GET['query']
+        return mms.mms_by_name(name, 'majors')
+    except:
+        return mms.all_majors()
 
 
 def all_minors(request):
-    return mms.all_minors()
+    try:
+        name = request.GET['query']
+        return mms.mms_by_name(name, 'minors')
+    except:
+        return mms.all_minors()
 
 
 def all_specs(request):
-    return mms.all_specs()
+    try:
+        name = request.GET['query']
+        return mms.mms_by_name(name, 'specialisations')
+    except:
+        return mms.all_specs()
 
 
 def course_data(request):
@@ -75,3 +87,7 @@ def course_data(request):
         return JsonResponse({"response": course_data_helper.get_data(code)})
     except(Exception):
         raise Exception("Please provide a valid course code")
+
+
+def major_name(request):
+    return
