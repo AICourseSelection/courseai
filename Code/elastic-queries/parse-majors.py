@@ -7,6 +7,8 @@ data = pd.read_excel('Tabulated Major,Minor,Spec.xlsx')
 
 doc_index = 0
 
+codes = set()
+
 for index, row in data.iterrows():
     if str(row[0]) == "nan" or str(row[1]) == "nan":
         continue
@@ -14,6 +16,11 @@ for index, row in data.iterrows():
     text_desc = ' '.join(row[2].split())
     text_desc = text_desc.replace('(', '')
     text_desc = text_desc.replace(')', '')
+
+    if row[0] in codes:
+        continue
+
+    codes.add(row[0])
     
     meta_data = {}
     meta_index = {}
