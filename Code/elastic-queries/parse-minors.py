@@ -5,11 +5,18 @@ import json
 
 data = pd.read_excel('Tabulated Major,Minor,Spec.xlsx', sheetname='Sheet2')
 
+codes = set()
+
 doc_index = 0
 
 for index, row in data.iterrows():
     if str(row[0]) == "nan" or str(row[1]) == "nan":
         continue
+    
+    if row[0] in codes:
+        continue
+
+    codes.add(row[0])
     
     text_desc = ' '.join(row[2].split())
     text_desc = text_desc.replace('(', '')
