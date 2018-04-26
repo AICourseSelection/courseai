@@ -53,16 +53,39 @@
                 <div class="card alert-info mb-2">
                     <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
                          data-target="#results-majors">
-                        Majors, Minors, and Specialisations
+                        Majors
                     </div>
                     <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
                          style="font-size: 3rem; display: none"></div>
                     <div id="results-majors" class="collapse">
-                        <div class="card-body">
+                        <div class="card-body list-group list-group-flush">
                         </div>
                     </div>
                 </div>
-
+                <div class="card alert-info mb-2">
+                    <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
+                         data-target="#results-minors">
+                        Minors
+                    </div>
+                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                         style="font-size: 3rem; display: none"></div>
+                    <div id="results-minors" class="collapse">
+                        <div class="card-body list-group list-group-flush">
+                        </div>
+                    </div>
+                </div>
+                <div class="card alert-info mb-2">
+                    <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
+                         data-target="#results-specs">
+                        Specialisations
+                    </div>
+                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                         style="font-size: 3rem; display: none"></div>
+                    <div id="results-specs" class="collapse">
+                        <div class="card-body list-group list-group-flush">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-6" id="centre-panel" style="min-width: 618px;">
@@ -197,7 +220,7 @@
         }
     }
 
-    function popoverSetup() {
+    function coursePopoverSetup() {
         const code = $(this).find('.course-code').text();
         if (code === "Elective Course") return;
         const title = $(this).find('.course-title').text();
@@ -216,10 +239,10 @@
             '    <div class="popover-body"></div>\n' +
             '</div>'
         });
-        $(this).on('show.bs.popover', popoverData)
+        $(this).on('show.bs.popover', coursePopoverData)
     }
 
-    function popoverData() {
+    function coursePopoverData() {
         const code = $(this).find('.course-code').text();
         var popover = $(this).data('bs.popover');
         if (popover['data-received'] || false) {
@@ -259,20 +282,73 @@
                 popover['data-received'] = true;
             },
             error: function () {
-                console.log('error')
+                console.log('Error retrieving data for ' + code)
             }
         })
     }
 
-    $('.result-course').each(popoverSetup);
+    $('.result-course').each(coursePopoverSetup);
 
-    var curr_search_request = null;
+    function mmsPopoverSetup() {
+        const name = $(this).find('.mms-name').text();
+        $(this).popover({
+            trigger: 'click',
+            title: name,
+            placement: 'right',
+            html: true,
+            content: '<div class="d-flex">\n' +
+            '    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
+            '</div>',
+            template: '<div class="popover mms-popover" role="tooltip">\n' +
+            '    <div class="arrow"></div>\n' +
+            '    <h3 class="popover-header"></h3>\n' +
+            '    <div class="popover-body"></div>\n' +
+            '</div>'
+        });
+        $(this).on('show.bs.popover', mmsPopoverData)
+    }
+
+    function mmsPopoverData() {
+        const code = $(this).find('.mms-code').text();
+        var popover = $(this).data('bs.popover');
+        if (popover['data-received'] || false) {
+            return;
+        }
+        $.ajax({
+            url: 'degree/mms',
+            data: {'query': code},
+            success: function (data) {
+                var curr_popover = $(popover.tip);
+                if (data.hasOwnProperty('error')) {
+                    curr_popover.find('.fa-refresh').css({'display': 'none'});
+                    curr_popover.find('.popover-body').append(
+                        '<div class="alert-danger my-1 px-1" style="border-radius: .2rem">' +
+                        'Description could not be retrieved. Please try again. </div>');
+                    return
+                }
+                const html = '<h6 class="mt-2">Required Courses</h6>\n' +
+                    '<div class="result-composition">' + data.composition + '</div>\n';
+{#                popover.config.content = $(popover.config.content).first().html();#}
+                popover.config.content = html;
+                curr_popover.find('.fa-refresh').css({'display': 'none'});
+                curr_popover.find('.popover-body').append(html);
+                popover['data-received'] = true;
+            },
+            error: function () {
+                console.log('Error retrieving data for' + code)
+            }
+        })
+    }
+
+    var curr_requests = {'course': null, 'major': null, 'minor': null, 'spec': null}
 
     $('#add-course').on('keyup', function () {
-        if (curr_search_request != null) {
-            curr_search_request.abort();
+        for (var key in curr_requests) {
+            if (curr_requests.hasOwnProperty(key) && curr_requests[key] !== null) {
+                curr_requests[key].abort();
+            }
         }
-        curr_search_request = $.ajax({
+        curr_requests['course'] = $.ajax({
             url: 'search?query=' + $(this).val(),
             type: 'GET',
             dataType: 'json',
@@ -282,20 +358,79 @@
                 resultsList.find('.fa-refresh').css({'display': 'inline-block'});
                 resultsList.find('.collapse').css({'display': 'none'});
                 resultsList.find('.result-course').popover('hide');
-
             },
-            success: updateSearchResults,
-            error: function () {
-                console.log('Course search aborted or failed. ')
-            },
+            success: updateCourseSearchResults,
+            error: console.log('Course search aborted or failed. '),
             complete: console.log('Course search initiated. ')
+        });
+
+        curr_requests['major'] = $.ajax({
+            url: 'degree/majors?query=' + $(this).val(),
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                updateMMSResults(data, 'major', $('#results-majors'))
+            },
+            error: console.log('Major search aborted or failed. '),
+            complete: console.log('Major search initiated. ')
+        });
+        curr_requests['minor'] = $.ajax({
+            url: 'degree/minors?query=' + $(this).val(),
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                updateMMSResults(data, 'minor', $('#results-minors'))
+            },
+            error: console.log('Minor search aborted or failed. '),
+            complete: console.log('Minor search initiated. ')
+        });
+        curr_requests['spec'] = $.ajax({
+            url: 'degree/specs?query=' + $(this).val(),
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                updateMMSResults(data, 'specialisation', $('#results-specs'))
+            },
+            error: console.log('Specialisation search aborted or failed. '),
+            complete: console.log('Specialisation search initiated. ')
         });
     });
 
-    function updateSearchResults(data) {
+    function updateMMSResults(data, type, section) {
+        var responses = data['responses'];
+        var body = $(section.find('.card-body'));
+
+        body.find('.result-mms').popover('dispose');
+        body.empty();
+        if (responses.length > 0) {
+            for (var i = 0; i < responses.length; i++) {
+                const code = responses[i]['code'];
+                const name = responses[i]['name'];
+                var item = $(
+                    '<div class="draggable-course result-mms list-group-item list-group-item-action">\n    ' +
+                    '<span class="mms-code">' + code + '</span>' +
+                    '<span class="mms-name">' + name + '</span>\n' +
+                    '</div>');
+                item.each(mmsPopoverSetup);
+                body.append(item);
+            }
+        } else {
+            body.append('<div class="m-2">No ' + type + 's found.</div>');
+        }
+        section.parent().find('.fa-refresh').css({'display': 'none'});
+        section.parent().find('.collapse').css({'display': ''});
+        section.collapse('show');
+        console.log(type + ' search successful')
+    }
+
+    function updateCourseSearchResults(data) {
         var response = data['response'];
         var results = $('#results-courses');
         var cbody = $(results.find('.card-body'));
+
         cbody.find('.result-course').popover('dispose');
         cbody.empty();
         if (response.length > 0) {
@@ -307,22 +442,25 @@
                     '<span class="course-code">' + code + '</span>\n    ' +
                     '<span class="course-title">' + title + '</span>\n' +
                     '</div>');
-                item.each(popoverSetup);
+                item.each(coursePopoverSetup);
                 cbody.append(item);
             }
         } else {
             cbody.append('<div class="m-2">No courses found.</div>');
         }
         var resultsList = $('#search-results-list');
-        resultsList.find('.fa-refresh').css({'display': 'none'});
-        resultsList.find('.collapse').css({'display': ''});
+        results.parent().find('.fa-refresh').css({'display': 'none'});
+        results.parent().find('.collapse').css({'display': ''});
         results.collapse('show');
-        console.log('Course search successful')
+        console.log('course search successful')
     }
 
     $('#results-courses').on('hide.bs.collapse', function () {
-        console.log('collapse');
         $(this).find('.result-course').popover('hide');
+    });
+
+    $('#results-majors, #results-minors, #results-specs').on('hide.bs.collapse', function () {
+        $(this).find('.result-mms').popover('hide');
     });
 
     const current_filters = new Set();
