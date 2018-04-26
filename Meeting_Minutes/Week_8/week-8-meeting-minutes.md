@@ -18,3 +18,10 @@
 * create  a timeline of how the product looked as it became better.
 * IMPROVE COMMUNICATION - this includes with bradley, and across team
 
+
+### Other
+
+1. Bradley wants to see a draft presentation
+2. Draft poster required for the tutorial on Tuesday
+3. Is Lim able to work on the frontend?
+4. Need to fix: complete data not displayed for some courses
