@@ -47,13 +47,14 @@ $.ajax({
         $('.result-course').each(coursePopoverSetup);
     }
 });
+
 function coursePopoverSetup() {
     const code = $(this).find('.course-code').text();
     if (code === "Elective Course") return;
     const title = $(this).find('.course-title').text();
     $(this).popover({
         trigger: 'click',
-        title: code,
+        title: code + '<a class="popover-close" onclick="closePopover(this)">×</a>',
         placement: 'right',
         html: true,
         content: '<div class="h6 result-title mb-1">' + title + '</div>\n' +
@@ -71,15 +72,18 @@ function coursePopoverSetup() {
 
 function coursePopoverData() {
     const code = $(this).find('.course-code').text();
+    $(this).parents('.popover-region').find('.result-course').each(function () {
+        if ($(this).find('.course-code').text() !== code) {
+            $(this).popover('hide');
+        }
+    });
     var popover = $(this).data('bs.popover');
-    if (popover['data-received'] || false) {
-        return;
-    }
+    if (popover['data-received'] || false) return;
+    var curr_popover = $(popover.tip);
     $.ajax({
         url: 'degree/coursedata',
         data: {'query': code},
         success: function (data) {
-            var curr_popover = $(popover.tip);
             if (!data.response) {
                 curr_popover.find('.fa-refresh').css({'display': 'none'});
                 curr_popover.find('.popover-body').append(
@@ -121,16 +125,16 @@ function mmsPopoverSetup() {
     const code = $(this).find('.mms-code').text();
     $(this).popover({
         trigger: 'click',
-        title: name,
+        title: name + '<a class="popover-close" onclick="closePopover(this)">×</a>',
         placement: 'right',
         html: true,
         content: '<div class="d-flex">\n' +
         '    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
         '</div>',
-        template: '<div class="popover mms-popover" role="tooltip">\n' +
+        template: '<div class="popover mms-popover" role="tooltip" data-code="' + code + '">\n' +
         '    <div class="arrow"></div>\n' +
         '    <div class="h3 popover-header"></div>\n' +
-        '    <div class="mms-add" data-code="' + code + '"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
+        '    <div class="mms-add"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
         '    <div class="popover-body"></div>\n' +
         '</div>'
     });
@@ -346,7 +350,7 @@ const mms_units = {
 var course_titles = {};
 
 function mms_add() {
-    const code = $(this).parent().attr('data-code');
+    const code = $(this).parents('.popover').attr('data-code');
     if (code in active_mms) {
         return
     }
@@ -470,5 +474,17 @@ function mms_add() {
 function deleteMMS(button) {
     const code = $(button).parent().find('.mms-code').text();
     delete active_mms[code];
+    $(button).parents('.mms').find('.result-course').popover('dispose');
     $(button).parents('.mms').remove()
+}
+
+function closePopover(button) {
+    var code = $(button).parents('.popover').attr('data-code');
+    if (code === undefined) code = button.previousSibling.textContent;
+    $('.popover-region').find('.result-course, .result-mms').each(function () {
+        if ($(this).find('.course-code').text() === code ||
+            $(this).find('.mms-code').text() === code) {
+            $(this).popover('hide');
+        }
+    })
 }

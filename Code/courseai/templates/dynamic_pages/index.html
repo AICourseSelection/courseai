@@ -18,7 +18,7 @@
             <div class="h1 text-center">AI Enhanced ANU Degree Builder</div>
         </div>
     </div>
-    <div class="row top-margin bottom-margin">
+    <div class="row mt-4 mb-2">
         <div class="col-md-10 offset-md-1">
             <form action="course-search" method="get">
                 <div class="form-row">
@@ -37,7 +37,7 @@
     </div>
 
     <hr/>
-    <div class="row top-margin">
+    <div class="row mt-4">
         <div class="col-md-6">
             <h3>Build Your Degree Plan</h3>
             <form id="planform" action="planner" method="get">
@@ -60,14 +60,14 @@
                         <input type="hidden" name="degreeCode">
                     </div>
                 </div>
-                <div class="form-row top-margin bottom-margin">
+                <div class="form-row mt-4 mb-2">
                     <div class="col-12 text-center">
                         <button type="submit" class="btn btn-primary btn-lg">Plan Your Degree</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-md-6 bottom-margin">
+        <div class="col-md-6 mb-2">
             <h3>Sign in for a personalised experience</h3>
             <form id="loginform" action="login" method="post">{% csrf_token %}
                 <div class="form-row">
@@ -76,7 +76,7 @@
                 <div class="form-row" style="margin-top: 15px">
                     <input type="password" name="pass" class="form-control" placeholder="Password">
                 </div>
-                <div class="form-row top-margin bottom-margin text-center">
+                <div class="form-row mt-4 mb-2 text-center">
                     <div class="col-12 text-center">
                         <button type="submit" class="btn btn-secondary btn-lg">Login</button>
                     </div>
