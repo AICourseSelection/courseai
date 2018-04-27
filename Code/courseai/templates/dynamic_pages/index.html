@@ -48,15 +48,16 @@
                     </div>
                     <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
                         <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
-                                type="radio" id="sem_1" name="semester" required>Semester 1</label>
+                                type="radio" id="sem_1" name="semester" value="1" required>Semester 1</label>
                         <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
-                                type="radio" id="sem_2" name="semester">Semester 2</label>
+                                type="radio" id="sem_2" name="semester" value="2">Semester 2</label>
                     </div>
                 </div>
                 <div class="form-row" style="margin-top: 15px">
                     <div class="col-12">
                         <input type="text" name="degreeName" class="typeahead form-control" required
                                placeholder="Degree Name" autocomplete="off" data-toggle="popover">
+                        <input type="hidden" name="degreeCode">
                     </div>
                 </div>
                 <div class="form-row top-margin bottom-margin">
@@ -96,13 +97,18 @@
         crossorigin="anonymous"></script>
 <script src="{% static "js/bootstrap3-typeahead.js" %}"></script>
 <script>
+    var degreeList = new Set();
+    var degreeCodes = {};
+
     $.ajax({
         url: 'degree/all',
         success: function (data) {
             console.log(data);
             var degreeDicts = [];
             for (i in data.response) {
-                degreeDicts.push({name: data.response[i].title})
+                degreeDicts.push({name: data.response[i].title});
+                degreeList.add(data.response[i].title)
+                degreeCodes[data.response[i].title] = data.response[i].code
             }
 
             $(".typeahead").typeahead({source: degreeDicts});
@@ -119,12 +125,12 @@
     });
 
     $("#planform").submit(function (e) {
-        if (!degreeList.includes(degreeInput.val())) {
+        if (!degreeList.has(degreeInput.val())) {
             e.preventDefault();
             degreeInput.popover('show');
             var popover = $("#degreeWrongPopover").parent().parent();
             popover.addClass('popover-error');
-            popover.click(function (e) {
+            popover.click(function () {
                 degreeInput.popover('hide')
             });
             popover.css('cursor', 'pointer');
@@ -132,6 +138,7 @@
                 degreeInput.popover('hide')
             });
         }
+        $('input[name=degreeCode]').val(degreeCodes[degreeInput.val()]);
     });
 </script>
 </body>

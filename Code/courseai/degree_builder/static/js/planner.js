@@ -1,116 +1,52 @@
 /**
  * Created by Joseph Meltzer on 25/04/18.
  */
-var dp = {  // TEST DEGREE PROGRAM
-    "degree_program": "Bachelor of Advanced Computing (Honours)",
-    "start_year": 2016,
-    "start_semester": 1,
-    "courses": {
-        "2016S1": [
-            {
-                "code": "COMP1130",
-                "title": "Introduction to Programming and Algorithms (Advanced)"
-            },
-            {
-                "code": "MATH1115",
-                "title": "Advanced Mathematics and Applications 1"
-            },
-            {
-                "code": "STAT1003",
-                "title": "Statistical Techniques"
-            },
-            {
-                "code": "Elective Course"
-            }
-        ],
-        "2016S2": [
-            {
-                "code": "COMP1140",
-                "title": "Introduction to Software Systems (Advanced)"
-            },
-            {
-                "code": "MATH1116",
-                "title": "Advanced Mathematics and Applications 2"
-            },
-            {
-                "code": "COMP2600",
-                "title": "Formal Methods in Software Engineering"
-            },
-            {
-                "code": "Elective Course"
-            }
-        ],
-        "2017S1": [
-            {
-                "code": "COMP2100",
-                "title": "Software Construction"
-            },
-            {
-                "code": "COMP2300",
-                "title": "Introduction to Computer Systems"
-            },
-            {
-                "code": "COMP2550",
-                "title": "Advanced Computing R&D Methods"
-            },
-            {
-                "code": "Elective Course"
-            }
-        ],
-        "2017S2": [
-            {
-                "code": "COMP2130",
-                "title": "Software Analysis and Design"
-            },
-            {
-                "code": "COMP2310",
-                "title": "Concurrent and Distributed Systems"
-            },
-            {
-                "code": "COMP2560",
-                "title": "Studies in Advanced Computing R&D"
-            },
-            {
-                "code": "Elective Course"
-            }
-        ]
-    }
-};
-const title_text = dp["degree_program"] + " starting " + dp["start_year"] + " Semester " + dp["start_semester"];
-var title_box = $('#degree-title');
-title_box.prepend(title_text);
-title_box.hover(function () {
-    $('#edit-button').fadeIn(150);
-}, function () {
-    $('#edit-button').fadeOut(150);
-});
+$.ajax({
+    url: 'degree/degreeplan',
+    data: {
+        'query': degree_code,
+        'start_year_sem': start_year + 'S' + start_sem
+    },
+    success: function (data) {
+        const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
+        var title_box = $('#degree-title');
+        title_box.prepend(title_text);
+        title_box.hover(function () {
+            $('#edit-button').fadeIn(150);
+        }, function () {
+            $('#edit-button').fadeOut(150);
+        });
 
-var tab_index_count = 4;
-var grid = $('#plan-grid');
-var course_dict = dp["courses"];
-for (var session in course_dict) {
-    if (course_dict.hasOwnProperty(session)) {
-        const year = session.split('S')[0];
-        const sem = session.split('S')[1];
-        var first_cell = '<div class="first-cell">' +
-            '<div class="row-year h4">' + year + '</div>' +
-            '<div class="row-sem h5">Semester ' + sem + '</div>' +
-            '</div>';
-        var row = $('<div class="plan-row"/>');
-        row.append(first_cell);
-        const course_list = course_dict[session];
-        for (var i in course_list) {
-            const course = course_list[i];
-            var cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
-            tab_index_count++;
-            cell.append('<div class="course-code">' + course['code'] + '</div>');
-            cell.append('<div class="course-title">' + (course['title'] || "") + '</div>');
-            row.append(cell);
+        var tab_index_count = 4;
+        var grid = $('#plan-grid');
+        var course_dict = data["response"];
+        for (var i in course_dict) {
+            for (var session in course_dict[i]) {
+                if (course_dict[i].hasOwnProperty(session)) {
+                    const year = session.split('S')[0];
+                    const sem = session.split('S')[1];
+                    var first_cell = '<div class="first-cell">' +
+                        '<div class="row-year h4">' + year + '</div>' +
+                        '<div class="row-sem h5">Semester ' + sem + '</div>' +
+                        '</div>';
+                    var row = $('<div class="plan-row"/>');
+                    row.append(first_cell);
+                    const course_list = course_dict[i][session];
+                    for (var j in course_list) {
+                        const course = course_list[j];
+                        var cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
+                        tab_index_count++;
+                        cell.append('<div class="course-code">' + course['code'] + '</div>');
+                        cell.append('<div class="course-title">' + (course['title'] || "") + '</div>');
+                        row.append(cell);
+                    }
+                    grid.append(row);
+                }
+            }
         }
-        grid.append(row);
+        $('.result-course').each(coursePopoverSetup);
     }
-}
-
+});
 function coursePopoverSetup() {
     const code = $(this).find('.course-code').text();
     if (code === "Elective Course") return;
