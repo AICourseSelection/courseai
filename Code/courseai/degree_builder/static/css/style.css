@@ -204,6 +204,20 @@ body {
     max-width: 400px;
 }
 
+.mms-popover .popover-header {
+    border-bottom: 0;
+}
+
+.mms-add {
+    padding: 0 .75rem .5rem .75rem;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.mms-add button {
+    width: 100%;
+}
+
 /*#left-panel {*/
 /*background-color: #a9ebad;*/
 /*}*/
