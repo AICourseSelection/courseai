@@ -83,11 +83,14 @@ def all_specs(request):
 
 def course_data(request):
     try:
-        code = request.GET['query']
-        return JsonResponse({"response": course_data_helper.get_data(code)})
+        query = request.GET['query']
+        if query == 'titles':
+            return JsonResponse({"response": course_data_helper.get_titles(request.GET.get('codes', '[]'))})
+        else:
+            return JsonResponse({"response": course_data_helper.get_data(query)})
+
     except(Exception):
         raise Exception("Please provide a valid course code")
-
 
 def major_name(request):
     return

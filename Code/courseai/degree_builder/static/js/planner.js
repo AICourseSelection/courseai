@@ -182,6 +182,7 @@ $('.result-course').each(coursePopoverSetup);
 
 function mmsPopoverSetup() {
     const name = $(this).find('.mms-name').text();
+    const code = $(this).find('.mms-code').text();
     $(this).popover({
         trigger: 'click',
         title: name,
@@ -193,7 +194,7 @@ function mmsPopoverSetup() {
         template: '<div class="popover mms-popover" role="tooltip">\n' +
         '    <div class="arrow"></div>\n' +
         '    <div class="h3 popover-header"></div>\n' +
-        '    <div class="mms-add"><button class="btn btn-info btn-sm">Add to Plan</button></div>\n' +
+        '    <div class="mms-add" data-code="' + code + '"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
         '    <div class="popover-body"></div>\n' +
         '</div>'
     });
@@ -203,6 +204,16 @@ function mmsPopoverSetup() {
 function mmsPopoverData() {
     const code = $(this).find('.mms-code').text();
     var popover = $(this).data('bs.popover');
+    var curr_popover = $(popover.tip);
+    if (code in active_mms) {
+        curr_popover.find('button').attr("disabled", true);
+        curr_popover.find('button').text('Already in Plan');
+    } else {
+        curr_popover.find('button').attr("disabled", false);
+        curr_popover.find('button').text('Add to Plan');
+
+    }
+
     if (popover['data-received'] || false) {
         return;
     }
@@ -210,7 +221,6 @@ function mmsPopoverData() {
         url: 'degree/mms',
         data: {'query': code},
         success: function (data) {
-            var curr_popover = $(popover.tip);
             if (data.hasOwnProperty('error')) {
                 curr_popover.find('.fa-refresh').css({'display': 'none'});
                 curr_popover.find('.popover-body').append(
@@ -218,14 +228,18 @@ function mmsPopoverData() {
                     'Description could not be retrieved. Please try again. </div>');
                 return
             }
+            mms_info[data['code']] = data;
             const html = '<h6 class="mt-2">Required Courses</h6>\n' +
                 '<div class="result-composition">' + data['composition'] + '</div>\n';
             popover.config.content = html;
             curr_popover.find('.fa-refresh').css({'display': 'none'});
             curr_popover.find('.popover-body').append(html);
             popover['data-received'] = true;
+            $('.mms-add button').click(mms_add);
         },
-        error: console.log('Error retrieving data for' + code)
+        error: function () {
+            console.log('Error retrieving data for' + code);
+        }
     })
 }
 
@@ -343,7 +357,7 @@ function updateCourseSearchResults(data) {
     console.log('course search successful')
 }
 
-$('#results-courses').on('hide.bs.collapse', function () {
+$('.collapse').on('hide.bs.collapse', function () {
     $(this).find('.result-course').popover('hide');
 });
 
@@ -378,3 +392,147 @@ function deleteFilter() {
 }
 
 $('.filter-delete').click(deleteFilter);
+
+var mms_info = {};
+var active_mms = {};
+const mms_abbrev = {
+    'MAJ': 'Major',
+    'MIN': 'Minor',
+    'SPEC': 'Specialisation',
+    'HSPC': 'Specialisation'
+};
+const mms_units = {
+    'MAJ': 48,
+    'MIN': 24,
+    'SPEC': 24,
+    'HSPC': 48
+};
+var course_titles = {};
+
+function mms_add() {
+    const code = $(this).parent().attr('data-code');
+    if (code in active_mms) {
+        return
+    }
+    $('#search-results-list').find('.result-mms').each(function () {
+        if ($(this).find('.mms-code').text() === code) {
+            $(this).popover('hide');
+        }
+    });
+    active_mms[code] = {};
+    const mms_data = mms_info[code];
+    const type = code.split('-').pop();
+    var mms_active_list = $('#mms-active-list');
+    var new_mms = $('<div class="mms card"/>');
+    var card_header = $(
+        '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#mms-active-' + code + '">\n' +
+        '    <span class="mms-code">' + code + '</span>\n' +
+        '    <strong>' + mms_abbrev[type] + '</strong>: ' + mms_data['name'] + '\n' +
+        '    <button class="mms-delete btn btn-danger" onclick="deleteMMS(this)">×</button>\n' +
+        '    <span class="unit-count mr-2">0/' + mms_units[type] + '</span>\n' +
+        '</div>');
+    var collapsible = $(
+        '<div id="mms-active-' + code + '" class="collapse show">' +
+        '</div>'
+    );
+    collapsible.on('hide.bs.collapse', function () {
+        $(this).find('.result-course').popover('hide');
+    });
+
+    for (var i in mms_data['composition']) {
+        value = mms_data['composition'][i];
+        if (value.type === "fixed") {
+            var required = $('<div class="mms-required list-group list-group-flush"/>');
+            var titles_to_retrieve = [];
+            for (var j in value.course) {
+                if (!(value.course[j].code in course_titles)) titles_to_retrieve.push(value.course[j].code);
+            }
+            if (titles_to_retrieve.length > 0) {
+                $.ajax({
+                    'url': 'degree/coursedata',
+                    data: {
+                        'query': 'titles',
+                        'codes': JSON.stringify(titles_to_retrieve)
+                    },
+                    success: function (data) {
+                        for (var k in data.response) {
+                            course_titles[data.response[k]['course_code']] = data.response[k]['title']
+                        }
+                    },
+                    async: false
+                });
+            }
+            for (var j in value.course) {
+                course = value.course[j];
+                var item = $(
+                    '<div class="list-group-item list-group-item-action draggable-course result-course">' +
+                    '    <span class="course-code">' + course.code + '</span>' +
+                    '    <span class="course-title">' + course_titles[course.code] + '</span>' +
+                    '</div>'
+                );
+                item.each(coursePopoverSetup);
+                required.append(item);
+            }
+            collapsible.append(required);
+        } else if (['minimum', 'maximum'].indexOf(value.type) >= 0) {
+            var label_text = 'at least ';
+            if (value.type === 'maximum') label_text = 'up to ';
+            var select = $(
+                '<div class="mms-select-' + value.type.slice(0, 3) + ' card">\n' +
+                '    <div class="card-header btn text-left pl-2" data-toggle="collapse"\n' +
+                '         data-target="#mms-active-' + code + '-select' + i + '">\n' +
+                '        Choose ' + label_text + value.units + ' units\n' +
+                '        <span class="unit-count mr-2">0/' + value.units + '</span>\n' +
+                '    </div>\n' +
+                '</div>');
+            var options = $('<div class="mms-optional list-group list-group-flush"/>');
+            for (var j in value.course) {
+                if (!(value.course[j].code in course_titles)) titles_to_retrieve.push(value.course[j].code);
+            }
+            if (titles_to_retrieve.length > 0) {
+                $.ajax({
+                    'url': 'degree/coursedata',
+                    data: {
+                        'query': 'titles',
+                        'codes': JSON.stringify(titles_to_retrieve)
+                    },
+                    success: function (data) {
+                        for (var k in data.response) {
+                            course_titles[data.response[k]['course_code']] = data.response[k]['title']
+                        }
+                    },
+                    async: false
+                });
+            }
+            for (var k in value.course) {
+                course = value.course[k];
+                var list_item = $(
+                    '<div class="list-group-item list-group-item-action draggable-course result-course">' +
+                    '    <span class="course-code">' + course.code + '</span>' +
+                    '    <span class="course-title">' + course_titles[course.code] + '</span>' +
+                    '</div>'
+                );
+                list_item.each(coursePopoverSetup);
+                options.append(list_item);
+            }
+            var collapse = $('<div id="mms-active-' + code + '-select' + i + '" class="collapse show"/>');
+            collapse.on('hide.bs.collapse', function () {
+                $(this).find('.result-course').popover('hide');
+            });
+            collapse.append(options);
+            select.append(collapse);
+            collapsible.append(select);
+        }
+    }
+    new_mms.append(card_header);
+    new_mms.append(collapsible);
+    mms_active_list.append(new_mms);
+    $(this).attr("disabled", true);
+    $(this).text('Already in Plan');
+}
+
+function deleteMMS(button) {
+    const code = $(button).parent().find('.mms-code').text();
+    delete active_mms[code];
+    $(button).parents('.mms').remove()
+}
