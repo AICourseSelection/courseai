@@ -88,12 +88,69 @@
                 </div>
             </div>
         </div>
-        <div class="col-6" id="centre-panel" style="min-width: 618px;">
+        <div class="col-6" id="centre-panel" style="min-width: 658px;">
             <div id="plan-grid"></div>
         </div>
         <div class="col-3" id="left-panel">
-            <label class="h5 text-center"style="width: 100%">Your Degree</label>
-            <label class="h5 text-center"style="width: 100%">Your Majors, Minors, and Specialisations</label>
+            <label class="h5 text-center" style="width: 100%">Your Degree</label>
+
+            <label class="h5 text-center" style="width: 100%">Your Majors, Minors, and Specialisations</label>
+            <div id="mms-active-list">
+                <div class="mms card alert-success">
+                    <div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#mms-active1">
+                        <span class="mms-code"></span>
+                        <strong>Major</strong>: Intelligent Systems
+                        <button class="mms-delete btn btn-danger" onclick="deleteMMS(this)">×</button>
+                        <span class="unit-count mr-2">0/48</span>
+                    </div>
+                    <div id="mms-active1" class="collapse">
+                        <div class="mms-required list-group list-group-flush">
+                            <div class="list-group-item list-group-item-action draggable-course result-course inc">
+                                <span class="course-code">ECON2141</span>
+                                <span class="course-title">Intro to Game Theory</span>
+                            </div>
+                        </div>
+                        <div class="mms-select-min card alert-warning">
+                            <div class="card-header btn text-left pl-2" data-toggle="collapse"
+                                 data-target="#mms-active1-select1">
+                                Choose at least 24 units
+                                <span class="unit-count mr-2">0/24</span>
+                            </div>
+                            <div id="mms-active1-select1" class="collapse show">
+                                <div class="mms-optional list-group list-group-flush">
+                                    <div class="list-group-item list-group-item-action draggable-course result-course">
+                                        <span class="course-code">COMP3620</span>
+                                        <span class="course-title">Artificial Intelligence</span>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action draggable-course result-course">
+                                        <span class="course-code">COMP3600</span>
+                                        <span class="course-title">Algorithms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mms-select-min card alert-warning">
+                            <div class="card-header btn text-left pl-2" data-toggle="collapse"
+                                 data-target="#mms-active1-select2">
+                                Choose at least 24 units
+                                <span class="unit-count mr-2">0/24</span>
+                            </div>
+                            <div id="mms-active1-select2" class="collapse show">
+                                <div class="mms-optional list-group list-group-flush">
+                                    <div class="list-group-item list-group-item-action draggable-course result-course">
+                                        <span class="course-code">COMP3620</span>
+                                        <span class="course-title">Artificial Intelligence</span>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action draggable-course result-course">
+                                        <span class="course-code">COMP3600</span>
+                                        <span class="course-title">Algorithms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
