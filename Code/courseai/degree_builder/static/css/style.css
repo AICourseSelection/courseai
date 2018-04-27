@@ -139,6 +139,7 @@ body {
 #search-results-list .card-header {
     padding: 0;
     white-space: normal;
+    font-weight: bold;
 }
 
 #search-results-list .card-body {

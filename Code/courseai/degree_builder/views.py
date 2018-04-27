@@ -13,11 +13,12 @@ def index(request):
 
 def planner(request):
     template = loader.get_template('dynamic_pages/planner.html')
-    context = dict()
-    if 'test' in request.GET:
-        context['degree'] = 'Bachelor of Advanced Computing (Honours)'
-        context['start_year'] = 2016
-        context['start_semester'] = 1
+    context = {
+        'degree_name': request.GET['degreeName'],
+        'degree_code': request.GET['degreeCode'],
+        'start_year': request.GET['startyear'],
+        'start_sem': request.GET['semester']
+    }
     return HttpResponse(template.render(context))
 
 
