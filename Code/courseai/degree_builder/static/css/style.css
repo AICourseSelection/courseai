@@ -180,7 +180,7 @@ body {
 }
 
 /*#filter-icons .badge {*/
-    /*margin: 0 .2rem;*/
+/*margin: 0 .2rem;*/
 /*}*/
 
 .filter-delete {
@@ -205,6 +205,29 @@ body {
 
 .mms-popover .popover-header {
     border-bottom: 0;
+}
+
+.popover-close {
+    cursor: pointer;
+    padding: 0 .3rem;
+    border-radius: .2rem;
+    border: 1px solid #d6d6d6;
+    margin: -.1rem -.35rem -.1rem .2rem;
+    float: right;
+    font-weight: bold;
+    font-family: "Gill Sans MT", sans-serif;
+    font-size: 1.3rem;
+    text-align: center;
+    line-height: 1.1;
+    max-height: 24px;
+}
+
+.popover-close:hover {
+    background-color: #d6d6d6;
+}
+
+.popover-close:active {
+    background-color: #8c8c8c;
 }
 
 .mms-add {
@@ -246,6 +269,7 @@ body {
     content: "\f00c";
     background-color: #bbf8cd;
 }
+
 #mms-active-list .result-course.exc:before {
     content: "\f00d";
     background-color: #f8d7d6;
@@ -274,8 +298,4 @@ body {
 .unit-count {
     float: right;
     font-weight: bold;
-}
-
-.popover-close {
-    float:right;
 }
