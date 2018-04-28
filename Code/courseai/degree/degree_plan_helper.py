@@ -11,7 +11,7 @@ def advance_sem(year, sem):
 def update_elective_code(c):
     if('title' in c):
         if (c['title'].lower() == "elective course"):
-            c['code'] = "elective course"
+            c['code'] = "Elective Course"
             c.pop('title')
     return c
 
