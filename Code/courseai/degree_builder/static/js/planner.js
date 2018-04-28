@@ -96,8 +96,9 @@ function coursePopoverData() {
                     'This courses\'s information could not be retrieved. Please try again. </div>');
                 return
             }
+            const truncated_description = data.response['description'].slice(0,350) + '...';
             const html = '<h6 class="mt-2">Description</h6>\n' +
-                '<div class="result-description">' + data.response['description'] + '</div>\n' +
+                '<div class="result-description">' + truncated_description + '</div>\n' +
                 '<h6 class="mt-2">Related Courses</h6>\n' +
                 '<div class="list-group">\n' +
                 '    <div class="draggable-course result-course list-group-item list-group-item-action">\n' +
@@ -433,6 +434,7 @@ function mms_add() {
                 '        <span class="unit-count mr-2">0/' + value.units + '</span>\n' +
                 '    </div>\n' +
                 '</div>');
+            if (value.type === 'maximum') select.addClass('alert-success');
             var options = $('<div class="mms-optional list-group list-group-flush"/>');
             var titles_to_retrieve = [];
             for (var j in value.course) {
@@ -479,6 +481,7 @@ function mms_add() {
     active_mms[code] = new_mms;
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
+    updateMMS();
 }
 
 function deleteMMS(button) {
@@ -550,9 +553,10 @@ function updateMMS() {
                         $(c).removeClass('exc').addClass('inc');
                     } else $(c).removeClass('inc').addClass('exc');
                 }
-                mms_completed = mms_completed && (matches.length === rule.course.length);
+                mms_completed = mms_completed && (matches.size === rule.course.length);
 
-            } else if (rule.type === 'minimum') {
+            }
+            else if (rule.type === 'minimum') {
                 let section_units = 0;
                 const matches = matchInDegree(new Set(rule.course.map(x => x.code)));
                 for (let c of rule.course) {
@@ -561,14 +565,14 @@ function updateMMS() {
                         section_units += c.units;
                     }
                 }
-                const collapse = mms_panel.find('#mms-active-'+code+'-select'+section);
+                const collapse = mms_panel.find('#mms-active-' + code + '-select' + section);
                 for (let c of collapse.find('.result-course')) {
                     if (matches.has($(c).find('.course-code').text())) $(c).addClass('inc');
                     else $(c).removeClass('inc');
                 }
                 const unit_count = $(collapse[0].previousElementSibling).find('.unit-count');
                 const unit_target = parseInt(unit_count.text().split('/')[1]);
-                unit_count.text(section_units+'/'+unit_target);
+                unit_count.text(section_units + '/' + unit_target);
                 if (section_units >= unit_target) {
                     collapse.parent().removeClass('alert-warning');
                     collapse.parent().addClass('alert-success');
@@ -576,11 +580,38 @@ function updateMMS() {
                     collapse.parent().removeClass('alert-success');
                     collapse.parent().addClass('alert-warning');
                 }
+                mms_completed = mms_completed && (section_units >= unit_target);
 
             } else if (rule.type === 'maximum') {
-
+                let section_units = 0;
+                const matches = matchInDegree(new Set(rule.course.map(x => x.code)));
+                for (let c of rule.course) {
+                    if (matches.has(c.code)) {
+                        section_units += c.units;
+                    }
+                }
+                const collapse = mms_panel.find('#mms-active-' + code + '-select' + section);
+                for (let c of collapse.find('.result-course')) {
+                    if (matches.has($(c).find('.course-code').text())) $(c).addClass('inc');
+                    else $(c).removeClass('inc');
+                }
+                const unit_count = $(collapse[0].previousElementSibling).find('.unit-count');
+                const unit_target = parseInt(unit_count.text().split('/')[1]);
+                unit_count.text(section_units + '/' + unit_target);
+                mms_units += Math.min(section_units, unit_target);
             }
         }
-
+        const unit_count = $(mms_panel.children()[0]).find('.unit-count');
+        const unit_target = parseInt(unit_count.text().split('/')[1]);
+        unit_count.text(mms_units + '/' + unit_target);
+        mms_completed = mms_completed && mms_units >= unit_target;
+        if (mms_completed) {
+            mms_panel.removeClass('alert-warning');
+            mms_panel.addClass('alert-success');
+        } else {
+            mms_panel.removeClass('alert-success');
+            mms_panel.addClass('alert-warning');
+        }
     }
 }
+
