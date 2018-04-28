@@ -8,12 +8,16 @@ from .models import Degree
 def advance_sem(year, sem):
     return (year, 2) if sem is 1 else (year + 1, 1)
 
+
 def update_elective_code(c):
-    if('title' in c):
-        if (c['title'].lower() == "elective course"):
-            c['code'] = "Elective Course"
+    if ('title' in c):
+        # if (c['title'].lower() == "elective course"):
+        #     c['code'] = "Elective Course"
+        if 'code' not in c:
+            c['code'] = 'Elective Course'
             c.pop('title')
     return c
+
 
 def generate_degree_plan(code, start_year_sem):
     degree = Degree.objects.filter(code=code)[0]

@@ -1,6 +1,8 @@
 /**
  * Created by Joseph Meltzer on 25/04/18.
  */
+var degree_plan = {};
+
 $.ajax({
     url: 'degree/degreeplan',
     data: {
@@ -23,6 +25,7 @@ $.ajax({
         for (var i in course_dict) {
             for (var session in course_dict[i]) {
                 if (course_dict[i].hasOwnProperty(session)) {
+                    degree_plan[session] = [];
                     const year = session.split('S')[0];
                     const sem = session.split('S')[1];
                     var first_cell = '<div class="first-cell">' +
@@ -34,6 +37,7 @@ $.ajax({
                     const course_list = course_dict[i][session];
                     for (var j in course_list) {
                         const course = course_list[j];
+                        degree_plan[session].push(course);
                         var cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
                         tab_index_count++;
                         cell.append('<div class="course-code">' + course['code'] + '</div>');
@@ -45,6 +49,7 @@ $.ajax({
             }
         }
         $('.result-course').each(coursePopoverSetup);
+        $('.plan-cell').click(clickCell);
     }
 });
 
@@ -183,6 +188,25 @@ function mmsPopoverData() {
     })
 }
 
+function clickCell() {
+    if ($(this).find('.course-code').text() === 'Elective Course') {
+        var first_cell = $(this).parent().find('.first-cell');
+        const year = first_cell.find('.row-year').text();
+        const sem = first_cell.find('.row-sem').text();
+        const badge_text = 'My ' + year + ' ' + sem;
+        if (current_filters.has(badge_text)) {
+            return;
+        }
+        var filter_icon = $('<span class="badge badge-primary">' + badge_text +
+            '</span>');
+        var delete_button = $('<a class="filter-delete">×</a>');
+        delete_button.click(deleteFilter);
+        filter_icon.append(delete_button);
+        $('#filter-icons').append(filter_icon, ' ');
+        current_filters.add(badge_text);
+    }
+}
+
 var curr_requests = {'course': null, 'major': null, 'minor': null, 'spec': null};
 
 $('#add-course').on('keyup', function () {
@@ -307,25 +331,6 @@ $('#results-majors, #results-minors, #results-specs').on('hide.bs.collapse', fun
 
 const current_filters = new Set();
 
-$('.plan-cell').click(function () {
-    if ($(this).find('.course-code').text() === 'Elective Course') {
-        var first_cell = $(this).parent().find('.first-cell');
-        const year = first_cell.find('.row-year').text();
-        const sem = first_cell.find('.row-sem').text();
-        const badge_text = 'My ' + year + ' ' + sem;
-        if (current_filters.has(badge_text)) {
-            return;
-        }
-        var filter_icon = $('<span class="badge badge-primary">' + badge_text +
-            '</span>');
-        var delete_button = $('<a class="filter-delete">×</a>');
-        delete_button.click(deleteFilter);
-        filter_icon.append(delete_button);
-        $('#filter-icons').append(filter_icon, ' ');
-        current_filters.add(badge_text);
-    }
-});
-
 function deleteFilter() {
     current_filters.delete(this.previousSibling.textContent);
     $(this).parent().remove();
@@ -333,8 +338,8 @@ function deleteFilter() {
 
 $('.filter-delete').click(deleteFilter);
 
-var mms_info = {};
-var active_mms = {};
+const mms_info = {};
+const active_mms = {};
 const mms_abbrev = {
     'MAJ': 'Major',
     'MIN': 'Minor',
@@ -347,7 +352,7 @@ const mms_units = {
     'SPEC': 24,
     'HSPC': 48
 };
-var course_titles = {};
+const course_titles = {};
 
 function mms_add() {
     const code = $(this).parents('.popover').attr('data-code');
@@ -426,6 +431,7 @@ function mms_add() {
                 '    </div>\n' +
                 '</div>');
             var options = $('<div class="mms-optional list-group list-group-flush"/>');
+            var titles_to_retrieve = [];
             for (var j in value.course) {
                 if (!(value.course[j].code in course_titles)) titles_to_retrieve.push(value.course[j].code);
             }
@@ -467,6 +473,7 @@ function mms_add() {
     new_mms.append(card_header);
     new_mms.append(collapsible);
     mms_active_list.append(new_mms);
+    active_mms[code] = new_mms;
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
 }
@@ -487,4 +494,90 @@ function closePopover(button) {
             $(this).popover('hide');
         }
     })
+}
+
+function inDegree(code) {
+    for (var session in degree_plan) {
+        const courses = degree_plan[session];
+        for (var c in courses) {
+            if (code === courses[c]['code']) return true;
+        }
+    }
+    return false;
+}
+
+function numInDegree(codes) {
+    var count = 0;
+    for (var session in degree_plan) {
+        const courses = degree_plan[session];
+        for (var c in courses) {
+            const code = courses[c]['code'];
+            if (codes.delete(code)) count++;
+        }
+    }
+    return count;
+}
+
+function matchInDegree(codes) {
+    let matches = new Set();
+    for (let session in degree_plan) {
+        const courses = degree_plan[session];
+        for (let c of courses) {
+            if (codes.delete(c['code'])) matches.add(c['code']);
+        }
+    }
+    return matches;
+}
+
+function updateMMS() {
+    for (let code in active_mms) {
+        let mms_completed = true;
+        let mms_units = 0;
+
+        const mms_panel = active_mms[code];
+        const mms_data = mms_info[code];
+        const composition = mms_data['composition'];
+        for (let section in composition) {
+            const rule = composition[section];
+            if (rule.type === 'fixed') {
+                const matches = matchInDegree(new Set(rule.course.map(x => x.code)));
+                for (let c of rule.course) if (matches.has(c.code)) mms_units += c.units;
+                for (let c of mms_panel.find('.mms-required .result-course')) {
+                    if (matches.has($(c).find('.course-code').text())) {
+                        $(c).removeClass('exc').addClass('inc');
+                    } else $(c).removeClass('inc').addClass('exc');
+                }
+                mms_completed = mms_completed && (matches.length === rule.course.length);
+
+            } else if (rule.type === 'minimum') {
+                let section_units = 0;
+                const matches = matchInDegree(new Set(rule.course.map(x => x.code)));
+                for (let c of rule.course) {
+                    if (matches.has(c.code)) {
+                        mms_units += c.units;
+                        section_units += c.units;
+                    }
+                }
+                const collapse = mms_panel.find('#mms-active-'+code+'-select'+section);
+                for (let c of collapse.find('.result-course')) {
+                    if (matches.has($(c).find('.course-code').text())) $(c).addClass('inc');
+                    else $(c).removeClass('inc');
+                }
+                const unit_count = $(collapse.previousElementSibling).find('.unit-count');
+                const unit_target = parseInt(unit_count.text().split('/')[1]);
+                unit_count.text(section_units+'/'+unit_target);
+                if (section_units >= unit_target) {
+                    collapse.parent().removeClass('alert-warning');
+                    collapse.parent().addClass('alert-success');
+                } else {
+                    collapse.parent().removeClass('alert-success');
+                    collapse.parent().addClass('alert-warning');
+                }
+
+            } else if (rule.type === 'maximum') {
+
+            }
+        }
+
+    }
 }
