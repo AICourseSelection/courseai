@@ -77,7 +77,7 @@ function coursePopoverSetup() {
 
 function coursePopoverData() {
     const code = $(this).find('.course-code').text();
-    $(this).parents('.popover-region').find('.result-course').each(function () {
+    $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if ($(this).find('.course-code').text() !== code) {
             $(this).popover('hide');
         }
@@ -98,8 +98,6 @@ function coursePopoverData() {
             }
             const html = '<h6 class="mt-2">Description</h6>\n' +
                 '<div class="result-description">' + data.response['description'] + '</div>\n' +
-                '<h6 class="mt-2">Learning Outcomes</h6>\n' +
-                '<div class="result-learning">' + data.response['learning_outcomes'] + '</div>\n' +
                 '<h6 class="mt-2">Related Courses</h6>\n' +
                 '<div class="list-group">\n' +
                 '    <div class="draggable-course result-course list-group-item list-group-item-action">\n' +
@@ -148,6 +146,11 @@ function mmsPopoverSetup() {
 
 function mmsPopoverData() {
     const code = $(this).find('.mms-code').text();
+    $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
+        if ($(this).find('.mms-code').text() !== code) {
+            $(this).popover('hide');
+        }
+    });
     var popover = $(this).data('bs.popover');
     var curr_popover = $(popover.tip);
     if (code in active_mms) {
@@ -563,7 +566,7 @@ function updateMMS() {
                     if (matches.has($(c).find('.course-code').text())) $(c).addClass('inc');
                     else $(c).removeClass('inc');
                 }
-                const unit_count = $(collapse.previousElementSibling).find('.unit-count');
+                const unit_count = $(collapse[0].previousElementSibling).find('.unit-count');
                 const unit_target = parseInt(unit_count.text().split('/')[1]);
                 unit_count.text(section_units+'/'+unit_target);
                 if (section_units >= unit_target) {
