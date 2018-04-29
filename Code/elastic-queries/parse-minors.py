@@ -74,7 +74,7 @@ for index, row in data.iterrows():
         if type(partition) is tuple:
             partition = partition[0]
         rules = {}
-        rules['type'] = "fixed"
+        rules['type'] = "minimum"
         rules['units'] = int((partition.split())[0])
         courses = []
         bad_text = (text_desc.split(partition))[indices[c]]
@@ -159,7 +159,7 @@ for index, row in data.iterrows():
         if type(partition) is tuple:
             partition = partition[0]
         rules = {}
-        rules['type'] = "fixed"
+        rules['type'] = "minimum"
         rules['units'] = int((partition.split())[0])
         courses = []
         bad_text = (text_desc.split(partition))[indices[c]]
@@ -192,7 +192,7 @@ for index, row in data.iterrows():
         if type(partition) is tuple:
             partition = partition[0]
         rules = {}
-        rules['type'] = "fixed"
+        rules['type'] = "minimum"
         rules['units'] = int((partition.split())[0])
         courses = []
         bad_text = (text_desc.split(partition))[indices[c]]
@@ -229,7 +229,7 @@ for index, row in data.iterrows():
             partition = partition[0]
         p_split = partition.split()
         rules = {}
-        rules['type'] = "fixed"
+        rules['type'] = "minimum"
         rules['units'] = int(p_split[0])
         courses = [{'area': p_split[10]}]
         rules['course'] = courses
