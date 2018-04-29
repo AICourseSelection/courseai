@@ -1,7 +1,9 @@
 /**
  * Created by Joseph Meltzer on 25/04/18.
  */
-var degree_plan = {};
+const ELECTIVE_TEXT = "Elective Course";
+
+let degree_plan = {};
 
 $.ajax({
     url: 'degree/degreeplan',
@@ -11,7 +13,7 @@ $.ajax({
     },
     success: function (data) {
         const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
-        var title_box = $('#degree-title');
+        let title_box = $('#degree-title');
         title_box.prepend(title_text);
         title_box.hover(function () {
             $('#edit-button').fadeIn(150);
@@ -19,32 +21,39 @@ $.ajax({
             $('#edit-button').fadeOut(150);
         });
 
-        var tab_index_count = 4;
-        var grid = $('#plan-grid');
-        var course_dict = data["response"];
-        for (var i in course_dict) {
-            for (var session in course_dict[i]) {
+        let tab_index_count = 4;
+        let grid = $('#plan-grid');
+        let course_dict = data["response"];
+        let titles_to_retrieve = {};
+        for (let i in course_dict) {
+            for (let session in course_dict[i]) {
                 if (course_dict[i].hasOwnProperty(session)) {
                     degree_plan[session] = [];
                     const year = session.split('S')[0];
                     const sem = session.split('S')[1];
-                    var first_cell = '<div class="first-cell">' +
+                    let first_cell = '<div class="first-cell">' +
                         '<div class="row-year h4">' + year + '</div>' +
                         '<div class="row-sem h5">Semester ' + sem + '</div>' +
                         '</div>';
-                    var row = $('<div class="plan-row"/>');
+                    let row = $('<div class="plan-row"/>');
                     row.append(first_cell);
                     const course_list = course_dict[i][session];
-                    for (var j in course_list) {
-                        const course = course_list[j];
+                    for (let course of course_list) {
                         degree_plan[session].push(course);
-                        var cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
+                        let cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
                         tab_index_count++;
+                        let title_node = $('<span class="course-title"/>');
+                        if (course['title'] !== undefined) {
+                            title_node.text(course['title']);
+                        } else if (course.code !== ELECTIVE_TEXT) {
+                            if (!(course.code in titles_to_retrieve)) titles_to_retrieve[course.code] = [];
+                            titles_to_retrieve[course.code].push(title_node);
+                        }
                         cell.append('<div class="course-code">' + course['code'] + '</div>');
-                        cell.append('<div class="course-title">' + (course['title'] || "") + '</div>');
+                        cell.append(title_node);
                         cell.click(clickCell);
                         cell.each(coursePopoverSetup);
-                        if (course['code'] === "Elective Course") cell.droppable({
+                        if (course['code'] === ELECTIVE_TEXT) cell.droppable({
                             accept: '.draggable-course',
                             drop: function (event, ui) {
                                 const first_cell = $(event.target.parentElement.firstElementChild);
@@ -64,12 +73,29 @@ $.ajax({
                 }
             }
         }
+        if (!jQuery.isEmptyObject(titles_to_retrieve)) {
+            $.ajax({
+                'url': 'degree/coursedata',
+                data: {
+                    'query': 'titles',
+                    'codes': JSON.stringify(Object.keys(titles_to_retrieve))
+                },
+                success: function (data) {
+                    for (let course of data.response) {
+                        course_titles[course['course_code']] = course['title'];
+                        for (node of titles_to_retrieve[course['course_code']]) {
+                            node.text(course['title']);
+                        }
+                    }
+                }
+            });
+        }
     }
 });
 
 function coursePopoverSetup() {
     const code = $(this).find('.course-code').text();
-    if (code === "Elective Course") return;
+    if (code === ELECTIVE_TEXT) return;
     const title = $(this).find('.course-title').text();
     $(this).popover({
         trigger: 'click',
@@ -95,9 +121,9 @@ function coursePopoverData() {
     $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if (this != me) $(this).popover('hide');
     });
-    var popover = $(this).data('bs.popover');
+    let popover = $(this).data('bs.popover');
     if (popover['data-received'] || false) return;
-    var curr_popover = $(popover.tip);
+    let curr_popover = $(popover.tip);
     $.ajax({
         url: 'degree/coursedata',
         data: {'query': code},
@@ -165,8 +191,8 @@ function mmsPopoverData() {
             $(this).popover('hide');
         }
     });
-    var popover = $(this).data('bs.popover');
-    var curr_popover = $(popover.tip);
+    let popover = $(this).data('bs.popover');
+    let curr_popover = $(popover.tip);
     if (code in active_mms) {
         curr_popover.find('button').attr("disabled", true);
         curr_popover.find('button').text('Already in Plan');
@@ -207,16 +233,16 @@ function mmsPopoverData() {
 
 function clickCell() {
     if ($(this).find('.course-code').text() === 'Elective Course') {
-        var first_cell = $(this).parent().find('.first-cell');
+        let first_cell = $(this).parent().find('.first-cell');
         const year = first_cell.find('.row-year').text();
         const sem = first_cell.find('.row-sem').text();
         const badge_text = 'My ' + year + ' ' + sem;
         if (current_filters.has(badge_text)) {
             return;
         }
-        var filter_icon = $('<span class="badge badge-primary">' + badge_text +
+        let filter_icon = $('<span class="badge badge-primary">' + badge_text +
             '</span>');
-        var delete_button = $('<a class="filter-delete">×</a>');
+        let delete_button = $('<a class="filter-delete">×</a>');
         delete_button.click(deleteFilter);
         filter_icon.append(delete_button);
         $('#filter-icons').append(filter_icon, ' ');
@@ -224,21 +250,17 @@ function clickCell() {
     }
 }
 
-var curr_requests = {'course': null, 'major': null, 'minor': null, 'spec': null};
+let curr_requests = {'course': null, 'major': null, 'minor': null, 'spec': null};
 
 $('#add-course').on('keyup', function () {
-    for (var key in curr_requests) {
-        if (curr_requests.hasOwnProperty(key) && curr_requests[key] !== null) {
-            curr_requests[key].abort();
-        }
-    }
+    for (let req of Object.values(curr_requests)) if (req !== null) req.abort();
     curr_requests['course'] = $.ajax({
         url: 'search?query=' + $(this).val(),
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
         beforeSend: function () {
-            var resultsList = $('#search-results-list');
+            let resultsList = $('#search-results-list');
             resultsList.find('.fa-refresh').css({'display': 'inline-block'});
             resultsList.find('.collapse').css({'display': 'none'});
             resultsList.find('.result-course').popover('hide');
@@ -284,16 +306,16 @@ $('#add-course').on('keyup', function () {
 });
 
 function updateMMSResults(data, type, section) {
-    var responses = data['responses'];
-    var body = $(section.find('.card-body'));
+    let responses = data['responses'];
+    let body = $(section.find('.card-body'));
 
     body.find('.result-mms').popover('dispose');
     body.empty();
     if (responses.length > 0) {
-        for (var i = 0; i < responses.length; i++) {
-            const code = responses[i]['code'];
-            const name = responses[i]['name'];
-            var item = $(
+        for (let r of responses) {
+            const code = r['code'];
+            const name = r['name'];
+            let item = $(
                 '<div class="draggable-course result-mms list-group-item list-group-item-action">\n    ' +
                 '<span class="mms-code">' + code + '</span>' +
                 '<span class="mms-name">' + name + '</span>\n' +
@@ -301,9 +323,7 @@ function updateMMSResults(data, type, section) {
             item.each(mmsPopoverSetup);
             body.append(item);
         }
-    } else {
-        body.append('<div class="m-2">No ' + type + 's found.</div>');
-    }
+    } else body.append('<div class="m-2">No ' + type + 's found.</div>');
     section.parent().find('.fa-refresh').css({'display': 'none'});
     section.parent().find('.collapse').css({'display': ''});
     section.collapse('show');
@@ -312,16 +332,16 @@ function updateMMSResults(data, type, section) {
 
 function updateCourseSearchResults(data) {
     const response = data['response'];
-    var results = $('#results-courses');
-    var cbody = $(results.find('.card-body'));
+    let results = $('#results-courses');
+    let cbody = $(results.find('.card-body'));
 
     cbody.find('.result-course').popover('dispose');
     cbody.empty();
     if (response.length > 0) {
-        for (var i = 0; i < response.length; i++) {
-            const code = response[i]['code'];
-            const title = response[i]['title'];
-            var item = $(
+        for (let r of response) {
+            const code = r['code'];
+            const title = r['title'];
+            let item = $(
                 '<div class="draggable-course result-course list-group-item list-group-item-action">\n    ' +
                 '<span class="course-code">' + code + '</span>\n    ' +
                 '<span class="course-title">' + title + '</span>\n' +
@@ -329,11 +349,11 @@ function updateCourseSearchResults(data) {
             item.draggable({
                 zIndex: 1000,
                 revert: true,
-                    stop: function (event, ui) {
-                        $(event.toElement).one('click', function (e) {
-                            e.stopImmediatePropagation();
-                        });
-                    }
+                stop: function (event, ui) {
+                    $(event.toElement).one('click', function (e) {
+                        e.stopImmediatePropagation();
+                    });
+                }
             });
             item.each(coursePopoverSetup);
             cbody.append(item);
@@ -364,8 +384,8 @@ function deleteFilter() {
 
 $('.filter-delete').click(deleteFilter);
 
-const mms_info = {};
-const active_mms = {};
+let mms_info = {};
+let active_mms = {};
 const mms_abbrev = {
     'MAJ': 'Major',
     'MIN': 'Minor',
@@ -378,7 +398,7 @@ const mms_units = {
     'SPEC': 24,
     'HSPC': 48
 };
-const course_titles = {};
+let course_titles = {};
 
 function mms_add() {
     const code = $(this).parents('.popover').attr('data-code');
@@ -393,16 +413,16 @@ function mms_add() {
     active_mms[code] = {};
     const mms_data = mms_info[code];
     const type = code.split('-').pop();
-    var mms_active_list = $('#mms-active-list');
-    var new_mms = $('<div class="mms card"/>');
-    var card_header = $(
+    let mms_active_list = $('#mms-active-list');
+    let new_mms = $('<div class="mms card"/>');
+    let card_header = $(
         '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#mms-active-' + code + '">\n' +
         '    <span class="mms-code">' + code + '</span>\n' +
         '    <strong>' + mms_abbrev[type] + '</strong>: ' + mms_data['name'] + '\n' +
         '    <button class="mms-delete btn btn-danger" onclick="deleteMMS(this)">×</button>\n' +
         '    <span class="unit-count mr-2">0/' + mms_units[type] + '</span>\n' +
         '</div>');
-    var collapsible = $(
+    let collapsible = $(
         '<div id="mms-active-' + code + '" class="collapse show">' +
         '</div>'
     );
@@ -413,37 +433,24 @@ function mms_add() {
         items: "> .mms-select-min, .mms-select-max"
     });
 
-    for (var i in mms_data['composition']) {
-        value = mms_data['composition'][i];
+    for (let value of mms_data['composition']) {
+        let titles_to_retrieve = {};
         if (value.type === "fixed") {
-            var required = $('<div class="mms-required list-group list-group-flush"/>');
-            var titles_to_retrieve = [];
-            for (var j in value.course) {
-                if (!(value.course[j].code in course_titles)) titles_to_retrieve.push(value.course[j].code);
-            }
-            if (titles_to_retrieve.length > 0) {
-                $.ajax({
-                    'url': 'degree/coursedata',
-                    data: {
-                        'query': 'titles',
-                        'codes': JSON.stringify(titles_to_retrieve)
-                    },
-                    success: function (data) {
-                        for (var k in data.response) {
-                            course_titles[data.response[k]['course_code']] = data.response[k]['title']
-                        }
-                    },
-                    async: false
-                });
-            }
-            for (var j in value.course) {
-                course = value.course[j];
-                var item = $(
+            let required = $('<div class="mms-required list-group list-group-flush"/>');
+            for (let course of value.course) {
+                let title_node = $('<span class="course-title"/>');
+                if (course.code in course_titles) {
+                    title_node.text(course_titles[course.code]);
+                } else {
+                    if (!(course.code in titles_to_retrieve)) titles_to_retrieve[course.code] = [];
+                    titles_to_retrieve[course.code].push(title_node);
+                }
+                let item = $(
                     '<div class="list-group-item list-group-item-action draggable-course result-course">' +
-                    '    <span class="course-code">' + course.code + '</span>' +
-                    '    <span class="course-title">' + course_titles[course.code] + '</span>' +
+                    '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
+                item.append(title_node);
                 item.draggable({
                     zIndex: 1000,
                     revert: true,
@@ -458,9 +465,9 @@ function mms_add() {
             }
             collapsible.append(required);
         } else if (['minimum', 'maximum'].indexOf(value.type) >= 0) {
-            var label_text = 'at least ';
+            let label_text = 'at least ';
             if (value.type === 'maximum') label_text = 'up to ';
-            var select = $(
+            let select = $(
                 '<div class="mms-select-' + value.type.slice(0, 3) + ' card">\n' +
                 '    <div class="card-header btn text-left pl-2" data-toggle="collapse"\n' +
                 '         data-target="#mms-active-' + code + '-select' + i + '">\n' +
@@ -469,34 +476,21 @@ function mms_add() {
                 '    </div>\n' +
                 '</div>');
             if (value.type === 'maximum') select.addClass('alert-success');
-            var options = $('<div class="mms-optional list-group list-group-flush"/>');
-            var titles_to_retrieve = [];
-            for (var j in value.course) {
-                if (!(value.course[j].code in course_titles)) titles_to_retrieve.push(value.course[j].code);
-            }
-            if (titles_to_retrieve.length > 0) {
-                $.ajax({
-                    'url': 'degree/coursedata',
-                    data: {
-                        'query': 'titles',
-                        'codes': JSON.stringify(titles_to_retrieve)
-                    },
-                    success: function (data) {
-                        for (var k in data.response) {
-                            course_titles[data.response[k]['course_code']] = data.response[k]['title']
-                        }
-                    },
-                    async: false
-                });
-            }
-            for (var k in value.course) {
-                course = value.course[k];
-                var list_item = $(
+            let options = $('<div class="mms-optional list-group list-group-flush"/>');
+            for (let course of value.course) {
+                let title_node = $('<span class="course-title"/>');
+                if (course.code in course_titles) {
+                    title_node.text(course_titles[course.code]);
+                } else {
+                    if (!(course.code in titles_to_retrieve)) titles_to_retrieve[course.code] = [];
+                    titles_to_retrieve[course.code].push(title_node);
+                }
+                let list_item = $(
                     '<div class="list-group-item list-group-item-action draggable-course result-course">' +
-                    '    <span class="course-code">' + course.code + '</span>' +
-                    '    <span class="course-title">' + course_titles[course.code] + '</span>' +
+                    '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
+                list_item.append(title_node);
                 list_item.draggable({
                     zIndex: 1000,
                     revert: true,
@@ -509,13 +503,31 @@ function mms_add() {
                 list_item.each(coursePopoverSetup);
                 options.append(list_item);
             }
-            var collapse = $('<div id="mms-active-' + code + '-select' + i + '" class="collapse show"/>');
+
+            let collapse = $('<div id="mms-active-' + code + '-select' + i + '" class="collapse show"/>');
             collapse.on('hide.bs.collapse', function () {
                 $(this).find('.result-course').popover('hide');
             });
             collapse.append(options);
             select.append(collapse);
             collapsible.append(select);
+        }
+        if (!jQuery.isEmptyObject(titles_to_retrieve)) {
+            $.ajax({
+                'url': 'degree/coursedata',
+                data: {
+                    'query': 'titles',
+                    'codes': JSON.stringify(Object.keys(titles_to_retrieve))
+                },
+                success: function (data) {
+                    for (let course of data.response) {
+                        course_titles[course['course_code']] = course['title'];
+                        for (node of titles_to_retrieve[course['course_code']]) {
+                            node.text(course['title']);
+                        }
+                    }
+                }
+            });
         }
     }
     new_mms.append(card_header);
@@ -535,7 +547,7 @@ function deleteMMS(button) {
 }
 
 function closePopover(button) {
-    var code = $(button).parents('.popover').attr('data-code');
+    let code = $(button).parents('.popover').attr('data-code');
     if (code === undefined) code = button.previousSibling.textContent;
     $('.popover-region').find('.result-course, .result-mms').each(function () {
         if ($(this).find('.course-code').text() === code ||
@@ -546,21 +558,21 @@ function closePopover(button) {
 }
 
 function inDegree(code) {
-    for (var session in degree_plan) {
+    for (let session in degree_plan) {
         const courses = degree_plan[session];
-        for (var c in courses) {
-            if (code === courses[c]['code']) return true;
+        for (let course of courses) {
+            if (code === course.code) return true;
         }
     }
     return false;
 }
 
 function numInDegree(codes) {
-    var count = 0;
-    for (var session in degree_plan) {
+    let count = 0;
+    for (let session in degree_plan) {
         const courses = degree_plan[session];
-        for (var c in courses) {
-            const code = courses[c]['code'];
+        for (let course of courses) {
+            const code = course['code'];
             if (codes.delete(code)) count++;
         }
     }
@@ -660,7 +672,7 @@ function updateMMS() {
 
 function addCourse(code, title, session, position) {
     let slot = degree_plan[session][position];
-    if (slot['code'] !== "Elective Course") return false;
+    if (slot['code'] !== ELECTIVE_TEXT) return false;
     slot['code'] = code;
     slot['title'] = title;
     const year = session.split('S')[0];
@@ -677,3 +689,39 @@ function addCourse(code, title, session, position) {
 }
 
 $('#mms-active-list').sortable();
+
+
+function validSessions(prerequisites) {
+    let valid_sessions = new Set();
+
+    let courses_taken = new Set();
+    let courses_taking = new Set();
+
+    for (let session in degree_plan) {
+        s_courses = degree_plan[session];
+        for (let course of s_courses) {
+            if (course.code !== ELECTIVE_TEXT) courses_taking.add(course.code);
+        }
+        prereq_sat = true;
+        for (let clause of prerequisites) {
+            let clause_sat = false;
+            for (let course of clause) {
+                if (course.charAt(0) === '~') {
+                    clause_sat = clause_sat || !(courses_taken.has(course) || courses_taking.has(course))
+                } else clause_sat = clause_sat || courses_taken.has(course);
+            }
+            if (!clause_sat) {
+                prereq_sat = false;
+                break;
+            }
+        }
+        if (prereq_sat) valid_sessions.add(session);
+        courses_taking.forEach(courses_taken.add, courses_taken);
+        courses_taking.clear()
+    }
+    return valid_sessions;
+}
+
+function highlightInvalidSessions(prerequisites) {
+
+}
