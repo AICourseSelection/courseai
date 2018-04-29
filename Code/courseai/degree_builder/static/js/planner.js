@@ -43,7 +43,7 @@ $.ajax({
                         let cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
                         tab_index_count++;
                         let title_node = $('<span class="course-title"/>');
-                    if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
+                        if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                             title_node.text(course['title']);
                         } else if (course.code !== ELECTIVE_TEXT) {
                             if (!(course.code in titles_to_retrieve)) titles_to_retrieve[course.code] = [];
@@ -56,6 +56,7 @@ $.ajax({
                         if (course['code'] === ELECTIVE_TEXT) cell.droppable({
                             accept: '.draggable-course',
                             drop: function (event, ui) {
+                                if ($(event.target.parentElement).hasClass('unavailable')) return;
                                 const first_cell = $(event.target.parentElement.firstElementChild);
                                 const code = ui.draggable.find('.course-code').text();
                                 const title = ui.draggable.find('.course-title').text();
@@ -92,6 +93,8 @@ $.ajax({
         }
     }
 });
+
+let course_data = {};
 
 function coursePopoverSetup() {
     const code = $(this).find('.course-code').text();
@@ -135,6 +138,7 @@ function coursePopoverData() {
                     'This courses\'s information could not be retrieved. Please try again. </div>');
                 return
             }
+            course_data[code] = data.response;
             const truncated_description = data.response['description'].slice(0, 350) + '...';
             const html = '<h6 class="mt-2">Description</h6>\n' +
                 '<div class="result-description">' + truncated_description + '</div>\n' +
@@ -349,10 +353,25 @@ function updateCourseSearchResults(data) {
             item.draggable({
                 zIndex: 1000,
                 revert: true,
+                start: function (event, ui) {
+                    if (!(code in course_data)) {
+                        $.ajax({
+                            url: 'degree/coursedata',
+                            data: {'query': code},
+                            success: function (data) {
+                                course_data[code] = data.response;
+                                highlightInvalidSessions(course_data[code]['prerequisites']);
+                            }
+                        })
+                    } else {
+                        highlightInvalidSessions(course_data[code]['prerequisites']);
+                    }
+                },
                 stop: function (event, ui) {
                     $(event.toElement).one('click', function (e) {
                         e.stopImmediatePropagation();
                     });
+                    removeSessionHighlights();
                 }
             });
             item.each(coursePopoverSetup);
@@ -455,10 +474,25 @@ function mms_add() {
                 item.draggable({
                     zIndex: 1000,
                     revert: true,
+                    start: function (event, ui) {
+                        if (!(course.code in course_data)) {
+                            $.ajax({
+                                url: 'degree/coursedata',
+                                data: {'query': course.code},
+                                success: function (data) {
+                                    course_data[course.code] = data.response;
+                                    highlightInvalidSessions(course_data[course.code]['prerequisites']);
+                                }
+                            })
+                        } else {
+                            highlightInvalidSessions(course_data[course.code]['prerequisites']);
+                        }
+                    },
                     stop: function (event, ui) {
                         $(event.toElement).one('click', function (e) {
                             e.stopImmediatePropagation();
                         });
+                        removeSessionHighlights();
                     }
                 });
                 item.each(coursePopoverSetup);
@@ -495,10 +529,25 @@ function mms_add() {
                 list_item.draggable({
                     zIndex: 1000,
                     revert: true,
+                    start: function (event, ui) {
+                        if (!(course.code in course_data)) {
+                            $.ajax({
+                                url: 'degree/coursedata',
+                                data: {'query': course.code},
+                                success: function (data) {
+                                    course_data[course.code] = data.response;
+                                    highlightInvalidSessions(course_data[course.code]['prerequisites']);
+                                }
+                            })
+                        } else {
+                            highlightInvalidSessions(course_data[course.code]['prerequisites']);
+                        }
+                    },
                     stop: function (event, ui) {
                         $(event.toElement).one('click', function (e) {
                             e.stopImmediatePropagation();
                         });
+                        removeSessionHighlights();
                     }
                 });
                 list_item.each(coursePopoverSetup);
@@ -692,37 +741,70 @@ function addCourse(code, title, session, position) {
 $('#mms-active-list').sortable();
 
 
-function validSessions(prerequisites) {
-    let valid_sessions = new Set();
+function invalidSessions(prerequisites) {
+    let invalid_sessions = {};
 
     let courses_taken = new Set();
     let courses_taking = new Set();
 
     for (let session in degree_plan) {
-        s_courses = degree_plan[session];
+        let s_courses = degree_plan[session];
         for (let course of s_courses) {
             if (course.code !== ELECTIVE_TEXT) courses_taking.add(course.code);
         }
-        prereq_sat = true;
+        let prereq_fail_reason = "";
         for (let clause of prerequisites) {
+            let fail_reason = "";
             let clause_sat = false;
             for (let course of clause) {
                 if (course.charAt(0) === '~') {
-                    clause_sat = clause_sat || !(courses_taken.has(course) || courses_taking.has(course))
+                    if (courses_taken.has(course.slice(1)) || courses_taking.has(course.slice(1))) {
+                        fail_reason = "Incompatible course: " + course.slice(1);
+                    }
+                    clause_sat = true;
+                    // clause_sat = clause_sat || !(courses_taken.has(course) || courses_taking.has(course))
                 } else clause_sat = clause_sat || courses_taken.has(course);
             }
+            prereq_fail_reason = fail_reason;
             if (!clause_sat) {
-                prereq_sat = false;
+                prereq_fail_reason = "Prerequisites not met";
                 break;
             }
         }
-        if (prereq_sat) valid_sessions.add(session);
+        if (prereq_fail_reason) invalid_sessions[session] = prereq_fail_reason;
         courses_taking.forEach(courses_taken.add, courses_taken);
         courses_taking.clear()
     }
-    return valid_sessions;
+    return invalid_sessions;
 }
 
-function highlightInvalidSessions(prerequisites) {
+// const SESSION_INVALID_REASONS = {
+//     'incompatible': "Incompatible course",
+//     'prereq': "Prerequisites not met"
+// };
 
+function highlightInvalidSessions(prerequisites) {
+    const invalid_sessions = invalidSessions(prerequisites);
+
+    for (row of $('#plan-grid').find('.plan-row')) {
+        const first_cell = $(row.children[0]);
+        const session = first_cell.find('.row-year').text() + 'S' + first_cell.find('.row-sem').text().split(' ')[1];
+        if (!(session in invalid_sessions)) continue;
+        const reason = invalid_sessions[session];
+        $(row).addClass('unavailable', {duration: 500});
+        first_cell.css({'display': 'flex'});
+        first_cell.children().css({'display': 'none'});
+        first_cell.append('<div class="h6 mx-auto my-auto">' + reason + '</div>');
+    }
+}
+
+function removeSessionHighlights() {
+    for (row of $('#plan-grid').find('.plan-row')) {
+        if (!$(row).hasClass('unavailable')) continue;
+        const first_cell = $(row.children[0]);
+        $(row).removeClass('unavailable', {duration: 500});
+        first_cell.css({'display': 'block'});
+        first_cell.children().css({'display': 'block'});
+        first_cell.children().last().remove();
+    }
 }
