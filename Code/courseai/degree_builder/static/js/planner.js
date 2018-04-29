@@ -42,14 +42,28 @@ $.ajax({
                         tab_index_count++;
                         cell.append('<div class="course-code">' + course['code'] + '</div>');
                         cell.append('<div class="course-title">' + (course['title'] || "") + '</div>');
+                        cell.click(clickCell);
+                        cell.each(coursePopoverSetup);
+                        if (course['code'] === "Elective Course") cell.droppable({
+                            accept: '.draggable-course',
+                            drop: function (event, ui) {
+                                const first_cell = $(event.target.parentElement.firstElementChild);
+                                const code = ui.draggable.find('.course-code').text();
+                                const title = ui.draggable.find('.course-title').text();
+                                const session = first_cell.find('.row-year').text() + 'S' + first_cell.find('.row-sem').text().split(' ')[1];
+                                const position = $(event.target).index() - 1;
+                                addCourse(code, title, session, position);
+                            }
+                        });
                         row.append(cell);
                     }
+                    row.sortable({
+                        items: "> .plan-cell"
+                    });
                     grid.append(row);
                 }
             }
         }
-        $('.result-course').each(coursePopoverSetup);
-        $('.plan-cell').click(clickCell);
     }
 });
 
@@ -77,10 +91,9 @@ function coursePopoverSetup() {
 
 function coursePopoverData() {
     const code = $(this).find('.course-code').text();
+    const me = this;
     $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
-        if ($(this).find('.course-code').text() !== code) {
-            $(this).popover('hide');
-        }
+        if (this != me) $(this).popover('hide');
     });
     var popover = $(this).data('bs.popover');
     if (popover['data-received'] || false) return;
@@ -96,7 +109,7 @@ function coursePopoverData() {
                     'This courses\'s information could not be retrieved. Please try again. </div>');
                 return
             }
-            const truncated_description = data.response['description'].slice(0,350) + '...';
+            const truncated_description = data.response['description'].slice(0, 350) + '...';
             const html = '<h6 class="mt-2">Description</h6>\n' +
                 '<div class="result-description">' + truncated_description + '</div>\n' +
                 '<h6 class="mt-2">Related Courses</h6>\n' +
@@ -298,7 +311,7 @@ function updateMMSResults(data, type, section) {
 }
 
 function updateCourseSearchResults(data) {
-    var response = data['response'];
+    const response = data['response'];
     var results = $('#results-courses');
     var cbody = $(results.find('.card-body'));
 
@@ -313,6 +326,15 @@ function updateCourseSearchResults(data) {
                 '<span class="course-code">' + code + '</span>\n    ' +
                 '<span class="course-title">' + title + '</span>\n' +
                 '</div>');
+            item.draggable({
+                zIndex: 1000,
+                revert: true,
+                    stop: function (event, ui) {
+                        $(event.toElement).one('click', function (e) {
+                            e.stopImmediatePropagation();
+                        });
+                    }
+            });
             item.each(coursePopoverSetup);
             cbody.append(item);
         }
@@ -387,6 +409,9 @@ function mms_add() {
     collapsible.on('hide.bs.collapse', function () {
         $(this).find('.result-course').popover('hide');
     });
+    collapsible.sortable({
+        items: "> .mms-select-min, .mms-select-max"
+    });
 
     for (var i in mms_data['composition']) {
         value = mms_data['composition'][i];
@@ -419,6 +444,15 @@ function mms_add() {
                     '    <span class="course-title">' + course_titles[course.code] + '</span>' +
                     '</div>'
                 );
+                item.draggable({
+                    zIndex: 1000,
+                    revert: true,
+                    stop: function (event, ui) {
+                        $(event.toElement).one('click', function (e) {
+                            e.stopImmediatePropagation();
+                        });
+                    }
+                });
                 item.each(coursePopoverSetup);
                 required.append(item);
             }
@@ -463,6 +497,15 @@ function mms_add() {
                     '    <span class="course-title">' + course_titles[course.code] + '</span>' +
                     '</div>'
                 );
+                list_item.draggable({
+                    zIndex: 1000,
+                    revert: true,
+                    stop: function (event, ui) {
+                        $(event.toElement).one('click', function (e) {
+                            e.stopImmediatePropagation();
+                        });
+                    }
+                });
                 list_item.each(coursePopoverSetup);
                 options.append(list_item);
             }
@@ -615,3 +658,22 @@ function updateMMS() {
     }
 }
 
+function addCourse(code, title, session, position) {
+    let slot = degree_plan[session][position];
+    if (slot['code'] !== "Elective Course") return false;
+    slot['code'] = code;
+    slot['title'] = title;
+    const year = session.split('S')[0];
+    const sem = 'Semester ' + session.split('S')[1];
+    const row = $('#plan-grid').find('.plan-row').filter(function () {
+        const first_cell = $(this.children[0]);
+        return (first_cell.find('.row-year').text() == year && first_cell.find('.row-sem').text() == sem);
+    });
+    const box = row.children()[position + 1];
+    $(box).find('.course-code').text(code);
+    $(box).find('.course-title').text(title);
+    $(box).each(coursePopoverSetup);
+    updateMMS();
+}
+
+$('#mms-active-list').sortable();
