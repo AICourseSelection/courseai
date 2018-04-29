@@ -43,7 +43,7 @@ $.ajax({
                         let cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
                         tab_index_count++;
                         let title_node = $('<span class="course-title"/>');
-                        if (course['title'] !== undefined) {
+                    if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                             title_node.text(course['title']);
                         } else if (course.code !== ELECTIVE_TEXT) {
                             if (!(course.code in titles_to_retrieve)) titles_to_retrieve[course.code] = [];
@@ -433,7 +433,8 @@ function mms_add() {
         items: "> .mms-select-min, .mms-select-max"
     });
 
-    for (let value of mms_data['composition']) {
+    for (let i in mms_data['composition']) {
+        let value = mms_data['composition'][i];
         let titles_to_retrieve = {};
         if (value.type === "fixed") {
             let required = $('<div class="mms-required list-group list-group-flush"/>');
