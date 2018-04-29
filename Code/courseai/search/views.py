@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
-
 from . import search
+
+import json
 
 
 def index(request):
@@ -14,7 +15,19 @@ def index(request):
         return HttpResponse(template.render({}, request))
 
     original_query = request.GET['query']
-    areas = request.GET.get('subject_area', None)
+    filters = request.GET.get('filters', None)
+    codes = None
+    levels = None
 
-    return search.execute_search(original_query, request, areas=areas)
+    if filters is not None:
+        filters = json.loads(filters)
+
+        if 'codes' in filters:
+            codes = filters['codes']
+
+        if 'levels' in filters:
+            levels = filters['levels']
+
+
+    return search.execute_search(original_query, request, codes=codes, levels=levels)
 

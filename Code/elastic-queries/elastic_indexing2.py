@@ -52,6 +52,8 @@ for index, row in d.iterrows():
         lo = lo.replace('}', ' ')
         area = code[:4]
         
+        level = str(int(code[4])*1000)
+        
         prereq_plaintext = ' '.join(prereq_plaintext.split())
         prereq_cnf = prereq_cnf.replace("'", '"')
         
@@ -62,4 +64,4 @@ for index, row in d.iterrows():
         # form the JSON
         print("{ \"index\" : { \"_index\": \"courses\", \"_type\": \"_doc\" ,\"_id\": \"" + str(count_index) +"\"}}")
         count_index += 1
-    print("{ \"code\":\"" + code +"\", \"title\":\"" + title + "\", \"description\": \"" + desc + "\", \"outcome\": \"" + lo + "\", \"area\": \"" + area + "\", \"prereq_text\": \"" + prereq_plaintext + "\", \"pre_req_cnf\":" + prereq_cnf + "}")
+    print("{ \"code\":\"" + code +"\", \"title\":\"" + title + "\", \"description\": \"" + desc + "\", \"outcome\": \"" + lo + "\", \"area\": \"" + area + "\", \"level\": \"" + level + "\", \"prereq_text\": \"" + prereq_plaintext + "\", \"pre_req_cnf\":" + prereq_cnf + "}")
