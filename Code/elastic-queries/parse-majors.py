@@ -90,14 +90,18 @@ for index, row in data.iterrows():
         
         bad_text = bad_text[:approx_index]
         words = bad_text.split()
+        total_section_units = 0
         for element in words:
             m = re.match("(^[A-Z]{4}[0-9]{4}$)", element)
             if m:
                 course = {}
                 course['code'] = m.groups()[0]
                 course['units'] = 6
+                total_section_units += course['units']
                 courses.append(course)
         rules['course'] = courses
+        if total_section_units == rules['units']:
+            rules['type'] = 'fixed'
         compositions.append(rules)
      
     
@@ -148,6 +152,7 @@ for index, row in data.iterrows():
                 course = {}
                 course['code'] = m.groups()[0]
                 course['units'] = 6
+
                 courses.append(course)
         rules['course'] = courses
         compositions.append(rules)
@@ -175,14 +180,18 @@ for index, row in data.iterrows():
         
         bad_text = bad_text[:approx_index]
         words = bad_text.split()
+        total_section_units = 0
         for element in words:
             m = re.match("(^[A-Z]{4}[0-9]{4}$)", element)
             if m:
                 course = {}
                 course['code'] = m.groups()[0]
                 course['units'] = 6
+                total_section_units += course['units']
                 courses.append(course)
         rules['course'] = courses
+        if total_section_units == rules['units']:
+            rules['type'] = 'fixed'
         compositions.append(rules)
         
     # REGEX 4
@@ -208,7 +217,8 @@ for index, row in data.iterrows():
         
         bad_text = bad_text[:approx_index]
         words = bad_text.split()
-        
+        total_section_units = 0
+
         # check
         
         for element in words:
@@ -217,8 +227,11 @@ for index, row in data.iterrows():
                 course = {}
                 course['code'] = m.groups()[0]
                 course['units'] = 6
+                total_section_units += course['units']
                 courses.append(course)
         rules['course'] = courses
+        if total_section_units == rules['units']:
+            rules['type'] = 'fixed'
         compositions.append(rules)
         
     # REGEX 5
