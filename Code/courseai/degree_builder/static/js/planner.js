@@ -68,7 +68,17 @@ $.ajax({
                         row.append(cell);
                     }
                     row.sortable({
-                        items: "> .plan-cell"
+                        items: "> .plan-cell",
+                        stop: function (event, ui) {
+                            const first_cell = $(event.target).find('.first-cell');
+                            const session = first_cell.find('.row-year').text() + 'S' + first_cell.find('.row-sem').text().split(' ')[1];
+                            for (let i in degree_plan[session]) {
+                                let course_slot = degree_plan[session][i];
+                                let cell = $(event.target.children[parseInt(i) + 1]);
+                                course_slot['code'] = cell.find('.course-code').text();
+                                course_slot['title'] = cell.find('.course-title').text();
+                            }
+                        }
                     });
                     grid.append(row);
                 }
@@ -86,6 +96,16 @@ $.ajax({
                         course_titles[course['course_code']] = course['title'];
                         for (node of titles_to_retrieve[course['course_code']]) {
                             node.text(course['title']);
+                            let popover = node.parents('.plan-cell').data('bs.popover');
+                            const new_content = $($(popover.config.content)[0]).text(course['title']);
+                            popover.config.content = new_content.prop('outerHTML');
+
+                        }
+                    }
+                    for (let session in degree_plan) {
+                        let courses = degree_plan[session];
+                        for (let c of courses) {
+                            if (c.code in course_titles) c.title = course_titles[c.code];
                         }
                     }
                 }
