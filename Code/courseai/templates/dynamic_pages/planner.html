@@ -146,6 +146,18 @@
         </div>
     </div>
 </div>
+<div class="msg_box">
+    <div class="msg_head">Ask a Question
+        <div class="close">&times;</div>
+    </div>
+    <div class="msg_wrap">
+        <div class="msg_body">
+            <div class="msg_a">Hi, how can I help you today?</div>
+            <div class="msg_push"></div>
+        </div>
+        <div class="msg_footer"><textarea class="msg_input form-control form-control-plaintext" rows="1"></textarea></div>
+    </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
@@ -157,6 +169,9 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
         integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.213.1.min.js"></script>
+<script src="{% static "js/autosize.min.js" %}"></script>
+<script src="{% static "js/chatbox.js" %}"></script>
 <script>
     const degree_name = "{{ degree_name }}";
     const degree_code = "{{ degree_code }}";
