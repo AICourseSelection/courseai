@@ -100,6 +100,52 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="incompat-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-warning">
+                <h5 class="modal-title">Course Incompatibility</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>The course you are attempting to add (<span id="incompat-course1"></span>) is incompatible with
+                    another course in your degree (<span id="incompat-course2"></span>). You will need to obtain a
+                    permission code from the course convenor in order to enrol. </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="course-add-override btn btn-primary" data-dismiss="modal">Add Course Anyway
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="prereq-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-warning">
+                <h5 class="modal-title">Course Prerequisites Not Met</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>You are missing some prerequisites for the course you are attempting to add (<span
+                        id="prereq-modal-course"></span>). Check its prerequisites and try again, or you can add the
+                    course anyway but will need to obtain a permission code from the course convenor in order to enrol.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="course-add-override btn btn-primary" data-dismiss="modal">Add Course Anyway
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>

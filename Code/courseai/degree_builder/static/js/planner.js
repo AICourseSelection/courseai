@@ -56,12 +56,33 @@ $.ajax({
                         if (course['code'] === ELECTIVE_TEXT) cell.droppable({
                             accept: '.draggable-course',
                             drop: function (event, ui) {
-                                if ($(event.target.parentElement).hasClass('unavailable')) return;
-                                const first_cell = $(event.target.parentElement.firstElementChild);
+                                const row = event.target.parentElement;
+                                const first_cell = $(row.firstElementChild);
                                 const code = ui.draggable.find('.course-code').text();
                                 const title = ui.draggable.find('.course-title').text();
                                 const session = first_cell.find('.row-year').text() + 'S' + first_cell.find('.row-sem').text().split(' ')[1];
                                 const position = $(event.target).index() - 1;
+                                if ($(row).hasClass('unavailable')) {
+                                    if ($(first_cell[0].lastElementChild).text() === "Prerequisites not met") {
+                                        $('#prereq-modal-course').text(ui.draggable.find('.course-code').text());
+                                        const modal = $('#prereq-modal');
+                                        modal.find('.course-add-override').click(function () {
+                                            addCourse(code, title, session, position)
+                                        });
+                                        modal.modal();
+                                        return
+                                    } else if ($(first_cell[0].lastElementChild).text().includes('Incompatible')) {
+                                        $('#incompat-course1').text(ui.draggable.find('.course-code').text());
+                                        $('#incompat-course2').text($(first_cell[0].lastElementChild).text().split(' ').pop());
+                                        const modal = $('#incompat-modal');
+                                        modal.find('.course-add-override').click(function () {
+                                            addCourse(code, title, session, position)
+                                        });
+                                        modal.modal();
+                                        return
+                                    }
+                                }
+
                                 addCourse(code, title, session, position);
                             }
                         });
@@ -133,6 +154,8 @@ function coursePopoverSetup() {
         '    <div class="arrow"></div>\n' +
         '    <div class="h3 popover-header"></div>\n' +
         '    <div class="popover-body"></div>\n' +
+        // '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
+        // '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
     $(this).on('show.bs.popover', coursePopoverData)
