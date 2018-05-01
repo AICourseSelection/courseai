@@ -154,8 +154,8 @@ function coursePopoverSetup() {
         '    <div class="arrow"></div>\n' +
         '    <div class="h3 popover-header"></div>\n' +
         '    <div class="popover-body"></div>\n' +
-        // '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
-        // '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+        '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
+        '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
     $(this).on('show.bs.popover', coursePopoverData)
@@ -182,10 +182,17 @@ function coursePopoverData() {
                 return
             }
             course_data[code] = data.response;
-            const truncated_description = data.response['description'].slice(0, 350) + '...';
-            const html = '<h6 class="mt-2">Description</h6>\n' +
-                '<div class="result-description">' + truncated_description + '</div>\n' +
-                '<h6 class="mt-2">Related Courses</h6>\n' +
+            let html = '';
+            if (![undefined, 'nan'].includes(data.response['description'])) {
+                const truncated_description = data.response['description'].slice(0, 350) + '...';
+                html += '<h6 class="mt-2">Description</h6>\n' +
+                    '<div class="result-description">' + truncated_description + '</div>\n';
+            }
+            if (![undefined, 'nan'].includes(data.response['prerequisite_text'])) {
+                html += '<h6 class="mt-2">Prerequisites and Incompatibility</h6>\n' +
+                    '<div class="result-description">' + data.response['prerequisite_text'] + '</div>\n';
+            }
+            html += '<h6 class="mt-2">Related Courses</h6>\n' +
                 '<div class="list-group">\n' +
                 '    <div class="draggable-course result-course list-group-item list-group-item-action">\n' +
                 '        <span class="course-code">COMP4670</span>\n' +
@@ -264,8 +271,28 @@ function mmsPopoverData() {
                 return
             }
             mms_info[data['code']] = data;
-            const html = '<h6 class="mt-2">Required Courses</h6>\n' +
-                '<div class="result-composition">' + data['composition'] + '</div>\n';
+            const composition = $('<div class="result-composition"/>');
+
+            for (section of data['composition']) {
+                if (section.course.length === 0) continue;
+                const comp_section = $('<div class="mms-comp-section"/>');
+                const label = $('<div class="mms-comp-label"/>');
+                if (section.type === 'fixed') label.text('Compulsory: ');
+                if (section.type === 'minimum') label.text('At least ' + section.units + ' units: ');
+                if (section.type === 'maximum') label.text('Up to ' + section.units + ' units: ');
+                const group = $('<div class="list-group"/>');
+                for (course of section.course) {
+                    group.append('<div class="list-group-item">' +
+                        '<span class="course-code">' + course.code + '</span>' +
+                        '<span class="course-title"> ' + '' + '</span>' +
+                        '</div>');
+                }
+                comp_section.append(label);
+                comp_section.append(group);
+                composition.append(comp_section);
+            }
+
+            const html = '<h6 class="mt-2">Study Requirements</h6>\n' + composition.prop('outerHTML');
             popover.config.content = html;
             curr_popover.find('.fa-refresh').css({'display': 'none'});
             curr_popover.find('.popover-body').append(html);
@@ -275,7 +302,7 @@ function mmsPopoverData() {
         error: function () {
             console.log('Error retrieving data for' + code);
         }
-    })
+    });
 }
 
 function clickCell() {

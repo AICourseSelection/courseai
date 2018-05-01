@@ -143,4 +143,4 @@
 {"index": {"_index": "specialisations", "_type": "_doc", "_id": 72}}
 {"code": "SYAR-SPEC", "name": "Systems and Architecture", "composition": [{"type": "minimum", "units": 12, "course": [{"code": "COMP2400", "units": 6}]}, {"type": "minimum", "units": 12, "course": [{"code": "COMP4300", "units": 6}]}]}
 {"index": {"_index": "specialisations", "_type": "_doc", "_id": 73}}
-{"code": "THCS-SPEC", "name": "Theoretical Computer Science", "composition": [{"type": "minimum", "units": 12, "course": [{"code": "COMP4600", "units": 6}]}, {"type": "minimum", "units": 12, "course": [{"code": "COMP2610", "units": 6}]}]}
+{"code": "THCS-SPEC", "name": "Theoretical Computer Science", "composition": [{"type": "minimum", "units": 12, "course": [{"code": "COMP4600", "units": 6}, {"code": "COMP4630", "units": 6}]}, {"type": "minimum", "units": 12, "course": [{"code": "COMP2610", "units": 6}, {"code": "COMP2620", "units": 6}, {"code": "COMP3610", "units": 6}, {"code": "COMP3630", "units": 6}, {"code": "MATH3343", "units": 6}]}]}
