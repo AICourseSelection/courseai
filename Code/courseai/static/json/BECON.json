@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Economics",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "ECON1101",

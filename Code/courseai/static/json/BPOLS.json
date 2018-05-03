@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Policy Studies",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "DEMO2001",

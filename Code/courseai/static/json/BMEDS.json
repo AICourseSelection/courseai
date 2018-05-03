@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Medical Science",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "BIOL1003",

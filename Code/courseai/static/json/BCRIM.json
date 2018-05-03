@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Criminology",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "CRIM1001",
