@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Advanced Computing",
+    "units": 192,
     "required": {
         "compulsory_courses": [
             "COMP1600",

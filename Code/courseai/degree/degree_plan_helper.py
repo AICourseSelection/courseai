@@ -1,3 +1,4 @@
+import json
 from builtins import eval
 
 from django.http import JsonResponse
@@ -31,3 +32,8 @@ def generate_degree_plan(code, start_year_sem):
         to_return.append({'{}S{}'.format(year, sem): courses})
         year, sem = advance_sem(year, sem)
     return JsonResponse({"response": to_return})
+
+
+def get_degree_requirements(code):
+    with open('static/json/{}.json'.format(code)) as file:
+        return file.read()

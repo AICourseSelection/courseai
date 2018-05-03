@@ -135,6 +135,15 @@ body {
     min-width: 116px;
 }
 
+.first-cell.delete {
+    display: flex;
+    border-radius: .25rem;
+}
+
+.course-delete {
+    font-weight: bold;
+}
+
 #plan-table {
     font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     table-layout: fixed;
@@ -280,7 +289,7 @@ body {
     padding: .2rem .3rem;
 }
 
-#mms-active-list .result-course:before {
+#mms-active-list .result-course:before, #degree-reqs-list .result-course:before, #degree-reqs-list .result-mms:before {
     font-family: 'FontAwesome';
     border-radius: .3rem;
     display: inline-block;
@@ -288,14 +297,19 @@ body {
     text-align: center;
 }
 
-#mms-active-list .result-course.inc:before {
+#mms-active-list .result-course.inc:before, #degree-reqs-list .result-course.inc:before, #degree-reqs-list .result-mms.inc:before {
     content: "\f00c";
     background-color: #bbf8cd;
 }
 
-#mms-active-list .result-course.exc:before {
+#mms-active-list .result-course.exc:before, #degree-reqs-list .result-course.exc:before, #degree-reqs-list .result-mms.exc:before {
     content: "\f00d";
     background-color: #f8d7d6;
+}
+
+#mms-active-list .result-course.partial:before, #degree-reqs-list .result-course.partial:before, #degree-reqs-list .result-mms.partial:before {
+    content: "⚫";
+    background-color: #f7ebc7;
 }
 
 .mms {
@@ -304,6 +318,7 @@ body {
 
 .mms-select-min, .mms-select-max {
     margin: .2rem;
+    box-shadow: 1px 1px 2px #5f5f5fa8;
 }
 
 .mms-delete {
@@ -322,6 +337,17 @@ body {
     font-weight: bold;
 }
 
+#degree-header .unit-count {
+    margin-left: -100%;
+    font-weight: normal;
+    line-height: 1.8;
+}
+
+#degree-header label {
+    width: 100%;
+    float: left
+}
+
 .mms-comp-section {
     margin-top: .5rem;
 }
@@ -337,6 +363,38 @@ body {
 
 .mms-comp-section .list-group-item {
     padding: .3rem;
+}
+
+.deg {
+    margin: .5rem 0;
+}
+
+#degree-reqs-list {
+    clear: left;
+    margin: .5rem -5px;
+}
+
+#degree-reqs-list .card-header {
+    padding: 0;
+    white-space: normal;
+}
+
+#degree-reqs-list .list-group-item {
+    padding: .2rem .3rem;
+}
+
+.deg-plain-text {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+    padding: .2rem .3rem;
+}
+
+.deg-category-description {
+    padding: 0 .4rem;
+}
+
+.requirement-type {
+    display: none;
 }
 
 .chat_box {
@@ -370,6 +428,7 @@ body {
     background: white;
     /*border: 1px solid #b9b9b9;*/
     border-radius: 5px 5px 0 0;
+    z-index: 100;
 }
 
 .msg_head {

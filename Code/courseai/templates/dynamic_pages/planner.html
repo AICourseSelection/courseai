@@ -28,7 +28,7 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-3" id="right-panel">
+        <div class="col-3" id="left-panel">
             <div class="form-row">
                 <label class="h5 text-center" for="add-course" style="width: 100%">Add a
                     course</label>
@@ -91,12 +91,14 @@
         <div class="col-6" id="centre-panel" style="min-width: 658px;">
             <div id="plan-grid" class="popover-region"></div>
         </div>
-        <div class="col-3" id="left-panel">
-            <label class="h5 text-center" style="width: 100%">Your Degree</label>
-
-            <label class="h5 text-center" style="width: 100%">Your Majors, Minors, and Specialisations</label>
-            <div id="mms-active-list" class="popover-region">
+        <div class="col-3 popover-region" id="right-panel">
+            <div class="h5 text-center" id="degree-header">
+                <label>Your Degree</label>
+                <span class="h6 unit-count"></span>
             </div>
+            <div id="degree-reqs-list"></div>
+            <label class="h5 text-center" style="width: 100%">Your Majors, Minors, and Specialisations</label>
+            <div id="mms-active-list"></div>
         </div>
     </div>
 </div>
@@ -155,7 +157,8 @@
             <div class="msg_a">Hi, how can I help you today?</div>
             <div class="msg_push"></div>
         </div>
-        <div class="msg_footer"><textarea class="msg_input form-control form-control-plaintext" rows="1"></textarea></div>
+        <div class="msg_footer"><textarea class="msg_input form-control form-control-plaintext" rows="1"></textarea>
+        </div>
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"

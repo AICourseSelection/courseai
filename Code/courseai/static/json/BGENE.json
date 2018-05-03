@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Genetics",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "BIOL1003",
@@ -57,8 +58,27 @@
         "x_from_category": [
             {
                 "num": 36,
-                "code": "ASTR, BIOL, CHEM, EMSC, ENVS, HLTH, MATH, MEDN, NEUR, PHYS, HOPH, PSYC, CVUG, SCNC, SCOM",
-                "level": [3000, 4000]
+                "code": [
+                    "ASTR",
+                    "BIOL",
+                    "CHEM",
+                    "EMSC",
+                    "ENVS",
+                    "HLTH",
+                    "MATH",
+                    "MEDN",
+                    "NEUR",
+                    "PHYS",
+                    "HOPH",
+                    "PSYC",
+                    "CVUG",
+                    "SCNC",
+                    "SCOM"
+                ],
+                "level": [
+                    3000,
+                    4000
+                ]
             }
         ],
         "max_by_level": {
