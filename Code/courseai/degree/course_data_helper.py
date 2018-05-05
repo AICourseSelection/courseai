@@ -24,7 +24,7 @@ def get_data(code):
                    "learning_outcomes": hit['_source']['outcome'],
                    "prerequisite_text": hit['_source']['prereq_text'],
                    "prerequisites": eval(str(hit['_source']['pre_req_cnf'])),
-                   "semester" : str(hit['_source']['semester'])
+                   "semester" : eval(str(hit['_source']['semester']))
                    }
     return course_data
 
