@@ -103,3 +103,12 @@ def mms_by_name(name, index_name):
     res = {'responses': responses}
 
     return JsonResponse(res)
+
+
+def cbe_list():
+    client = Elasticsearch()
+    response = Search(using=client, index='cbelists').query("match", code="dummy").execute().to_dict()
+    responses = response['hits']['hits']
+    responses = [r['_source']['response'] for r in responses if '_source' in r]
+    res = {'responses': responses}
+    return JsonResponse(res)

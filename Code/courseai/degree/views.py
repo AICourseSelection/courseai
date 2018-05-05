@@ -105,8 +105,10 @@ def course_data(request):
     except(Exception):
         raise Exception("Please provide a valid course code")
 
-def major_name(request):
-    return
+
+def cbe_lists(request):
+    return mms.cbe_list()
+
 
 def degree_reqs(request):
     try:
