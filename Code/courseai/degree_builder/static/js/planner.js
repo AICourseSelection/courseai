@@ -942,7 +942,7 @@ function highlightInvalidSessions(prerequisites) {
         if (!(session in invalid_sessions)) continue;
         const reason = invalid_sessions[session];
         $(row).addClass('unavailable', {duration: 500});
-        first_cell.css({'display': 'flex'});
+        first_cell.addClass('d-flex');
         first_cell.children().css({'display': 'none'});
         first_cell.append('<div class="h6 mx-auto my-auto">' + reason + '</div>');
     }
@@ -953,7 +953,7 @@ function removeSessionHighlights() {
         if (!$(row).hasClass('unavailable')) continue;
         const first_cell = $(row.children[0]);
         $(row).removeClass('unavailable', {duration: 500});
-        first_cell.css({'display': 'block'});
+        first_cell.removeClass('d-flex');
         first_cell.children().css({'display': 'block'});
         first_cell.children().last().remove();
     }
@@ -1125,6 +1125,11 @@ function setupDegreeRequirements(data) {
             for (let section of data.required[type]) {
                 let title = 'Choose at least ' + section['num'] + ' units' +
                     '<span class="unit-count mr-2">0/' + section['num'] + '</span>\n';
+                // if (typeof(section['courses']) === "string") {
+                //     $.ajax({
+                //         url:
+                //     })
+                // }
                 let card = createCourseListSection(type, title, section['courses']);
                 reqs_list.append(card);
                 section_count++;
@@ -1318,14 +1323,14 @@ function updateProgress() {
                 let section_started = false;
                 for (let code of section) {
                     let mms_panel = active_mms[code];
-                    section_started = mms_panel !== undefined;
+                    section_started = section_started || mms_panel !== undefined;
                     let mms_completed = mms_panel && mms_panel.hasClass('alert-success');
                     section_completed = section_completed || mms_completed;
                     for (let mms of card.find('.mms-code')) {
                         if ($(mms).text() === code) {
                             if (mms_completed) {
                                 $(mms).parent().addClass('inc').removeClass('partial');
-                            } else if (section_started) {
+                            } else if (mms_panel !== undefined) {
                                 $(mms).parent().addClass('partial').removeClass('inc');
                             } else {
                                 $(mms).parent().removeClass('partial').removeClass('inc');
