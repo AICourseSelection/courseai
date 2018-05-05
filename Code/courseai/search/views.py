@@ -41,6 +41,7 @@ def recommend_course(request):
     course_list = parse_degree_json(request.GET['courses'])
     algo_recommended  = get_recommendations(course_list)
     d = Degree(code=code, requirements=str(plan))
+
     try:
         predictions, prediction_ratings = get_prediction(d, 20)
     except:
@@ -55,6 +56,7 @@ def recommend_course(request):
                 proportion = 0
             to_return.append({"course":  course, "reasoning": '%.2f%% of students in your degree took this course' % proportion})
         return JsonResponse({"response": to_return})
+
     to_return = []
 
     response = course_data_helper.get_all()
@@ -67,8 +69,6 @@ def recommend_course(request):
         course-=1
         course_code = response[course]["_source"]['code']
         student_has_already_completed_course = course_code in course_list
-        print("**********",course,response[course]['_id'])
-        print(course_rating,course_code)
         if(student_has_already_completed_course):
             continue
 

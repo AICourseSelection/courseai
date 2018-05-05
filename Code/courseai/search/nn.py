@@ -11,7 +11,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.externals import joblib
 
 #initial subjects to train into the neural network
-SUBJECTS_TO_TRAIN_INIT = [] #["AACRD"]
+SUBJECTS_TO_TRAIN_INIT =[]  #["AACRD"]
 
 
 
@@ -88,9 +88,7 @@ def create_training_arrays(degree_requirements):
 
 
 def initial_network_training(degrees_to_train):
-    network_dict = dict()
     degree_list = Degree.objects.all()
-    count=0
     for degree in degree_list:
         if not (degree.code in degrees_to_train):
             continue
@@ -98,45 +96,44 @@ def initial_network_training(degrees_to_train):
         x_array,y_array=create_training_arrays(degree.requirements)
         if x_array.shape == (0,) or y_array.shape == (0,) or x_array.shape == (1,0):
             continue
-        network_dict[degree.code] = MLPRegressor(hidden_layer_sizes=(1000,),activation='tanh')
-        network_dict[degree.code].fit(x_array,y_array)
-        test_data = list(np.argmax(network_dict[degree.code].predict(x_array), axis=1) == np.argmax(y_array, axis=1))
+        network = MLPRegressor(hidden_layer_sizes=(1000,),activation='tanh')
+        network.fit(x_array,y_array)
+        test_data = list(np.argmax(network.predict(x_array), axis=1) == np.argmax(y_array, axis=1))
         print("Accuracy:", sum(test_data) / len(test_data))
-        #print(np.argmax(network_dict[degree.code].predict(x_array), axis=1))
-    joblib.dump(network_dict, "network.pkl")
+        joblib.dump(network,"network/"+degree.code+".pkl")
 
 initial_network_training(SUBJECTS_TO_TRAIN_INIT)
 
 def train_sample(degree):
-    network_dict = dict()
 
     try:
-        network_dict = joblib.load("network.pkl")
+        network = joblib.load("network/"+degree.code+".pkl")
     except:
         print("no network found")
-    if(degree.code in network_dict):
-        network_dict[degree.code] = MLPRegressor(hidden_layer_sizes=(1000,),activation='tanh')
+        network = MLPRegressor(hidden_layer_sizes=(1000,),activation='tanh')
     reqs=dict()
     for semester in eval(str(degree.requirements)):
         for sem in semester.items():
             reqs[sem[0]] = sem[1]
 
     x_array, y_array = create_training_arrays(str(reqs))
-    network_dict[degree.code].fit(x_array, y_array)
-    test_data = list(np.argmax(network_dict[degree.code].predict(x_array), axis=1) == np.argmax(y_array, axis=1))
+    network.fit(x_array, y_array)
+    test_data = list(np.argmax(network.predict(x_array), axis=1) == np.argmax(y_array, axis=1))
     print("Accuracy:", sum(test_data) / len(test_data))
-    joblib.dump(network_dict, "network.pkl")
+    joblib.dump(network,"network/"+degree.code+".pkl")
 
 
 
 def get_prediction(degree,number_of_recommendations):
-    network_dict = joblib.load("network.pkl")
+    network = joblib.load("network/"+degree.code+".pkl")
+
+    #print(type(network_dict[degree]))
     reqs = dict()
     for semester in eval(str(degree.requirements)):
         for sem in semester.items():
             reqs[sem[0]] = sem[1]
     x_array = create_vector(str(reqs))
-    ratings  = np.sort(network_dict[degree.code].predict(x_array)[0])[::-1][:number_of_recommendations]
-    ids = np.argsort(network_dict[degree.code].predict(x_array)[0])[::-1][:number_of_recommendations]
-    #need to look up in elastic
+
+    ratings  = np.sort(network.predict(x_array)[0])[::-1][:number_of_recommendations]
+    ids = np.argsort(network.predict(x_array)[0])[::-1][:number_of_recommendations]
     return (ids,ratings)
