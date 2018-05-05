@@ -6,6 +6,51 @@ const ELECTIVE_TEXT = "Elective Course";
 let degree_plan = {};
 let degree_requirements = {};
 
+const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
+let title_box = $('#degree-title');
+title_box.prepend(title_text);
+title_box.hover(function () {
+    $('#rc-button').fadeIn(150);
+}, function () {
+    $('#rc-button').fadeOut(150);
+});
+
+$('#rc-button').click(function () {
+    $('#rc-modal').modal();
+});
+
+function clearAllCourses() {
+    for (let session in degree_plan) {
+        for (let pos in degree_plan[session]) {
+            removeCourse(session, parseInt(pos) + 1);
+        }
+    }
+}
+
+$('#confirm-clear-button').click(clearAllCourses);
+
+$('#confirm-reset-button').click(function () {
+    $.ajax({
+        url: 'degree/degreeplan',
+        data: {
+            'query': degree_code,
+            'start_year_sem': start_year + 'S' + start_sem
+        },
+        success: function (data) {
+            clearAllCourses();
+            let course_dict = data['response'];
+            for (let row of course_dict) {
+                let session = Object.keys(row)[0];
+                let courses = row[session];
+                for (let i in courses) {
+                    let c = courses[i];
+                    addCourse(c.code, course_titles[c.code], session, parseInt(i));
+                }
+            }
+        }
+    });
+});
+
 $.ajax({
     url: 'degree/degreeplan',
     data: {
@@ -13,15 +58,6 @@ $.ajax({
         'start_year_sem': start_year + 'S' + start_sem
     },
     success: function (data) {
-        const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
-        let title_box = $('#degree-title');
-        title_box.prepend(title_text);
-        title_box.hover(function () {
-            $('#edit-button').fadeIn(150);
-        }, function () {
-            $('#edit-button').fadeOut(150);
-        });
-
         let tab_index_count = 4;
         let grid = $('#plan-grid');
         let course_dict = data["response"];
@@ -37,6 +73,7 @@ $.ajax({
                         '<div class="row-sem h5">Semester ' + sem + '</div>' +
                         '</div>';
                     let row = $('<div class="plan-row"/>');
+                    if (sem == '1') row.addClass('mt-3');
                     row.append(first_cell);
                     const course_list = course_dict[i][session];
                     for (let course of course_list) {
@@ -155,7 +192,9 @@ function electiveDropped(event, ui) {
         if ($(first_cell[0].lastElementChild).text() === "Prerequisites not met") {
             $('#prereq-modal-course').text(ui.draggable.find('.course-code').text());
             const modal = $('#prereq-modal');
-            modal.find('.course-add-override').click(function () {
+            let override_button = modal.find('#course-add-override');
+            override_button.off('click');
+            override_button.click(function () {
                 addCourse(code, title, session, position)
             });
             modal.modal();
@@ -164,7 +203,9 @@ function electiveDropped(event, ui) {
             $('#incompat-course1').text(ui.draggable.find('.course-code').text());
             $('#incompat-course2').text($(first_cell[0].lastElementChild).text().split(' ').pop());
             const modal = $('#incompat-modal');
-            modal.find('.course-add-override').click(function () {
+            let override_button = modal.find('#course-add-override');
+            override_button.off('click');
+            override_button.click(function () {
                 addCourse(code, title, session, position)
             });
             modal.modal();
