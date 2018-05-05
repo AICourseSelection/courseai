@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + [
-    path(r'search', include('search.urls')),
+    path(r'search/', include('search.urls')),
     path(r'', include('degree_builder.urls')),
     path(r'degree/', include('degree.urls')),
     path('admin/', admin.site.urls),

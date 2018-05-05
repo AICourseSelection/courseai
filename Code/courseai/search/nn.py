@@ -45,6 +45,7 @@ def create_training_arrays(degree_requirements):
     reqs = list(eval(degree_requirements).items())
     if (reqs == []):
         return (np.array([]),np.array([]))
+
     X = []
     Y = []
     left_out = []
@@ -81,45 +82,34 @@ def create_training_arrays(degree_requirements):
     return (np.array(X),np.array(Y))
 
 
-def initial_network_training():
+def initial_network_training(degrees_to_train):
     network_dict = dict()
     degree_list = Degree.objects.all()
     count=0
     for degree in degree_list:
-
-        count+=1
-        if(count==10):
-            break
-
-        print(degree.requirements)
-        #if degree.code is not "AACRD" or):
-        #    continue
-
+        if not (degree.code in degrees_to_train):
+            continue
+        print(degree.name)
         x_array,y_array=create_training_arrays(degree.requirements)
-        if(x_array.shape == (0,)) or (y_array.shape == (0,)):
+        if x_array.shape == (0,) or y_array.shape == (0,) or x_array.shape == (1,0):
             continue
         network_dict[degree.code] = MLPRegressor(hidden_layer_sizes=(1000,),activation='tanh')
         network_dict[degree.code].fit(x_array,y_array)
         test_data = list(np.argmax(network_dict[degree.code].predict(x_array), axis=1) == np.argmax(y_array, axis=1))
         print("Accuracy:", sum(test_data) / len(test_data))
-    file=open("network","w")
-    pickle.dump(network_dict,file)
+        #print(np.argmax(network_dict[degree.code].predict(x_array), axis=1))
+    joblib.dump(network_dict, "network.pkl")
 
 
 def train_sample(degree):
     network_dict = dict()
-    """
+
     try:
-        file = open("network", "r")
-        network_dict = pickle.load(file)
-        x_array, y_array = create_training_arrays(str(eval(str(degree.requirements))[0]))
-        network_dict[degree.code].fit(x_array, y_array)
-        test_data = list(np.argmax(network_dict[degree.code].predict(x_array), axis=1) == np.argmax(y_array, axis=1))
-        print("Accuracy:", sum(test_data) / len(test_data))
-        file.close()
-    except(ValueError, TypeError):
-    """
-    network_dict[degree.code] = MLPRegressor(hidden_layer_sizes=(1000,),activation='tanh')
+        network_dict = joblib.load("network.pkl")
+    except:
+        print("no network found")
+    if(degree.code in network_dict):
+        network_dict[degree.code] = MLPRegressor(hidden_layer_sizes=(1000,),activation='tanh')
     reqs=dict()
     for semester in eval(str(degree.requirements)):
         for sem in semester.items():
@@ -134,10 +124,13 @@ def train_sample(degree):
 
 
 def get_prediction(degree,number_of_recommendations):
-    file = open("network", "r")
-
-    network_dict = pickle.load(file)
-    x_array = create_vector(degree.requirements)
-    ids = np.argsort(network_dict[degree.code].predict(x_array))[:number_of_recommendations]
+    network_dict = joblib.load("network.pkl")
+    reqs = dict()
+    for semester in eval(str(degree.requirements)):
+        for sem in semester.items():
+            reqs[sem[0]] = sem[1]
+    x_array = create_vector(str(reqs))
+    ratings  = np.sort(network_dict[degree.code].predict(x_array)[0])[::-1][:number_of_recommendations]
+    ids = np.argsort(network_dict[degree.code].predict(x_array)[0])[::-1][:number_of_recommendations]
     #need to look up in elastic
-    return ids
+    return (ids,ratings)

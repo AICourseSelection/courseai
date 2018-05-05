@@ -5,9 +5,17 @@ from . import search
 from degree.models import Degree
 
 from degree import course_data_helper
-
 import json
+from search.nn import train_sample, initial_network_training, get_prediction
+from django.http import JsonResponse, HttpResponse
+from search.josnhelper import parse_degree_json
+from search.recommendations import get_recommendations
 
+
+#initial subjects to train into the neural network
+SUBJECTS_TO_TRAIN_INIT = [] #["AACRD"]
+
+initial_network_training(SUBJECTS_TO_TRAIN_INIT)
 
 def index(request):
     if 'query' not in request.GET:
@@ -31,21 +39,57 @@ def index(request):
     return search.execute_search(original_query, request, codes=codes, levels=levels)
 
 def recommend_course(request):
-    plan = eval(request.GET['degree_plan'])
-    code = request.GET['degree_code']
-    d = Degree(code=code, requirements=plan)
+    plan = eval(request.GET['courses'])
+    code = request.GET['code']
+    course_list = parse_degree_json(request.GET['courses'])
+    algo_recommended  = get_recommendations(course_list)
+    d = Degree(code=code, requirements=str(plan))
     try:
-        predictions = get_prediction(d,10)
-        to_return=[]
-
-        response = course_data_helper.get_all()
-        for course in predictions:
-            print("******",response[course]['code'])
-            course_code = response[course]['code']
-            degree = Degree.objects.filter(code == course_code)
-            proportion = int(degree.metrics[course_code])/int(degree.number_of_enrolments)
-            to_return.append({"course" : course,"reasoning":  '%.2f of students in your degree took this course' % proportion})
-        return JsonResponse({"response":to_return})
+        predictions, prediction_ratings = get_prediction(d, 20)
     except:
-        print("network not trained, switch to search")
-    return JsonResponse({"Recommendations":predictions})
+        to_return = []
+        for course in algo_recommended:
+            if(course in course_list):
+                continue
+            degree = Degree.objects.filter(code=code)[0]
+            if (int(degree.number_of_enrolments) > 0):
+                proportion = int(eval(degree.metrics)[course]) / int(degree.number_of_enrolments)
+            else:
+                proportion = 0
+            to_return.append({"course":  course, "reasoning": '%.2f%% of students in your degree took this course' % proportion})
+        return JsonResponse({"response": to_return})
+    to_return = []
+
+    response = course_data_helper.get_all()
+    algo_courses_rec = 0
+
+    for i in range(len(predictions)):
+        course = predictions[i]
+        course_rating = prediction_ratings[i]
+
+        course-=1
+        course_code = response[course]["_source"]['code']
+        student_has_already_completed_course = course_code in course_list
+        print("**********",course,response[course]['_id'])
+        print(course_rating,course_code)
+        if(student_has_already_completed_course):
+            continue
+
+        if (course_rating<1):
+            if(algo_courses_rec>9) or (algo_recommended[algo_courses_rec] in course_list):
+                continue
+            to_return.append({"course": algo_recommended[algo_courses_rec], "reasoning": ["you have taken similar courses"]})
+            algo_courses_rec+=1
+            continue
+
+        degree = Degree.objects.filter(code = code)[0]
+        if (int(degree.number_of_enrolments) > 0):
+            proportion = int(eval(degree.metrics)[course_code]) / int(degree.number_of_enrolments)
+        else:
+            proportion = 0
+        to_return.append({"course":  course_code, "reasoning": '%.2f%% of students in your degree took this course' % proportion })
+
+
+    return JsonResponse({"response": to_return})
+
+
