@@ -25,6 +25,10 @@
         <div class="col-12 h3 text-center" id="degree-title" tabindex="1">
             <div id="rc-button" class="btn btn-outline-danger" tabindex="2">Reset/Clear Courses</div>
         </div>
+        <div class="col-12 h6 text-center alert alert-warning" id="courses-forced-notice">
+            Warning: the following courses were added despite not meeting their requirements or availability:
+            <span id="courses-forced-list"></span>
+        </div>
     </div>
     <br>
     <div class="row">
@@ -199,6 +203,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
         integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.213.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.shadow-animation/1/mainfile"></script>
 <script src="{% static "js/autosize.min.js" %}"></script>
 <script src="{% static "js/chatbox.js" %}"></script>
 <script>

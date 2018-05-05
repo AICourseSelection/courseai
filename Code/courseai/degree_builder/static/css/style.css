@@ -402,6 +402,15 @@ body {
     display: none;
 }
 
+#courses-forced-notice {
+    display: none;
+    padding: .5rem .8rem;
+}
+
+.level-filter, .code-filter, .course-highlighter {
+    color: #0051a9;
+}
+
 .chat_box {
     background: #929aa8;
     position: fixed;
