@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Studies",
+    "units": 144,
     "required": {
         "x_from_here": [
             {

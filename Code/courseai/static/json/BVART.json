@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Visual Arts",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "ARTV2819"
@@ -69,7 +70,7 @@
                 ]
             }
         ],
-        "required_m/m/s": [
+        "one_from_m/m/s": [
             "ANVI-MAJ",
             "FURN-MAJ",
             "GLAS-MAJ",

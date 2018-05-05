@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Accounting",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "BUSN1002",

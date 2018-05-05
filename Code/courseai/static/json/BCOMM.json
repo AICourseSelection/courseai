@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Commerce",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "MGMT2100"
@@ -11,7 +12,7 @@
                 "CORP-MAJ",
                 "ECST-MAJ",
                 "FINM-MAJ",
-                "INTE-MAJ",
+                "INTB-MAJ",
                 "MGMT-MAJ",
                 "MARK-MAJ"
             ]

@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Business Administration",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "BUSI2025",

@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Music",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "MUSI1105",

@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Finance",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "BUSN1001",
