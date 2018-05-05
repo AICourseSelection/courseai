@@ -47,7 +47,7 @@ response['response'] = lists
 
 meta_data = {}
 index = {}
-index['_index'] = 'cbelists'
+index['_index'] = 'courselists'
 index['_type'] = '_doc'
 index['_id'] = 1
 meta_data['index'] = index
