@@ -10,6 +10,10 @@ from . import initialiser
 from .models import Degree, PreviousStudentDegree
 
 from . import course_data_helper
+from search import josnhelper
+from search.nn import train_sample
+
+
 
 
 def all_degrees(request):
@@ -42,7 +46,16 @@ def degree_plan(request):
         prev = PreviousStudentDegree(code=code, courses_taken=courses)
         prev.save()
         degree_list = PreviousStudentDegree.objects.all()
-
+        degree = Degree.objects.filter(code=code)[0]
+        degree.number_of_enrolments +=1
+        metrics = eval(degree.metrics)
+        for course_code in josnhelper.parse_degree_json(data):
+            if course_code == "Elective Course":
+                continue
+            metrics[course_code]=int(metrics[course_code])+1
+        degree.metrics = str(metrics)
+        degree.save()
+        train_sample(Degree(code=code, requirements=courses))
         for degree in degree_list:
             print({"code": degree.code, "courses_taken": degree.courses_taken})
         return JsonResponse({"response": "Success"})

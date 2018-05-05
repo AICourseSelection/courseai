@@ -1,52 +1,55 @@
-import pandas as pd
+import json
 import re
 
-d=pd.read_csv("program-reqs.csv", encoding='latin-1')
+# add list 1 first
+with open('cbe-list-1.csv') as f:
+    lines = f.readlines()
 
-count_index = 1
-degrees = set()
+codes = []
 
-for index, row in d.iterrows():
-    if True:
-        code =str(row[0])
-        requirements = str(row[1])
-        degree_name = str(row[2])
-        
-        if degree_name in degrees:
-            continue
-        
-        degrees.add(degree_name)
-        
-        # sanitize the strings
-        code = code.replace('"', '')
-        requirements = requirements.replace('"', '')
-        degree_name = degree_name.replace('"', '')
-        
-        code = code.replace("åÊ", ' ')
-        requirements = requirements.replace("åÊ", ' ')
-        requirements = requirements.replace('\', ' ')
-        requirements = requirements.replace('\\', ' ')
-        degree_name = degree_name.replace('\\', ' ')
-        code = code.replace('\\', ' ')
-        requirements = ' '.join(requirements.split())
-        degree_name = ' '.join(degree_name.split())
-        code = ' '.join(code.split())
-        requirements = requirements.replace('\t', ' ')
-        degree_name = degree_name.replace('\t', ' ')
-        code = code.replace('\t', ' ')
-        requirements = requirements.replace('\n', ' ')
-        degree_name = degree_name.replace('\n', ' ')
-        code = code.replace('\n', ' ')
-        requirements = requirements.replace('{', ' ')
-        requirements = requirements.replace('{', ' ')
-        requirements = requirements.replace('}', ' ')
-        requirements = requirements.replace('}', ' ')
-        
-        regex = "^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*"
-        re.match(regex, requirements)
-        
-        # form the JSON
-        print("{ \"index\" : { \"_index\": \"degrees\", \"_type\": \"_doc\" ,\"_id\": \"" + str(count_index) +"\"}}")
-        count_index += 1
-        print("{ \"code\":\"" + code +"\", \"name\":\"" + degree_name + "\" }")
-       
+for line in lines:
+    if line.isspace() or len(line) < 8:
+        continue
+    code = line[:8]
+    if re.match("[A-Z]{4}[0-9]{4}", code) is None:
+        continue
+    codes.append(code)
+
+list_1 = {}
+list_1['type'] = "CBE List 1"
+list_1['courses'] = codes
+
+# add list 2
+with open('cbe-list-2.txt') as f:
+    lines = f.readlines()
+
+codes = []
+
+for line in lines:
+    if line.isspace() or len(line) < 8:
+        continue
+    if ',' in line:
+        courses = line.split(",")
+        for i in range(len(courses)):
+            courses[i] = courses[i].strip()
+        codes.append(courses)
+    else:
+        codes.append([line[:8]])
+
+list_2 = {}
+list_2['type'] = "CBE List 2"
+list_2['courses'] = codes
+
+response = {}
+lists = [list_1, list_2]
+response['response'] = lists
+
+meta_data = {}
+index = {}
+index['_index'] = 'cbelists'
+index['_type'] = '_doc'
+index['_id'] = 1
+meta_data['index'] = index
+print(json.dumps(meta_data))
+print(json.dumps(response))
+

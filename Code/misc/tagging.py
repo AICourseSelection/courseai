@@ -1,5 +1,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+import operator
+
 titles = ["COMP1100", "COMP1110", "COMP2100", "COMP2120", "COMP2310", "FINM1001", "STAT1003", "PHYS1101", "CHEM1101", "COMP4670", "COMP3620"]
 
 texts = ["This course is the first of three core computer science courses on programming. It introduces students to the field of computer science as a discipline for solving problems through computation and provides the foundation for more advanced courses on programming and software development. Data structures and algorithms, the key concepts at the core of computer science, receive their first treatment in this course. The course addresses both functional and imperative programming paradigms. The course covers functional programming in depth, developing the core idea of functions operating on data structures.  Students learn the organization of programming languages using types, how programs are evaluated (reduction), functional composition, recursive functions, algebraic data types, pattern matching, parametric polymorphism, higher-order functions.  Students also gain exposure to structural induction and proof, introduction to asymptotic analysis of basic data structures, abstract data types, modules, laziness, and streams. The functional paradigm demonstrates elegant solutions to many programming problems. The course also introduces imperative programming as an alternative paradigm to functional programming, highlighting similarities and contrasting differences. Students learn the basic ingredients of imperative programs: mutable variables, sequencing, conditionals, iteration, functions, eager evaluation, and side effects. The course also introduces students to standard productivity tools for software development that will be used throughout the course and remainder of the computer science degree. These include distributed software revision control systems. The Advanced version of this course covers these topics in more depth, allowing students to deepen their understanding and experience. Upon successful completion of this course, students will be able to: Apply fundamental programming concepts, using a functional programming language, to solve simple problems. Understand basic types and the benefits of static typing. Distinguish language definition from implementation, syntax and parsing from semantics and evaluation. Describe, understand and evolve programs, via documentation, testing, and debugging. Discuss, use, and apply the fundamentals of data structures, algorithms, and design; create, implement, and debug algorithms for solving simple problems, including recursively, using divide-and-conquer, and via decomposition. Discuss basic algorithmic analysis for simple algorithms; determine appropriate algorithmic approaches to a problem (brute-force, greedy, divide-and-conquer, recursive backtracking, heuristic, dynamic programming). Describe and apply alternative computational paradigms to simple problems. Understand the legal context for protection of software as intellectual property.",
@@ -20,6 +22,8 @@ tfidf_matrix = tf.fit_transform(texts)
 feature_names = tf.get_feature_names()
 dense = tfidf_matrix.todense()
 
+tags = {}
+
 for idx in range(len(titles)):
     print()
     print(titles[idx])
@@ -27,30 +31,26 @@ for idx in range(len(titles)):
     episode = dense[idx].tolist()[0]
     phrase_scores = [pair for pair in zip(range(0, len(episode)), episode) if pair[1] > 0]
 
-    z = sorted(phrase_scores, key=lambda t: t[1] * -1)[:5]
-    indices = [x for (x, _) in z]
+    z = sorted(phrase_scores, key=lambda t: t[1] * -1)[:10]
+    indices = [x for (x, s) in z]
     features = []
-    for i in indices:
-        features.append(feature_names[i])
+    for i, s in z:
+        features.append((feature_names[i], s))
+        if feature_names[i] not in tags:
+            tags[feature_names[i]] = s
+        else:
+            tags[feature_names[i]] += s
 
     # if individual words from tuples are present in the list, remove them
-    for phrase in features:
-        if " " in phrase:
-            phrase_words = phrase.split(" ")
-            for word in phrase_words:
-                if word in features:
-                    features.remove(word)
+#    for phrase in features:
+#        if " " in phrase:
+#            phrase_words = phrase.split(" ")
+#            for word in phrase_words:
+#                if (word, _) in features:
+#                    features.remove((word, x))
 
-    for i in features:
-        print(i)
-
-
-
-
-
-
-'{ "query": { "multi_match" : { "query" : "data structures", "fields": ["code^4", "title^3", "description^1.5", "outcome"]} } }'
-
-
-
+    for i, z in features:
+        print(i, z)
+print(tags['programming'])
+most_popular_tag = max(tags.items(), key=operator.itemgetter(1))[0]
 

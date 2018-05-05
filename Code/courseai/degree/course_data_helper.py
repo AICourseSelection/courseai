@@ -4,6 +4,7 @@ from builtins import str, eval
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import MultiMatch
+from search import josnhelper
 
 
 def get_data(code):
@@ -16,9 +17,8 @@ def get_data(code):
         hit = response['hits']['hits'][0]
     except IndexError:
         return None
-
-    print("****\n", hit, "****\n")
     course_data = {"course_code": hit['_source']['code'],
+                   "id" : hit["_id"],
                    "title": hit['_source']['title'],
                    "description": hit['_source']['description'],
                    "learning_outcomes": hit['_source']['outcome'],
@@ -26,6 +26,10 @@ def get_data(code):
                    "prerequisites": eval(str(hit['_source']['pre_req_cnf']))
                    }
     return course_data
+
+def track_metrics(degree_plan):
+
+    return
 
 
 def get_titles(codes):
@@ -50,5 +54,6 @@ def get_titles(codes):
 def get_all():
     client = Elasticsearch()
     s = Search(using=client, index='courses')
-    response = s.execute()
-    return response['hits']['hits']
+    count = s.count()
+    result = s[0:count].execute()
+    return result['hits']['hits']
