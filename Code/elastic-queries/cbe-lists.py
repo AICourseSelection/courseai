@@ -15,9 +15,15 @@ for line in lines:
         continue
     codes.append(code)
 
-list_1 = {}
-list_1['type'] = "CBE List 1"
-list_1['courses'] = codes
+list_1 = {'type': "CBE List 1", 'courses': codes}
+
+meta_data = {}
+index = {'_index': 'courselists', '_type': '_doc', '_id': 1}
+meta_data['index'] = index
+
+print(json.dumps(meta_data))
+print(json.dumps(list_1))
+
 
 # add list 2
 with open('cbe-list-2.txt') as f:
@@ -36,21 +42,11 @@ for line in lines:
     else:
         codes.append([line[:8]])
 
-list_2 = {}
-list_2['type'] = "CBE List 2"
-list_2['courses'] = codes
-
-response = {}
-lists = [list_1, list_2]
-response['code'] = "dummy"
-response['response'] = lists
+list_2 = {'type': "CBE List 2", 'courses': codes}
 
 meta_data = {}
-index = {}
-index['_index'] = 'courselists'
-index['_type'] = '_doc'
-index['_id'] = 1
+index = {'_index': 'courselists', '_type': '_doc', '_id': 2}
 meta_data['index'] = index
 print(json.dumps(meta_data))
-print(json.dumps(response))
+print(json.dumps(list_2))
 
