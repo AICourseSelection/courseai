@@ -52,7 +52,7 @@
         e.preventDefault();
 
         $.ajax({
-            url: 'search?query=' + $('input[name=query]').val(),
+            url: 'search/coursesearch?query=' + $('input[name=query]').val(),
             error: function (data) {
                 console.log("fail");
             },

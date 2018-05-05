@@ -215,6 +215,23 @@ body {
     animation: spin 2s linear infinite;
 }
 
+#show-filters {
+    float: right;
+    margin-left: -100%;
+}
+
+.filters-panel .popover-footer {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+}
+
+.filters-panel .popover-footer:hover {
+    color: white;
+}
+
+
 .filter-delete {
     margin-right: -.2rem;
     cursor: pointer;
