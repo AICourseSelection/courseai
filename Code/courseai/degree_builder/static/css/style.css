@@ -66,10 +66,14 @@ body {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#edit-button {
+#rc-button {
     float: right;
     margin-left: -100%;
     display: none;
+}
+
+#confirm-reset-button {
+    margin-right: auto;
 }
 
 #plan-grid {
