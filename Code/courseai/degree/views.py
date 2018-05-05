@@ -107,7 +107,8 @@ def course_data(request):
 
 
 def course_lists(request):
-    return mms.course_lists()
+    query = request.GET['query']
+    return mms.course_lists(query)
 
 
 def degree_reqs(request):

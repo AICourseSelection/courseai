@@ -105,10 +105,11 @@ def mms_by_name(name, index_name):
     return JsonResponse(res)
 
 
-def course_lists():
+def course_lists(query):
     client = Elasticsearch()
-    response = Search(using=client, index='cbelists').query("match", code="dummy").execute().to_dict()
+    response = Search(using=client, index='courselists').query("match", type=query).execute().to_dict()
     responses = response['hits']['hits']
-    responses = [r['_source']['response'] for r in responses if '_source' in r]
-    res = {'responses': responses}
+    responses = [r['_source'] for r in responses if '_source' in r]
+    response = responses
+    res = {'responses': response}
     return JsonResponse(res)
