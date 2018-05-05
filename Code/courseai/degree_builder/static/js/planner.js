@@ -5,6 +5,7 @@ const ELECTIVE_TEXT = "Elective Course";
 
 let degree_plan = {};
 let degree_requirements = {};
+let courses_force_added = {};
 
 const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
 let title_box = $('#degree-title');
@@ -22,9 +23,23 @@ $('#rc-button').click(function () {
 function clearAllCourses() {
     for (let session in degree_plan) {
         for (let pos in degree_plan[session]) {
-            removeCourse(session, parseInt(pos) + 1);
+            let slot = degree_plan[session][pos];
+            delete courses_force_added[slot.code];
+            slot['code'] = ELECTIVE_TEXT;
+            delete slot['title'];
         }
     }
+    for (let box of $('#plan-grid').find('.plan-cell')) {
+        $(box).popover('dispose');
+        $(box).droppable({
+            accept: '.draggable-course',
+            drop: electiveDropped
+        });
+        $(box).find('.course-code').text(ELECTIVE_TEXT);
+        $(box).find('.course-title').text('');
+    }
+    updateForceNotice();
+    updateProgress();
 }
 
 $('#confirm-clear-button').click(clearAllCourses);
@@ -181,6 +196,26 @@ $.ajax({
     }
 });
 
+function updateForceNotice() {
+    let notice = $('#courses-forced-notice');
+    let list = $('#courses-forced-list');
+    if (Object.keys(courses_force_added).length > 0) notice.css({'display': 'block'});
+    else notice.css({'display': ''});
+    list.empty();
+    let count = 0;
+    for (let course in courses_force_added) {
+        if (count !== 0) list.append(', ');
+        let link = $('<a class="course-highlighter" href="javascript:void(0)">' + course + '</a>');
+        link.click(function () {
+            courses_force_added[course].animate({boxShadow: '0 0 25px #007bff'});
+            console.log('between');
+            courses_force_added[course].animate({boxShadow: ''});
+        });
+        list.append(link);
+        count++;
+    }
+}
+
 function electiveDropped(event, ui) {
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
@@ -195,7 +230,9 @@ function electiveDropped(event, ui) {
             let override_button = modal.find('#course-add-override');
             override_button.off('click');
             override_button.click(function () {
-                addCourse(code, title, session, position)
+                addCourse(code, title, session, position);
+                courses_force_added[code] = $(event.target);
+                updateForceNotice();
             });
             modal.modal();
             return
@@ -206,7 +243,9 @@ function electiveDropped(event, ui) {
             let override_button = modal.find('#course-add-override');
             override_button.off('click');
             override_button.click(function () {
-                addCourse(code, title, session, position)
+                addCourse(code, title, session, position);
+                courses_force_added[code] = $(event.target);
+                updateForceNotice();
             });
             modal.modal();
             return
@@ -923,6 +962,8 @@ function removeCourse(session, position) {
     const box = $(row.children()[position]);
     if (box.prevAll().hasClass('ui-sortable-placeholder')) position--;
     let slot = degree_plan[session][position - 1];
+    delete courses_force_added[slot['code']];
+    updateForceNotice();
     slot['code'] = ELECTIVE_TEXT;
     delete slot['title'];
     box.popover('dispose');
