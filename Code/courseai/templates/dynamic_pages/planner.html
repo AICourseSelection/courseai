@@ -23,11 +23,18 @@
     </div>
     <div class="row mt-3">
         <div class="col-12 h3 text-center" id="degree-title" tabindex="1">
-            <div id="rc-button" class="btn btn-outline-danger" tabindex="2">Reset/Clear Courses</div>
+            <div id="upload-button" class="btn btn-outline-success" tabindex="2">Submit Degree Plan</div>
+            <div id="rc-button" class="btn btn-outline-danger" tabindex="3">Reset/Clear Courses</div>
         </div>
-        <div class="col-12 h6 text-center alert alert-warning" id="courses-forced-notice">
+        <div id="courses-forced-notice" class="col-12 h6 text-center alert alert-warning">
             Warning: the following courses were added despite not meeting their requirements or availability:
             <span id="courses-forced-list"></span>
+        </div>
+        <div id="degree-submit-success" class="mx-auto mb-0 d-none alert alert-success alert-dismissible" role="alert">
+            <strong>Thank you!</strong> Your degree plan was submitted successfully.
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     </div>
     <br>
@@ -36,7 +43,7 @@
             <div class="form-row">
                 <label class="h5 text-center" for="add-course" style="width: 100%">Add a
                     course</label>
-                <input type="text" name="query" class="form-control" id="add-course" tabindex="3"
+                <input type="text" name="query" class="form-control" id="add-course" tabindex="4"
                        placeholder="Interest, subject area, course code... " autocomplete="off">
                 <div id="filter-icons" class="mt-1">
                 </div>
@@ -122,7 +129,8 @@
                     permission code from the course convenor in order to enrol. </p>
             </div>
             <div class="modal-footer">
-                <button id="course-add-override" type="button" class="btn btn-primary" data-dismiss="modal">Add Course Anyway
+                <button id="course-add-override" type="button" class="btn btn-primary" data-dismiss="modal">Add Course
+                    Anyway
                 </button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
@@ -174,6 +182,28 @@
                     Reset Degree Plan
                 </button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="upload-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-success">
+                <h5 class="modal-title">Submit Degree Plan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>When you have finished planning your degree, you can send your degree plan to us.
+                    This is anonymous, and we use it to improve the accuracy of our AI course recommendation. </p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-upload-button" type="button" class="btn btn-success" data-dismiss="modal">
+                    Submit Degree Plan
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
