@@ -110,6 +110,9 @@ def course_lists(query):
     response = Search(using=client, index='courselists').query("match", type=query).execute().to_dict()
     responses = response['hits']['hits']
     responses = [r['_source'] for r in responses if '_source' in r]
-    response = responses
+    if len(responses) > 1:
+        response = responses[0]
+    else:
+        response = responses
     res = {'responses': response}
     return JsonResponse(res)
