@@ -12,10 +12,7 @@ from search.josnhelper import parse_degree_json
 from search.recommendations import get_recommendations
 
 
-#initial subjects to train into the neural network
-SUBJECTS_TO_TRAIN_INIT = [] #["AACRD"]
 
-initial_network_training(SUBJECTS_TO_TRAIN_INIT)
 
 def index(request):
     if 'query' not in request.GET:
