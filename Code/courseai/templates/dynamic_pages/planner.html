@@ -23,7 +23,7 @@
     </div>
     <div class="row mt-3">
         <div class="col-12 h3 text-center" id="degree-title" tabindex="1">
-            <div id="edit-button" class="btn btn-info" tabindex="2">Edit</div>
+            <div id="rc-button" class="btn btn-outline-danger" tabindex="2">Reset/Clear Courses</div>
         </div>
     </div>
     <br>
@@ -118,7 +118,7 @@
                     permission code from the course convenor in order to enrol. </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="course-add-override btn btn-primary" data-dismiss="modal">Add Course Anyway
+                <button id="course-add-override" type="button" class="btn btn-primary" data-dismiss="modal">Add Course Anyway
                 </button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
@@ -141,9 +141,35 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="course-add-override btn btn-primary" data-dismiss="modal">Add Course Anyway
+                <button id="course-add-override" type="button" class="btn btn-primary" data-dismiss="modal">Add Course
+                    Anyway
                 </button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="rc-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <h5 class="modal-title">Reset/Clear Degree Plan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>You may reset your degree plan to the default for your degree, or clear it completely. </p>
+                <p>These actions cannot be undone. </p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-clear-button" type="button" class="btn btn-danger" data-dismiss="modal">
+                    Clear All Courses
+                </button>
+                <button id="confirm-reset-button" type="button" class="btn btn-danger" data-dismiss="modal">
+                    Reset Degree Plan
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
