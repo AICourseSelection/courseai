@@ -9,15 +9,45 @@ let courses_force_added = {};
 
 const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
 let title_box = $('#degree-title');
-title_box.prepend(title_text);
+let rc_button = $('#rc-button');
+rc_button.before(title_text);
 title_box.hover(function () {
-    $('#rc-button').fadeIn(150);
+    rc_button.fadeIn(150);
 }, function () {
-    $('#rc-button').fadeOut(150);
+    rc_button.fadeOut(150);
 });
 
-$('#rc-button').click(function () {
+rc_button.click(function () {
     $('#rc-modal').modal();
+});
+
+
+$('#upload-button').click(function () {
+    $('#upload-modal').modal();
+});
+
+$('#confirm-upload-button').click(function () {
+    $.ajax({
+        url: 'update_degree',
+        data: {
+            "plan": JSON.stringify(degree_plan)
+        },
+        success: function () {
+            $('#degree-submit-success').removeClass('d-none');
+        },
+        error: function () {
+            $('#degree-title').after('<div class="alert alert-danger alert-dismissible fade show mx-auto mb-0" role="alert">\n' +
+                '  Could not submit degree plan. Please try again. \n' +
+                '  <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                '    <span aria-hidden="true">&times;</span>\n' +
+                '  </button>\n' +
+                '</div>');
+        }
+    })
+});
+
+$('#degree-submit-success').find('button.close').click(function () {
+    $('#degree-submit-success').addClass('d-none');
 });
 
 function clearAllCourses() {
@@ -73,7 +103,7 @@ $.ajax({
         'start_year_sem': start_year + 'S' + start_sem
     },
     success: function (data) {
-        let tab_index_count = 4;
+        let tab_index_count = 5;
         let grid = $('#plan-grid');
         let course_dict = data["response"];
         let titles_to_retrieve = {};
@@ -208,7 +238,6 @@ function updateForceNotice() {
         let link = $('<a class="course-highlighter" href="javascript:void(0)">' + course + '</a>');
         link.click(function () {
             courses_force_added[course].animate({boxShadow: '0 0 25px #007bff'});
-            console.log('between');
             courses_force_added[course].animate({boxShadow: ''});
         });
         list.append(link);
@@ -766,6 +795,7 @@ function mms_add(code) {
     new_mms.append(collapsible);
     mms_active_list.prepend(new_mms);
     active_mms[code] = new_mms;
+    $('#degree-reqs-list').find('.collapse').collapse('hide');
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
     updateProgress();

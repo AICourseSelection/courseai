@@ -66,6 +66,11 @@ body {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+#upload-button {
+    float: left;
+    margin-right: -100%;
+}
+
 #rc-button {
     float: right;
     margin-left: -100%;
