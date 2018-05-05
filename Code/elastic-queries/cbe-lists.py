@@ -42,6 +42,7 @@ list_2['courses'] = codes
 
 response = {}
 lists = [list_1, list_2]
+response['code'] = "dummy"
 response['response'] = lists
 
 meta_data = {}

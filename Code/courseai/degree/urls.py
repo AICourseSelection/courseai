@@ -11,4 +11,5 @@ urlpatterns = [
     path('majors', views.all_majors),
     path('minors', views.all_minors),
     path('specs', views.all_specs),
+    path('cbelists', views.cbe_lists)
 ]
