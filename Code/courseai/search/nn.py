@@ -10,6 +10,11 @@ import pickle
 from sklearn.neural_network import MLPRegressor
 from sklearn.externals import joblib
 
+#initial subjects to train into the neural network
+SUBJECTS_TO_TRAIN_INIT = [] #["AACRD"]
+
+
+
 tfidf=TfidfVectorizer()
 course_vectors = tfidf.fit_transform(list(map(lambda x:x['_source']['description'],get_all())))
 course_ids=np.identity(len(get_all()))*100
@@ -100,6 +105,7 @@ def initial_network_training(degrees_to_train):
         #print(np.argmax(network_dict[degree.code].predict(x_array), axis=1))
     joblib.dump(network_dict, "network.pkl")
 
+initial_network_training(SUBJECTS_TO_TRAIN_INIT)
 
 def train_sample(degree):
     network_dict = dict()
