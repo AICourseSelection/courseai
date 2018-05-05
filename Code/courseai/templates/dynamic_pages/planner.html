@@ -10,7 +10,10 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
           integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/solid.css"
+          integrity="sha384-VxweGom9fDoUf7YfLTHgO0r70LVNHP5+Oi8dcR4hbEjS8UnpRtrwTx7LpHq/MWLI" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
+          integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "css/style.css" %}"/>
     <title>Degree Builder</title>
 </head>
@@ -41,8 +44,11 @@
     <div class="row">
         <div class="col-3" id="left-panel">
             <div class="form-row">
-                <label class="h5 text-center" for="add-course" style="width: 100%">Add a
-                    course</label>
+                <label class="h5 text-center" for="add-course" style="width: 100%">
+                    Add a course
+                    <button id="show-filters" class="btn btn-outline-secondary btn-sm"><i class="fas fa-filter"></i>
+                    </button>
+                </label>
                 <input type="text" name="query" class="form-control" id="add-course" tabindex="4"
                        placeholder="Interest, subject area, course code... " autocomplete="off">
                 <div id="filter-icons" class="mt-1">

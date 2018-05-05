@@ -26,10 +26,10 @@ def index(request):
     if filters is not None:
         filters = json.loads(filters)
 
-        if 'codes' in filters:
+        if 'codes' in filters and filters['codes']:
             codes = filters['codes']
 
-        if 'levels' in filters:
+        if 'levels' in filters and filters['levels']:
             levels = filters['levels']
 
     return search.execute_search(original_query, request, codes=codes, levels=levels)
