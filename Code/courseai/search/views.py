@@ -13,7 +13,6 @@ from search.recommendations import get_recommendations
 
 
 
-
 def index(request):
     if 'query' not in request.GET:
         template = loader.get_template('static_pages/search.html')
@@ -41,6 +40,8 @@ def recommend_course(request):
     course_list = parse_degree_json(request.GET['courses'])
     algo_recommended  = get_recommendations(course_list)
     d = Degree(code=code, requirements=str(plan))
+    print(course_list)
+    print(algo_recommended)
 
     try:
         predictions, prediction_ratings = get_prediction(d, 20)
@@ -63,6 +64,7 @@ def recommend_course(request):
     algo_courses_rec = 0
 
     for i in range(len(predictions)):
+
         course = predictions[i]
         course_rating = prediction_ratings[i]
 
