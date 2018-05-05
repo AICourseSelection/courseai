@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Statistics",
+    "units": 144,
     "required": {
         "compulsory_courses": [
             "STAT2001",

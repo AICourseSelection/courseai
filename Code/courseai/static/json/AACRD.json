@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Advanced Computing (Research and Development) (Honours)",
+    "units": 192,
     "required": {
         "compulsory_courses": [
             "COMP1130",
@@ -15,7 +16,6 @@
             "COMP3600",
             "COMP3770",
             "MATH1005",
-            "COMP4550",
             "COMP4550"
         ],
         "one_from_here": [

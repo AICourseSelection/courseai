@@ -2,7 +2,7 @@ from builtins import Exception, eval, str
 from django.views.decorators.csrf import csrf_exempt
 
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 from . import degree_plan_helper
 from . import mms
@@ -107,3 +107,11 @@ def course_data(request):
 
 def major_name(request):
     return
+
+def degree_reqs(request):
+    try:
+        code = request.GET['query']
+        response =  degree_plan_helper.get_degree_requirements(code)
+        return HttpResponse(response, content_type="application/json")
+    except(Exception):
+        raise Exception("Requirements of the requested degree could not be found. ")
