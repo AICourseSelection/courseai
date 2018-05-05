@@ -106,8 +106,8 @@ def course_data(request):
         raise Exception("Please provide a valid course code")
 
 
-def cbe_lists(request):
-    return mms.cbe_list()
+def course_lists(request):
+    return mms.course_lists()
 
 
 def degree_reqs(request):

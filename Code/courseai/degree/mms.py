@@ -105,7 +105,7 @@ def mms_by_name(name, index_name):
     return JsonResponse(res)
 
 
-def cbe_list():
+def course_lists():
     client = Elasticsearch()
     response = Search(using=client, index='cbelists').query("match", code="dummy").execute().to_dict()
     responses = response['hits']['hits']
