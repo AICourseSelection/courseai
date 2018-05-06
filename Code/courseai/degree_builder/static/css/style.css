@@ -172,6 +172,16 @@ body {
     display: none;
 }
 
+.dragged-course {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: .25rem !important;
+    max-width: 150px;
+}
+
+.dragged-course .course-reason {
+    display: none;
+}
+
 #search-results-list .card-header {
     padding: 0;
     white-space: normal;
@@ -231,7 +241,6 @@ body {
     color: white;
 }
 
-
 .filter-delete {
     margin-right: -.2rem;
     cursor: pointer;
@@ -287,6 +296,16 @@ body {
 
 .popover-close:active {
     background-color: #8c8c8c;
+}
+
+.related-courses {
+    max-height: 224px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.related-courses .list-group-item {
+    padding: .4rem .6rem;
 }
 
 .mms-add {
