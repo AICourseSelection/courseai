@@ -215,6 +215,23 @@ body {
     animation: spin 2s linear infinite;
 }
 
+#show-filters {
+    float: right;
+    margin-left: -100%;
+}
+
+.filters-panel .popover-footer {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+}
+
+.filters-panel .popover-footer:hover {
+    color: white;
+}
+
+
 .filter-delete {
     margin-right: -.2rem;
     cursor: pointer;
@@ -347,8 +364,25 @@ body {
     font-weight: bold;
 }
 
+#degree-header {
+    display: flex;
+    margin: 0 -10px;
+}
+
+#degree-header div {
+    flex: 0 0 46%;
+}
+
+#degree-header .collapse-all {
+    flex: 0 0 27%;
+    font-size: 10.5pt;
+    color: black;
+    line-height: 2.1;
+}
+
 #degree-header .unit-count {
-    margin-left: -100%;
+    flex: 0 0 27%;
+    font-size: 11pt;
     font-weight: normal;
     line-height: 1.8;
 }
@@ -381,7 +415,7 @@ body {
 
 #degree-reqs-list {
     clear: left;
-    margin: .5rem -5px;
+    margin: -10px;
 }
 
 #degree-reqs-list .card-header {
@@ -407,9 +441,10 @@ body {
     display: none;
 }
 
-#courses-forced-notice {
+#degree-completed-notice, #courses-forced-notice {
     display: none;
     padding: .5rem .8rem;
+    margin-bottom: .5rem;
 }
 
 .level-filter, .code-filter, .course-highlighter {
