@@ -66,6 +66,11 @@ body {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+#upload-button {
+    float: left;
+    margin-right: -100%;
+}
+
 #rc-button {
     float: right;
     margin-left: -100%;
@@ -209,6 +214,23 @@ body {
     height: 60px;
     animation: spin 2s linear infinite;
 }
+
+#show-filters {
+    float: right;
+    margin-left: -100%;
+}
+
+.filters-panel .popover-footer {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+}
+
+.filters-panel .popover-footer:hover {
+    color: white;
+}
+
 
 .filter-delete {
     margin-right: -.2rem;
@@ -400,6 +422,15 @@ body {
 
 .requirement-type {
     display: none;
+}
+
+#courses-forced-notice {
+    display: none;
+    padding: .5rem .8rem;
+}
+
+.level-filter, .code-filter, .course-highlighter {
+    color: #0051a9;
 }
 
 .chat_box {
