@@ -30,10 +30,10 @@ $('#confirm-upload-button').click(function () {
     $.ajax({
         type: 'PUT',
         url: 'degree/degreeplan',
-        data: {
+        data: JSON.stringify({
             "code": degree_code,
-            "courses": JSON.stringify(preparePlanForUpload(degree_plan))
-        },
+            "courses": preparePlanForUpload(degree_plan)
+        }),
         headers: {
             "Content-Type": "application/json"
         },
@@ -320,6 +320,8 @@ function coursePopoverSetup(i, item) {
     $(this).on('show.bs.popover', function () {
         coursePopoverData(this, $(item).hasClass('plan-cell'));
     })
+
+
 }
 
 function coursePopoverData(course, descriptionOnly = false) {
@@ -331,7 +333,7 @@ function coursePopoverData(course, descriptionOnly = false) {
     let popover = $(course).data('bs.popover');
     if (popover['data-received'] || false) return;
     let curr_popover = $(popover.tip);
-    $.ajax({
+    let coursedata_request = $.ajax({
         url: 'degree/coursedata',
         data: {'query': code},
         success: function (data) {
@@ -363,16 +365,7 @@ function coursePopoverData(course, descriptionOnly = false) {
                 }
             }
             html += '<h6 class="mt-2">Related Courses</h6>\n' +
-                '<div class="list-group">\n' +
-                '    <div class="draggable-course result-course list-group-item list-group-item-action">\n' +
-                '        <span class="course-code">COMP4670</span>\n' +
-                '        <span class="course-title">Introduction to Statistical Machine Learning</span>\n' +
-                '    </div>\n' +
-                '    <div class="draggable-course result-course list-group-item list-group-item-action">\n' +
-                '        <span class="course-code">COMP4680</span>\n' +
-                '        <span class="course-title">Advanced Topics in Statistical Machine Learning</span>\n' +
-                '    </div>\n' +
-                '</div>';
+                '<div class="related-courses list-group"></div>';
             popover.config.content = $(popover.config.content).first().prop('outerHTML');
             popover.config.content += html;
             curr_popover.find('.fa-refresh').css({'display': 'none'});
@@ -381,6 +374,79 @@ function coursePopoverData(course, descriptionOnly = false) {
         },
         error: function () {
             console.log('Error retrieving data for ' + code)
+        }
+    });
+    const first_cell = $(course.parentElement.firstElementChild);
+    let session = "2018S1"; // Placeholder session for courses which are not in the degree plan.
+    if (first_cell.hasClass('first-cell')) {
+        session = first_cell.find('.row-year').text() + 'S' + first_cell.find('.row-sem').text().split(' ')[1];
+    }
+    let course_dict = {};
+    course_dict[session] = [{"code": code}];
+    $.ajax({
+        url: 'search/recommend',
+        data: {
+            'code': degree_code,
+            'courses': JSON.stringify([course_dict])
+        },
+        success: function (data) {
+            $.when(coursedata_request).done(function (response) {
+                console.log(response);
+                console.log(this);
+                console.log(data);
+                let titles_to_retrieve = {};
+                var group = curr_popover.find('.related-courses');
+                for (const course of data.response) {
+                    const code = course.course;
+                    const reason = course.reasoning;
+
+                    let item = $(
+                        '<div class="draggable-course result-course list-group-item list-group-item-action">\n' +
+                        '    <span class="course-code">' + code + '</span>\n' +
+                        '</div>\n');
+                    let title_node = $('<span class="course-title"></span>');
+                    if (code in course_titles) title_node.text(course_titles[code]);
+                    else {
+                        if (!(code in titles_to_retrieve)) titles_to_retrieve[code] = [];
+                        titles_to_retrieve[code].push(title_node);
+                    }
+                    item.append(title_node);
+                    item.append('<div class="course-reason">' + reason + '</div>');
+                    makeCourseDraggable(item);
+                    item.each(coursePopoverSetup);
+                    group.append(item);
+                }
+                let title_retrieval;
+                if (!jQuery.isEmptyObject(titles_to_retrieve)) {
+                    title_retrieval = $.ajax({
+                        'url': 'degree/coursedata',
+                        data: {
+                            'query': 'titles',
+                            'codes': JSON.stringify(Object.keys(titles_to_retrieve))
+                        },
+                        success: function (data) {
+                            for (let course of data.response) {
+                                course_titles[course['course_code']] = course['title'];
+                                for (node of titles_to_retrieve[course['course_code']]) {
+                                    node.text(course['title']);
+                                    let popover = node.parents('.result-course').data('bs.popover');
+                                    const new_content = $($(popover.config.content)[0]).text(course['title']);
+                                    popover.config.content = new_content.prop('outerHTML');
+                                }
+                            }
+                        }
+                    });
+                    $.when(title_retrieval).done(function () {
+                        let popover_content = $('<div>' + popover.config.content + '</div>');
+                        popover_content.find('.related-courses').replaceWith(group.clone());
+                        popover.config.content = popover_content.html();
+                    });
+                } else {
+                    let popover_content = $('<div>' + popover.config.content + '</div>');
+                    popover_content.find('.related-courses').replaceWith(group.clone());
+                    popover.config.content = popover_content.html();
+                }
+            });
         }
     })
 }
@@ -609,8 +675,10 @@ function makeCourseDraggable(item, code) {
     item.draggable({
         zIndex: 800,
         revert: true,
+        helper: 'clone',
         start: function (event, ui) {
             highlightElectives();
+            ui.helper.addClass('dragged-course');
             if (!(code in course_data)) {
                 $.ajax({
                     url: 'degree/coursedata',
@@ -701,7 +769,7 @@ const current_filters = new Set();
 const filter_button = $('#show-filters');
 filter_button.popover({
     trigger: 'click',
-    title: 'Search Filters <a class="popover-close" onclick="$(\'#show-filters\').popover(\'hide\')">×</a>',
+    title: 'Search Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
     placement: 'right',
     html: true,
     // container: '#show-filters',
@@ -901,14 +969,7 @@ function deleteMMS(button) {
 }
 
 function closePopover(button) {
-    let code = $(button).parents('.popover').attr('data-code');
-    if (code === undefined) code = button.previousSibling.textContent;
-    $('.popover-region').find('.result-course, .result-mms').each(function () {
-        if ($(this).find('.course-code').text() === code ||
-            $(this).find('.mms-code').text() === code) {
-            $(this).popover('hide');
-        }
-    })
+    $(button).parents('.popover').popover('hide');
 }
 
 function inDegree(code) {
