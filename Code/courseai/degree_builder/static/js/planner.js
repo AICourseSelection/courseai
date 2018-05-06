@@ -468,6 +468,8 @@ function mmsPopoverSetup() {
         '    <div class="h3 popover-header"></div>\n' +
         '    <div class="mms-add"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
         '    <div class="popover-body"></div>\n' +
+        '    <a href="https://programsandcourses.anu.edu.au/'+mms_abbrev[code.split('-')[1]].toLowerCase()+'/' + code +
+        '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
     $(this).on('show.bs.popover', mmsPopoverData)
