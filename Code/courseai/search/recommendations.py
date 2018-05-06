@@ -6,7 +6,11 @@ import operator
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import MultiMatch
+from degree.course_data_helper import get_all
 
+
+tfidf=TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=0, stop_words='english', max_df=0.7)
+tfidf.fit(list(map(lambda x:x['_source']['description'],get_all())))
 
 def raw_search(search_object, phrase, codes, levels):
     q = MultiMatch(query=phrase, fields=['title^2', 'description', 'outcome^1.5'])
@@ -56,10 +60,8 @@ def get_descriptions(course_list):
 def get_recommendations(course_list):
     course_descriptions = get_descriptions(course_list)
 
-    tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=0, stop_words='english', max_df=0.7)
-
-    tfidf_matrix = tf.fit_transform(course_descriptions)
-    feature_names = tf.get_feature_names()
+    tfidf_matrix = tfidf.transform(course_descriptions)
+    feature_names = tfidf.get_feature_names()
     dense = tfidf_matrix.todense()
 
     tags = {}

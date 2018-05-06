@@ -5,26 +5,71 @@ const ELECTIVE_TEXT = "Elective Course";
 
 let degree_plan = {};
 let degree_requirements = {};
+let courses_force_added = {};
 
 const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
 let title_box = $('#degree-title');
-title_box.prepend(title_text);
+let rc_button = $('#rc-button');
+rc_button.before(title_text);
 title_box.hover(function () {
-    $('#rc-button').fadeIn(150);
+    rc_button.fadeIn(150);
 }, function () {
-    $('#rc-button').fadeOut(150);
+    rc_button.fadeOut(150);
 });
 
-$('#rc-button').click(function () {
+rc_button.click(function () {
     $('#rc-modal').modal();
+});
+
+
+$('#upload-button').click(function () {
+    $('#upload-modal').modal();
+});
+
+$('#confirm-upload-button').click(function () {
+    $.ajax({
+        url: 'update_degree',
+        data: {
+            "plan": JSON.stringify(degree_plan)
+        },
+        success: function () {
+            $('#degree-submit-success').removeClass('d-none');
+        },
+        error: function () {
+            $('#degree-title').after('<div class="alert alert-danger alert-dismissible fade show mx-auto mb-0" role="alert">\n' +
+                '  Could not submit degree plan. Please try again. \n' +
+                '  <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                '    <span aria-hidden="true">&times;</span>\n' +
+                '  </button>\n' +
+                '</div>');
+        }
+    })
+});
+
+$('#degree-submit-success').find('button.close').click(function () {
+    $('#degree-submit-success').addClass('d-none');
 });
 
 function clearAllCourses() {
     for (let session in degree_plan) {
         for (let pos in degree_plan[session]) {
-            removeCourse(session, parseInt(pos) + 1);
+            let slot = degree_plan[session][pos];
+            delete courses_force_added[slot.code];
+            slot['code'] = ELECTIVE_TEXT;
+            delete slot['title'];
         }
     }
+    for (let box of $('#plan-grid').find('.plan-cell')) {
+        $(box).popover('dispose');
+        $(box).droppable({
+            accept: '.draggable-course',
+            drop: electiveDropped
+        });
+        $(box).find('.course-code').text(ELECTIVE_TEXT);
+        $(box).find('.course-title').text('');
+    }
+    updateForceNotice();
+    updateProgress();
 }
 
 $('#confirm-clear-button').click(clearAllCourses);
@@ -58,7 +103,7 @@ $.ajax({
         'start_year_sem': start_year + 'S' + start_sem
     },
     success: function (data) {
-        let tab_index_count = 4;
+        let tab_index_count = 5;
         let grid = $('#plan-grid');
         let course_dict = data["response"];
         let titles_to_retrieve = {};
@@ -181,6 +226,25 @@ $.ajax({
     }
 });
 
+function updateForceNotice() {
+    let notice = $('#courses-forced-notice');
+    let list = $('#courses-forced-list');
+    if (Object.keys(courses_force_added).length > 0) notice.css({'display': 'block'});
+    else notice.css({'display': ''});
+    list.empty();
+    let count = 0;
+    for (let course in courses_force_added) {
+        if (count !== 0) list.append(', ');
+        let link = $('<a class="course-highlighter" href="javascript:void(0)">' + course + '</a>');
+        link.click(function () {
+            courses_force_added[course].animate({boxShadow: '0 0 25px #007bff'});
+            courses_force_added[course].animate({boxShadow: ''});
+        });
+        list.append(link);
+        count++;
+    }
+}
+
 function electiveDropped(event, ui) {
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
@@ -195,7 +259,9 @@ function electiveDropped(event, ui) {
             let override_button = modal.find('#course-add-override');
             override_button.off('click');
             override_button.click(function () {
-                addCourse(code, title, session, position)
+                addCourse(code, title, session, position);
+                courses_force_added[code] = $(event.target);
+                updateForceNotice();
             });
             modal.modal();
             return
@@ -206,7 +272,9 @@ function electiveDropped(event, ui) {
             let override_button = modal.find('#course-add-override');
             override_button.off('click');
             override_button.click(function () {
-                addCourse(code, title, session, position)
+                addCourse(code, title, session, position);
+                courses_force_added[code] = $(event.target);
+                updateForceNotice();
             });
             modal.modal();
             return
@@ -402,31 +470,53 @@ function clickCell() {
         filter_icon.append(delete_button);
         $('#filter-icons').append(filter_icon, ' ');
         current_filters.add(badge_text);
+        search(true);
     }
 }
 
 let curr_requests = {'course': null, 'major': null, 'minor': null, 'spec': null};
 
-$('#add-course').on('keyup', function () {
-    for (let req of Object.values(curr_requests)) if (req !== null) req.abort();
+function search(coursesOnly = false) {
+    console.log(coursesOnly);
+    if (coursesOnly && curr_requests['course'] !== null) curr_requests['course'].abort();
+    else for (let req of Object.values(curr_requests)) if (req !== null) req.abort();
+    let filters = {
+        'codes': [],
+        'levels': [],
+    };
+    for (let filter of current_filters) {
+        if (isNaN(parseInt(filter))) filters.codes.push(filter);
+        else if (filter.length === 4) filters.levels.push(parseInt(filter));
+    }
+
+    const searchValue = $('#add-course').val();
+    const resultsList = $('#search-results-list');
+    resultsList.find('.result-course').popover('hide');
+
     curr_requests['course'] = $.ajax({
-        url: 'search?query=' + $(this).val(),
+        url: 'search/coursesearch',
+        data: {
+            'query': searchValue,
+            'filters': JSON.stringify(filters)
+        },
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
         beforeSend: function () {
-            let resultsList = $('#search-results-list');
-            resultsList.find('.fa-refresh').css({'display': 'inline-block'});
-            resultsList.find('.collapse').css({'display': 'none'});
-            resultsList.find('.result-course').popover('hide');
+            const courseResultsList = resultsList.children().first();
+            courseResultsList.find('.collapse').css({'display': 'none'});
+            courseResultsList.find('.fa-refresh').css({'display': 'inline-block'});
         },
         success: updateCourseSearchResults,
         error: console.log('Course search aborted or failed. '),
         complete: console.log('Course search initiated. ')
     });
+    if (coursesOnly) return;
+    resultsList.find('.collapse').css({'display': 'none'});
+    resultsList.find('.fa-refresh').css({'display': 'inline-block'});
 
     curr_requests['major'] = $.ajax({
-        url: 'degree/majors?query=' + $(this).val(),
+        url: 'degree/majors?query=' + searchValue,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -437,7 +527,7 @@ $('#add-course').on('keyup', function () {
         complete: console.log('Major search initiated. ')
     });
     curr_requests['minor'] = $.ajax({
-        url: 'degree/minors?query=' + $(this).val(),
+        url: 'degree/minors?query=' + searchValue,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -448,7 +538,7 @@ $('#add-course').on('keyup', function () {
         complete: console.log('Minor search initiated. ')
     });
     curr_requests['spec'] = $.ajax({
-        url: 'degree/specs?query=' + $(this).val(),
+        url: 'degree/specs?query=' + searchValue,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -458,7 +548,9 @@ $('#add-course').on('keyup', function () {
         error: console.log('Specialisation search aborted or failed. '),
         complete: console.log('Specialisation search initiated. ')
     });
-});
+}
+
+$('#add-course').on('keyup', function() {search()});
 
 function updateMMSResults(data, type, section) {
     let responses = data['responses'];
@@ -547,10 +639,48 @@ $('#results-majors, #results-minors, #results-specs').on('hide.bs.collapse', fun
 });
 
 const current_filters = new Set();
+const filter_button = $('#show-filters');
+filter_button.popover({
+    trigger: 'click',
+    title: 'Search Filters <a class="popover-close" onclick="$(\'#show-filters\').popover(\'hide\')">×</a>',
+    placement: 'right',
+    html: true,
+    // container: '#show-filters',
+    content: '<form onsubmit="return filterSubmit(this)">\n' +
+    '<div class="form-row" style="padding: 0 5px">' +
+    '<label for="code-input">Filter course codes: </label></div>\n' +
+    '<div class="form-row" style="padding: 0 5px">\n' +
+    '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
+    '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
+    '</div>\n' +
+    '<div class="form-row" style="padding: 0 5px"><label>Filter course level: </label></div>\n' +
+    '<div class="form-row">\n' +
+    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addLevelFilter(\'1000\')">1000</button></div>\n' +
+    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addLevelFilter(\'2000\')">2000</button></div>\n' +
+    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addLevelFilter(\'3000\')">3000</button></div>\n' +
+    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addLevelFilter(\'4000\')">4000</button></div>\n' +
+    '</div>\n' +
+    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in the plan. </div>\n' +
+    '</form>' +
+    '',
+    template: '<div class="popover filters-panel" role="tooltip">\n' +
+    '    <div class="arrow"></div>\n' +
+    '    <div class="h3 popover-header"></div>\n' +
+    '    <div class="popover-body"></div>\n' +
+    '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
+    '</div>'
+});
+
+function filterSubmit(form) {
+    const code = $(form).find('input[type=text]').val();
+    if (code) addCodeFilter(code);
+    return false;
+}
 
 function deleteFilter() {
     current_filters.delete(this.previousSibling.textContent);
     $(this).parent().remove();
+    search(true);
 }
 
 $('.filter-delete').click(deleteFilter);
@@ -727,6 +857,7 @@ function mms_add(code) {
     new_mms.append(collapsible);
     mms_active_list.prepend(new_mms);
     active_mms[code] = new_mms;
+    $('#degree-reqs-list').find('.collapse').collapse('hide');
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
     updateProgress();
@@ -923,6 +1054,8 @@ function removeCourse(session, position) {
     const box = $(row.children()[position]);
     if (box.prevAll().hasClass('ui-sortable-placeholder')) position--;
     let slot = degree_plan[session][position - 1];
+    delete courses_force_added[slot['code']];
+    updateForceNotice();
     slot['code'] = ELECTIVE_TEXT;
     delete slot['title'];
     box.popover('dispose');
@@ -1022,6 +1155,32 @@ function dragStop(event, ui) {
     removeSessionHighlights();
 }
 
+function addCodeFilter(code) {
+    if (current_filters.has(code)) {
+        return;
+    }
+    let filter_icon = $('<span class="badge badge-primary">' + code + '</span>');
+    let delete_button = $('<a class="filter-delete">×</a>');
+    delete_button.click(deleteFilter);
+    filter_icon.append(delete_button);
+    $('#filter-icons').append(filter_icon, ' ');
+    current_filters.add(code);
+    search(true);
+}
+
+function addLevelFilter(code) {
+    if (current_filters.has("" + code)) {
+        return;
+    }
+    let filter_icon = $('<span class="badge badge-primary">' + code + '</span>');
+    let delete_button = $('<a class="filter-delete">×</a>');
+    delete_button.click(deleteFilter);
+    filter_icon.append(delete_button);
+    $('#filter-icons').append(filter_icon, ' ');
+    current_filters.add("" + code);
+    search(true);
+}
+
 $.ajax({
     url: 'degree/degreereqs',
     data: {'query': degree_code},
@@ -1102,13 +1261,13 @@ function setupDegreeRequirements(data) {
         if (levels && levels.length > 0) {
             for (let i in levels) {
                 if (i > 0) description += '/ ';
-                description += '<span class="level-filter">' + levels[i] + '</span> ';
+                description += '<a href="javascript:void(0)" class="level-filter" onclick="addLevelFilter(\'' + levels[i] + '\')">' + levels[i] + '</a> ';
             }
         }
         description += 'courses starting with: ';
         for (let i in codes) {
             if (i > 0) description += ', ';
-            description += '<span class="code-filter">' + codes[i] + '</span>';
+            description += '<a href="javascript:void(0)" class="code-filter" onclick="addCodeFilter(\'' + codes[i] + '\')">' + codes[i] + '</a>';
         }
         description = $(description + '</div>');
         collapsible.append(description);

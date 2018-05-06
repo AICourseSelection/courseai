@@ -38,9 +38,6 @@ def degree_plan(request):
             raise Exception("Please provide a valid degree code and starting year")
     elif request.method == "PUT":
         data = request.body.decode('utf-8')
-
-        print(eval(data))
-
         code = eval(data)["code"]
         courses = eval(data)["courses"]
         prev = PreviousStudentDegree(code=code, courses_taken=courses)
