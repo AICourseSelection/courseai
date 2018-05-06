@@ -28,9 +28,14 @@ $('#upload-button').click(function () {
 
 $('#confirm-upload-button').click(function () {
     $.ajax({
-        url: 'update_degree',
-        data: {
-            "plan": JSON.stringify(degree_plan)
+        type: 'PUT',
+        url: 'degree/degreeplan',
+        data: JSON.stringify({
+            "code": degree_code,
+            "courses": put_degree_plan_in_upload_format()
+        }),
+        headers: {
+            "Content-Type": "application/json"
         },
         success: function () {
             $('#degree-submit-success').removeClass('d-none');
@@ -49,6 +54,16 @@ $('#confirm-upload-button').click(function () {
 $('#degree-submit-success').find('button.close').click(function () {
     $('#degree-submit-success').addClass('d-none');
 });
+
+function put_degree_plan_in_upload_format() {
+    to_return  = [];
+    for (var session in degree_plan) {
+        to_add = {};
+        to_add[session] = degree_plan[session];
+        to_return.push(to_add);
+    }
+    return to_return
+}
 
 function clearAllCourses() {
     for (let session in degree_plan) {
