@@ -30,10 +30,10 @@ $('#confirm-upload-button').click(function () {
     $.ajax({
         type: 'PUT',
         url: 'degree/degreeplan',
-        data: JSON.stringify({
+        data: {
             "code": degree_code,
-            "courses": put_degree_plan_in_upload_format()
-        }),
+            "courses": JSON.stringify(preparePlanForUpload(degree_plan))
+        },
         headers: {
             "Content-Type": "application/json"
         },
@@ -55,11 +55,11 @@ $('#degree-submit-success').find('button.close').click(function () {
     $('#degree-submit-success').addClass('d-none');
 });
 
-function put_degree_plan_in_upload_format() {
+function preparePlanForUpload(plan) {
     to_return = [];
-    for (var session in degree_plan) {
+    for (var session in plan) {
         to_add = {};
-        to_add[session] = degree_plan[session];
+        to_add[session] = plan[session];
         to_return.push(to_add);
     }
     return to_return
@@ -503,10 +503,15 @@ function search(coursesOnly = false) {
     let filters = {
         'codes': [],
         'levels': [],
+        'semesters': [],
     };
     for (let filter of current_filters) {
         if (!isNaN(parseInt(filter))) filters.levels.push(parseInt(filter));
         else if (filter.length === 4) filters.codes.push(filter);
+        else {
+            const sem = parseInt(filter.split(' ')[3]);
+            if (!filters['semesters'].includes(sem)) filters['semesters'].push(sem);
+        }
     }
     console.log(filters);
 
@@ -637,27 +642,51 @@ function updateCourseSearchResults(data) {
 
     cbody.find('.result-course').popover('dispose');
     cbody.empty();
-    if (response.length > 0) {
-        for (let r of response) {
-            const code = r['code'];
-            const title = r['title'];
-            course_titles[code] = title;
-            let item = $(
-                '<div class="draggable-course result-course list-group-item list-group-item-action">\n    ' +
-                '<span class="course-code">' + code + '</span>\n    ' +
-                '<span class="course-title">' + title + '</span>\n' +
-                '</div>');
-            makeCourseDraggable(item, code);
-            item.each(coursePopoverSetup);
-            cbody.append(item);
+
+    function addResponses(responses) {
+        if (responses.length > 0) {
+            for (let r of responses) {
+                const code = r['code'];
+                const title = r['title'];
+                course_titles[code] = title;
+                let item = $(
+                    '<div class="draggable-course result-course list-group-item list-group-item-action">\n    ' +
+                    '<span class="course-code">' + code + '</span>\n    ' +
+                    '<span class="course-title">' + title + '</span>\n' +
+                    '</div>');
+                makeCourseDraggable(item, code);
+                item.each(coursePopoverSetup);
+                cbody.append(item);
+            }
+        } else {
+            cbody.append('<div class="m-2">No courses found.</div>');
         }
-    } else {
-        cbody.append('<div class="m-2">No courses found.</div>');
+        results.parent().find('.fa-refresh').css({'display': 'none'});
+        results.parent().find('.collapse').css({'display': ''});
+        results.collapse('show');
+        console.log('course search successful')
     }
-    results.parent().find('.fa-refresh').css({'display': 'none'});
-    results.parent().find('.collapse').css({'display': ''});
-    results.collapse('show');
-    console.log('course search successful')
+
+    if ([...current_filters].some(x => (x.length) > 4)) {
+        $.ajax({
+            url: 'degree/coursedata',
+            data: {
+                'query': 'prereqs',
+                'codes': JSON.stringify(response.map(r => r.code))
+            },
+            success: function (data) {
+                let valid_responses = [];
+                const allowedSessions = [...current_filters].filter(x => (x.length) > 4).map(w => w.split(' ')[1] + 'S' + w.split(' ')[3]);
+                for (let course of response) {
+                    const code = course.code;
+                    const prereqs = data.response[code]['prerequisites'];
+                    const invalid = invalidSessions(prereqs);
+                    if (allowedSessions.some(x => !(x in invalid))) valid_responses.push(course)
+                }
+                addResponses(valid_responses)
+            }
+        })
+    } else addResponses(response);
 }
 
 $('.collapse').on('hide.bs.collapse', function () {
@@ -702,7 +731,7 @@ filter_button.popover({
 });
 
 function filterSubmit(form) {
-    const code = $(form).find('input[type=text]').val();
+    const code = $(form).find('input[type=text]').val().toUpperCase();
     if (code) addCodeFilter(code);
     return false;
 }
@@ -1073,7 +1102,7 @@ function clearElectiveHighlights() {
 }
 
 
-function invalidSessions(prerequisites, semesters) {
+function invalidSessions(prerequisites, semesters = [1, 2]) {
     let invalid_sessions = {};
 
     let courses_taken = new Set();
