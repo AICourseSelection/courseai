@@ -150,8 +150,8 @@ $.ajax({
                             first_cell.children().css({'display': 'none'});
                             first_cell.addClass('delete').addClass('alert-danger');
                             first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
-                                '    <i class="fa fa-trash" aria-hidden="true" style="font-size: 36pt;"></i>\n' +
-                                '    <div style="margin-top: 1rem;">Remove</div>\n' +
+                                '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
+                                '    <div class="mt-2">Remove</div>\n' +
                                 '</div>');
                             first_cell.droppable({
                                 accept: '.plan-cell',
@@ -477,7 +477,6 @@ function clickCell() {
 let curr_requests = {'course': null, 'major': null, 'minor': null, 'spec': null};
 
 function search(coursesOnly = false) {
-    console.log(coursesOnly);
     if (coursesOnly && curr_requests['course'] !== null) curr_requests['course'].abort();
     else for (let req of Object.values(curr_requests)) if (req !== null) req.abort();
     let filters = {
@@ -550,7 +549,9 @@ function search(coursesOnly = false) {
     });
 }
 
-$('#add-course').on('keyup', function() {search()});
+$('#add-course').on('keyup', function () {
+    search()
+});
 
 function updateMMSResults(data, type, section) {
     let responses = data['responses'];
@@ -577,6 +578,36 @@ function updateMMSResults(data, type, section) {
     console.log(type + ' search successful')
 }
 
+function makeCourseDraggable(item, code) {
+    item.draggable({
+        zIndex: 800,
+        revert: true,
+        start: function (event, ui) {
+            highlightElectives();
+            if (!(code in course_data)) {
+                $.ajax({
+                    url: 'degree/coursedata',
+                    data: {'query': code},
+                    success: function (data) {
+                        course_data[code] = data.response;
+                        highlightInvalidSessions(course_data[code]['prerequisites']);
+
+                    }
+                })
+            } else {
+                highlightInvalidSessions(course_data[code]['prerequisites']);
+            }
+        },
+        stop: function (event, ui) {
+            $(event.toElement).one('click', function (e) {
+                e.stopImmediatePropagation();
+            });
+            removeSessionHighlights();
+            clearElectiveHighlights();
+        }
+    });
+}
+
 function updateCourseSearchResults(data) {
     const response = data['response'];
     let results = $('#results-courses');
@@ -594,30 +625,7 @@ function updateCourseSearchResults(data) {
                 '<span class="course-code">' + code + '</span>\n    ' +
                 '<span class="course-title">' + title + '</span>\n' +
                 '</div>');
-            item.draggable({
-                zIndex: 800,
-                revert: true,
-                start: function (event, ui) {
-                    if (!(code in course_data)) {
-                        $.ajax({
-                            url: 'degree/coursedata',
-                            data: {'query': code},
-                            success: function (data) {
-                                course_data[code] = data.response;
-                                highlightInvalidSessions(course_data[code]['prerequisites']);
-                            }
-                        })
-                    } else {
-                        highlightInvalidSessions(course_data[code]['prerequisites']);
-                    }
-                },
-                stop: function (event, ui) {
-                    $(event.toElement).one('click', function (e) {
-                        e.stopImmediatePropagation();
-                    });
-                    removeSessionHighlights();
-                }
-            });
+            makeCourseDraggable(item, code);
             item.each(coursePopoverSetup);
             cbody.append(item);
         }
@@ -744,30 +752,7 @@ function mms_add(code) {
                     '</div>'
                 );
                 item.append(title_node);
-                item.draggable({
-                    zIndex: 1000,
-                    revert: true,
-                    start: function (event, ui) {
-                        if (!(course.code in course_data)) {
-                            $.ajax({
-                                url: 'degree/coursedata',
-                                data: {'query': course.code},
-                                success: function (data) {
-                                    course_data[course.code] = data.response;
-                                    highlightInvalidSessions(course_data[course.code]['prerequisites']);
-                                }
-                            })
-                        } else {
-                            highlightInvalidSessions(course_data[course.code]['prerequisites']);
-                        }
-                    },
-                    stop: function (event, ui) {
-                        $(event.toElement).one('click', function (e) {
-                            e.stopImmediatePropagation();
-                        });
-                        removeSessionHighlights();
-                    }
-                });
+                makeCourseDraggable(item, course.code);
                 item.each(coursePopoverSetup);
                 required.append(item);
             }
@@ -799,30 +784,7 @@ function mms_add(code) {
                     '</div>'
                 );
                 list_item.append(title_node);
-                list_item.draggable({
-                    zIndex: 1000,
-                    revert: true,
-                    start: function (event, ui) {
-                        if (!(course.code in course_data)) {
-                            $.ajax({
-                                url: 'degree/coursedata',
-                                data: {'query': course.code},
-                                success: function (data) {
-                                    course_data[course.code] = data.response;
-                                    highlightInvalidSessions(course_data[course.code]['prerequisites']);
-                                }
-                            })
-                        } else {
-                            highlightInvalidSessions(course_data[course.code]['prerequisites']);
-                        }
-                    },
-                    stop: function (event, ui) {
-                        $(event.toElement).one('click', function (e) {
-                            e.stopImmediatePropagation();
-                        });
-                        removeSessionHighlights();
-                    }
-                });
+                makeCourseDraggable(list_item, course.code);
                 list_item.each(coursePopoverSetup);
                 options.append(list_item);
             }
@@ -1073,6 +1035,21 @@ function removeCourse(session, position) {
 
 $('#mms-active-list').sortable();
 
+function highlightElectives() {
+    for (let cell of $('#plan-grid').find('.plan-cell')) {
+        if ($(cell).find('.course-code').text() === ELECTIVE_TEXT) {
+            $(cell).animate({'background-color': '#cde6d3'}, 200);
+        }
+    }
+}
+
+function clearElectiveHighlights() {
+    for (let cell of $('#plan-grid').find('.plan-cell')) {
+        $(cell).animate({'background-color': '#'}, 200);
+
+    }
+}
+
 
 function invalidSessions(prerequisites) {
     let invalid_sessions = {};
@@ -1134,28 +1111,6 @@ function removeSessionHighlights() {
         first_cell.children().css({'display': 'block'});
         first_cell.children().last().remove();
     }
-}
-
-function dragStart(event, ui, code) {
-    if (!(code in course_data)) {
-        $.ajax({
-            url: 'degree/coursedata',
-            data: {'query': code},
-            success: function (data) {
-                course_data[code] = data.response;
-                highlightInvalidSessions(course_data[code]['prerequisites']);
-            }
-        })
-    } else {
-        highlightInvalidSessions(course_data[code]['prerequisites']);
-    }
-}
-
-function dragStop(event, ui) {
-    $(event.toElement).one('click', function (e) {
-        e.stopImmediatePropagation();
-    });
-    removeSessionHighlights();
 }
 
 function addCodeFilter(code) {
@@ -1241,14 +1196,7 @@ function setupDegreeRequirements(data) {
                 '</div>'
             );
             item.append(title_node);
-            item.draggable({
-                zIndex: 1000,
-                revert: true,
-                start: function (event, ui) {
-                    dragStart(event, ui, course)
-                },
-                stop: dragStop
-            });
+            makeCourseDraggable(item, course);
             group.append(item);
         }
         collapsible.append(group);
