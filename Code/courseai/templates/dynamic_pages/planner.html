@@ -10,7 +10,10 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
           integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/solid.css"
+          integrity="sha384-VxweGom9fDoUf7YfLTHgO0r70LVNHP5+Oi8dcR4hbEjS8UnpRtrwTx7LpHq/MWLI" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
+          integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "css/style.css" %}"/>
     <title>Degree Builder</title>
 </head>
@@ -21,10 +24,13 @@
             <div class="h1 text-center">Plan Your Degree</div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-3 mb-2">
         <div class="col-12 h3 text-center" id="degree-title" tabindex="1">
             <div id="upload-button" class="btn btn-outline-success" tabindex="2">Submit Degree Plan</div>
             <div id="rc-button" class="btn btn-outline-danger" tabindex="3">Reset/Clear Courses</div>
+        </div>
+        <div id="degree-completed-notice" class="col-12 h6 text-center alert alert-success">
+            <strong>Congratulations!</strong> You have completed your degree plan!
         </div>
         <div id="courses-forced-notice" class="col-12 h6 text-center alert alert-warning">
             Warning: the following courses were added despite not meeting their requirements or availability:
@@ -37,12 +43,14 @@
             </button>
         </div>
     </div>
-    <br>
     <div class="row">
         <div class="col-3" id="left-panel">
             <div class="form-row">
-                <label class="h5 text-center" for="add-course" style="width: 100%">Add a
-                    course</label>
+                <label class="h5 text-center" for="add-course" style="width: 100%">
+                    Add a course
+                    <button id="show-filters" class="btn btn-outline-secondary btn-sm"><i class="fas fa-filter"></i>
+                    </button>
+                </label>
                 <input type="text" name="query" class="form-control" id="add-course" tabindex="4"
                        placeholder="Interest, subject area, course code... " autocomplete="off">
                 <div id="filter-icons" class="mt-1">
@@ -103,12 +111,13 @@
             <div id="plan-grid" class="popover-region"></div>
         </div>
         <div class="col-3 popover-region" id="right-panel">
-            <div class="h5 text-center" id="degree-header">
-                <label>Your Degree</label>
-                <span class="h6 unit-count"></span>
+            <div id="degree-header">
+                <a href="javascript:void(0)" class="collapse-all">Collapse all</a>
+                <div class="h5 text-center">Your Degree</div>
+                <div class="unit-count text-right"></div>
             </div>
             <div id="degree-reqs-list"></div>
-            <label class="h5 text-center" style="width: 100%">Your Majors, Minors, and Specialisations</label>
+            <label class="h5 text-center mt-2" style="width: 100%">Your Majors, Minors, and Specialisations</label>
             <div id="mms-active-list"></div>
         </div>
     </div>

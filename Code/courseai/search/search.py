@@ -25,6 +25,9 @@ def level_filter(levels):
     if levels is None:
         raise AssertionError("Argument to areas must not be None")
 
+    if len(levels) == 1:        # Add an extra level filter to avoid a bug which comes up
+        levels.append("9000")   # when there is exactly 1 level filter and 1 code filter
+
     level_filters = []
 
     for level in levels:
@@ -57,6 +60,7 @@ def raw_search(search_object, phrase, codes, levels):
         q2 = code_filter(codes)
         q3 = level_filter(levels)
         response = search_object.query(q).query(q2).query(q3).execute()
+        print(response)
 
     for hit in response['hits']['hits']:
         print(hit['_score'], hit['_source']['title'])
