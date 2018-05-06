@@ -170,6 +170,30 @@
         </div>
     </div>
 </div>
+<div class="modal" id="unavail-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-warning">
+                <h5 class="modal-title">Course Not Offered This Semester</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>The course you are attempting to add (<span id="unavail-modal-course"></span>) is not offered in this
+                    semester. Please add it to a semester in which it is available. You may add the course anyway but
+                    will need to talk to the course convenor to ask them to offer it.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="course-add-override" type="button" class="btn btn-primary" data-dismiss="modal">Add Course
+                    Anyway
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal" id="rc-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
