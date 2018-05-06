@@ -298,10 +298,9 @@ function electiveDropped(event, ui) {
     addCourse(code, title, session, position);
 }
 
-
 let course_data = {};
 
-function coursePopoverSetup() {
+function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
     if (code === ELECTIVE_TEXT) return;
     const title = $(this).find('.course-title').text();
@@ -322,16 +321,18 @@ function coursePopoverSetup() {
         '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
-    $(this).on('show.bs.popover', coursePopoverData)
+    $(this).on('show.bs.popover', function () {
+        coursePopoverData(this, $(item).hasClass('plan-cell'));
+    })
 }
 
-function coursePopoverData() {
-    const code = $(this).find('.course-code').text();
-    const me = this;
-    $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
+function coursePopoverData(course, descriptionOnly = false) {
+    const code = $(course).find('.course-code').text();
+    const me = course;
+    $(course).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if (this != me) $(this).popover('hide');
     });
-    let popover = $(this).data('bs.popover');
+    let popover = $(course).data('bs.popover');
     if (popover['data-received'] || false) return;
     let curr_popover = $(popover.tip);
     $.ajax({
@@ -352,9 +353,18 @@ function coursePopoverData() {
                 html += '<h6 class="mt-2">Description</h6>\n' +
                     '<div class="result-description">' + truncated_description + '</div>\n';
             }
-            if (![undefined, 'nan'].includes(data.response['prerequisite_text'])) {
-                html += '<h6 class="mt-2">Prerequisites and Incompatibility</h6>\n' +
-                    '<div class="result-description">' + data.response['prerequisite_text'] + '</div>\n';
+            if (!descriptionOnly) {
+                const semesters = data.response['semester'];
+                if (![undefined, 'nan'].includes(semesters)) {
+                    if (semesters.length == 0) html += '<h6 class="mt-2">Not available in standard semesters</h6>';
+                    else if (semesters.length == 2) html += '<h6 class="mt-2">Available in both semesters</h6>';
+                    else html += '<h6 class="mt-2">Available in Semester '+semesters[0]+'</h6>';
+                }
+
+                if (![undefined, 'nan'].includes(data.response['prerequisite_text'])) {
+                    html += '<h6 class="mt-2">Prerequisites and Incompatibility</h6>\n' +
+                        '<div class="result-description">' + data.response['prerequisite_text'] + '</div>\n';
+                }
             }
             html += '<h6 class="mt-2">Related Courses</h6>\n' +
                 '<div class="list-group">\n' +
