@@ -172,6 +172,30 @@ body {
     display: none;
 }
 
+#left-panel .tab-content {
+    padding-top: .7rem;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+#left-panel .tab-pane .form-row {
+    margin: 0 5px;
+}
+
+#degree-recommendations-list {
+    padding: 0 5px 5px 5px;
+
+}
+
+#degree-recommendations-list .list-group-item {
+    padding: .4rem .6rem;
+    border: 2px solid #dee2e6;
+    background-color: #f2fcff;
+}
+
 .dragged-course {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     border-radius: .25rem !important;
@@ -608,3 +632,4 @@ body {
     border: 1px solid #b9b9b9;
 
 }
+

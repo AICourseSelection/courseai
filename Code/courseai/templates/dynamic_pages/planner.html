@@ -45,67 +45,89 @@
     </div>
     <div class="row">
         <div class="col-3" id="left-panel">
-            <div class="form-row">
-                <label class="h5 text-center" for="add-course" style="width: 100%">
-                    Add a course
-                    <button id="show-filters" class="btn btn-outline-secondary btn-sm"><i class="fas fa-filter"></i>
-                    </button>
-                </label>
-                <input type="text" name="query" class="form-control" id="add-course" tabindex="4"
-                       placeholder="Interest, subject area, course code... " autocomplete="off">
-                <div id="filter-icons" class="mt-1">
+            <ul class="nav nav-tabs" id="input-tabs" role="tablist">
+                <li class="nav-item text-center" style="width: 40%">
+                    <a class="nav-link active show" id="tab-search" data-toggle="tab" href="#content-search" role="tab"
+                       aria-controls="search"
+                       aria-selected="true">Search</a>
+                </li>
+                <li class="nav-item text-center" style="width: 60%">
+                    <a class="nav-link" id="tab-recommend" data-toggle="tab" href="#content-recommend" role="tab"
+                       aria-controls="recommendations" aria-selected="true">Recommendations</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="input-tabs-content">
+                <div class="tab-pane fade show active" id="content-search" role="tabpanel" aria-labelledby="tab-search">
+                    <div class="form-row">
+                        <label class="h5 text-center" for="add-course" style="width: 100%">
+                            Add a course
+                            <button id="show-filters" class="btn btn-outline-secondary btn-sm"><i
+                                    class="fas fa-filter"></i>
+                            </button>
+                        </label>
+                        <input type="text" name="query" class="form-control" id="add-course" tabindex="4"
+                               placeholder="Interest, subject area, course code... " autocomplete="off">
+                        <div id="filter-icons" class="mt-1">
+                        </div>
+                    </div>
+                    <div id="search-results-list" class="popover-region" style="margin: .5rem 5px">
+                        <div class="card alert-info mb-2">
+                            <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
+                                 data-target="#results-courses">
+                                Courses
+                            </div>
+                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                                 style="font-size: 3rem; display: none"></div>
+                            <div id="results-courses" class="collapse">
+                                <div class="card-body list-group list-group-flush">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card alert-info mb-2">
+                            <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
+                                 data-target="#results-majors">
+                                Majors
+                            </div>
+                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                                 style="font-size: 3rem; display: none"></div>
+                            <div id="results-majors" class="collapse">
+                                <div class="card-body list-group list-group-flush">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card alert-info mb-2">
+                            <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
+                                 data-target="#results-minors">
+                                Minors
+                            </div>
+                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                                 style="font-size: 3rem; display: none"></div>
+                            <div id="results-minors" class="collapse">
+                                <div class="card-body list-group list-group-flush">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card alert-info mb-2">
+                            <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
+                                 data-target="#results-specs">
+                                Specialisations
+                            </div>
+                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                                 style="font-size: 3rem; display: none"></div>
+                            <div id="results-specs" class="collapse">
+                                <div class="card-body list-group list-group-flush">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="content-recommend" role="tabpanel" aria-labelledby="tab-recommend">
+                    <div class="h5 text-center">Recommended Courses for You</div>
+                    <div id="degree-recommendations-list" class="list-group">
+                    </div>
                 </div>
             </div>
-            <div id="search-results-list" class="popover-region" style="margin: .5rem -5px">
-                <div class="card alert-info mb-2">
-                    <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
-                         data-target="#results-courses">
-                        Courses
-                    </div>
-                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
-                         style="font-size: 3rem; display: none"></div>
-                    <div id="results-courses" class="collapse">
-                        <div class="card-body list-group list-group-flush">
-                        </div>
-                    </div>
-                </div>
-                <div class="card alert-info mb-2">
-                    <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
-                         data-target="#results-majors">
-                        Majors
-                    </div>
-                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
-                         style="font-size: 3rem; display: none"></div>
-                    <div id="results-majors" class="collapse">
-                        <div class="card-body list-group list-group-flush">
-                        </div>
-                    </div>
-                </div>
-                <div class="card alert-info mb-2">
-                    <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
-                         data-target="#results-minors">
-                        Minors
-                    </div>
-                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
-                         style="font-size: 3rem; display: none"></div>
-                    <div id="results-minors" class="collapse">
-                        <div class="card-body list-group list-group-flush">
-                        </div>
-                    </div>
-                </div>
-                <div class="card alert-info mb-2">
-                    <div class="card-header btn collapsed text-left pl-2" data-toggle="collapse"
-                         data-target="#results-specs">
-                        Specialisations
-                    </div>
-                    <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
-                         style="font-size: 3rem; display: none"></div>
-                    <div id="results-specs" class="collapse">
-                        <div class="card-body list-group list-group-flush">
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="col-6" id="centre-panel" style="min-width: 658px;">
             <div id="plan-grid" class="popover-region"></div>
