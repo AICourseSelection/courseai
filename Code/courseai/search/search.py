@@ -25,8 +25,8 @@ def level_filter(levels):
     if levels is None:
         raise AssertionError("Argument to areas must not be None")
 
-    if len(levels) == 1:
-        levels.append("9000")
+    if len(levels) == 1:        # Add an extra level filter to avoid a bug which comes up
+        levels.append("9000")   # when there is exactly 1 level filter and 1 code filter
 
     level_filters = []
 
