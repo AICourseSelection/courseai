@@ -26,7 +26,6 @@ def all_degrees(request):
     return JsonResponse({"response": results})
 
 
-# this method is unsafe for now
 @csrf_exempt
 def degree_plan(request):
     if request.method == "GET":
@@ -35,7 +34,7 @@ def degree_plan(request):
             starting_year = request.GET['start_year_sem']
             return degree_plan_helper.generate_degree_plan(code, starting_year)
         except(Exception):
-            raise Exception("Please provide a valid degree code and starting year")
+            return JsonResponse({"response": "null"})
     elif request.method == "PUT":
         data = request.body.decode('utf-8')
         code = eval(data)["code"]
