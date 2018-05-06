@@ -441,9 +441,10 @@ body {
     display: none;
 }
 
-#courses-forced-notice {
+#degree-completed-notice, #courses-forced-notice {
     display: none;
     padding: .5rem .8rem;
+    margin-bottom: .5rem;
 }
 
 .level-filter, .code-filter, .course-highlighter {

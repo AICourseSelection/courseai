@@ -1592,5 +1592,9 @@ function updateProgress() {
     }
     let unit_count = $('#degree-header').find('.unit-count');
     unit_count.text(overall_units + '/' + degree_requirements.units + ' units');
+    if (overall_units < degree_requirements.units) unit_count.css({'color': 'crimson'});
+    else unit_count.css({'color': ''});
     degree_completed = degree_completed && overall_units >= degree_requirements.units;
+    if (degree_completed) $('#degree-completed-notice').css({'display': 'block'});
+    else $('#degree-completed-notice').css({'display': ''});
 }
