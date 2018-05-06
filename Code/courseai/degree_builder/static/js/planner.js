@@ -847,6 +847,9 @@ function mms_add(code) {
                         course_titles[course['course_code']] = course['title'];
                         for (node of titles_to_retrieve[course['course_code']]) {
                             node.text(course['title']);
+                            let popover = node.parents('.result-course').data('bs.popover');
+                            const new_content = $($(popover.config.content)[0]).text(course['title']);
+                            popover.config.content = new_content.prop('outerHTML');
                         }
                     }
                 }
@@ -1180,6 +1183,16 @@ function addLevelFilter(code) {
     current_filters.add("" + code);
     search(true);
 }
+
+$('.collapse-all').click(function () {
+    if (this.textContent === "Collapse all") {
+        $('#degree-reqs-list').find('.collapse').collapse('hide');
+        $(this).text("Expand all")
+    } else if (this.textContent === 'Expand all') {
+        $('#degree-reqs-list').find('.collapse').collapse('show');
+        $(this).text("Collapse all")
+    }
+});
 
 $.ajax({
     url: 'degree/degreereqs',
@@ -1578,6 +1591,6 @@ function updateProgress() {
         }
     }
     let unit_count = $('#degree-header').find('.unit-count');
-    unit_count.text(overall_units + '/' + degree_requirements.units);
+    unit_count.text(overall_units + '/' + degree_requirements.units + ' units');
     degree_completed = degree_completed && overall_units >= degree_requirements.units;
 }
