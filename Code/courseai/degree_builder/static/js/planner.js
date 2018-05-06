@@ -56,7 +56,7 @@ $('#degree-submit-success').find('button.close').click(function () {
 });
 
 function put_degree_plan_in_upload_format() {
-    to_return  = [];
+    to_return = [];
     for (var session in degree_plan) {
         to_add = {};
         to_add[session] = degree_plan[session];
@@ -268,32 +268,28 @@ function electiveDropped(event, ui) {
     const session = first_cell.find('.row-year').text() + 'S' + first_cell.find('.row-sem').text().split(' ')[1];
     const position = $(event.target).index() - 1;
     if ($(row).hasClass('unavailable')) {
-        if ($(first_cell[0].lastElementChild).text() === "Prerequisites not met") {
+        const reason = $(first_cell[0].lastElementChild).text();
+        let modal;
+        if (reason === "Prerequisites not met") {
             $('#prereq-modal-course').text(ui.draggable.find('.course-code').text());
-            const modal = $('#prereq-modal');
-            let override_button = modal.find('#course-add-override');
-            override_button.off('click');
-            override_button.click(function () {
-                addCourse(code, title, session, position);
-                courses_force_added[code] = $(event.target);
-                updateForceNotice();
-            });
-            modal.modal();
-            return
-        } else if ($(first_cell[0].lastElementChild).text().includes('Incompatible')) {
+            modal = $('#prereq-modal');
+        } else if (reason.includes('Incompatible')) {
             $('#incompat-course1').text(ui.draggable.find('.course-code').text());
-            $('#incompat-course2').text($(first_cell[0].lastElementChild).text().split(' ').pop());
-            const modal = $('#incompat-modal');
-            let override_button = modal.find('#course-add-override');
-            override_button.off('click');
-            override_button.click(function () {
-                addCourse(code, title, session, position);
-                courses_force_added[code] = $(event.target);
-                updateForceNotice();
-            });
-            modal.modal();
-            return
+            $('#incompat-course2').text(reason.split(' ').pop());
+            modal = $('#incompat-modal');
+        } else if (reason === "Not available in this semester") {
+            $('#unavail-modal-course').text(ui.draggable.find('.course-code').text());
+            modal = $('#unavail-modal');
         }
+        let override_button = modal.find('#course-add-override');
+        override_button.off('click');
+        override_button.click(function () {
+            addCourse(code, title, session, position);
+            courses_force_added[code] = $(event.target);
+            updateForceNotice();
+        });
+        modal.modal();
+        return
     }
     addCourse(code, title, session, position);
 }
@@ -358,7 +354,7 @@ function coursePopoverData(course, descriptionOnly = false) {
                 if (![undefined, 'nan'].includes(semesters)) {
                     if (semesters.length == 0) html += '<h6 class="mt-2">Not available in standard semesters</h6>';
                     else if (semesters.length == 2) html += '<h6 class="mt-2">Available in both semesters</h6>';
-                    else html += '<h6 class="mt-2">Available in Semester '+semesters[0]+'</h6>';
+                    else html += '<h6 class="mt-2">Available in Semester ' + semesters[0] + '</h6>';
                 }
 
                 if (![undefined, 'nan'].includes(data.response['prerequisite_text'])) {
@@ -509,9 +505,10 @@ function search(coursesOnly = false) {
         'levels': [],
     };
     for (let filter of current_filters) {
-        if (isNaN(parseInt(filter))) filters.codes.push(filter);
-        else if (filter.length === 4) filters.levels.push(parseInt(filter));
+        if (!isNaN(parseInt(filter))) filters.levels.push(parseInt(filter));
+        else if (filter.length === 4) filters.codes.push(filter);
     }
+    console.log(filters);
 
     const searchValue = $('#add-course').val();
     const resultsList = $('#search-results-list');
@@ -615,12 +612,12 @@ function makeCourseDraggable(item, code) {
                     data: {'query': code},
                     success: function (data) {
                         course_data[code] = data.response;
-                        highlightInvalidSessions(course_data[code]['prerequisites']);
+                        highlightInvalidSessions(course_data[code]['prerequisites'], course_data[code]['semester']);
 
                     }
                 })
             } else {
-                highlightInvalidSessions(course_data[code]['prerequisites']);
+                highlightInvalidSessions(course_data[code]['prerequisites'], course_data[code]['semester']);
             }
         },
         stop: function (event, ui) {
@@ -1076,35 +1073,41 @@ function clearElectiveHighlights() {
 }
 
 
-function invalidSessions(prerequisites) {
+function invalidSessions(prerequisites, semesters) {
     let invalid_sessions = {};
 
     let courses_taken = new Set();
     let courses_taking = new Set();
 
     for (let session in degree_plan) {
+        const sem = parseInt(session.split('S').pop());
+        let prereq_fail_reason = "";
         let s_courses = degree_plan[session];
         for (let course of s_courses) {
             if (course.code !== ELECTIVE_TEXT) courses_taking.add(course.code);
         }
-        let prereq_fail_reason = "";
-        for (let clause of prerequisites) {
-            let fail_reason = "";
-            let clause_sat = false;
-            for (let course of clause) {
-                if (course.charAt(0) === '~') {
-                    if (courses_taken.has(course.slice(1)) || courses_taking.has(course.slice(1))) {
-                        fail_reason = "Incompatible course: " + course.slice(1);
-                    }
-                    clause_sat = true;
-                } else clause_sat = clause_sat || courses_taken.has(course);
-            }
-            prereq_fail_reason = fail_reason;
-            if (!clause_sat) {
-                prereq_fail_reason = "Prerequisites not met";
-                break;
+        if (!semesters.includes(sem)) {
+            prereq_fail_reason = "Not available in this semester"
+        } else {
+            for (let clause of prerequisites) {
+                let fail_reason = "";
+                let clause_sat = false;
+                for (let course of clause) {
+                    if (course.charAt(0) === '~') {
+                        if (courses_taken.has(course.slice(1)) || courses_taking.has(course.slice(1))) {
+                            fail_reason = "Incompatible course: " + course.slice(1);
+                        }
+                        clause_sat = true;
+                    } else clause_sat = clause_sat || courses_taken.has(course);
+                }
+                prereq_fail_reason = fail_reason;
+                if (!clause_sat) {
+                    prereq_fail_reason = "Prerequisites not met";
+                    break;
+                }
             }
         }
+
         if (prereq_fail_reason) invalid_sessions[session] = prereq_fail_reason;
         courses_taking.forEach(courses_taken.add, courses_taken);
         courses_taking.clear()
@@ -1112,8 +1115,8 @@ function invalidSessions(prerequisites) {
     return invalid_sessions;
 }
 
-function highlightInvalidSessions(prerequisites) {
-    const invalid_sessions = invalidSessions(prerequisites);
+function highlightInvalidSessions(prerequisites, semesters) {
+    const invalid_sessions = invalidSessions(prerequisites, semesters);
 
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row.children[0]);
