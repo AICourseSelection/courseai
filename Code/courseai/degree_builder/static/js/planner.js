@@ -224,9 +224,9 @@ $.ajax({
                         for (let node of titles_to_retrieve[course['course_code']]) {
                             node.text(course['title']);
                             let popover = node.parents('.plan-cell').data('bs.popover');
-                            const new_content = $($(popover.config.content)[0]).text(course['title']);
-                            popover.config.content = new_content.prop('outerHTML');
-
+                            let new_popover = $('<div>'+popover.config.content+'</div>');
+                            new_popover.find('.result-title').text(course['title']);
+                            popover.config.content = new_popover.html();
                         }
                     }
                     for (let session in degree_plan) {
