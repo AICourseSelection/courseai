@@ -1,5 +1,37 @@
 # Project Progress Overview
 
+## Sprint 9
+
+* 
+
+## Sprint 8
+
+- Degree planner, with ability to drag-and-drop courses into the plan:
+  ![drag_and_drop](Sprint_8/Images/drag_and_drop.png)
+- Degree planner, with ability to search majors, minors, and specialisations, and track the user's progress through them:
+  ![major_tracking](Sprint_8/Images/major_tracking.png)
+- Degree planner, showing the automatic degree plan:
+  ![study_options](Sprint_8/Images/study_options.png)
+- [Start of Degree Requirements data collection](https://trello.com/c/oZ38sev4)
+- [Interface decisions](Sprint_8/interface.md)
+- [Product mock-up complete](Sprint_8/mock-up.md).   
+
+## Sprint 7
+
+* All basic API endpoints complete on server-side. 
+* Degree planner, with ability to search all ANU courses:
+  ![Course Search](Sprint_7/Images/course_search.png)
+* Front page, with ability to 'suggest' degree names from list of all ANU degrees:
+  ![Front Page](Sprint_7/Images/front_page.png)
+* [Accenture meeting minutes](../Meeting_Minutes/Week_7/week-7-meeting-minutes.md)
+
+## Sprint 6
+
+- API Documentation (server-client contract): https://courseai.docs.apiary.io/
+- Degree planner, first version:
+  ![first_planner](Sprint_6/first_planner.png)
+- [Accenture meeting minutes](../Meeting_Minutes/Break/break-minutes-accenture.md)
+
 ## Sprint 5
 
 - [Planning Poker](Sprint_5/planning_poker.md)

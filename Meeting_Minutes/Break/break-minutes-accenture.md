@@ -1,3 +1,5 @@
+## Accenture Meeting - Break - Minutes
+
 | Intelligent search | Degree planner |
 |-----------------------|--------------|
 | have a foundation    |  ANU has a similar thing|
@@ -12,7 +14,11 @@
 * Consider building degrees for: Actuarial Studies
 * Q&A could be a different product; out of current scope; don't focus on it right now; sounds cool though
 
-
 ----
 
-Rest of the meeting was forming the use case diagrams.
+Rest of the meeting was forming the use case diagrams:
+
+![IMG_20180411_193448](H:\COMP3550\courseai\Meeting_Minutes\Break\IMG_20180411_193448.jpg)
+
+![IMG_20180411_193450](H:\COMP3550\courseai\Meeting_Minutes\Break\IMG_20180411_193450.jpg)
+
