@@ -382,7 +382,7 @@ body {
 }
 
 #mms-active-list .result-course.partial:before, #degree-reqs-list .result-course.partial:before, #degree-reqs-list .result-mms.partial:before {
-    content: "⚫";
+    content: "\f0ae";
     background-color: #f7ebc7;
 }
 
