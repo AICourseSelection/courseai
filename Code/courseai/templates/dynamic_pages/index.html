@@ -39,14 +39,14 @@
 
 
                 <div class="form-row mt-2">
-                    <div class="d-inline-block" style="padding: 0 5px; line-height: 2.25">
+                    <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
                         <label>I start my degree in: </label>
                     </div>
                     <div class="d-inline-block" style="padding: 0 5px; flex-grow: 1">
                         <input type="text" name="startyear" class="form-control" required
                                placeholder="Year" maxlength="4" minlength="4">
                     </div>
-                    <div class="d-inline-block" style="padding: 0 5px;">
+                    <div class="d-inline-block" style="padding-left: 5px;">
                         <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
                             <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
                                     type="radio" id="sem_1" name="semester" value="1" required>Semester 1</label>
@@ -113,8 +113,8 @@
             var degreeDicts = [];
             for (i in data.response) {
                 degreeDicts.push({name: data.response[i].title});
-                degreeList.add(data.response[i].title)
-                degreeCodes[data.response[i].title] = data.response[i].code
+                degreeList.add(data.response[i].title);
+                degreeCodes[data.response[i].title] = data.response[i].code;
             }
 
             $(".typeahead").typeahead({source: degreeDicts});
