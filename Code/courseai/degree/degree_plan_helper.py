@@ -23,13 +23,19 @@ def update_elective_code(c):
 def generate_degree_plan(code, start_year_sem):
     degree = Degree.objects.filter(code=code)[0]
     reqs = degree.requirements
+    print(reqs)
     to_return = []
     year, sem = start_year_sem.split('S')
     year, sem = int(year), int(sem)
-    for year_sem, courses in eval(reqs).items():
+    for year_sem, courses in sorted(eval(reqs).items(),key=lambda session : float(session[0])):
         for c in courses:
             update_elective_code(c)
-        to_return.append({'{}S{}'.format(year, sem): courses})
+            if (c['code']=="OR"):
+                c['code'] = 'Elective Course'
+        if(len(courses)<4):
+            for i in range(4-len(courses)):
+                courses.append({"code":'Elective Course'})
+        to_return.append({'{}S{}'.format(year, sem): courses[0:4]})
         year, sem = advance_sem(year, sem)
     return JsonResponse({"response": to_return})
 
