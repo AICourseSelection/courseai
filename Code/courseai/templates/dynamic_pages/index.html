@@ -14,80 +14,80 @@
 </head>
 <body>
 <div class="container">
+    {#    <div class="row mt-2 mb-4">#}
+    {#        <div class="col-md-10 offset-md-1">#}
+    {#            <form action="course-search" method="get">#}
+    {#                <div class="form-row">#}
+    {#                    <div class="col" style="margin-right: 69px">#}
+    {#                        <div style="float: left; width: 100%;">#}
+    {#                            <input type="text" name="query" class="form-control"#}
+    {#                                   placeholder="Type an interest of yours, subject, or course title">#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                    <div class="col search-button">#}
+    {#                        <button type="submit" class="btn btn-primary">Search</button>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </form>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    <hr>#}
+
     <div class="row">
-        <div class="col-md-10 offset-md-1">
-            <div class="h1 text-center">AI Enhanced ANU Degree Builder</div>
+        <div class="col-md-10 offset-md-1 mt-3 mb-3">
+            <div class="h1 text-center" style="font-weight: lighter">Intelligent Course Scheduler</div>
         </div>
     </div>
-    <div class="row mt-4 mb-2">
-        <div class="col-md-10 offset-md-1">
-            <form action="course-search" method="get">
-                <div class="form-row">
-                    <div class="col" style="margin-right: 69px">
-                        <div style="float: left; width: 100%;">
-                            <input type="text" name="query" class="form-control"
-                                   placeholder="Type an interest of yours, subject, or course title">
-                        </div>
-                    </div>
-                    <div class="col search-button">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+
 
     <hr/>
     <div class="row mt-4">
-        <div class="col-md-6">
-            <h3>Build Your Degree Plan</h3>
+        <div class="col-md-8 offset-md-2">
+            <div class="h3 text-center" style="font-weight: lighter;">Start planning your degree</div>
             <form id="planform" action="planner" method="get">
-                <div class="form-row">
-                    <div class="col">
-                        <input type="text" name="startyear" class="form-control" required
-                               placeholder="Start Year" maxlength="4" minlength="4">
-                    </div>
-                    <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
-                        <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
-                                type="radio" id="sem_1" name="semester" value="1" required>Semester 1</label>
-                        <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
-                                type="radio" id="sem_2" name="semester" value="2">Semester 2</label>
-                    </div>
-                </div>
                 <div class="form-row" style="margin-top: 15px">
-                    <div class="col-12">
-                        <input type="text" name="degreeName" class="typeahead form-control" required
-                               placeholder="Degree Name" autocomplete="off" data-toggle="popover">
-                        <input type="hidden" name="degreeCode">
+                    <input type="text" name="degreeName" class="typeahead form-control" required
+                           placeholder="What degree do you study?" autocomplete="off" data-toggle="popover">
+                    <input type="hidden" name="degreeCode">
+                </div>
+
+
+                <div class="form-row mt-2">
+                    <div class="d-inline-block" style="padding: 0 5px; line-height: 2.25">
+                        <label>I start my degree in: </label>
+                    </div>
+                    <div class="d-inline-block" style="padding: 0 5px; flex-grow: 1">
+                        <input type="text" name="startyear" class="form-control" required
+                               placeholder="Year" maxlength="4" minlength="4">
+                    </div>
+                    <div class="d-inline-block" style="padding: 0 5px;">
+                        <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
+                            <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
+                                    type="radio" id="sem_1" name="semester" value="1" required>Semester 1</label>
+                            <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
+                                    type="radio" id="sem_2" name="semester" value="2">Semester 2</label>
+                        </div>
                     </div>
                 </div>
+
                 <div class="form-row mt-4 mb-2">
                     <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Plan Your Degree</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6 mb-2">
-            <h3>Sign in for a personalised experience</h3>
-            <form id="loginform" action="login" method="post">{% csrf_token %}
-                <div class="form-row">
-                    <input type="text" name="uname" class="form-control" placeholder="Username" required>
-                </div>
-                <div class="form-row" style="margin-top: 15px">
-                    <input type="password" name="pass" class="form-control" placeholder="Password">
-                </div>
-                <div class="form-row mt-4 mb-2 text-center">
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-secondary btn-lg">Login</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Create Your Plan</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
 </div>
 
+<div class="footer">
+    <hr>
+    Created by <em>AI Course Selection</em>:
+    <br>
+    Joseph Meltzer, Thomas Hamer, Manal Mohania,
+    <br>
+    Lim Yong Wei, YiLong Wang, Christopher Kim
+</div>
 
 <div class="msg_box">
     <div class="msg_head">Ask a Question
