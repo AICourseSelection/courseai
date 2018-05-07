@@ -2,7 +2,6 @@
 
 * Problems: Roles and responsibility on Jack and Chris 
 
-
 * Jack and lim working on mockups– lim is more about design and Jack is more about documentation and research –trying to avoid clicking, make is simple 
 
 ### Discussion on Degree Builder: 
@@ -20,7 +19,7 @@
 6. Task: Research result bar on the left: what information should be there when you click a course, like pre-requisite
 
 
-7.Task: For research bar, should it just for the course that searched or include the major and minor. Or we can have two search bars, one for the course searched and one for the major and minors.
+7. Task: For research bar, should it just for the course that searched or include the major and minor. Or we can have two search bars, one for the course searched and one for the major and minors.
 
 
 8. Task: The courses searched on the left, drag it to the planner or there is an add button on the information page when you click the searched course.  
