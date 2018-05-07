@@ -76,10 +76,7 @@ function clearAllCourses() {
     }
     for (let box of $('#plan-grid').find('.plan-cell')) {
         $(box).popover('dispose');
-        $(box).droppable({
-            accept: '.draggable-course',
-            drop: electiveDropped
-        });
+        makeSlotDroppable($(box));
         $(box).find('.course-code').text(ELECTIVE_TEXT);
         $(box).find('.course-title').text('');
     }
@@ -152,10 +149,7 @@ $.ajax({
                         cell.append(title_node);
                         cell.click(clickCell);
                         cell.each(coursePopoverSetup);
-                        if (course['code'] === ELECTIVE_TEXT) cell.droppable({
-                            accept: '.draggable-course',
-                            drop: electiveDropped
-                        });
+                        if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
                         row.append(cell);
                     }
                     row.sortable({
@@ -224,7 +218,7 @@ $.ajax({
                         for (let node of titles_to_retrieve[course['course_code']]) {
                             node.text(course['title']);
                             let popover = node.parents('.plan-cell').data('bs.popover');
-                            let new_popover = $('<div>'+popover.config.content+'</div>');
+                            let new_popover = $('<div>' + popover.config.content + '</div>');
                             new_popover.find('.result-title').text(course['title']);
                             popover.config.content = new_popover.html();
                         }
@@ -468,7 +462,7 @@ function mmsPopoverSetup() {
         '    <div class="h3 popover-header"></div>\n' +
         '    <div class="mms-add"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
         '    <div class="popover-body"></div>\n' +
-        '    <a href="https://programsandcourses.anu.edu.au/'+mms_abbrev[code.split('-')[1]].toLowerCase()+'/' + code +
+        '    <a href="https://programsandcourses.anu.edu.au/' + mms_abbrev[code.split('-')[1]].toLowerCase() + '/' + code +
         '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
@@ -670,6 +664,52 @@ function updateMMSResults(data, type, section) {
     section.parent().find('.collapse').css({'display': ''});
     section.collapse('show');
     console.log(type + ' search successful')
+}
+
+function makeSlotDroppable(item) {
+    item.droppable({
+        accept: '.draggable-course',
+        drop: function (event, ui) {
+            item.removeClass('active-drop');
+            const row = event.target.parentElement;
+            const first_cell = $(row.firstElementChild);
+            const code = ui.draggable.find('.course-code').text();
+            const title = ui.draggable.find('.course-title').text();
+            const session = first_cell.find('.row-year').text() + 'S' + first_cell.find('.row-sem').text().split(' ')[1];
+            const position = $(event.target).index() - 1;
+            if ($(row).hasClass('unavailable')) {
+                const reason = $(first_cell[0].lastElementChild).text();
+                let modal;
+                if (reason === "Prerequisites not met") {
+                    $('#prereq-modal-course').text(ui.draggable.find('.course-code').text());
+                    modal = $('#prereq-modal');
+                } else if (reason.includes('Incompatible')) {
+                    $('#incompat-course1').text(ui.draggable.find('.course-code').text());
+                    $('#incompat-course2').text(reason.split(' ').pop());
+                    modal = $('#incompat-modal');
+                } else if (reason === "Not available in this semester") {
+                    $('#unavail-modal-course').text(ui.draggable.find('.course-code').text());
+                    modal = $('#unavail-modal');
+                }
+                let override_button = modal.find('#course-add-override');
+                override_button.off('click');
+                override_button.click(function () {
+                    addCourse(code, title, session, position);
+                    courses_force_added[code] = $(event.target);
+                    updateForceNotice();
+                });
+                modal.modal();
+                return
+            }
+            addCourse(code, title, session, position);
+        },
+        over: function (event, ui) {
+            item.addClass('active-drop');
+        },
+        out: function (event, ui) {
+            item.removeClass('active-drop');
+        }
+    });
 }
 
 function makeCourseDraggable(item, code) {
@@ -1116,6 +1156,7 @@ function addCourse(code, title, session, position, update_recommendations = true
         return (first_cell.find('.row-year').text() == year && first_cell.find('.row-sem').text() == sem);
     });
     const box = $(row.children()[position + 1]);
+    box.droppable('destroy');
     box.find('.course-code').text(code);
     box.find('.course-title').text(title);
     box.each(coursePopoverSetup);
@@ -1138,10 +1179,7 @@ function removeCourse(session, position, update_recommendations = true) {
     slot['code'] = ELECTIVE_TEXT;
     delete slot['title'];
     box.popover('dispose');
-    box.droppable({
-        accept: '.draggable-course',
-        drop: electiveDropped
-    });
+    makeSlotDroppable(box);
     box.find('.course-code').text(ELECTIVE_TEXT);
     box.find('.course-title').text('');
     updateProgress();
