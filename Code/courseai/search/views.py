@@ -87,10 +87,7 @@ def recommend_course(request):
         if (course in course_list):
             continue
         degree = Degree.objects.filter(code=code)[0]
-        if (int(degree.number_of_enrolments) > 0):
-            proportion = int(eval(degree.metrics)[course]) * 100 / int(degree.number_of_enrolments)
-        else:
-            proportion = 0
+
         to_return.append(
             {"course": course, "reasoning": 'You have taken similar courses.'})
     return JsonResponse({"response": to_return})
