@@ -58,12 +58,6 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
                 code = contents.split('\n')[1]
                 code = code.strip()
                 title = raw_search(search_object, code, None, None, sem_queried=None)[0]['title']
-                print("*****")
-                print(contents, type(contents))
-                print(contents.split('\n'), contents.split('\n')[1])
-                print(code, type(code))
-                print(title, type(title))
-                print("*****")
                 course_list.append({'code': code, 'title': title})
             except:
                 return []
