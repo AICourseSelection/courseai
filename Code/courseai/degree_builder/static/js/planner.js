@@ -1238,7 +1238,7 @@ function invalidSessions(prerequisites, semesters = [1, 2]) {
                         clause_sat = true;
                     } else clause_sat = clause_sat || courses_taken.has(course);
                 }
-                prereq_fail_reason = fail_reason;
+                if (fail_reason) prereq_fail_reason = fail_reason;
                 if (!clause_sat) {
                     prereq_fail_reason = "Prerequisites not met";
                     break;
