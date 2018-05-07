@@ -4,16 +4,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
-          integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/solid.css"
-          integrity="sha384-VxweGom9fDoUf7YfLTHgO0r70LVNHP5+Oi8dcR4hbEjS8UnpRtrwTx7LpHq/MWLI" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
-          integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/jquery-ui.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/solid.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/fontawesome.css" %}"/>
     <link rel="stylesheet" href="{% static "css/style.css" %}"/>
     <title>Degree Builder</title>
 </head>
@@ -280,19 +274,12 @@
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
-        integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
-<script src="https://sdk.amazonaws.com/js/aws-sdk-2.213.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.shadow-animation/1/mainfile"></script>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/popper.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/jquery-ui.min.js" %}"></script>
+<script src="{% static "js/aws-sdk-2.213.1.min.js" %}"></script>
+<script src="{% static "js/jquery-animation.js" %}"></script>
 <script src="{% static "js/autosize.min.js" %}"></script>
 <script src="{% static "js/chatbox.js" %}"></script>
 <script>
