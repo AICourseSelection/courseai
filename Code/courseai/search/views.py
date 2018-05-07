@@ -58,7 +58,7 @@ def recommend_course(request):
                 proportion = int(eval(degree.metrics)[course])*100 / int(degree.number_of_enrolments)
             else:
                 proportion = 0
-            to_return.append({"course":  course, "reasoning": '%.2f%% of students in your degree took this course' % proportion})
+            to_return.append({"course":  course, "reasoning": '%.2f%% of students in your degree chose this course' % proportion})
         return JsonResponse({"response": to_return})
 
     to_return = []
@@ -86,7 +86,7 @@ def recommend_course(request):
         else:
             proportion = 0
         course_list.append(course_code)
-        to_return.append({"course":  course_code, "reasoning": '%.2f%% of students in your degree took this course.' % proportion })
+        to_return.append({"course":  course_code, "reasoning": '%.2f%% of students in your degree chose this course.' % proportion })
 
     for course in algo_recommended:
         if (course in course_list):
