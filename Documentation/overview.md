@@ -1,5 +1,11 @@
 # Project Progress Overview
 
+## Sprint 5
+
+- [Planning Poker](Sprint_5/planning_poker.md)
+- [Audit Feedback](Sprint_5/audit_2_feedback.md)
+- [Presentation Feedback from Client](Sprint_5/presentation_feedback.md)
+
 ## Audit 2 / Sprint 4
 
 * **[Timeline with Milestones](Audit_2/PDF/Schedule_With_Milestones.pdf)**
