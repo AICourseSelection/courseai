@@ -1211,6 +1211,9 @@ function invalidSessions(prerequisites, semesters = [1, 2]) {
     let courses_taken = new Set();
     let courses_taking = new Set();
 
+    if(semesters.length === 0) {semesters = [1, 2]};
+
+
     for (let session in degree_plan) {
         const sem = parseInt(session.split('S').pop());
         let prereq_fail_reason = "";
@@ -1218,6 +1221,7 @@ function invalidSessions(prerequisites, semesters = [1, 2]) {
         for (let course of s_courses) {
             if (course.code !== ELECTIVE_TEXT) courses_taking.add(course.code);
         }
+
         if (!semesters.includes(sem)) {
             prereq_fail_reason = "Not available in this semester"
         } else {
