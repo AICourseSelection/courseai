@@ -36,38 +36,53 @@ def level_filter(levels):
     return Q('bool', should=level_filters, minimum_should_match=1)
 
 
-def raw_search(search_object, phrase, codes, levels):
+def raw_search(search_object, phrase, codes, levels, sem_queried):
     q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description', 'outcome^1.5'])
 
-    # if areas is not None:
-    #     q3 = area_filter(areas)
-    #     response = search_object.query(q).query(q3).execute()
-    # else:
-    #     response = search_object.query(q).execute()
-
     if codes is None and levels is None:
-        response = search_object.query(q).execute()
+        response = search_object.query(q)
+        count = response.count()
+        response = response[0:count].execute()
 
     elif codes is None and levels is not None:
         q3 = level_filter(levels)
-        response = search_object.query(q).query(q3).execute()
+        response = search_object.query(q).query(q3)
+        count = response.count()
+        response = response[0:count].execute()
 
     elif codes is not None and levels is None:
         q2 = code_filter(codes)
-        response = search_object.query(q).query(q2).execute()
+        response = search_object.query(q).query(q2)
+        count = response.count()
+        response = response[0:count].execute()
 
     else:  # both are not none
         q2 = code_filter(codes)
         q3 = level_filter(levels)
-        response = search_object.query(q).query(q2).query(q3).execute()
-        print(response)
-
-    for hit in response['hits']['hits']:
-        print(hit['_score'], hit['_source']['title'])
+        response = search_object.query(q).query(q2).query(q3)
+        count = response.count()
+        response = response[0:count].execute()
 
     course_list = []
     for hit in response['hits']['hits']:
-        course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        # perform the semester filtering here
+        sem_offered = hit['_source']['semester']
+        if sem_queried is None:
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        elif len(sem_queried) == 2 and len(sem_offered) != 0:
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        elif len(sem_queried) == 1 and sem_queried[0] == 1 and (1 in sem_offered):
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        elif len(sem_queried) == 1 and sem_queried[0] == 2 and (2 in sem_offered):
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        else:
+            continue
+
         course_list.append(course)
     return course_list
 
@@ -111,7 +126,7 @@ def course_search(search_object, phrase):
 
 # need a way to run initiate Elastic instance only once
 
-def execute_search(phrase, request, codes, levels):
+def execute_search(phrase, request, codes, levels, semesters_offered=None):
     client = Elasticsearch()
     s = Search(using=client, index='courses')
 
@@ -127,7 +142,7 @@ def execute_search(phrase, request, codes, levels):
             response = __filtered_search(s, phrase, f_string, codes, levels)
 
     else:
-        response = raw_search(s, phrase, codes, levels)
+        response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered)
 
     resp = {'query': phrase, 'response': response}
     print(resp)

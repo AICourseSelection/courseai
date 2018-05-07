@@ -22,9 +22,11 @@ def index(request):
     filters = request.GET.get('filters', None)
     codes = None
     levels = None
+    semesters = None
 
     if filters is not None:
         filters = json.loads(filters)
+        print(filters)
 
         if 'codes' in filters and filters['codes']:
             codes = filters['codes']
@@ -32,7 +34,10 @@ def index(request):
         if 'levels' in filters and filters['levels']:
             levels = filters['levels']
 
-    return search.execute_search(original_query, request, codes=codes, levels=levels)
+        if 'semesters' in filters and filters['semesters']:
+            semesters = filters['semesters']
+
+    return search.execute_search(original_query, request, codes=codes, levels=levels, semesters_offered=semesters)
 
 def recommend_course(request):
     plan = eval(request.GET['courses'])
