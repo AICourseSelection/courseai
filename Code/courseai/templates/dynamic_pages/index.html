@@ -5,17 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
     <link rel="stylesheet" href="{% static "css/style.css" %}"/>
     <title>Degree Builder</title>
 </head>
 <body style="background: linear-gradient(azure, white 40%); background-repeat: no-repeat">
 <div class="container" style="margin-bottom: 135px">
     <div class="row">
-        <div class="col-md-10 offset-md-1 mt-3 mb-3">
+        <div class="col-md-10 offset-md-1 mb-2">
             <div class="h1 text-center" style="font-weight: lighter">
                 <object data="{% static "img/logo.svg" %}" type="image/svg+xml" style="width: 120px; vertical-align: middle; margin-right: 1rem">
                     <img src="{% static "img/logo.png" %}"/>
@@ -89,16 +86,10 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-<script src="https://sdk.amazonaws.com/js/aws-sdk-2.213.1.min.js"></script>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/popper.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/aws-sdk-2.213.1.min.js" %}"></script>
 <script src="{% static "js/bootstrap3-typeahead.js" %}"></script>
 <script src="{% static "js/autosize.min.js" %}"></script>
 <script src="{% static "js/chatbox.js" %}"></script>
