@@ -13,29 +13,15 @@
     <title>Degree Builder</title>
 </head>
 <body>
-<div class="container">
-    {#    <div class="row mt-2 mb-4">#}
-    {#        <div class="col-md-10 offset-md-1">#}
-    {#            <form action="course-search" method="get">#}
-    {#                <div class="form-row">#}
-    {#                    <div class="col" style="margin-right: 69px">#}
-    {#                        <div style="float: left; width: 100%;">#}
-    {#                            <input type="text" name="query" class="form-control"#}
-    {#                                   placeholder="Type an interest of yours, subject, or course title">#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                    <div class="col search-button">#}
-    {#                        <button type="submit" class="btn btn-primary">Search</button>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </form>#}
-    {#        </div>#}
-    {#    </div>#}
-    {#    <hr>#}
-
+<div class="container" style="margin-bottom: 135px">
     <div class="row">
         <div class="col-md-10 offset-md-1 mt-3 mb-3">
-            <div class="h1 text-center" style="font-weight: lighter">Intelligent Course Scheduler</div>
+            <div class="h1 text-center" style="font-weight: lighter">
+                <object data="{% static "img/logo.svg" %}" type="image/svg+xml" style="width: 120px; vertical-align: middle; margin-right: 1rem">
+                    <img src="{% static "img/logo.png" %}"/>
+                </object>
+                Intelligent Course Scheduler
+            </div>
         </div>
     </div>
 
@@ -89,7 +75,7 @@
     Lim Yong Wei, YiLong Wang, Christopher Kim
 </div>
 
-<div class="msg_box">
+<div class="msg_box" style="right: 1%">
     <div class="msg_head">Ask a Question
         <div class="close">&times;</div>
     </div>

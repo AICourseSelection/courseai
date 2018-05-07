@@ -983,7 +983,9 @@ function mms_add(code) {
     new_mms.append(collapsible);
     mms_active_list.prepend(new_mms);
     active_mms[code] = new_mms;
-    $('#degree-reqs-list').find('.collapse').collapse('hide');
+    const collapse_button = $('.collapse-all');
+    if (collapse_button.text()==='Collapse all') collapse_button.click();
+    else $('#degree-reqs-list').find('.collapse').collapse('hide');
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
     updateProgress();
