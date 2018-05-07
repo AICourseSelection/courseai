@@ -4,6 +4,7 @@ from django.http import JsonResponse
 
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
+from elasticsearch_dsl.query import MultiMatch
 
 
 def get_mms_data(code):
@@ -93,8 +94,8 @@ def all_specs():
 
 def mms_by_name(name, index_name):
     client = Elasticsearch()
-    response = Search(using=client, index=index_name).query("match",
-                                                            name=name).execute().to_dict()  # the to_dict() works like magic
+    q = MultiMatch(query=name, type="phrase_prefix", fields=['name'])
+    response = Search(using=client, index=index_name).query(q).execute().to_dict()  # the to_dict() works like magic
 
     responses = response['hits']['hits']
 

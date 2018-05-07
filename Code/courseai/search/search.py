@@ -112,7 +112,7 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
 
 
 def __filtered_search(search_object, phrase, filter_string, codes, levels, sem_queried=None):
-    q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description^1.5', 'outcome'])
+    q = MultiMatch(query=phrase, type="phrase_prefix", fields=['code^4', 'title^3', 'description^1.5', 'outcome'])
     q2 = Q('bool',
            should=[Q('match_phrase', title=filter_string),
                    Q('match_phrase', code=filter_string),
