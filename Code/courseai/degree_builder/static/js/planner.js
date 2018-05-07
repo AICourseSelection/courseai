@@ -8,9 +8,9 @@ let degree_requirements = {};
 let courses_force_added = {};
 
 const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
+$('#degree-title-text').text(title_text);
 let title_box = $('#degree-title');
 let rc_button = $('#rc-button');
-rc_button.before(title_text);
 title_box.hover(function () {
     rc_button.fadeIn(150);
 }, function () {
@@ -755,7 +755,7 @@ function updateCourseSearchResults(data) {
 
     function addResponses(responses) {
         if (responses.length > 0) {
-            for (let r of responses) {
+            for (let r of responses.slice(0,10)) {
                 const code = r['code'];
                 const title = r['title'];
                 course_titles[code] = title;
