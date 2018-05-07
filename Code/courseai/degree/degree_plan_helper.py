@@ -23,11 +23,19 @@ def update_elective_code(c):
 def generate_degree_plan(code, start_year_sem):
     degree = Degree.objects.filter(code=code)[0]
     reqs = degree.requirements
-    print(reqs)
+    if(reqs=="{}"):
+        reqs = dict()
+        final_year =3
+        if("Honours" in degree.name):
+            final_year = 4
+        for i in range(1,final_year+1):
+            for j in range(1,3):
+                reqs[str(i)+"."+str(j)] = [{"title":'Elective Course'}]
     to_return = []
     year, sem = start_year_sem.split('S')
     year, sem = int(year), int(sem)
-    for year_sem, courses in sorted(eval(reqs).items(),key=lambda session : float(session[0])):
+    for year_sem, courses in sorted(eval(str(reqs)).items(),key=lambda session : float(session[0])):
+        print(len(courses))
         for c in courses:
             update_elective_code(c)
             if (c['code']=="OR"):

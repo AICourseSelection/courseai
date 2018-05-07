@@ -14,8 +14,6 @@ from search import josnhelper
 from search.nn import train_sample
 
 
-
-
 def all_degrees(request):
     degree_list = Degree.objects.all()
     results = []

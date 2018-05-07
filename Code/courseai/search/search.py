@@ -39,7 +39,7 @@ def level_filter(levels):
 
 
 def raw_search(search_object, phrase, codes, levels, sem_queried):
-    q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description', 'outcome^1.5'])
+    q = MultiMatch(query=phrase, type="phrase_prefix",  fields=['code^4', 'title^3', 'description', 'outcome^1.5'])
 
     if codes is None and levels is None:
         response = search_object.query(q)
@@ -88,7 +88,10 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
     for hit in response['hits']['hits']:
 
         # perform the semester filtering here
-        sem_offered = hit['_source']['semester']
+        try:
+            sem_offered = hit['_source']['semester']
+        except:
+            continue
         if sem_queried is None:
             course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
 
