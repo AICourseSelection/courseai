@@ -234,7 +234,7 @@ $.ajax({
                 }
             });
         }
-    }
+    },
 });
 
 function updateForceNotice() {
@@ -755,7 +755,7 @@ function updateCourseSearchResults(data) {
 
     function addResponses(responses) {
         if (responses.length > 0) {
-            for (let r of responses.slice(0,10)) {
+            for (let r of responses.slice(0, 10)) {
                 const code = r['code'];
                 const title = r['title'];
                 course_titles[code] = title;
@@ -981,10 +981,11 @@ function mms_add(code) {
     }
     new_mms.append(card_header);
     new_mms.append(collapsible);
+    if (mms_active_list.children().length === 0) $('#mms-list-placeholder').addClass('d-none');
     mms_active_list.prepend(new_mms);
     active_mms[code] = new_mms;
     const collapse_button = $('.collapse-all');
-    if (collapse_button.text()==='Collapse all') collapse_button.click();
+    if (collapse_button.text() === 'Collapse all') collapse_button.click();
     else $('#degree-reqs-list').find('.collapse').collapse('hide');
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
@@ -1009,6 +1010,7 @@ function deleteMMS(button) {
     delete active_mms[code];
     $(button).parents('.mms').find('.result-course').popover('dispose');
     $(button).parents('.mms').remove();
+    if ($('#mms-active-list').children().length === 0) $('#mms-list-placeholder').removeClass('d-none');
     updateProgress();
 }
 
@@ -1213,8 +1215,9 @@ function invalidSessions(prerequisites, semesters = [1, 2]) {
     let courses_taken = new Set();
     let courses_taking = new Set();
 
-    if(semesters.length === 0) {semesters = [1, 2]};
-
+    if (semesters.length === 0) {
+        semesters = [1, 2]
+    }
 
     for (let session in degree_plan) {
         const sem = parseInt(session.split('S').pop());
@@ -1318,7 +1321,11 @@ $('.collapse-all').click(function () {
 $.ajax({
     url: 'degree/degreereqs',
     data: {'query': degree_code},
-    success: setupDegreeRequirements
+    success: setupDegreeRequirements,
+    error: function (data) {
+        console.log(0);
+        $('#degree-header').remove();
+    }
 });
 
 function setupDegreeRequirements(data) {
@@ -1470,7 +1477,7 @@ function setupDegreeRequirements(data) {
                                 if (typeof(value) !== "string") return value[0];
                                 else return value;
                             });
-                            course_lists[name] =courses;
+                            course_lists[name] = courses;
                             if (data.response.type !== name) return;
                             let card = createCourseListSection(type, title, courses, original_section_count);
                             placeholder.replaceWith(card);
@@ -1745,6 +1752,7 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
 });
 
 function updateRecommendations() {
+    let group = $('#degree-recommendations-list');
     $.ajax({
         url: 'search/recommend',
         data: {
@@ -1753,7 +1761,7 @@ function updateRecommendations() {
         },
         success: function (data) {
             let titles_to_retrieve = {};
-            let group = $('#degree-recommendations-list');
+            group.find('.result-course').popover('dispose');
             group.empty();
             for (const course of data.response) {
                 const code = course.course;
