@@ -206,6 +206,10 @@ body {
     display: none;
 }
 
+.active-drop {
+    border: 2px dashed #595c5f;
+}
+
 #search-results-list .card-header {
     padding: 0;
     white-space: normal;
