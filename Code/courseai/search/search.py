@@ -87,7 +87,7 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
     return course_list
 
 
-def __filtered_search(search_object, phrase, filter_string, codes, levels):
+def __filtered_search(search_object, phrase, filter_string, codes, levels, sem_queried=None):
     q = MultiMatch(query=phrase, fields=['code^4', 'title^3', 'description^1.5', 'outcome'])
     q2 = Q('bool',
            should=[Q('match_phrase', title=filter_string),
@@ -97,18 +97,52 @@ def __filtered_search(search_object, phrase, filter_string, codes, levels):
            minimum_should_match=1
            )
 
-    if codes is not None:
-        q3 = code_filter(codes)
-        response = search_object.query(q).query(q2).query(q3).execute()
-    else:
-        response = search_object.query(q).query(q2).execute()
+    if codes is None and levels is None:
+        response = search_object.query(q).query(q2)
+        count = response.count()
+        response = response[0:count].execute()
+
+    elif codes is None and levels is not None:
+        q3 = level_filter(levels)
+        response = search_object.query(q).query(q2).query(q3)
+        count = response.count()
+        response = response[0:count].execute()
+
+    elif codes is not None and levels is None:
+        q4 = code_filter(codes)
+        response = search_object.query(q).query(q2).query(q4)
+        count = response.count()
+        response = response[0:count].execute()
+
+    else:  # both are not none
+        q4 = code_filter(codes)
+        q3 = level_filter(levels)
+        response = search_object.query(q).query(q2).query(q3).query(q4)
+        count = response.count()
+        response = response[0:count].execute()
 
     for hit in response['hits']['hits']:
         print(hit['_score'], hit['_source']['title'])
 
     course_list = []
     for hit in response['hits']['hits']:
-        course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+        # perform the semester filtering here
+        sem_offered = hit['_source']['semester']
+        print(sem_queried, sem_offered)
+        if sem_queried is None:
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        elif len(sem_queried) == 2 and len(sem_offered) != 0:
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        elif len(sem_queried) == 1 and sem_queried[0] == 1 and (1 in sem_offered):
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        elif len(sem_queried) == 1 and sem_queried[0] == 2 and (2 in sem_offered):
+            course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
+
+        else:
+            continue
         course_list.append(course)
 
     return course_list
@@ -135,11 +169,11 @@ def execute_search(phrase, request, codes, levels, semesters_offered=None):
 
         quote_positions = [pos for pos, char in enumerate(phrase) if char == c][:2]
         if len(quote_positions) < 2 or quote_positions[1] - quote_positions[0] < 2:
-            response = raw_search(s, phrase, codes, levels)
+            response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered)
 
         else:
             f_string = phrase[quote_positions[0] + 1: quote_positions[1]]
-            response = __filtered_search(s, phrase, f_string, codes, levels)
+            response = __filtered_search(s, phrase, f_string, codes, levels, sem_queried=semesters_offered)
 
     else:
         response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered)
