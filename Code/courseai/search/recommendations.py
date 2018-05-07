@@ -102,12 +102,3 @@ def get_recommendations(course_list):
 
     return recommendations
 
-
-if __name__ == '__main__':
-    print(get_recommendations(["COMP1130", "COMP2300", "STAT1003", "MATH1115",
-                               "MATH1116", "COMP1140", "COMP1600", "COMP2400",
-                               "COMP3620", "COMP2100", "COMP2550", "FINM1001",
-                               "COMP2130", "COMP2310", "COMP2560", "COMP3600",
-                               "COMP3550", "COMP3630", "COMP4670", "COMP4660"]))
-    print()
-    print(get_recommendations(["FINM1001", "STAT1008", "BUSN1001", "INFS1001"]))
