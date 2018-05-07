@@ -23,8 +23,27 @@ body {
     padding-bottom: 2rem;
 }
 
+#planform, #planform input, #planform .btn-group .btn{
+    font-size: 14pt !important;
+}
+
 #planform input[type=text] {
     text-align: center;
+}
+
+#planform .typeahead.dropdown-menu {
+    max-height: fit-content;
+    margin: 0 auto -100% auto;
+    left: 0 !important;
+    top: 0 !important;
+    position: relative;
+}
+
+#planform .typeahead .dropdown-item:hover {
+    background-color: #e3ebf3;
+}
+#planform .typeahead .dropdown-item:active {
+    background-color: #007bff;
 }
 
 .search-button {
