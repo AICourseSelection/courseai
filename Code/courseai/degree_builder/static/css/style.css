@@ -16,10 +16,11 @@ body {
 
 .footer {
     position: fixed;
+    background-color: white;
     bottom: 0;
     width: 100%;
     text-align: center;
-    margin-bottom: 2rem;
+    padding-bottom: 2rem;
 }
 
 .top-margin {
