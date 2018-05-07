@@ -114,5 +114,5 @@ def course_lists(query):
         response = responses[0]
     else:
         response = responses
-    res = {'responses': response}
+    res = {'response': response}
     return JsonResponse(res)
