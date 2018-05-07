@@ -508,6 +508,10 @@ body {
     color: #0051a9;
 }
 
+#code-input {
+    text-transform: uppercase;
+}
+
 .chat_box {
     background: #929aa8;
     position: fixed;
