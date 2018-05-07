@@ -40,8 +40,6 @@ def recommend_course(request):
     course_list = parse_degree_json(request.GET['courses'])
     algo_recommended  = get_recommendations(course_list)
     d = Degree(code=code, requirements=str(plan))
-    print(course_list)
-    print(algo_recommended)
 
     try:
         predictions, prediction_ratings = get_prediction(d, 20)
@@ -52,7 +50,7 @@ def recommend_course(request):
                 continue
             degree = Degree.objects.filter(code=code)[0]
             if (int(degree.number_of_enrolments) > 0):
-                proportion = int(eval(degree.metrics)[course]) / int(degree.number_of_enrolments)
+                proportion = int(eval(degree.metrics)[course])*100 / int(degree.number_of_enrolments)
             else:
                 proportion = 0
             to_return.append({"course":  course, "reasoning": '%.2f%% of students in your degree took this course' % proportion})
@@ -75,20 +73,27 @@ def recommend_course(request):
             continue
 
         if (course_rating<1):
-            if(algo_courses_rec>9) or (algo_recommended[algo_courses_rec] in course_list):
-                continue
-            to_return.append({"course": algo_recommended[algo_courses_rec], "reasoning": ["you have taken similar courses"]})
-            algo_courses_rec+=1
             continue
 
         degree = Degree.objects.filter(code = code)[0]
         if (int(degree.number_of_enrolments) > 0):
-            proportion = int(eval(degree.metrics)[course_code]) / int(degree.number_of_enrolments)
+            proportion = int(eval(degree.metrics)[course_code])*100 / int(degree.number_of_enrolments)
         else:
             proportion = 0
-        to_return.append({"course":  course_code, "reasoning": '%.2f%% of students in your degree took this course' % proportion })
+        course_list.append(course_code)
+        to_return.append({"course":  course_code, "reasoning": '%.2f%% of students in your degree took this course.' % proportion })
 
-
+    for course in algo_recommended:
+        if (course in course_list):
+            continue
+        degree = Degree.objects.filter(code=code)[0]
+        if (int(degree.number_of_enrolments) > 0):
+            proportion = int(eval(degree.metrics)[course]) * 100 / int(degree.number_of_enrolments)
+        else:
+            proportion = 0
+        to_return.append(
+            {"course": course, "reasoning": 'You have taken similar courses.'})
     return JsonResponse({"response": to_return})
+
 
 
