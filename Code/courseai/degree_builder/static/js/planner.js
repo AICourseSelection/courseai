@@ -1269,7 +1269,7 @@ function removeSessionHighlights() {
         $(row).removeClass('unavailable', {duration: 500});
         first_cell.removeClass('d-flex');
         first_cell.children().css({'display': 'block'});
-        first_cell.children().last().remove();
+        while (first_cell.children().length > 2) first_cell.children().last().remove();
     }
 }
 
