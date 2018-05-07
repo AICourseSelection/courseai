@@ -291,6 +291,7 @@ function electiveDropped(event, ui) {
 }
 
 let course_data = {};
+let course_lists = {};
 
 function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
@@ -1323,19 +1324,20 @@ function setupDegreeRequirements(data) {
     let unit_count = header.find('.unit-count');
     unit_count.text("0/" + data.units + " units");
     let titles_to_retrieve = {};
+    let ajax_requests = [];
     let mms_to_retrieve = {};
     let mms_to_display = [];
     let section_count = 0;
 
-    function createCourseListSection(type, title, courses) {
+    function createCourseListSection(type, title, courses, counter = section_count) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + section_count + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + counter + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
         let collapsible = $(
-            '<div id="deg-section' + section_count + '" class="collapse show"/>'
+            '<div id="deg-section' + counter + '" class="collapse show"/>'
         );
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-course').popover('hide');
@@ -1355,6 +1357,7 @@ function setupDegreeRequirements(data) {
                 '</div>'
             );
             item.append(title_node);
+            // item.each(coursePopoverSetup);
             makeCourseDraggable(item, course);
             group.append(item);
         }
@@ -1445,14 +1448,33 @@ function setupDegreeRequirements(data) {
             for (let section of data.required[type]) {
                 let title = 'Choose at least ' + section['num'] + ' units' +
                     '<span class="unit-count mr-2">0/' + section['num'] + '</span>\n';
-                // if (typeof(section['courses']) === "string") {
-                //     $.ajax({
-                //         url:
-                //     })
-                // }
-                let card = createCourseListSection(type, title, section['courses']);
-                reqs_list.append(card);
-                section_count++;
+                if (typeof(section['courses']) === "string") {
+                    const name = section['courses'];
+                    let placeholder = $('<div/>');
+                    reqs_list.append(placeholder);
+                    const original_section_count = section_count;
+                    section_count++;
+                    ajax_requests.push($.ajax({
+                        url: 'degree/courselists',
+                        data: {'query': name},
+                        success: function (data) {
+                            let courses = data.response.courses;
+
+                            courses = courses.map(function (value, index, array) {
+                                if (typeof(value) !== "string") return value[0];
+                                else return value;
+                            });
+                            course_lists[name] =courses;
+                            if (data.response.type !== name) return;
+                            let card = createCourseListSection(type, title, courses, original_section_count);
+                            placeholder.replaceWith(card);
+                        }
+                    }));
+                } else {
+                    let card = createCourseListSection(type, title, section['courses']);
+                    reqs_list.append(card);
+                    section_count++;
+                }
             }
         }
         if (type === "x_from_category") {
@@ -1501,42 +1523,45 @@ function setupDegreeRequirements(data) {
             }
         }
     }
-    if (!jQuery.isEmptyObject(titles_to_retrieve)) {
-        $.ajax({
-            'url': 'degree/coursedata',
-            data: {
-                'query': 'titles',
-                'codes': JSON.stringify(Object.keys(titles_to_retrieve))
-            },
-            success: function (data) {
-                for (let course of data.response) {
-                    course_titles[course['course_code']] = course['title'];
-                    for (let node of titles_to_retrieve[course['course_code']]) {
-                        node.text(course['title']);
-                        node.parent().each(coursePopoverSetup)
+    $.when.apply($, ajax_requests).then(function () {
+        if (!jQuery.isEmptyObject(titles_to_retrieve)) {
+            $.ajax({
+                'url': 'degree/coursedata',
+                data: {
+                    'query': 'titles',
+                    'codes': JSON.stringify(Object.keys(titles_to_retrieve))
+                },
+                success: function (data) {
+                    for (let course of data.response) {
+                        course_titles[course['course_code']] = course['title'];
+                        for (let node of titles_to_retrieve[course['course_code']]) {
+                            node.text(course['title']);
+                            node.parent().each(coursePopoverSetup)
+                        }
                     }
                 }
-            }
-        });
-    }
-    for (let code in mms_to_retrieve) {
-        $.ajax({
-            url: 'degree/mms',
-            data: {'query': code},
-            success: function (data) {
-                mms_info[data.code] = data;
-                let node = mms_to_retrieve[code];
-                node.text(data.name);
-                if (node.parent().hasClass('result-mms')) node.parent().each(mmsPopoverSetup);
-                if (mms_to_display.includes(code)) mms_add(code);
-                $('#mms-active-list').find('.mms-code').each(function () {
-                    if ($(this).text() === code) {
-                        $(this).parent().find('.mms-delete').remove();
-                    }
-                });
-            }
-        })
-    }
+            });
+        }
+        for (let code in mms_to_retrieve) {
+            $.ajax({
+                url: 'degree/mms',
+                data: {'query': code},
+                success: function (data) {
+                    mms_info[data.code] = data;
+                    let node = mms_to_retrieve[code];
+                    node.text(data.name);
+                    if (node.parent().hasClass('result-mms')) node.parent().each(mmsPopoverSetup);
+                    if (mms_to_display.includes(code)) mms_add(code);
+                    $('#mms-active-list').find('.mms-code').each(function () {
+                        if ($(this).text() === code) {
+                            $(this).parent().find('.mms-delete').remove();
+                        }
+                    });
+                }
+            })
+        }
+        updateProgress();
+    })
 }
 
 function updateProgress() {
@@ -1585,8 +1610,10 @@ function updateProgress() {
         if (type === "x_from_here") {
             for (let section of req[type]) {
                 const card = dq.find('#deg-section' + section_count).parent();
-                const matches = matchInDegree(new Set(section['courses']));
-                setCourseTicks(card, matches, section['courses'], false);
+                let courses = section['courses'];
+                if (typeof(section['courses']) === "string") courses = course_lists[section['courses']];
+                const matches = matchInDegree(new Set(courses));
+                setCourseTicks(card, matches, courses, false);
                 let section_units = matches.size * 6;
                 let section_completed = (section_units >= section['num']);
                 degree_completed = degree_completed && section_completed;
