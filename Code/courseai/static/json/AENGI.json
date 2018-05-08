@@ -1,5 +1,6 @@
 {
     "name": "Bachelor of Engineering (Honours)",
+    "units": 192,
     "required": {
 		"compulsory_courses": [
             "ENGN1211",
@@ -29,7 +30,7 @@
 		"x_from_category": [
             {
                 "num": 12,
-                "code": "ENGN"
+                "code": ["ENGN"]
             }
         ],
         "max_by_level": {
