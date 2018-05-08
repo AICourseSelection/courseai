@@ -94,7 +94,10 @@ def all_specs():
 
 def mms_by_name(name, index_name):
     client = Elasticsearch()
-    q = MultiMatch(query=name, type="phrase_prefix", fields=['name'])
+    should = []
+    for word in name.split(" "):
+        should.append(MultiMatch(query=word, type="phrase_prefix", fields=['name']))
+    q = Q('bool', should=should, minimum_should_match=1)
     response = Search(using=client, index=index_name).query(q).execute().to_dict()  # the to_dict() works like magic
 
     responses = response['hits']['hits']
