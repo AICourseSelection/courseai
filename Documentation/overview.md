@@ -1,17 +1,28 @@
 # Project Progress Overview
 
+## Audit 3 / Sprint 10 (Final Sprint)
+
+* [Project Poster](Audit_3/PDF/project_poster.pdf)
+* Timeline with Milestones
+* Degree planner, final version with course recommendations based on degree and per-course basis:
+  ![final product](Audit_3/Images/final.png)
+* Degree planner, with ability to filter courses and the Interactive Question and Answer window:
+  ![filtering_and_q&a](Audit_3/Images/filtering_and_q&a.png)
+
 ## Sprint 9
 
-* 
+* Degree planner, with ability to track progress through the current degree:
+  ![degree_requirements](Sprint_9/Images/degree_requirements.png)
+* Degree planner, with ability to indicate to users when course prerequisites are not met:
+  ![session_highlighting](Sprint_9/Images/session_highlighting.png)
+* [Accenture meeting minutes](../Meeting_Minutes/Week_9/week-9-meeting-minutes.md)
 
 ## Sprint 8
 
-- Degree planner, with ability to drag-and-drop courses into the plan:
+- Degree planner, with ability to drag-and-drop courses into the automatically generated degree plan:
   ![drag_and_drop](Sprint_8/Images/drag_and_drop.png)
 - Degree planner, with ability to search majors, minors, and specialisations, and track the user's progress through them:
   ![major_tracking](Sprint_8/Images/major_tracking.png)
-- Degree planner, showing the automatic degree plan:
-  ![study_options](Sprint_8/Images/study_options.png)
 - [Start of Degree Requirements data collection](https://trello.com/c/oZ38sev4)
 - [Interface decisions](Sprint_8/interface.md)
 - [Product mock-up complete](Sprint_8/mock-up.md).   
