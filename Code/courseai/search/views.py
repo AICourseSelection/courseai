@@ -39,6 +39,7 @@ def index(request):
 
     return search.execute_search(original_query, request, codes=codes, levels=levels, semesters_offered=semesters)
 
+
 def recommend_course(request):
     plan = eval(request.GET['courses'])
     code = request.GET['code']

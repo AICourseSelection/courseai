@@ -67,8 +67,6 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
                 return []
             return course_list
 
-
-
     elif codes is None and levels is not None:
         q3 = level_filter(levels)
         response = search_object.query(q).query(q3)
@@ -76,8 +74,10 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
         response = response[0:count].execute()
 
     elif codes is not None and levels is None:
+        print("REACHED HERE")
+        q3 = level_filter(["1000", "2000", "3000", "4000"])
         q2 = code_filter(codes)
-        response = search_object.query(q).query(q2)
+        response = search_object.query(q).query(q2).query(q3)
         count = response.count()
         response = response[0:count].execute()
 
