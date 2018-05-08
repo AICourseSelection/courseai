@@ -39,7 +39,11 @@ def level_filter(levels):
 
 
 def raw_search(search_object, phrase, codes, levels, sem_queried):
-    q = MultiMatch(query=phrase, type="phrase_prefix",  fields=['code^4', 'title^3', 'description', 'outcome^1.5'])
+    should = []
+    for word in phrase.split(" "):
+        should.append(
+            MultiMatch(query=word, type="phrase_prefix", fields=['code^4', 'title^3', 'description^1.5', 'outcome']))
+    q = Q('bool', should=should, minimum_should_match=1)
 
     if codes is None and levels is None:
         response = search_object.query(q)
@@ -112,7 +116,7 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
 
 
 def __filtered_search(search_object, phrase, filter_string, codes, levels, sem_queried=None):
-    q = MultiMatch(query=phrase, type="phrase_prefix", fields=['code^4', 'title^3', 'description^1.5', 'outcome'])
+
     q2 = Q('bool',
            should=[Q('match_phrase', title=filter_string),
                    Q('match_phrase', code=filter_string),
@@ -120,6 +124,14 @@ def __filtered_search(search_object, phrase, filter_string, codes, levels, sem_q
                    Q('match_phrase', outcome=filter_string)],
            minimum_should_match=1
            )
+
+
+    print("*****"+phrase)
+
+    should =[]
+    for word in phrase.split(" "):
+        should.append(MultiMatch(query=word, type="phrase_prefix", fields=['code^4', 'title^3', 'description^1.5', 'outcome']))
+    q = Q('bool', should = should, minimum_should_match=1)
 
     if codes is None and levels is None:
         response = search_object.query(q).query(q2)
