@@ -1,5 +1,5 @@
 {
-    "name": "Bachelor of Advanced Computing",
+    "name": "Bachelor of Software Engineering (Honours)",
     "units": 192,
     "required": {
         "compulsory_courses": [
@@ -8,10 +8,10 @@
             "COMP2300",
             "COMP2310",
             "COMP2120",
-			"COMP2420",
+	    "COMP2420",
             "COMP3120",
             "COMP3500",
-			"COMP4130",
+	    "COMP4130",
             "COMP4450",
 			"COMP4800",
 			"ENGN1211",
