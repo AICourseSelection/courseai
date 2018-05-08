@@ -11,6 +11,7 @@
 
 ## Sprint 9
 
+* [User Testing](Sprint_9/user-testing.md)
 * Degree planner, with ability to track progress through the current degree:
   ![degree_requirements](Sprint_9/Images/degree_requirements.png)
 * Degree planner, with ability to indicate to users when course prerequisites are not met:
