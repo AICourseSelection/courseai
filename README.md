@@ -2,9 +2,9 @@
 # AI Course Selection
 A personalised course discovery experience that employs AI. Students can interact with a digital persona for personalised course information and selection support, completing transactions including enrolling in a course, selecting subjects and scheduling classes.
 
-**View our project project by clicking on this link:**
+### [Semester 2 Audit Landing Page](Documentation/Semester_2/overview.md)
 
-### [Project Progress](Documentation/overview.md)
+#### [Semester 1 Project Progress](Documentation/Semester_1/overview.md)
 
 This is an overview of the artifacts we have produced, organised by sprint and audit. It contains quick access to our output, documentation, and meeting notes. 
 
@@ -26,7 +26,7 @@ This is an overview of the artifacts we have produced, organised by sprint and a
 
 ## [Meet our Team](Documentation/Audit_1/PDF/Team_Org_Chart.pdf)
 
-![Team Organisation Chart](Documentation/Audit_1/Images/Team_Org_Chart.png)
+![Team Organisation Chart](Documentation/Semester_1/Audit_1/Images/Team_Org_Chart.png)
 
 ## Client's Vision
 Vision: Empowering University Students to get the most out of their studies, through optimisation of course selection and scheduling.
@@ -39,7 +39,7 @@ This proof of concept matters because the university:
 *   wishes to provide great experiences to its prospective and existing students that build their continued engagement with the university.
 
 ## [Key Stakeholders](Documentation/Audit_1/PDF/Stakeholders.pdf)
-![Image of Stakeholders](Documentation/Audit_1/Images/Stakeholders.png)
+![Image of Stakeholders](Documentation/Semester_1/Audit_1/Images/Stakeholders.png)
 
 ## Client and Stakeholder Expectations:
 * Accenture
@@ -69,9 +69,9 @@ The aim of this project is to simplify the course selection process for universi
 10. 8th  May - TechLauncher Showcase  
 
 ### [Project Timeline](Documentation/Audit_2/PDF/Schedule_With_Milestones.pdf)
-![Project Timeline](Documentation/Audit_2/Images/Schedule_With_Milestones.png)
+![Project Timeline](Documentation/Semester_1/Audit_2/Images/Schedule_With_Milestones.png)
 
-### [Gantt Chart of Tasks](Documentation/Audit_1/PDF/Gantt_Chart.pdf)
+### [Gantt Chart of Tasks](Documentation/Semester_1/Audit_1/PDF/Gantt_Chart.pdf)
 
 ## Technical and Other Constraints
 Our primary limitations and technical constraints are (1) the quality or availability of our course and degree requirements data, (2) the quality of software which we can use for our interactive agent (chatbot) (3) the capabilities of the recommendation model that we create, which will depend on the AI technology that is available to us. *Note that some of the technologies and have not been completely committed to, and may change throughout the ideate and define phases (see schedule).*
