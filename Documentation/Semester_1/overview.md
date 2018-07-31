@@ -1,4 +1,4 @@
-# Project Progress Overview
+# Semester 1 Progress Overview
 
 ## Audit 3 / Sprint 10 (Final Sprint)
 
@@ -16,7 +16,7 @@
   ![degree_requirements](Sprint_9/Images/degree_requirements.png)
 * Degree planner, with ability to indicate to users when course prerequisites are not met:
   ![session_highlighting](Sprint_9/Images/session_highlighting.png)
-* [Accenture meeting minutes](../Meeting_Minutes/Week_9/week-9-meeting-minutes.md)
+* [Accenture meeting minutes](Meeting_Minutes/Week_9/week-9-meeting-minutes.md)
 
 ## Sprint 8
 
@@ -26,7 +26,7 @@
   ![major_tracking](Sprint_8/Images/major_tracking.png)
 - [Start of Degree Requirements data collection](https://trello.com/c/oZ38sev4)
 - [Interface decisions](Sprint_8/interface.md)
-- [Product mock-up complete](Sprint_8/mock-up.md).   
+- [Product mock-up complete](Sprint_8/mock-up.md)
 
 ## Sprint 7
 
@@ -35,14 +35,14 @@
   ![Course Search](Sprint_7/Images/course_search.png)
 * Front page, with ability to 'suggest' degree names from list of all ANU degrees:
   ![Front Page](Sprint_7/Images/front_page.png)
-* [Accenture meeting minutes](../Meeting_Minutes/Week_7/week-7-meeting-minutes.md)
+* [Accenture meeting minutes](Meeting_Minutes/Week_7/week-7-meeting-minutes.md)
 
 ## Sprint 6
 
 - API Documentation (server-client contract): https://courseai.docs.apiary.io/
 - Degree planner, first version:
   ![first_planner](Sprint_6/first_planner.png)
-- [Accenture meeting minutes](../Meeting_Minutes/Break/break-minutes-accenture.md)
+- [Accenture meeting minutes](Meeting_Minutes/Break/break-minutes-accenture.md)
 
 ## Sprint 5
 
@@ -61,27 +61,27 @@
 
 * [Survey Results and Decision Document](Sprint_3/Documentation/Survey_Result_Documentation.xlsx)
 * [Provisional Feature List](Sprint_3/feature_list.md)
-* [Accenture meeting minutes](../Meeting_Minutes/Week_5/week-5-minutes-accenture.md)
+* [Accenture meeting minutes](Meeting_Minutes/Week_5/week-5-minutes-accenture.md)
 
 ## Sprint 2
 
 * [Survey Document](https://docs.google.com/document/d/1GjUUUPqve69R3QU9zyt0p_2ZCOwEByfvt-GiPn-2As0/edit?usp=sharing)
   * Take the survey: https://www.surveymonkey.com/r/BcssCAx
 * [Results of Academic Program Officer (APO) interview at Fenner Hall](../Data%20Collection/tom-interview-conclusions.md)
-* [Main takeaways from Chatbot imitation experiment](../Data%20Collection/Facebook_chatbot_questions.md)
+* [Main takeaways from Chatbot imitation experiment](../../Data%20Collection/Facebook_chatbot_questions.md)
 * [Correspondence with ANUSA, PPM, and Evaluations for Survey Deployment](Sprint_2/Email_Correspondence/Survey_Deployment.md)
 * [Correspondence with ANU Student Services](Sprint_2/Email_Correspondence/ANU_Student_Services.md)
-* [Accenture meeting minutes](../Meeting_Minutes/Week_4/week-4-minutes-accenture.md)
+* [Accenture meeting minutes](Meeting_Minutes/Week_4/week-4-minutes-accenture.md)
 
 ## Audit 1 
 
-* **[Project Charter](../README.md)**
+* **[Project Charter](../../README.md)**
 * **[Team Organisation](Audit_1/PDF/Team_Org_Chart.pdf)**
 * **[Stakeholders](Audit_1/PDF/Stakeholders.pdf)**
 * **[Timeline with Milestones](Audit_1/PDF/Schedule_with_Milestones.pdf)**
 * **[Gantt Chart](Audit_1/PDF/Gantt_Chart.pdf)**
 
 
-* [Accenture meeting minutes](../Meeting_Minutes/Week_3/week-3-minutes-accenture.md)
-* [Accenture meeting whiteboard](../Meeting_Minutes/Week_3/week-3-whiteboard-accenture.jpg)
-* [Team meeting minutes](../Meeting_Minutes/Week_3/week-3-minutes-team.md)
+* [Accenture meeting minutes](Meeting_Minutes/Week_3/week-3-minutes-accenture.md)
+* [Accenture meeting whiteboard](Meeting_Minutes/Week_3/week-3-whiteboard-accenture.jpg)
+* [Team meeting minutes](Meeting_Minutes/Week_3/week-3-minutes-team.md)
