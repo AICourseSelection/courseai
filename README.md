@@ -149,3 +149,4 @@ Project repository:
  https://aws.amazon.com/lex/pricing/
  3. B Darrow. Amazon Web Services tops list of most reliable public clouds. (2015)  
  https://gigaom.com/2015/01/07/amazon-web-services-tops-list-of-most-reliable-public-clouds/
+ 
