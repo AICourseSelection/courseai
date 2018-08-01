@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 INSTALLED_APPS = [
     'degree.apps.DegreeConfig',
-    'degree_builder.apps.DegreeBuilderConfig',
     'search.apps.SearchConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -115,7 +114,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = ''
+
+STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"), )
 
 STATIC_URL = '/static/'
 
