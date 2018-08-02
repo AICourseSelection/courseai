@@ -1,6 +1,8 @@
-## Refactoring
+## Backend Team Meeting - Week 2 - Minutes
 
-### 4 MODULES
+### Refactoring
+
+#### 4 MODULES
 
 * User Login: Scarlett's job
 * Search: Manal's job
