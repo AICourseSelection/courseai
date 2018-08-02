@@ -1,3 +1,5 @@
+## Accenture Meeting - Week 2 - Minutes
+
 Plan for the Semester (9 weeks: 3 * 3 week sprints?)
 
 * Backlog/Additional features
@@ -9,7 +11,7 @@ Plan for the Semester (9 weeks: 3 * 3 week sprints?)
 	* Extend functionality (1 and 3 can be done in parallel)
 	* Auto Q&A 
 
-	
+
 ## User Testing (High prioirity)
 * Testing after a certain number of points are achieved?
 * Continuous testing or testing after each release?
