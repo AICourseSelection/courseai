@@ -10,7 +10,7 @@ from . import initialiser
 from .models import Degree, PreviousStudentDegree
 
 from . import course_data_helper
-from search import josnhelper
+from search import jsonhelper
 from search.nn import train_sample
 
 
@@ -43,7 +43,7 @@ def degree_plan(request):
         degree = Degree.objects.filter(code=code)[0]
         degree.number_of_enrolments +=1
         metrics = eval(degree.metrics)
-        for course_code in josnhelper.parse_degree_json(data):
+        for course_code in jsonhelper.parse_degree_json(data):
             if course_code == "Elective Course":
                 continue
             metrics[course_code]=int(metrics[course_code])+1
