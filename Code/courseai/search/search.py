@@ -2,16 +2,20 @@ import json
 import urllib
 import urllib.request
 from django.http import JsonResponse
-from django.template import loader
 
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 
 
-# returns Q object
-# areas should not be None
 def code_filter(areas):
+
+    """
+    :param areas: The course areas to search by (eg. ["COMP", "MATH"])
+    :return: A query object that searches at least one of the areas
+    :raise: AssertionError if areas is None
+    """
+
     if areas is None:
         raise AssertionError("Argument to areas must not be None")
 
