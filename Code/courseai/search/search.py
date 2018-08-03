@@ -1,6 +1,3 @@
-import json
-import urllib
-import urllib.request
 from django.http import JsonResponse
 
 from elasticsearch import Elasticsearch
@@ -9,7 +6,6 @@ from elasticsearch_dsl.query import MultiMatch
 
 
 def code_filter(areas):
-
     """
     :param areas: The course areas to search by (eg. ["COMP", "MATH"])
     :return: A query object that searches at least one of the areas
@@ -31,8 +27,8 @@ def level_filter(levels):
     if levels is None:
         raise AssertionError("Argument to areas must not be None")
 
-    if len(levels) == 1:        # Add an extra level filter to avoid a bug which comes up
-        levels.append("9000")   # when there is exactly 1 level filter and 1 code filter
+    if len(levels) == 1:  # Add an extra level filter to avoid a bug which comes up
+        levels.append("9000")  # when there is exactly 1 level filter and 1 code filter
 
     level_filters = []
 
@@ -57,19 +53,7 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
             response = response[0:count].execute()
 
         else:
-            course_list = []
-            search_phrase = phrase
-            try:
-                contents = urllib.request.urlopen(
-                'http://localhost:7200/repositories/CourseAIOntology?query=PREFIX%20luc%3A%20%3Chttp%3A%2F%2Fwww.ontotext.com%2Fconnectors%2Flucene%23%3E%20PREFIX%20inst%3A%20%3Chttp%3A%2F%2Fwww.ontotext.com%2Fconnectors%2Flucene%2Finstance%23%3E%20PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%20PREFIX%20%3A%20%3Chttp%3A%2F%2Fwww.ontotext.com%2Fconnectors%2Flucene%23%3E%20%20SELECT%20DISTINCT%20%3Fsubject%20%7B%20%20%20%3Fsearch%20a%20inst%3AcourseSearch%20%3B%20%20%20%20%20%20%20%20%20%20luc%3Aquery%20%22glossary%3A' + search_phrase + '%2C%20description%3A' + search_phrase + '%22%3B%20%20%20%20%20%20%20luc%3Aentities%20%3Fentity%20.%20%20%20%3Fentity%20rdfs%3Arelated_subject%20%3Fsubject%20%7D%20LIMIT%20100').read()
-                contents = contents.decode('utf-8')
-                code = contents.split('\n')[1]
-                code = code.strip()
-                title = raw_search(search_object, code, None, None, sem_queried=None)[0]['title']
-                course_list.append({'code': code, 'title': title})
-            except:
-                return []
-            return course_list
+            return []
 
     elif codes is None and levels is not None:
         q3 = level_filter(levels)
@@ -78,7 +62,6 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
         response = response[0:count].execute()
 
     elif codes is not None and levels is None:
-        print("REACHED HERE")
         q3 = level_filter(["1000", "2000", "3000", "4000"])
         q2 = code_filter(codes)
         response = search_object.query(q).query(q2).query(q3)
@@ -120,7 +103,6 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
 
 
 def __filtered_search(search_object, phrase, filter_string, codes, levels, sem_queried=None):
-
     q2 = Q('bool',
            should=[Q('match_phrase', title=filter_string),
                    Q('match_phrase', code=filter_string),
@@ -129,13 +111,11 @@ def __filtered_search(search_object, phrase, filter_string, codes, levels, sem_q
            minimum_should_match=1
            )
 
-
-    print("*****"+phrase)
-
-    should =[]
+    should = []
     for word in phrase.split(" "):
-        should.append(MultiMatch(query=word, type="phrase_prefix", fields=['code^4', 'title^3', 'description^1.5', 'outcome']))
-    q = Q('bool', should = should, minimum_should_match=1)
+        should.append(
+            MultiMatch(query=word, type="phrase_prefix", fields=['code^4', 'title^3', 'description^1.5', 'outcome']))
+    q = Q('bool', should=should, minimum_should_match=1)
 
     if codes is None and levels is None:
         response = search_object.query(q).query(q2)

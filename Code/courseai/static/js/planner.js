@@ -381,7 +381,7 @@ function coursePopoverData(course, descriptionOnly = false) {
     let course_dict = {};
     course_dict[session] = [{"code": code}];
     $.ajax({
-        url: 'search/recommend',
+        url: 'recommendations/recommend',
         data: {
             'code': degree_code,
             'courses': JSON.stringify([course_dict])
@@ -1754,7 +1754,7 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
 function updateRecommendations() {
     let group = $('#degree-recommendations-list');
     $.ajax({
-        url: 'search/recommend',
+        url: 'recommendations/recommend',
         data: {
             'code': degree_code,
             'courses': JSON.stringify(preparePlanForUpload(degree_plan))
