@@ -3,7 +3,7 @@ import json
 
 def parse_degree_json(json_obj):
     json_deg = json.loads(json_obj)
-    if('courses' in json_deg):
+    if 'courses' in json_deg:
         courses = json_deg['courses']
     else:
         courses = json_deg
@@ -11,7 +11,7 @@ def parse_degree_json(json_obj):
     for sem in courses:
         for s in sem:
             for course in sem[s]:
-                if(course['code'] == "Elective Course"):
+                if course['code'] == "Elective Course":
                     continue
                 result.append(course['code'])
     return result
