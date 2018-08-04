@@ -36,9 +36,7 @@
 - Better model for recommendations
 - A way to export degree plan to PDF/PNG
 
-### Yong Wei’s Suggestions**
-
-### Scarlett’s Suggestions**
+### Scarlett’s Suggestions
 - In the first page, it does not recognise shortcut such as BIT (Bachelor of Information Technology). 
 - Also, it does not return a list of relevant degrees if the spelling is incorrect. Nothing will show up. 
 - I can select COMP2100 TWICE in the same semester and I received NO warning. 
