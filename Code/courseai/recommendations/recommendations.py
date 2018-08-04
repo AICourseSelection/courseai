@@ -19,9 +19,6 @@ def raw_search(search_object, phrase, codes, levels):
     if codes is None and levels is None:
         response = search_object.query(q).execute()
 
-    else:
-        print("You're calling the wrong function")
-
     course_list = []
     for hit in response['hits']['hits']:
         course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
