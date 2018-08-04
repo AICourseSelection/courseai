@@ -1,108 +1,22 @@
-
-# AI Course Selection
-A personalised course discovery experience that employs AI. Students can interact with a digital persona for personalised course information and selection support, completing transactions including enrolling in a course, selecting subjects and scheduling classes.
-
-### [Semester 2 Project Progress](Documentation/Semester_2/overview.md)
-
-#### [Semester 1 Project Progress](Documentation/Semester_1/overview.md)
-
-These are overviews of the artifacts we have produced, organised by sprint and audit. They contain quick access to our outputs, documentation, and meeting notes. 
-
 ## Table of Contents
 
-1. [Team Members](#team-members)
+   1. [Meet our Team](#meet-our-team)
+   2. [Client's Vision](#clients-vision)
+   3. [Key Stakeholders](#key-stakeholders)
+   4. [Client and Stakeholder Expectations](#client-and-stakeholder-expectations)
+   5. [Project Impact](#project-impact)
+   6. [Project Milestones, Scheduling and Deliverables](#project-milestones-scheduling-and-deliverables)
+   7. [Technical and Other Constraints](#technical-and-other-constraints)
+   8. [Resources, Risks and Potential Costs](#resources-risks-and-potential-costs)
+   9. [NDA and IP Concerns](#nda-and-ip-concerns)
+   10. [Tooling](#tooling)
+   11. [References](#references)
 
-2. [Tools and Services](#tools-and-services)
+## [Meet our Team](Documentation/Audit_1/PDF/Team_Org_Chart.pdf)
 
-3. [Milestones](#semester-2-milestones)
-
-4. [Project Schedule](#semester-2-project-schedule)
-
-5. [Process Changes](#semester-2-process-changes)
-
-6. [Client's Vision](#clients-vision)
-
-7. [Key Stakeholders](#key-stakeholders)
-
-8. [Client and Stakeholder Expectations](#client-and-stakeholder-expectations)
-
-9. [Project Impact](#project-impact)
-
-10. [Technical and Other Constraints](#technical-and-other-constraints)
-
-11. [Resources, Risks and Potential Costs](#resources-risks-and-potential-costs)
-
-12. [NDA and IP Concerns](#nda-and-ip-concerns)
-
-13. [References](#references)
-
-
-## [Team Members](Documentation/Semester_2/Sprint_1/PDF/Team_Members.pdf)
-
-![Team Organisation Chart](Documentation/Semester_2/Sprint_1/Images/Team_Members.png)
-
-## Tools and Services
-**Team communications**: Slack channel "AI Course Selection": http://courseai.slack.com/
-
-**Project repository**: GitHub repository "courseai": https://github.com/AICourseSelection/courseai
-
-**Task management**: Trello board "Tasks - Sem 2": https://trello.com/b/lNhn5e9R/tasks-sem-2
-
-Related links:
-
-- GitHub organisation "AICourseSelection" https://github.com/AICourseSelection
-- Trello board "Tasks" (Semester 1): https://trello.com/b/QAxPOMSr/tasks
-- Trello team "AI Course Selection": https://trello.com/aicourseselection
-
-## Semester 2 Milestones
-
-The plan for this semester includes five main work objectives. They are, in a rough order of priority, as follows:
-
-1. **Deployment of the Service**: The Intelligent Course Scheduler (ICS) is to be deployed on a web server and made available for public use - all students and interested parties. This will allow us to conduct controlled and/or mass user testing at regular intervals during the development process. 
-2. **Reduce Technical Debt**: Convert the ICS data model to one which takes advantage of the ANU's official source of data regarding all degree programs, majors, and courses. Eliminate bugs in the current system and refactor code for extensibility. 
-3. **Persistent Experience**: Allow users of the ICS to leave and come back to their session at a later time, track multiple plans, and export them to other formats. A follow-up goal is to connect to the ANU enrollments database to help automatically generate personalised degree plans. 
-4. **Extend Degree Builder Functionality**: Implement additional features of the ICS to encompass a wider user base, allow more flexibility and increase ease of use. Features include Flexible Double Degrees, awareness of changing requirements, and improved metrics, among others. 
-5. **Automated Question and Answer**: Improve upon the existing question and answer service, aiming to answer a much broader variety and larger number of potential questions about both the service and degree scheduling. 
-
-For some of these objectives, such as #5, certain aspects within are not yet well-defined. Part of our time will be dedicated to 'research' tasks aimed at determining the feasibility and work involved in completing these tasks. The team has enough skill and diversity therein to support one or two members conducting research for part of a sprint. 
-
-## [Semester 2 Project Schedule](Documentation/Semester_2/Sprint_1/PDF/Schedule.pdf)
-
-![Project Schedule](Documentation/Semester_2/Sprint_1/Images/Schedule.png)
-* **Kick-Off**: Weeks 1 - 2. Team member recruitment, onboarding, project definition and setup. 
-* **Sprint 1**: Weeks 3 - 5. Project Audit 1, Deployment, Reduction of Technical Debt. 
-  * Includes first round of user testing which immediately follows deployment. 
-* **Sprint 2**: Weeks 6 - teaching break 2. Project Audit 2, and further objectives. 
-  * Includes second round of user testing at the midpoint. 
-* **Sprint 3**: Weeks 7 - 10. Completion of remaining objectives. 
-  * Includes public user testing round at the beginning of week 7, and fourth testing round in week 9. 
-
-## Semester 2 Process Changes
-
-We aim to improve upon the design and development process from last semester in a number of ways. 
-
-* **Longer Sprints**: We are increasing sprint times to three weeks each: allowing for better planning in each, as well as more flexibility. Each sprint will have a mid-sprint review and a retrospective. See the [schedule](Documentation/Semester_2/Sprint_1/PDF/Schedule.pdf). 
-
-* **Regular User Testing**: We will conduct user testing at regular intervals during the development process. These sessions are scheduled for:
-
-  1. Mid-sprint 1: 17/08 - 22/08
-  2. Mid-sprint 2: 5/09 - 10/09
-  3. End of sprint 2: 17/09 - 23/09 (public and open testing session)
-  4. End of sprint 3: 3/10 - 6/10
-
-  Three of these sessions will be with a small group of testers who will be re-used throughout the project.  One session (currently planned to be the 3rd session) will be open to the public and feedback channels will be available to anyone using the system. This allows us to receive a mix of both fresh and experienced opinions regarding our system. 
-
-* **Clear Representation of Tasks**: Every work task will either :
-  1. be well-defined and following the [S.M.A.R.T. criteria](https://en.wikipedia.org/wiki/SMART_criteria), or
-  2. be a research task, with the goal of resolving the situation to create tasks of the first type.
-
-  Research tasks will be created in a controlled fashion, so as to constitute no more than 20% of the team's efforts for any significant amount of time. 
-
-* **Gated Check-in**: All significant or new contributions to the codebase will go through a code review process by at least one other team member. This will help with working towards objective #2 - Reduce Technical Debt. 
-
+![Team Organisation Chart](Documentation/Semester_1/Audit_1/Images/Team_Org_Chart.png)
 
 ## Client's Vision
-
 Vision: Empowering University Students to get the most out of their studies, through optimisation of course selection and scheduling.
 
 Our project recommendation is to complete a proof of concept (POC) for a personalised course discovery experience employing Artificial Intelligence. Prospective or existing students would be able to interact with a digital persona for personalised course information and selection support, completing transactions including enrolling in a course, selecting subjects and scheduling classes.
@@ -128,6 +42,24 @@ The aim of this project is to simplify the course selection process for universi
 1. Students will be able to obtain accurate information about courses they have not yet studied in a user friendly and simplified manner. The use of AI technology in user interaction will assist users in exploring the exact information that they need and reduce unnecessary time spent mining information. This largely reduces the difficulties of information exploration and reduces laborious and repetitive work.
 2. AI course scheduling can operate as a digital assistant for students with their courses, which would conserve human resources for university departments. It could interact with students at any time without the use of an actual human advisor and would answer course-related questions quickly. 
 3. We believe that this project will encourage students to explore more about courses and enable students to consider a greater number of options when enrolling. As a result, the proposed project would enhance student experience and university life.
+
+## Project Milestones, Scheduling and Deliverables
+### Milestones at a glance
+1. 27th Feb - Kick Off
+2. 5th  Mar - Finalise documents for the Audit Landing Page
+3. 13th Mar - Complete the Define stage
+4. 19th Mar - Prepare for Audit 2
+5. 27th Mar - Complete the Ideate stage
+6. 10th Apr - Complete the prototype
+7. 24th Apr - Complete the testing process
+8. 30th Apr - Prepare for Audit 3
+9. 4th  May -  Complete project poster
+10. 8th  May - TechLauncher Showcase  
+
+### [Project Timeline](Documentation/Audit_2/PDF/Schedule_With_Milestones.pdf)
+![Project Timeline](Documentation/Semester_1/Audit_2/Images/Schedule_With_Milestones.png)
+
+### [Gantt Chart of Tasks](Documentation/Semester_1/Audit_1/PDF/Gantt_Chart.pdf)
 
 ## Technical and Other Constraints
 Our primary limitations and technical constraints are (1) the quality or availability of our course and degree requirements data, (2) the quality of software which we can use for our interactive agent (chatbot) (3) the capabilities of the recommendation model that we create, which will depend on the AI technology that is available to us. *Note that some of the technologies and have not been completely committed to, and may change throughout the ideate and define phases (see schedule).*
@@ -186,6 +118,17 @@ Exact costs for EC2 and AWS can be calculated when we have a more accurate under
 There will be no non-disclosure agreement required.
 
 Any materials, tools, methods/techniques and software provided by Accenture and/or advised and agreed to be Accenture Copyright, will remain the intellectual property of Accenture. 
+
+## Tooling
+Team communications: Slack channel "AI Course Selection": http://courseai.slack.com/
+
+Task management:
+- Trello team "AI Course Selection": https://trello.com/aicourseselection
+- Trello board "Tasks": https:/trello.com/b/QAxPOMSr/tasks
+
+Project repository:
+- GitHub repository "courseai": https://github.com/AICourseSelection/courseai
+- GitHub organisation "AICourseSelection" https://github.com/AICourseSelection
 
 ## References
  1. J. Singh. Google API.AI and Amazon Lex - A comparative review (2017).  
