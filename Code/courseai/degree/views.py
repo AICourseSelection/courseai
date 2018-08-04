@@ -1,17 +1,15 @@
 from builtins import Exception, eval, str
 from django.views.decorators.csrf import csrf_exempt
 
-import json
 from django.http import JsonResponse, HttpResponse
 
 from . import degree_plan_helper
 from . import mms
-from . import initialiser
 from .models import Degree, PreviousStudentDegree
 
 from . import course_data_helper
-from search import jsonhelper
-from search.nn import train_sample
+from recommendations import jsonhelper
+from recommendations.nn import train_sample
 
 
 def all_degrees(request):

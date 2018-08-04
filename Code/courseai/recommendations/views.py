@@ -1,9 +1,9 @@
 from degree.models import Degree
 
 from degree import course_data_helper
-from search.nn import get_prediction
-from django.http import JsonResponse, HttpResponse
-from search.jsonhelper import parse_degree_json
+from recommendations.nn import get_prediction
+from django.http import JsonResponse
+from recommendations.jsonhelper import parse_degree_json
 from .recommendations import get_recommendations
 
 # Create your views here.
