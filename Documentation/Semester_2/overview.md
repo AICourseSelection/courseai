@@ -4,7 +4,7 @@
 
 #### Audit 1
 * [Team Members](Sprint_1/PDF/Team_Members.pdf)
-* [Project Schedule](Sprint_2/PDF/Schedule.pdf)
+* [Project Schedule](Sprint_1/PDF/Schedule.pdf)
 #### Week 2
 * [Meeting Minutes: Full Team](Sprint_1/team-week-2-minutes.md)
 * [Meeting Minutes: Accenture](Sprint_2/accenture-week-2-minutes.md)
