@@ -59,7 +59,7 @@ Related links:
 The plan for this semester includes five main work objectives. They are, in a rough order of priority, as follows:
 
 1. **Deployment of the Service**: The Intelligent Course Scheduler (ICS) is to be deployed on a web server and made available for public use - all students and interested parties. This will allow us to conduct controlled and/or mass user testing at regular intervals during the development process. 
-2. **Reduce Technical Debt**: Convert the ICS data model to one which takes advantage of the ANU's official source of data regarding all degree programs, majors, and courses. Eliminate bugs in the current system and refactor code for extensibility. 
+2. **Reduce Technical Debt**: Convert the ICS data model to one which takes advantage of the ANU's official source of data regarding all degree programs, majors, and courses. Eliminate bugs in the current system and refactor code for extensibility. Github Issues will be used to keep track of these. 
 3. **Persistent Experience**: Allow users of the ICS to leave and come back to their session at a later time, track multiple plans, and export them to other formats. A follow-up goal is to connect to the ANU enrollments database to help automatically generate personalised degree plans. 
 4. **Extend Degree Builder Functionality**: Implement additional features of the ICS to encompass a wider user base, allow more flexibility and increase ease of use. Features include Flexible Double Degrees, awareness of changing requirements, and improved metrics, among others. 
 5. **Automated Question and Answer**: Improve upon the existing question and answer service, aiming to answer a much broader variety and larger number of potential questions about both the service and degree scheduling. 
@@ -91,6 +91,8 @@ We aim to improve upon the design and development process from last semester in 
   4. End of sprint 3: 3/10 - 6/10
 
   Three of these sessions will be with a small group of testers who will be re-used throughout the project.  One session (currently planned to be the 3rd session) will be open to the public and feedback channels will be available to anyone using the system. This allows us to receive a mix of both fresh and experienced opinions regarding our system. 
+
+  Testing operations will be logged using [this template](Documentation/Semester_2/Sprint_1/Test_Template.docx) provided by Accenture. 
 
 * **Clear Representation of Tasks**: Every work task will either :
   1. be well-defined and following the [S.M.A.R.T. criteria](https://en.wikipedia.org/wiki/SMART_criteria), or
