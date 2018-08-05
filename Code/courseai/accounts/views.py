@@ -7,19 +7,20 @@ from django.contrib.auth import (
     logout
 )
 
+
 # create form for each aspects of these
 def login_view(request):
     title = "Login"
-    form = UserLoginForm(request.POST or None)    # translating any false value (e.g. an empty list, empty dict) into None
+    form = UserLoginForm(request.POST or None)  # translating any false value (e.g. an empty list, empty dict) into None
 
     if form.is_valid():
-        username = form.cleaned_data.get['username']    # get the username from form
+        username = form.cleaned_data.get['username']  # get the username from form
         password = form.cleaned_data.get['password']
 
         user = authenticate(username=username, password=password)
-        login(request, user)    # a login cycle
-        return redirect("/")    # redirect to homepage
-    return render(request, "form.html", {"form": form, "title": title})    # (request, template, context dictionary)
+        login(request, user)  # a login cycle
+        return redirect("/")  # redirect to homepage
+    return render(request, "form.html", {"form": form, "title": title})  # (request, template, context dictionary)
 
 
 def register_view(request):
@@ -28,7 +29,7 @@ def register_view(request):
 
     # save new user to database
     if form.is_valid():
-        user = form.save(commit = False)
+        user = form.save(commit=False)
         password = form.cleaned_data.get['password']
         user.set_password(password)
         user.save()
