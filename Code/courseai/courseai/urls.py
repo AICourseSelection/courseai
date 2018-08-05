@@ -28,4 +28,5 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'degree/', include('degree.urls')),
     path(r'recommendations/', include('recommendations.urls')),
     path(r'admin/', admin.site.urls),
+    path(r'accounts/', include('accounts.urls')),
 ]
