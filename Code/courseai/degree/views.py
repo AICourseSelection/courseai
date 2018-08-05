@@ -48,15 +48,14 @@ def degree_plan(request):
         degree.metrics = str(metrics)
         degree.save()
         train_sample(Degree(code=code, requirements=courses))
-        for degree in degree_list:
-            print({"code": degree.code, "courses_taken": degree.courses_taken})
+        # for degree in degree_list:
+        #     print({"code": degree.code, "courses_taken": degree.courses_taken})
         return JsonResponse({"response": "Success"})
 
 
 def mms_request(request):
     try:
         code = request.GET['query']
-        print(code)
         return mms.get_mms_data(code)
     except:
         raise Exception("Malformed JSON as input. Expects a field called query.")
