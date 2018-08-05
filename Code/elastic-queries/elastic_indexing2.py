@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import re
 
@@ -70,5 +71,32 @@ for index, row in d.iterrows():
 
     # form the JSON
     count_index += 1
-    print("{ \"index\" : { \"_index\": \"courses\", \"_type\": \"_doc\" ,\"_id\": \"" + str(count_index) +"\"}}")
-    print("{ \"code\":\"" + code +"\", \"title\":\"" + title + "\", \"description\": \"" + desc + "\", \"outcome\": \"" + lo + "\", \"area\": \"" + area + "\", \"level\": \"" + level + "\", \"prereq_text\": \"" + prereq_plaintext + "\", \"semester\":"  + semester + ", \"pre_req_cnf\":" + prereq_cnf + "}")
+    meta_data_inner = {}
+    meta_data_inner['_index'] = 'courses'
+    meta_data_inner['_type'] = '_doc'
+    meta_data_inner['_id']  = str(count_index)
+    meta_data = {}
+    meta_data['index'] = meta_data_inner
+
+    print(json.dumps(meta_data))
+
+    data = {}
+    data['code'] = code
+    data['title'] = title
+    data['description'] = desc
+    data['outcome'] = lo
+    data['area'] = area
+    data['level'] = level
+    data['prereq_text'] = prereq_plaintext
+    data['semester'] = semester
+    data['pre_req_cnf'] = prereq_cnf
+
+    print (json.dumps(data))
+
+    # This is how I was printing the JSONs previously. Although, not strictly required anymore, I'll keep it in case I need to get back at it for some reason
+
+    # print("{ \"index\" : { \"_index\": \"courses\", \"_type\": \"_doc\" ,\"_id\": \"" + str(count_index) +"\"}}")
+    # print("{ \"code\":\"" + code +"\", \"title\":\"" + title + "\", \"description\": \"" + desc + "\", \"outcome\": \"" + lo + "\", \"area\": \"" + area + "\", \"level\": \"" + level + "\", \"prereq_text\": \"" + prereq_plaintext + "\", \"semester\":"  + semester + ", \"pre_req_cnf\":" + prereq_cnf + "}")
+
+
+
