@@ -38,8 +38,8 @@ def register_view(request):
         return redirect("/")
 
     context = {
-        "form" = form,
-        "title" = title
+        "form": form,
+        "title": title
     }
     return render(request, "form.html", context)
 
