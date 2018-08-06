@@ -19,7 +19,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         login(request, user)    # a login cycle
         return redirect("/")    # redirect to homepage
-    return render(request, "form.html", {"form": form, "title": title})    # (request, template, context dictionary)
+    return render(request, "dynamic_pages/registration_form.html", {"form": form, "title": title})    # (request, template, context dictionary)
 
 
 def register_view(request):
@@ -38,10 +38,10 @@ def register_view(request):
         return redirect("/")
 
     context = {
-        "form" = form,
-        "title" = title
+        "form": form,
+        "title": title
     }
-    return render(request, "form.html", context)
+    return render(request, "dynamic_pages/registration_form.html", context)
 
 
 def logout_view(request):
