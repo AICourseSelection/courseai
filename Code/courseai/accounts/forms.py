@@ -9,7 +9,7 @@ from django.contrib.auth import (
 User = get_user_model() # needed for user registration
 
 class UserLoginForm(forms.Form):
-    email = forms.CharField
+    email = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)    # hidden passwords are not stored in plain text
 
     # when form is doing validation, "form.is_valid()",
@@ -17,13 +17,13 @@ class UserLoginForm(forms.Form):
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
-        if email  and password:
-            user = authenticate(email=email, password=password)
+        if email and password:
+            user = authenticate(username=email, password=password)
             if not user:
                 raise forms.ValidationError("This user does not exist.")
             if not user.is_active:
                 raise forms.ValidationError("This user is not active.")
-            if not user.check_checkpassword(password):
+            if not user.check_password(password):
                 raise forms.ValidationError("This password is incorrect.")
         return super(UserLoginForm, self).clean(*args, **kwargs)    # return default, not giving field error.
 
