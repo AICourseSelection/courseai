@@ -4,7 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 
 from . import degree_plan_helper
-from . import mms
 from .models import Degree, PreviousStudentDegree
 
 from . import course_data_helper
@@ -53,38 +52,6 @@ def degree_plan(request):
         return JsonResponse({"response": "Success"})
 
 
-def mms_request(request):
-    try:
-        code = request.GET['query']
-        return mms.get_mms_data(code)
-    except:
-        raise Exception("Malformed JSON as input. Expects a field called query.")
-
-
-def all_majors(request):
-    try:
-        name = request.GET['query']
-        return mms.mms_by_name(name, 'majors')
-    except:
-        return mms.all_majors()
-
-
-def all_minors(request):
-    try:
-        name = request.GET['query']
-        return mms.mms_by_name(name, 'minors')
-    except:
-        return mms.all_minors()
-
-
-def all_specs(request):
-    try:
-        name = request.GET['query']
-        return mms.mms_by_name(name, 'specialisations')
-    except:
-        return mms.all_specs()
-
-
 def course_data(request):
     try:
         query = request.GET['query']
@@ -97,11 +64,6 @@ def course_data(request):
 
     except Exception:
         raise Exception("Please provide a valid course code")
-
-
-def course_lists(request):
-    query = request.GET['query']
-    return mms.course_lists(query)
 
 
 def degree_reqs(request):
