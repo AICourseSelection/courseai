@@ -13,13 +13,13 @@ def login_view(request):
     form = UserLoginForm(request.POST or None)    # translating any false value (e.g. an empty list, empty dict) into None
 
     if form.is_valid():
-        username = form.cleaned_data.get['username']    # get the username from form
+        email = form.cleaned_data.get['email']    # get the email from form
         password = form.cleaned_data.get['password']
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(email =email, password=password)
         login(request, user)    # a login cycle
         return redirect("/")    # redirect to homepage
-    return render(request, "dynamic_pages/registration_form.html", {"form": form, "title": title})    # (request, template, context dictionary)
+    return render(request, "dynamic_pages/registration_form.html", {"form": form, "title": title})    #(request, template, context dictionary)
 
 
 def register_view(request):
@@ -33,7 +33,7 @@ def register_view(request):
         user.set_password(password)
         user.save()
 
-        new_user = authenticate(username=user.username, password=password)
+        new_user = authenticate(email=user.email, password=password)
         login(request, new_user)
         return redirect("/")
 
