@@ -1,5 +1,3 @@
-import json
-
 from django.http import JsonResponse
 
 from elasticsearch import Elasticsearch
