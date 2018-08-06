@@ -9,16 +9,16 @@ from django.contrib.auth import (
 User = get_user_model() # needed for user registration
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField
+    email = forms.CharField
     password = forms.CharField(widget=forms.PasswordInput)    # hidden passwords are not stored in plain text
 
     # when form is doing validation, "form.is_valid()",
-    # check username, password, whether user is registered, whether user is active.
+    # check email, password, whether user is registered, whether user is active.
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
-        if username and password:
-            user = authenticate(username=username, password=password)
+        if email  and password:
+            user = authenticate(email=email, password=password)
             if not user:
                 raise forms.ValidationError("This user does not exist.")
             if not user.is_active:
@@ -36,7 +36,7 @@ class UserRegisterForm(forms.ModelForm):
     class Meta():    # information about class
         model = User
         fields = [    # order matters
-             'email',
+            'email',
             'email2',
             'password'
         ]
