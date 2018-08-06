@@ -10,12 +10,12 @@ User = get_user_model() # needed for user registration
 
 class UserLoginForm(forms.Form):
     username = forms.CharField
-    password = forms.CharField(widget=forms.PasswordInput)  # hidden passwords are not stored in plain text
+    password = forms.CharField(widget=forms.PasswordInput)    # hidden passwords are not stored in plain text
 
     # when form is doing validation, "form.is_valid()",
     # check username, password, whether user is registered, whether user is active.
     def clean(self, *args, **kwargs):
-        username = self.cleaned_data.get("username")
+        email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
         if username and password:
             user = authenticate(username=username, password=password)
@@ -33,11 +33,10 @@ class UserRegisterForm(forms.ModelForm):
     email = forms.EmailField(label="Email adress")  # overide default email
     email2 = forms.EmailField(label="Confirm email")
 
-    class Meta():
+    class Meta():    # information about class
         model = User
         fields = [    # order matters
-            'username',
-            'email',
+             'email',
             'email2',
             'password'
         ]
