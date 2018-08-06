@@ -6,3 +6,6 @@ Code/courseai/venv
 *.pyc
 *.pyo
 Code/courseai/db.sqlite3
+.idea
+db.sqlite3
+venv
