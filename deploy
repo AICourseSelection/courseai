@@ -1,0 +1,3 @@
+@echo off
+echo Deploying Specific Directories
+xcopy "%DEPLOYMENT_SOURCE%\Code\server" %DEPLOYMENT_TARGET% /Y /S
