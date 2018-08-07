@@ -1,7 +1,6 @@
 from django.template import loader
 
-from . import search
-from . import mms
+from . import mms, search
 
 import json
 from django.http import JsonResponse, HttpResponse
