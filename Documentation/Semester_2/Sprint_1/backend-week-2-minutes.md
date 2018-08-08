@@ -1,4 +1,4 @@
-## Backend Team Meeting - Week 2 - Minutes
+## Architecture Team Meeting - Week 2 - Minutes
 
 ### Refactoring
 
