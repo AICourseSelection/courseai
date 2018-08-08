@@ -1,3 +1,5 @@
+## Full Team Meeting - Week 3
+
 Manal: Send an email to Charles to enquire about anonymised degree plans. Also, decopule the MMS modules from the degree app.
 
 * Midsprint review dates are tentative
@@ -7,7 +9,7 @@ Manal: Send an email to Charles to enquire about anonymised degree plans. Also, 
 * List issues that we faced last sem? Both for software and the operations
 * Lim takes responsibilty for conducting testing
 * New features are to be pushed to a separate branch. Another person reviews this code, and then it is pushed to the main branch
-* Powerpoint: Change Joseph's and Scarlett's roles; the new members' picture sizes need to ba changed
+* Powerpoint: Change Joseph's and Scarlett's roles; the new members' picture sizes need to be changed
 * Mock audit presentation during the client meeting tomorrow?
 * Make sure Tom knows what SMART stands for before the presentation
 * Need to decide on who presents what.
