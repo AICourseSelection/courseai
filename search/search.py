@@ -176,9 +176,8 @@ def course_search(search_object, phrase):
 
 # need a way to initiate Elastic instance only once
 
-def execute_search(phrase, request, codes, levels, semesters_offered=None):
-    client = Elasticsearch()
-    s = Search(using=client, index='courses')
+def execute_search(es_conn, phrase, request, codes, levels, semesters_offered=None):
+    s = Search(using=es_conn, index='courses')
 
     if '\"' in phrase:
         c = '\"'

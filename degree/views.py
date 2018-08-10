@@ -10,7 +10,6 @@ from . import course_data_helper
 from recommendations import jsonhelper
 from recommendations.nn import train_sample
 
-
 def all_degrees(request):
     degree_list = Degree.objects.all()
     results = []
@@ -51,8 +50,8 @@ def degree_plan(request):
         #     print({"code": degree.code, "courses_taken": degree.courses_taken})
         return JsonResponse({"response": "Success"})
 
-
 def course_data(request):
+    global es_conn
     try:
         query = request.GET['query']
         if query == 'titles':

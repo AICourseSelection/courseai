@@ -2,7 +2,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 import operator
 
-from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import MultiMatch
 from degree.course_data_helper import get_all
@@ -26,10 +25,9 @@ def raw_search(search_object, phrase, codes, levels):
     return course_list
 
 
-def get_data(code):
+def get_data(es_conn, code):
     q = MultiMatch(query=code, fields=['code'])
-    client = Elasticsearch()
-    s = Search(using=client, index='courses')
+    s = Search(using=es_conn, index='courses')
     response = s.query(q).execute()
 
     try:
@@ -53,7 +51,7 @@ def get_descriptions(course_list):
     return descriptions
 
 
-def get_recommendations(course_list):
+def get_recommendations(es_conn, course_list):
     course_descriptions = get_descriptions(course_list)
 
     tfidf_matrix = tfidf.transform(course_descriptions)
@@ -77,8 +75,7 @@ def get_recommendations(course_list):
 
     sorted_tags = sorted(tags.items(), key=operator.itemgetter(1), reverse=True)[:10]
 
-    client = Elasticsearch()
-    s = Search(using=client, index='courses')
+    s = Search(using=es_conn, index='courses')
     recommendations = []
 
     for tag in sorted_tags:
