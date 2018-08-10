@@ -51,7 +51,6 @@ def degree_plan(request):
         return JsonResponse({"response": "Success"})
 
 def course_data(request):
-    global es_conn
     try:
         query = request.GET['query']
         if query == 'titles':

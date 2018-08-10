@@ -1,18 +1,15 @@
 from django.template import loader
-from elasticsearch import Elasticsearch
+from degree.course_data_helper import es_conn
 from . import mms, search
 
 import json
 from django.http import JsonResponse, HttpResponse
-
-es_conn = Elasticsearch()
 
 def index(request):
     if 'query' not in request.GET:
         template = loader.get_template('static_pages/search.html')
         return HttpResponse(template.render({}, request))
 
-    global es_conn
     original_query = request.GET['query']
     filters = request.GET.get('filters', None)
     codes = None
@@ -35,7 +32,6 @@ def index(request):
 
 
 def mms_request(request):
-    global es_conn
     try:
         code = request.GET['query']
         return mms.get_mms_data(es_conn, code)
@@ -43,7 +39,6 @@ def mms_request(request):
         raise Exception("Malformed JSON as input. Expects a field called query.")
 
 def all_majors(request):
-    global es_conn
     try:
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'majors')
@@ -51,7 +46,6 @@ def all_majors(request):
         return mms.search_all(es_conn, "MAJ")
 
 def all_minors(request):
-    global es_conn
     try:
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'minors')
@@ -59,7 +53,6 @@ def all_minors(request):
         return mms.search_all(es_conn, "MIN")
 
 def all_specs(request):
-    global es_conn
     try:
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'specialisations')

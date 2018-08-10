@@ -1,6 +1,5 @@
 from django.http import JsonResponse
 
-from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 
