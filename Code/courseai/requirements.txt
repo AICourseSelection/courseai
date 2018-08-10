@@ -1,0 +1,12 @@
+certifi==2018.4.16
+Django==2.0.7
+elasticsearch==6.3.0
+elasticsearch-dsl==6.2.1
+ipaddress==1.0.22
+numpy==1.15.0
+python-dateutil==2.7.3
+pytz==2018.5
+scikit-learn==0.19.2
+scipy==1.1.0
+six==1.11.0
+urllib3==1.23
