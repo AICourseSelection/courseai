@@ -1,2 +1,1 @@
-# Deployment Branch for ICS
-More info soon.
+# Deploy Branch for single instance Google Cloud

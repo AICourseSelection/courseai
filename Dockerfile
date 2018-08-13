@@ -1,24 +1,15 @@
+# Dockerfile
+# copied from https://semaphoreci.com/community/tutorials/dockerizing-a-python-django-web-application
 
-FROM python:3.4
+# FROM directive instructing base image to build upon
+FROM python:3-onbuild
 
-RUN mkdir /code
-WORKDIR /code
-ADD requirements.txt /code/
-RUN pip install -r requirements.txt
-ADD . /code/
+# COPY startup script into known file location in container
+COPY start.sh /start.sh
 
-# ssh
-ENV SSH_PASSWD "root:Docker!"
-RUN apt-get update \
-        && apt-get install -y --no-install-recommends dialog \
-        && apt-get update \
-	&& apt-get install -y --no-install-recommends openssh-server \
-	&& echo "$SSH_PASSWD" | chpasswd 
+# EXPOSE port 8000 to allow communication to/from server
+EXPOSE 8000
 
-COPY sshd_config /etc/ssh/
-COPY init.sh /usr/local/bin/
-	
-RUN chmod u+x /usr/local/bin/init.sh
-EXPOSE 8000 2222
-#CMD ["python", "/code/manage.py", "runserver", "0.0.0.0:8000"]
-ENTRYPOINT ["init.sh"]
+# CMD specifcies the command to execute to start the server running.
+CMD ["/start.sh"]
+# done!
