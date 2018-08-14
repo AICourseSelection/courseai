@@ -39,7 +39,7 @@ These are overviews of the artifacts we have produced, organised by sprint and a
 
 ## [Team Members](Documentation/Semester_2/Sprint_1/PDF/Team_Members.pdf)
 
-![Team Organisation Chart](Documentation/Semester_2/Sprint_1/Images/Team_Members.png)
+![Team Organisation Chart](Documentation/Semester_2/Sprint_0/Images/Team_Members.png)
 
 ## Tools and Services
 **Team communications**: Slack channel "AI Course Selection": http://courseai.slack.com/
@@ -66,9 +66,9 @@ The plan for this semester includes five main work objectives. They are, in a ro
 
 For some of these objectives, such as #5, certain aspects within are not yet well-defined. Part of our time will be dedicated to 'research' tasks aimed at determining the feasibility and work involved in completing these tasks. The team has enough skill and diversity therein to support one or two members conducting research for part of a sprint. 
 
-## [Semester 2 Project Schedule](Documentation/Semester_2/Sprint_1/PDF/Schedule.pdf)
+## [Semester 2 Project Schedule](Documentation/Semester_2/Sprint_0/PDF/Schedule.pdf)
 
-![Project Schedule](Documentation/Semester_2/Sprint_1/Images/Schedule.png)
+![Project Schedule](Documentation/Semester_2/Sprint_0/Images/Schedule.png)
 * **Kick-Off**: Weeks 1 - 2. Team member recruitment, onboarding, project definition and setup. 
 * **Sprint 1**: Weeks 3 - 5. Project Audit 1, Deployment, Reduction of Technical Debt. 
   * Includes first round of user testing which immediately follows deployment. 
@@ -81,7 +81,7 @@ For some of these objectives, such as #5, certain aspects within are not yet wel
 
 We aim to improve upon the design and development process from last semester in a number of ways. 
 
-* **Longer Sprints**: We are increasing sprint times to three weeks each: allowing for better planning in each, as well as more flexibility. Each sprint will have a mid-sprint review and a retrospective. See the [schedule](Documentation/Semester_2/Sprint_1/PDF/Schedule.pdf). 
+* **Longer Sprints**: We are increasing sprint times to three weeks each: allowing for better planning in each, as well as more flexibility. Each sprint will have a mid-sprint review and a retrospective. See the [schedule](Documentation/Semester_2/Sprint_0/PDF/Schedule.pdf). 
 
 * **Regular User Testing**: We will conduct user testing at regular intervals during the development process. These sessions are scheduled for:
 
@@ -92,7 +92,7 @@ We aim to improve upon the design and development process from last semester in 
 
   Three of these sessions will be with a small group of testers who will be re-used throughout the project.  One session (currently planned to be the 3rd session) will be open to the public and feedback channels will be available to anyone using the system. This allows us to receive a mix of both fresh and experienced opinions regarding our system. 
 
-  Testing operations will be logged using [this template](Documentation/Semester_2/Sprint_1/Test_Template.docx) provided by Accenture. 
+  Testing operations will be logged using [this template](Documentation/Semester_2/Sprint_0/Test_Template.docx) provided by Accenture. 
 
 * **Clear Representation of Tasks**: Every work task will either :
   1. be well-defined and following the [S.M.A.R.T. criteria](https://en.wikipedia.org/wiki/SMART_criteria), or
