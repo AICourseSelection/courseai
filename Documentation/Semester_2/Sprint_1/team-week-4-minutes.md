@@ -1,7 +1,6 @@
-## Full Team Meeting - Week 3
+## Full Team Meeting - Week 4
 
 All team members present. 
-
 
 Stand-up:
 
