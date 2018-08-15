@@ -10,7 +10,7 @@
 
 **TODO**:
 
-* Send Peter the link to the degree planner - [x]
+- [x] Send Peter the link to the degree planner 
 
 --
 
