@@ -16,3 +16,10 @@ class Degree(models.Model):
 class PreviousStudentDegree(models.Model):
     code = models.CharField(max_length=10)
     courses_taken = models.TextField()
+
+class DegreePlanStore(models.Model):
+    """
+        Stores plaintext for plan
+    """
+    code = models.CharField(max_length=10)
+    plan = models.TextField()
