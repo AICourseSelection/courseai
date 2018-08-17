@@ -8,7 +8,6 @@ from .models import Degree, PreviousStudentDegree, DegreePlanStore
 
 from . import course_data_helper
 from recommendations import jsonhelper
-from recommendations.nn import train_sample
 from django.utils.crypto import get_random_string
 import json
 
@@ -104,3 +103,23 @@ def retrieve_plan(request):
     degree_plan = matched[0]
     res = JsonResponse({"response": degree_plan.plan})
     return HttpResponse(res)
+
+@csrf_exempt
+def update_plan(request):
+    if(request.method == "PUT"):
+        data = request.body.decode('utf-8')
+        #generate a random code
+        proc = json.loads(data)
+        code = proc['code']
+        matched = DegreePlanStore.objects.filter(code=code)
+        if (len(matched) == 0):
+            res = JsonResponse({"response": "no matching plan found"})
+            return HttpResponseBadRequest(res)
+        retrieved  = matched[0]
+        retrieved.plan = proc['plan']
+        retrieved.save()
+        res = JsonResponse({"response": "success"})
+        return HttpResponse(res)
+    else:
+        res = JsonResponse({"response": "error, please provide a PUT request"})
+        return HttpResponseBadRequest(res)
