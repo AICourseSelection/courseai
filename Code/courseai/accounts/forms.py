@@ -44,7 +44,7 @@ class UserRegisterForm(forms.ModelForm):
     def clean_email2(self):
         """ Same as 'clean' method but give field error. """
         email = self.cleaned_data.get("email")
-        email2 = self.cleaned_data.get("confirm_email")
+        email2 = self.cleaned_data.get("email2")
         if email != email2:
             raise forms.ValidationError("Emails must match")
         email_db = User.objects.filter(email = email)
