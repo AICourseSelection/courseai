@@ -1,0 +1,122 @@
+<!-- This html file is only a DRAFT. PLEASE SEE registration_form.html-->
+
+<div class="container">
+    <label for="email"><b>Username</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+
+    <button type="submit">Login</button>
+    <label><input type="checkbox" checked="checked" name="remember"> Remember me</label>
+</div>
+<div class="container" style="background-color:#f1f1f1">
+    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+</div>
+
+
+<!-- This html file is only a DRAFT. PLEASE SEE registration_form.html-->
+{% block content %}
+<div class = 'col-sm-8 col-sm-offset-2'>  <!-- increase the left margin of a column by 2 columns-->
+    <h1> {{ title }} </h1>   <!-- title is going to be "register" and "login" -->
+
+    <form method = 'POST' action = '' enctype = 'multipart/form-data'> {% csrf_token %}
+
+    <input type = 'submit' class = 'btn btn-default' value = '{{ title }}' />
+
+    </form>
+</div>
+{% endblock content %}
+
+
+<!--
+<h2>{{ user.get_full_name }}</h2>
+<ul>
+  <li>Email: {{ user.username }}</li>
+  <li>degree_name: {{ user.profile.degree_name }}</li>
+</ul>
+-->
+
+
+<!---->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+</head>
+<body>
+    <div class = "container-fluid">
+        <div class = "row">
+            <div class = "col-sm-12 col-md-7">
+                <div class = "panel panel-default">
+                    <div class = "panel-body">
+                        <h3> Create a New account </h3>
+                        {% if error_message %}
+                        <p><strong>{{ error_message }} </strong></p>
+                        {% endif %}
+                        <form class = "form-horizontal" role="form" action="" method = "post">
+                            {% csrf_token %}
+
+
+                            <div class="container">
+                                <label for="email"><b>Username</b></label>
+                                <input type="text" placeholder="Enter Email" name="email" required>
+
+                                <label for="password"><b>Password</b></label>
+                                <input type="password" placeholder="Enter Password" name="password" required>
+
+                                <button type="submit">Register</button>
+                                <label><input type="checkbox" checked="checked" name="remember"> Remember me</label>
+                            </div>
+                            <div class="container" style="background-color:#f1f1f1">
+                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div class = "container-fluid">
+        <div class = "row">
+            <div class = "col-sm-12 col-md-7">
+                <div class = "panel panel-default">
+                    <div class = "panel-body">
+                        <h3>Login</h3>
+                        {% if error_message %}
+                        <p><strong>{{ error_message }} </strong></p>
+                        {% endif %}
+                        <form method = 'POST' action = '' enctype = 'multipart/form-data'> {% csrf_token %}
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type = 'submit' class = 'btn btn-default' value = '{{ title }}' />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
