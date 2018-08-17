@@ -20,8 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g%^a$av5#wcm^br+winc7+)ho_pethsj%c!moit!pnyjek%ij&'
+# SECURITY
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+SECURE_CONTENT_TYPE_NOSNIFF = False
+SECURE_BROWSER_XSS_FILTER = False
+SECURE_SSL_REDIRECT = False #TODO: set to true when domain name owned
+# SECURE_HSTS_SECONDS # TODO: set a value for this when only serving over SSL
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -117,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"), ]
+# STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"), ]
 
 STATIC_URL = '/static/'
 
