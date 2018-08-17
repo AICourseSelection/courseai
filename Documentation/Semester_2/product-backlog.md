@@ -34,6 +34,7 @@ Support Postgraduate Degrees | | | | |
 Colour code the courses in the degree plan depending on whether they are compulsory, elctives etc. | | | Joseph | https://trello.com/c/PuxYMCZL |
 Add a warning when the user tries to add more than the allowed number of majors or minors | | | Joseph | https://trello.com/c/H5wZmRXZ |
 Support Part Time and Overloading | | | | |
+Change the GET request to a POST one for the transition from the home page to the plan | | Manal | Manal (backend), Joseph (frontend) | | 
 
 
 
