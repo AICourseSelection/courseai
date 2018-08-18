@@ -1,15 +1,15 @@
+import json
 from builtins import Exception, eval, str
+
+from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest, QueryDict
+from django.utils.crypto import get_random_string
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest
-
+from recommendations import jsonhelper
+from . import course_data_helper
 from . import degree_plan_helper
 from .models import Degree, PreviousStudentDegree, DegreePlanStore
 
-from . import course_data_helper
-from recommendations import jsonhelper
-from django.utils.crypto import get_random_string
-import json
 
 def all_degrees(request):
     degree_list = Degree.objects.all()
@@ -45,8 +45,8 @@ def degree_plan(request):
             metrics[course_code] = int(metrics[course_code]) + 1
         degree.metrics = str(metrics)
         degree.save()
-        #no training
-        #train_sample(Degree(code=code, requirements=courses))
+        # no training
+        # train_sample(Degree(code=code, requirements=courses))
         # for degree in degree_list:
         #     print({"code": degree.code, "courses_taken": degree.courses_taken})
         return JsonResponse({"response": "Success"})
@@ -67,7 +67,6 @@ def course_data(request):
         return HttpResponseBadRequest(res)
 
 
-
 def degree_reqs(request):
     try:
         code = request.GET['query']
@@ -77,19 +76,30 @@ def degree_reqs(request):
         res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
         raise HttpResponseBadRequest(res)
 
+
 @csrf_exempt
-def store_plan(request):
-    if(request.method == "PUT"):
-        data = request.body.decode('utf-8')
-        #generate a random code
-        code = get_random_string(length=10)
-        plan = DegreePlanStore(code=code, plan=data)
-        plan.save()
-        res = JsonResponse({"response": code})
-        return HttpResponse(res)
+def stored_plans(request):
+    if (request.method == "GET"):
+        return retrieve_plan(request)
+    elif (request.method == "POST"):
+        return store_plan(request)
+    elif (request.method == "PUT"):
+        return update_plan(request)
     else:
-        res = JsonResponse({"response": "error, please provide a PUT request"})
+        res = JsonResponse({"response": "Error, please provide a GET, POST, or PUT request"})
         return HttpResponseBadRequest(res)
+
+
+def store_plan(request):
+    data = request.body.decode('utf-8')
+    proc = QueryDict(data)
+    # generate a random code
+    code = get_random_string(length=10)
+    plan = DegreePlanStore(code=code, plan=proc['plan'])
+    plan.save()
+    res = JsonResponse({"response": code})
+    return HttpResponse(res)
+
 
 def retrieve_plan(request):
     if not ('query' in request.GET):
@@ -97,29 +107,24 @@ def retrieve_plan(request):
         return HttpResponseBadRequest(res)
     code = request.GET['query']
     matched = DegreePlanStore.objects.filter(code=code)
-    if(len(matched)==0):
+    if (len(matched) == 0):
         res = JsonResponse({"response": "no matching plan found"})
         return HttpResponseBadRequest(res)
     degree_plan = matched[0]
-    res = JsonResponse({"response": degree_plan.plan})
+    res = JsonResponse({"response": json.loads(degree_plan.plan)})
     return HttpResponse(res)
 
-@csrf_exempt
+
 def update_plan(request):
-    if(request.method == "PUT"):
-        data = request.body.decode('utf-8')
-        #generate a random code
-        proc = json.loads(data)
-        code = proc['code']
-        matched = DegreePlanStore.objects.filter(code=code)
-        if (len(matched) == 0):
-            res = JsonResponse({"response": "no matching plan found"})
-            return HttpResponseBadRequest(res)
-        retrieved  = matched[0]
-        retrieved.plan = proc['plan']
-        retrieved.save()
-        res = JsonResponse({"response": "success"})
-        return HttpResponse(res)
-    else:
-        res = JsonResponse({"response": "error, please provide a PUT request"})
+    data = request.body.decode('utf-8')
+    proc = QueryDict(data)
+    code = proc['code']
+    matched = DegreePlanStore.objects.filter(code=code)
+    if (len(matched) == 0):
+        res = JsonResponse({"response": "no matching plan found"})
         return HttpResponseBadRequest(res)
+    retrieved = matched[0]
+    retrieved.plan = proc['plan']
+    retrieved.save()
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
