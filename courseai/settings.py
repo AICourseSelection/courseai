@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY
 
-SECRET_KEY = "jn0djmdv^)0l5+yj^p4#1-9iobqy+*apabw0eqc+82t8f@dthr"
+SECRET_KEY = "jn0djmdv^)0l5+yj^p4#1-9iobqy+*apabw0eqc+82t8f@dthr" #TODO: hide the key for each node in cluster
 SECURE_CONTENT_TYPE_NOSNIFF = False
 SECURE_BROWSER_XSS_FILTER = False
 SECURE_SSL_REDIRECT = False #TODO: set to true when domain name owned
