@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserLoginForm, UserRegisterForm
+from django.contrib.auth.models import User
 from django.contrib.auth import (
     authenticate,
     get_user_model,
@@ -24,11 +25,11 @@ def login_view(request):
 
 def register_view(request):
     title = "Register"
-    form = UserRegisterForm(request.POST or None)
+    form = UserRegisterForm(request.POST or None, request)
 
     # save new user to database
     if form.is_valid():
-        user = form.save(commit = False)
+        user = form.save(commit=False)
         password = form.cleaned_data.get('password')
         user.set_password(password)
         user.save()
@@ -42,7 +43,6 @@ def register_view(request):
         "title": title
     }
     return render(request, "dynamic_pages/registration_form.html", context)
-
 
 def logout_view(request):
     logout(request)
