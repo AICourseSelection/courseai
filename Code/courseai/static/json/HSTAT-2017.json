@@ -1,0 +1,9 @@
+{
+  "name": "Bachelor of Statistics (Honours)",
+  "code": "HSTAT",
+  "year": 2017,
+  "units": 48,
+  "required": {
+    "x_from_here": []
+  }
+}

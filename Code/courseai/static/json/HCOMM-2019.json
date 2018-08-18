@@ -1,0 +1,9 @@
+{
+  "name": "Bachelor of Commerce (Honours)",
+  "code": "HCOMM",
+  "year": 2019,
+  "units": 48,
+  "required": {
+    "x_from_here": []
+  }
+}

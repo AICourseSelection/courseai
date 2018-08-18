@@ -1,0 +1,49 @@
+{
+  "name": "Bachelor of Business Administration",
+  "code": "BBUSA",
+  "year": 2014,
+  "units": 144,
+  "required": {
+    "min_max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
+    "compulsory_courses": [
+      "BUSI2025",
+      "BUSN1001",
+      "ECON1101",
+      "MGMT1003",
+      "MGMT2030",
+      "MGMT2100",
+      "MGMT3015",
+      "MGMT3021",
+      "MGMT3027",
+      "MKTG2004"
+    ],
+    "x_from_here": [
+      {
+        "num": "124",
+        "courses": "CBE List 1"
+      },
+      {
+        "type": "fixed",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
+      },
+      {
+        "type": "fixed",
+        "units": 6,
+        "courses": [
+          "MGMT2003",
+          "STAT1008"
+        ]
+      }
+    ]
+  }
+}
