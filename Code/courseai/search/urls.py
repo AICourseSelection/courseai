@@ -10,3 +10,4 @@ urlpatterns = [
     path('specs', views.all_specs),
     path('courselists', views.course_lists)
 ]
+
