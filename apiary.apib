@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# courseai
+# Intelligent Course Scheduler
 
 Backend API documentation
 
@@ -279,18 +279,16 @@ Given a degree code return the set of program requirements.
             }
         }
         
-## Get course data [/degree/coursedata/{course_code}]
+## Get course data [/degree/coursedata]
 
 Given a course code, return its description and other data including prerequisites. (Contact: Tom Hamer)
 
 ### Get full course data [GET]
 
 + Request (application/json)
+    + Attributes
+        - query
 
-        {
-            "query":"COMP3600",
-
-        }
 
 + Response 200 (application/json)
 
@@ -303,8 +301,84 @@ Given a course code, return its description and other data including prerequisit
             "prerequisites":[["COMP1100", "COMP1130","COMP1510"], ["COMP1600","COMP2600"], ["~COMP6466"]]
         }
 
+### Batch get course titles [GET]
+
++ Request (application/json)
+   
+        {
+            "query": "titles",
+            "codes": "['COMP1100', 'COMP1110']"
+        }
 
 
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "course_code": "COMP1100",
+                    "title": "Programming as Problem Solving"
+                },
+                {
+                    "course_code": "COMP1110",
+                    "title": "Structured Programming"
+                }
+            ]
+        }
+
+### Batch get course prerequisites [GET]
+
++ Request (application/json)
+   
+        {
+            "query": "prereqs",
+            "codes": "['COMP1100', 'COMP1110']"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "COMP1100": {
+                    "course_code": "COMP1100",
+                    "prerequisite_text": "You are not able to enrol in this course if you have completed COMP1130.",
+                    "prerequisites": [
+                        [
+                            "~COMP1130"
+                        ]
+                    ],
+                    "semester": [
+                        1,
+                        2
+                    ]
+                },
+                "COMP1110": {
+                    "course_code": "COMP1110",
+                    "prerequisite_text": "To enrol in this course you must have completed COMP1100 or COMP1130 or COMP1730. You are not able to enrol in this course if you have completed COMP1140 or COMP1510 or COMP2140 or COMP6710.",
+                    "prerequisites": [
+                        [
+                            "COMP1100",
+                            "COMP1130",
+                            "COMP1730"
+                        ],
+                        [
+                            "~COMP1140"
+                        ],
+                        [
+                            "~COMP1510"
+                        ],
+                        [
+                            "~COMP2140"
+                        ]
+                    ],
+                    "semester": [
+                        1,
+                        2
+                    ]
+                }
+            }
+        }
 ## Get All Degrees [/degree/all]
 
 Get list of degrees (Contact: Manal Mohania)
@@ -330,8 +404,7 @@ Get list of degrees (Contact: Manal Mohania)
                         ]
         }
 
-
-## Search [/search]
+## Course Search [/search/coursesearch]
 
 Search for courses by code, title, or description (Contact: Manal Mohania)
 
@@ -361,4 +434,278 @@ Search for courses by code, title, or description (Contact: Manal Mohania)
                     "title": "Fractal Geometry and Chaotic Dynamics"
                 }
             ]
+        }
+
+## Major/Minor/Specialisation Information [/search/mms]
+
+Get full information about any given major, minor, or specialisation. 
+
+### M/M/S Information [GET]
+
++ Request (application/json)
+    + Attributes
+        - query
+        
++ Response 200 (application/json)
+
+        {
+            "code": "THCS-SPEC",
+            "name": "Theoretical Computer Science",
+            "composition": [
+                {
+                    "type": "fixed",
+                    "units": 12,
+                    "course": [
+                        {
+                            "code": "COMP4600",
+                            "units": 6
+                        },
+                        {
+                            "code": "COMP4630",
+                            "units": 6
+                        }
+                    ]
+                },
+                {
+                    "type": "minimum",
+                    "units": 12,
+                    "course": [
+                        {
+                            "code": "COMP2610",
+                            "units": 6
+                        },
+                        {
+                            "code": "COMP2620",
+                            "units": 6
+                        },
+                        {
+                            "code": "COMP3610",
+                            "units": 6
+                        },
+                        {
+                            "code": "COMP3630",
+                            "units": 6
+                        },
+                        {
+                            "code": "MATH3343",
+                            "units": 6
+                        }
+                    ]
+                }
+            ]
+        }
+
+## Major Search [/search/majors]
+
+### Search for a major [GET]
+
++ Request (application/json)
+    + Attributes
+        - query
+        
++ Response 200
+
+        {
+            "responses": [
+                {
+                    "code": "CSCI-MAJ",
+                    "name": "Computer Science",
+                    "composition": [
+                        {
+                            "type": "fixed",
+                            "units": 6,
+                            "course": [
+                                {
+                                    "code": "COMP1600",
+                                    "units": 6
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minimum",
+                            "units": 6,
+                            "course": [
+                                {
+                                    "code": "COMP1100",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP1130",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP1730",
+                                    "units": 6
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minimum",
+                            "units": 6,
+                            "course": [
+                                {
+                                    "code": "COMP1110",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP1140",
+                                    "units": 6
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minimum",
+                            "units": 6,
+                            "course": [
+                                {
+                                    "code": "COMP2100",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP2300",
+                                    "units": 6
+                                }
+                            ]
+                        },
+                        {
+                            "type": "maximum",
+                            "units": 6,
+                            "course": []
+                        },
+                        {
+                            "type": "minimum",
+                            "units": 18,
+                            "course": []
+                        }
+                    ]
+                }
+            ]
+        }
+
+## Minor Search [/search/minors]
+
+### Search for a minor [GET]
+
++ Request (application/json)
+    + Attributes
+        - query
+        
++ Response 200
+
+        {
+            "responses": [
+                {
+                    "code": "CSFN-MIN",
+                    "name": "Computer Science Foundations",
+                    "composition": [
+                        {
+                            "type": "fixed",
+                            "units": 24,
+                            "course": [
+                                {
+                                    "code": "MATH1005",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP1130",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP1600",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP2300",
+                                    "units": 6
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+
+## Specialisation Search [/search/specialisations]
+
+### Search for a specialisation [GET]
+
++ Request (application/json)
+    + Attributes
+        - query
+        
++ Response 200
+
+        {
+            "responses": [
+                {
+                    "code": "THCS-SPEC",
+                    "name": "Theoretical Computer Science",
+                    "composition": [
+                        {
+                            "type": "fixed",
+                            "units": 12,
+                            "course": [
+                                {
+                                    "code": "COMP4600",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP4630",
+                                    "units": 6
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minimum",
+                            "units": 12,
+                            "course": [
+                                {
+                                    "code": "COMP2610",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP2620",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP3610",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "COMP3630",
+                                    "units": 6
+                                },
+                                {
+                                    "code": "MATH3343",
+                                    "units": 6
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+
+## Course Lists [/search/courselists]
+Some degree programs refer to lists of courses specified by the College. 
+
+### Retrieve courses from a list [GET]
+
++ Request (application/json)
+    + Attributes
+        - query
+        
++ Response 200
+
+        {
+            "response": {
+                "type": "CBE List 1",
+                "courses": [
+                    "BUSN1001",
+                    "BUSN1002",
+                    "BUSN1101",
+                    "COMP1100",
+                    "COMP1710",
+                ]
+            }
         }
