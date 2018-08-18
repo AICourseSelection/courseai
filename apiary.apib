@@ -1,0 +1,364 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# courseai
+
+Backend API documentation
+
+## Degree Plans [/degree/degreeplan/]
+
+Get/Put Degree plan (contact: Tom Hamer)
+
+### Get pre-formed degree plan [GET]
+
++ Request (application/json)
+
+        {
+            "query":"BAC",
+            "start_year_sem":"2015S1",
+            
+        }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "degree_program": "Bachelor of Advanced Computing",
+                "courses": [
+                    "2015S1" : [
+                        {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "Elective Course"
+                        }
+                    ],
+                    "2015S2" :  [
+                        {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "Elective Course"
+                        }
+                    ],
+                    "2016S1" : [
+                        {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }
+                    ],
+                    "2016S2" : [
+                        {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }
+                    ],
+                    "2017S1" : [
+                        {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }
+                    ],
+                    "2017S2" : [
+                        {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }, {
+                            "code": "COMP1130",
+                            "title": "Programming as Problem Solving"
+                        }
+                    ]
+                ]
+            }
+        ]
+    
+
+
+### Put finished plan [PUT]
+
++ Request (application/json)
+
+        {"code":"AACRD",
+        "courses":[
+            {"2015S1": [
+                {"code": "Elective Course"}, 
+                {"code": "COMP4550", "title": "Advanced Computing Research Project"}, 
+                {"code": "COMP4550"}, 
+                {"code": "Elective Course"}]}, 
+            {"2015S2": [
+                {"code": "COMP1130", "title": "Mathematics and Applications 1"},
+                {"code": "MATH1005", "title": "Discrete Mathematical Models"},
+                {"code": "MATH1013"},
+                {"code": "Elective Course"}]},
+            {"2016S1": [
+                {"code": "COMP1140", "title": "Mathematics and Applications 2"},
+                {"code": "COMP1600", "title": "Foundations of Computing"},
+                {"code": "MATH1014"},
+                {"code": "Elective Course"}]},
+            {"2016S2": [
+                {"code": "COMP2120", "title": "Studies in Advanced Computing R&D"},
+                {"code": "COMP2310", "title": "Algorithms"},
+                {"code": "COMP2560"},
+                {"code": "COMP3600"}]},
+            {"2017S1": [
+                {"code": "Elective Course"},
+                {"code": "COMP3770", "title": "Individual Research Project"}, 
+                {"code": "Elective Course"},
+                {"code": "Elective Course"}]}, 
+            {"2017S2": [
+                {"code": "Elective Course"},
+                {"code": "COMP4550", "title": "Advanced Computing Research Project"},
+                {"code": "COMP4550"}, 
+                {"code": "Elective Course"}]},
+            {"2018S1": [
+                {"code": "COMP2100", "title": "Introduction to Data Management, Analysis and Security"},
+                {"code": "COMP2300", "title": "Advanced Computing R&D Methods"},
+                {"code": "COMP2420"},
+                {"code": "COMP2550"}]},
+            {"2018S2": [
+                {"code": "Elective Course"},
+                {"code": "COMP3770", "title": "Individual Research Project"},
+                {"code": "Elective Course"},
+                {"code": "Elective Course"}]
+            }]}
+        
++ Response 201 (application/json)
+    
+        {
+           "success"
+        }
+
+
+## Stored Degree Plans [/degree/stored_plans/]
+### Save a plan [POST]
+
++ Request (application/json)
+
+        {
+            "plan": {
+                "2016S1": ["COMP1130", "MATH1115"]
+            }
+        }
+
++ Response 201 (application/json)
+
+        {
+            "response": "iMiIRkUb8L"
+        }
+
+
+### Retrieved saved plan [GET]
+
++ Request (application/json)
+
+        {
+            "code": "iMiIRkUb8L"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "2016S1": ["COMP1130", "MATH1115"]
+            }
+        }
+
+### Update saved plan [PUT]
+
++ Request (application/json)
+
+        {
+            "code": "iMiIRkUb8L",
+            "plan": {
+                "2016S1": ["COMP1130", "MATH1115"]
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "response": "success"
+        }
+
+## Get Degree Program Rules [/degree/degreerules]
+
+Given a degree code return the set of program requirements. 
+
+### Get Degree Rules [GET]
+
++ Request (application/json)
+
+        {
+            "query":"BAC",
+
+        }
+
++ Response 200 (application/json)
+
+        {
+            "name": "Bachelor of Arts",
+            "required": {   // Must satisfy all conditions in this section
+                "one_from_m/m/s": [
+                    "arts_majors_list"      // This is stored separately in the database.
+                ],
+                "max_by_level": {
+                    "1000": 48
+                }
+            },
+            "options": {    // Must satisfy one of the options in this section
+                "option_1": {
+                    "x_from_m/m/s": [
+                        "arts_minors_list"  // This is stored separately in the database.
+                    ],
+                    "compulsory_courses": [
+                        "ESEN1101"
+                    ]
+                },
+                "option_2": {
+                    "compulsory_courses": [
+                        "ANIP3007"
+                    ],
+                    "x_from_here": {
+                        "num": 24,
+                        "courses": [
+                            "all_arts_courses", // This is stored separately in the database.
+                            "ESEN1101"          // Include this with the list
+                        ]
+                    }
+                },
+                "option_3": {
+                    "one_from_m/m/s": [
+                        "arts_majors_list"  // This is stored separately in the database.
+                    ]
+                }
+            }
+        }
+        
+## Get course data [/degree/coursedata/{course_code}]
+
+Given a course code, return its description and other data including prerequisites. (Contact: Tom Hamer)
+
+### Get full course data [GET]
+
++ Request (application/json)
+
+        {
+            "query":"COMP3600",
+
+        }
+
++ Response 200 (application/json)
+
+        {
+            "course_code": "COMP3600",
+            "title": "Algorithms",
+            "description": "This course deals with the study of algorithms for solving practical problems, and of the data structures used in algorithm implementations. Detailed analysis of the resource requirements of algorithms will be an important issue. The topics covered will include: mathematical tools, greedy algorithms, dynamic programming, divide-and-conquer, data structures (hash tables, binary search trees, red-black trees, and disjoint sets), basic search techniques (breadth-first search and depth-first search), graph algorithms (topo-logical sort, minimum spanning trees and single-source and all-to-all shortest paths), etc.",
+            "learning_outcomes":"On completion of this course the student will: Display an advanced understanding of a variety of algorithms, including linear selection, minimum spanning trees, single source shortest path, Huffman coding, etc, with real-life applications and the resource requirements. Expertly apply the most effective algorithmic techniques including dynamic programming, greedy policy, and divide-and-conquer, to solve some practical problems. Define and analyse time and space complexities of algorithms. Demonstrate experience in the design and implementation of algorithms for practical problems, using languages like C, C++.",
+            "prerequisite_text":"To enrol in this course you must have completed COMP1110 or COMP1140 or COMP1510; and 6 units of 2000-level COMP courses; and 6 units of 2000-level MATH courses or COMP1600 or COMP2600. You are not able to enrol in this course if you have successfully completed COMP6466.",
+            "prerequisites":[["COMP1100", "COMP1130","COMP1510"], ["COMP1600","COMP2600"], ["~COMP6466"]]
+        }
+
+
+
+## Get All Degrees [/degree/all]
+
+Get list of degrees (Contact: Manal Mohania)
+
+### Get list of degrees [GET]
+
++ Response 200 (application/json)
+    
+        {
+            "response": [
+                            {
+                                "code": "BAC",
+                                "title" : "Bachelor of Advanced Computing"
+                            },
+                            {
+                                "code": "BCOM",
+                                "title" : "Bachelor of Commerce"
+                            },
+                            {
+                                "code": "BSC",
+                                "title" : "Bachelor of Science"
+                            }
+                        ]
+        }
+
+
+## Search [/search]
+
+Search for courses by code, title, or description (Contact: Manal Mohania)
+
+### Search for a course [GET]
+
++ Request (application/json)
+
+        {
+            "query":"python",
+            "filters": {
+                "codes": ["COMP", "MATH"],
+                "levels": [1000, 2000]
+            }
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "query": "python",
+            "response": [
+                {
+                    "code": "COMP1730",
+                    "title": "Programming for Scientists"
+                },
+                {
+                    "code": "MATH3062",
+                    "title": "Fractal Geometry and Chaotic Dynamics"
+                }
+            ]
+        }
