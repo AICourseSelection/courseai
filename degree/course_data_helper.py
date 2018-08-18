@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import MultiMatch
 
-es_conn = Elasticsearch(['35.197.168.65'])
+es_conn = Elasticsearch(['10.152.0.3'])
 
 def get_data(code):
     global es_conn
