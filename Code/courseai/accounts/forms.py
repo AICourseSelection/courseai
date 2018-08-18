@@ -30,27 +30,28 @@ class UserLoginForm(forms.Form):
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
-    email = forms.EmailField(label="Email adress")  # overide default email
-    email2 = forms.EmailField(label="Confirm email")
+    username = forms.EmailField(label="Email address")  # override default email
+    username2 = forms.EmailField(label="Confirm email")
 
     class Meta():    # information about class
         model = User
         fields = [    # order matters
-            'email',
-            'email2',
+            'username',
+            'username2',
             'password'
         ]
 
-    def clean_email2(self):
+    def clean_username2(self):    # method name needs to contain field name
         """ Same as 'clean' method but give field error. """
-        email = self.cleaned_data.get("email")
-        email2 = self.cleaned_data.get("email2")
-        if email != email2:
+        username = self.cleaned_data.get("username")
+        username2 = self.cleaned_data.get("username2")
+        if username != username2:
             raise forms.ValidationError("Emails must match")
-        email_db = User.objects.filter(email = email)
+
+        email_db = User.objects.filter(email = username)
         if email_db.exists():
             raise forms.ValidationError("This email has already been registered")
-        return email
+        return username
 
 
 
