@@ -1,15 +1,15 @@
 from builtins import Exception, eval, str
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest
 
 from . import degree_plan_helper
-from .models import Degree, PreviousStudentDegree
+from .models import Degree, PreviousStudentDegree, DegreePlanStore
 
 from . import course_data_helper
 from recommendations import jsonhelper
-from recommendations.nn import train_sample
-
+from django.utils.crypto import get_random_string
+import json
 
 def all_degrees(request):
     degree_list = Degree.objects.all()
@@ -32,11 +32,10 @@ def degree_plan(request):
             return JsonResponse({"response": "null"})
     elif request.method == "PUT":
         data = request.body.decode('utf-8')
-        code = eval(data)["code"]
-        courses = eval(data)["courses"]
+        code = json.loads(data)["code"]
+        courses = json.loads(data)["courses"]
         prev = PreviousStudentDegree(code=code, courses_taken=courses)
         prev.save()
-        degree_list = PreviousStudentDegree.objects.all()
         degree = Degree.objects.filter(code=code)[0]
         degree.number_of_enrolments += 1
         metrics = eval(degree.metrics)
@@ -46,7 +45,8 @@ def degree_plan(request):
             metrics[course_code] = int(metrics[course_code]) + 1
         degree.metrics = str(metrics)
         degree.save()
-        train_sample(Degree(code=code, requirements=courses))
+        #no training
+        #train_sample(Degree(code=code, requirements=courses))
         # for degree in degree_list:
         #     print({"code": degree.code, "courses_taken": degree.courses_taken})
         return JsonResponse({"response": "Success"})
@@ -63,7 +63,9 @@ def course_data(request):
             return JsonResponse({"response": course_data_helper.get_data(query)})
 
     except Exception:
-        raise Exception("Please provide a valid course code")
+        res = JsonResponse({"response": "Please provide a valid course code"})
+        return HttpResponseBadRequest(res)
+
 
 
 def degree_reqs(request):
@@ -72,4 +74,52 @@ def degree_reqs(request):
         response = degree_plan_helper.get_degree_requirements(code)
         return HttpResponse(response, content_type="application/json")
     except Exception:
-        raise Exception("Requirements of the requested degree could not be found. ")
+        res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
+        raise HttpResponseBadRequest(res)
+
+@csrf_exempt
+def store_plan(request):
+    if(request.method == "PUT"):
+        data = request.body.decode('utf-8')
+        #generate a random code
+        code = get_random_string(length=10)
+        plan = DegreePlanStore(code=code, plan=data)
+        plan.save()
+        res = JsonResponse({"response": code})
+        return HttpResponse(res)
+    else:
+        res = JsonResponse({"response": "error, please provide a PUT request"})
+        return HttpResponseBadRequest(res)
+
+def retrieve_plan(request):
+    if not ('query' in request.GET):
+        res = JsonResponse({"response": "error"})
+        return HttpResponseBadRequest(res)
+    code = request.GET['query']
+    matched = DegreePlanStore.objects.filter(code=code)
+    if(len(matched)==0):
+        res = JsonResponse({"response": "no matching plan found"})
+        return HttpResponseBadRequest(res)
+    degree_plan = matched[0]
+    res = JsonResponse({"response": degree_plan.plan})
+    return HttpResponse(res)
+
+@csrf_exempt
+def update_plan(request):
+    if(request.method == "PUT"):
+        data = request.body.decode('utf-8')
+        #generate a random code
+        proc = json.loads(data)
+        code = proc['code']
+        matched = DegreePlanStore.objects.filter(code=code)
+        if (len(matched) == 0):
+            res = JsonResponse({"response": "no matching plan found"})
+            return HttpResponseBadRequest(res)
+        retrieved  = matched[0]
+        retrieved.plan = proc['plan']
+        retrieved.save()
+        res = JsonResponse({"response": "success"})
+        return HttpResponse(res)
+    else:
+        res = JsonResponse({"response": "error, please provide a PUT request"})
+        return HttpResponseBadRequest(res)
