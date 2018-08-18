@@ -1,0 +1,9 @@
+{
+  "name": "Bachelor of Business Administration (Honours)",
+  "code": "HBUSA",
+  "year": 2016,
+  "units": 48,
+  "required": {
+    "x_from_here": []
+  }
+}
