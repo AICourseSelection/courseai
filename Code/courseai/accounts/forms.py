@@ -1,4 +1,6 @@
 from django import forms
+from django.db import models
+from django.contrib.auth.models import User
 from django.contrib.auth import (
     authenticate,
     get_user_model,
@@ -52,23 +54,3 @@ class UserRegisterForm(forms.ModelForm):
         if email_db.exists():
             raise forms.ValidationError("This email has already been registered")
         return username
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
