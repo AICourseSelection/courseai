@@ -1,8 +1,8 @@
 // Cached Data
-let KNOWN_COURSES = {};
-let KNOWN_MMS = {};
-let KNOWN_DEGREES = {};
-
+let KNOWN_COURSES = {};         // 2D Dictionary: (code, year) -> CourseOffering object
+let KNOWN_MMS = {};             // 2D Dictionary: (code, year) -> MMS object
+let KNOWN_DEGREES = {};         // 2D Dictionary: (code, year) -> Degree object
+let KNOWN_COURSE_LISTS = {};    // Dictionary: list name (e.g. CBE_List_1) -> List of codes
 
 // Retrieve Data
 
