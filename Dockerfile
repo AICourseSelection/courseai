@@ -12,5 +12,4 @@ EXPOSE 8000
 
 # CMD specifcies the command to execute to start the server running.
 CMD ["/start.sh"]
-CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
-# Keep pod running for kubernetes
+# done
