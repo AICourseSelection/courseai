@@ -26,34 +26,20 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
     this.rules = rules;
     this.extras = extras;
     this.repeatable = repeatable;
-}
-
-/**
- * Class that represents a course currently in a plan.
- * @param {CourseOffering} course   CourseOffering object representing the course.
- * @param {string} session          The session that this course is taken in, e.g. 2016S1.
- */
-function CourseEnrolment(course, session) {
-    this.code = course.code;
-    this.course = course;
-    this.session = session;
-
-    this.failed = false;    // Default to not failed.
-    this.grade = null;      // Do not store grade data by default.
-    this.notes = null;      // Do not store notes data by default.
 
     /**
      * Check if the requirements for this course have been met.
      * @param plan  The degree plan to check requirements against.
+     * @param session   The prospective session for this course.
      */
-    this.checkRequirements = function (plan) {
+    this.checkRequirements = function (plan, session) {
         let incompatible_courses = [];
         let overall_sat = true;
 
         let courses_taken = [];
-        for (let session of plan.sessions) {
-            if (session === this.session) break;
-            Array.prototype.push.apply(courses_taken, plan.courses[session]);
+        for (let ses of plan.sessions) {
+            if (sessionIsAfter(ses, session) || ses === session) break;
+            Array.prototype.push.apply(courses_taken, plan.courses[ses]);
         }
         let courses_taking = plan.courses[this.session];
 
@@ -73,7 +59,22 @@ function CourseEnrolment(course, session) {
             overall_sat = overall_sat && clause_sat;
         }
         return {'sat': overall_sat, 'inc': incompatible_courses};
-    };
+    }
+}
+
+/**
+ * Class that represents a course currently in a plan.
+ * @param {CourseOffering} course   CourseOffering object representing the course.
+ * @param {string} session          The session that this course is taken in, e.g. 2016S1.
+ */
+function CourseEnrolment(course, session) {
+    this.code = course.code;
+    this.course = course;
+    this.session = session;
+
+    this.failed = false;    // Default to not failed.
+    this.grade = null;      // Do not store grade data by default.
+    this.notes = null;      // Do not store notes data by default.
 
     /**
      * Mark a course as having been failed.

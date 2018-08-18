@@ -176,6 +176,10 @@ body {
     word-wrap: break-word;
 }
 
+.course-year {
+    display: none;
+}
+
 .mms-code {
     display: none;
 }

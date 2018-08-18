@@ -17,7 +17,7 @@ function Plan() {
         for (const session of this.sessions) {
             for (const enrolment of this.courses[session]) {
                 if (!(enrolment.failed)) continue;
-                let res = enrolment.checkRequirements(this);
+                let res = enrolment.course.checkRequirements(this, enrolment.session);
                 if (!(res.sat)) unsat.push({'course': enrolment, 'inc': res.inc});
             }
         }
@@ -183,6 +183,19 @@ function Plan() {
         return true;
         //TODO: Throw exception when MMS doesn't exist or couldn't be retrieved.
     };
+
+    /**
+     * Determine whether a particular MMS is currently being tracked in the degree.
+     * @param code {string} The code of the MMS to query.
+     * @param year {string} The year of the MMS to query. Leave blank to check all possible years of the given code.
+     * @returns {boolean}   Whether or not any MMS with the given code (and year) are present in the plan.
+     */
+    this.trackingMMS = function (code, year = null) {
+        for (const mms of this.trackedMMS) {
+            if (mms.code === code && (year === null || mms.year === year)) return true;
+        }
+        return false;
+    }
 }
 
 const SESSION_ORDER = ['Su', 'S1', 'Au', 'Wi', 'S2', 'Sp'];

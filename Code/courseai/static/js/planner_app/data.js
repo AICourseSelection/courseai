@@ -10,23 +10,41 @@ let KNOWN_COURSE_LISTS = {};    // Dictionary: list name (e.g. CBE_List_1) -> Li
  * Batch retrieve course titles, and perform an action with each one.
  * Retrieve titles for all the courses at once.
  * Then, the function provided with each course code will be evaluated with the title as a parameter.
- * @param courses_actions   An object, mapping course codes to functions.
+ * @param courses_actions   An object, mapping a course code to a list of functions.
  */
-function batchCourseTitles(courses_actions) {
-    $.ajax({
-        'url': 'degree/coursedata',
+async function batchCourseTitles(courses_actions) {
+    if (jQuery.isEmptyObject(courses_actions)) return;
+    let req = $.ajax({
+        url: 'degree/coursedata',
         data: {
             'query': 'titles',
             'codes': JSON.stringify(Object.keys(courses_actions)) //TODO: Fix for Course Years
         },
-        success: function (data) {
-            for (const course of data.response) {
-                for (const action of courses_actions[course['title']]) {
-                    action(course['title']);
-                }
-            }
-        }
+        async: false
     });
+    for (const course of req.responseJSON.response) {
+        for (const action of courses_actions[course['course_code']]) {
+            action(course['title']);
+        }
+    }
+}
+
+async function batchCoursePrereqs(courses_actions) {
+    // TODO: Generalise this and batchCourseTitles into one.
+    if (jQuery.isEmptyObject(courses_actions)) return;
+    let req = $.ajax({
+        url: 'degree/coursedata',
+        data: {
+            'query': 'prereqs',
+            'codes': JSON.stringify(Object.keys(courses_actions)) //TODO: Fix for Course Years
+        },
+        async: false
+    });
+    for (const course of req.responseJSON.response) {
+        for (const action of courses_actions[course['course_code']]) {
+            action(course['prerequisite_text'], course['prerequisites'], course['semester']);
+        }
+    }
 }
 
 function getCourseOffering(code, year) {
@@ -36,13 +54,18 @@ function getCourseOffering(code, year) {
             url: 'degree/coursedata',
             data: {'query': code},
             success: function (data) {
+                const res = data.response;
                 KNOWN_COURSES[code][year] = new CourseOffering(
                     code, year,
-                    data.title,
-                    data.units,
-                    data.prerequisites,
-                    {'description': data.description},
-                    data['repeatable'] || false);
+                    res.title,
+                    res.units,
+                    res.prerequisites,
+                    {
+                        'description': res.description,
+                        'prerequisite_text': res.prerequisite_text,
+                        'semester': res.semester
+                    },
+                    res['repeatable'] || false);
             },
             async: false
         })
