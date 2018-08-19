@@ -19,19 +19,20 @@
     ],
     "x_from_here": [
       {
-        "num": "6",
+        "units": "6",
         "courses": "CBE List 1"
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON2101",
-          "ECON2111"
+          "EMET1001",
+          "MKTG2003",
+          "STAT2032"
         ]
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON1100",
@@ -39,12 +40,11 @@
         ]
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
-          "EMET1001",
-          "MKTG2003",
-          "STAT2032"
+          "ECON2101",
+          "ECON2111"
         ]
       }
     ]

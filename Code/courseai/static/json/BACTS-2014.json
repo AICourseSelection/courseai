@@ -27,19 +27,19 @@
     ],
     "x_from_here": [
       {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "ECON2102",
-          "ECON2112"
-        ]
-      },
-      {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON1100",
           "ECON1102"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON2102",
+          "ECON2112"
         ]
       }
     ]

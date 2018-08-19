@@ -23,15 +23,7 @@
     ],
     "x_from_here": [
       {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "MATH1013",
-          "MATH1115"
-        ]
-      },
-      {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "STAT1003",
@@ -39,11 +31,19 @@
         ]
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "MATH1014",
           "MATH1116"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH1013",
+          "MATH1115"
         ]
       }
     ]
