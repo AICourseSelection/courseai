@@ -6,44 +6,6 @@
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "BUSN8003",
-          "BUSN8007",
-          "BUSN8010",
-          "BUSN8012",
-          "BUSN8016",
-          "BUSN8101",
-          "BUSN8102",
-          "BUSN8103",
-          "BUSN8145",
-          "BUSN8056",
-          "BUSN8062",
-          "INFS8004",
-          "INFS8005",
-          "INFS8201",
-          "INFS8205",
-          "ECON8037",
-          "ECON8038",
-          "ECON8040",
-          "ECON8053",
-          "ECON8055",
-          "EMET6007",
-          "EMET6008",
-          "EMET8005",
-          "EMET8012",
-          "FINM7003",
-          "FINM8004",
-          "FINM8006",
-          "FINM8007",
-          "FINM8009",
-          "FINM8014",
-          "FINM8016",
-          "FINM8017"
-        ]
-      },
-      {
         "type": "maximum",
         "units": 24,
         "courses": [
@@ -106,6 +68,52 @@
           "STAT7001",
           "STAT7026",
           "STAT7029"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BUSN8013",
+          "BUSN8018"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "BUSN8003",
+          "BUSN8007",
+          "BUSN8010",
+          "BUSN8012",
+          "BUSN8016",
+          "BUSN8101",
+          "BUSN8102",
+          "BUSN8103",
+          "BUSN8145",
+          "BUSN8056",
+          "BUSN8062",
+          "INFS8004",
+          "INFS8005",
+          "INFS8201",
+          "INFS8205",
+          "ECON8037",
+          "ECON8038",
+          "ECON8040",
+          "ECON8053",
+          "ECON8055",
+          "EMET6007",
+          "EMET6008",
+          "EMET8005",
+          "EMET8012",
+          "FINM7003",
+          "FINM8004",
+          "FINM8006",
+          "FINM8007",
+          "FINM8009",
+          "FINM8014",
+          "FINM8016",
+          "FINM8017"
         ]
       }
     ]

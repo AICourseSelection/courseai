@@ -25,23 +25,23 @@
     ],
     "x_from_here": [
       {
-        "num": "124",
+        "units": "124",
         "courses": "CBE List 1"
       },
       {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "ECON1100",
-          "ECON1102"
-        ]
-      },
-      {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "MGMT2003",
           "STAT1008"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
         ]
       }
     ]
