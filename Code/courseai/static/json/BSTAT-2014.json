@@ -26,16 +26,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "MATH1014",
+          "MATH1116"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH1014",
-          "MATH1116"
+          "STAT1003",
+          "STAT1008"
         ]
       },
       {

@@ -18,6 +18,14 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BUSI3024",
+          "MGMT3025"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "BUSI2023",
@@ -29,14 +37,6 @@
           "BUSI3028",
           "BUSI3029",
           "BUSI3030",
-          "MGMT3025"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BUSI3024",
           "MGMT3025"
         ]
       },

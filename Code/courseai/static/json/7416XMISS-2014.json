@@ -3,7 +3,5 @@
   "code": "7416XMISS",
   "year": 2014,
   "units": 70,
-  "required": {
-    "x_from_here": []
-  }
+  "required": {}
 }

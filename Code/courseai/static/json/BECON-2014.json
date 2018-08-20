@@ -28,16 +28,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "ECON2102",
+          "ECON2112"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON2102",
-          "ECON2112"
+          "ECON1100",
+          "ECON1102"
         ]
       },
       {

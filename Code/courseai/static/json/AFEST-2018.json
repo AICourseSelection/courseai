@@ -38,9 +38,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH2320",
-          "MATH2322",
-          "MATH3029"
+          "STAT2032",
+          "STAT3040"
         ]
       },
       {
@@ -55,8 +54,9 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT2032",
-          "STAT3040"
+          "MATH2320",
+          "MATH2322",
+          "MATH3029"
         ]
       }
     ]
