@@ -492,7 +492,7 @@ function mmsPopoverData() {
         return;
     }
     $.ajax({
-        url: 'degree/mms',
+        url: 'search/mms',
         data: {'query': code},
         success: function (data) {
             if (data.hasOwnProperty('error')) {
@@ -604,7 +604,7 @@ function search(coursesOnly = false) {
     resultsList.find('.fa-refresh').css({'display': 'inline-block'});
 
     curr_requests['major'] = $.ajax({
-        url: 'degree/majors?query=' + searchValue,
+        url: 'search/majors?query=' + searchValue,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -615,7 +615,7 @@ function search(coursesOnly = false) {
         complete: console.log('Major search initiated. ')
     });
     curr_requests['minor'] = $.ajax({
-        url: 'degree/minors?query=' + searchValue,
+        url: 'search/minors?query=' + searchValue,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -626,7 +626,7 @@ function search(coursesOnly = false) {
         complete: console.log('Minor search initiated. ')
     });
     curr_requests['spec'] = $.ajax({
-        url: 'degree/specs?query=' + searchValue,
+        url: 'search/specs?query=' + searchValue,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -1468,7 +1468,7 @@ function setupDegreeRequirements(data) {
                     const original_section_count = section_count;
                     section_count++;
                     ajax_requests.push($.ajax({
-                        url: 'degree/courselists',
+                        url: 'search/courselists',
                         data: {'query': name},
                         success: function (data) {
                             let courses = data.response.courses;
@@ -1557,7 +1557,7 @@ function setupDegreeRequirements(data) {
         }
         for (let code in mms_to_retrieve) {
             $.ajax({
-                url: 'degree/mms',
+                url: 'search/mms',
                 data: {'query': code},
                 success: function (data) {
                     mms_info[data.code] = data;

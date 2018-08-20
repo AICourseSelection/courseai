@@ -89,14 +89,14 @@ def initial_network_training(degrees_to_train):
     for degree in degree_list:
         if not (degree.code in degrees_to_train):
             continue
-        print(degree.name)
+        # print(degree.name)
         x_array, y_array = create_training_arrays(degree.requirements)
         if x_array.shape == (0,) or y_array.shape == (0,) or x_array.shape == (1, 0):
             continue
         network = MLPRegressor(hidden_layer_sizes=(1000,), activation='tanh')
         network.fit(x_array, y_array)
         test_data = list(np.argmax(network.predict(x_array), axis=1) == np.argmax(y_array, axis=1))
-        print("Accuracy:", sum(test_data) / len(test_data))
+        # print("Accuracy:", sum(test_data) / len(test_data))
         joblib.dump(network, "network/" + degree.code + ".pkl")
 
 
@@ -107,7 +107,7 @@ def train_sample(degree):
     try:
         network = joblib.load("network/" + degree.code + ".pkl")
     except:
-        print("no network found")
+        # print("no network found")
         network = MLPRegressor(hidden_layer_sizes=(1000,), activation='tanh')
     reqs = dict()
     for semester in eval(str(degree.requirements)):
@@ -117,7 +117,7 @@ def train_sample(degree):
     x_array, y_array = create_training_arrays(str(reqs))
     network.fit(x_array, y_array)
     test_data = list(np.argmax(network.predict(x_array), axis=1) == np.argmax(y_array, axis=1))
-    print("Accuracy:", sum(test_data) / len(test_data))
+    # print("Accuracy:", sum(test_data) / len(test_data))
     joblib.dump(network, "network/" + degree.code + ".pkl")
 
 
