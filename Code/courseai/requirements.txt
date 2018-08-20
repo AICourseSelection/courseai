@@ -2,6 +2,7 @@ certifi==2018.4.16
 Django==2.0.7
 elasticsearch==6.3.0
 elasticsearch-dsl==6.2.1
+future==0.16.0
 gunicorn==19.9.0
 ipaddress==1.0.22
 numpy==1.15.0
@@ -12,4 +13,4 @@ scipy==1.1.0
 six==1.11.0
 static3==0.7.0
 urllib3==1.23
-whitenoise==4.0.0
+whitenoise==4.0
