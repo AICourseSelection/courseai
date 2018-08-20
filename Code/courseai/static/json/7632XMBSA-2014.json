@@ -1,0 +1,16 @@
+{
+  "name": "Master of Biological Sciences Advanced",
+  "code": "7632XMBSA",
+  "year": 2014,
+  "units": 96,
+  "required": {
+    "min_max_by_level": [
+      {
+        "type": "minimum",
+        "level": 6000,
+        "area": "BIOL",
+        "units": 30
+      }
+    ]
+  }
+}

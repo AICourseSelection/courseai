@@ -35,7 +35,6 @@ def generate_degree_plan(code, start_year_sem):
     year, sem = start_year_sem.split('S')
     year, sem = int(year), int(sem)
     for year_sem, courses in sorted(eval(str(reqs)).items(), key=lambda session: float(session[0])):
-        print(len(courses))
         for c in courses:
             update_elective_code(c)
             if c['code'] == "OR":

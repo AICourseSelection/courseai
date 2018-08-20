@@ -39,7 +39,7 @@ These are overviews of the artifacts we have produced, organised by sprint and a
 
 ## [Team Members](Documentation/Semester_2/Sprint_1/PDF/Team_Members.pdf)
 
-![Team Organisation Chart](Documentation/Semester_2/Sprint_1/Images/Team_Members.png)
+![Team Organisation Chart](Documentation/Semester_2/Sprint_0/Images/Team_Members.png)
 
 ## Tools and Services
 **Team communications**: Slack channel "AI Course Selection": http://courseai.slack.com/
@@ -66,9 +66,9 @@ The plan for this semester includes five main work objectives. They are, in a ro
 
 For some of these objectives, such as #5, certain aspects within are not yet well-defined. Part of our time will be dedicated to 'research' tasks aimed at determining the feasibility and work involved in completing these tasks. The team has enough skill and diversity therein to support one or two members conducting research for part of a sprint. 
 
-## [Semester 2 Project Schedule](Documentation/Semester_2/Sprint_1/PDF/Schedule.pdf)
+## [Semester 2 Project Schedule](Documentation/Semester_2/Sprint_0/PDF/Schedule.pdf)
 
-![Project Schedule](Documentation/Semester_2/Sprint_1/Images/Schedule.png)
+![Project Schedule](Documentation/Semester_2/Sprint_0/Images/Schedule.png)
 * **Kick-Off**: Weeks 1 - 2. Team member recruitment, onboarding, project definition and setup. 
 * **Sprint 1**: Weeks 3 - 5. Project Audit 1, Deployment, Reduction of Technical Debt. 
   * Includes first round of user testing which immediately follows deployment. 
@@ -81,7 +81,7 @@ For some of these objectives, such as #5, certain aspects within are not yet wel
 
 We aim to improve upon the design and development process from last semester in a number of ways. 
 
-* **Longer Sprints**: We are increasing sprint times to three weeks each: allowing for better planning in each, as well as more flexibility. Each sprint will have a mid-sprint review and a retrospective. See the [schedule](Documentation/Semester_2/Sprint_1/PDF/Schedule.pdf). 
+* **Longer Sprints**: We are increasing sprint times to three weeks each: allowing for better planning in each, as well as more flexibility. Each sprint will have a mid-sprint review and a retrospective. See the [schedule](Documentation/Semester_2/Sprint_0/PDF/Schedule.pdf). 
 
 * **Regular User Testing**: We will conduct user testing at regular intervals during the development process. These sessions are scheduled for:
 
@@ -92,7 +92,7 @@ We aim to improve upon the design and development process from last semester in 
 
   Three of these sessions will be with a small group of testers who will be re-used throughout the project.  One session (currently planned to be the 3rd session) will be open to the public and feedback channels will be available to anyone using the system. This allows us to receive a mix of both fresh and experienced opinions regarding our system. 
 
-  Testing operations will be logged using [this template](Documentation/Semester_2/Sprint_1/Test_Template.docx) provided by Accenture. 
+  Testing operations will be logged using [this template](Documentation/Semester_2/Sprint_0/Test_Template.docx) provided by Accenture. 
 
 * **Clear Representation of Tasks**: Every work task will either :
   1. be well-defined and following the [S.M.A.R.T. criteria](https://en.wikipedia.org/wiki/SMART_criteria), or
@@ -102,6 +102,31 @@ We aim to improve upon the design and development process from last semester in 
 
 * **Gated Check-in**: All significant or new contributions to the codebase will go through a code review process by at least one other team member. This will help with working towards objective #2 - Reduce Technical Debt. 
 
+## Technical and Other Constraints
+
+### Course/degree requirements data
+
+Data on course/degree requirements will allow our AI to provide accurate recommendations for courses based on prerequisites, required knowledge and degree program structures. This data is quite complex, with many facets and links between different parts. We have obtained the data thus far by scraping the Programs and Courses website, combined with some manual entry of the requirements for 20/60 of the current undergraduate degree programs. With the expansion of scope to all years and all degrees, this process will need to be automated. Programs and Courses has an API which we will endeavor to use to avoid scraping. 
+
+However, whatever form the data is obtained in, it still needs to be parsed and interpreted into a concrete data model. The data model is very complex, as degrees, majors, and courses have many requirements and some are complicated to understand, even as a human, very diverse in their scope, and sometimes incorrect or not even listed. Some courses or degrees are such that their requirements are inconsistent all by themselves. It is likely that may be some particular rules or constraints that we will be unable to capture from the data that is currently available. 
+
+## Resources, Risks and Potential Costs
+
+**Risk:** The Degree/Major/Course information structure is too complex for us to capture in a good or efficient data model. 
+
+**How we will manage this risk:**
+We already have a reasonable data model which can capture a majority of degree/course requirements. The extent of the data complexity will be thoroughly analysed, and a compromise will be made between completeness and: 1) the feasibility of capturing said data, 2) the efficiency of the data model, and 3) the specificity of the data model. 
+
+**Potential cost: Deployment**  
+We are currently investigating different options for deployment of our web service. There are a number of components involved, including Django, Elasticsearch, and a persistent database. We will consider "free options" such as the AWS Free Tier and use them as trials for the service. Exact costs from deployment can be calculated once we have chosen a host. Current specifications for server requirements are listed at https://trello.com/c/FB4tAwm9/4-deployment-investigate-possible-options-for-deployment. 
+
+**Risk:** Chatbot technology is not at a sufficient standard for us to improve upon the existing Question and Answer features.  
+**How we will manage this risk:**
+If the chatbot technology we use is not sufficient, we may attempt to use a more structured question and answer session, or focus our efforts on one of the other four main objectives for this semester. 
+
+**Risk:** The ANU Programs and Courses database is not made available for us to access course requirements.  
+**How we will manage this risk:**
+This was discussed above, however, it is important to note that if we are not able to access the ISIS data, we will need to assign an additional responsibility of creating a web scraper to one of our developers. This is relatively costly as the developer will therefore have substantially less time to contribute to other parts of our project, and the data gathered may be of a poorer quality.
 
 ## Client's Vision
 
@@ -131,58 +156,7 @@ The aim of this project is to simplify the course selection process for universi
 2. AI course scheduling can operate as a digital assistant for students with their courses, which would conserve human resources for university departments. It could interact with students at any time without the use of an actual human advisor and would answer course-related questions quickly. 
 3. We believe that this project will encourage students to explore more about courses and enable students to consider a greater number of options when enrolling. As a result, the proposed project would enhance student experience and university life.
 
-## Technical and Other Constraints
-Our primary limitations and technical constraints are (1) the quality or availability of our course and degree requirements data, (2) the quality of software which we can use for our interactive agent (chatbot) (3) the capabilities of the recommendation model that we create, which will depend on the AI technology that is available to us. *Note that some of the technologies and have not been completely committed to, and may change throughout the ideate and define phases (see schedule).*
 
-### Course/degree requirements data
-Data on course/degree requirements will allow our AI to provide accurate recommendations for courses based on prerequisites, required knowledge and degree program structures. There are two key options for accessing this data. The ideal situation is that we will be able to access the data on ISIS, where it is used in ANU’s administration software. We have undertaken steps to gain access to the ISIS database, and are awaiting approval to go ahead. If this is not possible, we have also discussed the possibility of web-scraping course data from the ANU “Programs and Courses” website.
-
-ISIS data limitations:
--   The ISIS database may not contain all of the data that we require, in which case our AI could be limited to only recommending for certain programs and courses.
--   We may need to scrape additional data from the ANU Programs and Courses website.
-
-Web-scraping limitations:
--   Some courses have complex requirements such as requiring one course from a certain group of courses, or that the student is in a particular year of their university studies. This may require us to encode complex rules and process the requirements with natural language processing technology. While our team has members experienced in NLP, the arbitrary complexity of these requirements could prove to be a major issue.
-
-### Amazon Lex
-Amazon Web Services’ customisable chatbot product “Amazon Lex” is being considered as an option for the creation of our chatbot. As it stands it is one of the better choices, especially given that some members of our team already have a good understanding of the documentation and capabilities of this product.
-
-Key limitations:
--   Lex does not support integration with Google, Viber, Twitter or Skype. [[1]](#references)
--   Lex does not support explicit context switching. This means that once it perceives the user to have a certain intent, it will not change without being explicitly informed.
--   For the first year, Lex allows users to process up to 10,000 text requests and 5,000 speech requests per month for free. Following this first year, the pricing is $.00075 per text request. [[2]](#references)
-
-Security:
--   Lex will store data from conversations automatically. Since the user identities are not matched with the conversations and AWS provides security, we do not believe that storing this data is a legitimate security risk.
-
-Reliability:
--   Amazon Web Services has a great reputation for providing reliable products [[3]](#references). Amazon, being one of the largest organisations worldwide has AWS well protected from potential server failures.
-
-### Recommendation model generation
-Our model will require some form of recommendation algorithm, which is highly dependent on existing technology. Current Natural Language Processing techniques have found use in recommendation software, including advertising and search engine recommendations. However, they are still relatively limited in their effectiveness.
-
-Limitations:
--   Many techniques still rely on models such as the TF-IDF transform, which do not preserve full meaning, as they do not preserve the order of the words in text.
--   More advanced models such as doc2vec often have issues with weighting too heavily on irrelevant parts of documents
-
-Reliability:
--   We must ensure that there is an algorithmic recommendation option we can provide given that the AI model fails.
--   If both options fail often, the model will provide inaccurate and unreliable predictions.
-
-
-## Resources, Risks and Potential Costs
-**Risk** Chatbot technology is not at a sufficient standard to create a useful course selection AI.  
-**How we will manage this risk:**
-If the chatbot technology we use is not sufficient, we will likely move to a more structured question and answer session. Each user would only need to complete this question and answer session once, and the session would result in the creation of a profile for the user, which would store their degree program, interests and other personalised data.
-
-**Risk** The ANU ISIS database is not made available for us to access course requirements.  
-**How we will manage this risk:**
-This was discussed above, however, it is important to note that if we are not able to access the ISIS data, we will need to assign an additional responsibility of creating a web scraper to one of our developers. This is relatively costly as the developer will therefore have substantially less time to contribute to other parts of our project, and the data gathered may be of a poorer quality.
-
-**Potential cost: Amazon Web Services**  
-Should we decide on using AWS’ Lex chatbot service, our best option would be to deploy our other required backend code on AWS as well. Aside from the aforementioned cost of Amazon Lex, deployment of our backend service and web page will also incur costs. AWS provides a free tier for the first year of use of its EC2 virtual machine product, which is a leading candidate for the deployment of our service.  
-The ideal situation would be that the free tier of AWS Lex and EC2 would provide us with enough functionality to last through the testing and development phases. The finished product would then be handed on to the client, who would then pay any costs incurred from use of AWS.  
-Exact costs for EC2 and AWS can be calculated when we have a more accurate understanding of the specifications of our virtual machine - that is, the required disk space, memory, CPU cores etc.
 
 ## NDA and IP Concerns
 There will be no non-disclosure agreement required.

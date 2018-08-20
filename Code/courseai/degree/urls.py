@@ -7,9 +7,5 @@ urlpatterns = [
     path('degreeplan', views.degree_plan),
     path('degreereqs', views.degree_reqs),
     path('coursedata', views.course_data),
-    path('mms', views.mms_request),
-    path('majors', views.all_majors),
-    path('minors', views.all_minors),
-    path('specs', views.all_specs),
-    path('courselists', views.course_lists)
+    path('stored_plans', views.stored_plans)
 ]
