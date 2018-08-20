@@ -11,7 +11,7 @@ from django.contrib.auth import (
 # create form for each aspects of these
 def login_view(request):
     title = "Login"
-    form = UserLoginForm(request.POST or None)    # translating any false value (e.g. an empty list, empty dict) into None
+    form = UserLoginForm(request.POST or None)  # translating any false value (e.g. an empty list, empty dict) into None
 
     if form.is_valid():
         email = form.cleaned_data.get('email')    # get the email from form
