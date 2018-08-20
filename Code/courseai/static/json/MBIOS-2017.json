@@ -1,0 +1,19 @@
+{
+  "name": "Master of Biological Sciences",
+  "code": "MBIOS",
+  "year": 2017,
+  "units": 96,
+  "required": {
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "BIOL8700",
+          "BIOL8702",
+          "BIOL8704"
+        ]
+      }
+    ]
+  }
+}

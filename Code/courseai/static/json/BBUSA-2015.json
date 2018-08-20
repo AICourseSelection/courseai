@@ -32,16 +32,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MGMT2003",
-          "STAT1008"
+          "ECON1100",
+          "ECON1102"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "MGMT2003",
+          "STAT1008"
         ]
       }
     ]
