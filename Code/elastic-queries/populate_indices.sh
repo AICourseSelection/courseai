@@ -1,11 +1,18 @@
 #!/bin/bash
+# usage: populate_indices.sh <host address>
 
-curl -X DELETE "localhost:9200/cbelists"
+if [ $# -eq 0 ]
+  then
+    echo "ERROR: No host address provided (e.g. localhost)"
+    echo "usage: populate_indices.sh <host address>"
+    exit 1
+fi 
 
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@course_bulk"; echo
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@degree_bulk"; echo
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@major_bulk"; echo
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@minor_bulk"; echo
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@specialisations_bulk"; echo
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@courselists_bulk"; echo
-curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@cse_bulk"; echo
+curl -X DELETE "$1:9200/cbelists"
+
+declare -a BULKS=("@course_bulk" "@degree_bulk" "@major_bulk" "@minor_bulk" "@minor_bulk" "@specialisations_bulk"  "@courselists_bulk" "@cse_bulk")
+
+for bulk in "${BULKS[@]}"
+do
+    curl -s -H "Content-Type: application/x-ndjson" -XPOST $1:9200/_bulk --data-binary $bulk; echo 
+done
