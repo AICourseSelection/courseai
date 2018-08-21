@@ -39,10 +39,7 @@
                     <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
                         <label>I start my degree in: </label>
                     </div>
-                    <div class="d-inline-block" style="padding: 0 5px; flex-grow: 1">
-                        <input type="text" name="startyear" class="form-control" required
-                               placeholder="Year" maxlength="4" minlength="4">
-                    </div>
+                    <select id="yearList" name="startyear" style="height: 40px; padding: 0 5px; flex-grow: 1"> </select>
                     <div class="d-inline-block" style="padding-left: 5px;">
                         <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
                             <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
@@ -93,6 +90,15 @@
 <script src="{% static "js/bootstrap3-typeahead.js" %}"></script>
 <script src="{% static "js/autosize.min.js" %}"></script>
 <script src="{% static "js/chatbox.js" %}"></script>
+<!-- create drop down list of years available -->
+<script> 
+var options = "";
+for(var i = 2016; i <= 2019; i++){
+  options += "<option>"+ i +"</option>";
+}
+document.getElementById("yearList").innerHTML = options;
+</script>
+
 <script>
     var degreeList = new Set();
     var degreeCodes = {};
