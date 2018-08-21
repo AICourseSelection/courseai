@@ -3,6 +3,7 @@ function Plan() {
     this.sessions = []; // List of active sessions in the plan, in order.
     this.courses = {};  // Map from active sessions to list of CourseEnrolments.
     this.trackedMMS = [];  // List of Majors, Minors, etc. currently tracked.
+    this.warnings = []; // List of warnings that have been ignored by the user.
 
     this.checkDegreesSatisfied = function () {
         throw "Not Implemented";
@@ -76,13 +77,19 @@ function Plan() {
      * Add a degree to the user's plan.
      * @param code  The text code for the specified degree, e.g. AACRD.
      * @param year  The version of the degree to add, e.g. 2016 version, 2017 version.
-     * @return {boolean}    true if the degree was added, false if it was already there.
+     * @return      The Degree if it was added, null if it was already there.
      */
     this.addDegree = async function (code, year) {
-        for (const deg of this.degrees) if (deg.code === code) return false;
+        for (const deg of this.degrees) if (deg.code === code) return;
         let degree = getDegreeOffering(code, year);
         this.degrees.push(degree);
-        return true;
+        return degree;
+    };
+
+    this.getDegree = function (code, year) {
+        for (const deg of this.degrees) {
+            if (deg.code === code) return deg;
+        }
     };
 
     /**
@@ -195,7 +202,22 @@ function Plan() {
             if (mms.code === code && (year === null || mms.year === year)) return true;
         }
         return false;
-    }
+    };
+
+    this.removeWarning = function (type, text) {
+        for (warn of this.warnings) {
+            if (warn.type === type && warn.text === text) {
+                this.warnings.splice(this.warnings.indexOf(warn, 1))
+                return warn;
+            }
+        }
+    };
+
+    this.getWarning = function (type, text) {
+        for (warn of this.warnings) {
+            if (warn.type === type && warn.text === text) return warn;
+        }
+    };
 }
 
 const SESSION_ORDER = ['Su', 'S1', 'Au', 'Wi', 'S2', 'Sp'];
@@ -261,3 +283,14 @@ function NonExistentMMS(message) {
 }
 
 NonExistentMMS.prototype = Error.prototype;
+
+
+function Warning(type, text, actions = []) {
+    this.type = type;   // e.g. "CourseForceAdded"
+    this.text = text;
+    this.actions = actions;
+
+    this.runActions = function () {
+        for (const action of this.actions) action();
+    }
+}

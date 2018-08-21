@@ -11,8 +11,9 @@ function MMS(code, year, title, rules) {
     this.title = title;
     this.rules = rules;
 
+    this.identifier = code + '-' + year;
     this.type = code.split('-')[1]; // Type of MMS, e.g. MAJ, MIN, etc.
-    this.units = TYPE_UNITS[this.type]; // Total number of required units, e.g. 48 for Majors.
+    this.units = MMS_TYPE_UNITS[this.type]; // Total number of required units, e.g. 48 for Majors.
 
     /**
      * Check if this MMS's requirements are satisfied in the given plan.
@@ -70,7 +71,7 @@ function matchInDegree(plan, codes) {
  * Dictionary to convert from MMS type code (MAJ/MIN) to required units.
  * @type {{MAJ: number, MIN: number, SPEC: number, HSPC: number}}
  */
-const TYPE_UNITS = {
+const MMS_TYPE_UNITS = {
     "MAJ": 48,
     "MIN": 24,
     "SPEC": 24,
@@ -81,7 +82,7 @@ const TYPE_UNITS = {
  * Dictionary to convert from MMS type code (MAJ/MIN) to full text.
  * @type {{MAJ: string, MIN: string, SPEC: string, HSPC: string}}
  */
-const TYPE_PRINT = {
+const MMS_TYPE_PRINT = {
     "MAJ": "Major",
     "MIN": "Minor",
     "SPEC": "Specialisation",

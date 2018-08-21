@@ -55,6 +55,7 @@ function getCourseOffering(code, year) {
             data: {'query': code},
             success: function (data) {
                 const res = data.response;
+                if (!code in KNOWN_COURSES) KNOWN_COURSES[code] = {};
                 KNOWN_COURSES[code][year] = new CourseOffering(
                     code, year,
                     res.title,
@@ -63,7 +64,7 @@ function getCourseOffering(code, year) {
                     {
                         'description': res.description,
                         'prerequisite_text': res.prerequisite_text,
-                        'semester': res.semester
+                        'semester': res.semester    // TODO: Change for course sessions.
                     },
                     res['repeatable'] || false);
             },
@@ -89,7 +90,11 @@ async function batchCourseOfferings(courses) {
                         data.title,
                         data.units,
                         data.prerequisites,
-                        {'description': data.description},
+                        {
+                            'description': data.description,
+                            'prerequisite_text': data.prerequisite_text,
+                            'semester': data.semester   // TODO: Change for course sessions.
+                        },
                         data['repeatable'] || false);
                 }
             })
@@ -104,12 +109,33 @@ function getMMSOffering(code, year) {
             url: 'search/mms',
             data: {'query': code},
             success: function (data) {
+                if (!code in KNOWN_MMS) KNOWN_MMS[code] = {};
                 KNOWN_MMS[code][year] = new MMS(code, year, data.name, data.composition);
             },
             async: false
         })
     }
     return KNOWN_MMS[code][year];
+}
+
+async function batchMMSData(mms_actions) {
+    if (jQuery.isEmptyObject(mms_actions)) return;
+    for (const mms in mms_actions) {
+        $.ajax({
+            url: 'search/mms',
+            data: {
+                'query': mms.code,
+            },
+            success: function (data) {
+                if (!mms.code in KNOWN_MMS) KNOWN_MMS[mms.code] = {};
+                const new_mms = new MMS(code, year, data.name, data.composition);
+                KNOWN_MMS[mms.code][mms.year] = new_mms;
+                for (const action of mms_actions[mms]) {
+                    action(new_mms)
+                }
+            }
+        });
+    }
 }
 
 function getDegreeOffering(code, year) {
@@ -119,6 +145,7 @@ function getDegreeOffering(code, year) {
             url: 'degree/degreereqs',
             data: {'query': code},
             success: function (data) {
+                if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
                 KNOWN_DEGREES[code][year] = new Degree(code, year, data.name, data.required);
                 //TODO: Support Optional Rule Sections
             },

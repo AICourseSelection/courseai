@@ -1,4 +1,5 @@
-function Search() {
+function Search(plan) {
+    this.plan = plan;
     this.requests = {
         'course': null,
         'major': null,
@@ -8,6 +9,7 @@ function Search() {
     this.filters = [];
 
     this.courseSearch = function (query, before, after) {
+        const plan = this.plan;
         if (this.requests['course'] !== null) this.requests['course'].abort();
         let activeFilters = this.filters;
         let filters = {
@@ -43,7 +45,7 @@ function Search() {
                     let offering = getCourseOffering(course.code, THIS_YEAR); // TODO: Fix for course years. Need the most recent year with data available.
                     let matched_filters = false;
                     for (session of filtered_sessions) {
-                        matched_filters = matched_filters || offering.checkRequirements(PLAN, session).sat;
+                        matched_filters = matched_filters || offering.checkRequirements(plan, session).sat;
                     }
                     if (matched_filters) new_data.push(course)
                 }
