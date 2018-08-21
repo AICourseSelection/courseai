@@ -12,7 +12,7 @@
 #### TODO:
 * Tom: Work on demonstrating the permission code system for the audit.
 * Joseph: Implement double degree tracking on the front end- create tabs for the two degrees on the right sidebar. Also, work on dropdown for the years on the homepage. 
-* Thien: Try to match the structure of the deployment branch with the main branch. Integrate Scarlett's code into the main branch, front end for log in (in the header) and registration (separate page). If time suffices, g oing to work on colour coding till the Audit. Create a header for the homepage and the degree page.
+* Thien: Try to match the structure of the deployment branch with the main branch. Integrate Scarlett's code into the main branch, front end for log in (in the header) and registration (separate page/ in the header). If time suffices, g oing to work on colour coding till the Audit. Create a header for the homepage and the degree page.
 * Manal: Complete scraping and parsing of the remaining colleges
 * Scarlett: Add "confirm password" instead of the "confirm email". Set role to student by default. Make the number of degree plans per user unlimited. Update degree plan codes in the database when a change is made by the user.
 * Yong Wei: Look for more users. Conduct the testing session and summarise the data. Also look for domain name and student credits for it.
