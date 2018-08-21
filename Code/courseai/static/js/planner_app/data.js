@@ -102,6 +102,19 @@ async function batchCourseOfferings(courses) {
     }
 }
 
+// function getLatestCourseOffering(code) {
+//     if (!(code in KNOWN_COURSES)) return;
+//     let frontier_year = "";
+//     let frontier_offering = null;
+//     for (const year in KNOWN_COURSES[code]) {
+//         if (year > frontier_year && year < THIS_YEAR) { // Do not pass the current year
+//             frontier_year = year;
+//             fontier_offering = KNOWN_COURSES[code][year];
+//         }
+//     }
+//     return frontier_offering;
+// }
+
 function getMMSOffering(code, year) {
     if (!(code in KNOWN_MMS)) KNOWN_MMS[code] = {};
     if (!(year in KNOWN_MMS[code])) {
