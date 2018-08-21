@@ -28,23 +28,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON2102",
-          "ECON2016",
-          "ECON2112"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON1100",
-          "ECON1102"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "ECON2101",
           "ECON2111"
         ]
@@ -64,6 +47,23 @@
           "ECON2139",
           "ECON2141",
           "ECON2142"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON2102",
+          "ECON2016",
+          "ECON2112"
         ]
       }
     ]

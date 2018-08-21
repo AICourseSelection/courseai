@@ -9,20 +9,29 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENVS6015",
-          "ENVS6025",
-          "ENVS6103",
-          "ENVS8006"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "ENVS6023",
           "ENVS6024",
           "ENVS6203",
           "ENVS6308"
+        ]
+      },
+      {
+        "type": "maximum",
+        "units": 6,
+        "courses": [
+          "BIOL6003",
+          "BIOL6206",
+          "ENVS6010",
+          "ENVS6014",
+          "ENVS6015",
+          "ENVS6022",
+          "ENVS6025",
+          "ENVS6103",
+          "ENVS6204",
+          "ENVS6302",
+          "ENVS6304",
+          "ENVS8015",
+          "ENVS8048"
         ]
       },
       {
@@ -50,29 +59,31 @@
       },
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
         "courses": [
-          "ENVS6514",
-          "ENVS8006"
+          "ENVS6023",
+          "ENVS6024",
+          "ENVS6026",
+          "ENVS6203",
+          "ENVS6308"
         ]
       },
       {
-        "type": "maximum",
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6026",
+          "ENVS6528"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
-          "BIOL6003",
-          "BIOL6206",
-          "ENVS6010",
-          "ENVS6014",
           "ENVS6015",
-          "ENVS6022",
           "ENVS6025",
           "ENVS6103",
-          "ENVS6204",
-          "ENVS6302",
-          "ENVS6304",
-          "ENVS8015",
-          "ENVS8048"
+          "ENVS8006"
         ]
       },
       {
@@ -87,13 +98,10 @@
       },
       {
         "type": "minimum",
-        "units": 6,
+        "units": 12,
         "courses": [
-          "ENVS6023",
-          "ENVS6024",
-          "ENVS6026",
-          "ENVS6203",
-          "ENVS6308"
+          "ENVS6514",
+          "ENVS8006"
         ]
       },
       {
@@ -104,14 +112,6 @@
           "ENVS6021",
           "ENVS6528",
           "ENVS8003"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS6026",
-          "ENVS6528"
         ]
       }
     ]

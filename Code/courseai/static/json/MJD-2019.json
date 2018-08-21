@@ -20,6 +20,16 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 24,
+        "courses": [
+          "LAWS6101",
+          "LAWS6102",
+          "LAWS6103",
+          "LAWS6105"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "LAWS6010",
@@ -33,16 +43,6 @@
           "LAWS6301",
           "LAWS6700",
           "LAWS8301"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "LAWS6101",
-          "LAWS6102",
-          "LAWS6103",
-          "LAWS6105"
         ]
       }
     ]

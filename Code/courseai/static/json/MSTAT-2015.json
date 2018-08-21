@@ -7,22 +7,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 36,
-        "courses": [
-          "STAT6038",
-          "STAT6039",
-          "STAT6046",
-          "STAT7018",
-          "STAT7029",
-          "STAT7030",
-          "STAT8002",
-          "STAT8003",
-          "STAT8027",
-          "EMET8005"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 24,
         "courses": [
           "STAT6043",
@@ -35,6 +19,22 @@
           "EMET8002",
           "EMET8008",
           "EMET8012"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 36,
+        "courses": [
+          "STAT6038",
+          "STAT6039",
+          "STAT6046",
+          "STAT7018",
+          "STAT7029",
+          "STAT7030",
+          "STAT8002",
+          "STAT8003",
+          "STAT8027",
+          "EMET8005"
         ]
       }
     ]

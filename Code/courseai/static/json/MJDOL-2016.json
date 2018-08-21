@@ -4,14 +4,6 @@
   "year": 2016,
   "units": 144,
   "required": {
-    "min_max_by_level": [
-      {
-        "type": "minimum",
-        "level": 4000,
-        "area": "LAWS",
-        "units": 36
-      }
-    ],
     "compulsory_courses": [
       "LAWS8701",
       "LAWS8702",
@@ -26,6 +18,14 @@
       "LAWS8711",
       "LAWS8712",
       "LAWS8713"
+    ],
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "level": 4000,
+        "area": "LAWS",
+        "units": 36
+      }
     ]
   }
 }

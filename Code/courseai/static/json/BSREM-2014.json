@@ -18,22 +18,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS3007",
-          "ENVS3028"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS2014",
-          "ENVS2015"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 18,
         "courses": [
           "BIOL1003",
@@ -46,18 +30,34 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC1006",
-          "ENVS1008"
+          "EMSC2016",
+          "ENVS2007",
+          "ENVS2011",
+          "ENVS2013"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC2016",
-          "ENVS2007",
-          "ENVS2011",
-          "ENVS2013"
+          "ENVS2014",
+          "ENVS2015"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS3007",
+          "ENVS3028"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMSC1006",
+          "ENVS1008"
         ]
       }
     ]
