@@ -29,17 +29,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENGN6410",
-          "ENVS6025"
+          "EMDV8080",
+          "EMDV8081",
+          "IDEC8089"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMDV8080",
-          "EMDV8081",
-          "IDEC8089"
+          "ENGN6410",
+          "ENVS6025"
         ]
       }
     ]

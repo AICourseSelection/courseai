@@ -24,14 +24,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "BIOL6174",
-          "PSYC6010"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "BIOL6001",
           "BIOL6161",
           "BIOL6171",
@@ -48,6 +40,14 @@
           "PSYC6030",
           "SCOM8021",
           "VCPG6002"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIOL6174",
+          "PSYC6010"
         ]
       }
     ]

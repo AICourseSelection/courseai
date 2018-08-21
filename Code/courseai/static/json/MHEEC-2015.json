@@ -16,6 +16,16 @@
     ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "ECON8073",
+          "ECON8074",
+          "ECON8075",
+          "POPH8100"
+        ]
+      },
+      {
         "type": "maximum",
         "units": 30,
         "courses": [
@@ -44,16 +54,6 @@
           "ECON8901",
           "IDEC8053",
           "IDEC8088"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "ECON8073",
-          "ECON8074",
-          "ECON8075",
-          "POPH8100"
         ]
       }
     ]

@@ -37,15 +37,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ECON4411",
-          "ECON4422",
-          "ECON4488"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
         "courses": [
           "STAT2032",
@@ -59,6 +50,15 @@
           "MATH2320",
           "MATH2322",
           "MATH3029"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "ECON4411",
+          "ECON4422",
+          "ECON4488"
         ]
       },
       {

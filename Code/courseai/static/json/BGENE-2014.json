@@ -9,12 +9,6 @@
         "type": "maximum",
         "level": "1000",
         "units": 60
-      },
-      {
-        "type": "minimum",
-        "level": 3000,
-        "units": 36,
-        "courses": "Science List"
       }
     ],
     "compulsory_courses": [
@@ -44,6 +38,12 @@
           "STAT1003",
           "STAT1008"
         ]
+      },
+      {
+        "type": "minimum",
+        "level": 3000,
+        "units": 36,
+        "courses": "Science List"
       }
     ]
   }

@@ -23,6 +23,14 @@
         ]
       },
       {
+        "type": "maximum",
+        "units": 12,
+        "courses": [
+          "BUSN8007",
+          "BUSN8801"
+        ]
+      },
+      {
         "type": "minimum",
         "units": 36,
         "courses": [
@@ -35,14 +43,6 @@
           "BUSN7051",
           "BUSN7052",
           "INFS7004"
-        ]
-      },
-      {
-        "type": "maximum",
-        "units": 12,
-        "courses": [
-          "BUSN8007",
-          "BUSN8801"
         ]
       }
     ]

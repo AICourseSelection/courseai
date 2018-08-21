@@ -34,19 +34,19 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "EMET1001",
+          "MATH1013",
+          "MATH1115",
+          "MKTG2003",
+          "STAT2032"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMET1001",
-          "MATH1013",
-          "MATH1115",
-          "MKTG2003",
-          "STAT2032"
+          "ECON1100",
+          "ECON1102"
         ]
       }
     ]

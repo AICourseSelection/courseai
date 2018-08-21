@@ -7,16 +7,16 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
+        "units": 30,
         "courses": [
-          "ACST8047"
+          "FINM7003"
         ]
       },
       {
         "type": "minimum",
-        "units": 30,
+        "units": 12,
         "courses": [
-          "FINM7003"
+          "ACST8047"
         ]
       }
     ]

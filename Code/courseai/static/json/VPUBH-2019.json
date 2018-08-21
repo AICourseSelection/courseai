@@ -7,6 +7,14 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POPH8100",
+          "POPH8552"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 18,
         "courses": [
           "CHMD8004",
@@ -20,14 +28,6 @@
           "POPH8918",
           "POPM8001",
           "SOCR8003"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POPH8100",
-          "POPH8552"
         ]
       },
       {
