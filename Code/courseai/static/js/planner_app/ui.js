@@ -1008,7 +1008,7 @@ function setupDegreeRequirements(degree) {
     for (let type in required) {
         if (!required.hasOwnProperty(type)) continue;
         if (type === "compulsory_courses") {
-            let card = createCourseListSection(type, "Compulsory courses", data.required[type]);
+            let card = createCourseListSection(type, "Compulsory courses", required[type]);
             reqs_list.append(card);
             section_count++;
         }
@@ -1125,12 +1125,93 @@ function setupDegreeRequirements(degree) {
 
 function updateMMSTrackers() {
     for (const mms of PLAN.trackedMMS) {
-        const mms_panel = $('#mms-active-list').find('#mms-active-'+mms.identifier).parent();
+        const mms_card = $('#mms-active-list').find('#mms-active-' + mms.identifier).parent();
         const results = mms.checkRequirements(PLAN);
-        for (const section of results.rule_details) {
+        for (const i in results.rule_details) {
+            const details = results.rule_details[i];
+            const type = mms.rules[i].type;
+            const card = mms_card.find('#mms-active-' + mms.identifier + '-select' + i).parent();
+            for (const c of card.find('.result-course')) {
+                const code = $(c).find('.course-code').text();
+                setChecked($(c), details.codes.includes(code), type === 'fixed');
+            }
+            updateUnitCount(card.find('.unit-count'), details.units);
+            setPanelStatus(card, details.sat);
+        }
+        updateUnitCount(mms_card.find('.unit-count'), results.units);
+        setPanelStatus(mms_card, results.sat);
+    }
+}
 
+
+function updateDegreeTrackers() {
+    const reqList = $('#degree-reqs-list');
+    for (const deg of PLAN.degrees) { // TODO: Fix for FDDs
+        const results = deg.checkRequirements(PLAN);
+        let section_counter = 0;
+        const required = results.rule_details.required;
+        for (const type in required) { // TODO: Fix for Optional Sections
+            if (!(required.hasOwnProperty(type))) continue;
+            const details = required[section_counter];
+            const card = reqList.find('#deg-section' + section_counter).parent();
+            if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
+                for (const c of card.find('.result-course')) {
+                    const code = $(c).find('.course-code').text();
+                    setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
+                }
+            } else if (["x_from_category", "max_by_level"].includes(type)) {
+                for (const code of details.codes) {
+                    const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
+                    const offering = getCourseOffering(code, year);
+                    const item = $(
+                        '<div class="list-group-item list-group-item-action result-course inc">' +
+                        '    <span class="course-code">' + code + '</span> ' +
+                        '    <span class="course-year">' + year + '</span> ' +
+                        '    <span class="course-title">' + offering.title + '</span>' +
+                        '</div>'
+                    );
+                    item.each(coursePopoverSetup);
+                    group.append(item);
+                }
+            } else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
+
+            }
+            if (details.units !== undefined) updateUnitCount(card.find('.unit-count'), details.units);
+            setPanelStatus(card, details.sat);
         }
     }
+}
+
+function updateUnitCount(counter, value) {
+    counter.text(value + '/' + counter.text().split('/')[1]);
+}
+
+function setChecked(node, checked, useCrosses) {
+    if (checked) {
+        node.addClass('inc');
+        if (useCrosses) node.removeClass('exc');
+    } else {
+        node.removeClass('inc');
+        if (useCrosses) node.addClass('exc');
+    }
+}
+
+function setPanelStatus(panel, status) {
+    if (status === 'done') {
+        panel.addClass('alert-success');
+        panel.removeClass('alert-warning alert-danger');
+    } else if (status === 'incomplete') {
+        panel.addClass('alert-warning');
+        panel.removeClass('alert-success alert-danger');
+    } else if (status === 'problem') {
+        panel.addClass('alert-danger');
+        panel.removeClass('alert-success alert-warning');
+    } else panel.removeClass('alert-success alert-warning alert-danger');
+}
+
+function updateProgress() {
+    updateMMSTrackers();
+    updateDegreeTrackers();
 }
 
 async function updateRecommendations() {
@@ -1176,6 +1257,7 @@ async function updateRecommendations() {
     }
     await batchCourseTitles(titles_fill_nodes);
 }
+
 /**
  * Show or hide loading indicators in the search results panels.
  * @param show  true to show indicators, false to hide indicators.
