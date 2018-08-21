@@ -26,6 +26,25 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL3006",
+          "BIOL3108",
+          "BIOL3141",
+          "BIOL3142",
+          "BIOL3144",
+          "BIOL3186",
+          "BIOL3203",
+          "BIOL3204",
+          "BIOL3205",
+          "BIOL3208",
+          "BIOL3209",
+          "NEUR3101",
+          "NEUR3112"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "BIOL2142",
@@ -60,25 +79,6 @@
           "SCOM1002",
           "SCOM2031",
           "SOCY2162"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL3006",
-          "BIOL3108",
-          "BIOL3141",
-          "BIOL3142",
-          "BIOL3144",
-          "BIOL3186",
-          "BIOL3203",
-          "BIOL3204",
-          "BIOL3205",
-          "BIOL3208",
-          "BIOL3209",
-          "NEUR3101",
-          "NEUR3112"
         ]
       },
       {

@@ -42,20 +42,20 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "BIOL2151",
-          "BIOL2162"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "BIAN3014",
           "BIOL2202",
           "ENVS1003",
           "PSYC2009",
           "STAT1003",
           "STAT1008"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIOL2151",
+          "BIOL2162"
         ]
       }
     ]

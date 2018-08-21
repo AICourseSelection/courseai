@@ -20,6 +20,19 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ACST8045",
+          "ACST8047",
+          "ACST8048",
+          "ACST8049",
+          "ACST8060",
+          "ACST8061",
+          "FINM8006"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 42,
         "courses": [
           "ACST8050",
@@ -30,19 +43,6 @@
           "FINM7007",
           "FINM7008",
           "FINM7041"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ACST8045",
-          "ACST8047",
-          "ACST8048",
-          "ACST8049",
-          "ACST8060",
-          "ACST8061",
-          "FINM8006"
         ]
       }
     ]

@@ -6,11 +6,11 @@
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 6,
+        "type": "minimum",
+        "units": 18,
         "courses": [
-          "BIOL6035",
-          "BIOL6036"
+          "BIOL6200",
+          "STAT7001"
         ]
       },
       {
@@ -22,11 +22,11 @@
         ]
       },
       {
-        "type": "minimum",
-        "units": 18,
+        "type": "maximum",
+        "units": 6,
         "courses": [
-          "BIOL6200",
-          "STAT7001"
+          "BIOL6035",
+          "BIOL6036"
         ]
       }
     ]

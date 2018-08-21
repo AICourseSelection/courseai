@@ -30,6 +30,12 @@
           "LAWS8328",
           "LAWS8566"
         ]
+      },
+      {
+        "type": "maximum",
+        "level": 8000,
+        "area": "LAWS",
+        "units": 12
       }
     ]
   }
