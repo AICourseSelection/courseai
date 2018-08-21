@@ -12,18 +12,12 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 36,
+        "type": "maximum",
+        "units": 12,
         "courses": [
-          "BUSN7005",
-          "BUSN7006",
-          "BUSN7017",
-          "BUSN7031",
-          "BUSN7036",
-          "BUSN7045",
-          "BUSN7050",
-          "BUSN7052",
-          "INFS7004"
+          "BUSN8007",
+          "BUSN8102",
+          "BUSN8801"
         ]
       },
       {
@@ -37,12 +31,18 @@
         ]
       },
       {
-        "type": "maximum",
-        "units": 12,
+        "type": "minimum",
+        "units": 36,
         "courses": [
-          "BUSN8007",
-          "BUSN8102",
-          "BUSN8801"
+          "BUSN7005",
+          "BUSN7006",
+          "BUSN7017",
+          "BUSN7031",
+          "BUSN7036",
+          "BUSN7045",
+          "BUSN7050",
+          "BUSN7052",
+          "INFS7004"
         ]
       }
     ]

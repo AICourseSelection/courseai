@@ -4,7 +4,7 @@
   "year": 2016,
   "units": 96,
   "required": {
-    "min_max_by_level": [
+    "x_from_here": [
       {
         "type": "minimum",
         "level": 8000,

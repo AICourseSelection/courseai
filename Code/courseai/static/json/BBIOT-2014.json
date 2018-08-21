@@ -9,12 +9,6 @@
         "type": "maximum",
         "level": "1000",
         "units": 60
-      },
-      {
-        "type": "minimum",
-        "level": 3000,
-        "units": 24,
-        "courses": "Science List"
       }
     ],
     "compulsory_courses": [
@@ -30,6 +24,14 @@
       "BIOL3161",
       "BIOL3191",
       "LAWS3104"
+    ],
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "level": 3000,
+        "units": 24,
+        "courses": "Science List"
+      }
     ]
   }
 }

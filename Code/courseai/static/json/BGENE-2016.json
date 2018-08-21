@@ -9,12 +9,6 @@
         "type": "maximum",
         "level": "1000",
         "units": 60
-      },
-      {
-        "type": "minimum",
-        "level": 3000,
-        "units": 36,
-        "courses": "Science List"
       }
     ],
     "compulsory_courses": [
@@ -34,8 +28,36 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "BIOL2111",
+          "BIOL2113",
+          "BIOL2121",
+          "BIOL2122",
+          "BIOL2142",
+          "BIOL2171",
+          "BIOL2174",
+          "BIOL2191",
+          "BIOL2201",
+          "BIOL2202",
+          "BIAN2115",
+          "BIAN2126",
+          "MATH2307",
+          "STAT2001"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "BIOL1009",
           "COMP1100"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT1003",
+          "STAT1008"
         ]
       },
       {
@@ -58,31 +80,9 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "STAT1003",
-          "STAT1008"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIOL2111",
-          "BIOL2113",
-          "BIOL2121",
-          "BIOL2122",
-          "BIOL2142",
-          "BIOL2171",
-          "BIOL2174",
-          "BIOL2191",
-          "BIOL2201",
-          "BIOL2202",
-          "BIAN2115",
-          "BIAN2126",
-          "MATH2307",
-          "STAT2001"
-        ]
+        "level": 3000,
+        "units": 36,
+        "courses": "Science List"
       }
     ]
   }

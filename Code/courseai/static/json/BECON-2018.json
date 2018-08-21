@@ -28,6 +28,23 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "ECON2101",
+          "ECON2111"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON2016",
+          "ECON2102",
+          "ECON2112"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "ECHI1006",
           "ECHI3008",
           "ECHI3009",
@@ -50,23 +67,6 @@
         "courses": [
           "ECON1100",
           "ECON1102"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON2101",
-          "ECON2111"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON2016",
-          "ECON2102",
-          "ECON2112"
         ]
       }
     ]

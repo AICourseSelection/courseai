@@ -24,16 +24,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENVS6025",
-          "ENVS6306",
-          "ENVS8048",
-          "ENVS8049"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "EMDV8026",
           "ENVS6022",
           "ENVS6010",
@@ -55,6 +45,16 @@
           "ENVS8003",
           "ENVS8006",
           "ENVS8015"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS6025",
+          "ENVS6306",
+          "ENVS8048",
+          "ENVS8049"
         ]
       }
     ]

@@ -6,32 +6,21 @@
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 6,
-        "courses": [
-          "BIOL6003",
-          "BIOL6206",
-          "ENVS6014",
-          "ENVS6015",
-          "ENVS6022",
-          "ENVS6025",
-          "ENVS6103",
-          "ENVS6204",
-          "ENVS6218",
-          "ENVS6223",
-          "ENVS6304",
-          "ENVS6311",
-          "ENVS6315",
-          "ENVS8015",
-          "ENVS8048"
-        ]
-      },
-      {
         "type": "minimum",
         "units": 12,
         "courses": [
           "ENVS6202",
           "ENVS6514"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS6015",
+          "ENVS6025",
+          "ENVS6103",
+          "ENVS6202"
         ]
       },
       {
@@ -82,10 +71,18 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENVS6015",
-          "ENVS6025",
-          "ENVS6103",
-          "ENVS6202"
+          "ENVS6021",
+          "ENVS6315",
+          "ENVS6528",
+          "ENVS8003"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6026",
+          "ENVS6528"
         ]
       },
       {
@@ -99,21 +96,24 @@
         ]
       },
       {
-        "type": "minimum",
+        "type": "maximum",
         "units": 6,
         "courses": [
-          "ENVS6021",
+          "BIOL6003",
+          "BIOL6206",
+          "ENVS6014",
+          "ENVS6015",
+          "ENVS6022",
+          "ENVS6025",
+          "ENVS6103",
+          "ENVS6204",
+          "ENVS6218",
+          "ENVS6223",
+          "ENVS6304",
+          "ENVS6311",
           "ENVS6315",
-          "ENVS6528",
-          "ENVS8003"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS6026",
-          "ENVS6528"
+          "ENVS8015",
+          "ENVS8048"
         ]
       }
     ]

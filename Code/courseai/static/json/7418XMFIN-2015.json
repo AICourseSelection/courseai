@@ -20,14 +20,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON8069",
-          "STAT6046"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 48,
         "courses": [
           "FINM8004",
@@ -38,6 +30,14 @@
           "FINM8016",
           "FINM8017",
           "FINM8100"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON8069",
+          "STAT6046"
         ]
       }
     ]

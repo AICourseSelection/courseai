@@ -26,18 +26,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIAN3014",
-          "BIOL2202",
-          "ENVS1003",
-          "PSYC2009",
-          "STAT1003",
-          "STAT1008"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 24,
         "courses": [
           "BIOL3107",
@@ -52,6 +40,18 @@
           "BIOL3208",
           "NEUR3101",
           "NEUR3112"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIAN3014",
+          "BIOL2202",
+          "ENVS1003",
+          "PSYC2009",
+          "STAT1003",
+          "STAT1008"
         ]
       }
     ]

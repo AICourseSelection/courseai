@@ -46,17 +46,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "MATH2320",
+          "MATH2322",
+          "MATH3029"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH2320",
-          "MATH2322",
-          "MATH3029"
+          "ECON1100",
+          "ECON1102"
         ]
       }
     ]
