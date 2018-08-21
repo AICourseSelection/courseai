@@ -1,0 +1,16 @@
+{
+  "name": "Master of Laws",
+  "code": "MLLM",
+  "year": 2018,
+  "units": 48,
+  "required": {
+    "min_max_by_level": [
+      {
+        "type": "minimum",
+        "level": 8000,
+        "area": "LAWS",
+        "units": 48
+      }
+    ]
+  }
+}
