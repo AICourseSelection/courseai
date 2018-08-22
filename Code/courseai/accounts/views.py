@@ -20,6 +20,7 @@ def login_view(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)    # a login cycle
+            print("login success")
             return redirect("/")
     return redirect("/")
     #return render(request, "dynamic_pages/index.html", {"form": form, "title": title})    #(request, template, context dictionary)
