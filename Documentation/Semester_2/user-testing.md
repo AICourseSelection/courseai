@@ -1,4 +1,4 @@
-# Temporary Document (6/30)
+# User Testing Document (11/30)
 
 **User H** from the Research School of Computer Science stated that the filter didn't provide a clear feedback when selecting filters. "They stay **highlighted in blue when you hover over** each category, clicking it creates a small border around the button and adds to the search bar on the left. However, the feedback does not feel strong enough in a sense that I don't really know if the filter was applied unless I carefully looked around. A suggestion for this is that the filters that were selected should remain highlighted in blue, and for every filter there should be a *"Add to Filter List/Apply Filter"* button as a confirmation instead of subtly being added to the list without clearly notifying the user."
 
