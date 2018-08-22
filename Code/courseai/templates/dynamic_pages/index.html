@@ -7,9 +7,139 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
     <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <title>Degree Builder</title>
 </head>
 <body style="background: linear-gradient(azure, white 40%); background-repeat: no-repeat">
+
+{% if user.is_authenticated %}
+
+<nav class="navbar navbar-inverse navbar-expand-lg navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+			<a class="navbar-brand" href="">ICS</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="">Home</a></li>
+				<li><a href="https://github.com/AICourseSelection/courseai#ai-course-selection" target="_blank">About</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown">My Account <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-lr" role="menu">
+                        <div class="col-lg-12">
+                            <form id="ajax-login-form" action="accounts/logout_view" method="post" role="form" autocomplete="off">{% csrf_token %}
+                                <div class="form-group">
+                                    <div class="row">
+                                    <input type="submit" style="margin:10px;" tabindex="3" class="form-control btn btn-success center-block" value="Log out">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+	</div>
+</nav>
+
+{% else %}
+
+<nav class="navbar navbar-inverse navbar-expand-lg navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+			<a class="navbar-brand" href="">ICS</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="">Home</a></li>
+				<li><a href="https://github.com/AICourseSelection/courseai#ai-course-selection" target="_blank">About</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown">Register <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-lr" role="menu">
+                        <div class="col-lg-12">
+                            <div class="text-center"><h3><b>Register</b></h3></div>
+                            <form action="accounts/register_view" method="post" role="form" autocomplete="off">{% csrf_token %}
+                                <div class="form-group">
+                                    <label for="username">Email</label>
+                                    <input type="text" name="username" tabindex="1" class="form-control" placeholder="Email" value="" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+									<input type="email" name="username2" tabindex="2" class="form-control" placeholder="Confirm email">
+								</div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" tabindex="2" class="form-control" placeholder="Password" autocomplete="off">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                    <input type="submit" style="margin:10px;" tabindex="3" class="form-control btn btn-success center-block" value="Register Now">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="" data-toggle="dropdown">Log In <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-lr" role="menu">
+                        <div class="col-lg-12">
+                            <div class="text-center"><h3><b>Log In</b></h3></div>
+                            <form action="accounts/login_view" method="post" role="form" autocomplete="off">{% csrf_token %}
+                                <div class="form-group">
+                                    <label for="username">Email</label>
+                                    <input type="text" name="email" tabindex="1" class="form-control" placeholder="Email" value="" autocomplete="off">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" tabindex="2" class="form-control" placeholder="Password" autocomplete="off">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                    <input type="submit" style="margin:10px;" tabindex="3" class="form-control btn btn-success center-block" value="Log In">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                <a href="" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+		</div>
+	</div>
+</nav>
+
+{% endif %}
+
 <div class="container" style="margin-bottom: 135px">
     <div class="row">
         <div class="col-md-10 offset-md-1 mb-2">
@@ -37,7 +167,7 @@
 
                 <div class="form-row mt-2">
                     <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
-                        <label>I start my degree in: </label>
+                        <label>I start(ed) my degree in: </label>
                     </div>
                     <select id="yearList" name="startyear" style="height: 40px; padding: 0 5px; flex-grow: 1"> </select>
                     <div class="d-inline-block" style="padding-left: 5px;">
