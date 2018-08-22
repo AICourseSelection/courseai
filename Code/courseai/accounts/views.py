@@ -13,8 +13,8 @@ from django.contrib.auth import (
     logout
 )
 
-
 # create form for each aspects of these
+#@csrf_protect
 def login_view(request):
     title = "Login"
     form = UserLoginForm(request.POST or None)  # translating any false value (e.g. an empty list, empty dict) into None
@@ -24,12 +24,12 @@ def login_view(request):
         password = form.cleaned_data.get('password')
 
         user = authenticate(username=email, password=password)
-        login(request, user)  # a login cycle
-        return redirect("/")  # redirect to homepage
-    return render(request, "dynamic_pages/login_form.html",
-                  {"form": form, "title": title})  # (request, template, context dictionary)
+        if user is not None:
+            login(request, user)    # a login cycle
+            return redirect("/")
+    return render(request, "dynamic_pages/index.html", {"form": form, "title": title})    #(request, template, context dictionary)
 
-
+#@csrf_protect
 def register_view(request):
     title = "Register"
     form = UserRegisterForm(request.POST or None, request)
@@ -41,17 +41,16 @@ def register_view(request):
         user.set_password(password)
         user.save()
 
-        new_user = authenticate(username=user.email, password=password)
-        login(request, new_user)
+        login(request, user)
         return redirect("/")
+    return redirect("/")
+    #context = {
+    #    "register_form": form,
+    #    "title": title
+    #}
+    #return render(request, "dynamic_pages/index.html", context)
 
-    context = {
-        "form": form,
-        "title": title
-    }
-    return render(request, "dynamic_pages/registration_form.html", context)
-
-
+#@csrf_protect
 def logout_view(request):
     logout(request)
     return redirect("/")
