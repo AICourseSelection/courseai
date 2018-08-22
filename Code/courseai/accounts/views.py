@@ -9,6 +9,7 @@ from django.contrib.auth import (
 )
 
 # create form for each aspects of these
+#@csrf_protect
 def login_view(request):
     title = "Login"
     form = UserLoginForm(request.POST or None)  # translating any false value (e.g. an empty list, empty dict) into None
@@ -22,10 +23,9 @@ def login_view(request):
             login(request, user)    # a login cycle
             print("login success")
             return redirect("/")
-    return redirect("/")
-    #return render(request, "dynamic_pages/index.html", {"form": form, "title": title})    #(request, template, context dictionary)
+    return render(request, "dynamic_pages/index.html", {"form": form, "title": title})    #(request, template, context dictionary)
 
-
+#@csrf_protect
 def register_view(request):
     title = "Register"
     form = UserRegisterForm(request.POST or None, request)
@@ -46,7 +46,7 @@ def register_view(request):
     #}
     #return render(request, "dynamic_pages/index.html", context)
        
-
+#@csrf_protect
 def logout_view(request):
     logout(request)
     return redirect("/")
