@@ -13,12 +13,10 @@ body {
 }
 
 .footer {
-    position: fixed;
-    background-color: white;
-    bottom: 0;
+    color: gray;
     width: 100%;
     text-align: center;
-    padding-bottom: 1.5rem;
+    background: #444
 }
 
 #planform, #planform input, #planform .btn-group .btn{
@@ -646,6 +644,4 @@ body {
 .msg_footer {
     background: #f9f9f9;
     border: 1px solid #b9b9b9;
-
 }
-
