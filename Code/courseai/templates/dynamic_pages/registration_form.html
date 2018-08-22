@@ -11,9 +11,6 @@
                 <div class = "panel panel-default">
                     <div class = "panel-body">
                         <h3>Registration</h3>
-                        {% if error_message %}
-                        <p><strong>{{ error_message }} </strong></p>
-                        {% endif %}
                         <form method = 'POST' action = '' enctype = 'multipart/form-data'> {% csrf_token %}
                             {% csrf_token %}
                             {{ form.as_p }}

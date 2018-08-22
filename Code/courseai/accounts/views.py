@@ -18,9 +18,11 @@ def login_view(request):
         password = form.cleaned_data.get('password')
 
         user = authenticate(username=email, password=password)
-        login(request, user)    # a login cycle
-        return redirect("/")    # redirect to homepage
-    return render(request, "dynamic_pages/login_form.html", {"form": form, "title": title})    #(request, template, context dictionary)
+        if user is not None:
+            login(request, user)    # a login cycle
+            return redirect("/")
+    return redirect("/")
+    #return render(request, "dynamic_pages/index.html", {"form": form, "title": title})    #(request, template, context dictionary)
 
 
 def register_view(request):
@@ -34,15 +36,15 @@ def register_view(request):
         user.set_password(password)
         user.save()
 
-        new_user = authenticate(username=user.email, password=password)
-        login(request, new_user)
+        login(request, user)
         return redirect("/")
-
-    context = {
-        "form": form,
-        "title": title
-    }
-    return render(request, "dynamic_pages/registration_form.html", context)
+    return redirect("/")    
+    #context = {
+    #    "register_form": form,
+    #    "title": title
+    #}
+    #return render(request, "dynamic_pages/index.html", context)
+       
 
 def logout_view(request):
     logout(request)
