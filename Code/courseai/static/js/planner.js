@@ -717,7 +717,7 @@ function makeCourseDraggable(item, code) {
     item.draggable({
         zIndex: 800,
         revert: true,
-        helper: 'clone',
+        helper: 'clone',c
         start: function (event, ui) {
             highlightElectives();
             ui.helper.addClass('dragged-course');
@@ -1503,7 +1503,7 @@ function setupDegreeRequirements(data) {
             for (let code of data.required[type]) {
                 let mms_type = code.split('-').pop();
                 let card = $('<div class="deg deg-plain-text">\n' +
-                    '    <span class="mms-code"></span>\n' +
+                    '    <span class="mms-code">' + code + '</span>\n' +
                     '    <strong>Compulsory ' + mms_abbrev[mms_type] + ':</strong>\n' +
                     '    <div id="deg-section' + section_count + '"></div>' +
                     '</div>');

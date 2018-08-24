@@ -22,8 +22,8 @@ function Search(plan) {
             else if (f.type === 'code') filters.codes.push(f.data);
             else filters.semesters.push();
 
-            const sem = parseInt(f.split(' ')[3]);
-            if (!filters['semesters'].includes(sem)) filters['semesters'].push(sem);
+            const sem = parseInt(f.data.slice(-1));
+            if (sem && !filters['semesters'].includes(sem)) filters['semesters'].push(sem);
         }
         this.requests['courses'] = $.ajax({
             url: 'search/coursesearch',
@@ -35,14 +35,14 @@ function Search(plan) {
             dataType: 'json',
             contentType: 'application/json',
             beforeSend: before,
-            success: function (data) {
+            success: async function (data) {
                 let new_data = {};
                 let filtered_sessions = [];
                 for (const filter of activeFilters) {
                     if (filter.type === 'session') filtered_sessions.push(filter.data);
                 }
                 for (const course of data.response) {
-                    let offering = getCourseOffering(course.code, THIS_YEAR); // TODO: Fix for course years. Need the most recent year with data available.
+                    let offering = await getCourseOffering(course.code, THIS_YEAR); // TODO: Fix for course years. Need the most recent year with data available.
                     let matched_filters = false;
                     for (session of filtered_sessions) {
                         matched_filters = matched_filters || offering.checkRequirements(plan, session).sat;
@@ -72,7 +72,7 @@ function Search(plan) {
             error: console.log('Major search aborted or failed. '),
             complete: console.log('Major search initiated. ')
         });
-        curr_requests['minor'] = $.ajax({
+        this.requests['minor'] = $.ajax({
             url: 'search/minors?query=' + query,
             type: 'GET',
             dataType: 'json',
@@ -83,74 +83,13 @@ function Search(plan) {
             error: console.log('Minor search aborted or failed. '),
             complete: console.log('Minor search initiated. ')
         });
-        curr_requests['spec'] = $.ajax({
+        this.requests['spec'] = $.ajax({
             url: 'search/specs?query=' + query,
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
                 after(data, 'specialisation')
-            },
-            error: console.log('Specialisation search aborted or failed. '),
-            complete: console.log('Specialisation search initiated. ')
-        });
-    };
-    this.search = function (query, coursesOnly = false) {
-
-        const resultsList = $('#search-results-list');
-        resultsList.find('.result-course').popover('hide');
-
-        curr_requests['course'] = $.ajax({
-            url: 'search/coursesearch',
-            data: {
-                'query': query,
-                'filters': JSON.stringify(filters)
-            },
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            beforeSend: function () {
-                const courseResultsList = resultsList.children().first();
-                courseResultsList.find('.collapse').css({'display': 'none'});
-                courseResultsList.find('.fa-refresh').css({'display': 'inline-block'});
-            },
-            success: updateCourseSearchResults,
-            error: console.log('Course search aborted or failed. '),
-            complete: console.log('Course search initiated. ')
-        });
-        if (coursesOnly) return;
-        resultsList.find('.collapse').css({'display': 'none'});
-        resultsList.find('.fa-refresh').css({'display': 'inline-block'});
-
-        curr_requests['major'] = $.ajax({
-            url: 'search/majors?query=' + query,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                updateMMSResults(data, 'major', $('#results-majors'))
-            },
-            error: console.log('Major search aborted or failed. '),
-            complete: console.log('Major search initiated. ')
-        });
-        curr_requests['minor'] = $.ajax({
-            url: 'search/minors?query=' + query,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                updateMMSResults(data, 'minor', $('#results-minors'))
-            },
-            error: console.log('Minor search aborted or failed. '),
-            complete: console.log('Minor search initiated. ')
-        });
-        curr_requests['spec'] = $.ajax({
-            url: 'search/specs?query=' + query,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                updateMMSResults(data, 'specialisation', $('#results-specs'))
             },
             error: console.log('Specialisation search aborted or failed. '),
             complete: console.log('Specialisation search initiated. ')
@@ -184,8 +123,8 @@ function Filter(type, data) {
 
     this.toString = function () {
         if (type === 'session') {
-            const year = this.data.split(0, 4);
-            const ses = this.data.split(4);
+            const year = this.data.slice(0, 4);
+            const ses = this.data.slice(4);
             return "My " + year + " " + SESSION_WORDS[ses];
         } else return this.data;
     }

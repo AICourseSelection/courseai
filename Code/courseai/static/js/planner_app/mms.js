@@ -37,7 +37,7 @@ function MMS(code, year, title, rules) {
             if (!(this.rules.hasOwnProperty(section))) continue;
             const rule = this.rules[section];
             const matches = matchInDegree(plan, new Set(rule.course.map(c => c.code)));
-            let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y);
+            let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
             let section_codes = matches.map(c => c.code);
             let section_sat = true;
             if (rule.type === 'fixed') section_sat = matches.size === rule.course.length;

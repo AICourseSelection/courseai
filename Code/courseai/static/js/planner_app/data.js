@@ -14,19 +14,23 @@ let KNOWN_COURSE_LISTS = {};    // Dictionary: list name (e.g. CBE_List_1) -> Li
  */
 async function batchCourseTitles(courses_actions) {
     if (jQuery.isEmptyObject(courses_actions)) return;
-    let req = $.ajax({
+    $.ajax({
         url: 'degree/coursedata',
         data: {
             'query': 'titles',
             'codes': JSON.stringify(Object.keys(courses_actions)) //TODO: Fix for Course Years
         },
-        async: false
-    });
-    for (const course of req.responseJSON.response) {
-        for (const action of courses_actions[course['course_code']]) {
-            action(course['title']);
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            for (const course of data.response) {
+                for (const action of courses_actions[course['course_code']]) {
+                    action(course['title']);
+                }
+            }
         }
-    }
+    });
+
 }
 
 async function batchCoursePrereqs(courses_actions) {
@@ -38,19 +42,21 @@ async function batchCoursePrereqs(courses_actions) {
             'query': 'prereqs',
             'codes': JSON.stringify(Object.keys(courses_actions)) //TODO: Fix for Course Years
         },
-        async: false
-    });
-    for (const course of req.responseJSON.response) {
-        for (const action of courses_actions[course['course_code']]) {
-            action(course['prerequisite_text'], course['prerequisites'], course['semester']);
+        success: function (data) {
+            for (const course of data.response) {
+                for (const action of courses_actions[course['course_code']]) {
+                    action(course['prerequisite_text'], course['prerequisites'], course['semester']);
+                }
+            }
         }
-    }
+    });
+
 }
 
-function getCourseOffering(code, year) {
+async function getCourseOffering(code, year) {
     if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
     if (!(year in KNOWN_COURSES[code])) {
-        $.ajax({
+        await $.ajax({
             url: 'degree/coursedata',
             data: {'query': code},
             success: function (data) {
@@ -68,7 +74,6 @@ function getCourseOffering(code, year) {
                     },
                     res['repeatable'] || false);
             },
-            async: false
         })
     }
     return KNOWN_COURSES[code][year];
@@ -115,17 +120,16 @@ async function batchCourseOfferings(courses) {
 //     return frontier_offering;
 // }
 
-function getMMSOffering(code, year) {
+async function getMMSOffering(code, year) {
     if (!(code in KNOWN_MMS)) KNOWN_MMS[code] = {};
     if (!(year in KNOWN_MMS[code])) {
-        $.ajax({
+        await $.ajax({
             url: 'search/mms',
             data: {'query': code},
             success: function (data) {
                 if (!code in KNOWN_MMS) KNOWN_MMS[code] = {};
                 KNOWN_MMS[code][year] = new MMS(code, year, data.name, data.composition);
-            },
-            async: false
+            }
         })
     }
     return KNOWN_MMS[code][year];
@@ -134,15 +138,18 @@ function getMMSOffering(code, year) {
 async function batchMMSData(mms_actions) {
     if (jQuery.isEmptyObject(mms_actions)) return;
     for (const mms in mms_actions) {
+        if (!mms_actions.hasOwnProperty(mms)) continue;
+        const code = mms.split('/')[0];
+        const year = mms.split('/')[1];
         $.ajax({
             url: 'search/mms',
             data: {
-                'query': mms.code,
+                'query': code,
             },
             success: function (data) {
-                if (!mms.code in KNOWN_MMS) KNOWN_MMS[mms.code] = {};
+                if (!(code in KNOWN_MMS)) KNOWN_MMS[code] = {};
                 const new_mms = new MMS(code, year, data.name, data.composition);
-                KNOWN_MMS[mms.code][mms.year] = new_mms;
+                KNOWN_MMS[code][year] = new_mms;
                 for (const action of mms_actions[mms]) {
                     action(new_mms)
                 }
@@ -151,20 +158,19 @@ async function batchMMSData(mms_actions) {
     }
 }
 
-function getDegreeOffering(code, year) {
+async function getDegreeOffering(code, year) {
     if (!(code in KNOWN_DEGREES)) KNOWN_DEGREES[code] = {};
     if (!(year in KNOWN_DEGREES[code])) {
-        $.ajax({
+        await $.ajax({
             url: 'degree/degreereqs',
             data: {'query': code},
             success: function (data) {
                 if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
                 KNOWN_DEGREES[code][year] = new Degree(code, year, data.name, data.required);
-                //TODO: Support Optional Rule Sections
-            },
-            async: false
+                //TODO: Support for Optional Rule Sections
+            }
         });
-        $.ajax({
+        await $.ajax({
             url: 'degree/degreeplan',
             data: {
                 'query': code,
@@ -172,8 +178,7 @@ function getDegreeOffering(code, year) {
             },
             success: function (data) {
                 KNOWN_DEGREES[code][year].suggestedPlan = data.response;
-            },
-            async: false
+            }
         })
     }
     return KNOWN_DEGREES[code][year];
