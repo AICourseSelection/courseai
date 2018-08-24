@@ -79,10 +79,6 @@ body {
     width: 100%;
 }
 
-#rc-button {
-    display: none;
-}
-
 #confirm-reset-button {
     margin-right: auto;
 }

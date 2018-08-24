@@ -275,12 +275,10 @@ $('#form-register').submit(function(e) {
     }).done(function(data) {
       if (data == 'OK') {
         window.location = window.location;
-        alert("success");
       } else {
         $('#modal-title').html('Registration failed');
         $('#modal-body').html(data);
         $('#error-modal').modal('show');
-        alert("failed");
       }
     })
 })
