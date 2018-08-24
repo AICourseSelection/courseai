@@ -33,7 +33,7 @@
 
 <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/">ICS</a>
+		<a class="navbar-brand" href="index">ICS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,14 +41,14 @@
         <div id="collapsibleNavbar" class="collapse navbar-collapse">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="index">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="https://github.com/AICourseSelection/courseai#ai-course-selection">About</a>
               </li>
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-            <li class="nav-item order-2 order-md-1"><a href=""{% url 'profile' user %}"" class="nav-link">{{user.username}}</a>
+            <li class="nav-item order-2 order-md-1"><a href="" class="nav-link">{{user.username}}</a>
                 <li class="nav-item order-2 order-md-1"><a href="" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
                 <li class="dropdown order-1">
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">My Account <span class="caret"></span></button>
@@ -71,7 +71,7 @@
 
 <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/">ICS</a>
+		<a class="navbar-brand" href="">ICS</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -79,7 +79,7 @@
         <div id="collapsibleNavbar" class="collapse navbar-collapse mr-auto">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="https://github.com/AICourseSelection/courseai#ai-course-selection">About</a>
@@ -101,6 +101,9 @@
                                 </div>
                                 <div class="form-group">
                                     <input id="register-password" placeholder="Password" class="form-control form-control-sm" type="password" required>
+                                </div>
+                               <div class="form-group">
+                                    <input id="register-password2" placeholder="Confirm password" class="form-control form-control-sm" type="password" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Register</button>
@@ -259,21 +262,25 @@ $('#form-register').submit(function(e) {
     var username = $.trim($('#register-username').val());
     var username2 = $.trim($('#register-username2').val());
     var password = $.trim($('#register-password').val());
+    var password2 = $.trim($('#register-password2').val());
     $.ajax({
       url: '{% url 'register' %}',
       type: 'POST',
       data: {
         username: username,
         username2: username2,
-        password: password
+        password: password,
+        password2: password2
       }
     }).done(function(data) {
       if (data == 'OK') {
         window.location = window.location;
+        alert("success");
       } else {
         $('#modal-title').html('Registration failed');
         $('#modal-body').html(data);
         $('#error-modal').modal('show');
+        alert("failed");
       }
     })
 })
