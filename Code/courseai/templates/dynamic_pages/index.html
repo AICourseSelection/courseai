@@ -11,6 +11,24 @@
 </head>
 <body style="background: linear-gradient(azure, white 40%); background-repeat: no-repeat">
 
+<div id="error-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modal-title" class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% if user.is_authenticated %}
 
 <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
@@ -20,7 +38,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="collapse navbar-collapse">
+        <div id="collapsibleNavbar" class="collapse navbar-collapse">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
@@ -30,7 +48,8 @@
               </li>
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
+            <li class="nav-item order-2 order-md-1"><a href=""{% url 'profile' user %}"" class="nav-link">{{user.username}}</a>
+                <li class="nav-item order-2 order-md-1"><a href="" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
                 <li class="dropdown order-1">
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">My Account <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right mt-2">
@@ -57,7 +76,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="collapse navbar-collapse mr-auto">
+        <div id="collapsibleNavbar" class="collapse navbar-collapse mr-auto">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
@@ -70,18 +89,18 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                 <li class="dropdown order-1">
-                    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Register <span class="caret"></span></button>
+                    <button type="button" id="register-dropdown-btn" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle popover-test">Register <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right mt-2">
                        <li class="px-3 py-2">
-                           <form id="form-register" class="form" role="form" method="post">{% csrf_token %}
+                           <form id="form-register" class="form" role="form">{% csrf_token %}
                                 <div class="form-group">
-                                    <input name="username" placeholder="Email" class="form-control form-control-sm" type="text" required>
+                                    <input id="register-username" placeholder="Email" class="form-control form-control-sm" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <input name="username2" placeholder="Confirm email" class="form-control form-control-sm" type="text" required>
+                                    <input id="register-username2" placeholder="Confirm email" class="form-control form-control-sm" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <input name="password" placeholder="Password" class="form-control form-control-sm" type="password" required>
+                                    <input id="register-password" placeholder="Password" class="form-control form-control-sm" type="password" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Register</button>
@@ -93,22 +112,15 @@
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-between" style="margin-left: 20px;">
                 <li class="dropdown order-2">
-                    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
+                    <button type="button" id="login-dropdown-btn" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right mt-2">
                        <li class="px-2 py-2">
-                           <form class="form" role="form" method="post" action="accounts/login_view">{% csrf_token %}
-                           <script type="text/javascript">
-                            {% if form.errors %}
-                                $(function() {
-                                    alert("ERROR");
-                                })
-                            {% endif %}
-                            </script>
+                           <form id="form-login" class="form" role="form">{% csrf_token %}
                                 <div class="form-group">
-                                    <input name="email" placeholder="Email" class="form-control form-control-sm" type="text" required>
+                                    <input id="login-email" placeholder="Email" class="form-control form-control-sm" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <input name="password" placeholder="Password" class="form-control form-control-sm" type="password" required>
+                                    <input id="login-password" placeholder="Password" class="form-control form-control-sm" type="password" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Login</button>
@@ -207,78 +219,109 @@
 <script src="{% static "js/bootstrap3-typeahead.js" %}"></script>
 <script src="{% static "js/autosize.min.js" %}"></script>
 <script src="{% static "js/chatbox.js" %}"></script>
+<script src="{% static "js/ajax_csrf.js" %}"></script>
 <!-- create drop down list of years available -->
 <script> 
 var options = "";
-for(var i = 2016; i <= 2019; i++){
+for(var i = 2014; i <= 2019; i++){
   options += "<option>"+ i +"</option>";
 }
 document.getElementById("yearList").innerHTML = options;
 </script>
 
 <script>
-$(document).ready(function() {
-    $("#form-register").submit(function() {
-        jQuery.ajax({
-            "data":    $(this).serialize(),
-            "type":    "POST",
-            "url":     "{% url 'register_view' %}",
-            "success": function(response) {
-                console.log(response);
-            },
-            "error" : function(req, err) {
-                console.log(req)
-            }
-        });
-        return false;
-    });
-});
+$('#form-login').submit(function(e) {
+  e.preventDefault();
+  var email = $.trim($('#login-email').val());
+  var password = $.trim($('#login-password').val());
+  $.ajax({
+    url: '{% url 'login' %}',
+    type: 'POST',
+    data: {
+      email: email,
+      password: password
+    }
+  }).done(function(data) {
+    if (data == 'OK') {
+      window.location = window.location;
+    } else {
+      $('#modal-title').html('Login failed');
+      $('#modal-body').html(data);
+      $('#error-modal').modal('show');
+    }
+  })
+})
+</script>
+
+<script>
+$('#form-register').submit(function(e) {
+    e.preventDefault();
+    var username = $.trim($('#register-username').val());
+    var username2 = $.trim($('#register-username2').val());
+    var password = $.trim($('#register-password').val());
+    $.ajax({
+      url: '{% url 'register' %}',
+      type: 'POST',
+      data: {
+        username: username,
+        username2: username2,
+        password: password
+      }
+    }).done(function(data) {
+      if (data == 'OK') {
+        window.location = window.location;
+      } else {
+        $('#modal-title').html('Registration failed');
+        $('#modal-body').html(data);
+        $('#error-modal').modal('show');
+      }
+    })
+})
 </script>
 
 <script>
     var degreeList = new Set();
-    var degreeCodes = {};
+var degreeCodes = {};
 
-    $.ajax({
-        url: 'degree/all',
-        success: function (data) {
-            console.log(data);
-            var degreeDicts = [];
-            for (i in data.response) {
-                degreeDicts.push({name: data.response[i].title});
-                degreeList.add(data.response[i].title);
-                degreeCodes[data.response[i].title] = data.response[i].code;
-            }
-
-            $(".typeahead").typeahead({source: degreeDicts});
+$.ajax({
+    url: 'degree/all',
+    success: function (data) {
+        var degreeDicts = [];
+        for (i in data.response) {
+            degreeDicts.push({name: data.response[i].title});
+            degreeList.add(data.response[i].title);
+            degreeCodes[data.response[i].title] = data.response[i].code;
         }
-    });
 
-    var degreeInput = $("input[name=degreeName]");
+        $(".typeahead").typeahead({source: degreeDicts});
+    }
+});
 
-    degreeInput.popover({
-        trigger: 'manual',
-        placement: 'bottom',
-        html: true,
-        content: '<div id="degreeWrongPopover">Please choose a degree from the list.</div>'
-    });
+var degreeInput = $("input[name=degreeName]");
 
-    $("#planform").submit(function (e) {
-        if (!degreeList.has(degreeInput.val())) {
-            e.preventDefault();
-            degreeInput.popover('show');
-            var popover = $("#degreeWrongPopover").parent().parent();
-            popover.addClass('popover-error');
-            popover.click(function () {
-                degreeInput.popover('hide')
-            });
-            popover.css('cursor', 'pointer');
-            degreeInput.keydown(function () {
-                degreeInput.popover('hide')
-            });
-        }
-        $('input[name=degreeCode]').val(degreeCodes[degreeInput.val()]);
-    });
+degreeInput.popover({
+    trigger: 'manual',
+    placement: 'bottom',
+    html: true,
+    content: '<div id="degreeWrongPopover">Please choose a degree from the list.</div>'
+});
+
+$("#planform").submit(function (e) {
+    if (!degreeList.has(degreeInput.val())) {
+        e.preventDefault();
+        degreeInput.popover('show');
+        var popover = $("#degreeWrongPopover").parent().parent();
+        popover.addClass('popover-error');
+        popover.click(function () {
+            degreeInput.popover('hide')
+        });
+        popover.css('cursor', 'pointer');
+        degreeInput.keydown(function () {
+            degreeInput.popover('hide')
+        });
+    }
+    $('input[name=degreeCode]').val(degreeCodes[degreeInput.val()]);
+});
 </script>
 </body>
 </html>
