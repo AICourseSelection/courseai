@@ -123,6 +123,9 @@ function Plan() {
                 return true;
             }
         }
+        this.sessions.push(session);
+        this.courses[session] = [];
+        return true;
     };
 
     /**
@@ -152,6 +155,7 @@ function Plan() {
         let offering = await getCourseOffering(code, year);
         let enrolment = new CourseEnrolment(offering, session);
         this.courses[session].push(enrolment);
+
         return true;
         //TODO: Throw exception when course doesn't exist or couldn't be retrieved.
     };
