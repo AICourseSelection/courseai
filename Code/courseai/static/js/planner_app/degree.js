@@ -44,8 +44,8 @@ function Degree(code, year, title, rules, suggestedPlan = {}) {
                     let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
                     let section_codes = matches.map(c => c.code);
                     let section_sat = true;
-                    if (type === "compulsory_courses") section_sat = matches.size === section.length;
-                    if (type === "one_from_here") section_sat = matches.size >= 1;
+                    if (type === "compulsory_courses") section_sat = matches.length === section.length;
+                    if (type === "one_from_here") section_sat = matches.length >= 1;
                     if (type === "x_from_here") section_sat = section_units >= section.num;
                     overall_sat = overall_sat && section_sat;
                     rule_details.push({'type': type, 'sat': section_sat, 'units': section_units, 'codes': section_codes});

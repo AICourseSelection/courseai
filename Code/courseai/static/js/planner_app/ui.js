@@ -27,7 +27,6 @@ async function addDegree(code, year) {
 
 function clearAllCourses() {
     PLAN.clearAllCourses();
-
     for (let box of $('#plan-grid').find('.plan-cell')) {
         $(box).popover('dispose');
         makeSlotDroppable($(box));
@@ -40,7 +39,7 @@ function clearAllCourses() {
 function resetPlan() {
     clearAllCourses();
     $('#plan-grid').empty();
-    fillCourseTable();
+    loadDefaultPlan();
 }
 
 function addCourse(code, title, session, position, update_recommendations = true) {
@@ -230,7 +229,7 @@ $.when(starting_degree.then(function (degree) {
     for (let i = 0; i <= total_units / 24; i++) {
         PLAN.addSession(nextSession(start_year + 'S' + start_sem, i));
     }
-    fillCourseTable();
+    loadDefaultPlan();
 }));
 
 let rc_button = $('#rc-button');
@@ -544,7 +543,7 @@ function search(coursesOnly = false) {
 }
 
 function dropOnSlot(event, ui) {
-    this.removeClass('active-drop');
+    $(this).removeClass('active-drop');
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
     const code = ui.draggable.find('.course-code').text();
@@ -599,11 +598,13 @@ async function mms_click_add() {
 }
 
 // Event Functions
-function fillCourseTable() {
+function loadDefaultPlan() {
     let titles_fill_nodes = {};
     let grid = $('#plan-grid');
+    let async_operations = [];
     for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDDs
         for (const session in plan_section) {
+            if (!(PLAN.sessions.includes(session))) PLAN.addSession(session);
             if (!plan_section.hasOwnProperty(session)) continue;
             const year = session.slice(0, 4);
             const ses = session.slice(4);
@@ -617,12 +618,12 @@ function fillCourseTable() {
 
             let course_list = plan_section[session];
             for (const course of course_list) {
-                PLAN.addCourse(session, course.code);
                 let cell = $('<div class="plan-cell result-course"/>');
                 let title_node = $('<span class="course-title"/>');
                 if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                     title_node.text(course['title']);
                 } else if (course.code !== ELECTIVE_TEXT) {
+                    async_operations.push(PLAN.addCourse(session, course.code));
                     if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
                     titles_fill_nodes[course.code].push(function (title) {
                         title_node.text(title);
@@ -684,6 +685,10 @@ function fillCourseTable() {
         }
     }
     batchCourseTitles(titles_fill_nodes);
+    $.when.apply($, async_operations).done(function() {
+        updateProgress();
+    });
+
 }
 
 function coursePopoverSetup(i, item) {
@@ -1226,7 +1231,7 @@ function updateProgress() {
 async function updateRecommendations() {
     let group = $('#degree-recommendations-list');
     let res = {};
-    $.ajax({
+    await $.ajax({
         url: 'recommendations/recommend',
         data: {
             'code': degree_code,
