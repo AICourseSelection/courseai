@@ -10,17 +10,11 @@ let courses_force_added = {};
 const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
 $('#degree-title-text').text(title_text);
 let title_box = $('#degree-title');
-let rc_button = $('#rc-button');
-title_box.hover(function () {
-    rc_button.fadeIn(150);
-}, function () {
-    rc_button.fadeOut(150);
-});
 
-rc_button.click(function () {
+// TODO: id='rc-button' seems to cause the btn to hidden
+$('#rc-button').click(function () {
     $('#rc-modal').modal();
 });
-
 
 $('#upload-button').click(function () {
     $('#upload-modal').modal();
@@ -671,7 +665,6 @@ function makeSlotDroppable(item) {
     item.droppable({
         accept: '.draggable-course',
         drop: function (event, ui) {
-            item.removeClass('active-drop');
             const row = event.target.parentElement;
             const first_cell = $(row.firstElementChild);
             const code = ui.draggable.find('.course-code').text();
@@ -702,14 +695,9 @@ function makeSlotDroppable(item) {
                 modal.modal();
                 return
             }
+            item.droppable('destroy'); 
             addCourse(code, title, session, position);
         },
-        over: function (event, ui) {
-            item.addClass('active-drop');
-        },
-        out: function (event, ui) {
-            item.removeClass('active-drop');
-        }
     });
 }
 
@@ -1161,7 +1149,6 @@ function addCourse(code, title, session, position, update_recommendations = true
         return (first_cell.find('.row-year').text() == year && first_cell.find('.row-sem').text() == sem);
     });
     const box = $(row.children()[position + 1]);
-    box.droppable('destroy');
     box.find('.course-code').text(code);
     box.find('.course-title').text(title);
     box.each(coursePopoverSetup);
