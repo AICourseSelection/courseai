@@ -81,7 +81,7 @@ function Plan() {
      */
     this.addDegree = async function (code, year) {
         for (const deg of this.degrees) if (deg.code === code) return;
-        let degree = getDegreeOffering(code, year);
+        let degree = await getDegreeOffering(code, year);
         this.degrees.push(degree);
         return degree;
     };
@@ -149,7 +149,7 @@ function Plan() {
     this.addCourse = async function (session, code) {
         if (!(this.sessions.includes(session))) return false;
         let year = session.split(0, 4);
-        let offering = getCourseOffering(code, year);
+        let offering = await getCourseOffering(code, year);
         let enrolment = new CourseEnrolment(offering, session);
         this.courses[session].push(enrolment);
         return true;
@@ -185,7 +185,7 @@ function Plan() {
      */
     this.addMMS = async function (code, year) {
         for (const mms of this.trackedMMS) if (mms.code === code) return false;
-        let newMMS = getMMSOffering(code, year);
+        let newMMS = await getMMSOffering(code, year);
         this.trackedMMS.unshift(newMMS);
         return true;
         //TODO: Throw exception when MMS doesn't exist or couldn't be retrieved.
