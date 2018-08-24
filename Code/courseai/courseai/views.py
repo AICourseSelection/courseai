@@ -8,6 +8,9 @@ def planner(request):
         'degree_name': request.GET['degreeName'],
         'degree_code': request.GET['degreeCode'],
         'start_year': request.GET['startyear'],
-        'start_sem': request.GET['semester']
+        'start_sem': request.GET['semester'],
     }
     return HttpResponse(template.render(context))
+    
+#def get_user_profile(request, user):
+#   return render(request, 'dynamic_pages/user_profile.html', {'user': user})
