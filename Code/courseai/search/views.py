@@ -5,6 +5,7 @@ from . import mms, search
 import json
 from django.http import JsonResponse, HttpResponse
 
+
 def index(request):
     if 'query' not in request.GET:
         template = loader.get_template('static_pages/search.html')
@@ -38,12 +39,14 @@ def mms_request(request):
     except:
         raise Exception("Malformed JSON as input. Expects a field called query.")
 
+
 def all_majors(request):
     try:
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'majors')
     except:
         return mms.search_all(es_conn, "MAJ")
+
 
 def all_minors(request):
     try:
@@ -52,14 +55,22 @@ def all_minors(request):
     except:
         return mms.search_all(es_conn, "MIN")
 
+
 def all_specs(request):
     try:
+        print("***")
+        print(list(request.GET.keys()))
+        print("***")
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'specialisations')
     except:
         return mms.search_all(es_conn, "SPEC")
 
+
 def course_lists(request):
     global es_conn
+    print("***")
+    print(list(request.GET.keys()))
+    print("***")
     query = request.GET['query']
     return mms.course_lists(es_conn, query)
