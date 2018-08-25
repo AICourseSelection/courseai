@@ -16,7 +16,8 @@ body {
     color: gray;
     width: 100%;
     text-align: center;
-    background: #444
+    background: #444;
+    bottom: 0;
 }
 
 #planform, #planform input, #planform .btn-group .btn{
@@ -132,6 +133,7 @@ body {
     background-color: white;
 }
 
+/* TODO: create more specific rules */
 .plan-cell:hover {
     background-color: #e4ecf4;
 }
@@ -643,7 +645,7 @@ body {
 }
 
 .compulsory {
-    background: #000000;
+    background-color: #a4ff8f;
 }
 
 * .dropdown-menu-right {
