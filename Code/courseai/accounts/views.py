@@ -49,7 +49,9 @@ def login_view(request):
             else: 
                 return HttpResponse('InactiveAccountError')
             
-    return HttpResponse(form.errors.as_json())
+    errMsg = { (v[0]) for _, v in form.errors.items() }
+    errStr = '<br>'.join(msg for msg in errMsg)
+    return HttpResponse(errStr);
 
 @csrf_protect
 @require_AJAX
@@ -66,7 +68,9 @@ def register_view(request):
         login(request, user)
         return HttpResponse('OK')
         
-    return HttpResponse(form.errors.as_json())
+    errMsg = { (v[0]) for _, v in form.errors.items() }
+    errStr = '<br>'.join(msg for msg in errMsg)
+    return HttpResponse(errStr);
 
 @csrf_exempt    # TODO: Add CSRF protection for logout? Necessary?
 def logout_view(request):
