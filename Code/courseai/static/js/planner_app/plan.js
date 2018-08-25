@@ -5,14 +5,6 @@ function Plan() {
     this.trackedMMS = [];  // List of Majors, Minors, etc. currently tracked.
     this.warnings = []; // List of warnings that have been ignored by the user.
 
-    this.checkDegreesSatisfied = function () {
-        throw "Not Implemented";
-    };
-
-    this.checkMMSSatisfied = function () {
-        throw "Not Implemented";
-    };
-
     this.unsatisfiedCourses = function () {
         let unsat = [];
         for (const session of this.sessions) {

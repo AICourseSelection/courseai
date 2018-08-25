@@ -62,9 +62,9 @@ async function getCourseOffering(code, year) {
 }
 
 /**
- * Batch retrieve course titles, and perform an action with each one.
- * Retrieve titles for all the courses at once.
- * Then, the function provided with each course code will be evaluated with the title as a parameter.
+ * Batch retrieve course data, and perform an action with each one.
+ * Retrieve data for all the courses at once.
+ * Then, the function provided with each course code will be evaluated with the CourseOffering as a parameter.
  * @param courses_actions   An object, mapping a course code to a list of functions.
  */
 async function batchCourseOfferingActions(courses_actions) {
@@ -108,47 +108,6 @@ async function batchCourseOfferingActions(courses_actions) {
         }
     })
 }
-
-// async function batchCourseOfferings(courses) {
-//     //TODO: Make API endpoint like coursedata, for many at a time.
-//     for (const offering of courses) {
-//         const code = offering.slice(0, -4);
-//         const year = offering.slice(-4);
-//         if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
-//         if (!(year in KNOWN_COURSES[code])) {
-//             $.ajax({
-//                 url: 'degree/coursedata',
-//                 data: {'query': code},
-//                 success: function (data) {
-//                     KNOWN_COURSES[code][year] = new CourseOffering(
-//                         code, year,
-//                         data.title,
-//                         data.units || 6, // TODO: Fix for Course Units
-//                         data.prerequisites,
-//                         {
-//                             'description': data.description,
-//                             'prerequisite_text': data.prerequisite_text,
-//                             'semester': data.semester   // TODO: Change for course sessions.
-//                         },
-//                         data['repeatable'] || false);
-//                 }
-//             })
-//         }
-//     }
-// }
-
-// function getLatestCourseOffering(code) {
-//     if (!(code in KNOWN_COURSES)) return;
-//     let frontier_year = "";
-//     let frontier_offering = null;
-//     for (const year in KNOWN_COURSES[code]) {
-//         if (year > frontier_year && year < THIS_YEAR) { // Do not pass the current year
-//             frontier_year = year;
-//             fontier_offering = KNOWN_COURSES[code][year];
-//         }
-//     }
-//     return frontier_offering;
-// }
 
 async function getMMSOffering(code, year) {
     if (!(code in KNOWN_MMS)) KNOWN_MMS[code] = {};
