@@ -36,7 +36,33 @@
     ],
     "x_from_here": [
       {
-        "type": "fixed",
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT2032",
+          "STAT3040"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH2320",
+          "MATH2322",
+          "MATH3029"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "ECON4411",
+          "ECON4422",
+          "ECON4488"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 24,
         "courses": [
           "ECHI4211",
@@ -66,32 +92,6 @@
           "EMET4310",
           "EMET4312",
           "EMET4314"
-        ]
-      },
-      {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "STAT2032",
-          "STAT3040"
-        ]
-      },
-      {
-        "type": "fixed",
-        "units": 24,
-        "courses": [
-          "ECON4411",
-          "ECON4422",
-          "ECON4488"
-        ]
-      },
-      {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "MATH2320",
-          "MATH2322",
-          "MATH3029"
         ]
       }
     ]

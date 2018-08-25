@@ -27,7 +27,7 @@
     ],
     "x_from_here": [
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON2102",
@@ -35,7 +35,7 @@
         ]
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON1100",
