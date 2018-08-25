@@ -31,68 +31,72 @@
 
 {% include "dynamic_pages/navbar.html" %}
 
-<div class="container" style="margin-bottom: 135px">
-    <div class="row">
-        <div class="col-md-10 offset-md-1 mb-2">
-            <div class="h1 text-center" style="font-weight: lighter">
-                <object data="{% static "img/logo.svg" %}" type="image/svg+xml" style="width: 120px; vertical-align: middle; margin-right: 1rem">
-                    <img src="{% static "img/logo.png" %}"/>
-                </object>
-                Intelligent Course Scheduler
+<wrapper class="d-flex flex-column">
+    <div class="container" style="margin-bottom: 135px">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 mb-2">
+                <div class="h1 text-center" style="font-weight: lighter">
+                    <object data="{% static "img/logo.svg" %}" type="image/svg+xml" style="width: 120px; vertical-align: middle; margin-right: 1rem">
+                        <img src="{% static "img/logo.png" %}"/>
+                    </object>
+                    Intelligent Course Scheduler
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+        <div class="row mt-4">
+            <div class="col-md-8 offset-md-2">
+                <div class="h3 text-center" style="font-weight: lighter;">Start planning your degree</div>
+                <form id="planform" action="planner" method="get">
+                    <div class="form-row" style="margin-top: 15px">
+                        <input type="text" name="degreeName" class="typeahead form-control" required
+                               placeholder="What degree do you study?" autocomplete="off" data-toggle="popover">
+                        <input type="hidden" name="degreeCode">
+                    </div>
+
+
+                    <div class="form-row mt-2">
+                        <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
+                            <label>I start(ed) my degree in: </label>
+                        </div>
+                        <select id="yearList" name="startyear" style="height: 40px; padding: 0 5px; flex-grow: 1"> </select>
+                        <div class="d-inline-block" style="padding-left: 5px;">
+                            <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
+                                <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
+                                        type="radio" id="sem_1" name="semester" value="1" required>Semester 1</label>
+                                <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
+                                        type="radio" id="sem_2" name="semester" value="2">Semester 2</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-4 mb-2">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Create Your Plan</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <hr/>
-    <div class="row mt-4">
-        <div class="col-md-8 offset-md-2">
-            <div class="h3 text-center" style="font-weight: lighter;">Start planning your degree</div>
-            <form id="planform" action="planner" method="get">
-                <div class="form-row" style="margin-top: 15px">
-                    <input type="text" name="degreeName" class="typeahead form-control" required
-                           placeholder="What degree do you study?" autocomplete="off" data-toggle="popover">
-                    <input type="hidden" name="degreeCode">
-                </div>
-
-
-                <div class="form-row mt-2">
-                    <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
-                        <label>I start(ed) my degree in: </label>
-                    </div>
-                    <select id="yearList" name="startyear" style="height: 40px; padding: 0 5px; flex-grow: 1"> </select>
-                    <div class="d-inline-block" style="padding-left: 5px;">
-                        <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
-                            <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
-                                    type="radio" id="sem_1" name="semester" value="1" required>Semester 1</label>
-                            <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
-                                    type="radio" id="sem_2" name="semester" value="2">Semester 2</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row mt-4 mb-2">
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Create Your Plan</button>
-                    </div>
-                </div>
-            </form>
+    <div class="msg_box" style="right: 1%">
+        <div class="msg_head">Ask a Question
+            <div class="close">&times;</div>
+        </div>
+        <div class="msg_wrap">
+            <div class="msg_body">
+                <div class="msg_a">Hi, how can I help you today?</div>
+                <div class="msg_push"></div>
+            </div>
+            <div class="msg_footer"><textarea class="msg_input form-control form-control-plaintext" rows="1"></textarea>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="msg_box" style="right: 1%">
-    <div class="msg_head">Ask a Question
-        <div class="close">&times;</div>
-    </div>
-    <div class="msg_wrap">
-        <div class="msg_body">
-            <div class="msg_a">Hi, how can I help you today?</div>
-            <div class="msg_push"></div>
-        </div>
-        <div class="msg_footer"><textarea class="msg_input form-control form-control-plaintext" rows="1"></textarea>
-        </div>
-    </div>
-</div>
+    {% include "dynamic_pages/footer.html" %}
+</wrapper>
 
 <script src="{% static "js/jquery.min.js" %}"></script>
 <script src="{% static "js/popper.min.js" %}"></script>
@@ -207,8 +211,5 @@ $("#planform").submit(function (e) {
     $('input[name=degreeCode]').val(degreeCodes[degreeInput.val()]);
 });
 </script>
-
-{% include "dynamic_pages/footer.html" %}
-
 </body>
 </html>
