@@ -1,6 +1,10 @@
 body {
     font-family: "Gill Sans MT", sans-serif;
-    min-width: 300px;
+    height: 100%;
+}
+
+body, wrapper {
+    min-height: 100vh;
 }
 
 .planner-container {
@@ -10,14 +14,11 @@ body {
 
 .container {
     margin-top: 50px;
+    flex: 1;
 }
 
-.footer {
-    color: gray;
-    width: 100%;
+footer {
     text-align: center;
-    background: #444;
-    bottom: 0;
 }
 
 #planform, #planform input, #planform .btn-group .btn{
