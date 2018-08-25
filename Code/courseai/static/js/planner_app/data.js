@@ -71,7 +71,7 @@ async function batchCourseOfferingActions(courses_actions) {
     if ($.isEmptyObject(courses_actions)) return;   // TODO: Check for other pending requests and only request new codes.
     let codesToRetrieve = [];
     for (const code in courses_actions) {
-        if (code in KNOWN_COURSES && THIS_YEAR in KNOWN_COURSES[code]) continue; // TODO: Fix for Course Years
+        if (code in KNOWN_COURSES && KNOWN_COURSES[code][THIS_YEAR]) continue; // TODO: Fix for Course Years
         codesToRetrieve.push(code);
     }
     await $.ajax({
@@ -84,6 +84,7 @@ async function batchCourseOfferingActions(courses_actions) {
             console.log();
             for (const code in data.response) {
                 if (!(data.response.hasOwnProperty(code))) continue;
+                if (!(data.response)) continue;
                 const course = data.response[code];
                 const year = THIS_YEAR; //TODO: Fix for Course Years
                 const offering = new CourseOffering(
@@ -101,6 +102,7 @@ async function batchCourseOfferingActions(courses_actions) {
                 if (!(year in KNOWN_COURSES[code])) KNOWN_COURSES[code][year] = offering;
             }
             for (const code in courses_actions) {
+                if (!((KNOWN_COURSES[code] || {})[THIS_YEAR])) continue; // Skip failed retrievals.
                 for (const action of courses_actions[code]) {
                     action(KNOWN_COURSES[code][THIS_YEAR]); // TODO: Fix for Course Years
                 }
@@ -171,6 +173,18 @@ async function getDegreeOffering(code, year) {
         })
     }
     return KNOWN_DEGREES[code][year];
+}
+
+async function getCourseList(name) {
+    if (name in KNOWN_COURSE_LISTS) return KNOWN_COURSE_LISTS[name];
+    await $.ajax({
+        url: 'search/courselists',
+        data: {'query': name},
+        success: function (data) {
+            KNOWN_COURSE_LISTS[name] = data.response.courses;
+        }
+    });
+    return KNOWN_COURSE_LISTS[name]
 }
 
 // Send Data
