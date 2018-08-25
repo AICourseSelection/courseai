@@ -130,8 +130,6 @@ $.ajax({
                     const course_list = course_dict[i][session];
                     for (let course of course_list) {
                         degree_plan[session].push(course);
-                        // TODO: Color code the courses
-                        let cell = $('<div class="plan-cell compulsory result-course" tabindex="' + tab_index_count + '"/>');
                         tab_index_count++;
                         let title_node = $('<span class="course-title"/>');
                         if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
@@ -140,11 +138,16 @@ $.ajax({
                             if (!(course.code in titles_to_retrieve)) titles_to_retrieve[course.code] = [];
                             titles_to_retrieve[course.code].push(title_node);
                         }
+                        // TODO: Color code the courses
+                        let cell = $('<div class="plan-cell compulsory result-course" tabindex="' + tab_index_count + '"/>');
+                        if (course['code'] === ELECTIVE_TEXT) {
+                          cell.addClass('elective');
+                          makeSlotDroppable(cell);
+                        }
                         cell.append('<div class="course-code">' + course['code'] + '</div>');
                         cell.append(title_node);
                         cell.click(clickCell);
                         cell.each(coursePopoverSetup);
-                        if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
                         row.append(cell);
                     }
                     row.sortable({
@@ -1185,15 +1188,14 @@ $('#mms-active-list').sortable();
 function highlightElectives() {
     for (let cell of $('#plan-grid').find('.plan-cell')) {
         if ($(cell).find('.course-code').text() === ELECTIVE_TEXT) {
-            $(cell).animate({'background-color': '#cde6d3'}, 200);
+          $(cell).addClass('elective-highlight', 500);
         }
     }
 }
 
 function clearElectiveHighlights() {
     for (let cell of $('#plan-grid').find('.plan-cell')) {
-        $(cell).animate({'background-color': '#'}, 200);
-
+      $(cell).removeClass('elective-highlight');
     }
 }
 
