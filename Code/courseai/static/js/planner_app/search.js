@@ -25,7 +25,7 @@ function Search(plan) {
             const sem = parseInt(f.data.slice(-1));
             if (sem && !filters['semesters'].includes(sem)) filters['semesters'].push(sem);
         }
-        this.requests['courses'] = $.ajax({
+        this.requests['course'] = $.ajax({
             url: 'search/coursesearch',
             data: {
                 'query': query,
@@ -35,21 +35,32 @@ function Search(plan) {
             dataType: 'json',
             contentType: 'application/json',
             beforeSend: before,
-            success: async function (data) {
-                let new_data = {};
+            success: function (data) {
+                let new_data = [];
                 let filtered_sessions = [];
                 for (const filter of activeFilters) {
                     if (filter.type === 'session') filtered_sessions.push(filter.data);
                 }
-                for (const course of data.response) {
-                    let offering = await getCourseOffering(course.code, THIS_YEAR); // TODO: Fix for course years. Need the most recent year with data available.
-                    let matched_filters = false;
-                    for (session of filtered_sessions) {
-                        matched_filters = matched_filters || offering.checkRequirements(plan, session).sat;
-                    }
-                    if (matched_filters) new_data.push(course)
+                if (!filtered_sessions.length) {    // Skip getting course data if no session filters.
+                    after(data.response);
+                    return;
                 }
-                after(new_data);
+                let course_action_items = {};   // Get course data so that prerequisites can be checked.
+                for (const course of data.response) {
+                    const code = course.code;
+                    if (!(code in course_action_items)) course_action_items[code] = [];
+                    course_action_items[code].push(function (offering) {
+                        let matched_filters = !filtered_sessions.length;
+                        for (const session of filtered_sessions) {
+                            matched_filters = matched_filters || offering.checkRequirements(plan, session).sat;
+                        }
+                        if (matched_filters) new_data.push(course)
+                    })
+                }
+                $.when(batchCourseOfferingActions(course_action_items).then(function () {
+                    console.log(1);
+                    after(new_data);
+                }));
             },
             error: console.log('Course search aborted or failed. '),
             complete: console.log('Course search initiated. ')

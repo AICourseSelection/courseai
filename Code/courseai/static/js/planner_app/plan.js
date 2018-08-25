@@ -66,7 +66,7 @@ function Plan() {
         const gradeAverage = gradesTotal / gradesCounted;
         const previousSessionGradeAverage = previousSessionGradesTotal / previousSessionGradesCounted;
         const rules = OVERLOAD_RULES[units];
-        const satisfied = priorUnits >= rules.totalUnits
+        const satisfied = priorUnits >= rules.units
             && maxSessionUnits >= rules.oneSessionUnits
             && gradeAverage >= rules.overallMark
             && previousSessionGradeAverage >= rules.lastSessionMark;
@@ -151,7 +151,7 @@ function Plan() {
      */
     this.addCourse = async function (session, code) {
         if (!(this.sessions.includes(session))) return false;
-        let year = session.split(0, 4);
+        let year = session.slice(0, 4);
         let offering = await getCourseOffering(code, year);
         let enrolment = new CourseEnrolment(offering, session);
         this.courses[session].push(enrolment);
@@ -295,6 +295,8 @@ function Warning(type, text, actions = []) {
     this.actions = actions;
 
     this.runActions = function () {
-        for (const action of this.actions) action();
+        for (const action of this.actions) {
+            action();
+        }
     }
 }

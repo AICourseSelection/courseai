@@ -4,6 +4,8 @@ let KNOWN_MMS = {};             // 2D Dictionary: (code, year) -> MMS object
 let KNOWN_DEGREES = {};         // 2D Dictionary: (code, year) -> Degree object
 let KNOWN_COURSE_LISTS = {};    // Dictionary: list name (e.g. CBE_List_1) -> List of codes
 
+let COURSE_REQUESTS = {};       // 2D Dictionary: (code, year) -> AJAX call to degree/coursedata
+
 // Retrieve Data
 
 /**
@@ -13,99 +15,127 @@ let KNOWN_COURSE_LISTS = {};    // Dictionary: list name (e.g. CBE_List_1) -> Li
  * @param courses_actions   An object, mapping a course code to a list of functions.
  */
 async function batchCourseTitles(courses_actions) {
-    if (jQuery.isEmptyObject(courses_actions)) return;
-    $.ajax({
-        url: 'degree/coursedata',
-        data: {
-            'query': 'titles',
-            'codes': JSON.stringify(Object.keys(courses_actions)) //TODO: Fix for Course Years
-        },
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            for (const course of data.response) {
-                for (const action of courses_actions[course['course_code']]) {
-                    action(course['title']);
-                }
-            }
+    let new_ca = {};
+    for (course in courses_actions) {
+        if (!(course in new_ca)) new_ca[course] = [];
+        for (const action of courses_actions[course]) {
+            new_ca[course].push(function (offering) {
+                action(offering.title);
+            })
         }
-    });
-
-}
-
-async function batchCoursePrereqs(courses_actions) {
-    // TODO: Generalise this and batchCourseTitles into one.
-    if (jQuery.isEmptyObject(courses_actions)) return;
-    let req = $.ajax({
-        url: 'degree/coursedata',
-        data: {
-            'query': 'prereqs',
-            'codes': JSON.stringify(Object.keys(courses_actions)) //TODO: Fix for Course Years
-        },
-        success: function (data) {
-            for (const course of data.response) {
-                for (const action of courses_actions[course['course_code']]) {
-                    action(course['prerequisite_text'], course['prerequisites'], course['semester']);
-                }
-            }
-        }
-    });
-
+    }
+    await batchCourseOfferingActions(new_ca);
 }
 
 async function getCourseOffering(code, year) {
     if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
     if (!(year in KNOWN_COURSES[code])) {
-        await $.ajax({
-            url: 'degree/coursedata',
-            data: {'query': code},
-            success: function (data) {
-                const res = data.response;
-                if (!code in KNOWN_COURSES) KNOWN_COURSES[code] = {};
-                KNOWN_COURSES[code][year] = new CourseOffering(
-                    code, year,
-                    res.title,
-                    res.units,
-                    res.prerequisites,
-                    {
-                        'description': res.description,
-                        'prerequisite_text': res.prerequisite_text,
-                        'semester': res.semester    // TODO: Change for course sessions.
-                    },
-                    res['repeatable'] || false);
-            },
-        })
+        if (year in (COURSE_REQUESTS[code] || {})) {  // Check if there is already a request to get this course
+            await COURSE_REQUESTS[code][year];      // Wait for that request to complete
+            return KNOWN_COURSES[code][year];       // The data has been retrieved, so return it
+        } else {
+            const req = $.ajax({
+                url: 'degree/coursedata',
+                data: {'query': code},
+                success: function (data) {
+                    const res = data.response;
+                    if (!code in KNOWN_COURSES) KNOWN_COURSES[code] = {};
+                    KNOWN_COURSES[code][year] = new CourseOffering(
+                        code, year,
+                        res.title,
+                        res.units || 6, // TODO: Fix for Course Units
+                        res.prerequisites,
+                        {
+                            'description': res.description,
+                            'prerequisite_text': res.prerequisite_text,
+                            'semester': res.semester    // TODO: Change for course sessions.
+                        },
+                        res['repeatable'] || false);
+                },
+            });
+            if (!(code in COURSE_REQUESTS)) COURSE_REQUESTS[code] = {};
+            COURSE_REQUESTS[code][year] = req;
+            await req;
+        }
     }
     return KNOWN_COURSES[code][year];
 }
 
-async function batchCourseOfferings(courses) {
-    //TODO: Make API endpoint like coursedata, for many at a time.
-    for (const offering of courses) {
-        const code = offering.slice(0, -4);
-        const year = offering.slice(-4);
-        if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
-        if (!(year in KNOWN_COURSES[code])) {
-            $.ajax({
-                url: 'degree/coursedata',
-                data: {'query': code},
-                success: function (data) {
-                    KNOWN_COURSES[code][year] = new CourseOffering(
-                        code, year,
-                        data.title,
-                        data.units,
-                        data.prerequisites,
-                        {
-                            'description': data.description,
-                            'prerequisite_text': data.prerequisite_text,
-                            'semester': data.semester   // TODO: Change for course sessions.
-                        },
-                        data['repeatable'] || false);
-                }
-            })
-        }
+/**
+ * Batch retrieve course titles, and perform an action with each one.
+ * Retrieve titles for all the courses at once.
+ * Then, the function provided with each course code will be evaluated with the title as a parameter.
+ * @param courses_actions   An object, mapping a course code to a list of functions.
+ */
+async function batchCourseOfferingActions(courses_actions) {
+    if ($.isEmptyObject(courses_actions)) return;   // TODO: Check for other pending requests and only request new codes.
+    let codesToRetrieve = [];
+    for (const code in courses_actions) {
+        if (code in KNOWN_COURSES && THIS_YEAR in KNOWN_COURSES[code]) continue; // TODO: Fix for Course Years
+        codesToRetrieve.push(code);
     }
+    await $.ajax({
+        url: 'degree/coursedata',
+        data: {
+            'query': 'multiple',
+            'codes': JSON.stringify(codesToRetrieve)
+        },
+        success: function (data) {
+            console.log();
+            for (const code in data.response) {
+                if (!(data.response.hasOwnProperty(code))) continue;
+                const course = data.response[code];
+                const year = THIS_YEAR; //TODO: Fix for Course Years
+                const offering = new CourseOffering(
+                    code, year,
+                    course.title,
+                    course.units || 6, // TODO: Fix for Course Units
+                    course.prerequisites,
+                    {
+                        'description': course.description,
+                        'prerequisite_text': course.prerequisite_text,
+                        'semester': course.semester   // TODO: Change for course sessions.
+                    },
+                    course['repeatable'] || false);
+                if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
+                if (!(year in KNOWN_COURSES[code])) KNOWN_COURSES[code][year] = offering;
+            }
+            for (const code in courses_actions) {
+                for (const action of courses_actions[code]) {
+                    action(KNOWN_COURSES[code][THIS_YEAR]); // TODO: Fix for Course Years
+                }
+            }
+        }
+    })
 }
+
+// async function batchCourseOfferings(courses) {
+//     //TODO: Make API endpoint like coursedata, for many at a time.
+//     for (const offering of courses) {
+//         const code = offering.slice(0, -4);
+//         const year = offering.slice(-4);
+//         if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
+//         if (!(year in KNOWN_COURSES[code])) {
+//             $.ajax({
+//                 url: 'degree/coursedata',
+//                 data: {'query': code},
+//                 success: function (data) {
+//                     KNOWN_COURSES[code][year] = new CourseOffering(
+//                         code, year,
+//                         data.title,
+//                         data.units || 6, // TODO: Fix for Course Units
+//                         data.prerequisites,
+//                         {
+//                             'description': data.description,
+//                             'prerequisite_text': data.prerequisite_text,
+//                             'semester': data.semester   // TODO: Change for course sessions.
+//                         },
+//                         data['repeatable'] || false);
+//                 }
+//             })
+//         }
+//     }
+// }
 
 // function getLatestCourseOffering(code) {
 //     if (!(code in KNOWN_COURSES)) return;
@@ -166,7 +196,7 @@ async function getDegreeOffering(code, year) {
             data: {'query': code},
             success: function (data) {
                 if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
-                KNOWN_DEGREES[code][year] = new Degree(code, year, data.name, data.required);
+                KNOWN_DEGREES[code][year] = new Degree(code, year, data.name, data.units, data.required);
                 //TODO: Support for Optional Rule Sections
             }
         });
@@ -187,10 +217,8 @@ async function getDegreeOffering(code, year) {
 // Send Data
 function preparePlanForUpload(plan) {
     sessions = [];
-    for (const session in plan.sessions) {
-        if (!plan.sessions.hasOwnProperty(session)) continue;
-        if (!plan.courses.hasOwnProperty(session)) continue;
-        to_add = {session: []};
+    for (const session of plan.sessions) {
+        to_add = {[session]: []};
         for (const enrolment of plan.courses[session]) {
             to_add[session].push({'code': enrolment.code, 'title': enrolment.course.title});
         }
