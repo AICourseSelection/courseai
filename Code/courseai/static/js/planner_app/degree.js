@@ -16,6 +16,23 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
 
     this.units = units;
 
+    this.incorporateCourseLists = async function () {
+        for (const type in this.rules) {
+            if (type === "x_from_here") {
+                for (const section of this.rules[type]) {
+                    console.log();
+                    if (typeof(section.courses) === "string") {
+                        const listName = section.courses;
+                        section.courses = await getCourseList(listName);  // Replace the list name with the course codes.
+                        section['listName'] = listName;   // Save the list name
+                    }
+                }
+            }
+        }
+    };
+
+    this.incorporateCourseLists();
+
     /**
      * Check if this Degree's requirements are satisfied in the given plan.
      * @param plan  The user's plan to check.
