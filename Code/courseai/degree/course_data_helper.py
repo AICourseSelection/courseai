@@ -5,7 +5,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import MultiMatch
 
-es_conn = Elasticsearch(['10.152.0.3'])
+es_conn = Elasticsearch(['35.197.168.65'])
 
 def get_data(code):
     global es_conn
@@ -30,12 +30,12 @@ def get_data(code):
 
 
 def get_multiple(codes):
+    global es_conn
     course_data = {}
     codes = json.loads(codes)
     for code in codes:
         q = MultiMatch(query=code, fields=['code^4'])
-        client = Elasticsearch()
-        s = Search(using=client, index='courses')
+        s = Search(using=es_conn, index='courses')
         response = s.query(q).execute()
 
         try:
@@ -98,6 +98,7 @@ def get_prereqs(codes):
                                                "prerequisite_text": hit['_source']['prereq_text'],
                                                "prerequisites": eval(str(hit['_source']['pre_req_cnf'])),
                                                "semester": eval(str(hit['_source']['semester']))}
+        pass
     return course_data
 
 
