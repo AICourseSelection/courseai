@@ -1,0 +1,12 @@
+{
+  "name": "Master of Leadership (Advanced)",
+  "code": "VLEAD",
+  "year": 2017,
+  "units": 96,
+  "required": {
+    "compulsory_courses": [
+      "MMIB8006",
+      "MGMT7250"
+    ]
+  }
+}

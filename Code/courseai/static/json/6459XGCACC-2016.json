@@ -6,7 +6,7 @@
   "required": {
     "x_from_here": [
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 24,
         "courses": [
           "BUSN7008",

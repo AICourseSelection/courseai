@@ -12,7 +12,7 @@
     ],
     "x_from_here": [
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 24,
         "courses": [
           "ECHI4211",

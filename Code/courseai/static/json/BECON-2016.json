@@ -21,11 +21,11 @@
     ],
     "x_from_here": [
       {
-        "num": "18",
+        "units": "18",
         "courses": "CBE List 1"
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON2101",
@@ -33,24 +33,7 @@
         ]
       },
       {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "ECON2102",
-          "ECON2016",
-          "ECON2112"
-        ]
-      },
-      {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "ECON1100",
-          "ECON1102"
-        ]
-      },
-      {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECHI3008",
@@ -64,6 +47,23 @@
           "ECON2139",
           "ECON2141",
           "ECON2142"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON2102",
+          "ECON2016",
+          "ECON2112"
         ]
       }
     ]

@@ -17,7 +17,7 @@
     ],
     "x_from_here": [
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "BUSI3024",
@@ -25,7 +25,17 @@
         ]
       },
       {
-        "type": "fixed",
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BUSI2023",
+          "BUSI2024",
+          "BUSI2034",
+          "BUSI2022"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "BUSI2023",
@@ -38,16 +48,6 @@
           "BUSI3029",
           "BUSI3030",
           "MGMT3025"
-        ]
-      },
-      {
-        "type": "fixed",
-        "units": 6,
-        "courses": [
-          "BUSI2023",
-          "BUSI2024",
-          "BUSI2034",
-          "BUSI2022"
         ]
       }
     ]
