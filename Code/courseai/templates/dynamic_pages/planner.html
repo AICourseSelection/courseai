@@ -73,7 +73,7 @@
                                  data-target="#results-courses">
                                 Courses
                             </div>
-                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                            <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2"
                                  style="font-size: 3rem; display: none"></div>
                             <div id="results-courses" class="collapse">
                                 <div class="card-body list-group list-group-flush">
@@ -85,7 +85,7 @@
                                  data-target="#results-majors">
                                 Majors
                             </div>
-                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                            <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2"
                                  style="font-size: 3rem; display: none"></div>
                             <div id="results-majors" class="collapse">
                                 <div class="card-body list-group list-group-flush">
@@ -97,7 +97,7 @@
                                  data-target="#results-minors">
                                 Minors
                             </div>
-                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                            <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2"
                                  style="font-size: 3rem; display: none"></div>
                             <div id="results-minors" class="collapse">
                                 <div class="card-body list-group list-group-flush">
@@ -109,7 +109,7 @@
                                  data-target="#results-specs">
                                 Specialisations
                             </div>
-                            <div class="fa fa-refresh fa-spin mx-auto my-auto py-2"
+                            <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2"
                                  style="font-size: 3rem; display: none"></div>
                             <div id="results-specs" class="collapse">
                                 <div class="card-body list-group list-group-flush">
@@ -288,6 +288,12 @@
     const start_year = {{ start_year }};
     const start_sem = {{ start_sem }};
 </script>
-<script src="{% static "js/planner.js" %}"></script>
+<script src="{% static "js/planner_app/course.js" %}"></script>
+<script src="{% static "js/planner_app/data.js" %}"></script>
+<script src="{% static "js/planner_app/degree.js" %}"></script>
+<script src="{% static "js/planner_app/mms.js" %}"></script>
+<script src="{% static "js/planner_app/plan.js" %}"></script>
+<script src="{% static "js/planner_app/search.js" %}"></script>
+<script src="{% static "js/planner_app/ui.js" %}"></script>
 </body>
 </html>
