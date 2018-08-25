@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Ingress
-metadata:
-  name: courseai-app
-spec:
-  backend:
-    serviceName: courseai-service
-    servicePort: 80
