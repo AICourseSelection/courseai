@@ -81,10 +81,6 @@ body {
     width: 100%;
 }
 
-#rc-button {
-    display: none;
-}
-
 #confirm-reset-button {
     margin-right: auto;
 }
@@ -176,7 +172,15 @@ body {
     word-wrap: break-word;
 }
 
+.course-year {
+    display: none;
+}
+
 .mms-code {
+    display: none;
+}
+
+.mms-year {
     display: none;
 }
 
