@@ -11,3 +11,5 @@ Code/courseai/db.sqlite3
 Code/courseai/db.sqlite3.orig
 db.sqlite3
 venv
+*.swp
+*.swo
