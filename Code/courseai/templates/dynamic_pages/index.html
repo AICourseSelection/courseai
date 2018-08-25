@@ -43,7 +43,6 @@
         </div>
     </div>
 
-
     <hr/>
     <div class="row mt-4">
         <div class="col-md-8 offset-md-2">
@@ -79,15 +78,6 @@
             </form>
         </div>
     </div>
-</div>
-
-<div class="footer bg-dark ">
-    <hr>
-    Created by <em>AI Course Selection</em>:
-    <br>
-    Joseph Meltzer, Thomas Hamer, Manal Mohania,
-    <br>
-    Lim Yong Wei, YiLong Wang, Christopher Kim
 </div>
 
 <div class="msg_box" style="right: 1%">
@@ -217,5 +207,8 @@ $("#planform").submit(function (e) {
     $('input[name=degreeCode]').val(degreeCodes[degreeInput.val()]);
 });
 </script>
+
+{% include "dynamic_pages/footer.html" %}
+
 </body>
 </html>
