@@ -121,7 +121,7 @@ function Search(plan) {
     };
 
     this.getFilter = function (type, data) {
-        for (const filter in this.filters) {
+        for (const filter of this.filters) {
             if (filter.type === type && filter.data === data) return filter;
         }
         return null;
