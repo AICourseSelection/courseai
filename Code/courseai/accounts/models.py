@@ -13,7 +13,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # Blank values for Django field types such as DateTimeField or ForeignKey will be stored as NULL in the DB.
-    degree_plan_code = models.TextField(blank=True, null=True)
+    degree_plan_code = models.TextField(blank=True, null=False)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True, blank=True)
 
 @receiver(post_save, sender=User) # get signal from User model
