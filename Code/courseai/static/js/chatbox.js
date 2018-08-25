@@ -7,17 +7,20 @@ $(document).ready(function () {
     });
     let lexruntime = new AWS.LexRuntime();
 
-    $('.chat_head').click(function () {
-        $('.chat_body').slideToggle('slow');
-    });
 
     $('.msg_head').click(function () {
         $('.msg_wrap').slideToggle('slow');
+        const msg_head = $('.msg_head');
+        const collapsed_class = 'chatbox-collapsed';
+        if (msg_head.hasClass(collapsed_class)) {
+            msg_head.removeClass(collapsed_class);
+        } else msg_head.addClass(collapsed_class);
     });
 
-    $('.close').click(function () {
-        $('.msg_box').hide();
-    });
+    // Close function, not used.
+    /* $('.close').click(function () {
+           $('.msg_box').hide();
+       }); */
 
     const msg_input = $('.msg_input');
     autosize(msg_input);
