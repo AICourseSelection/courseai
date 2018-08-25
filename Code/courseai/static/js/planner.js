@@ -130,7 +130,8 @@ $.ajax({
                     const course_list = course_dict[i][session];
                     for (let course of course_list) {
                         degree_plan[session].push(course);
-                        let cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
+                        // TODO: Color code the courses
+                        let cell = $('<div class="plan-cell compulsory result-course" tabindex="' + tab_index_count + '"/>');
                         tab_index_count++;
                         let title_node = $('<span class="course-title"/>');
                         if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
@@ -858,6 +859,7 @@ const mms_units = {
 };
 let course_titles = {};
 
+// TODO: add color coding for special cards
 function mms_add(code) {
     active_mms[code] = {};
     const mms_data = mms_info[code];
