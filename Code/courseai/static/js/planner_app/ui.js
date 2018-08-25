@@ -375,7 +375,9 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         if (this !== me) $(this).popover('hide');
     });
     let popover = $(cell).data('bs.popover');
-    if (popover['data-received'] || false) return;
+    if (popover['data-received'] || false) {
+        return;
+    }
     let curr_popover = $(popover.tip);
     let offering = await getCourseOffering(code, year);
     let html = '<div class="h6 result-title mb-1">' + offering.title + '</div>\n';
@@ -397,12 +399,16 @@ async function coursePopoverData(cell, descriptionOnly = false) {
                 '<div class="result-description">' + offering.extras['prerequisite_text'] + '</div>\n';
         }
     }
+    html += '<h6 class="mt-2">Related Courses</h6>\n';
+    curr_popover.find('.popover-body').append(html);
+    curr_popover.find('.popover-body').append('<div class="related-courses list-group"/>');
+
     const first_cell = $(cell.parentElement.firstElementChild);
     let session = year;
     if (first_cell.hasClass('first-cell')) session += SESSION_ABBREVS[first_cell.find('.row-sem').text()];
     else session += "S1"; // Placeholder session for courses which are not in the degree plan.
     let res = {};
-    let group = $('<div class="related-courses list-group"/>');
+    // let group = $('<div class="related-courses list-group"/>');
     await $.ajax({
         url: 'recommendations/recommend',
         data: {
@@ -414,7 +420,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         },
     });
     let titles_fill_nodes = {};
-    // let group = curr_popover.find('.related-courses');
+    let group = curr_popover.find('.related-courses');
     for (const course of res.response) {
         const code = course.course;
         const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
@@ -423,6 +429,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         let item = $(
             '<div class="draggable-course result-course list-group-item list-group-item-action">\n' +
             '    <span class="course-code">' + code + '</span>\n' +
+            '    <span class="course-year">' + year + '</span>\n' +
             '</div>\n');
         let title_node = $('<span class="course-title"></span>');
         if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
@@ -440,9 +447,9 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         item.each(coursePopoverSetup);
         group.append(item);
     }
-    html += '<h6 class="mt-2">Related Courses</h6>';
+    // html += '<h6 class="mt-2">Related Courses</h6>';
     html += group[0].outerHTML;
-    curr_popover.find('.popover-body').append(html);
+    // curr_popover.find('.popover-body').append(html);
     curr_popover.find('.fa-sync-alt').parent().removeClass('d-flex').addClass('d-none');
     popover.config.content = html;
     popover['data-received'] = true;
@@ -682,6 +689,18 @@ function coursePopoverSetup(i, item) {
     });
     $(this).on('show.bs.popover', function () {
         coursePopoverData(this, $(item).hasClass('plan-cell'));
+    });
+    $(this).on('shown.bs.popover', function () {
+        let popover = $(this).data('bs.popover');
+        if (popover['data-received'] || false) {
+            const recommendations = $(popover.tip).find('.result-course');
+            recommendations.each(coursePopoverSetup);
+            for (const entry of recommendations) {
+                const code = $(entry).find('.course-code').text();
+                const year = $(entry).find('.course-year').text();
+                makeCourseDraggable($(entry), code, year);
+            };
+        }
     })
 }
 
@@ -737,15 +756,16 @@ function updateCourseSearchResults(response) {
     console.log('Course search successful');
 }
 
-function updateMMSSearchResults(response, type) {
+function updateMMSSearchResults(data, type) {
     const section = $({
         'major': '#results-majors', 'minor': '#results-minors', 'specialisation': '#results-specs'
     }[type]);
     let body = section.find('.card-body');
     body.find('.result-mms').popover('dispose');
     body.empty();
-    if (response.length > 0) {
-        for (let r of response) {
+    const responses = data.responses;
+    if (responses.length > 0) {
+        for (let r of responses) {
             const code = r['code'];
             const name = r['name'];
             let item = $(
@@ -773,7 +793,7 @@ function updateWarningNotices() {
         if (count !== 0) list.append(', ');
         if (warning.type === "CourseForceAdded") {
             let link = $('<a class="course-highlighter" href="javascript:void(0)">' + warning.text + '</a>');
-            link.click(function() {
+            link.click(function () {
                 warning.runActions();
             });
             list.append(link);
