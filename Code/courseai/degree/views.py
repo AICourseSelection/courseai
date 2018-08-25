@@ -59,6 +59,8 @@ def course_data(request):
             return JsonResponse({"response": course_data_helper.get_titles(request.GET.get('codes', '[]'))})
         elif query == 'prereqs':
             return JsonResponse({"response": course_data_helper.get_prereqs(request.GET.get('codes', '[]'))})
+        elif query == 'multiple':
+            return JsonResponse({"response": course_data_helper.get_multiple(request.GET.get('codes', '[]'))})
         else:
             return JsonResponse({"response": course_data_helper.get_data(query)})
 

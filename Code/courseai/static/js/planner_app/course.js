@@ -38,12 +38,12 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
 
         let courses_taken = [];
         for (let ses of plan.sessions) {
-            if (sessionIsAfter(ses, session) || ses === session) break;
+            if (sessionIsAfter(ses, session) || ses === session) continue;
             Array.prototype.push.apply(courses_taken, plan.courses[ses]);
         }
-        let courses_taking = plan.courses[this.session];
+        let courses_taking = plan.courses[session];
 
-        for (let clause of this.course.rules) {
+        for (let clause of this.rules) {
             let clause_sat = false;
             for (let course of clause) {
                 if (clause_sat) continue;
@@ -127,4 +127,5 @@ function checkCoursePresent(courses, code) {
         if (c.code !== code || c.failed) continue;
         return true;
     }
+    return false;
 }

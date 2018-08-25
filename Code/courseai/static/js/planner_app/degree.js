@@ -3,17 +3,18 @@
  * @param code      ANU's degree code, e.g. AACOM.
  * @param year      Year of degree, for the purpose of rules.
  * @param title     Title of degree, e.g. Bachelor of...
+ * @param units     Number of units requried to graduate, e.g. 144.
  * @param rules     Program Requirements (requirements to graduate).
  * @param suggestedPlan Suggested starting plan by the ANU, i.e. the "Study Options".
  */
-function Degree(code, year, title, rules, suggestedPlan = {}) {
+function Degree(code, year, title, units, rules, suggestedPlan = {}) {
     this.code = code;
     this.year = year;
     this.title = title;
     this.rules = rules;
     this.suggestedPlan = suggestedPlan;
 
-    this.totalUnits = rules.units;
+    this.units = units;
 
     /**
      * Check if this Degree's requirements are satisfied in the given plan.
@@ -54,6 +55,7 @@ function Degree(code, year, title, rules, suggestedPlan = {}) {
             else if (["x_from_category", "max_by_level"].includes(type)) {
                 const maxL = type === "max_by_level";
                 for (const i in req[type]) {
+                    const section = req[type][i];
                     let courseCodes = [];
                     let courseLevels = [];
                     let unitThreshold = 0;
@@ -80,13 +82,21 @@ function Degree(code, year, title, rules, suggestedPlan = {}) {
                 for (const section of lists) {
                     let matched_codes = [];
                     let completed_codes = [];
+                    let units_completed = 0;
                     for (const mms of plan.trackedMMS) {
-                        if (section.includes(mms.code)) matched_codes.push(mms.code);
-                        if (mms.checkRequirements(plan).sat) completed_codes.push(mms.code);
+                        if (section.includes(mms.code)) {
+                            matched_codes.push(mms.code);
+                            const results = mms.checkRequirements(plan);
+                            if (results.sat) {
+                                completed_codes.push(mms.code);
+                                units_completed = Math.max(units_completed, results.units);
+                            }
+                        }
+
                     }
                     let section_sat = completed_codes.length > 0;
                     overall_sat = overall_sat && section_sat;
-                    rule_details.push({'type': type, 'sat': section_sat, 'codes': matched_codes, 'completed': completed_codes});
+                    rule_details.push({'type': type, 'sat': section_sat, 'units': units_completed, 'codes': matched_codes, 'completed': completed_codes});
                 }
             }
         }
@@ -95,7 +105,7 @@ function Degree(code, year, title, rules, suggestedPlan = {}) {
                 if (!(enrolment.failed)) overall_units += enrolment.course.units;
             }
         }
-        overall_sat = overall_sat && overall_units >= this.totalUnits;
+        overall_sat = overall_sat && overall_units >= this.units;
         return {'sat': overall_sat, 'units': overall_units, 'rule_details': rule_details};
     };
 }
@@ -120,10 +130,11 @@ function matchCategoryInDegree(plan, codes, levels) {
             if (codes && codes.length > 0) {
                 match = match && codes.includes(c.code.slice(0, 4));
             }
-            if (levels && levels) {
-                match = match && levels.includes(parseInt(c.code.charAt(4)) * 1000);
+            if (levels && levels.length > 0) {
+                const level = c.code.charAt(4)+'000';
+                match = match && (levels.includes(level) || levels.includes(parseInt(level)));
             }
-            if (match && !c.failed) matches.push(c.code)
+            if (match && !c.failed) matches.push(c)
         }
     }
     return matches;

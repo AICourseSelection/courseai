@@ -180,6 +180,10 @@ body {
     display: none;
 }
 
+.mms-year {
+    display: none;
+}
+
 #left-panel .tab-content {
     padding-top: .7rem;
     border-left: 1px solid #dee2e6;

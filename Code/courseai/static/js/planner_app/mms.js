@@ -40,10 +40,10 @@ function MMS(code, year, title, rules) {
             let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
             let section_codes = matches.map(c => c.code);
             let section_sat = true;
-            if (rule.type === 'fixed') section_sat = matches.size === rule.course.length;
+            if (rule.type === 'fixed') section_sat = matches.length === rule.course.length;
             if (rule.type === 'minimum') section_sat = section_units >= rule.units;
             overall_sat = overall_sat && section_sat;
-            overall_units += (rule.type === 'maximum') ? min(section_units, rule.units) : section_units;
+            overall_units += (rule.type === 'maximum') ? Math.min(section_units, rule.units) : section_units;
             rule_details.push({'sat': section_sat, 'units': section_units, 'codes': section_codes});
         }
         return {'sat': overall_sat, 'units': overall_units, 'rule_details': rule_details};
