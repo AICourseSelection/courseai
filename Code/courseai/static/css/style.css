@@ -646,7 +646,6 @@ body {
     background: #000000;
 }
 
-.dropdown-menu {
-    min-width: 400px;
+* .dropdown-menu-right {
+    width: 300px;
 }
-
