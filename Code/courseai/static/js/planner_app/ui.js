@@ -65,7 +65,7 @@ function removeCourse(session, position) {
     const sem = SESSION_WORDS[session.slice(4)]; // TODO: Fix for Summer Sessions
     const row = $('#plan-grid').find('.plan-row').filter(function () {
         const first_cell = $(this.children[0]);
-        return (first_cell.find('.row-year').text() == year && first_cell.find('.row-sem').text() == sem);
+        return (first_cell.find('.row-year').text() === year && first_cell.find('.row-sem').text() === sem);
     });
     const box = $(row.children()[position]);
     const code = box.find('.course-code').text();
@@ -408,7 +408,6 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     if (first_cell.hasClass('first-cell')) session += SESSION_ABBREVS[first_cell.find('.row-sem').text()];
     else session += "S1"; // Placeholder session for courses which are not in the degree plan.
     let res = {};
-    // let group = $('<div class="related-courses list-group"/>');
     await $.ajax({
         url: 'recommendations/recommend',
         data: {
@@ -447,9 +446,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         item.each(coursePopoverSetup);
         group.append(item);
     }
-    // html += '<h6 class="mt-2">Related Courses</h6>';
     html += group[0].outerHTML;
-    // curr_popover.find('.popover-body').append(html);
     curr_popover.find('.fa-sync-alt').parent().removeClass('d-flex').addClass('d-none');
     popover.config.content = html;
     popover['data-received'] = true;
