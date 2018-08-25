@@ -18,10 +18,14 @@ const ELECTIVE_TEXT = "Elective Course";
 async function addDegree(code, year) {
     let add = await PLAN.addDegree(code, year);
     if (!add) console.log("Tried to add degree " + code + " (" + year + "), already present.");
-    let titleText = "";
-    if (PLAN.degrees.length === 1) titleText = PLAN.degrees[0].title;
-    else titleText = PLAN.degrees.reduce((d1, d2) => d1.title + ' and ' + d2.title);
-    $('#degree-title-text').text(titleText);
+    let titleHTML = " starting " + year + " Semester " + start_sem;
+    titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + year +
+        '/program/' + code + '" target="_blank">' + PLAN.degrees[0].title + '</a>' + titleHTML;
+    if (PLAN.degrees[1]) {
+        titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + PLAN.degrees[1].year +
+            '/program/' + PLAN.degrees[1].code + '" target="_blank">' + PLAN.degrees[1].title + '</a>' + titleHTML;
+    }
+    $('#degree-title-text').html(titleHTML);
     return add;
 }
 
@@ -33,7 +37,8 @@ function clearAllCourses() {
         $(box).find('.course-code').text(ELECTIVE_TEXT);
         $(box).find('.course-title').text('');
     }
-    //TODO: Update progress and warnings.
+    updateProgress();
+    updateWarningNotices();
 }
 
 function resetPlan() {
@@ -514,6 +519,7 @@ function search(coursesOnly = false) {
 }
 
 function dropOnSlot(event, ui) {
+    ui.draggable.draggable("option", "revert", false);
     $(this).removeClass('active-drop');
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
@@ -540,8 +546,11 @@ function dropOnSlot(event, ui) {
         override_button.click(function () {
             addCourse(code, title, session, position);
             let warning = new Warning("CourseForceAdded", code, [function () {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(event.target).offset().top - $(window).height() * 3 / 10
+                }, 500);
                 $(event.target).animate({boxShadow: '0 0 25px #007bff'});
-                $(event.target).animate({boxShadow: ''});
+                $(event.target).animate({boxShadow: '0 0 0px #007bff'});
             }]);
             PLAN.warnings.push(warning);
             updateWarningNotices();
@@ -696,7 +705,7 @@ function coursePopoverSetup(i, item) {
                 const code = $(entry).find('.course-code').text();
                 const year = $(entry).find('.course-year').text();
                 makeCourseDraggable($(entry), code, year);
-            };
+            }
         }
     })
 }
@@ -828,6 +837,7 @@ function makeCourseDraggable(item, code, year) {
             });
             removeSessionHighlights();
             clearElectiveHighlights();
+            item.draggable("option", "revert", true);
         }
     });
 }
@@ -1009,8 +1019,8 @@ function setupDegreeRequirements(degree) {
         }
         if (type === "x_from_here") {
             for (let section of required[type]) {
-                let title = 'Choose at least ' + section['num'] + ' units' +
-                    '<span class="unit-count mr-2">0/' + section['num'] + '</span>\n';
+                let title = 'Choose at least ' + (section.num || section.units) + ' units' +
+                    '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
                 if (typeof(section['courses']) === "string") {
                     const name = section['courses'];
                     let placeholder = $('<div/>');
@@ -1047,8 +1057,8 @@ function setupDegreeRequirements(degree) {
         }
         if (type === "x_from_category") {
             for (let section of required[type]) {
-                let title = 'Choose at least ' + section['num'] + ' units' +
-                    '<span class="unit-count mr-2">0/' + section['num'] + '</span>\n';
+                let title = 'Choose at least ' + (section.num || section.units) + ' units' +
+                    '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
                 let card = createCourseCategorySection(type, title, section['code'], section.level);
                 reqs_list.append(card);
                 section_count++;
@@ -1187,7 +1197,7 @@ async function updateDegreeTrackers() {
 }
 
 function updateUnitCount(counter, value) {
-    counter.text(value + '/' + counter.text().split(/[\/ ]/)[1]); // Regex that selects either forward slash or space.
+    counter.text(value + '/' + counter.text().split('/')[1]);
 }
 
 function setChecked(node, checked, useCrosses) {
