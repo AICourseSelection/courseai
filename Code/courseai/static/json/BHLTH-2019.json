@@ -4,7 +4,7 @@
   "year": 2019,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
         "level": "1000",
@@ -45,6 +45,27 @@
       },
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIAN3125",
+          "BIOL3006",
+          "BIOL3108",
+          "BIOL3141",
+          "BIOL3142",
+          "BIOL3144",
+          "BIOL3186",
+          "BIOL3193",
+          "BIOL3204",
+          "BIOL3205",
+          "ECON3004",
+          "NEUR3101",
+          "NEUR3112",
+          "PSYC3020",
+          "SCOM3027"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "BIOL2142",
@@ -79,27 +100,6 @@
           "SCOM1002",
           "SCOM2031",
           "SOCY2162"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIAN3125",
-          "BIOL3006",
-          "BIOL3108",
-          "BIOL3141",
-          "BIOL3142",
-          "BIOL3144",
-          "BIOL3186",
-          "BIOL3193",
-          "BIOL3204",
-          "BIOL3205",
-          "ECON3004",
-          "NEUR3101",
-          "NEUR3112",
-          "PSYC3020",
-          "SCOM3027"
         ]
       }
     ]

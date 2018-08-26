@@ -9,8 +9,28 @@
         "type": "minimum",
         "units": 12,
         "courses": [
-          "ENVS6202",
-          "ENVS6514"
+          "ENVS6026",
+          "ENVS6528"
+        ]
+      },
+      {
+        "type": "maximum",
+        "units": 6,
+        "courses": [
+          "BIOL6003",
+          "ENVS6014",
+          "ENVS6015",
+          "ENVS6022",
+          "ENVS6025",
+          "ENVS6103",
+          "ENVS6204",
+          "ENVS6218",
+          "ENVS6223",
+          "ENVS6304",
+          "ENVS6311",
+          "ENVS6315",
+          "ENVS8015",
+          "ENVS8048"
         ]
       },
       {
@@ -47,31 +67,11 @@
         ]
       },
       {
-        "type": "maximum",
-        "units": 6,
-        "courses": [
-          "BIOL6003",
-          "ENVS6014",
-          "ENVS6015",
-          "ENVS6022",
-          "ENVS6025",
-          "ENVS6103",
-          "ENVS6204",
-          "ENVS6218",
-          "ENVS6223",
-          "ENVS6304",
-          "ENVS6311",
-          "ENVS6315",
-          "ENVS8015",
-          "ENVS8048"
-        ]
-      },
-      {
         "type": "minimum",
         "units": 12,
         "courses": [
-          "ENVS6026",
-          "ENVS6528"
+          "ENVS6202",
+          "ENVS6514"
         ]
       }
     ]

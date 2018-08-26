@@ -4,7 +4,7 @@
   "year": 2018,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
         "level": "1000",
@@ -45,16 +45,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIOL2142",
-          "BIOL2161",
-          "BIOL2174",
-          "PHYS1004"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 18,
         "courses": [
           "ANTH1002",
@@ -79,6 +69,16 @@
           "SCOM1002",
           "SCOM2031",
           "SOCY2162"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIOL2142",
+          "BIOL2161",
+          "BIOL2174",
+          "PHYS1004"
         ]
       },
       {

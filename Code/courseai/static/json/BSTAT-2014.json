@@ -4,7 +4,7 @@
   "year": 2014,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
         "level": "1000",
@@ -34,16 +34,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "MATH1014",
+          "MATH1116"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH1014",
-          "MATH1116"
+          "STAT1003",
+          "STAT1008"
         ]
       }
     ]
