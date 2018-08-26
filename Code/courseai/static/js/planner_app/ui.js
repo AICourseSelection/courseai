@@ -359,15 +359,15 @@ function clickCell() {
 
 function highlightElectives() {
     for (let cell of $('#plan-grid').find('.plan-cell')) {
-        if ($(cell).find('.course-code').text() === ELECTIVE_TEXT) {
-            $(cell).animate({'background-color': '#cde6d3'}, 200);
+        if ($(cell).find('.course-code').text() === ELECTIVE_TEXT && $(cell).not("invalid-cell")) {
+            $(cell).addClass("highlight-elective");
         }
     }
 }
 
 function clearElectiveHighlights() {
     for (let cell of $('#plan-grid').find('.plan-cell')) {
-        $(cell).animate({'background-color': '#'}, 200);
+        $(cell).removeClass("highlight-elective");
     }
 }
 
@@ -842,6 +842,19 @@ function makeCourseDraggable(item, code, year) {
     });
 }
 
+function addRowCellsClass(row, css_class_name) {
+  for (var cell in row.slice(1)) {
+    $(cell).addClass(css_class_name);
+  }
+}
+
+function removeRowCellsClass(row, css_class_name) {
+  for (var cell in row.slice(1)) {
+    $(cell).removeClass(css_class_name);
+  }
+
+}
+
 async function highlightInvalidSessions(offering) {
     offering = await offering;
     let invalid_sessions = {};
@@ -859,22 +872,25 @@ async function highlightInvalidSessions(offering) {
         const first_cell = $(row.children[0]);
         const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
         if (!(session in invalid_sessions)) continue;
+
         const reason = invalid_sessions[session];
         $(row).addClass('unavailable', {duration: 500});
         first_cell.addClass('d-flex');
         first_cell.children().css({'display': 'none'});
         first_cell.append('<div class="h6 mx-auto my-auto">' + reason + '</div>');
+        addRowCellsClass(row, "invalid-cell");
     }
 }
 
 function removeSessionHighlights() {
     for (let row of $('#plan-grid').find('.plan-row')) {
-        if (!$(row).hasClass('unavailable')) continue;
+        if ($(row).not('unavailable')) continue;
         const first_cell = $(row.children[0]);
         $(row).removeClass('unavailable', {duration: 500});
         first_cell.removeClass('d-flex');
         first_cell.children().css({'display': 'block'});
         while (first_cell.children().length > 2) first_cell.children().last().remove();
+        removeRowCellsClass(row, "invalid-cell");
     }
 }
 
