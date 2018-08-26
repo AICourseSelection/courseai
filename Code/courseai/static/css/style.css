@@ -1,6 +1,10 @@
 body {
     font-family: "Gill Sans MT", sans-serif;
-    min-width: 300px;
+    height: 100%;
+}
+
+body, wrapper {
+    min-height: 100vh;
 }
 
 .planner-container {
@@ -10,15 +14,12 @@ body {
 
 .container {
     margin-top: 50px;
+    flex: 1;
 }
 
-.footer {
-    position: fixed;
-    background-color: white;
-    bottom: 0;
-    width: 100%;
+footer {
+    padding-top: 4px;
     text-align: center;
-    padding-bottom: 1.5rem;
 }
 
 #planform, #planform input, #planform .btn-group .btn{
@@ -85,7 +86,7 @@ body {
     color: #0060cb
 }
 
-#confirm-reset-button {
+#confirm-reset-button {F
     margin-right: auto;
 }
 
@@ -139,8 +140,9 @@ body {
     box-shadow: 0 0 0 #007bff; /* Need this to allow glow animation to work on first click */
 }
 
+/* TODO: create more specific rules */
 .plan-cell:hover {
-    background-color: #e4ecf4;
+    background-color: #faf2a8;
 }
 
 .plan-cell:active {
@@ -662,6 +664,24 @@ body {
 .msg_footer {
     background: #f9f9f9;
     border: 1px solid #b9b9b9;
-
 }
 
+
+/* ---- Color-coding for different cells in the planner ---- */
+.compulsory {
+    background-color: #a4ff8f;
+}
+
+.elective {
+    background-color: #ADFEFF;
+}
+
+/* ---- End of color-coding section ---- */
+
+* .dropdown-menu-right {
+    width: 300px;
+}
+
+.elective-highlight {
+    background-color: #29D8FC;
+}

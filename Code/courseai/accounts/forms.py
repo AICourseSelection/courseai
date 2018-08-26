@@ -34,13 +34,15 @@ class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     username = forms.EmailField(label="Email address")  # override default email
     username2 = forms.EmailField(label="Confirm email")
+    password2 = forms.CharField(widget=forms.PasswordInput)
 
     class Meta():    # information about class
         model = User
         fields = [    # order matters
             'username',
             'username2',
-            'password'
+            'password',
+            'password2'
         ]
 
     def clean_username2(self):    # method name needs to contain field name
@@ -54,3 +56,12 @@ class UserRegisterForm(forms.ModelForm):
         if email_db.exists():
             raise forms.ValidationError("This email has already been registered")
         return username
+
+    def clean_password2(self):
+        password = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("password2")
+        if password != password2:
+            self.add_error('password2', "Password does not match")
+        if len(password) < 6:
+            raise forms.ValidationError('The password must contain at least six characters.')
+        return password
