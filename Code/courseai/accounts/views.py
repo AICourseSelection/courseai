@@ -73,29 +73,43 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
 
-@csrf_protect
+# @csrf_protect
 def code_view(request):
-    if request.method == "PUT" or request.method == "DELETE":
+    if request.method == "PUT" or request.method == "DELETE" or request.method == "GET":
         data = request.body.decode('utf-8')
         proc = QueryDict(data)
         email = proc['email']
         code = proc['code']
 
         a = User.objects.get(username=email)
+        store_code = a.profile.degree_plan_code
+        res_success = JsonResponse({"response": "success"})
+        res_error = JsonResponse({"response": "error"})
 
         if request.method == "PUT":
-            a.profile.degree_plan_code += "," + code
+            i = 0
+            while i < len(store_code) - 5:
+                if store_code[i: i + 10] == code:
+                    return HttpResponse(res_success)
+                i += 11
+            store_code += "," + code
             a.profile.save()
-            res = JsonResponse({"response": "success"})
-            return HttpResponse(res)
-        else:
+            return HttpResponse(res_success)
+        elif request.method == "DELETE":
             i = 0
             while i < len(store_code)-5:
                 if store_code[i: i + 10] == code:
-                    a.profile.degree_plan_code.strip(store_code[i:i + 10])
+                    store_code.strip(store_code[i:i + 10])
                     a.profile.save()
-                    res = JsonResponse({"response": "success"})
-                    return HttpResponse(res)
+                    return HttpResponse(res_success)
                 i += 11
-    res = JsonResponse({"response": "error"})
-    return HttpResponse(res)
+            return HttpResponse(res_success)
+        elif request.method == "GET":
+            return (store_code)
+    return HttpResponse(res_error)
+
+
+# def password_reset__request(request):
+# def password_reset_confirm(request):
+# def password_reset_complete(request):
+# def password_reset_done(request):
