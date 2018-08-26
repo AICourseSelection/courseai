@@ -63,5 +63,5 @@ class UserRegisterForm(forms.ModelForm):
         if password != password2:
             self.add_error('password2', "Password does not match")
         if len(password) < 6:
-            raise forms.ValidationError('The password must contain at least six characters ')
+            raise forms.ValidationError('The password must contain at least six characters.')
         return password

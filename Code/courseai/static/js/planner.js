@@ -10,17 +10,11 @@ let courses_force_added = {};
 const title_text = degree_name + " starting " + start_year + " Semester " + start_sem;
 $('#degree-title-text').text(title_text);
 let title_box = $('#degree-title');
-let rc_button = $('#rc-button');
-title_box.hover(function () {
-    rc_button.fadeIn(150);
-}, function () {
-    rc_button.fadeOut(150);
-});
 
-rc_button.click(function () {
+// TODO: id='rc-button' seems to cause the btn to hidden
+$('#rc-button').click(function () {
     $('#rc-modal').modal();
 });
-
 
 $('#upload-button').click(function () {
     $('#upload-modal').modal();
@@ -136,7 +130,6 @@ $.ajax({
                     const course_list = course_dict[i][session];
                     for (let course of course_list) {
                         degree_plan[session].push(course);
-                        let cell = $('<div class="plan-cell result-course" tabindex="' + tab_index_count + '"/>');
                         tab_index_count++;
                         let title_node = $('<span class="course-title"/>');
                         if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
@@ -145,11 +138,16 @@ $.ajax({
                             if (!(course.code in titles_to_retrieve)) titles_to_retrieve[course.code] = [];
                             titles_to_retrieve[course.code].push(title_node);
                         }
+                        // TODO: Color code the courses
+                        let cell = $('<div class="plan-cell compulsory result-course" tabindex="' + tab_index_count + '"/>');
+                        if (course['code'] === ELECTIVE_TEXT) {
+                          cell.addClass('elective');
+                          makeSlotDroppable(cell);
+                        }
                         cell.append('<div class="course-code">' + course['code'] + '</div>');
                         cell.append(title_node);
                         cell.click(clickCell);
                         cell.each(coursePopoverSetup);
-                        if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
                         row.append(cell);
                     }
                     row.sortable({
@@ -671,7 +669,6 @@ function makeSlotDroppable(item) {
     item.droppable({
         accept: '.draggable-course',
         drop: function (event, ui) {
-            item.removeClass('active-drop');
             const row = event.target.parentElement;
             const first_cell = $(row.firstElementChild);
             const code = ui.draggable.find('.course-code').text();
@@ -702,14 +699,9 @@ function makeSlotDroppable(item) {
                 modal.modal();
                 return
             }
+            item.droppable('destroy'); 
             addCourse(code, title, session, position);
         },
-        over: function (event, ui) {
-            item.addClass('active-drop');
-        },
-        out: function (event, ui) {
-            item.removeClass('active-drop');
-        }
     });
 }
 
@@ -870,6 +862,7 @@ const mms_units = {
 };
 let course_titles = {};
 
+// TODO: add color coding for special cards
 function mms_add(code) {
     active_mms[code] = {};
     const mms_data = mms_info[code];
@@ -1161,7 +1154,6 @@ function addCourse(code, title, session, position, update_recommendations = true
         return (first_cell.find('.row-year').text() == year && first_cell.find('.row-sem').text() == sem);
     });
     const box = $(row.children()[position + 1]);
-    box.droppable('destroy');
     box.find('.course-code').text(code);
     box.find('.course-title').text(title);
     box.each(coursePopoverSetup);
@@ -1196,15 +1188,14 @@ $('#mms-active-list').sortable();
 function highlightElectives() {
     for (let cell of $('#plan-grid').find('.plan-cell')) {
         if ($(cell).find('.course-code').text() === ELECTIVE_TEXT) {
-            $(cell).animate({'background-color': '#cde6d3'}, 200);
+          $(cell).addClass('elective-highlight', 500);
         }
     }
 }
 
 function clearElectiveHighlights() {
     for (let cell of $('#plan-grid').find('.plan-cell')) {
-        $(cell).animate({'background-color': '#'}, 200);
-
+      $(cell).removeClass('elective-highlight');
     }
 }
 
