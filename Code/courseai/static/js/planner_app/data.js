@@ -152,15 +152,23 @@ async function batchMMSData(mms_actions) {
 async function getDegreeOffering(code, year) {
     if (!(code in KNOWN_DEGREES)) KNOWN_DEGREES[code] = {};
     if (!(year in KNOWN_DEGREES[code])) {
-        await $.ajax({
-            url: 'degree/degreereqs',
-            data: {'query': code},
-            success: function (data) {
-                if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
-                KNOWN_DEGREES[code][year] = new Degree(code, year, data.name, data.units, data.required);
-                //TODO: Support for Optional Rule Sections
-            }
-        });
+        try {
+            await $.ajax({
+                url: 'degree/degreereqs',
+                data: {'query': code + '-' + year},
+                success: function (data) {
+                    if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
+                    KNOWN_DEGREES[code][year] = new Degree(code, year, data.name, data.units, data.required);
+                    //TODO: Support for Optional Rule Sections
+                },
+                error: function () {
+                    KNOWN_DEGREES[code][year] = new Degree(code, year, degree_name, 144, {});
+                    console.log('Failed to retrieve degree program requirements for ' + code + '-' + year);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
         await $.ajax({
             url: 'degree/degreeplan',
             data: {

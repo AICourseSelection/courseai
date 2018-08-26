@@ -64,7 +64,7 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                     let section_sat = true;
                     if (type === "compulsory_courses") section_sat = matches.length === section.length;
                     if (type === "one_from_here") section_sat = matches.length >= 1;
-                    if (type === "x_from_here") section_sat = section_units >= section.num;
+                    if (type === "x_from_here") section_sat = section_units >= (section.num || section.units);
                     overall_sat = overall_sat && section_sat;
                     rule_details.push({'type': type, 'sat': section_sat, 'units': section_units, 'codes': section_codes});
                 }
