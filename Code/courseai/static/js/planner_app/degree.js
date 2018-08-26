@@ -11,10 +11,11 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
     this.code = code;
     this.year = year;
     this.title = title;
+    this.units = units;
     this.rules = rules;
     this.suggestedPlan = suggestedPlan;
 
-    this.units = units;
+    this.identifier = code + '-' + year;
 
     this.incorporateCourseLists = async function () {
         for (const type in this.rules) {
