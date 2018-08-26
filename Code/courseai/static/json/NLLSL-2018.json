@@ -30,12 +30,15 @@
           "LAWS8328",
           "LAWS8566"
         ]
+<<<<<<< HEAD
       },
       {
         "type": "maximum",
         "level": 8000,
         "area": "LAWS",
         "units": 12
+=======
+>>>>>>> c2ac1c1fa5b92fc5bc510c097808d4a7810a0e46
       }
     ]
   }
