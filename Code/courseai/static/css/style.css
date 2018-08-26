@@ -1,10 +1,7 @@
 body {
     font-family: "Gill Sans MT", sans-serif;
-    height: 100%;
-}
-
-body, wrapper {
-    min-height: 100vh;
+    min-width: 300px;
+    min-height:200px;3
 }
 
 .planner-container {
@@ -14,12 +11,13 @@ body, wrapper {
 
 .container {
     margin-top: 50px;
-    flex: 1;
 }
 
-footer {
-    padding-top: 4px;
+.footer {
+    color: gray;
+    width: 100%;
     text-align: center;
+    background: #444
 }
 
 #planform, #planform input, #planform .btn-group .btn{
@@ -82,11 +80,7 @@ footer {
     width: 100%;
 }
 
-#degree-title-text a, #degree-title-text a:visited {
-    color: #0060cb
-}
-
-#confirm-reset-button {F
+#confirm-reset-button {
     margin-right: auto;
 }
 
@@ -137,12 +131,11 @@ footer {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     background-color: white;
-    box-shadow: 0 0 0 #007bff; /* Need this to allow glow animation to work on first click */
 }
 
 /* TODO: create more specific rules */
 .plan-cell:hover {
-    background-color: #faf2a8;
+    background-color: #e4ecf4;
 }
 
 .plan-cell:active {
@@ -179,15 +172,7 @@ footer {
     word-wrap: break-word;
 }
 
-.course-year {
-    display: none;
-}
-
 .mms-code {
-    display: none;
-}
-
-.mms-year {
     display: none;
 }
 
@@ -534,25 +519,14 @@ footer {
     padding: 5px 0;
 }
 
-.msg_head {
-    background: #3498db;
+.chat_head, .msg_head {
+    background: #f39c12;
     color: white;
     padding: .35rem .7rem;
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px 5px 0 0;
     text-shadow: 0 -1px 0 #6f6f6f;
-}
-
-.msg_head .arrow:before {
-    font-family: 'Font Awesome\ 5 Free';
-    float: right;
-    content: "\f078";
-    text-shadow: 0 -1px 0 #6f6f6f;
-}
-
-.msg_head.chatbox-collapsed .arrow:before {
-    content: "\f077";
 }
 
 .msg_box {
@@ -564,6 +538,10 @@ footer {
     /*border: 1px solid #b9b9b9;*/
     border-radius: 5px 5px 0 0;
     z-index: 100;
+}
+
+.msg_head {
+    background: #3498db;
 }
 
 .msg_body {
@@ -623,7 +601,6 @@ footer {
     margin-right: 10px;
     border-radius: 5px;
     box-shadow: 1px 1px 2px #00000045;
-    word-wrap: break-word;
 }
 
 .msg_a:before {
@@ -667,22 +644,26 @@ footer {
     border: 1px solid #b9b9b9;
 }
 
-
-/* ---- Color-coding for different cells in the planner ---- */
 .compulsory {
     background-color: #a4ff8f;
 }
-
-.elective {
-    background-color: #ADFEFF;
-}
-
-/* ---- End of color-coding section ---- */
 
 * .dropdown-menu-right {
     width: 300px;
 }
 
-.elective-highlight {
-    background-color: #29D8FC;
+/* CARD PLANNER COLORS */
+.highlight-elective {
+    background-color: #cfffce;
+    border-color: #37e131;
+    animation: fade 2s linear;
+}
+
+@keyframes fade {
+    0%,100% { opacity: 1 }
+    50% { opacity: 0.25 }
+}
+
+.invalid-cell {
+    background-color: #ff8f8f;
 }
