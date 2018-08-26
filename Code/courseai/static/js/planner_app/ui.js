@@ -18,13 +18,13 @@ const ELECTIVE_TEXT = "Elective Course";
 async function addDegree(code, year) {
     let add = await PLAN.addDegree(code, year);
     if (!add) console.log("Tried to add degree " + code + " (" + year + "), already present.");
-    let titleHTML = " starting " + year + " Semester " + start_sem;
-    titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + year +
-        '/program/' + code + '" target="_blank">' + PLAN.degrees[0].title + '</a>' + titleHTML;
+    let titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + PLAN.degrees[0].year +
+        '/program/' + PLAN.degrees[0].code + '" target="_blank">' + PLAN.degrees[0].title + '</a>';
     if (PLAN.degrees[1]) {
-        titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + PLAN.degrees[1].year +
-            '/program/' + PLAN.degrees[1].code + '" target="_blank">' + PLAN.degrees[1].title + '</a>' + titleHTML;
+        titleHTML += ' and <a href="https://programsandcourses.anu.edu.au/' + PLAN.degrees[1].year +
+            '/program/' + PLAN.degrees[1].code + '" target="_blank">' + PLAN.degrees[1].title + '</a>';
     }
+    titleHTML += " starting " + year + " Semester " + start_sem;
     $('#degree-title-text').html(titleHTML);
     return add;
 }
