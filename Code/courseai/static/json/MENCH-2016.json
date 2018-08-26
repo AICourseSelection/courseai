@@ -13,8 +13,9 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "POGO8212",
-          "LAWS8189"
+          "EMDV8080",
+          "EMDV8081",
+          "IDEC8089"
         ]
       },
       {
@@ -29,9 +30,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMDV8080",
-          "EMDV8081",
-          "IDEC8089"
+          "POGO8212",
+          "LAWS8189"
         ]
       },
       {

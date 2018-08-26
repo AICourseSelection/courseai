@@ -4,7 +4,7 @@
   "year": 2018,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
         "level": "1000",
@@ -21,16 +21,24 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH2301",
-          "MATH3511"
+          "COMP1040",
+          "COMP1100"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1040",
-          "COMP1100"
+          "STAT1003",
+          "STAT1008"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH2301",
+          "MATH3511"
         ]
       },
       {
@@ -41,14 +49,6 @@
           "MATH1014",
           "MATH1115",
           "MATH1116"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "STAT1003",
-          "STAT1008"
         ]
       }
     ]

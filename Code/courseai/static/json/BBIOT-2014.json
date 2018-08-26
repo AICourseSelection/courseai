@@ -4,7 +4,7 @@
   "year": 2014,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
         "level": "1000",
@@ -25,7 +25,7 @@
       "BIOL3191",
       "LAWS3104"
     ],
-    "x_from_here": [
+    "x_from_category": [
       {
         "type": "minimum",
         "level": 3000,

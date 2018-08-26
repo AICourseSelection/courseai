@@ -29,6 +29,14 @@
       },
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIOL6174",
+          "PSYC6010"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "BIOL8291",
@@ -36,14 +44,6 @@
           "NEUR8701",
           "NEUR8704",
           "NEUR8010"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIOL6174",
-          "PSYC6010"
         ]
       }
     ]

@@ -7,6 +7,14 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL8700",
+          "BIOL8706"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 36,
         "courses": [
           "EMSC6014",
@@ -25,22 +33,6 @@
           "EMSC8018",
           "EMSC8706",
           "EMSC8707"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL8700",
-          "BIOL8706"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS8015",
-          "ENVS8048"
         ]
       },
       {
@@ -66,6 +58,14 @@
           "BIOL6206",
           "BIOL6631",
           "BIOL8021"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS8015",
+          "ENVS8048"
         ]
       },
       {

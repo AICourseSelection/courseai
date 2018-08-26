@@ -4,6 +4,13 @@
   "year": 2019,
   "units": 192,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "LAWS1201",
       "LAWS1202",
@@ -21,23 +28,12 @@
       "LAWS2249",
       "LAWS2250"
     ],
-    "min_max_by_level": [
+    "x_from_category": [
       {
         "type": "minimum",
         "level": 4000,
         "area": "LAWS",
         "units": 48
-      },
-      {
-        "type": "maximum",
-        "level": "1000",
-        "units": 60
-      },
-      {
-        "type": "minimum",
-        "level": "2000, 3000, 4000",
-        "area": "LAWS",
-        "units": 6
       }
     ]
   }

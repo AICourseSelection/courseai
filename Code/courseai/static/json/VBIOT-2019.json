@@ -11,6 +11,15 @@
     ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL8291",
+          "BIOL8700",
+          "BIOL8704"
+        ]
+      },
+      {
         "type": "maximum",
         "units": 18,
         "courses": [
@@ -35,15 +44,6 @@
           "MATH6100",
           "MATH6208",
           "VCPG6001"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL8291",
-          "BIOL8700",
-          "BIOL8704"
         ]
       }
     ]

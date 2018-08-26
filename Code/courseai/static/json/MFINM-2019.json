@@ -9,16 +9,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON8069",
-          "STAT6046"
+          "STAT6038",
+          "STAT7001"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT6038",
-          "STAT7001"
+          "ECON8069",
+          "STAT6046"
         ]
       }
     ]

@@ -4,7 +4,7 @@
   "year": 2016,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
         "level": "1000",
@@ -26,8 +26,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON2101",
-          "ECON2111"
+          "ECON1100",
+          "ECON1102"
         ]
       },
       {
@@ -43,8 +43,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "ECON2101",
+          "ECON2111"
         ]
       }
     ]

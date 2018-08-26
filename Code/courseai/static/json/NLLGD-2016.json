@@ -28,7 +28,9 @@
           "LAWS8594",
           "LAWS8301"
         ]
-      },
+      }
+    ],
+    "x_from_category": [
       {
         "type": "maximum",
         "level": 8000,

@@ -4,7 +4,7 @@
   "year": 2019,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
         "level": "1000",
@@ -25,6 +25,15 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL2171",
+          "BIOL2142",
+          "CHEM2208"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "BIAN3014",
@@ -34,15 +43,14 @@
           "STAT1003",
           "STAT1008"
         ]
-      },
+      }
+    ],
+    "x_from_category": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL2171",
-          "BIOL2142",
-          "CHEM2208"
-        ]
+        "level": 3000,
+        "area": "BIOL",
+        "units": 6
       }
     ]
   }

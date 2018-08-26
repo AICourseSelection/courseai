@@ -1,0 +1,23 @@
+{
+  "name": "Bachelor of International Relations",
+  "code": "BIR",
+  "year": 2017,
+  "units": 144,
+  "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
+    "compulsory_courses": [
+      "POLS1005",
+      "POLS1006",
+      "POLS2094",
+      "POLS2133",
+      "POLS3001",
+      "POLS3017"
+    ]
+  }
+}
