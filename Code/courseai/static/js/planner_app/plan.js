@@ -75,6 +75,10 @@ function Plan() {
         for (const deg of this.degrees) if (deg.code === code) return;
         let degree = await getDegreeOffering(code, year);
         this.degrees.push(degree);
+        if (this.degrees.length === 1) return degree;
+        for (const deg of this.degrees) {
+            deg.units -= 48; // Remove elective unit requirement
+        }
         return degree;
     };
 
@@ -93,6 +97,7 @@ function Plan() {
         for (let i = 0; i < degrees.size; i++) {
             if (this.degrees[i].code === degreeCode) {
                 this.degrees.splice(i, 1);
+                this.degrees[0].units += 48; // Re-add elective unit requirement
                 return true;
             }
         }
@@ -109,7 +114,7 @@ function Plan() {
     this.addSession = function (session) {
         if (session in this.sessions) return false;
         for (let i = 0; i < this.sessions.length; i++) {
-            if (sessionIsAfter(session, this.sessions[i])) {
+            if (!sessionIsAfter(session, this.sessions[i])) {
                 this.sessions.splice(i, 0, session);
                 this.courses[session] = [];
                 return true;

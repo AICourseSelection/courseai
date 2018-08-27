@@ -190,7 +190,11 @@ async function getDegreeOffering(code, year) {
                 'start_year_sem': year + "S1"
             },
             success: function (data) {
-                KNOWN_DEGREES[code][year].suggestedPlan = data.response;
+                const suggestedPlan = {};
+                for (const item of data.response) {
+                    for (const session in item) suggestedPlan[session] = item[session];
+                }
+                KNOWN_DEGREES[code][year].suggestedPlan = suggestedPlan;
             }
         })
     }

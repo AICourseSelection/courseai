@@ -234,14 +234,20 @@ function closePopover(button) {
 let PLAN = new Plan();
 let SEARCH = new Search(PLAN);
 let starting_degree = addDegree(degree_code, start_year);
-$.when(starting_degree.then(function (degree) {
-    setupDegreeRequirements($('#degree-reqs-list').find('.degree-body'), degree);
-    let total_units = PLAN.degrees.reduce((x, y) => (x.units - 48) + (y.units - 48));
+$.when(starting_degree.then(async function (degree) {
+    const singleReqsList = $('#degree-reqs-list');
+    singleReqsList.hide();
+    setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
+
+    if (degree_code2) await addDegree(degree_code2, start_year);
+    else singleReqsList.show();
+
+    let total_units = PLAN.degrees[0].units;
+    if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
     for (let i = 0; i <= total_units / 24; i++) {
-        PLAN.addSession(nextSession(start_year + 'S' + start_sem, i));
+        PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
     }
     loadDefaultPlan();
-    if (degree_code2) addDegree(degree_code2, start_year);
 }));
 
 let rc_button = $('#rc-button');
@@ -296,6 +302,10 @@ $('.collapse').on('hide.bs.collapse', function () {
 });
 
 $('#degree-selector').find('a').click(cycleDegrees);
+
+$('#degree-tabs-content').find('.degree-body').sortable();
+
+$('#degree-reqs-list').find('.degree-body').sortable();
 
 $('.collapse-all').click(function () {
     if (this.textContent === "Collapse all") {
@@ -602,7 +612,8 @@ function reorganiseDegreeTracker(double) {
         reqSingle.hide();
         reqs.show();
         reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
-        $(tabsContent.children()[0]).find('.degree-header .unit-count').text(reqSingle.find('.degree-header .unit-count').text());
+        const headerUnitCount = $(tabsContent.children()[0]).find('.degree-header .unit-count');
+        headerUnitCount.text( headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
         setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
         const tabs = $('#degree-tabs');
         for (const i in PLAN.degrees) {
@@ -631,87 +642,166 @@ function loadDefaultPlan() {
     let titles_fill_nodes = {};
     let grid = $('#plan-grid');
     let async_operations = [];
-    for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDD Plans
-        for (const session in plan_section) {
-            if (!(PLAN.sessions.includes(session))) PLAN.addSession(session);
-            if (!plan_section.hasOwnProperty(session)) continue;
-            const year = session.slice(0, 4);
-            const ses = session.slice(4);
-            let first_cell = '<div class="first-cell">' +
-                '<div class="row-year h4">' + year + '</div>' +
-                '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
-                '</div>';
-            let row = $('<div class="plan-row"/>');
-            if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
-            row.append(first_cell);
+    const suggestedPlan = PLAN.degrees[0].suggestedPlan;
+    for (const session of PLAN.sessions) {
+        const year = session.slice(0, 4);
+        const ses = session.slice(4);
+        let row = $('<div class="plan-row"/>');
+        if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
+        let first_cell = '<div class="first-cell">' +
+            '<div class="row-year h4">' + year + '</div>' +
+            '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
+            '</div>';
+        row.append(first_cell);
 
-            let course_list = plan_section[session];
-            for (const course of course_list) {
-                let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
-                let title_node = $('<span class="course-title"/>');
-                if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
-                    title_node.text(course['title']);
-                } else if (course.code !== ELECTIVE_TEXT) {
-                    async_operations.push(PLAN.addCourse(session, course.code));
-                    if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                    titles_fill_nodes[course.code].push(function (title) {
-                        title_node.text(title);
-                    });
-                }
-                cell.append('<div class="course-code">' + course['code'] + '</div>');
-                cell.append('<div class="course-year">' + year + '</div>');
-                cell.append(title_node);
-                cell.click(clickCell);
-                cell.each(coursePopoverSetup);
-                if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
-                row.append(cell);
+        let course_list = suggestedPlan[session] || [{"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}];
+        for (const course of course_list) {
+            let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
+            let title_node = $('<span class="course-title"/>');
+            if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
+                title_node.text(course['title']);
+            } else if (course.code !== ELECTIVE_TEXT) {
+                async_operations.push(PLAN.addCourse(session, course.code));
+                if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
+                titles_fill_nodes[course.code].push(function (title) {
+                    title_node.text(title);
+                });
             }
+            cell.append('<div class="course-code">' + course['code'] + '</div>');
+            cell.append('<div class="course-year">' + year + '</div>');
+            cell.append(title_node);
+            cell.click(clickCell);
+            cell.each(coursePopoverSetup);
+            if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
+            row.append(cell);
+        }
 
-            row.sortable({
-                items: "> .plan-cell",
-                start: function (event, ui) {
-                    if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
-                    const first_cell = $(event.target).find('.first-cell');
-                    first_cell.children().css({'display': 'none'});
-                    first_cell.addClass('delete').addClass('alert-danger');
-                    first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
-                        '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
-                        '    <div class="mt-2">Remove</div>\n' +
-                        '</div>');
-                    first_cell.droppable({
-                        accept: '.plan-cell',
-                        drop: function (event, ui) {
-                            const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
-                            const position = ui.draggable.index();
-                            removeCourse(session, position);
-                            first_cell.droppable('destroy');
-                            first_cell.children().last().remove();
-                            first_cell.removeClass('delete').removeClass('alert-danger');
-                            first_cell.children().css({'display': 'block'});
-                        }
-                    })
-                },
-                stop: function (event, ui) {
-                    const first_cell = $(event.target).find('.first-cell');
-                    if (first_cell.hasClass('delete')) {
+        row.sortable({
+            items: "> .plan-cell",
+            start: function (event, ui) {
+                if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
+                const first_cell = $(event.target).find('.first-cell');
+                first_cell.children().css({'display': 'none'});
+                first_cell.addClass('delete').addClass('alert-danger');
+                first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
+                    '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
+                    '    <div class="mt-2">Remove</div>\n' +
+                    '</div>');
+                first_cell.droppable({
+                    accept: '.plan-cell',
+                    drop: function (event, ui) {
+                        const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
+                        const position = ui.draggable.index();
+                        removeCourse(session, position);
                         first_cell.droppable('destroy');
                         first_cell.children().last().remove();
                         first_cell.removeClass('delete').removeClass('alert-danger');
                         first_cell.children().css({'display': 'block'});
                     }
-
-                    // const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
-                    // for (let i in PLAN.sessions) {
-                    //     let course_slot = degree_plan[session][i];
-                    //     let cell = $(event.target.children[parseInt(i) + 1]);
-                    //     course_slot['code'] = cell.find('.course-code').text();
-                    //     course_slot['title'] = cell.find('.course-title').text();
-                    // }
+                })
+            },
+            stop: function (event, ui) {
+                const first_cell = $(event.target).find('.first-cell');
+                if (first_cell.hasClass('delete')) {
+                    first_cell.droppable('destroy');
+                    first_cell.children().last().remove();
+                    first_cell.removeClass('delete').removeClass('alert-danger');
+                    first_cell.children().css({'display': 'block'});
                 }
-            });
-            grid.append(row);
-        }
+
+                // const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
+                // for (let i in PLAN.sessions) {
+                //     let course_slot = degree_plan[session][i];
+                //     let cell = $(event.target.children[parseInt(i) + 1]);
+                //     course_slot['code'] = cell.find('.course-code').text();
+                //     course_slot['title'] = cell.find('.course-title').text();
+                // }
+            }
+        });
+        grid.append(row);
     }
+
+    // for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDD Plans
+    //     for (const session in plan_section) {
+    //         if (!(PLAN.sessions.includes(session))) PLAN.addSession(session);
+    //         if (!plan_section.hasOwnProperty(session)) continue;
+    //         const year = session.slice(0, 4);
+    //         const ses = session.slice(4);
+    //         let first_cell = '<div class="first-cell">' +
+    //             '<div class="row-year h4">' + year + '</div>' +
+    //             '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
+    //             '</div>';
+    //         let row = $('<div class="plan-row"/>');
+    //         if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
+    //         row.append(first_cell);
+    //
+    //         let course_list = plan_section[session];
+    //         for (const course of course_list) {
+    //             let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
+    //             let title_node = $('<span class="course-title"/>');
+    //             if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
+    //                 title_node.text(course['title']);
+    //             } else if (course.code !== ELECTIVE_TEXT) {
+    //                 async_operations.push(PLAN.addCourse(session, course.code));
+    //                 if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
+    //                 titles_fill_nodes[course.code].push(function (title) {
+    //                     title_node.text(title);
+    //                 });
+    //             }
+    //             cell.append('<div class="course-code">' + course['code'] + '</div>');
+    //             cell.append('<div class="course-year">' + year + '</div>');
+    //             cell.append(title_node);
+    //             cell.click(clickCell);
+    //             cell.each(coursePopoverSetup);
+    //             if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
+    //             row.append(cell);
+    //         }
+    //
+    //         row.sortable({
+    //             items: "> .plan-cell",
+    //             start: function (event, ui) {
+    //                 if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
+    //                 const first_cell = $(event.target).find('.first-cell');
+    //                 first_cell.children().css({'display': 'none'});
+    //                 first_cell.addClass('delete').addClass('alert-danger');
+    //                 first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
+    //                     '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
+    //                     '    <div class="mt-2">Remove</div>\n' +
+    //                     '</div>');
+    //                 first_cell.droppable({
+    //                     accept: '.plan-cell',
+    //                     drop: function (event, ui) {
+    //                         const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
+    //                         const position = ui.draggable.index();
+    //                         removeCourse(session, position);
+    //                         first_cell.droppable('destroy');
+    //                         first_cell.children().last().remove();
+    //                         first_cell.removeClass('delete').removeClass('alert-danger');
+    //                         first_cell.children().css({'display': 'block'});
+    //                     }
+    //                 })
+    //             },
+    //             stop: function (event, ui) {
+    //                 const first_cell = $(event.target).find('.first-cell');
+    //                 if (first_cell.hasClass('delete')) {
+    //                     first_cell.droppable('destroy');
+    //                     first_cell.children().last().remove();
+    //                     first_cell.removeClass('delete').removeClass('alert-danger');
+    //                     first_cell.children().css({'display': 'block'});
+    //                 }
+    //
+    //                 // const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
+    //                 // for (let i in PLAN.sessions) {
+    //                 //     let course_slot = degree_plan[session][i];
+    //                 //     let cell = $(event.target.children[parseInt(i) + 1]);
+    //                 //     course_slot['code'] = cell.find('.course-code').text();
+    //                 //     course_slot['title'] = cell.find('.course-title').text();
+    //                 // }
+    //             }
+    //         });
+    //         grid.append(row);
+    //     }
+    // }
     batchCourseTitles(titles_fill_nodes);
     $.when.apply($, async_operations).done(function () {
         updateProgress();
@@ -1104,7 +1194,7 @@ function setupDegreeRequirements(container, degree) {
             for (let section of required[type]) {
                 let title = 'Choose at least ' + (section.num || section.units) + ' units' +
                     '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
-                let card = createCourseCategorySection(type, title, section['code'], section.level);
+                let card = createCourseCategorySection(type, title, section['area'], section.level);
                 container.append(card);
                 section_count++;
             }
@@ -1157,7 +1247,7 @@ function setupDegreeRequirements(container, degree) {
                         '    At most ' + limit + ' units of ' + level + '-level courses\n' +
                         '</div>');
                     card.append('<span class="unit-count mr-1">0/' + limit + '</span>');
-                    reqs_list.append(card);
+                    container.append(card);
                     section_count++;
                 } // TODO: Handle minimum sections
             }
@@ -1192,6 +1282,7 @@ function updateMMSTrackers() {
 
 async function updateDegreeTrackers() {
     const trackers = $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')); // Order matters
+    let overall_sat = true;
     for (let i = 0; i < trackers.length; i++) {
         const reqList = $(trackers[i]);
         const identifier = reqList.find('.deg-identifier').text();
@@ -1243,8 +1334,9 @@ async function updateDegreeTrackers() {
             setPanelStatus(card, section_status);
         }
         updateUnitCount(reqList.find('.degree-header .unit-count'), results.units);
-        $('#degree-completed-notice').css({'display': results.sat ? 'block' : ''});
+        overall_sat = overall_sat && results.sat;
     }
+    $('#degree-completed-notice').css({'display': overall_sat ? 'block' : ''});
 }
 
 function updateUnitCount(counter, value) {
