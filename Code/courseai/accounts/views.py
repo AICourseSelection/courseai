@@ -1,4 +1,5 @@
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.decorators import login_required
 from django.http import QueryDict
 from django.shortcuts import render, redirect
 from django.db import models
@@ -75,7 +76,7 @@ def register_view(request):
 @csrf_exempt    # TODO: Add CSRF protection for logout? Necessary?
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect("{{index")
 
 # @csrf_protect
 def code_view(request):
@@ -112,6 +113,12 @@ def code_view(request):
             return (store_code)
     return HttpResponse(res_error)
 
+@login_required
+def get_user_profile(request):
+    user = None
+    if not request.user is None:
+        user = request.user
+    return render(request, 'dynamic_pages/user_profile.html', {'user': user})
 
 # def password_reset__request(request):
 # def password_reset_confirm(request):
