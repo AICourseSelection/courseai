@@ -14,10 +14,8 @@ body {
 }
 
 .footer {
-    color: gray;
-    width: 100%;
     text-align: center;
-    background: #444
+    padding-top: 10px;
 }
 
 #planform, #planform input, #planform .btn-group .btn{
@@ -649,7 +647,7 @@ body {
 .highlight-elective {
     background-color: #ccffcc;
     border-color: #37e131;
-    animation: pulse 2s infinite;
+    animation: pulse 1s infinite;
 }
 
 .plan-cell:hover {
