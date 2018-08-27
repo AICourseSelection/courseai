@@ -6,14 +6,6 @@
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS6026",
-          "ENVS6528"
-        ]
-      },
-      {
         "type": "maximum",
         "units": 6,
         "courses": [
@@ -31,6 +23,24 @@
           "ENVS6315",
           "ENVS8015",
           "ENVS8048"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS6024",
+          "ENVS6026",
+          "ENVS6201",
+          "ENVS6308"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6026",
+          "ENVS6528"
         ]
       },
       {
@@ -54,16 +64,6 @@
           "ENVS8048",
           "LAWS8189",
           "LAWS8280"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6024",
-          "ENVS6026",
-          "ENVS6201",
-          "ENVS6308"
         ]
       },
       {

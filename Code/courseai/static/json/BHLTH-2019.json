@@ -30,25 +30,6 @@
         "type": "minimum",
         "units": 12,
         "courses": [
-          "BIOL3006",
-          "BIOL3108",
-          "BIOL3141",
-          "BIOL3142",
-          "BIOL3144",
-          "BIOL3186",
-          "BIOL3203",
-          "BIOL3204",
-          "BIOL3205",
-          "BIOL3208",
-          "BIOL3209",
-          "NEUR3101",
-          "NEUR3112"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
           "BIAN3125",
           "BIOL3006",
           "BIOL3108",
@@ -74,6 +55,25 @@
           "BIOL2161",
           "BIOL2174",
           "PHYS1004"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL3006",
+          "BIOL3108",
+          "BIOL3141",
+          "BIOL3142",
+          "BIOL3144",
+          "BIOL3186",
+          "BIOL3203",
+          "BIOL3204",
+          "BIOL3205",
+          "BIOL3208",
+          "BIOL3209",
+          "NEUR3101",
+          "NEUR3112"
         ]
       },
       {

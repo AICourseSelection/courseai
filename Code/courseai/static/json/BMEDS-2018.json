@@ -28,27 +28,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL2117",
-          "BIOL2151",
-          "BIOL2162",
-          "BIOL2174"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIAN3014",
-          "BIOL2001",
-          "BIOL2202",
-          "ENVS1003",
-          "PSYC2009"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 18,
         "courses": [
           "BIOL3107",
@@ -67,6 +46,27 @@
           "NEUR3101",
           "NEUR3112",
           "POPH3000"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIAN3014",
+          "BIOL2001",
+          "BIOL2202",
+          "ENVS1003",
+          "PSYC2009"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL2117",
+          "BIOL2151",
+          "BIOL2162",
+          "BIOL2174"
         ]
       }
     ]

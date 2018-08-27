@@ -53,7 +53,9 @@
       {
         "type": "minimum",
         "units": 12,
-        "area": "COMP"
+        "area": [
+          "COMP"
+        ]
       }
     ]
   },
@@ -94,7 +96,9 @@
                 "level": [
                   4000
                 ],
-                "area": "COMP",
+                "area": [
+                  "COMP"
+                ],
                 "units": 12
               }
             ]

@@ -25,7 +25,9 @@
         "level": [
           4000
         ],
-        "area": "LAWS",
+        "area": [
+          "LAWS"
+        ],
         "units": 36
       }
     ]

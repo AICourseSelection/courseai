@@ -21,8 +21,9 @@
       "MATH2320",
       "MATH2322"
     ],
-    "x_from_here": [
+    "x_from_category": [
       {
+        "type": "minimum",
         "units": "24",
         "courses": "Science List"
       }

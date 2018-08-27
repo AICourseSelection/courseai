@@ -7,6 +7,23 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 18,
+        "courses": [
+          "CHMD8004",
+          "DEMO8063",
+          "POPH8102",
+          "POPH8115",
+          "POPH8313",
+          "POPH8316",
+          "POPH8317",
+          "POPH8318",
+          "POPH8918",
+          "POPM8001",
+          "SOCR8003"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 24,
         "courses": [
           "BIOL8021",
@@ -29,23 +46,6 @@
           "MGMT7030",
           "NSPO8013",
           "POGO8029"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "CHMD8004",
-          "DEMO8063",
-          "POPH8102",
-          "POPH8115",
-          "POPH8313",
-          "POPH8316",
-          "POPH8317",
-          "POPH8318",
-          "POPH8918",
-          "POPM8001",
-          "SOCR8003"
         ]
       },
       {
