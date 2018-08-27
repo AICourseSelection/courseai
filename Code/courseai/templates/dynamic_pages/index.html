@@ -16,7 +16,8 @@
     <div class="row">
         <div class="col-md-10 offset-md-1 mb-2">
             <div class="h1 text-center" style="font-weight: lighter">
-                <object data="{% static "img/logo.svg" %}" type="image/svg+xml" style="width: 120px; vertical-align: middle; margin-right: 1rem">
+                <object data="{% static "img/logo.svg" %}" type="image/svg+xml"
+                        style="width: 120px; vertical-align: middle; margin-right: 1rem">
                     <img src="{% static "img/logo.png" %}"/>
                 </object>
                 Intelligent Course Scheduler
@@ -30,12 +31,19 @@
         <div class="col-md-8 offset-md-2">
             <div class="h3 text-center" style="font-weight: lighter;">Start planning your degree</div>
             <form id="planform" action="planner" method="get">
-                <div class="form-row" style="margin-top: 15px">
+                <div class="form-row" style="margin-top: 15px; flex-wrap: nowrap">
                     <input type="text" name="degreeName" class="typeahead form-control" required
                            placeholder="What degree do you study?" autocomplete="off" data-toggle="popover">
-                    <input type="hidden" name="degreeCode">
+                    <input class="degree-code" type="hidden" name="degreeCode">
+                    <button id="fdd-button" class="btn btn-outline-success">Double Degree</button>
+
                 </div>
 
+                <div id="fdd-row" class="form-row mt-1" style="display: none">
+                    <input type="text" name="degreeName2" class="typeahead form-control"
+                           placeholder="Add a second degree" autocomplete="off" data-toggle="popover">
+                    <input class="degree-code" type="hidden" name="degreeCode2">
+                </div>
 
                 <div class="form-row mt-2">
                     <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
@@ -86,49 +94,77 @@
 <script src="{% static "js/autosize.min.js" %}"></script>
 <script src="{% static "js/chatbox.js" %}"></script>
 <script>
-    var degreeList = new Set();
-    var degreeCodes = {};
+    const degreeList = new Set();
+    const degreeCodes = {};
+
+    let fdd = false;
 
     $.ajax({
         url: 'degree/all',
         success: function (data) {
             console.log(data);
-            var degreeDicts = [];
+            let degreeDicts = [];
             for (i in data.response) {
                 degreeDicts.push({name: data.response[i].title});
                 degreeList.add(data.response[i].title);
                 degreeCodes[data.response[i].title] = data.response[i].code;
             }
 
-            $(".typeahead").typeahead({source: degreeDicts});
+            $('.typeahead').typeahead({source: degreeDicts});
         }
     });
 
-    var degreeInput = $("input[name=degreeName]");
+    let degreeInputs = $('input.typeahead');
 
-    degreeInput.popover({
+    degreeInputs.popover({
         trigger: 'manual',
         placement: 'bottom',
         html: true,
-        content: '<div id="degreeWrongPopover">Please choose a degree from the list.</div>'
+        content: '<div class="degreeWrongPopover">Please choose a degree from the list.</div>'
     });
 
-    $("#planform").submit(function (e) {
-        if (!degreeList.has(degreeInput.val())) {
-            e.preventDefault();
-            degreeInput.popover('show');
-            var popover = $("#degreeWrongPopover").parent().parent();
-            popover.addClass('popover-error');
-            popover.click(function () {
-                degreeInput.popover('hide')
-            });
-            popover.css('cursor', 'pointer');
-            degreeInput.keydown(function () {
-                degreeInput.popover('hide')
-            });
+    $('#fdd-button').click(function (e) {
+        e.preventDefault();
+        if (fdd) {
+            $(this).text('Double Degree')
+        } else {
+            $(this).text('Single Degree')
         }
-        $('input[name=degreeCode]').val(degreeCodes[degreeInput.val()]);
+        $('#fdd-row').toggle();
+        fdd = !fdd;
     });
+
+    $('#planform').submit(function (e) {
+        const fddField = $(degreeInputs[1]);
+        for (let i = 0; i < degreeInputs.length; i++) {
+            if (!(i === 0 || fdd)) continue;
+            const field = $(degreeInputs[i]);
+            if (!degreeList.has(field.val())) {
+                e.preventDefault();
+                field.popover('show');
+                errorPopoverSetup(field);
+            }
+            $($('input.degree-code')[i]).val(degreeCodes[field.val()]);
+        }
+        if (fddField.val() === $(degreeInputs[0]).val()) {
+            e.preventDefault();
+            fddField.popover('show');
+            const popover = $(fddField.data('bs.popover').tip);
+            popover.find('.degreeWrongPopover').text('You cannot add two of the same degree.');
+            errorPopoverSetup(fddField);
+        }
+    });
+    function errorPopoverSetup(source) {
+        popover = $(source.data('bs.popover').tip);
+        popover.addClass('popover-error');
+        popover.click(function () {
+            source.popover('hide')
+        });
+        popover.css('cursor', 'pointer');
+        source.keydown(function () {
+            source.popover('hide')
+        });
+    }
 </script>
 </body>
 </html>
