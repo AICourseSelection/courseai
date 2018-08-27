@@ -244,7 +244,7 @@ $.when(starting_degree.then(async function (degree) {
 
     let total_units = PLAN.degrees[0].units;
     if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
-    for (let i = 0; i <= total_units / 24; i++) {
+    for (let i = 0; i < total_units / 24; i++) {
         PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
     }
     loadDefaultPlan();
