@@ -7,6 +7,22 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "CRWF8006",
+          "CRWF8014"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8102",
+          "ENVS6025"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "BUSN7017",
@@ -47,14 +63,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "CRWF8006",
-          "CRWF8014"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 30,
         "courses": [
           "BUSN7017",
@@ -91,14 +99,6 @@
           "SCOM8021",
           "SCOM6027",
           "SCOM8501"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8102",
-          "ENVS6025"
         ]
       }
     ]

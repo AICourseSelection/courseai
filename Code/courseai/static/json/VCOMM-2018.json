@@ -20,6 +20,14 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMET6007",
+          "STAT6038"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 18,
         "courses": [
           "BUSN7006",
@@ -46,14 +54,6 @@
           "BUSN8102",
           "BUSN8103",
           "BUSN8145"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMET6007",
-          "STAT6038"
         ]
       }
     ]

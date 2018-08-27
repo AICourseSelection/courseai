@@ -8,10 +8,14 @@
       {
         "units": "24",
         "courses": "Science List"
-      },
+      }
+    ],
+    "x_from_category": [
       {
         "type": "minimum",
-        "level": 3000,
+        "level": [
+          3000
+        ],
         "units": 36,
         "courses": "Science List"
       }

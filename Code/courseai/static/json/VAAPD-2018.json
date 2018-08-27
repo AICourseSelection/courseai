@@ -1,0 +1,22 @@
+{
+  "name": "Master of Applied Anthropology and Participatory Development (Advanced)",
+  "code": "VAAPD",
+  "year": 2018,
+  "units": 96,
+  "required": {
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "ANTH8050",
+          "THES8103",
+          "ANTH8050",
+          "THES8103",
+          "ANTH8050",
+          "THES8103"
+        ]
+      }
+    ]
+  }
+}

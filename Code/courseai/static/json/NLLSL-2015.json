@@ -26,10 +26,14 @@
           "LAWS8239",
           "LAWS8566"
         ]
-      },
+      }
+    ],
+    "x_from_category": [
       {
         "type": "maximum",
-        "level": 8000,
+        "level": [
+          8000
+        ],
         "area": "LAWS",
         "units": 12
       }

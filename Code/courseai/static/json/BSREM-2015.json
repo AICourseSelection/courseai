@@ -4,10 +4,12 @@
   "year": 2015,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -15,6 +17,16 @@
       {
         "units": "6",
         "courses": "Science List"
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMSC2016",
+          "ENVS2007",
+          "ENVS2011",
+          "ENVS2013"
+        ]
       },
       {
         "type": "minimum",
@@ -30,18 +42,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC2016",
-          "ENVS2007",
-          "ENVS2011",
-          "ENVS2013"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS2014",
-          "ENVS2015"
+          "EMSC1006",
+          "ENVS1008"
         ]
       },
       {
@@ -56,8 +58,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC1006",
-          "ENVS1008"
+          "ENVS2014",
+          "ENVS2015"
         ]
       }
     ]

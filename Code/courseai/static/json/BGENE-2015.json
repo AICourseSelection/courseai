@@ -4,10 +4,12 @@
   "year": 2015,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -24,6 +26,24 @@
       "BIOL3204"
     ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL3125",
+          "BIOL3141",
+          "BIOL3144",
+          "BIOL3177",
+          "BIOL3191",
+          "BIOL3193",
+          "BIOL3206",
+          "BIOL3208",
+          "BIOL3209",
+          "BIAN3016",
+          "STAT3004",
+          "STAT3008"
+        ]
+      },
       {
         "type": "minimum",
         "units": 6,
@@ -59,28 +79,14 @@
           "STAT1003",
           "STAT1008"
         ]
-      },
+      }
+    ],
+    "x_from_category": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL3125",
-          "BIOL3141",
-          "BIOL3144",
-          "BIOL3177",
-          "BIOL3191",
-          "BIOL3193",
-          "BIOL3206",
-          "BIOL3208",
-          "BIOL3209",
-          "BIAN3016",
-          "STAT3004",
-          "STAT3008"
-        ]
-      },
-      {
-        "type": "minimum",
-        "level": 3000,
+        "level": [
+          3000
+        ],
         "units": 36,
         "courses": "Science List"
       }

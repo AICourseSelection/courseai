@@ -4,10 +4,12 @@
   "year": 2016,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -23,6 +25,23 @@
       {
         "units": "18",
         "courses": "CBE List 1"
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON2102",
+          "ECON2016",
+          "ECON2112"
+        ]
       },
       {
         "type": "minimum",
@@ -47,23 +66,6 @@
           "ECON2139",
           "ECON2141",
           "ECON2142"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON1100",
-          "ECON1102"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON2102",
-          "ECON2016",
-          "ECON2112"
         ]
       }
     ]
