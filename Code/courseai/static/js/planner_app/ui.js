@@ -223,7 +223,6 @@ async function mms_add(code, year) {
 
     }
     mmsCourseCodes.concat.apply([], mmsCourseCodes)
-    alert(mmsCourseCodes.toString());
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes.push(mmsCourseCodes);
 
     mms_card.append(card_header);
@@ -1174,144 +1173,158 @@ function updateMMSTrackers() {
             const card = mms_card.find('#mms-active-' + mms.identifier + '-select' + i).parent();
             for (const c of card.find('.result-course')) {
                 const code = $(c).find('.course-code').text();
-                setChecked($(c), details.codes.includes(code), type === 'fixed');
+                let checked = details.codes.includes(code);
+                setChecked($(c), checked, type === 'fixed');
+                colorPlannerCard(code);
             }
-            updateUnitCount(card.find('.unit-count'), details.units);
-            setPanelStatus(card, details.sat ? 'done' : 'incomplete');
+          updateUnitCount(card.find('.unit-count'), details.units);
+          setPanelStatus(card, details.sat ? 'done' : 'incomplete');
         }
-        updateUnitCount($(mms_card[0].firstElementChild).find('.unit-count'), results.units);
-        setPanelStatus(mms_card, results.sat ? 'done' : 'incomplete');
+      updateUnitCount($(mms_card[0].firstElementChild).find('.unit-count'), results.units);
+      setPanelStatus(mms_card, results.sat ? 'done' : 'incomplete');
     }
 }
 
+// add color class for the matching MMS card in planner
+async function colorPlannerCard(code) {
+  for (let row of $('#plan-grid').find('.plan-row')) {
+    $(row).children(".plan-cell").each(function() {
+      text = $(this).find('.course-code').text();
+      if ($(this).find('.course-code').text() === code) {
+        addCourseClass($(this), code);
+        return;
+      }
+    });
+  }
+}
 
 async function updateDegreeTrackers() {
-    const reqList = $('#degree-reqs-list');
-    for (const deg of PLAN.degrees) { // TODO: Fix for FDDs
-        const results = deg.checkRequirements(PLAN);
-        const required = deg.rules;
-        for (const i in results.rule_details) { // TODO: Fix for Optional Sections
-            const details = results.rule_details[i];
-            const type = details.type;
-            const card = reqList.find('#deg-section' + i).parent();
-            let section_status = "";
-            if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
-                for (const c of card.find('.result-course')) {
-                    const code = $(c).find('.course-code').text();
-                    setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
-                }
-                section_status = details.sat ? 'done' : 'incomplete';
-            } else if (["x_from_category", "max_by_level"].includes(type)) {
-                const group = card.find('.list-group');
-                for (const code of details.codes) {
-                    const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
-                    const offering = await getCourseOffering(code, year);
-                    const item = $(
-                        '<div class="list-group-item list-group-item-action result-course inc">' +
-                        '    <span class="course-code">' + code + '</span> ' +
-                        '    <span class="course-year">' + year + '</span> ' +
-                        '    <span class="course-title">' + offering.title + '</span>' +
-                        '</div>'
-                    );
-                    item.each(coursePopoverSetup);
-                    group.append(item);
-                }
-                section_status = details.sat ? 'done' : (type === "max_by_level" ? 'problem' : 'incomplete');
-            } else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
-                for (const entry of card.find('.mms-code')) {
-                    const code = $(entry).text();
-                    if (details.completed.includes(code)) {
-                        $(entry).parent().addClass('inc').removeClass('partial');
-                    } else if (details.codes.includes(code)) {
-                        $(entry).parent().addClass('partial').removeClass('inc')
-                    } else $(entry).parent().removeClass('inc partial');
-                }
-                if (details.sat) section_status = 'done';
-                else if (details.codes.length) section_status = 'incomplete';
-                else section_status = 'problem'
-            }
-            if (details.units !== undefined) updateUnitCount(card.find('.unit-count'), details.units);
-            setPanelStatus(card, section_status);
+  const reqList = $('#degree-reqs-list');
+  for (const deg of PLAN.degrees) { // TODO: Fix for FDDs
+    const results = deg.checkRequirements(PLAN);
+    const required = deg.rules;
+    for (const i in results.rule_details) { // TODO: Fix for Optional Sections
+      const details = results.rule_details[i];
+      const type = details.type;
+      const card = reqList.find('#deg-section' + i).parent();
+      let section_status = "";
+      if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
+        for (const c of card.find('.result-course')) {
+          const code = $(c).find('.course-code').text();
+          setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
         }
-        updateUnitCount($('#degree-header').find('.unit-count'), results.units);
-        $('#degree-completed-notice').css({'display': results.sat ? 'block' : ''});
+        section_status = details.sat ? 'done' : 'incomplete';
+      } else if (["x_from_category", "max_by_level"].includes(type)) {
+        const group = card.find('.list-group');
+        for (const code of details.codes) {
+          const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
+          const offering = await getCourseOffering(code, year);
+          const item = $(
+            '<div class="list-group-item list-group-item-action result-course inc">' +
+            '    <span class="course-code">' + code + '</span> ' +
+            '    <span class="course-year">' + year + '</span> ' +
+            '    <span class="course-title">' + offering.title + '</span>' +
+            '</div>'
+          );
+          item.each(coursePopoverSetup);
+          group.append(item);
+        }
+        section_status = details.sat ? 'done' : (type === "max_by_level" ? 'problem' : 'incomplete');
+      } else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
+        for (const entry of card.find('.mms-code')) {
+          const code = $(entry).text();
+          if (details.completed.includes(code)) {
+            $(entry).parent().addClass('inc').removeClass('partial');
+          } else if (details.codes.includes(code)) {
+            $(entry).parent().addClass('partial').removeClass('inc')
+          } else $(entry).parent().removeClass('inc partial');
+        }
+        if (details.sat) section_status = 'done';
+        else if (details.codes.length) section_status = 'incomplete';
+        else section_status = 'problem'
+      }
+      if (details.units !== undefined) updateUnitCount(card.find('.unit-count'), details.units);
+      setPanelStatus(card, section_status);
     }
+    updateUnitCount($('#degree-header').find('.unit-count'), results.units);
+    $('#degree-completed-notice').css({'display': results.sat ? 'block' : ''});
+  }
 }
 
 function updateUnitCount(counter, value) {
-    counter.text(value + '/' + counter.text().split('/')[1]);
+  counter.text(value + '/' + counter.text().split('/')[1]);
 }
 
 function setChecked(node, checked, useCrosses) {
-    if (checked) {
-        node.addClass('inc');
-        if (useCrosses) node.removeClass('exc');
-    } else {
-        node.removeClass('inc');
-        if (useCrosses) node.addClass('exc');
-    }
+  if (checked) {
+    node.addClass('inc');
+    if (useCrosses) node.removeClass('exc');
+  } else {
+    node.removeClass('inc');
+    if (useCrosses) node.addClass('exc');
+  }
 }
 
 function setPanelStatus(panel, status) {
-    if (status === 'done') {                // Done
-        panel.addClass('alert-success');
-        panel.removeClass('alert-warning alert-danger');
-    } else if (status === 'incomplete') {   // Incomplete
-        panel.addClass('alert-warning');
-        panel.removeClass('alert-success alert-danger');
-    } else if (status === 'problem') {      // Problem
-        panel.addClass('alert-danger');
-        panel.removeClass('alert-success alert-warning');
-    } else panel.removeClass('alert-success alert-warning alert-danger');
+  if (status === 'done') {                // Done
+    panel.addClass('alert-success');
+    panel.removeClass('alert-warning alert-danger');
+  } else if (status === 'incomplete') {   // Incomplete
+    panel.addClass('alert-warning');
+    panel.removeClass('alert-success alert-danger');
+  } else if (status === 'problem') {      // Problem
+    panel.addClass('alert-danger');
+    panel.removeClass('alert-success alert-warning');
+  } else panel.removeClass('alert-success alert-warning alert-danger');
 }
 
 function updateProgress() {
-    updateMMSTrackers();
-    updateDegreeTrackers();
+  updateMMSTrackers();
+  updateDegreeTrackers();
 }
 
 async function updateRecommendations() {
-    let group = $('#degree-recommendations-list');
-    let res = {};
-    await $.ajax({
-        url: 'recommendations/recommend',
-        data: {
-            'code': degree_code,
-            'courses': JSON.stringify(preparePlanForUpload(PLAN))
-        },
-        success: function (data) {
-            res = data;
-        }
-    });
-    let titles_fill_nodes = {};
-    group.find('.result-course').popover('dispose');
-    group.empty();
-    for (const course of res.response) {
-        const code = course.course;
-        const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
-        const reason = course.reasoning;
-
-        let item = $(
-            '<div class="draggable-course result-course list-group-item list-group-item-action">\n' +
-            '    <span class="course-code">' + code + '</span>\n' +
-            '</div>\n');
-        let title_node = $('<span class="course-title"></span>');
-        if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
-            title_node.text(KNOWN_COURSES[code][year].title)
-        }
-        else {
-            if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-            titles_fill_nodes[code].push(function (title) {
-                title_node.text(title);
-            });
-        }
-        item.append(title_node);
-        item.append('<div class="course-reason">' + reason + '</div>');
-        makeCourseDraggable(item, code, year);
-        item.each(coursePopoverSetup);
-        group.append(item);
+  let group = $('#degree-recommendations-list');
+  let res = {};
+  await $.ajax({
+    url: 'recommendations/recommend',
+    data: {
+      'code': degree_code,
+      'courses': JSON.stringify(preparePlanForUpload(PLAN))
+    },
+    success: function (data) {
+      res = data;
     }
-    await batchCourseTitles(titles_fill_nodes);
+  });
+  let titles_fill_nodes = {};
+  group.find('.result-course').popover('dispose');
+  group.empty();
+  for (const course of res.response) {
+    const code = course.course;
+    const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
+    const reason = course.reasoning;
+
+    let item = $(
+      '<div class="draggable-course result-course list-group-item list-group-item-action">\n' +
+      '    <span class="course-code">' + code + '</span>\n' +
+      '</div>\n');
+    let title_node = $('<span class="course-title"></span>');
+    if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
+      title_node.text(KNOWN_COURSES[code][year].title)
+    }
+    else {
+      if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
+      titles_fill_nodes[code].push(function (title) {
+        title_node.text(title);
+      });
+    }
+    item.append(title_node);
+    item.append('<div class="course-reason">' + reason + '</div>');
+    makeCourseDraggable(item, code, year);
+    item.each(coursePopoverSetup);
+    group.append(item);
+  }
+  await batchCourseTitles(titles_fill_nodes);
 }
 
 /**
@@ -1320,16 +1333,16 @@ async function updateRecommendations() {
  * @param courses   true to change the course results, false to change the MMS ones.
  */
 function searchResultsLoading(show, courses) {
-    const resultsLists = $('#search-results-list').children();
-    const courseResultsList = resultsLists.first();
-    const mmsResultsList = resultsLists.not(':first');
-    const cDisplay = {true: 'none', false: ''};
-    const rDisplay = {true: 'inline-block', false: 'none'};
-    if (courses) {
-        courseResultsList.find('.collapse').css({'display': cDisplay[show]});
-        courseResultsList.find('.fa-sync-alt').css({'display': rDisplay[show]});
-    } else {
-        mmsResultsList.find('.collapse').css({'display': cDisplay[show]});
-        mmsResultsList.find('.fa-sync-alt').css({'display': rDisplay[show]});
-    }
+  const resultsLists = $('#search-results-list').children();
+  const courseResultsList = resultsLists.first();
+  const mmsResultsList = resultsLists.not(':first');
+  const cDisplay = {true: 'none', false: ''};
+  const rDisplay = {true: 'inline-block', false: 'none'};
+  if (courses) {
+    courseResultsList.find('.collapse').css({'display': cDisplay[show]});
+    courseResultsList.find('.fa-sync-alt').css({'display': rDisplay[show]});
+  } else {
+    mmsResultsList.find('.collapse').css({'display': cDisplay[show]});
+    mmsResultsList.find('.fa-sync-alt').css({'display': rDisplay[show]});
+  }
 }
