@@ -1,11 +1,12 @@
 import json
+import os
 from builtins import str, eval
 
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import MultiMatch
 
-es_conn = Elasticsearch(['10.152.0.3'])
+es_conn = Elasticsearch([os.environ.get("ES_IP")])
 
 def get_data(code):
     global es_conn
