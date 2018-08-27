@@ -241,6 +241,7 @@ $.when(starting_degree.then(function (degree) {
         PLAN.addSession(nextSession(start_year + 'S' + start_sem, i));
     }
     loadDefaultPlan();
+    if (degree_code2) addDegree(degree_code2, start_year);
 }));
 
 let rc_button = $('#rc-button');
@@ -599,6 +600,7 @@ function reorganiseDegreeTracker(double) {
     const tabsContent = $('#degree-tabs-content');
     if (double) {
         reqSingle.hide();
+        reqs.show();
         reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
         $(tabsContent.children()[0]).find('.degree-header .unit-count').text(reqSingle.find('.degree-header .unit-count').text());
         setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
@@ -606,19 +608,22 @@ function reorganiseDegreeTracker(double) {
         for (const i in PLAN.degrees) {
             $(tabs.find('a')[i]).text(PLAN.degrees[i].title);
         }
-        tabs.find('a').last().tab('show');
-        reqs.show();
+        tabs.find('a').last().tab('show'); // Show the last (2nd) tab.
+        if (degree_code2) $('#degree-selector').find('.nav-arrow.right').click(); // If starting with 2 degrees, go to the first tab.
+        // This also puts the title into the display box.
     } else {
         reqs.hide();
+        reqSingle.show();
         const degree = PLAN.degrees[0];
         for (const list of tabsContent.children()) {
             const identifier = $(list).find('.deg-identifier').text();
             if (degree.code + '-' + degree.year === identifier) {
                 $(list).find('.degree-body').children().appendTo(reqSingle.find('.degree-body'));
                 reqSingle.find('.degree-header .unit-count').text($(list).find('.degree-header .unit-count').text());
-            } else $(list).empty();
+                $(list).empty();
+            } else {
+            }
         }
-        reqSingle.show();
     }
 }
 
@@ -933,7 +938,7 @@ function setupDegreeRequirements(container, degree) {
     function createCourseListSection(type, title, courses, counter = section_count) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + counter + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + counter + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
@@ -975,7 +980,7 @@ function setupDegreeRequirements(container, degree) {
     function createCourseCategorySection(type, title, codes, levels) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + section_count + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + section_count + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
@@ -1008,7 +1013,7 @@ function setupDegreeRequirements(container, degree) {
     function createMMSListSection(type, title, mms) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + section_count + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + section_count + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
