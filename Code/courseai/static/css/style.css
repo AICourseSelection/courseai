@@ -133,20 +133,12 @@ body {
     background-color: white;
 }
 
-/* TODO: create more specific rules */
-.plan-cell:hover {
-    background-color: #e4ecf4;
-}
-
-.plan-cell:active {
-    background-color: #a2b2c5;
-}
-
 .first-cell {
     padding: 5px;
     margin: 2px;
     width: 12%;
     min-width: 116px;
+    word-wrap: break-word;
 }
 
 .first-cell.delete {
@@ -644,26 +636,58 @@ body {
     border: 1px solid #b9b9b9;
 }
 
-.compulsory {
-    background-color: #a4ff8f;
-}
-
 * .dropdown-menu-right {
     width: 300px;
 }
 
-/* CARD PLANNER COLORS */
-.highlight-elective {
-    background-color: #cfffce;
-    border-color: #37e131;
-    animation: fade 2s linear;
+/* ----- CARD PLANNER COLORS ----- */
+@keyframes pulse {
+    0%,100% { opacity: 1 }
+    50% { opacity: 0.5 }
 }
 
-@keyframes fade {
-    0%,100% { opacity: 1 }
-    50% { opacity: 0.25 }
+.highlight-elective {
+    background-color: #ccffcc;
+    border-color: #37e131;
+    animation: pulse 2s infinite;
+}
+
+.plan-cell:hover {
+    background-color: #80DEEA;
+}
+
+.plan-cell:active {
+    background-color: #ddccff;
+}
+
+.compulsory {
+    background-color: #ccebff;
+}
+
+.added-elective {
+    background-color: #F8C471;
+}
+
+.mms-course-list0 {
+    background-color: #ffddcc;
+}
+
+.mms-course-list1 {
+    background-color: #b3ffd9;
+}
+
+.mms-course-list2 {
+    background-color: #ccffff;
+}
+
+.mms-course-list3 {
+    background-color: #e0ccff;
+}
+
+.mms-course-list4 {
+    background-color: #ffb3b3;
 }
 
 .invalid-cell {
-    background-color: #ff8f8f;
+    background-color: #ffe6e6; 
 }
