@@ -160,14 +160,28 @@ async function getDegreeOffering(code, year) {
                     if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
                     KNOWN_DEGREES[code][year] = new Degree(code, year, data.name, data.units, data.required);
                     //TODO: Support for Optional Rule Sections
-                },
-                error: function () {
-                    KNOWN_DEGREES[code][year] = new Degree(code, year, degree_name, 144, {});
-                    console.log('Failed to retrieve degree program requirements for ' + code + '-' + year);
                 }
             });
         } catch (error) {
-            console.log(error);
+            console.log('Failed to retrieve degree program requirements for ' + code + '-' + year);
+            console.log('Attempting to get 2018 requirements.');
+            try {
+                await $.ajax({
+                    url: 'degree/degreereqs',
+                    data: {'query': code},
+                    success: function (data) {
+                        if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
+                        KNOWN_DEGREES[code][year] = new Degree(code, THIS_YEAR, data.name, data.units, data.required);
+                        //TODO: Support for Optional Rule Sections
+                    }
+                });
+            } catch (error) {
+                const name = (code === degree_code) ? degree_name : degree_name2;
+                KNOWN_DEGREES[code][year] = new Degree(code, year, name, 144, {});
+                console.log('Failed to retrieve degree program requirements for ' + code);
+                console.log('Creating generic degree');
+            }
+
         }
         await $.ajax({
             url: 'degree/degreeplan',
@@ -207,3 +221,5 @@ function preparePlanForUpload(plan) {
     }
     return sessions;
 }
+
+// function generateBlankDegreePlan()

@@ -18,13 +18,14 @@ const ELECTIVE_TEXT = "Elective Course";
 async function addDegree(code, year) {
     let add = await PLAN.addDegree(code, year);
     if (!add) console.log("Tried to add degree " + code + " (" + year + "), already present.");
-    let titleHTML = " starting " + year + " Semester " + start_sem;
-    titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + year +
-        '/program/' + code + '" target="_blank">' + PLAN.degrees[0].title + '</a>' + titleHTML;
+    let titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + PLAN.degrees[0].year +
+        '/program/' + PLAN.degrees[0].code + '" target="_blank">' + PLAN.degrees[0].title + '</a>';
     if (PLAN.degrees[1]) {
-        titleHTML = '<a href="https://programsandcourses.anu.edu.au/' + PLAN.degrees[1].year +
-            '/program/' + PLAN.degrees[1].code + '" target="_blank">' + PLAN.degrees[1].title + '</a>' + titleHTML;
+        titleHTML += ' and <a href="https://programsandcourses.anu.edu.au/' + PLAN.degrees[1].year +
+            '/program/' + PLAN.degrees[1].code + '" target="_blank">' + PLAN.degrees[1].title + '</a>';
+        reorganiseDegreeTracker(true);
     }
+    titleHTML += " starting " + start_year + " Semester " + start_sem;
     $('#degree-title-text').html(titleHTML);
     return add;
 }
@@ -234,12 +235,13 @@ let PLAN = new Plan();
 let SEARCH = new Search(PLAN);
 let starting_degree = addDegree(degree_code, start_year);
 $.when(starting_degree.then(function (degree) {
-    setupDegreeRequirements(degree);
+    setupDegreeRequirements($('#degree-reqs-list').find('.degree-body'), degree);
     let total_units = PLAN.degrees.reduce((x, y) => (x.units - 48) + (y.units - 48));
     for (let i = 0; i <= total_units / 24; i++) {
         PLAN.addSession(nextSession(start_year + 'S' + start_sem, i));
     }
     loadDefaultPlan();
+    if (degree_code2) addDegree(degree_code2, start_year);
 }));
 
 let rc_button = $('#rc-button');
@@ -285,8 +287,6 @@ $('#confirm-clear-button').click(clearAllCourses);
 
 $('#confirm-reset-button').click(resetPlan);
 
-$('.result-course').each(coursePopoverSetup); // TODO: Check if this can be removed.
-
 $('#add-course').on('keyup', function () {
     search();
 });
@@ -295,12 +295,14 @@ $('.collapse').on('hide.bs.collapse', function () {
     $(this).find('.result-course').popover('hide');
 });
 
+$('#degree-selector').find('a').click(cycleDegrees);
+
 $('.collapse-all').click(function () {
     if (this.textContent === "Collapse all") {
-        $('#degree-reqs-list').find('.collapse').collapse('hide');
+        $(this.parentElement.parentElement).find('.collapse').collapse('hide');
         $(this).text("Expand all")
     } else if (this.textContent === 'Expand all') {
-        $('#degree-reqs-list').find('.collapse').collapse('show');
+        $(this.parentElement.parentElement).find('.collapse').collapse('show');
         $(this).text("Collapse all")
     }
 });
@@ -348,6 +350,16 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
 
 
 // Event Handlers
+function cycleDegrees() {
+    const direction = $(this).hasClass('right') * 2 - 1;
+    const tabs = $('#degree-tabs');
+    const activeTab = tabs.find('a.active');
+    const newIndex = (activeTab.parent().index() + direction + 2) % 2; // Modulo 2 (expecting 2 tabs, add 2 to avoid negatives)
+    const newTitle = $(tabs[0].children[newIndex]).find('a').text();
+    $('#degree-selector .degree-selector-title').text(newTitle);
+    $(activeTab.closest('ul').children()[newIndex]).find('a').tab('show');
+}
+
 function clickCell() {
     if ($(this).find('.course-code').text() === ELECTIVE_TEXT) {
         let first_cell = $(this).parent().find('.first-cell');
@@ -582,11 +594,44 @@ async function mms_click_add() {
 }
 
 // Event Functions
+function reorganiseDegreeTracker(double) {
+    const reqs = $('#degree-reqs');
+    const reqSingle = $('#degree-reqs-list');
+    const tabsContent = $('#degree-tabs-content');
+    if (double) {
+        reqSingle.hide();
+        reqs.show();
+        reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
+        $(tabsContent.children()[0]).find('.degree-header .unit-count').text(reqSingle.find('.degree-header .unit-count').text());
+        setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
+        const tabs = $('#degree-tabs');
+        for (const i in PLAN.degrees) {
+            $(tabs.find('a')[i]).text(PLAN.degrees[i].title);
+        }
+        tabs.find('a').last().tab('show'); // Show the last (2nd) tab.
+        if (degree_code2) $('#degree-selector').find('.nav-arrow.right').click(); // If starting with 2 degrees, go to the first tab.
+        // This also puts the title into the display box.
+    } else {
+        reqs.hide();
+        reqSingle.show();
+        const degree = PLAN.degrees[0];
+        for (const list of tabsContent.children()) {
+            const identifier = $(list).find('.deg-identifier').text();
+            if (degree.code + '-' + degree.year === identifier) {
+                $(list).find('.degree-body').children().appendTo(reqSingle.find('.degree-body'));
+                reqSingle.find('.degree-header .unit-count').text($(list).find('.degree-header .unit-count').text());
+                $(list).empty();
+            } else {
+            }
+        }
+    }
+}
+
 function loadDefaultPlan() {
     let titles_fill_nodes = {};
     let grid = $('#plan-grid');
     let async_operations = [];
-    for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDDs
+    for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDD Plans
         for (const session in plan_section) {
             if (!(PLAN.sessions.includes(session))) PLAN.addSession(session);
             if (!plan_section.hasOwnProperty(session)) continue;
@@ -878,11 +923,10 @@ function removeSessionHighlights() {
     }
 }
 
-function setupDegreeRequirements(degree) {
+function setupDegreeRequirements(container, degree) {
+    const identifier = degree.identifier;
     const required = degree.rules;
-    let reqs_list = $('#degree-reqs-list'); // TODO: Fix for FDDs.
-    reqs_list.sortable();
-    let header = $('#degree-header');
+    let header = container.parent().find('.degree-header');
     let unit_count = header.find('.unit-count');
     unit_count.text("0/" + degree.units + " units");
     let titles_fill_nodes = {};
@@ -894,12 +938,12 @@ function setupDegreeRequirements(degree) {
     function createCourseListSection(type, title, courses, counter = section_count) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + counter + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + counter + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
         let collapsible = $(
-            '<div id="deg-section' + counter + '" class="collapse show"/>'
+            '<div id="deg-' + identifier + '-section' + counter + '" class="collapse show"/>'
         );
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-course').popover('hide');
@@ -936,12 +980,12 @@ function setupDegreeRequirements(degree) {
     function createCourseCategorySection(type, title, codes, levels) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + section_count + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + section_count + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
         let collapsible = $(
-            '<div id="deg-section' + section_count + '" class="collapse show"/>'
+            '<div id="deg-' + identifier + '-section' + section_count + '" class="collapse show"/>'
         );
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-course').popover('hide');
@@ -969,12 +1013,12 @@ function setupDegreeRequirements(degree) {
     function createMMSListSection(type, title, mms) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-section' + section_count + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + section_count + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
         let collapsible = $(
-            '<div id="deg-section' + section_count + '" class="collapse show"/>'
+            '<div id="deg-' + identifier + '-section' + section_count + '" class="collapse show"/>'
         );
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-mms').popover('hide');
@@ -1003,17 +1047,18 @@ function setupDegreeRequirements(degree) {
         return section;
     }
 
+    container.append('<div class="deg-identifier">' + degree.code + '-' + degree.year + '</div>');
     for (let type in required) {
         if (!required.hasOwnProperty(type)) continue;
         if (type === "compulsory_courses") {
             let card = createCourseListSection(type, "Compulsory courses", required[type]);
-            reqs_list.append(card);
+            container.append(card);
             section_count++;
         }
         if (type === "one_from_here") {
             for (let section of required[type]) {
                 let card = createCourseListSection(type, "Pick at least one", section);
-                reqs_list.append(card);
+                container.append(card);
                 section_count++;
             }
         }
@@ -1024,7 +1069,7 @@ function setupDegreeRequirements(degree) {
                 if (typeof(section['courses']) === "string") {
                     const name = section['courses'];
                     let placeholder = $('<div/>');
-                    reqs_list.append(placeholder);
+                    container.append(placeholder);
                     const original_section_count = section_count;
                     section_count++;
                     if (name in KNOWN_COURSE_LISTS) {
@@ -1050,7 +1095,7 @@ function setupDegreeRequirements(degree) {
                     }
                 } else {
                     let card = createCourseListSection(type, title, section['courses']);
-                    reqs_list.append(card);
+                    container.append(card);
                     section_count++;
                 }
             }
@@ -1060,7 +1105,7 @@ function setupDegreeRequirements(degree) {
                 let title = 'Choose at least ' + (section.num || section.units) + ' units' +
                     '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
                 let card = createCourseCategorySection(type, title, section['code'], section.level);
-                reqs_list.append(card);
+                container.append(card);
                 section_count++;
             }
         }
@@ -1071,7 +1116,7 @@ function setupDegreeRequirements(degree) {
                 let card = $('<div class="deg deg-plain-text">\n' +
                     '    <span class="mms-code">' + code + '</span>\n' +
                     '    <strong>Compulsory ' + MMS_TYPE_PRINT[mms_type] + ':</strong>\n' +
-                    '    <div id="deg-section' + section_count + '"></div>' +
+                    '    <div id="deg-' + identifier + '-section' + section_count + '"></div>' +
                     '    <span class="unit-count mr-1">0/' + MMS_TYPE_UNITS[mms_type] + '</span>' +
                     '</div>');
                 let title_node = $('<span/>');
@@ -1091,14 +1136,14 @@ function setupDegreeRequirements(degree) {
                 });
                 mms_to_display.push(code);
                 card.append(title_node);
-                reqs_list.append(card);
+                container.append(card);
                 section_count++;
             }
         }
         if (type === "one_from_m/m/s") {
             for (let section of required[type]) {
                 let card = createMMSListSection(type, "Complete one of these majors, minors, or specialisations", section);
-                reqs_list.append(card);
+                container.append(card);
                 section_count++;
             }
         }
@@ -1108,7 +1153,7 @@ function setupDegreeRequirements(degree) {
                     let limit = section.units;
                     let level = section.level;
                     let card = $('<div class="deg deg-plain-text">\n' +
-                        '    <div id="deg-section' + section_count + '"></div>\n' +
+                        '    <div id="deg-' + identifier + '-section' + section_count + '"></div>\n' +
                         '    At most ' + limit + ' units of ' + level + '-level courses\n' +
                         '</div>');
                     card.append('<span class="unit-count mr-1">0/' + limit + '</span>');
@@ -1145,16 +1190,17 @@ function updateMMSTrackers() {
     }
 }
 
-
 async function updateDegreeTrackers() {
-    const reqList = $('#degree-reqs-list');
-    for (const deg of PLAN.degrees) { // TODO: Fix for FDDs
-        const results = deg.checkRequirements(PLAN);
-        const required = deg.rules;
+    const trackers = $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')); // Order matters
+    for (let i = 0; i < trackers.length; i++) {
+        const reqList = $(trackers[i]);
+        const identifier = reqList.find('.deg-identifier').text();
+        if (PLAN.degrees[i % 2] === undefined) continue;
+        const results = PLAN.degrees[i % 2].checkRequirements(PLAN); // Order above matters so that this degree retrieval works.
         for (const i in results.rule_details) { // TODO: Fix for Optional Sections
             const details = results.rule_details[i];
             const type = details.type;
-            const card = reqList.find('#deg-section' + i).parent();
+            const card = reqList.find('#deg-' + identifier + '-section' + i).parent();
             let section_status = "";
             if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
                 for (const c of card.find('.result-course')) {
@@ -1162,7 +1208,8 @@ async function updateDegreeTrackers() {
                     setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
                 }
                 section_status = details.sat ? 'done' : 'incomplete';
-            } else if (["x_from_category", "max_by_level"].includes(type)) {
+            }
+            else if (["x_from_category", "max_by_level"].includes(type)) {
                 const group = card.find('.list-group');
                 for (const code of details.codes) {
                     const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
@@ -1178,7 +1225,8 @@ async function updateDegreeTrackers() {
                     group.append(item);
                 }
                 section_status = details.sat ? 'done' : (type === "max_by_level" ? 'problem' : 'incomplete');
-            } else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
+            }
+            else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
                 for (const entry of card.find('.mms-code')) {
                     const code = $(entry).text();
                     if (details.completed.includes(code)) {
@@ -1194,7 +1242,7 @@ async function updateDegreeTrackers() {
             if (details.units !== undefined) updateUnitCount(card.find('.unit-count'), details.units);
             setPanelStatus(card, section_status);
         }
-        updateUnitCount($('#degree-header').find('.unit-count'), results.units);
+        updateUnitCount(reqList.find('.degree-header .unit-count'), results.units);
         $('#degree-completed-notice').css({'display': results.sat ? 'block' : ''});
     }
 }
