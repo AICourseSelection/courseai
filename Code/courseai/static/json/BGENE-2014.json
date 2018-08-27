@@ -29,16 +29,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "BIOL1009",
-          "COMP1100"
+          "STAT1003",
+          "STAT1008"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "BIOL1009",
+          "COMP1100"
         ]
       }
     ],

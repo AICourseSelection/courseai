@@ -27,6 +27,15 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL2171",
+          "BIOL2142",
+          "CHEM2208"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "BIAN3014",
@@ -36,15 +45,6 @@
           "STAT1003",
           "STAT1008"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL2171",
-          "BIOL2142",
-          "CHEM2208"
-        ]
       }
     ],
     "x_from_category": [
@@ -53,7 +53,9 @@
         "level": [
           3000
         ],
-        "area": "BIOL",
+        "area": [
+          "BIOL"
+        ],
         "units": 6
       }
     ]

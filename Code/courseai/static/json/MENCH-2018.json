@@ -22,8 +22,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENVS6307",
-          "ENVS8003"
+          "LAWS8189",
+          "POGO8212"
         ]
       },
       {
@@ -38,8 +38,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "LAWS8189",
-          "POGO8212"
+          "ENVS6307",
+          "ENVS8003"
         ]
       }
     ]

@@ -22,26 +22,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC6021",
-          "ENGN6224",
-          "ENGN6334",
-          "ENGN6524",
-          "ENGN6525",
-          "ENGN8526",
-          "ENGN8527",
-          "ENVS8005",
-          "LAWS8180",
-          "LAWS8181",
-          "PHYS8202",
-          "PHYS8205"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6307",
-          "ENVS8003"
+          "ENGN6410",
+          "ENVS6025"
         ]
       },
       {
@@ -56,8 +38,26 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENGN6410",
-          "ENVS6025"
+          "ENVS6307",
+          "ENVS8003"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMSC6021",
+          "ENGN6224",
+          "ENGN6334",
+          "ENGN6524",
+          "ENGN6525",
+          "ENGN8526",
+          "ENGN8527",
+          "ENVS8005",
+          "LAWS8180",
+          "LAWS8181",
+          "PHYS8202",
+          "PHYS8205"
         ]
       }
     ]

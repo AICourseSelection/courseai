@@ -25,13 +25,12 @@
       "PSYC3025",
       "PSYC3026"
     ],
-    "x_from_here": [
+    "x_from_category": [
       {
+        "type": "minimum",
         "units": "6",
         "courses": "Science List"
-      }
-    ],
-    "x_from_category": [
+      },
       {
         "type": "minimum",
         "level": [
@@ -45,7 +44,9 @@
         "level": [
           3000
         ],
-        "area": "PSYC",
+        "area": [
+          "PSYC"
+        ],
         "units": 18
       }
     ]

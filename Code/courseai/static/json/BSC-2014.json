@@ -13,13 +13,12 @@
         "units": 60
       }
     ],
-    "x_from_here": [
+    "x_from_category": [
       {
+        "type": "minimum",
         "units": "96",
         "courses": "Science List"
-      }
-    ],
-    "x_from_category": [
+      },
       {
         "type": "minimum",
         "level": [
