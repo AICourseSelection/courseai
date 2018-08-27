@@ -30,5 +30,5 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'accounts/', include('accounts.urls')),
     path(r'recommendations/', include('recommendations.urls')),
     path(r'admin/', admin.site.urls),
-    # url(r'profile/(?P<username>[a-zA-Z0-9]+\@(([a-zA-Z0-9]+)\.?)+)$', views.get_user_profile, name="profile")
+    path(r'profile/', views.get_user_profile, name="profile")
 ]

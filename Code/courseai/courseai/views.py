@@ -17,5 +17,5 @@ def planner(request):
     }
     return HttpResponse(template.render(context))
     
-#def get_user_profile(request, user):
-#   return render(request, 'dynamic_pages/user_profile.html', {'user': user})
+def get_user_profile(request, user):
+ return render(request, 'dynamic_pages/user_profile.html', {'user': user})
