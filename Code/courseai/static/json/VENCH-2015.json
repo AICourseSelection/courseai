@@ -13,6 +13,23 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "EMDV8080",
+          "EMDV8081",
+          "IDEC8089"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENGN6410",
+          "ENVS6025"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "EMSC6021",
           "ENGN6224",
           "ENGN6334",
@@ -32,23 +49,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMDV8080",
-          "EMDV8081",
-          "IDEC8089"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6307",
-          "ENVS8003"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "POGO8212",
           "LAWS8189"
         ]
@@ -57,8 +57,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENGN6410",
-          "ENVS6025"
+          "ENVS6307",
+          "ENVS8003"
         ]
       }
     ]

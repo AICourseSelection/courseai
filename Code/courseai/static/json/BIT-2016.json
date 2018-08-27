@@ -114,7 +114,9 @@
               {
                 "type": "minimum",
                 "units": 6,
-                "area": "COMP"
+                "area": [
+                  "COMP"
+                ]
               }
             ]
           }

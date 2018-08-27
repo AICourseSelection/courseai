@@ -9,33 +9,6 @@
         "type": "minimum",
         "units": 12,
         "courses": [
-          "ENVS6026",
-          "ENVS6528"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6023",
-          "ENVS6024",
-          "ENVS6026",
-          "ENVS6203",
-          "ENVS6308"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS6514",
-          "ENVS8006"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
           "ANTH8047",
           "EMDV8002",
           "EMDV8009",
@@ -56,6 +29,22 @@
         ]
       },
       {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6026",
+          "ENVS6528"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6514",
+          "ENVS8006"
+        ]
+      },
+      {
         "type": "maximum",
         "units": 6,
         "courses": [
@@ -72,6 +61,17 @@
           "ENVS6304",
           "ENVS8015",
           "ENVS8048"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS6023",
+          "ENVS6024",
+          "ENVS6026",
+          "ENVS6203",
+          "ENVS6308"
         ]
       }
     ]

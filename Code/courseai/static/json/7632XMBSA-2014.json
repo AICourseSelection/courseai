@@ -10,7 +10,9 @@
         "level": [
           6000
         ],
-        "area": "BIOL",
+        "area": [
+          "BIOL"
+        ],
         "units": 30
       }
     ]

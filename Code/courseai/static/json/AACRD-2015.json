@@ -67,7 +67,9 @@
           4000
         ],
         "units": 18,
-        "area": "COMP"
+        "area": [
+          "COMP"
+        ]
       }
     ]
   }

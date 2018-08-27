@@ -9,6 +9,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "ENVS6025",
+          "ENVS6306",
+          "ENVS8048",
+          "ENVS8049"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "ANTH8019",
           "EMDV8002",
           "EMDV8102",
@@ -20,16 +30,6 @@
           "ENVS6319",
           "MATH6102",
           "MATH6103"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6025",
-          "ENVS6306",
-          "ENVS8048",
-          "ENVS8049"
         ]
       },
       {

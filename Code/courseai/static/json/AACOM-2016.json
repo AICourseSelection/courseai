@@ -73,7 +73,9 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "area": "COMP",
+        "area": [
+          "COMP"
+        ],
         "units": 12
       }
     ]
@@ -115,7 +117,9 @@
                 "level": [
                   4000
                 ],
-                "area": "COMP",
+                "area": [
+                  "COMP"
+                ],
                 "units": 12
               }
             ]

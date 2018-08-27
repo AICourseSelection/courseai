@@ -38,7 +38,9 @@
         "level": [
           8000
         ],
-        "area": "LAWS",
+        "area": [
+          "LAWS"
+        ],
         "units": 12
       }
     ]
