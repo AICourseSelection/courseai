@@ -385,7 +385,7 @@ body {
     padding: .2rem .3rem;
 }
 
-#right-panel .result-course:before{
+#right-panel .result-course:before, #right-panel .result-mms:before{
     font-family: 'Font Awesome\ 5 Free';
     border-radius: .3rem;
     display: inline-block;
@@ -393,17 +393,17 @@ body {
     text-align: center;
 }
 
-#right-panel .result-course.inc:before{
+#right-panel .result-course.inc:before, #right-panel .result-mms.inc:before{
     content: "\f00c";
     background-color: #bbf8cd;
 }
 
-#right-panel .result-course.exc:before{
+#right-panel .result-course.exc:before, #right-panel .result-mms.exc:before{
     content: "\f00d";
     background-color: #f8d7d6;
 }
 
-#right-panel .result-course.partial:before{
+#right-panel .result-course.partial:before, #right-panel .result-mms.partial:before{
     content: "\f0ae";
     background-color: #f7ebc7;
 }
