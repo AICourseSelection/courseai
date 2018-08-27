@@ -28,20 +28,10 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
         "courses": [
-          "BIOL3125",
-          "BIOL3141",
-          "BIOL3144",
-          "BIOL3177",
-          "BIOL3191",
-          "BIOL3193",
-          "BIOL3206",
-          "BIOL3208",
-          "BIOL3209",
-          "BIAN3016",
-          "STAT3004",
-          "STAT3008"
+          "STAT1003",
+          "STAT1008"
         ]
       },
       {
@@ -74,10 +64,20 @@
       },
       {
         "type": "minimum",
-        "units": 6,
+        "units": 12,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "BIOL3125",
+          "BIOL3141",
+          "BIOL3144",
+          "BIOL3177",
+          "BIOL3191",
+          "BIOL3193",
+          "BIOL3206",
+          "BIOL3208",
+          "BIOL3209",
+          "BIAN3016",
+          "STAT3004",
+          "STAT3008"
         ]
       }
     ],

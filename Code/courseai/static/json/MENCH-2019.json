@@ -22,16 +22,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENGN6410",
-          "ENVS6025"
+          "LAWS8189",
+          "POGO8212"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "LAWS8189",
-          "POGO8212"
+          "ENGN6410",
+          "ENVS6025"
         ]
       },
       {

@@ -26,17 +26,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1100",
-          "COMP1130",
-          "COMP1730"
+          "STAT1003",
+          "STAT1008"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "COMP1100",
+          "COMP1130",
+          "COMP1730"
         ]
       }
     ],

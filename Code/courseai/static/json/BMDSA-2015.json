@@ -25,19 +25,10 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 24,
+        "units": 6,
         "courses": [
-          "BIOL3107",
-          "BIOL3142",
-          "BIOL3144",
-          "BIOL3161",
-          "BIOL3191",
-          "BIOL3193",
-          "BIOL3203",
-          "BIOL3204",
-          "BIOL3208",
-          "NEUR3101",
-          "NEUR3112"
+          "BIOL2151",
+          "BIOL2162"
         ]
       },
       {
@@ -54,10 +45,19 @@
       },
       {
         "type": "minimum",
-        "units": 6,
+        "units": 24,
         "courses": [
-          "BIOL2151",
-          "BIOL2162"
+          "BIOL3107",
+          "BIOL3142",
+          "BIOL3144",
+          "BIOL3161",
+          "BIOL3191",
+          "BIOL3193",
+          "BIOL3203",
+          "BIOL3204",
+          "BIOL3208",
+          "NEUR3101",
+          "NEUR3112"
         ]
       }
     ]
