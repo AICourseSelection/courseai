@@ -203,7 +203,7 @@ function Plan() {
     this.removeWarning = function (type, text) {
         for (warn of this.warnings) {
             if (warn.type === type && warn.text === text) {
-                this.warnings.splice(this.warnings.indexOf(warn, 1))
+                this.warnings.splice(this.warnings.indexOf(warn, 1));
                 return warn;
             }
         }
@@ -235,6 +235,7 @@ const SESSION_HALF_YEARS = {
  */
 function sessionIsAfter(ses1, ses2) {
     if (ses1.slice(0, 4) > ses2.slice(0, 4)) return true;
+    if (ses1.slice(0, 4) < ses2.slice(0, 4)) return false;
     return SESSION_ORDER.indexOf(ses1.slice(4)) > SESSION_ORDER.indexOf(ses2.slice(4));
 }
 

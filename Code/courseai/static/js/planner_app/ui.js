@@ -25,7 +25,7 @@ async function addDegree(code, year) {
             '/program/' + PLAN.degrees[1].code + '" target="_blank">' + PLAN.degrees[1].title + '</a>';
         reorganiseDegreeTracker(true);
     }
-    titleHTML += " starting " + year + " Semester " + start_sem;
+    titleHTML += " starting " + start_year + " Semester " + start_sem;
     $('#degree-title-text').html(titleHTML);
     return add;
 }
@@ -286,8 +286,6 @@ $('#confirm-clear-button').click(clearAllCourses);
 
 $('#confirm-reset-button').click(resetPlan);
 
-$('.result-course').each(coursePopoverSetup); // TODO: Check if this can be removed.
-
 $('#add-course').on('keyup', function () {
     search();
 });
@@ -353,8 +351,11 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
 // Event Handlers
 function cycleDegrees() {
     const direction = $(this).hasClass('right') * 2 - 1;
-    const activeTab = $('#degree-tabs').find('a.active');
+    const tabs = $('#degree-tabs');
+    const activeTab = tabs.find('a.active');
     const newIndex = (activeTab.parent().index() + direction + 2) % 2; // Modulo 2 (expecting 2 tabs, add 2 to avoid negatives)
+    const newTitle = $(tabs[0].children[newIndex]).find('a').text();
+    $('#degree-selector .degree-selector-title').text(newTitle);
     $(activeTab.closest('ul').children()[newIndex]).find('a').tab('show');
 }
 
@@ -600,7 +601,7 @@ function reorganiseDegreeTracker(double) {
         reqSingle.hide();
         reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
         $(tabsContent.children()[0]).find('.degree-header .unit-count').text(reqSingle.find('.degree-header .unit-count').text());
-        // setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
+        setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
         const tabs = $('#degree-tabs');
         for (const i in PLAN.degrees) {
             $(tabs.find('a')[i]).text(PLAN.degrees[i].title);
@@ -625,7 +626,7 @@ function loadDefaultPlan() {
     let titles_fill_nodes = {};
     let grid = $('#plan-grid');
     let async_operations = [];
-    for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDDs
+    for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDD Plans
         for (const session in plan_section) {
             if (!(PLAN.sessions.includes(session))) PLAN.addSession(session);
             if (!plan_section.hasOwnProperty(session)) continue;
@@ -1182,10 +1183,12 @@ function updateMMSTrackers() {
 }
 
 async function updateDegreeTrackers() {
-    for (const node of $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list'))) {
-        const reqList = $(node);
+    const trackers = $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')); // Order matters
+    for (let i = 0; i < trackers.length; i++) {
+        const reqList = $(trackers[i]);
         const identifier = reqList.find('.deg-identifier').text();
-        const results = PLAN.degrees[0].checkRequirements(PLAN);
+        if (PLAN.degrees[i % 2] === undefined) continue;
+        const results = PLAN.degrees[i % 2].checkRequirements(PLAN); // Order above matters so that this degree retrieval works.
         for (const i in results.rule_details) { // TODO: Fix for Optional Sections
             const details = results.rule_details[i];
             const type = details.type;
