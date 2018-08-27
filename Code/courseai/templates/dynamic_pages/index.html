@@ -38,25 +38,33 @@
         <div class="row">
             <div class="col-md-10 offset-md-1 mb-2">
                 <div class="h1 text-center" style="font-weight: lighter">
-                    <object data="{% static "img/logo.svg" %}" type="image/svg+xml" style="width: 120px; vertical-align: middle; margin-right: 1rem">
+                    <object data="{% static "img/logo.svg" %}" type="image/svg+xml"
+                            style="width: 120px; vertical-align: middle; margin-right: 1rem">
                         <img src="{% static "img/logo.png" %}"/>
                     </object>
                     Intelligent Course Scheduler
                 </div>
             </div>
         </div>
-        
-        <hr/>
-        <div class="row mt-4">
-            <div class="col-md-8 offset-md-2">
-                <div class="h3 text-center" style="font-weight: lighter;">Start planning your degree</div>
-                <form id="planform" action="planner" method="get">
-                    <div class="form-row" style="margin-top: 15px">
-                        <input type="text" name="degreeName" class="typeahead form-control" required
-                               placeholder="What degree do you study?" autocomplete="off" data-toggle="popover">
-                        <input type="hidden" name="degreeCode">
-                    </div>
+    
+    <hr/>
+    <div class="row mt-4">
+        <div class="col-md-8 offset-md-2">
+            <div class="h3 text-center" style="font-weight: lighter;">Start planning your degree</div>
+            <form id="planform" action="planner" method="get">
+                <div class="form-row" style="margin-top: 15px; flex-wrap: nowrap">
+                    <input type="text" name="degreeName" class="typeahead form-control" required
+                           placeholder="What degree do you study?" autocomplete="off" data-toggle="popover">
+                    <input class="degree-code" type="hidden" name="degreeCode">
+                    <button id="fdd-button" class="btn btn-outline-success">Double Degree</button>
 
+                </div>
+
+                <div id="fdd-row" class="form-row mt-1" style="display: none">
+                    <input type="text" name="degreeName2" class="typeahead form-control"
+                           placeholder="Add a second degree" autocomplete="off" data-toggle="popover">
+                    <input class="degree-code" type="hidden" name="degreeCode2">
+                </div>
 
                     <div class="form-row mt-2">
                         <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
@@ -105,6 +113,7 @@ document.getElementById("yearList").innerHTML = options;
 </script>
 
 <script>
+
 $('#form-login').submit(function(e) {
   e.preventDefault();
   var email = $.trim($('#login-email').val());
@@ -157,48 +166,70 @@ $('#form-register').submit(function(e) {
 </script>
 
 <script>
-    var degreeList = new Set();
-var degreeCodes = {};
-
-$.ajax({
-    url: 'degree/all',
-    success: function (data) {
-        var degreeDicts = [];
-        for (i in data.response) {
-            degreeDicts.push({name: data.response[i].title});
-            degreeList.add(data.response[i].title);
-            degreeCodes[data.response[i].title] = data.response[i].code;
+    const degreeList = new Set();
+    const degreeCodes = {};
+    let fdd = false;
+    $.ajax({
+        url: 'degree/all',
+        success: function (data) {
+            console.log(data);
+            let degreeDicts = [];
+            for (i in data.response) {
+                degreeDicts.push({name: data.response[i].title});
+                degreeList.add(data.response[i].title);
+                degreeCodes[data.response[i].title] = data.response[i].code;
+            }
+            $('.typeahead').typeahead({source: degreeDicts});
         }
-
-        $(".typeahead").typeahead({source: degreeDicts});
-    }
-});
-
-var degreeInput = $("input[name=degreeName]");
-
-degreeInput.popover({
-    trigger: 'manual',
-    placement: 'bottom',
-    html: true,
-    content: '<div id="degreeWrongPopover">Please choose a degree from the list.</div>'
-});
-
-$("#planform").submit(function (e) {
-    if (!degreeList.has(degreeInput.val())) {
+    });
+    let degreeInputs = $('input.typeahead');
+    degreeInputs.popover({
+        trigger: 'manual',
+        placement: 'bottom',
+        html: true,
+        content: '<div class="degreeWrongPopover">Please choose a degree from the list.</div>'
+    });
+    $('#fdd-button').click(function (e) {
         e.preventDefault();
-        degreeInput.popover('show');
-        var popover = $("#degreeWrongPopover").parent().parent();
+        if (fdd) {
+            $(this).text('Double Degree')
+        } else {
+            $(this).text('Single Degree')
+        }
+        $('#fdd-row').toggle();
+        fdd = !fdd;
+    });
+    $('#planform').submit(function (e) {
+        const fddField = $(degreeInputs[1]);
+        for (let i = 0; i < degreeInputs.length; i++) {
+            if (!(i === 0 || fdd)) continue;
+            const field = $(degreeInputs[i]);
+            if (!degreeList.has(field.val())) {
+                e.preventDefault();
+                field.popover('show');
+                errorPopoverSetup(field);
+            }
+            $($('input.degree-code')[i]).val(degreeCodes[field.val()]);
+        }
+        if (fddField.val() === $(degreeInputs[0]).val()) {
+            e.preventDefault();
+            fddField.popover('show');
+            const popover = $(fddField.data('bs.popover').tip);
+            popover.find('.degreeWrongPopover').text('You cannot add two of the same degree.');
+            errorPopoverSetup(fddField);
+        }
+    });
+    function errorPopoverSetup(source) {
+        popover = $(source.data('bs.popover').tip);
         popover.addClass('popover-error');
         popover.click(function () {
-            degreeInput.popover('hide')
+            source.popover('hide')
         });
         popover.css('cursor', 'pointer');
-        degreeInput.keydown(function () {
-            degreeInput.popover('hide')
+        source.keydown(function () {
+            source.popover('hide')
         });
     }
-    $('input[name=degreeCode]').val(degreeCodes[degreeInput.val()]);
-});
 </script>
 </body>
 </html>

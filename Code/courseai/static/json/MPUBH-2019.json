@@ -30,14 +30,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POPH8100",
-          "POPH8552"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 24,
         "courses": [
           "BIOL8021",
@@ -59,6 +51,14 @@
           "MGMT7030",
           "NSPO8013",
           "POGO8029"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POPH8100",
+          "POPH8552"
         ]
       }
     ]

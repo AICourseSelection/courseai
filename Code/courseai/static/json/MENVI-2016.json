@@ -9,63 +9,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ANTH8007",
-          "ANTH8008",
-          "ANTH8009",
-          "ANTH8014",
-          "ANTH8019",
-          "ANTH8021",
-          "ANTH8028",
-          "ANTH8030",
-          "ANTH8038",
-          "ANTH8042",
-          "ANTH8047",
-          "EMDV8001",
-          "EMDV8007",
-          "EMDV8101",
-          "ENVS6005",
-          "ENVS6013",
-          "ENVS6017",
-          "ENVS6020",
-          "ENVS6021",
-          "ENVS6108",
-          "ENVS6205",
-          "ENVS6301",
-          "POGO8008",
-          "POGO8061"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6025",
-          "ENVS6306",
-          "ENVS8048",
-          "ENVS8049"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ANTH8019",
-          "EMDV8002",
-          "EMDV8102",
-          "EMDV8103",
-          "ENVS6014",
-          "ENVS6015",
-          "ENVS6103",
-          "ENVS6202",
-          "ENVS6315",
-          "MATH6102",
-          "MATH6103"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "CRWF8000",
           "ECON8040",
           "EMDV8078",
@@ -110,6 +53,63 @@
           "ENVS6555",
           "ENVS8003",
           "ENVS8015"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS6025",
+          "ENVS6306",
+          "ENVS8048",
+          "ENVS8049"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8007",
+          "ANTH8008",
+          "ANTH8009",
+          "ANTH8014",
+          "ANTH8019",
+          "ANTH8021",
+          "ANTH8028",
+          "ANTH8030",
+          "ANTH8038",
+          "ANTH8042",
+          "ANTH8047",
+          "EMDV8001",
+          "EMDV8007",
+          "EMDV8101",
+          "ENVS6005",
+          "ENVS6013",
+          "ENVS6017",
+          "ENVS6020",
+          "ENVS6021",
+          "ENVS6108",
+          "ENVS6205",
+          "ENVS6301",
+          "POGO8008",
+          "POGO8061"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8019",
+          "EMDV8002",
+          "EMDV8102",
+          "EMDV8103",
+          "ENVS6014",
+          "ENVS6015",
+          "ENVS6103",
+          "ENVS6202",
+          "ENVS6315",
+          "MATH6102",
+          "MATH6103"
         ]
       }
     ]

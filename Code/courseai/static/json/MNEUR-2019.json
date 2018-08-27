@@ -13,24 +13,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "BIOL6001",
-          "BIOL6161",
-          "BIOL6171",
-          "BIOL6191",
-          "BIOL6201",
-          "BIOL6202",
-          "BIOL8021",
-          "BIOL8702",
-          "POPM8001",
-          "PSYC6016",
-          "SCOM6031",
-          "VCPG6002"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "BIOL6174",
           "PSYC6010"
         ]
@@ -44,6 +26,24 @@
           "NEUR8701",
           "NEUR8704",
           "NEUR8010"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIOL6001",
+          "BIOL6161",
+          "BIOL6171",
+          "BIOL6191",
+          "BIOL6201",
+          "BIOL6202",
+          "BIOL8021",
+          "BIOL8702",
+          "POPM8001",
+          "PSYC6016",
+          "SCOM6031",
+          "VCPG6002"
         ]
       }
     ]

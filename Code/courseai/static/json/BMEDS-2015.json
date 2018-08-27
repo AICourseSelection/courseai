@@ -4,10 +4,12 @@
   "year": 2015,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -26,6 +28,18 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIAN3014",
+          "BIOL2202",
+          "ENVS1003",
+          "PSYC2009",
+          "STAT1003",
+          "STAT1008"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 24,
         "courses": [
           "BIOL3107",
@@ -40,18 +54,6 @@
           "BIOL3208",
           "NEUR3101",
           "NEUR3112"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIAN3014",
-          "BIOL2202",
-          "ENVS1003",
-          "PSYC2009",
-          "STAT1003",
-          "STAT1008"
         ]
       }
     ]

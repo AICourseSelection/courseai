@@ -24,10 +24,12 @@
         ]
       }
     ],
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "fixed",
-        "level": 1000,
+        "level": [
+          1000
+        ],
         "units": 42
       }
     ]

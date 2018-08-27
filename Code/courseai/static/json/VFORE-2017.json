@@ -7,38 +7,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS6202",
-          "ENVS6514"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8047",
-          "EMDV8002",
-          "EMDV8009",
-          "EMDV8078",
-          "ENVS6013",
-          "ENVS6020",
-          "ENVS6021",
-          "ENVS6033",
-          "ENVS6108",
-          "ENVS6223",
-          "ENVS6307",
-          "ENVS6315",
-          "ENVS6555",
-          "ENVS8016",
-          "ENVS8048",
-          "LAWS8185",
-          "LAWS8189",
-          "LAWS8280"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
         "courses": [
           "ENVS6024",
@@ -74,6 +42,38 @@
           "ENVS6315",
           "ENVS8015",
           "ENVS8048"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANTH8047",
+          "EMDV8002",
+          "EMDV8009",
+          "EMDV8078",
+          "ENVS6013",
+          "ENVS6020",
+          "ENVS6021",
+          "ENVS6033",
+          "ENVS6108",
+          "ENVS6223",
+          "ENVS6307",
+          "ENVS6315",
+          "ENVS6555",
+          "ENVS8016",
+          "ENVS8048",
+          "LAWS8185",
+          "LAWS8189",
+          "LAWS8280"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6202",
+          "ENVS6514"
         ]
       }
     ]

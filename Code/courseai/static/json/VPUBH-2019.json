@@ -7,14 +7,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POPH8100",
-          "POPH8552"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 18,
         "courses": [
           "CHMD8004",
@@ -54,6 +46,14 @@
           "MGMT7030",
           "NSPO8013",
           "POGO8029"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POPH8100",
+          "POPH8552"
         ]
       }
     ]
