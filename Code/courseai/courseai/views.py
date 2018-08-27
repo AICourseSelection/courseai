@@ -12,6 +12,8 @@ def planner(request):
     context = {
         'degree_name': request.GET['degreeName'],
         'degree_code': request.GET['degreeCode'],
+        'degree_name2': request.GET['degreeName2'],
+        'degree_code2': request.GET['degreeCode2'],
         'start_year': request.GET['startyear'],
         'start_sem': request.GET['semester'],
         'user': user

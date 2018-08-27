@@ -4,10 +4,12 @@
   "year": 2016,
   "units": 192,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -39,14 +41,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT2032",
-          "STAT3040"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "MATH2320",
           "MATH2322",
           "MATH3029"
@@ -59,6 +53,14 @@
           "ECON4411",
           "ECON4422",
           "ECON4488"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT2032",
+          "STAT3040"
         ]
       },
       {
