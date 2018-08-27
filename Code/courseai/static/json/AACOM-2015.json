@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -110,7 +112,9 @@
             "x_from_category": [
               {
                 "type": "minimum",
-                "level": "4000",
+                "level": [
+                  4000
+                ],
                 "area": "COMP",
                 "units": 12
               }
