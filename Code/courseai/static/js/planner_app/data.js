@@ -173,14 +173,11 @@ async function getDegreeOffering(code, year) {
                         if (!code in KNOWN_DEGREES) KNOWN_DEGREES[code] = {};
                         KNOWN_DEGREES[code][year] = new Degree(code, THIS_YEAR, data.name, data.units, data.required);
                         //TODO: Support for Optional Rule Sections
-                    },
-                    error: function () {
-
-
                     }
                 });
             } catch (error) {
-                KNOWN_DEGREES[code][year] = new Degree(code, year, degree_name, 144, {});
+                const name = (code === degree_code) ? degree_name : degree_name2;
+                KNOWN_DEGREES[code][year] = new Degree(code, year, name, 144, {});
                 console.log('Failed to retrieve degree program requirements for ' + code);
                 console.log('Creating generic degree');
             }
