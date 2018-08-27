@@ -76,7 +76,7 @@ def register_view(request):
 @csrf_exempt    # TODO: Add CSRF protection for logout? Necessary?
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect("{{index")
+    return HttpResponseRedirect("/")
 
 # @csrf_protect
 def code_view(request):
