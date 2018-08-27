@@ -4,10 +4,12 @@
   "year": 2017,
   "units": 192,
   "required": {
-    "x_from_here": [
+    "x_from_category": [
       {
         "type": "minimum",
-        "level": 3000,
+        "level": [
+          3000
+        ],
         "units": 36,
         "courses": "Science List"
       }

@@ -6,19 +6,19 @@
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "BIOL6200",
-          "STAT7001"
-        ]
-      },
-      {
         "type": "maximum",
         "units": 6,
         "courses": [
           "COMP6730",
           "COMP7230"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "BIOL6200",
+          "STAT7001"
         ]
       },
       {

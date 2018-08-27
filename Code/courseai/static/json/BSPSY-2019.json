@@ -4,23 +4,13 @@
   "year": 2019,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
-      },
-      {
-        "type": "minimum",
-        "level": 1000,
-        "units": 12,
-        "courses": "Science List"
-      },
-      {
-        "type": "minimum",
-        "level": 3000,
-        "area": "PSYC",
-        "units": 18
       }
     ],
     "compulsory_courses": [
@@ -39,6 +29,24 @@
       {
         "units": "6",
         "courses": "Science List"
+      }
+    ],
+    "x_from_category": [
+      {
+        "type": "minimum",
+        "level": [
+          1000
+        ],
+        "units": 12,
+        "courses": "Science List"
+      },
+      {
+        "type": "minimum",
+        "level": [
+          3000
+        ],
+        "area": "PSYC",
+        "units": 18
       }
     ]
   }

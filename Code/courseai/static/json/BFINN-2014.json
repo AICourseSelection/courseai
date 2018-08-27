@@ -4,10 +4,12 @@
   "year": 2014,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -26,17 +28,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMET1001",
-          "MKTG2003",
-          "STAT2032"
+          "ECON1100",
+          "ECON1102"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "EMET1001",
+          "MKTG2003",
+          "STAT2032"
         ]
       }
     ]

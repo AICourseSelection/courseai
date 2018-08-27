@@ -4,10 +4,12 @@
   "year": 2014,
   "units": 144,
   "required": {
-    "min_max_by_level": [
+    "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -16,14 +18,6 @@
       "BUSI3020"
     ],
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BUSI3024",
-          "MGMT3025"
-        ]
-      },
       {
         "type": "minimum",
         "units": 6,
@@ -47,6 +41,14 @@
           "BUSI3028",
           "BUSI3029",
           "BUSI3030",
+          "MGMT3025"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BUSI3024",
           "MGMT3025"
         ]
       }

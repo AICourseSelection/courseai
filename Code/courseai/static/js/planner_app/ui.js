@@ -1148,15 +1148,18 @@ function setupDegreeRequirements(container, degree) {
             }
         }
         if (type === "max_by_level") {
-            for (let level in required[type]) {
-                let limit = required[type][level];
-                let card = $('<div class="deg deg-plain-text">\n' +
-                    '    <div id="deg-' + identifier + 'section' + section_count + '"></div>\n' +
-                    '    At most ' + limit + ' units of ' + level + '-level courses\n' +
-                    '</div>');
-                card.append('<span class="unit-count mr-1">0/' + limit + '</span>');
-                container.append(card);
-                section_count++;
+            for (let section of required[type]) {
+                if (section.type === "maximum") {
+                    let limit = section.units;
+                    let level = section.level;
+                    let card = $('<div class="deg deg-plain-text">\n' +
+                        '    <div id="deg-' + identifier + '-section' + section_count + '"></div>\n' +
+                        '    At most ' + limit + ' units of ' + level + '-level courses\n' +
+                        '</div>');
+                    card.append('<span class="unit-count mr-1">0/' + limit + '</span>');
+                    reqs_list.append(card);
+                    section_count++;
+                } // TODO: Handle minimum sections
             }
         }
     }

@@ -14,19 +14,19 @@
         "type": "minimum",
         "units": 0,
         "courses": [
-          "LEGW8114",
-          "LEGW8135",
-          "LEGW8136",
-          "LEGW8137"
+          "LEGW8106",
+          "LEGW8107",
+          "LEGW8118"
         ]
       },
       {
         "type": "minimum",
         "units": 0,
         "courses": [
-          "LEGW8106",
-          "LEGW8107",
-          "LEGW8118"
+          "LEGW8114",
+          "LEGW8135",
+          "LEGW8136",
+          "LEGW8137"
         ]
       }
     ]
