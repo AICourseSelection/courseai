@@ -1,3 +1,4 @@
+{% load static %}
 {% if user.is_authenticated %}
 
 <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
@@ -17,12 +18,12 @@
               </li>
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-            <li class="nav-item order-2 order-md-1"><a href="" class="nav-link">{{user.username}}</a>
+            <li class="nav-item order-2 order-md-1"><a href="{% url 'profile' %}" class="nav-link">{{user.username}}</a>
                 <li class="dropdown order-1">
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">My Account <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right mt-2">
                        <li class="px-3 py-2">
-                           <form class="form" role="form" method="post" action="accounts/logout_view">
+                           <form class="form" role="form" method="post" action="{% url 'logout' %}">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Log out</button>
                                 </div>

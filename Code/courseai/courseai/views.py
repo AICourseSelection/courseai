@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import render
 
 
 def planner(request):
@@ -16,6 +17,3 @@ def planner(request):
         'user': user
     }
     return HttpResponse(template.render(context))
-    
-def get_user_profile(request, user):
- return render(request, 'dynamic_pages/user_profile.html', {'user': user})
