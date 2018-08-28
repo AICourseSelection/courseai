@@ -126,6 +126,13 @@ function addFilter(type, data) {
     search(true);
 }
 
+async function colorSearchList() {
+    $('#results-courses').find('.draggable-course').each(function() {
+        var code = $(this).find('.course-code').text();
+        addCourseClass($(this), code);
+    });
+}
+
 async function mms_add(code, year) {
     const mms = await getMMSOffering(code, year);
     PLAN.addMMS(code, year);
@@ -212,6 +219,7 @@ async function mms_add(code, year) {
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
+                list_item.addClass(MMS_CLASS_NAME + allMMSCourseCodes.length);
                 list_item.append(title_node);
                 makeCourseDraggable(list_item, course.code);
                 list_item.each(coursePopoverSetup);
@@ -227,10 +235,10 @@ async function mms_add(code, year) {
             select.append(collapse);
             collapsible.append(select);
         }
-
     }
     mmsCourseCodes.concat.apply([], mmsCourseCodes)
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes.push(mmsCourseCodes);
+    colorSearchList();
 
     mms_card.append(card_header);
     mms_card.append(collapsible);
@@ -691,8 +699,7 @@ function loadDefaultPlan() {
             if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                 title_node.text(course['title']);
             } else if (course.code !== ELECTIVE_TEXT) {
-                compulsoryCourseCodes.push(course.code);
-                $(cell).addClass('compulsory');
+                cell.addClass('compulsory'); 
                 async_operations.push(PLAN.addCourse(session, course.code));
                 if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
                 titles_fill_nodes[course.code].push(function (title) {
@@ -917,6 +924,7 @@ function updateCourseSearchResults(response) {
                 '<span class="course-code">' + code + '</span>\n    ' +
                 '<span class="course-title">' + title + '</span>\n' +
                 '</div>');
+            addCourseClass(item, code);
             makeCourseDraggable(item, code, year);
             item.each(coursePopoverSetup);
             cbody.append(item);
@@ -1100,10 +1108,11 @@ function setupDegreeRequirements(container, degree) {
                 });
             }
             let item = $(
-                '<div class="list-group-item list-group-item-action draggable-course result-course">' +
+                '<div class="list-group-item list-group-item-action compulsory draggable-course result-course">' +
                 '    <span class="course-code">' + code + '</span> ' +
                 '</div>'
             );
+            compulsoryCourseCodes.push(code);
             item.append(title_node);
             item.each(coursePopoverSetup);
             makeCourseDraggable(item, code, year);
@@ -1308,6 +1317,19 @@ function setupDegreeRequirements(container, degree) {
     })
 }
 
+// add color class for the matching MMS card in planner
+async function colorPlannerCard(code) {
+    for (let row of $('#plan-grid').find('.plan-row')) {
+        $(row).children(".plan-cell").each(function() {
+            text = $(this).find('.course-code').text();
+            if ($(this).find('.course-code').text() === code) {
+                addCourseClass($(this), code);
+                return;
+            }
+        });
+    }
+}
+
 function updateMMSTrackers() {
     for (const mms of PLAN.trackedMMS) {
         const mms_card = $('#mms-active-list').find('#mms-active-' + mms.identifier).parent();
@@ -1327,19 +1349,6 @@ function updateMMSTrackers() {
         }
         updateUnitCount($(mms_card[0].firstElementChild).find('.unit-count'), results.units);
         setPanelStatus(mms_card, results.sat ? 'done' : 'incomplete');
-    }
-}
-
-// add color class for the matching MMS card in planner
-async function colorPlannerCard(code) {
-    for (let row of $('#plan-grid').find('.plan-row')) {
-        $(row).children(".plan-cell").each(function() {
-            text = $(this).find('.course-code').text();
-            if ($(this).find('.course-code').text() === code) {
-                addCourseClass($(this), code);
-                return;
-            }
-        });
     }
 }
 
