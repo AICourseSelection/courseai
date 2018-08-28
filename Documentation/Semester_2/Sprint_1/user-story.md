@@ -1,6 +1,6 @@
 # User-story for testing
 
-  1. As a first year anu student, I want to enrol in Bachelor of Software Engineering (Honours) in 2018.
+  1. As a first year ANU student, I want to enrol in Bachelor of Software Engineering (Honours) in 2018.
   2. As a Bachelor of Software Engineering (Honours) student, I want to add an AI Specialisation to my degree and fill up my elective slots with it. I want to add a Data Science Major to my degree as well. 
   3. As a user, I have completed my planner so I want to submit my degree plan.
   4. As a user, I want to reset my degree planner and start from scratch.
