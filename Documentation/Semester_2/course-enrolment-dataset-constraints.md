@@ -1,4 +1,4 @@
-Our team was kindly given an anonymised dataset of CECS student enrolment in various courses in the last five years. We required this dataset to better the recommendations provided by our system. The dataset was handed over to us under some conditions, namely
+Our team was kindly given an anonymised dataset of CECS student enrolment in various courses in the last five years by the Planning and Performance Measurement Division at ANU. We required this dataset to better the recommendations provided by our system. The dataset was handed over to us under some conditions, namely
 
 - The Data cannot be copied to non-ANU cloud resources (use either onedrive, cloudstor, or a VM host provisioned by ITS). 
    -- e.g. Google drive, dropbox, etc. are _not_ ok, do not store the data on any of those services, or any services like those.
