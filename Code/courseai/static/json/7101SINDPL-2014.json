@@ -1,0 +1,16 @@
+{
+  "name": "Master of Applied Anthropology and Participatory Development (Indigenous Policy)",
+  "code": "7101SINDPL",
+  "year": 2014,
+  "units": 48,
+  "required": {
+    "compulsory_courses": [
+      "ANTH8019",
+      "ANTH8028",
+      "ANTH8040",
+      "ANTH8045",
+      "ANTH6005",
+      "ANTH8007"
+    ]
+  }
+}

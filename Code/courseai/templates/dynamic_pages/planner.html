@@ -130,14 +130,56 @@
             <div id="plan-grid" class="popover-region"></div>
         </div>
         <div class="col-3 popover-region" id="right-panel">
-            <div id="degree-header">
-                <a href="javascript:void(0)" class="collapse-all">Collapse all</a>
-                <div class="h5 text-center">Your Degree</div>
-                <div class="unit-count text-right"></div>
+            <div id="degree-reqs" style="display: none">
+                <ul id="degree-tabs" class="nav nav-tabs d-none" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="degree-tab1" data-toggle="tab"
+                           href="#degree-reqs-list1" role="tab">Degree 1</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="degree-tab2" data-toggle="tab"
+                           href="#degree-reqs-list2" role="tab">Degree 2</a></li>
+                </ul>
+                <div id="degree-selector">
+                    <a class="nav-arrow left">
+                        <div class="fas fa-caret-left mx-auto my-auto"></div>
+                    </a>
+                    <div class="degree-selector-title"></div>
+                    <a class="nav-arrow right">
+                        <div class="fas fa-caret-right mx-auto my-auto"></div>
+                    </a>
+                </div>
+                <div id="degree-tabs-content" class="tab-content">
+                    <div id="degree-reqs-list1" class="tab-pane fade" role="tabpanel"
+                         aria-labelledby="degree-tab1">
+                        <div class="degree-header">
+                            <a href="javascript:void(0)" class="collapse-all">Collapse all</a>
+                            <div class="h5 text-center"></div>
+                            <div class="unit-count text-right"></div>
+                        </div>
+                        <div class="degree-body"></div>
+                    </div>
+                    <div id="degree-reqs-list2" class="tab-pane fade" role="tabpanel" aria-labelledby="degree-tab2">
+                        <div class="degree-header">
+                            <a href="javascript:void(0)" class="collapse-all">Collapse all</a>
+                            <div class="h5 text-center"></div>
+                            <div class="unit-count text-right"></div>
+                        </div>
+                        <div class="degree-body"></div>
+                    </div>
+                </div>
             </div>
-            <div id="degree-reqs-list"></div>
+            <div id="degree-reqs-list">
+                <div class="degree-header">
+                    <a href="javascript:void(0)" class="collapse-all">Collapse all</a>
+                    <div class="h5 text-center">Your Degree</div>
+                    <div class="unit-count text-right"></div>
+                </div>
+                <div class="degree-body"></div>
+            </div>
             <label class="h5 text-center mt-3" style="width: 100%">Your Majors, Minors, and Specialisations</label>
-            <div id="mms-list-placeholder" class="text-center mt-1" style="padding: 0 8%">Add majors, minors, and specialisations by searching on the left. </div>
+            <div id="mms-list-placeholder" class="text-center mt-1" style="padding: 0 8%">Add majors, minors, and
+                specialisations by searching on the left.
+            </div>
             <div id="mms-active-list"></div>
         </div>
     </div>
@@ -275,6 +317,8 @@
 <script>
     const degree_name = "{{ degree_name }}";
     const degree_code = "{{ degree_code }}";
+    const degree_name2 = "{{ degree_name2 }}";
+    const degree_code2 = "{{ degree_code2 }}";
     const start_year = {{ start_year }};
     const start_sem = {{ start_sem }};
 </script>

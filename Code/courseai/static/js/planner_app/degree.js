@@ -11,10 +11,11 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
     this.code = code;
     this.year = year;
     this.title = title;
+    this.units = units;
     this.rules = rules;
     this.suggestedPlan = suggestedPlan;
 
-    this.units = units;
+    this.identifier = code + '-' + year;
 
     this.incorporateCourseLists = async function () {
         for (const type in this.rules) {
@@ -73,17 +74,13 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                 const maxL = type === "max_by_level";
                 for (const i in req[type]) {
                     const section = req[type][i];
+                    if (section.type === "minimum" && maxL || section.type === "maximum" && !maxL) continue; // TODO: Handle min_by_level and max_by_category
                     let courseCodes = [];
                     let courseLevels = [];
                     let unitThreshold = 0;
-                    if (maxL) {
-                        courseLevels = [i];
-                        unitThreshold = req[type][i];
-                    } else {
-                        courseCodes = section["code"] || [];
-                        courseLevels = section["level"] || [];
-                        unitThreshold = section["num"];
-                    }
+                    courseCodes = section["area"] || [];
+                    courseLevels = section["level"] || [];
+                    unitThreshold = section["units"];
                     const matches = matchCategoryInDegree(plan, courseCodes, courseLevels);
                     let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
                     let section_codes = matches.map(c => c.code);

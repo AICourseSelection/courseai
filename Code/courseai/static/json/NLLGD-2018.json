@@ -30,11 +30,17 @@
           "LAWS8583",
           "LAWS8594"
         ]
-      },
+      }
+    ],
+    "x_from_category": [
       {
         "type": "maximum",
-        "level": 8000,
-        "area": "LAWS",
+        "level": [
+          8000
+        ],
+        "area": [
+          "LAWS"
+        ],
         "units": 12
       }
     ]

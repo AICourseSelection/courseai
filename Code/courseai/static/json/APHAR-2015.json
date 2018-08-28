@@ -1,0 +1,16 @@
+{
+  "name": "Bachelor of Philosophy (Honours) - Arts and Social Science",
+  "code": "APHAR",
+  "year": 2015,
+  "units": 192,
+  "required": {
+    "compulsory_courses": [
+      "ARTS1101",
+      "ARTS1102",
+      "ARTS2101",
+      "ARTS2102",
+      "ARTS3101",
+      "ARTS3102"
+    ]
+  }
+}

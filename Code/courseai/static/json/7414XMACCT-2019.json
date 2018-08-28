@@ -12,6 +12,14 @@
     ],
     "x_from_here": [
       {
+        "type": "maximum",
+        "units": 12,
+        "courses": [
+          "BUSN8007",
+          "BUSN8801"
+        ]
+      },
+      {
         "type": "minimum",
         "units": 24,
         "courses": [
@@ -20,14 +28,6 @@
           "BUSN7049",
           "BUSN7054",
           "BUSN7057"
-        ]
-      },
-      {
-        "type": "maximum",
-        "units": 12,
-        "courses": [
-          "BUSN8007",
-          "BUSN8801"
         ]
       },
       {
