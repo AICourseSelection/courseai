@@ -21,11 +21,11 @@
     ],
     "x_from_here": [
       {
-        "num": "18",
+        "units": "18",
         "courses": "CBE List 1"
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON2101",
@@ -33,7 +33,7 @@
         ]
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON2102",
@@ -41,7 +41,7 @@
         ]
       },
       {
-        "type": "fixed",
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON1100",

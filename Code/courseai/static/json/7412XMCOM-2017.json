@@ -6,6 +6,31 @@
   "required": {
     "x_from_here": [
       {
+        "type": "maximum",
+        "units": 24,
+        "courses": [
+          "BUSI7019",
+          "BUSN7008",
+          "ECON8069",
+          "FINM7006",
+          "INFS7040",
+          "MGMT7030",
+          "MKTG7001",
+          "MKTG7050",
+          "STAT6006",
+          "STAT6046",
+          "STAT7055"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BUSN8013",
+          "BUSN8018"
+        ]
+      },
+      {
         "type": "minimum",
         "units": 18,
         "courses": [
@@ -41,23 +66,6 @@
           "FINM8014",
           "FINM8016",
           "FINM8017"
-        ]
-      },
-      {
-        "type": "maximum",
-        "units": 24,
-        "courses": [
-          "BUSI7019",
-          "BUSN7008",
-          "ECON8069",
-          "FINM7006",
-          "INFS7040",
-          "MGMT7030",
-          "MKTG7001",
-          "MKTG7050",
-          "STAT6006",
-          "STAT6046",
-          "STAT7055"
         ]
       },
       {

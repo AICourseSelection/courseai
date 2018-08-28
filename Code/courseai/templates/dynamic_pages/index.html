@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/solid.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/fontawesome.css" %}"/>
     <link rel="stylesheet" href="{% static "css/style.css" %}"/>
     <title>Degree Builder</title>
 </head>
@@ -37,7 +39,7 @@
 
                 <div class="form-row mt-2">
                     <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
-                        <label>I start my degree in: </label>
+                        <label>I start(ed) my degree in: </label>
                     </div>
                     <div class="d-inline-block" style="padding: 0 5px; flex-grow: 1">
                         <input type="text" name="startyear" class="form-control" required
@@ -70,21 +72,11 @@
     Joseph Meltzer, Thomas Hamer, Manal Mohania,
     <br>
     Lim Yong Wei, YiLong Wang, Christopher Kim
+    <br>
+    Scarlett Qin, Thien Bui-Nguyen
 </div>
 
-<div class="msg_box" style="right: 1%">
-    <div class="msg_head">Ask a Question
-        <div class="close">&times;</div>
-    </div>
-    <div class="msg_wrap">
-        <div class="msg_body">
-            <div class="msg_a">Hi, how can I help you today?</div>
-            <div class="msg_push"></div>
-        </div>
-        <div class="msg_footer"><textarea class="msg_input form-control form-control-plaintext" rows="1"></textarea>
-        </div>
-    </div>
-</div>
+{% include "dynamic_pages/chatbox.html" %}
 
 <script src="{% static "js/jquery.min.js" %}"></script>
 <script src="{% static "js/popper.min.js" %}"></script>

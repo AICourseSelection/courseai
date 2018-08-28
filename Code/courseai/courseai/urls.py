@@ -26,7 +26,7 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'planner', views.planner, name='planner'),
     path(r'search/', include('search.urls')),
     path(r'degree/', include('degree.urls')),
+    path(r'accounts/', include('accounts.urls')),
     path(r'recommendations/', include('recommendations.urls')),
     path(r'admin/', admin.site.urls),
-    path(r'accounts/', include('accounts.urls')),
 ]
