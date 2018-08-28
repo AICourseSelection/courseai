@@ -66,11 +66,11 @@
                     <input class="degree-code" type="hidden" name="degreeCode2">
                 </div>
 
-                    <div class="form-row mt-2">
-                        <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25">
+                    <div class="form-row mt-2" style="flex-wrap: nowrap">
+                        <div class="d-inline-block" style="padding-right: 5px; line-height: 2.25; min-width: fit-content;">
                             <label>I start(ed) my degree in: </label>
                         </div>
-                        <select id="yearList" name="startyear" style="height: 40px; padding: 0 5px; flex-grow: 1"> </select>
+                        <select id="yearList" class="form-control" name="startyear" style="height: 40px; padding: 0 5px; flex-grow: 1"> </select>
                         <div class="d-inline-block" style="padding-left: 5px;">
                             <div class="sem-buttons btn-group btn-group-toggle" data-toggle="buttons">
                                 <label style="padding-left: 8px; padding-right: 8px" class="btn btn-outline-dark"><input
@@ -107,8 +107,10 @@
 <!-- create drop down list of years available -->
 <script> 
 var options = "";
+const THIS_YEAR = (new Date()).getFullYear();
 for(var i = 2014; i <= 2019; i++){
-  options += "<option>"+ i +"</option>";
+    if (i === THIS_YEAR) options += '<option selected="selected">'+ i +'</option>';
+    else options += "<option>"+ i +"</option>";
 }
 document.getElementById("yearList").innerHTML = options;
 </script>
