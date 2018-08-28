@@ -737,16 +737,10 @@ wrapper {
 }
 
 
-/* ----- CARD PLANNER COLORS ----- */
+/* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
     0%,100% { opacity: 1 }
     50% { opacity: 0.5 }
-}
-
-.highlight-elective {
-    background-color: #ccffcc;
-    border-color: #37e131;
-    animation: pulse 1s infinite;
 }
 
 .plan-cell:hover, .list-group-item:hover {
@@ -757,12 +751,12 @@ wrapper {
     background-color: #A9CCE3;
 }
 
-.compulsory {
-    background-color: #ccebff;
-}
-
 .added-elective {
     background-color: #ffe6f2;
+}
+
+.compulsory {
+    background-color: #ccebff;
 }
 
 .mms-course-list0 {
@@ -787,4 +781,10 @@ wrapper {
 
 .invalid-cell {
     background-color: #ffe6e6; 
+}
+
+.highlight-elective {
+    background-color: #ccffcc;
+    border-color: #37e131;
+    animation: pulse 1s infinite;
 }
