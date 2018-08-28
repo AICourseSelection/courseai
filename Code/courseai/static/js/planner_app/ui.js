@@ -1236,7 +1236,7 @@ function setupDegreeRequirements(container, degree) {
                 '    <span class="mms-code">' + code + '</span> ' +
                 '</div>'
             );
-            item.addClass(MMS_CLASS_NAME + colorIndex);
+            item.addClass(MMS_CLASS_NAME + getColorClassIndex(code));
             item.append(title_node);
             group.append(item);
         }
