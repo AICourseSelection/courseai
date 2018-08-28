@@ -13,12 +13,15 @@ body {
 }
 
 .footer {
-    position: fixed;
-    background-color: white;
     bottom: 0;
     width: 100%;
     text-align: center;
+    padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+}
+
+wrapper {
+    min-height: 80vh;
 }
 
 #planform, #planform input, #planform .btn-group .btn{
@@ -142,14 +145,6 @@ body {
     border-radius: 0.25rem;
     background-color: white;
     box-shadow: 0 0 0 #007bff; /* Need this to allow glow animation to work on first click */
-}
-
-.plan-cell:hover {
-    background-color: #e4ecf4;
-}
-
-.plan-cell:active {
-    background-color: #a2b2c5;
 }
 
 .first-cell {
@@ -650,6 +645,7 @@ body {
     padding: 15px;
     overflow-x: hidden;
     overflow-y: scroll;
+    word-break: break-word;
 }
 
 .msg_input {
@@ -741,3 +737,55 @@ body {
 
 }
 
+
+/* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
+@keyframes pulse {
+    0%,100% { opacity: 1 }
+    50% { opacity: 0.5 }
+}
+
+.plan-cell:hover, .list-group-item:hover {
+    background-color: #80DEEA;
+}
+
+.plan-cell:active {
+    background-color: #A9CCE3;
+}
+
+.added-elective {
+    /*background-color: #ffe6f2;*/
+}
+
+.compulsory {
+    background-color: #ccebff;
+}
+
+.mms-course-list0 {
+    background-color: #ffddcc;
+}
+
+.mms-course-list1 {
+    background-color: #b3ffd9;
+}
+
+.mms-course-list2 {
+    background-color: #ccffff;
+}
+
+.mms-course-list3 {
+    background-color: #e0ccff;
+}
+
+.mms-course-list4 {
+    background-color: #ffb3b3;
+}
+
+.invalid-cell {
+    background-color: #ffe6e6; 
+}
+
+.highlight-elective {
+    background-color: #ccffcc;
+    border-color: #37e131;
+    animation: pulse 1s infinite;
+}

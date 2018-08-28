@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{user.username}}</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/solid.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/fontawesome.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+</head>
+<body>
+  {% include "dynamic_pages/navbar.html" %}
+  
+<wrapper class="d-flex flex-column">
+    <div class="container" style="margin-bottom: 135px">
+        Your saved degrees will be displayed here... (coming soon!)
+    </div>
+    
+  {% include "dynamic_pages/chatbox.html" %}
+</wrapper>
+
+{% include "dynamic_pages/footer.html" %}
+
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/popper.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/aws-sdk-2.213.1.min.js" %}"></script>
+<script src="{% static "js/bootstrap3-typeahead.js" %}"></script>
+<script src="{% static "js/autosize.min.js" %}"></script>
+<script src="{% static "js/chatbox.js" %}"></script>
+</body>
+</html>
+
