@@ -37,7 +37,7 @@ Change the GET request to a POST one for the transition from the home page to th
 
 Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 --- | --- | --- | --- | --- | ---
-Scrape the study plan for all courses for all years | | | https://trello.com/c/roe3hxBs/59-degreebuilder-scrape-the-study-plans-for-all-degrees-for-all-years | 
+Scrape the study plan for all courses for all years | | | https://trello.com/c/roe3hxBs | 
 
 
 ### Login System
@@ -54,11 +54,11 @@ Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 
 Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 --- | --- | --- | --- | --- | ---
-Scrape courses for different years and extract the number of units and their availabilities | High |  | Manal | https://trello.com/c/a0ERF25f/58-degreebuilder-scrape-the-availability-and-number-of-units-for-all-anu-courses | 
+Scrape courses for different years and extract the number of units and their availabilities | High |  | Manal | https://trello.com/c/a0ERF25f | 
 
 
 ### Recommendation System
 
 Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 --- | --- | --- | --- | --- | ---
-Pre-compute recommendations for CECS students using course enrolment dataset | | | Manal | https://trello.com/c/uFH4mRqy/60-degreebuilder-use-the-anonymised-student-dataset-to-build-a-recommendation-model-for-cecs-students | 
+Pre-compute recommendations for CECS students using course enrolment dataset | | | Manal | https://trello.com/c/uFH4mRqy | 
