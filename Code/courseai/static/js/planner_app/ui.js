@@ -98,7 +98,10 @@ function removeCourse(session, position) {
     });
     const box = $(row.children()[position]);
     const code = box.find('.course-code').text();
+    let colorClasses = COLOR_CLASSES.join(" ");
+    box.removeClass(colorClasses);
     if (box.prevAll().hasClass('ui-sortable-placeholder')) position--;
+
     box.popover('dispose');
     box.find('.course-code').text(ELECTIVE_TEXT);
     box.find('.course-title').text('');
@@ -256,6 +259,7 @@ async function mms_add(code, year) {
 
 async function deleteMMS(button) {
     const code = $(button).parent().find('.mms-code').text();
+    console.log(code);
     const year = $(button).parent().find('.mms-year').text();
     const mms = await getMMSOffering(code, year);
     PLAN.trackedMMS.splice(PLAN.trackedMMS.indexOf(mms), 1); // Delete from the plan.
