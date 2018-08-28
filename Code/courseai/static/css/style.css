@@ -645,6 +645,7 @@ wrapper {
     padding: 15px;
     overflow-x: hidden;
     overflow-y: scroll;
+    word-break: break-word;
 }
 
 .msg_input {
@@ -752,7 +753,7 @@ wrapper {
 }
 
 .added-elective {
-    background-color: #ffe6f2;
+    /*background-color: #ffe6f2;*/
 }
 
 .compulsory {
