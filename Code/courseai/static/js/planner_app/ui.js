@@ -15,7 +15,7 @@ const THIS_YEAR = (new Date()).getFullYear().toString();
 const ELECTIVE_TEXT = "Elective Course";
 
 const MMS_CLASS_NAME = 'mms-course-list';
-let allMMSCourseCodes = []; // array of arrays for course codes in different MMS
+let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
 const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'mms-course-list0', 'added-elective', 'compulsory']; // list of classes used for colouring cells - used when clearing plans
 
@@ -56,16 +56,20 @@ function resetPlan() {
 }
 
 function addCourseClass(box, code) {
+    let colorClasses = COLOR_CLASSES.join(" ");
+    box.removeClass(colorClasses); // make sure no existing color classes exist (e.g. a MMS is deleted)
     if (compulsoryCourseCodes.includes(code)) {
         box.addClass('compulsory');
         return;
     }
 
-    for (var i = 0; i < allMMSCourseCodes.length; i++) {
-        if (allMMSCourseCodes[i].includes(code)) {
-            box.addClass(MMS_CLASS_NAME + i);
+    var count = 0;
+    for (var key in allMMSCourseCodes) {
+        if (allMMSCourseCodes[key].includes(code)) {
+            box.addClass(MMS_CLASS_NAME + count);
             return;
         }
+        count++;
     }
     box.addClass('added-elective');
 }
@@ -129,11 +133,45 @@ function addFilter(type, data) {
     search(true);
 }
 
+// add color class for all cards in the search list
 async function colorSearchList() {
     $('#results-courses').find('.draggable-course').each(function() {
         var code = $(this).find('.course-code').text();
         addCourseClass($(this), code);
     });
+}
+
+// add color class for the matching MMS card in planner
+async function colorPlannerCards() {
+    for (let row of $('#plan-grid').find('.plan-row')) {
+        $(row).children(".plan-cell").each(function() {
+            var code = $(this).find('.course-code').text() 
+            addCourseClass($(this), code);
+            return;
+        });
+    }
+}
+
+// add color class for all cards in a MMS list
+function colorMMSList() {
+   let colorClasses = COLOR_CLASSES.join(' ');
+   for (let list of $('#mms-active-list').find('.mms')) {
+       let mmsCode = $(list).find('.mms-code').text();
+       $(list).find('.draggable-course').each(function() {
+            $(this).removeClass(colorClasses);
+            $(this).addClass(MMS_CLASS_NAME + getColorClassIndex(mmsCode));
+       });
+   }
+}
+
+// return position of key in the MMS to course codes mapping
+function getColorClassIndex(mmsCode) {
+    var colorIndex = 0;
+    for (var key in allMMSCourseCodes) {
+        if (key === mmsCode) break;
+        colorIndex++;
+    }
+    return colorIndex;
 }
 
 async function mms_add(code, year) {
@@ -162,10 +200,10 @@ async function mms_add(code, year) {
     });
     let titles_fill_nodes = {};
 
+    let colorIndex = getColorClassIndex(code);
     let mmsCourseCodes = [];
     for (let i in mms.rules) {
         let value = mms.rules[i];
-        let innerMMSCourseCodes = [];
         if (value.type === "fixed") {
             let required = $('<div class="mms-required list-group list-group-flush"/>');
             let course_list = $('<div id="mms-active-' + identifier + '-select' + i + '" class="collapse show"/>');
@@ -185,7 +223,8 @@ async function mms_add(code, year) {
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
-                item.addClass(MMS_CLASS_NAME + allMMSCourseCodes.length);
+                item.addClass(MMS_CLASS_NAME + colorIndex);
+                mmsCourseCodes.push(course.code);
                 item.append(title_node);
                 makeCourseDraggable(item, course.code);
                 item.each(coursePopoverSetup);
@@ -207,7 +246,6 @@ async function mms_add(code, year) {
             if (value.type === 'maximum') select.addClass('alert-success');
             let options = $('<div class="mms-optional list-group list-group-flush"/>');
             for (let course of value.course) {
-                mmsCourseCodes.push(course.code);
                 let title_node = $('<span class="course-title"/>');
                 if (course.code in KNOWN_COURSES && year in KNOWN_COURSES[course.code]) {
                     title_node.text(KNOWN_COURSES[course.code][year].title)
@@ -223,7 +261,8 @@ async function mms_add(code, year) {
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
-                list_item.addClass(MMS_CLASS_NAME + allMMSCourseCodes.length);
+                mmsCourseCodes.push(course.code);
+                list_item.addClass(MMS_CLASS_NAME + colorIndex);
                 list_item.append(title_node);
                 makeCourseDraggable(list_item, course.code);
                 list_item.each(coursePopoverSetup);
@@ -238,11 +277,11 @@ async function mms_add(code, year) {
             select.append(collapse);
             collapsible.append(select);
         }
-        if (innerMMSCourseCodes.length !== 0) mmsCourseCodes.push(innerMMSCourseCodes);
     }
     mmsCourseCodes.concat.apply([], mmsCourseCodes)
-    if (mmsCourseCodes.length !== 0) allMMSCourseCodes.push(mmsCourseCodes);
+    if (mmsCourseCodes.length !== 0) allMMSCourseCodes[code] = mmsCourseCodes;
     colorSearchList();
+    colorPlannerCards();
 
     mms_card.append(card_header);
     mms_card.append(collapsible);
@@ -259,14 +298,20 @@ async function mms_add(code, year) {
 
 async function deleteMMS(button) {
     const code = $(button).parent().find('.mms-code').text();
-    console.log(code);
     const year = $(button).parent().find('.mms-year').text();
     const mms = await getMMSOffering(code, year);
+    let colorIndex = getColorClassIndex(code);
+    delete allMMSCourseCodes[code];
+    let mmsClassName = MMS_CLASS_NAME + colorIndex;
+    $("." + mmsClassName).removeClass(mmsClassName); // remove the class from all elements
     PLAN.trackedMMS.splice(PLAN.trackedMMS.indexOf(mms), 1); // Delete from the plan.
     $(button).parents('.mms').find('.result-course').popover('dispose');
     $(button).parents('.mms').remove();
     if ($('#mms-active-list').children().length === 0) $('#mms-list-placeholder').removeClass('d-none');
     updateProgress();
+    colorSearchList();
+    colorPlannerCards();
+    colorMMSList();
 }
 
 function closePopover(button) {
@@ -699,7 +744,7 @@ function loadDefaultPlan() {
 
         let course_list = suggestedPlan[session] || [{"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}];
         for (const course of course_list) {
-            let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
+            let cell = $('<div class="plan-cell added-elective result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
             let title_node = $('<span class="course-title"/>');
             if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                 title_node.text(course['title']);
@@ -1175,6 +1220,7 @@ function setupDegreeRequirements(container, degree) {
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-mms').popover('hide');
         });
+
         let group = $('<div class="list-group list-group-flush"/>');
         for (let code of mms) {
             const year = THIS_YEAR; // TODO: Fix for MMS years. Need the most recent year with data available.
@@ -1190,6 +1236,7 @@ function setupDegreeRequirements(container, degree) {
                 '    <span class="mms-code">' + code + '</span> ' +
                 '</div>'
             );
+            item.addClass(MMS_CLASS_NAME + colorIndex);
             item.append(title_node);
             group.append(item);
         }
@@ -1322,19 +1369,6 @@ function setupDegreeRequirements(container, degree) {
     })
 }
 
-// add color class for the matching MMS card in planner
-async function colorPlannerCard(code) {
-    for (let row of $('#plan-grid').find('.plan-row')) {
-        $(row).children(".plan-cell").each(function() {
-            text = $(this).find('.course-code').text();
-            if ($(this).find('.course-code').text() === code) {
-                addCourseClass($(this), code);
-                return;
-            }
-        });
-    }
-}
-
 function updateMMSTrackers() {
     for (const mms of PLAN.trackedMMS) {
         const mms_card = $('#mms-active-list').find('#mms-active-' + mms.identifier).parent();
@@ -1347,7 +1381,7 @@ function updateMMSTrackers() {
                 const code = $(c).find('.course-code').text();
                 let checked = details.codes.includes(code);
                 setChecked($(c), checked, type === 'fixed');
-                colorPlannerCard(code);
+                colorPlannerCards(code);
             }
             updateUnitCount(card.find('.unit-count'), details.units);
             setPanelStatus(card, details.sat ? 'done' : 'incomplete');
