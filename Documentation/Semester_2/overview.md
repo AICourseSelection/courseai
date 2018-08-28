@@ -1,14 +1,36 @@
 # Semester 2 Progress Overview
 
+### Important Links
+
+* [Product Backlog](product-backlog.md) (also see [Trello](Sprint_1/https://trello.com/b/lNhn5e9R/))
+* [User Testing Progress](user-testing.md)
+* [API Documentation and mocking (Apiary)](https://courseai.docs.apiary.io/)
+
+## Sprint 2: Weeks 6 - 7
+
+#### Week 6
+
+* [Meeting Minutes: Full Team](Sprint_2/team-week-6-minutes.md)
+
 ## Sprint 1: Weeks 3 - 5
+
+#### Week 5
+
+* Anonymised Degree Plan Data: PPM conditions
+* [User Testing: First Round](user-testing.md)
+* [Meeting Minutes: Full Team](Sprint_1/team-week-5-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_1/accenture-week-5-minutes.md)
+* [Meeting Minutes: Tutorial](Sprint_1/tutorial-week-5-minutes.md)
 
 #### Week 4
 
 * [Meeting Minutes: Full Team](Sprint_1/team-week-4-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_1/accenture-week-4-minutes.md)
+* [Meeting Minutes: Tutorial](Sprint_1/tutorial-week-4-minutes.md)
 
 #### Week 3
 
-* [Deployment Documentation](Sprint_1/deployment-decisions.md)
+* [Deployment Decision Documentation](Sprint_1/deployment-decisions.md)
 * [Meeting Minutes: Full Team](Sprint_1/team-week-3-minutes.md)
 * [Meeting Minutes: Accenture](Sprint_1/accenture-week-3-minutes.md)
 

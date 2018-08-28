@@ -36,6 +36,11 @@ body {
     background-color: #007bff;
 }
 
+#fdd-button {
+    margin-left: 10px;
+    font-size: 1.15rem;
+}
+
 .search-button {
     float: left;
     margin-left: -69px;
@@ -380,7 +385,7 @@ body {
     padding: .2rem .3rem;
 }
 
-#mms-active-list .result-course:before, #degree-reqs-list .result-course:before, #degree-reqs-list .result-mms:before {
+#right-panel .result-course:before, #right-panel .result-mms:before{
     font-family: 'Font Awesome\ 5 Free';
     border-radius: .3rem;
     display: inline-block;
@@ -388,17 +393,17 @@ body {
     text-align: center;
 }
 
-#mms-active-list .result-course.inc:before, #degree-reqs-list .result-course.inc:before, #degree-reqs-list .result-mms.inc:before {
+#right-panel .result-course.inc:before, #right-panel .result-mms.inc:before{
     content: "\f00c";
     background-color: #bbf8cd;
 }
 
-#mms-active-list .result-course.exc:before, #degree-reqs-list .result-course.exc:before, #degree-reqs-list .result-mms.exc:before {
+#right-panel .result-course.exc:before, #right-panel .result-mms.exc:before{
     content: "\f00d";
     background-color: #f8d7d6;
 }
 
-#mms-active-list .result-course.partial:before, #degree-reqs-list .result-course.partial:before, #degree-reqs-list .result-mms.partial:before {
+#right-panel .result-course.partial:before, #right-panel .result-mms.partial:before{
     content: "\f0ae";
     background-color: #f7ebc7;
 }
@@ -428,30 +433,34 @@ body {
     font-weight: bold;
 }
 
-#degree-header {
+.degree-header {
     display: flex;
-    margin: 0 -10px;
+    margin: 0 10px;
 }
 
-#degree-header div {
+#degree-reqs-list .degree-header {
+    margin: 0 -10px -10px -10px;
+}
+
+.degree-header div {
     flex: 0 0 46%;
 }
 
-#degree-header .collapse-all {
+.degree-header .collapse-all {
     flex: 0 0 27%;
     font-size: 10.5pt;
     color: black;
     line-height: 2.1;
 }
 
-#degree-header .unit-count {
+.degree-header .unit-count {
     flex: 0 0 27%;
     font-size: 11pt;
     font-weight: normal;
     line-height: 1.8;
 }
 
-#degree-header label {
+.degree-header label {
     width: 100%;
     float: left
 }
@@ -477,9 +486,76 @@ body {
     margin: .5rem 0;
 }
 
+#degree-selector {
+    font-size: 1.25rem;
+    display: flex;
+}
+
+#degree-selector .nav-arrow {
+    width: 2rem;
+    border: 1px solid #dee2e6;
+    font-size: 1.5rem;
+    display: flex;
+    cursor: pointer;
+}
+
+#degree-selector .nav-arrow:hover {
+    background-color: #d6d6d6;
+}
+
+#degree-selector .nav-arrow:active {
+    background-color: #8c8c8c;
+}
+
+#degree-selector .nav-arrow.left {
+    border-top-left-radius: .25rem;
+}
+
+#degree-selector .nav-arrow.right {
+    border-top-right-radius: .25rem;
+}
+
+#degree-selector .degree-selector-title {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+
+#degree-tabs-content {
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    /*padding: 0.25rem;*/
+}
+
+.deg-identifier {
+    display: none;
+}
+
 #degree-reqs-list {
     clear: left;
     margin: -10px;
+}
+
+#degree-reqs {
+    margin: 0 -10px;
+}
+
+#degree-reqs .degree-body {
+    margin-top: -10px;
+    min-height: 10px;
+}
+
+#degree-reqs .card-header {
+    padding: 0;
+    white-space: normal;
+}
+
+#degree-reqs .list-group-item {
+    padding: .2rem .3rem;
 }
 
 #degree-reqs-list .card-header {

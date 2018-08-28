@@ -9,9 +9,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC8018",
-          "EMSC8019",
-          "EMSC8021"
+          "EMSC8022",
+          "EMSC8023"
         ]
       },
       {
@@ -43,8 +42,9 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC8022",
-          "EMSC8023"
+          "EMSC8018",
+          "EMSC8019",
+          "EMSC8021"
         ]
       }
     ]

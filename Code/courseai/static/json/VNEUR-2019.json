@@ -11,6 +11,14 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIOL6174",
+          "PSYC6010"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 18,
         "courses": [
           "BIOL6001",
@@ -29,14 +37,6 @@
           "PSYC6016",
           "SCOM6031",
           "VCPG6002"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIOL6174",
-          "PSYC6010"
         ]
       }
     ]

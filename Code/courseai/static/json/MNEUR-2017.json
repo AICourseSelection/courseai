@@ -11,17 +11,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL8291",
-          "NEUR8001",
-          "NEUR8700",
-          "NEUR8701",
-          "NEUR8704"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
         "courses": [
           "BIOL6174",
@@ -43,6 +32,17 @@
           "PSYC6030",
           "SCOM6031",
           "VCPG6002"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL8291",
+          "NEUR8001",
+          "NEUR8700",
+          "NEUR8701",
+          "NEUR8704"
         ]
       }
     ]

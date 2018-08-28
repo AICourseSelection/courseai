@@ -1,0 +1,14 @@
+{
+  "name": "Master of Public Policy (Economic Policy)",
+  "code": "7102SECPOL",
+  "year": 2014,
+  "units": 48,
+  "required": {
+    "compulsory_courses": [
+      "POGO8082",
+      "POGO8081",
+      "POGO8096",
+      "CRWF8000"
+    ]
+  }
+}

@@ -19,11 +19,15 @@
       "LAWS8712",
       "LAWS8713"
     ],
-    "x_from_here": [
+    "x_from_category": [
       {
         "type": "minimum",
-        "level": 4000,
-        "area": "LAWS",
+        "level": [
+          4000
+        ],
+        "area": [
+          "LAWS"
+        ],
         "units": 36
       }
     ]
