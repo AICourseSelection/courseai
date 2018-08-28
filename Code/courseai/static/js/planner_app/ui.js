@@ -162,6 +162,7 @@ async function mms_add(code, year) {
     let mmsCourseCodes = [];
     for (let i in mms.rules) {
         let value = mms.rules[i];
+        let innerMMSCourseCodes = [];
         if (value.type === "fixed") {
             let required = $('<div class="mms-required list-group list-group-flush"/>');
             let course_list = $('<div id="mms-active-' + identifier + '-select' + i + '" class="collapse show"/>');
@@ -181,6 +182,7 @@ async function mms_add(code, year) {
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
+                item.addClass(MMS_CLASS_NAME + allMMSCourseCodes.length);
                 item.append(title_node);
                 makeCourseDraggable(item, course.code);
                 item.each(coursePopoverSetup);
@@ -201,7 +203,6 @@ async function mms_add(code, year) {
                 '</div>');
             if (value.type === 'maximum') select.addClass('alert-success');
             let options = $('<div class="mms-optional list-group list-group-flush"/>');
-            let innerMMSCourseCodes = [];
             for (let course of value.course) {
                 mmsCourseCodes.push(course.code);
                 let title_node = $('<span class="course-title"/>');
@@ -225,7 +226,6 @@ async function mms_add(code, year) {
                 list_item.each(coursePopoverSetup);
                 options.append(list_item);
             }
-            if (innerMMSCourseCodes.length !== 0) mmsCourseCodes.push(innerMMSCourseCodes);
 
             let collapse = $('<div id="mms-active-' + identifier + '-select' + i + '" class="collapse show"/>');
             collapse.on('hide.bs.collapse', function () {
@@ -235,6 +235,7 @@ async function mms_add(code, year) {
             select.append(collapse);
             collapsible.append(select);
         }
+        if (innerMMSCourseCodes.length !== 0) mmsCourseCodes.push(innerMMSCourseCodes);
     }
     mmsCourseCodes.concat.apply([], mmsCourseCodes)
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes.push(mmsCourseCodes);
