@@ -3,7 +3,5 @@
   "code": "7200XMECON",
   "year": 2014,
   "units": 48,
-  "required": {
-    "x_from_here": []
-  }
+  "required": {}
 }

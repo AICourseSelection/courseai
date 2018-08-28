@@ -1,0 +1,16 @@
+{
+  "name": "Master of Astronomy and Astrophysics (Advanced)",
+  "code": "VASTP",
+  "year": 2015,
+  "units": 96,
+  "required": {
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "level": 8000,
+        "area": "ASTR",
+        "units": 24
+      }
+    ]
+  }
+}

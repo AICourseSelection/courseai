@@ -1,0 +1,13 @@
+{
+  "name": "Bachelor of Philosophy (Honours) / Bachelor of Science (Honours) - NUS as home institution",
+  "code": "APNSN",
+  "year": 2019,
+  "units": 192,
+  "required": {
+    "compulsory_courses": [
+      "SCNC2101",
+      "SCNC2102",
+      "SCNC2103"
+    ]
+  }
+}

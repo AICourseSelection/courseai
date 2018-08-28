@@ -81,8 +81,8 @@ body {
     width: 100%;
 }
 
-#rc-button {
-    display: none;
+#degree-title-text a, #degree-title-text a:visited {
+    color: #0060cb
 }
 
 #confirm-reset-button {
@@ -136,6 +136,7 @@ body {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     background-color: white;
+    box-shadow: 0 0 0 #007bff; /* Need this to allow glow animation to work on first click */
 }
 
 .plan-cell:hover {
@@ -176,7 +177,15 @@ body {
     word-wrap: break-word;
 }
 
+.course-year {
+    display: none;
+}
+
 .mms-code {
+    display: none;
+}
+
+.mms-year {
     display: none;
 }
 
@@ -523,14 +532,25 @@ body {
     padding: 5px 0;
 }
 
-.chat_head, .msg_head {
-    background: #f39c12;
+.msg_head {
+    background: #3498db;
     color: white;
     padding: .35rem .7rem;
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px 5px 0 0;
     text-shadow: 0 -1px 0 #6f6f6f;
+}
+
+.msg_head .arrow:before {
+    font-family: 'Font Awesome\ 5 Free';
+    float: right;
+    content: "\f078";
+    text-shadow: 0 -1px 0 #6f6f6f;
+}
+
+.msg_head.chatbox-collapsed .arrow:before {
+    content: "\f077";
 }
 
 .msg_box {
@@ -542,10 +562,6 @@ body {
     /*border: 1px solid #b9b9b9;*/
     border-radius: 5px 5px 0 0;
     z-index: 100;
-}
-
-.msg_head {
-    background: #3498db;
 }
 
 .msg_body {

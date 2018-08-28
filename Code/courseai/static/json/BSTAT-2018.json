@@ -16,6 +16,41 @@
       "STAT2005",
       "STAT2008"
     ],
-    "x_from_here": []
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH2301",
+          "MATH3511"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "COMP1040",
+          "COMP1100"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "MATH1013",
+          "MATH1014",
+          "MATH1115",
+          "MATH1116"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT1003",
+          "STAT1008"
+        ]
+      }
+    ]
   }
 }
