@@ -18,6 +18,7 @@ const MMS_CLASS_NAME = 'mms-course-list';
 let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
 const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'mms-course-list0', 'added-elective', 'compulsory']; // list of classes used for colouring cells - used when clearing plans
+const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 
 // UI Functions
 async function addDegree(code, year) {
@@ -37,13 +38,12 @@ async function addDegree(code, year) {
 
 function clearAllCourses() {
     PLAN.clearAllCourses();
-    let colorClasses = COLOR_CLASSES.join(" ");
     for (let box of $('#plan-grid').find('.plan-cell')) {
         $(box).popover('dispose');
         makeSlotDroppable($(box));
         $(box).find('.course-code').text(ELECTIVE_TEXT);
         $(box).find('.course-title').text('');
-        $(box).removeClass(colorClasses);
+        $(box).removeClass(COLOR_CLASSES_STR);
     }
     updateProgress();
     updateWarningNotices();
@@ -56,8 +56,7 @@ function resetPlan() {
 }
 
 function addCourseClass(box, code) {
-    let colorClasses = COLOR_CLASSES.join(" ");
-    box.removeClass(colorClasses); // make sure no existing color classes exist (e.g. a MMS is deleted)
+    box.removeClass(COLOR_CLASSES_STR); // make sure no existing color classes exist (e.g. a MMS is deleted)
     if (compulsoryCourseCodes.includes(code)) {
         box.addClass('compulsory');
         return;
@@ -74,6 +73,31 @@ function addCourseClass(box, code) {
     box.addClass('added-elective');
 }
 
+function makeElective(box, session, code) {
+    box.popover('dispose');
+    box.find('.course-code').text(ELECTIVE_TEXT);
+    box.find('.course-title').text('');
+    box.removeClass(COLOR_CLASSES_STR);
+    box.addClass('added-elective'); // TODO: change this if all cards shouldn't default to an elective
+    makeSlotDroppable(box);
+    PLAN.removeWarning('CourseForceAdded', code);
+    PLAN.removeCourse(session, code);
+}
+
+// Make all cards in planner with matching code an elective
+function removeCourseInPlanner(code) {
+    for (let row of $('#plan-grid').find('.plan-row')) {
+        const first_cell = $(row).find('.first-cell');
+        const session = first_cell.find('.row-year').text() + SESSION_ABBREVS[first_cell.find('.row-sem').text()];
+        $(row).children(".plan-cell").each(function() {
+            var cellCode = $(this).find('.course-code').text() 
+            if (cellCode === code) {
+                makeElective($(this), session, code);
+            }
+        });
+    }
+}
+
 function addCourse(code, title, session, position) {
     const year = session.slice(0, 4);
     const sem = SESSION_WORDS[session.slice(4)]; // TODO: Fix for Summer Sessions
@@ -81,6 +105,7 @@ function addCourse(code, title, session, position) {
         const first_cell = $(this.children[0]);
         return (first_cell.find('.row-year').text() === year && first_cell.find('.row-sem').text() === sem);
     });
+    removeCourseInPlanner(code);
     const box = $(row.children()[position + 1]);
     box.droppable('destroy');
     box.find('.course-code').text(code);
@@ -102,16 +127,10 @@ function removeCourse(session, position) {
     });
     const box = $(row.children()[position]);
     const code = box.find('.course-code').text();
-    let colorClasses = COLOR_CLASSES.join(" ");
-    box.removeClass(colorClasses);
+    box.removeClass(COLOR_CLASSES_STR);
     if (box.prevAll().hasClass('ui-sortable-placeholder')) position--;
 
-    box.popover('dispose');
-    box.find('.course-code').text(ELECTIVE_TEXT);
-    box.find('.course-title').text('');
-    makeSlotDroppable(box);
-    PLAN.removeWarning('CourseForceAdded', code);
-    PLAN.removeCourse(session, code);
+    makeElective(box, session, code); // make the slot an elective slot and update planner 
 
     updateWarningNotices();
     updateProgress();
@@ -154,11 +173,10 @@ async function colorPlannerCards() {
 
 // add color class for all cards in a MMS list
 function colorMMSList() {
-   let colorClasses = COLOR_CLASSES.join(' ');
    for (let list of $('#mms-active-list').find('.mms')) {
        let mmsCode = $(list).find('.mms-code').text();
        $(list).find('.draggable-course').each(function() {
-            $(this).removeClass(colorClasses);
+            $(this).removeClass(COLOR_CLASSES_STR);
             $(this).addClass(MMS_CLASS_NAME + getColorClassIndex(mmsCode));
        });
    }
