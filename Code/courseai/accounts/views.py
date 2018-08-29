@@ -33,7 +33,8 @@ def require_AJAX(function):
     return wrap
 
 # create form for each aspects of these
-@csrf_protect
+# @csrf_protect
+@csrf_exempt #TODO: change me later
 @require_AJAX
 def login_view(request):
     form = UserLoginForm(request.POST or None)  # translating any false value (e.g. an empty list, empty dict) into None
@@ -54,7 +55,8 @@ def login_view(request):
     errStr = '<br>'.join(msg for msg in errMsg)
     return HttpResponse(errStr);
 
-@csrf_protect
+#@csrf_protect
+@csrf_exempt #TODO: change me later
 @require_AJAX
 def register_view(request):
     form = UserRegisterForm(request.POST or None, request)
@@ -113,6 +115,7 @@ def code_view(request):
             return (store_code)
     return HttpResponse(res_error)
 
+@csrf_exempt #TODO: change me later
 @login_required
 def get_user_profile(request):
     user = None
