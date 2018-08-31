@@ -21,6 +21,11 @@
       "BUSN2015",
       "BUSN3001"
     ],
+    "one_from_m/m/s": [
+      [
+        "BECE-MIN"
+      ]
+    ],
     "x_from_here": [
       {
         "units": "6",
