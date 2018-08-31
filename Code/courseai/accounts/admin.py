@@ -15,12 +15,14 @@ class CustomUserAdmin(UserAdmin):
     # add profile fields to list view
     list_display = ('username', 'email', 'first_name', 'last_name', 'get_location', 'is_staff')
     list_select_related = ('profile', )
+
     def get_location(self, instance):
         return instance.profile.degree_plan_code
-    get_location.short_description = 'degree_plan_code'
+    get_location.short_description = 'degree plan code'
 
     def get_inline_instances(self, request, obj=None):
-        if not obj: return list()
+        if not obj:
+            return list()
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 admin.site.unregister(User)
