@@ -46,6 +46,7 @@ function MMS(code, year, title, rules) {
             overall_units += (rule.type === 'maximum') ? Math.min(section_units, rule.units) : section_units;
             rule_details.push({'sat': section_sat, 'units': section_units, 'codes': section_codes});
         }
+        overall_sat = overall_sat && overall_units >= this.units;
         return {'sat': overall_sat, 'units': overall_units, 'rule_details': rule_details};
     }
 }

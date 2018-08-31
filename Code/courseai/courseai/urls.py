@@ -17,6 +17,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import include, url
 from django.views.generic import TemplateView
 
 from courseai import views
@@ -28,5 +29,5 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'degree/', include('degree.urls')),
     path(r'accounts/', include('accounts.urls')),
     path(r'recommendations/', include('recommendations.urls')),
-    path(r'admin/', admin.site.urls),
+    path(r'admin/', admin.site.urls)
 ]
