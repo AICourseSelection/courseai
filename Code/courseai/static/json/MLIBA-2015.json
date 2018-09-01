@@ -1,8 +1,8 @@
 {
   "name": "Master of Liberal Arts",
+  "units": 96,
   "code": "MLIBA",
   "year": 2015,
-  "units": 96,
   "required": {
     "x_from_here": [
       {

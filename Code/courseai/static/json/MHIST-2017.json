@@ -1,8 +1,8 @@
 {
   "name": "Master of History",
+  "units": 96,
   "code": "MHIST",
   "year": 2017,
-  "units": 96,
   "required": {
     "compulsory_courses": [
       "HIST6007",

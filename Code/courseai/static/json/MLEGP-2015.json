@@ -54,20 +54,6 @@
           "LAWS8592",
           "LAWS8593"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "LEGW8114",
-          "LEGW8135",
-          "LEGW8136",
-          "LEGW8118",
-          "LEGW8137",
-          "LEGW8106",
-          "LEGW8107",
-          "LEGW8124"
-        ]
       }
     ]
   }

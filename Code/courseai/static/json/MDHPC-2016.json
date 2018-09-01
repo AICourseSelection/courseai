@@ -1,10 +1,23 @@
 {
   "name": "Master of Digital Humanities and Public Culture",
+  "units": 96,
   "code": "MDHPC",
   "year": 2016,
-  "units": 96,
   "required": {
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "HUMN8001",
+          "LING8010",
+          "SOCR8001",
+          "SOCR8005",
+          "SOCR8006",
+          "SOCR8008",
+          "SOCR8009"
+        ]
+      },
       {
         "type": "minimum",
         "units": 12,
@@ -18,19 +31,6 @@
           "MUSC8005",
           "MUSC8009",
           "MUSC8011"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "HUMN8001",
-          "LING8010",
-          "SOCR8001",
-          "SOCR8005",
-          "SOCR8006",
-          "SOCR8008",
-          "SOCR8009"
         ]
       },
       {

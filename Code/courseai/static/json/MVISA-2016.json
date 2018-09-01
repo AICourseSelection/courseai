@@ -1,10 +1,19 @@
 {
   "name": "Master of Visual Arts",
+  "units": 96,
   "code": "MVISA",
   "year": 2016,
-  "units": 96,
   "required": {
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ARTV8038",
+          "ARTV8039",
+          "ARTV8040"
+        ]
+      },
       {
         "type": "minimum",
         "units": 12,
@@ -33,15 +42,6 @@
           "ARTV8300",
           "DESA6100",
           "DESA6101"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ARTV8038",
-          "ARTV8039",
-          "ARTV8040"
         ]
       }
     ]

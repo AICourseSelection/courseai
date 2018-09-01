@@ -1,21 +1,10 @@
 {
   "name": "Master of Translation",
+  "units": 96,
   "code": "MTRAN",
   "year": 2019,
-  "units": 96,
   "required": {
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANIP6503",
-          "HUMN6001",
-          "HUMN8032",
-          "LANG6016",
-          "LING6522"
-        ]
-      },
       {
         "type": "minimum",
         "units": 12,
@@ -38,6 +27,17 @@
           "LING6021",
           "LING6023",
           "PASI6010"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANIP6503",
+          "HUMN6001",
+          "HUMN8032",
+          "LANG6016",
+          "LING6522"
         ]
       }
     ]

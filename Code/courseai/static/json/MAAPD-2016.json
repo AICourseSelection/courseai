@@ -1,8 +1,8 @@
 {
   "name": "Master of Applied Anthropology and Participatory Development",
+  "units": 96,
   "code": "MAAPD",
   "year": 2016,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -11,6 +11,15 @@
         "courses": [
           "ANTH8006",
           "ANTH8028"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "ANTH8007",
+          "ANTH8009",
+          "ANTH8038"
         ]
       },
       {
@@ -25,9 +34,8 @@
         "type": "minimum",
         "units": 18,
         "courses": [
-          "ANTH8007",
-          "ANTH8009",
-          "ANTH8038"
+          "ANTH8008",
+          "ANTH8019"
         ]
       },
       {
@@ -69,14 +77,6 @@
           "POGO8898",
           "SOCY6045",
           "STST8032"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "ANTH8008",
-          "ANTH8019"
         ]
       }
     ]

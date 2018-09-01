@@ -1,33 +1,10 @@
 {
   "name": "Master of Middle Eastern and Central Asian Studies",
+  "units": 96,
   "code": "MMECA",
   "year": 2019,
-  "units": 96,
   "required": {
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANIP6503",
-          "MEAS8100",
-          "MEAS8105",
-          "MEAS8108",
-          "MEAS8121",
-          "MEAS8123",
-          "MEAS8126"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "POLS8004",
-          "POLS8042",
-          "SOCR8006",
-          "SOCR8008"
-        ]
-      },
       {
         "type": "minimum",
         "units": 24,
@@ -45,6 +22,29 @@
           "MEAS8118",
           "MEAS8124",
           "MEAS8127"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "POLS8004",
+          "POLS8042",
+          "SOCR8006",
+          "SOCR8008"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANIP6503",
+          "MEAS8100",
+          "MEAS8105",
+          "MEAS8108",
+          "MEAS8121",
+          "MEAS8123",
+          "MEAS8126"
         ]
       }
     ]

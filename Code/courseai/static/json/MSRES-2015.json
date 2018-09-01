@@ -1,14 +1,22 @@
 {
   "name": "Master of Social Research",
+  "units": 96,
   "code": "MSRES",
   "year": 2015,
-  "units": 96,
   "required": {
     "compulsory_courses": [
       "DEMO8082",
       "SOCR8001"
     ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "SOCR8008",
+          "SOCR8009"
+        ]
+      },
       {
         "type": "minimum",
         "units": 12,
@@ -29,14 +37,6 @@
           "SOCR8008",
           "SOCR8009",
           "SOCY8014"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "SOCR8008",
-          "SOCR8009"
         ]
       }
     ]

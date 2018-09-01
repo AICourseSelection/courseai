@@ -1,8 +1,8 @@
 {
   "name": "Master of Music",
+  "units": 96,
   "code": "MMUSI",
   "year": 2017,
-  "units": 96,
   "required": {
     "compulsory_courses": [
       "MUSI7003",
