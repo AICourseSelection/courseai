@@ -1,8 +1,8 @@
 {
   "name": "Master of Archaeological Science",
+  "units": 96,
   "code": "MARSC",
   "year": 2016,
-  "units": 96,
   "required": {
     "compulsory_courses": [
       "ARCH8032",
@@ -17,17 +17,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ARCH6004",
-          "ARCH6005",
-          "ARCH6050"
+          "ARCH8029",
+          "ARCH8030"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ARCH8029",
-          "ARCH8030"
+          "ARCH6004",
+          "ARCH6005",
+          "ARCH6050"
         ]
       },
       {

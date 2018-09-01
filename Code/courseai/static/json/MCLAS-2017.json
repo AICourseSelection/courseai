@@ -1,18 +1,10 @@
 {
   "name": "Master of Classical Studies",
+  "units": 96,
   "code": "MCLAS",
   "year": 2017,
-  "units": 96,
   "required": {
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "GREK6112",
-          "LATN6002"
-        ]
-      },
       {
         "type": "maximum",
         "units": 48,
@@ -30,6 +22,14 @@
           "GREK6125",
           "LATN6101",
           "LATN6125"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "GREK6112",
+          "LATN6002"
         ]
       },
       {

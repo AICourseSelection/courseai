@@ -1,8 +1,8 @@
 {
   "name": "Master of Applied Anthropology and Participatory Development",
+  "units": 48,
   "code": "7101XMAAPD",
   "year": 2014,
-  "units": 48,
   "required": {
     "compulsory_courses": [
       "ANTH8019",
@@ -10,6 +10,15 @@
       "ANTH8007",
       "ANTH8009",
       "ANTH8038"
+    ],
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "ANTH8006"
+        ]
+      }
     ]
   }
 }

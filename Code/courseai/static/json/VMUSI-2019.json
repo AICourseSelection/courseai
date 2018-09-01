@@ -1,14 +1,32 @@
 {
   "name": "Master of Music (Advanced)",
+  "units": 96,
   "code": "VMUSI",
   "year": 2019,
-  "units": 96,
   "required": {
     "compulsory_courses": [
       "MUSI8011",
       "MUSI6110"
     ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "MUSI6211",
+          "MUSI6313",
+          "MUSI7003",
+          "MUSI8001"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MUSI8012",
+          "MUSI8013"
+        ]
+      },
       {
         "type": "maximum",
         "units": 18,
@@ -21,24 +39,6 @@
           "MUSI8014",
           "MUSI8014",
           "THES8105"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "MUSI8012",
-          "MUSI8013"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "MUSI6211",
-          "MUSI6313",
-          "MUSI7003",
-          "MUSI8001"
         ]
       }
     ]

@@ -1,8 +1,8 @@
 {
   "name": "Master of Social Research (Advanced)",
+  "units": 96,
   "code": "VSRES",
   "year": 2016,
-  "units": 96,
   "required": {
     "compulsory_courses": [
       "DEMO8082",

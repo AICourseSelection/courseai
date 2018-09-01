@@ -1,16 +1,14 @@
 {
   "name": "Bachelor of Criminology",
+  "units": 144,
   "code": "BCRIM",
   "year": 2015,
-  "units": 144,
   "required": {
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
+        "units": 60,
+        "level": "1000"
       }
     ],
     "compulsory_courses": [
@@ -25,14 +23,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "SOCY1002",
-          "SOCY1004"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ANIP3005",
@@ -43,6 +33,14 @@
           "POLS2096",
           "SOCY2063",
           "SOCY3123"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "SOCY1002",
+          "SOCY1004"
         ]
       },
       {

@@ -1,8 +1,8 @@
 {
   "name": "Master of Art History and Curatorial Studies (Advanced)",
+  "units": 96,
   "code": "VAHCS",
   "year": 2019,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -18,15 +18,6 @@
           "ARTH8016",
           "HUMN8034",
           "MUSC8018"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ARTH6045",
-          "ARTH6057",
-          "ARTH8012"
         ]
       },
       {
@@ -58,6 +49,15 @@
           "ARTH6169",
           "ARTH6170",
           "ARTH6171"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "ARTH6045",
+          "ARTH6057",
+          "ARTH8012"
         ]
       }
     ]

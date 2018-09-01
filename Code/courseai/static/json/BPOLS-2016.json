@@ -1,16 +1,14 @@
 {
   "name": "Bachelor of Policy Studies",
+  "units": 144,
   "code": "BPOLS",
   "year": 2016,
-  "units": 144,
   "required": {
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
+        "units": 60,
+        "level": "1000"
       }
     ],
     "compulsory_courses": [
@@ -25,6 +23,25 @@
       "SOCY2101"
     ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "PHIL2020",
+          "PHIL2115",
+          "POLS2063",
+          "POLS2119",
+          "POLS2120"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
+      },
       {
         "type": "minimum",
         "units": 18,
@@ -57,28 +74,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "HIST2227",
-          "POLS2043",
-          "POLS2111",
-          "POLS2114",
-          "POLS2121"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "PHIL2020",
-          "PHIL2115",
-          "POLS2063",
-          "POLS2119",
-          "POLS2120"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "SOCY3001",
           "SOCY3030"
         ]
@@ -87,8 +82,11 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "HIST2227",
+          "POLS2043",
+          "POLS2111",
+          "POLS2114",
+          "POLS2121"
         ]
       }
     ]

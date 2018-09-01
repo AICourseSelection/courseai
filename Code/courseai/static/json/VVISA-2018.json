@@ -1,28 +1,16 @@
 {
   "name": "Master of Visual Arts (Advanced)",
+  "units": 96,
   "code": "VVISA",
   "year": 2018,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
         "courses": [
-          "ARTV8038",
-          "ARTV8039"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "ARTV6000",
-          "ARTV6057",
-          "ARTV6508",
-          "ARTV6801",
-          "ARTV8038",
-          "ARTV8039"
+          "ARTH8020",
+          "ARTH8021"
         ]
       },
       {
@@ -57,10 +45,22 @@
       },
       {
         "type": "minimum",
-        "units": 6,
+        "units": 12,
         "courses": [
-          "ARTH8020",
-          "ARTH8021"
+          "ARTV8038",
+          "ARTV8039"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "ARTV6000",
+          "ARTV6057",
+          "ARTV6508",
+          "ARTV6801",
+          "ARTV8038",
+          "ARTV8039"
         ]
       }
     ]

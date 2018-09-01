@@ -1,25 +1,28 @@
 {
   "name": "Bachelor of Visual Arts",
+  "units": 144,
   "code": "BVART",
   "year": 2018,
-  "units": 144,
   "required": {
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
+        "units": 60,
+        "level": "1000"
       }
     ],
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
+        "units": 12,
         "courses": [
-          "ARTH1006",
-          "ARTH1007"
+          "ARTV1020",
+          "ARTV1021",
+          "ARTV1033",
+          "DESA1021",
+          "DESN1001",
+          "DESN1002",
+          "COMP1720"
         ]
       },
       {
@@ -70,15 +73,10 @@
       },
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
         "courses": [
-          "ARTV1020",
-          "ARTV1021",
-          "ARTV1033",
-          "DESA1021",
-          "DESN1001",
-          "DESN1002",
-          "COMP1720"
+          "ARTH1006",
+          "ARTH1007"
         ]
       }
     ]

@@ -1,8 +1,8 @@
 {
   "name": "Master of Digital Humanities and Public Culture",
+  "units": 96,
   "code": "MDHPC",
   "year": 2017,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
