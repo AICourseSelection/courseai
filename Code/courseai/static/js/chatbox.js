@@ -54,9 +54,33 @@ $(document).ready(function () {
         const reply_bubble = $('<div class="msg_a temp">&hellip;</div>');
         reply_bubble.insertBefore('.msg_push');
 
-        lexruntime.postContent(params, function (err, data) {
-            if (err) console.log(err, err.stack);   // an error occurred
-            else {
+
+
+        $.ajax({url: "question_and_answer/answer/?q="+msg.split(" ").join("+"), success: function(data){
+
+            const res = data.queryResult.fulfillmentText;
+            console.log(res);      // successful response
+            if(res != "Sorry, I could not answer that") {
+                knowledge = data.queryResult.knowledgeAnswers;
+                if(typeof knowledge !== "undefined" ) {
+                    console.log(knowledge.answers[0]);
+                    message = knowledge.answers[0].answer;
+                    reply_bubble.removeClass('temp');
+                    reply_bubble.text(message);      // Put the answer in the bubble
+                    const body = $('.msg_body');
+                    body.scrollTop(body[0].scrollHeight);
+                } else {
+                    reply_bubble.removeClass('temp');
+                    reply_bubble.text("tier 1 enquiry");      // Put the answer in the bubble
+                    const body = $('.msg_body');
+                    body.scrollTop(body[0].scrollHeight);
+                }
+
+
+            } else {
+                lexruntime.postContent(params, function (err, data) {
+                if (err) console.log(err, err.stack);   // an error occurred
+                else {
                 console.log(data.message);      // successful response
                 answer = data.message;
 
@@ -66,5 +90,14 @@ $(document).ready(function () {
                 body.scrollTop(body[0].scrollHeight);
             }
         });
+            }
+
+
+        }});
+
+
+
+
+
     });
 });
