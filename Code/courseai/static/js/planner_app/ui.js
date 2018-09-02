@@ -19,6 +19,7 @@ let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
 const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'mms-course-list0', 'added-elective', 'compulsory']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
+let colorMappings = {};
 
 // UI Functions
 async function addDegree(code, year) {
@@ -55,22 +56,40 @@ function resetPlan() {
     loadDefaultPlan();
 }
 
-function addCourseClass(box, code) {
-    box.removeClass(COLOR_CLASSES_STR); // make sure no existing color classes exist (e.g. a MMS is deleted)
-    if (compulsoryCourseCodes.includes(code)) {
+function addColor(box, code) {
+    if (!box.hasClass('compulsory') && compulsoryCourseCodes.includes(code)) {
         box.addClass('compulsory');
-        return;
     }
 
     var count = 0;
     for (var key in allMMSCourseCodes) {
-        if (allMMSCourseCodes[key].includes(code)) {
-            box.addClass(MMS_CLASS_NAME + count);
-            return;
+        let className = MMS_CLASS_NAME + count;
+        if (!box.hasClass(className) && allMMSCourseCodes[key].includes(code)) {
+            box.addClass(className);
+            break;
         }
         count++;
     }
-    box.addClass('added-elective');
+
+    let existingClasses = box.attr('class').split(/\s+/);
+    let colorClasses = existingClasses.filter(f => COLOR_CLASSES.includes(f));
+
+    // create gradient if 
+    if (colorClasses.length > 1) {
+        let cssBackgroundStr = '-webkit-linear-gradient(180deg';
+
+        let percent = 100 / colorClasses.length;
+        for (var i = 0; i < colorClasses.length; i++) {
+            let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
+            // add additional color stop to create hard lines between colors
+            if (i > 0 && i < colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+            }
+            cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
+        }
+        cssBackgroundStr += ')';
+        box.css('background', cssBackgroundStr);
+    }
 }
 
 function makeElective(box, session, code) {
@@ -111,7 +130,7 @@ function addCourse(code, title, session, position) {
     box.find('.course-code').text(code);
     box.find('.course-title').text(title);
     box.each(coursePopoverSetup);
-    addCourseClass(box, code);
+    addColor(box, code);
     $.when(PLAN.addCourse(session, code).then(function () {
         updateProgress();
         updateRecommendations();
@@ -156,7 +175,7 @@ function addFilter(type, data) {
 async function colorSearchList() {
     $('#results-courses').find('.draggable-course').each(function() {
         var code = $(this).find('.course-code').text();
-        addCourseClass($(this), code);
+        addColor($(this), code);
     });
 }
 
@@ -165,19 +184,17 @@ async function colorPlannerCards() {
     for (let row of $('#plan-grid').find('.plan-row')) {
         $(row).children(".plan-cell").each(function() {
             var code = $(this).find('.course-code').text() 
-            addCourseClass($(this), code);
+            addColor($(this), code);
             return;
         });
     }
 }
 
-// add color class for all cards in a MMS list
-function colorMMSList() {
+// add color class for all cards in MMS lists
+async function colorMMSList() {
    for (let list of $('#mms-active-list').find('.mms')) {
-       let mmsCode = $(list).find('.mms-code').text();
        $(list).find('.draggable-course').each(function() {
-            $(this).removeClass(COLOR_CLASSES_STR);
-            $(this).addClass(MMS_CLASS_NAME + getColorClassIndex(mmsCode));
+            addColor($(this), $(this).find('.course-code').text());
        });
    }
 }
@@ -218,7 +235,6 @@ async function mms_add(code, year) {
     });
     let titles_fill_nodes = {};
 
-    let colorIndex = getColorClassIndex(code);
     let mmsCourseCodes = [];
     for (let i in mms.rules) {
         let value = mms.rules[i];
@@ -241,7 +257,7 @@ async function mms_add(code, year) {
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
-                item.addClass(MMS_CLASS_NAME + colorIndex);
+
                 mmsCourseCodes.push(course.code);
                 item.append(title_node);
                 makeCourseDraggable(item, course.code);
@@ -280,7 +296,6 @@ async function mms_add(code, year) {
                     '</div>'
                 );
                 mmsCourseCodes.push(course.code);
-                list_item.addClass(MMS_CLASS_NAME + colorIndex);
                 list_item.append(title_node);
                 makeCourseDraggable(list_item, course.code);
                 list_item.each(coursePopoverSetup);
@@ -298,8 +313,6 @@ async function mms_add(code, year) {
     }
     mmsCourseCodes.concat.apply([], mmsCourseCodes)
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes[code] = mmsCourseCodes;
-    colorSearchList();
-    colorPlannerCards();
 
     mms_card.append(card_header);
     mms_card.append(collapsible);
@@ -336,11 +349,28 @@ function closePopover(button) {
     $(button).parents('.popover').popover('hide');
 }
 
+async function updateClassColorMapping(colorClassName) {
+    // create dummy element to retrieve class color
+    let dummy = document.createElement('div');
+    dummy.id = 'dummy';
+    dummy.className = colorClassName;
+    document.body.appendChild(dummy);
+    colorMappings[colorClassName] = $('#dummy').css('backgroundColor'); // jquery here since javascript can't retrieve dynamic styling from css
+    document.body.removeChild(dummy);
+}
+
+async function updateColorMappings() {
+    COLOR_CLASSES.forEach(function(e) {
+       updateClassColorMapping(e); 
+    });
+}
+
 // Startup Section
 let PLAN = new Plan();
 let SEARCH = new Search(PLAN);
 let starting_degree = addDegree(degree_code, start_year);
 $.when(starting_degree.then(async function (degree) {
+    updateColorMappings();
     const singleReqsList = $('#degree-reqs-list');
     singleReqsList.hide();
     setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
@@ -707,6 +737,9 @@ async function mms_click_add() {
         }
     });
     mms_add(code, year)
+    colorMMSList();
+    colorSearchList();
+    colorPlannerCards();
 }
 
 // Event Functions
@@ -762,7 +795,7 @@ function loadDefaultPlan() {
 
         let course_list = suggestedPlan[session] || [{"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}];
         for (const course of course_list) {
-            let cell = $('<div class="plan-cell added-elective result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
+            let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
             let title_node = $('<span class="course-title"/>');
             if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                 title_node.text(course['title']);
@@ -992,7 +1025,7 @@ function updateCourseSearchResults(response) {
                 '<span class="course-code">' + code + '</span>\n    ' +
                 '<span class="course-title">' + title + '</span>\n' +
                 '</div>');
-            addCourseClass(item, code);
+            addColor(item, code);
             makeCourseDraggable(item, code, year);
             item.each(coursePopoverSetup);
             cbody.append(item);
