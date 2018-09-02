@@ -744,12 +744,12 @@ wrapper {
     50% { opacity: 0.5 }
 }
 
-.plan-cell:hover, .list-group-item:hover {
-    background-color: #80DEEA;
+* .plan-cell:hover, .list-group-item:hover  {
+    background-color: #80DEEA !important; /* make sure to override js styling */
 }
 
 .plan-cell:active {
-    background-color: #A9CCE3;
+    background-color: #A9CCE3 ;
 }
 
 .added-elective {
@@ -781,7 +781,7 @@ wrapper {
 }
 
 .invalid-cell {
-    background-color: #ffe6e6; 
+    background-color: #ffe6e6 !important; 
 }
 
 .highlight-elective {
