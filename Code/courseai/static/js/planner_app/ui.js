@@ -191,13 +191,15 @@ async function colorPlannerCards() {
 }
 
 // add color class for all cards in MMS lists
-async function colorMMSList() {
-   for (let list of $('#mms-active-list').find('.mms')) {
-       $(list).find('.draggable-course').each(function() {
-            addColor($(this), $(this).find('.course-code').text());
-       });
-   }
-}
+// async function colorMMSList() {
+//    for (let list of $('#mms-active-list').find('.mms')) {
+//        $(list).find('.draggable-course').each(function() {
+//             console.log(code);
+//             var code = $(this).find('.course-code').text();
+//             addColor($(this), code);
+//        });
+//    }
+// }
 
 // return position of key in the MMS to course codes mapping
 function getColorClassIndex(mmsCode) {
@@ -236,6 +238,7 @@ async function mms_add(code, year) {
     let titles_fill_nodes = {};
 
     let mmsCourseCodes = [];
+    let colorIndex = getColorClassIndex(code);
     for (let i in mms.rules) {
         let value = mms.rules[i];
         if (value.type === "fixed") {
@@ -257,7 +260,7 @@ async function mms_add(code, year) {
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
-
+                item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 item.append(title_node);
                 makeCourseDraggable(item, course.code);
@@ -295,6 +298,7 @@ async function mms_add(code, year) {
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
+                list_item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 list_item.append(title_node);
                 makeCourseDraggable(list_item, course.code);
@@ -342,7 +346,6 @@ async function deleteMMS(button) {
     updateProgress();
     colorSearchList();
     colorPlannerCards();
-    colorMMSList();
 }
 
 function closePopover(button) {
@@ -737,7 +740,6 @@ async function mms_click_add() {
         }
     });
     mms_add(code, year)
-    colorMMSList();
     colorSearchList();
     colorPlannerCards();
 }
