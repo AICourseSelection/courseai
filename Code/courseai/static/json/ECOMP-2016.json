@@ -1,8 +1,8 @@
 {
-  "name": "Diploma of Computing",
   "code": "ECOMP",
-  "year": 2016,
   "units": 48,
+  "name": "Diploma of Computing",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "ANUC1100",

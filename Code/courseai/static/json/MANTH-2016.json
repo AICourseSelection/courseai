@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "MANTH",
+  "name": "Master of Anthropology",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "ANTH8034",
@@ -8,7 +10,5 @@
       "ANTH6004",
       "ANTH6005"
     ]
-  },
-  "name": "Master of Anthropology",
-  "year": 2016
+  }
 }

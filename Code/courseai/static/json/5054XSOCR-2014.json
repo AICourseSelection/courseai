@@ -1,7 +1,7 @@
 {
   "units": 6,
   "code": "5054XSOCR",
-  "required": {},
   "name": "Social Research Preparatory Program",
-  "year": 2014
+  "year": 2014,
+  "required": {}
 }

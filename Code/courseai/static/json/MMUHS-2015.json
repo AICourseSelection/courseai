@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "MMUHS",
+  "name": "Master of Museum and Heritage Studies",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -25,7 +27,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Museum and Heritage Studies",
-  "year": 2015
+  }
 }

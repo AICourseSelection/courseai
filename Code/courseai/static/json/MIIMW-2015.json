@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "MIIMW",
+  "name": "Master of Islam in the Modern World",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -38,7 +40,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Islam in the Modern World",
-  "year": 2015
+  }
 }

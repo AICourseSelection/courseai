@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Biotechnology",
   "code": "BBIOT",
-  "year": 2015,
   "units": 144,
+  "name": "Bachelor of Biotechnology",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BIOL1003",
       "BIOL1004",
@@ -45,6 +36,15 @@
           "BIOL2142",
           "BIOL2171",
           "CHEM2208"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

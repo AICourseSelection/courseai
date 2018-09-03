@@ -1,8 +1,8 @@
 {
-  "name": "Master of Public Policy in Economic Policy",
   "code": "NPPEP",
-  "year": 2016,
   "units": 96,
+  "name": "Master of Public Policy in Economic Policy",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "POGO8012",

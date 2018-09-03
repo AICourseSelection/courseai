@@ -1,8 +1,8 @@
 {
-  "name": "Master of Asian and Pacific Studies (Advanced)",
   "code": "VANPS",
-  "year": 2017,
   "units": 96,
+  "name": "Master of Asian and Pacific Studies (Advanced)",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "ASIA8020",

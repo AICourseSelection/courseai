@@ -1,7 +1,17 @@
 {
   "units": 144,
   "code": "BPPOL",
+  "name": "Bachelor of Public Policy",
+  "year": 2019,
   "required": {
+    "compulsory_courses": [
+      "ECON1101",
+      "INDG3001",
+      "POLS2009",
+      "SOCR3001",
+      "SOCY2043",
+      "SOCY2101"
+    ],
     "x_from_here": [
       {
         "units": 6,
@@ -79,18 +89,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
-    ],
-    "compulsory_courses": [
-      "ECON1101",
-      "INDG3001",
-      "POLS2009",
-      "SOCR3001",
-      "SOCY2043",
-      "SOCY2101"
     ]
-  },
-  "name": "Bachelor of Public Policy",
-  "year": 2019
+  }
 }

@@ -1,7 +1,16 @@
 {
   "units": 96,
   "code": "VCLAS",
+  "name": "Master of Classical Studies (Advanced)",
+  "year": 2017,
   "required": {
+    "compulsory_courses": [
+      "CLAS6001",
+      "THES8105",
+      "CLAS8002",
+      "CLAS8003",
+      "GREK6112"
+    ],
     "x_from_here": [
       {
         "units": 12,
@@ -38,15 +47,6 @@
           "LATN6125"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "CLAS6001",
-      "THES8105",
-      "CLAS8002",
-      "CLAS8003",
-      "GREK6112"
     ]
-  },
-  "name": "Master of Classical Studies (Advanced)",
-  "year": 2017
+  }
 }

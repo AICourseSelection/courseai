@@ -1,7 +1,7 @@
 {
   "units": 96,
   "code": "MGLOB",
-  "required": {},
   "name": "Master of Globalisation",
-  "year": 2018
+  "year": 2018,
+  "required": {}
 }

@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Advanced Computing (Research and Development) (Honours)",
   "code": "AACRD",
-  "year": 2018,
   "units": 192,
+  "name": "Bachelor of Advanced Computing (Research and Development) (Honours)",
+  "year": 2018,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "COMP1130",
       "COMP1140",
@@ -52,6 +43,15 @@
         "units": 24,
         "courses": [
           "COMP4550"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ],

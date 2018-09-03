@@ -1,22 +1,22 @@
 {
-  "name": "Bachelor of Commerce",
   "code": "BCOMM",
-  "year": 2015,
   "units": 144,
+  "name": "Bachelor of Commerce",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "x_from_here": [
       {
         "units": "18",
         "courses": "CBE List 1"
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
       }
     ]
   }

@@ -1,13 +1,13 @@
 {
   "units": 6926,
   "code": "7121XMSOCR",
+  "name": "Master of Social Research",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "DEMO8007",
       "DEMO8061",
       "DEMO8082"
     ]
-  },
-  "name": "Master of Social Research",
-  "year": 2014
+  }
 }

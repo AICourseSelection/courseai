@@ -1,8 +1,8 @@
 {
-  "name": "Juris Doctor",
   "code": "MJD",
-  "year": 2019,
   "units": 144,
+  "name": "Juris Doctor",
+  "year": 2019,
   "required": {
     "compulsory_courses": [
       "LAWS6104",

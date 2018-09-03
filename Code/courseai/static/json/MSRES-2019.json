@@ -1,7 +1,13 @@
 {
   "units": 96,
   "code": "MSRES",
+  "name": "Master of Social Research",
+  "year": 2019,
   "required": {
+    "compulsory_courses": [
+      "DEMO8082",
+      "SOCR8001"
+    ],
     "x_from_here": [
       {
         "units": 6,
@@ -56,12 +62,6 @@
           "SOCY6066"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "DEMO8082",
-      "SOCR8001"
     ]
-  },
-  "name": "Master of Social Research",
-  "year": 2019
+  }
 }

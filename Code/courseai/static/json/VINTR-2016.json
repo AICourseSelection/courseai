@@ -1,8 +1,8 @@
 {
-  "name": "Master of International Relations (Advanced)",
   "code": "VINTR",
-  "year": 2016,
   "units": 96,
+  "name": "Master of International Relations (Advanced)",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "INTR8011",

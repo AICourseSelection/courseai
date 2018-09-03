@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma of Public Health",
   "code": "DPUBH",
-  "year": 2015,
   "units": 48,
+  "name": "Graduate Diploma of Public Health",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {

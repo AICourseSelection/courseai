@@ -1,12 +1,12 @@
 {
   "units": 96,
   "code": "MTRAN",
+  "name": "Master of Translation",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "LANG6001",
       "LANG6002"
     ]
-  },
-  "name": "Master of Translation",
-  "year": 2015
+  }
 }

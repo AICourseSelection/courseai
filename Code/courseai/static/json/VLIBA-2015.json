@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VLIBA",
+  "name": "Master of Liberal Arts (Advanced)",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -25,7 +27,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Liberal Arts (Advanced)",
-  "year": 2015
+  }
 }

@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VDIGA",
+  "name": "Master of Digital Arts (Advanced)",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {
@@ -40,7 +42,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Digital Arts (Advanced)",
-  "year": 2017
+  }
 }

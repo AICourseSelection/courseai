@@ -1,8 +1,8 @@
 {
-  "name": "Master of Management",
   "code": "MMGMT",
-  "year": 2017,
   "units": 96,
+  "name": "Master of Management",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {

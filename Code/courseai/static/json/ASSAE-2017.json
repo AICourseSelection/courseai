@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Social Sciences (Honours in Actuarial Studies and Economics)",
   "code": "ASSAE",
-  "year": 2017,
   "units": 192,
+  "name": "Bachelor of Social Sciences (Honours in Actuarial Studies and Economics)",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "ACST4031",

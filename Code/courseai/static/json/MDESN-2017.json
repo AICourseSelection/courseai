@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "MDESN",
+  "name": "Master of Design",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {
@@ -50,7 +52,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Design",
-  "year": 2017
+  }
 }

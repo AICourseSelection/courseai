@@ -1,6 +1,8 @@
 {
   "units": 48,
   "code": "HEURO",
+  "name": "Bachelor of European Studies (Honours)",
+  "year": 2018,
   "required": {
     "x_from_here": [
       {
@@ -14,7 +16,5 @@
         ]
       }
     ]
-  },
-  "name": "Bachelor of European Studies (Honours)",
-  "year": 2018
+  }
 }

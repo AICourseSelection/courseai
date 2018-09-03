@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "MAAOL",
+  "name": "Master of Applied Anthropology and Participatory Development - Online",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -133,7 +135,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Applied Anthropology and Participatory Development - Online",
-  "year": 2015
+  }
 }

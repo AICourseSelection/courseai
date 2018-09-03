@@ -1,7 +1,17 @@
 {
   "units": 96,
   "code": "VSRES",
+  "name": "Master of Social Research (Advanced)",
+  "year": 2018,
   "required": {
+    "compulsory_courses": [
+      "DEMO8082",
+      "SOCR8001",
+      "THES8103",
+      "SOCR8008",
+      "SOCR8009",
+      "SOCR8201"
+    ],
     "x_from_here": [
       {
         "units": 6,
@@ -56,16 +66,6 @@
           "SOCY6066"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "DEMO8082",
-      "SOCR8001",
-      "THES8103",
-      "SOCR8008",
-      "SOCR8009",
-      "SOCR8201"
     ]
-  },
-  "name": "Master of Social Research (Advanced)",
-  "year": 2018
+  }
 }

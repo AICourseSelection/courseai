@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "MAHCS",
+  "name": "Master of Art History and Curatorial Studies",
+  "year": 2016,
   "required": {
     "x_from_here": [
       {
@@ -47,7 +49,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Art History and Curatorial Studies",
-  "year": 2016
+  }
 }

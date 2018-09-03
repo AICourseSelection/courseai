@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VVISA",
+  "name": "Master of Visual Arts (Advanced)",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
@@ -65,7 +67,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Visual Arts (Advanced)",
-  "year": 2019
+  }
 }

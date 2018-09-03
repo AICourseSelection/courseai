@@ -1,16 +1,9 @@
 {
   "units": 48,
   "code": "7005SPERF",
+  "name": "Master of Music (Performance)",
+  "year": 2014,
   "required": {
-    "x_from_here": [
-      {
-        "units": 6,
-        "type": "maximum",
-        "courses": [
-          "MUSI8007"
-        ]
-      }
-    ],
     "compulsory_courses": [
       "MUSI8001",
       "MUSI8002",
@@ -19,8 +12,15 @@
       "ARTV8207",
       "MUSI8007",
       "MUSI8009"
+    ],
+    "x_from_here": [
+      {
+        "units": 6,
+        "type": "maximum",
+        "courses": [
+          "MUSI8007"
+        ]
+      }
     ]
-  },
-  "name": "Master of Music (Performance)",
-  "year": 2014
+  }
 }

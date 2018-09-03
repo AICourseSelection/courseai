@@ -1,7 +1,17 @@
 {
   "units": 48,
   "code": "HMUSI",
+  "name": "Bachelor of Music (Honours)",
+  "year": 2015,
   "required": {
+    "compulsory_courses": [
+      "MUSI4401",
+      "MUSI4402",
+      "THES4105",
+      "MUSI4404",
+      "MUSI4407",
+      "MUSI4409"
+    ],
     "x_from_here": [
       {
         "units": 12,
@@ -22,16 +32,6 @@
           "MUSI4409"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "MUSI4401",
-      "MUSI4402",
-      "THES4105",
-      "MUSI4404",
-      "MUSI4407",
-      "MUSI4409"
     ]
-  },
-  "name": "Bachelor of Music (Honours)",
-  "year": 2015
+  }
 }

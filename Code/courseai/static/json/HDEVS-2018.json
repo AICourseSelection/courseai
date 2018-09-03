@@ -1,6 +1,8 @@
 {
   "units": 48,
   "code": "HDEVS",
+  "name": "Bachelor of Development Studies (Honours)",
+  "year": 2018,
   "required": {
     "x_from_here": [
       {
@@ -23,7 +25,5 @@
         ]
       }
     ]
-  },
-  "name": "Bachelor of Development Studies (Honours)",
-  "year": 2018
+  }
 }

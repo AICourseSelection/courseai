@@ -1,8 +1,8 @@
 {
-  "name": "Master of Laws in International Law",
   "code": "NLLIL",
-  "year": 2015,
   "units": 48,
+  "name": "Master of Laws in International Law",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "LAWS8182",

@@ -1,7 +1,7 @@
 {
-  "name": "Associate Degree",
   "code": "SADEN",
-  "year": 2014,
   "units": 72,
+  "name": "Associate Degree",
+  "year": 2014,
   "required": {}
 }

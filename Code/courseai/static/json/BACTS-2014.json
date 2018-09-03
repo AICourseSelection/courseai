@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Actuarial Studies",
   "code": "BACTS",
-  "year": 2014,
   "units": 144,
+  "name": "Bachelor of Actuarial Studies",
+  "year": 2014,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BUSN1001",
       "ECON1101",
@@ -42,6 +33,15 @@
         "courses": [
           "ECON1100",
           "ECON1102"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

@@ -1,6 +1,8 @@
 {
   "units": 48,
   "code": "HMECA",
+  "name": "Bachelor of Middle Eastern and Central Asian Studies (Honours)",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {
@@ -20,7 +22,5 @@
         ]
       }
     ]
-  },
-  "name": "Bachelor of Middle Eastern and Central Asian Studies (Honours)",
-  "year": 2017
+  }
 }

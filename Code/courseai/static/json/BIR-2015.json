@@ -1,15 +1,17 @@
 {
   "units": 144,
   "code": "BIR",
+  "name": "Bachelor of International Relations",
+  "year": 2015,
   "required": {
     "max_by_level": [
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
     ]
-  },
-  "name": "Bachelor of International Relations",
-  "year": 2015
+  }
 }

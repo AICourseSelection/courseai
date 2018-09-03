@@ -1,6 +1,8 @@
 {
   "units": 144,
   "code": "BCLAS",
+  "name": "Bachelor of Classical Studies",
+  "year": 2014,
   "required": {
     "x_from_here": [
       {
@@ -22,10 +24,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
     ]
-  },
-  "name": "Bachelor of Classical Studies",
-  "year": 2014
+  }
 }

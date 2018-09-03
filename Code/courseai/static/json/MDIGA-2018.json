@@ -1,6 +1,8 @@
 {
   "units": 10,
   "code": "MDIGA",
+  "name": "Master of Digital Arts",
+  "year": 2018,
   "required": {
     "x_from_here": [
       {
@@ -33,7 +35,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Digital Arts",
-  "year": 2018
+  }
 }

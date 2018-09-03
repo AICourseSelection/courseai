@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VIIMW",
+  "name": "Master of Islam in the Modern World (Advanced)",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {
@@ -27,7 +29,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Islam in the Modern World (Advanced)",
-  "year": 2017
+  }
 }

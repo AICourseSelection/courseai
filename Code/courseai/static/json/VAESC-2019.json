@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VAESC",
+  "name": "Master of Archaeological and Evolutionary Science (Advanced)",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
@@ -45,7 +47,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Archaeological and Evolutionary Science (Advanced)",
-  "year": 2019
+  }
 }

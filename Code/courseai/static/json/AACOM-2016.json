@@ -1,18 +1,7 @@
 {
-  "name": "Bachelor of Advanced Computing (Honours)",
   "code": "AACOM",
-  "year": 2016,
-  "units": 192,
+  "name": "Bachelor of Advanced Computing (Honours)",
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "COMP2100",
       "COMP2130",
@@ -73,10 +62,19 @@
     "x_from_category": [
       {
         "type": "minimum",
+        "units": 12,
         "area": [
           "COMP"
-        ],
-        "units": 12
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
       }
     ]
   },
@@ -114,18 +112,20 @@
             "x_from_category": [
               {
                 "type": "minimum",
-                "level": [
-                  4000
-                ],
+                "units": 12,
                 "area": [
                   "COMP"
                 ],
-                "units": 12
+                "level": [
+                  4000
+                ]
               }
             ]
           }
         ]
       }
     ]
-  ]
+  ],
+  "units": 192,
+  "year": 2016
 }

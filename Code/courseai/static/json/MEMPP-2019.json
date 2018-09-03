@@ -1,8 +1,8 @@
 {
-  "name": "Executive Master of Public Policy",
   "code": "MEMPP",
-  "year": 2019,
   "units": 48,
+  "name": "Executive Master of Public Policy",
+  "year": 2019,
   "required": {
     "compulsory_courses": [
       "POGO8081",
