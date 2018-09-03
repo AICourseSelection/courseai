@@ -57,6 +57,8 @@ function resetPlan() {
 }
 
 function addColor(box, code) {
+    box.css('background', ''); // clear existing gradients if they exist
+
     if (!box.hasClass('compulsory') && compulsoryCourseCodes.includes(code)) {
         box.addClass('compulsory');
     }
@@ -66,7 +68,6 @@ function addColor(box, code) {
         let className = MMS_CLASS_NAME + count;
         if (!box.hasClass(className) && allMMSCourseCodes[key].includes(code)) {
             box.addClass(className);
-            break;
         }
         count++;
     }
@@ -74,21 +75,24 @@ function addColor(box, code) {
     let existingClasses = box.attr('class').split(/\s+/);
     let colorClasses = existingClasses.filter(f => COLOR_CLASSES.includes(f));
 
-    // create gradient if 
+    // create gradient for the card
     if (colorClasses.length > 1) {
-        let cssBackgroundStr = '-webkit-linear-gradient(180deg';
+        const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
+        for (var j = 0; j < cssBrowserGradients.length; j++) {
+            let cssBackgroundStr = cssBrowserGradients[j] + 'linear-gradient(180deg';
 
-        let percent = 100 / colorClasses.length;
-        for (var i = 0; i < colorClasses.length; i++) {
-            let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
-            // add additional color stop to create hard lines between colors
-            if (i > 0 && i < colorClasses.length - 1) {
-                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+            let percent = 100 / colorClasses.length;
+            for (var i = 0; i < colorClasses.length; i++) {
+                let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
+                // add additional color stop to create hard lines between colors
+                if (i > 0 && i < colorClasses.length - 1) {
+                    cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+                }
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
             }
-            cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
+            cssBackgroundStr += ')';
+            box.css('background', cssBackgroundStr);
         }
-        cssBackgroundStr += ')';
-        box.css('background', cssBackgroundStr);
     }
 }
 
@@ -172,7 +176,7 @@ function addFilter(type, data) {
 }
 
 // add color class for all cards in the search list
-async function colorSearchList() {
+function colorSearchList() {
     $('#results-courses').find('.draggable-course').each(function() {
         var code = $(this).find('.course-code').text();
         addColor($(this), code);
@@ -180,12 +184,11 @@ async function colorSearchList() {
 }
 
 // add color class for the matching MMS card in planner
-async function colorPlannerCards() {
+function colorPlannerCards() {
     for (let row of $('#plan-grid').find('.plan-row')) {
         $(row).children(".plan-cell").each(function() {
             var code = $(this).find('.course-code').text() 
             addColor($(this), code);
-            return;
         });
     }
 }
@@ -329,6 +332,9 @@ async function mms_add(code, year) {
     $(this).text('Already in Plan');
     await batchCourseTitles(titles_fill_nodes);
     updateProgress();
+
+    colorSearchList();
+    colorPlannerCards();
 }
 
 async function deleteMMS(button) {
@@ -740,8 +746,6 @@ async function mms_click_add() {
         }
     });
     mms_add(code, year)
-    colorSearchList();
-    colorPlannerCards();
 }
 
 // Event Functions
@@ -1574,6 +1578,7 @@ async function updateRecommendations() {
         makeCourseDraggable(item, code, year);
         item.each(coursePopoverSetup);
         group.append(item);
+        addColor(item, code);
     }
     await batchCourseTitles(titles_fill_nodes);
 }

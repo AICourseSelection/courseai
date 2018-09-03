@@ -737,15 +737,10 @@ wrapper {
 
 }
 
-
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
     0%,100% { opacity: 1 }
     50% { opacity: 0.5 }
-}
-
-* .plan-cell:hover, .list-group-item:hover  {
-    background-color: #80DEEA !important; /* make sure to override js styling */
 }
 
 .plan-cell:active {
@@ -761,31 +756,35 @@ wrapper {
 }
 
 .mms-course-list0 {
-    background-color: #ffddcc;
+    background-color: #C7FFEB;
 }
 
 .mms-course-list1 {
-    background-color: #b3ffd9;
+    background-color: #F6EAFF;
 }
 
 .mms-course-list2 {
-    background-color: #ccffff;
+    background-color: #FEFFDE;
 }
 
 .mms-course-list3 {
-    background-color: #e0ccff;
+    background-color: #C6FFCD;
 }
 
 .mms-course-list4 {
-    background-color: #ffb3b3;
+    background-color: #FFE8CF;
 }
 
 .invalid-cell {
-    background-color: #ffe6e6 !important; 
+    background-color: #ffe6e6; 
 }
 
 .highlight-elective {
     background-color: #ccffcc;
     border-color: #37e131;
     animation: pulse 1s infinite;
+}
+
+.plan-cell:hover, .list-group-item:hover  {
+    background: #80DEEA !important; /* make sure to override js styling */
 }
