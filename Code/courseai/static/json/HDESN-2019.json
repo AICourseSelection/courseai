@@ -1,8 +1,6 @@
 {
-  "name": "Bachelor of Design (Honours)",
   "units": 48,
   "code": "HDESN",
-  "year": 2019,
   "required": {
     "compulsory_courses": [
       "DESN4011",
@@ -12,5 +10,7 @@
       "DESN4013",
       "HONS4100"
     ]
-  }
+  },
+  "name": "Bachelor of Design (Honours)",
+  "year": 2019
 }

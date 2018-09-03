@@ -1,13 +1,11 @@
 {
-  "name": "Master of Archaeological and Evolutionary Science",
   "units": 96,
   "code": "MAESC",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "ANTH6064",
           "ARCH6004",
@@ -32,8 +30,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "ARCH8002",
           "ARCH8029",
@@ -47,5 +45,7 @@
         ]
       }
     ]
-  }
+  },
+  "name": "Master of Archaeological and Evolutionary Science",
+  "year": 2019
 }

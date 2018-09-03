@@ -1,8 +1,6 @@
 {
-  "name": "Bachelor of Criminology (Honours)",
   "units": 48,
   "code": "HCRIM",
-  "year": 2016,
   "required": {
     "compulsory_courses": [
       "SOCY4009",
@@ -10,5 +8,7 @@
       "THES4103",
       "HONS4100"
     ]
-  }
+  },
+  "name": "Bachelor of Criminology (Honours)",
+  "year": 2016
 }

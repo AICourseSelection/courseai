@@ -1,35 +1,11 @@
 {
-  "name": "Bachelor of Art History and Curatorship",
   "units": 144,
   "code": "BAHCR",
-  "year": 2019,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": "1000"
-      }
-    ],
-    "compulsory_courses": [
-      "ARTH1006",
-      "ARTH1007",
-      "ARTH3001",
-      "ARTH2044"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ARTH2044",
-          "ARTH2045",
-          "ARTH3057"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 36,
+        "type": "minimum",
         "courses": [
           "ARTH2043",
           "ARTH2044",
@@ -63,7 +39,31 @@
           "ARTH3004",
           "FILM2005"
         ]
+      },
+      {
+        "units": 12,
+        "type": "minimum",
+        "courses": [
+          "ARTH2044",
+          "ARTH2045",
+          "ARTH3057"
+        ]
       }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": "1000"
+      }
+    ],
+    "compulsory_courses": [
+      "ARTH1006",
+      "ARTH1007",
+      "ARTH3001",
+      "ARTH2044"
     ]
-  }
+  },
+  "name": "Bachelor of Art History and Curatorship",
+  "year": 2019
 }

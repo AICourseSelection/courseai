@@ -1,8 +1,6 @@
 {
-  "name": "Bachelor of Design Arts (Honours)",
   "units": 48,
   "code": "HDESA",
-  "year": 2017,
   "required": {
     "compulsory_courses": [
       "DESA4001",
@@ -10,5 +8,7 @@
       "THES4105",
       "HONS4100"
     ]
-  }
+  },
+  "name": "Bachelor of Design Arts (Honours)",
+  "year": 2017
 }

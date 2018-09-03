@@ -1,13 +1,11 @@
 {
-  "name": "Master of General and Applied Linguistics",
   "units": 96,
   "code": "MLING",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "LING6001",
           "LING6002",
@@ -22,8 +20,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "HUMN6001",
           "HUMN6003",
@@ -35,5 +33,7 @@
         ]
       }
     ]
-  }
+  },
+  "name": "Master of General and Applied Linguistics",
+  "year": 2019
 }

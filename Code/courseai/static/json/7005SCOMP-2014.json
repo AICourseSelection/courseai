@@ -1,9 +1,16 @@
 {
-  "name": "Master of Music (Composition)",
   "units": 48,
   "code": "7005SCOMP",
-  "year": 2014,
   "required": {
+    "x_from_here": [
+      {
+        "units": 6,
+        "type": "maximum",
+        "courses": [
+          "MUSI8007"
+        ]
+      }
+    ],
     "compulsory_courses": [
       "MUSI8001",
       "MUSI8002",
@@ -12,15 +19,8 @@
       "ARTV8207",
       "MUSI8007",
       "MUSI8009"
-    ],
-    "x_from_here": [
-      {
-        "type": "maximum",
-        "units": 6,
-        "courses": [
-          "MUSI8007"
-        ]
-      }
     ]
-  }
+  },
+  "name": "Master of Music (Composition)",
+  "year": 2014
 }

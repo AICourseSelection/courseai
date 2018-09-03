@@ -1,17 +1,17 @@
 {
-  "name": "Graduate Certificate in Art History and Curatorial Studies",
   "units": 24,
   "code": "6022XAHCS",
-  "year": 2014,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "ARTH6015"
         ]
       }
     ]
-  }
+  },
+  "name": "Graduate Certificate in Art History and Curatorial Studies",
+  "year": 2014
 }

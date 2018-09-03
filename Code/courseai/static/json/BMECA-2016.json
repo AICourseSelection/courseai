@@ -1,15 +1,15 @@
 {
-  "name": "Bachelor of Middle Eastern and Central Asian Studies",
   "units": 144,
   "code": "BMECA",
-  "year": 2016,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
         "units": 60,
+        "type": "maximum",
         "level": "1000"
       }
     ]
-  }
+  },
+  "name": "Bachelor of Middle Eastern and Central Asian Studies",
+  "year": 2016
 }

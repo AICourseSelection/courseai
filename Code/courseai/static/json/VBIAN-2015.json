@@ -1,13 +1,32 @@
 {
-  "name": "Master of Biological Anthropology (Advanced)",
   "units": 96,
   "code": "VBIAN",
-  "year": 2015,
   "required": {
     "x_from_here": [
       {
+        "units": 12,
+        "type": "maximum",
+        "courses": [
+          "ARCH6500",
+          "BIAN8002",
+          "BIAN8003",
+          "BIAN8004",
+          "BIAN8005"
+        ]
+      },
+      {
+        "units": 12,
         "type": "minimum",
+        "courses": [
+          "BIAN6013",
+          "BIAN6115",
+          "BIAN6514",
+          "BIAN6517"
+        ]
+      },
+      {
         "units": 36,
+        "type": "minimum",
         "courses": [
           "ANTH6026",
           "ANTH6064",
@@ -27,28 +46,9 @@
           "BIAN6519",
           "BIAN6520"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIAN6013",
-          "BIAN6115",
-          "BIAN6514",
-          "BIAN6517"
-        ]
-      },
-      {
-        "type": "maximum",
-        "units": 12,
-        "courses": [
-          "ARCH6500",
-          "BIAN8002",
-          "BIAN8003",
-          "BIAN8004",
-          "BIAN8005"
-        ]
       }
     ]
-  }
+  },
+  "name": "Master of Biological Anthropology (Advanced)",
+  "year": 2015
 }

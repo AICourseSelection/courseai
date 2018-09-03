@@ -1,13 +1,11 @@
 {
-  "name": "Bachelor of European Studies (Honours)",
   "units": 48,
   "code": "HEURO",
-  "year": 2018,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "POLS4009",
           "POLS4010",
@@ -16,5 +14,7 @@
         ]
       }
     ]
-  }
+  },
+  "name": "Bachelor of European Studies (Honours)",
+  "year": 2018
 }

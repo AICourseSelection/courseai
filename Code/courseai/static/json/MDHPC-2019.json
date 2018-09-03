@@ -1,13 +1,11 @@
 {
-  "name": "Master of Digital Humanities and Public Culture",
   "units": 96,
   "code": "MDHPC",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANIP6503",
           "ANIP6505",
@@ -17,8 +15,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "ARCH8104",
           "ARTH6162",
@@ -72,8 +70,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "HUMN6001",
           "HUMN6003",
@@ -84,5 +82,7 @@
         ]
       }
     ]
-  }
+  },
+  "name": "Master of Digital Humanities and Public Culture",
+  "year": 2019
 }

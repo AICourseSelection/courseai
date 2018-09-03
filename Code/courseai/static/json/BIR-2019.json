@@ -1,50 +1,11 @@
 {
-  "name": "Bachelor of International Relations",
   "units": 144,
   "code": "BIR",
-  "year": 2019,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": "1000"
-      }
-    ],
-    "compulsory_courses": [
-      "POLS1005",
-      "POLS1006",
-      "POLS2094",
-      "POLS2133",
-      "POLS3001",
-      "POLS3017"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 6,
-        "courses": [
-          "ASIA2111",
-          "INTR2012",
-          "INTR2014",
-          "INTR2016",
-          "INTR2018",
-          "INTR2020",
-          "INTR2024",
-          "POLS2123",
-          "POLS3033",
-          "POLS3036",
-          "STST1001",
-          "STST2001",
-          "STST2124",
-          "STST2131",
-          "STST2003",
-          "STST3002"
-        ]
-      },
-      {
         "type": "minimum",
-        "units": 6,
         "courses": [
           "POLS2063",
           "POLS2102",
@@ -55,8 +16,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ASIA1035",
           "ASIA1999",
@@ -77,18 +38,30 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
-          "POLS1009",
-          "POLS2125",
-          "POLS2044",
-          "SOCY2043"
+          "ASIA2111",
+          "INTR2012",
+          "INTR2014",
+          "INTR2016",
+          "INTR2018",
+          "INTR2020",
+          "INTR2024",
+          "POLS2123",
+          "POLS3033",
+          "POLS3036",
+          "STST1001",
+          "STST2001",
+          "STST2124",
+          "STST2131",
+          "STST2003",
+          "STST3002"
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "DEMO2003",
           "DIPL2000",
@@ -110,8 +83,8 @@
         ]
       },
       {
-        "type": "maximum",
         "units": 12,
+        "type": "maximum",
         "courses": [
           "ANIP3003",
           "ANIP3005",
@@ -121,7 +94,34 @@
           "VCUG3001",
           "VCUG3002"
         ]
+      },
+      {
+        "units": 6,
+        "type": "minimum",
+        "courses": [
+          "POLS1009",
+          "POLS2125",
+          "POLS2044",
+          "SOCY2043"
+        ]
       }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": "1000"
+      }
+    ],
+    "compulsory_courses": [
+      "POLS1005",
+      "POLS1006",
+      "POLS2094",
+      "POLS2133",
+      "POLS3001",
+      "POLS3017"
     ]
-  }
+  },
+  "name": "Bachelor of International Relations",
+  "year": 2019
 }

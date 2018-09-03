@@ -1,17 +1,11 @@
 {
-  "name": "Master of Applied Anthropology and Participatory Development - Online",
   "units": 72,
   "code": "MAAPO",
-  "year": 2019,
   "required": {
-    "compulsory_courses": [
-      "ANTH8019",
-      "ANTH8028"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANTH8007",
           "ANTH8009",
@@ -22,6 +16,12 @@
           "ANTH8107"
         ]
       }
+    ],
+    "compulsory_courses": [
+      "ANTH8019",
+      "ANTH8028"
     ]
-  }
+  },
+  "name": "Master of Applied Anthropology and Participatory Development - Online",
+  "year": 2019
 }

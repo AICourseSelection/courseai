@@ -1,8 +1,6 @@
 {
-  "name": "Diploma of Liberal Studies",
   "units": 48,
   "code": "ELIBS",
-  "year": 2015,
   "required": {
     "compulsory_courses": [
       "ANUC1101",
@@ -14,5 +12,7 @@
       "ANUC1108",
       "ANUC1109"
     ]
-  }
+  },
+  "name": "Diploma of Liberal Studies",
+  "year": 2015
 }

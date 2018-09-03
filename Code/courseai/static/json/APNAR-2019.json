@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Philosophy (Honours) / Bachelor of  Arts (Honours)",
   "units": 48,
   "code": "APNAR",
-  "year": 2019,
-  "required": {}
+  "required": {},
+  "name": "Bachelor of Philosophy (Honours) / Bachelor of  Arts (Honours)",
+  "year": 2019
 }

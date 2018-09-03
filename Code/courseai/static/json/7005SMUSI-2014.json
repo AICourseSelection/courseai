@@ -1,28 +1,28 @@
 {
-  "name": "Master of Music (Musicology)",
   "units": 48,
   "code": "7005SMUSI",
-  "year": 2014,
   "required": {
-    "compulsory_courses": [
-      "MUSI8001",
-      "MUSI8002"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "MUSI8007"
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANTH8101"
         ]
       }
+    ],
+    "compulsory_courses": [
+      "MUSI8001",
+      "MUSI8002"
     ]
-  }
+  },
+  "name": "Master of Music (Musicology)",
+  "year": 2014
 }

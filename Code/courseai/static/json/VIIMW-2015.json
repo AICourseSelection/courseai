@@ -1,13 +1,11 @@
 {
-  "name": "Master of Islam in the Modern World (Advanced)",
   "units": 96,
   "code": "VIIMW",
-  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 36,
+        "type": "minimum",
         "courses": [
           "ASIA6165",
           "INTR8058",
@@ -27,8 +25,8 @@
         ]
       },
       {
-        "type": "maximum",
         "units": 24,
+        "type": "maximum",
         "courses": [
           "MEAS8010",
           "MEAS8103",
@@ -40,5 +38,7 @@
         ]
       }
     ]
-  }
+  },
+  "name": "Master of Islam in the Modern World (Advanced)",
+  "year": 2015
 }

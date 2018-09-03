@@ -1,7 +1,7 @@
 {
-  "name": "Graduate Studies Program",
   "units": 48,
   "code": "7990XMST",
-  "year": 2014,
-  "required": {}
+  "required": {},
+  "name": "Graduate Studies Program",
+  "year": 2014
 }

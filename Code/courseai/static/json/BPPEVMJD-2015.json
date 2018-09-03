@@ -1,20 +1,11 @@
 {
-  "name": "Bachelor of Politics, Philosophy and Economics/Juris Doctor.",
   "units": 264,
   "code": "BPPEVMJD",
-  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": "1000"
-      }
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "LAWS6101",
           "LAWS6102",
@@ -22,6 +13,15 @@
           "LAWS6105"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": "1000"
+      }
     ]
-  }
+  },
+  "name": "Bachelor of Politics, Philosophy and Economics/Juris Doctor.",
+  "year": 2015
 }

@@ -1,8 +1,6 @@
 {
-  "name": "Bachelor of Development Studies (Honours)",
   "units": 48,
   "code": "HDEVS",
-  "year": 2015,
   "required": {
     "compulsory_courses": [
       "ANTH4009",
@@ -10,5 +8,7 @@
       "THES4103",
       "HONS4100"
     ]
-  }
+  },
+  "name": "Bachelor of Development Studies (Honours)",
+  "year": 2015
 }

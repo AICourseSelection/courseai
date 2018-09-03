@@ -1,9 +1,16 @@
 {
-  "name": "Master of Applied Anthropology and Participatory Development (Conflict and Development)",
   "units": 48,
   "code": "7101SCDEV",
-  "year": 2014,
   "required": {
+    "x_from_here": [
+      {
+        "units": 12,
+        "type": "minimum",
+        "courses": [
+          "ANTH8009"
+        ]
+      }
+    ],
     "compulsory_courses": [
       "ANTH8043",
       "ANTH8019",
@@ -11,15 +18,8 @@
       "ANTH8008",
       "ANTH8009",
       "ANTH8016"
-    ],
-    "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8009"
-        ]
-      }
     ]
-  }
+  },
+  "name": "Master of Applied Anthropology and Participatory Development (Conflict and Development)",
+  "year": 2014
 }

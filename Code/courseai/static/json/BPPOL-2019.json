@@ -1,28 +1,19 @@
 {
-  "name": "Bachelor of Public Policy",
   "units": 144,
   "code": "BPPOL",
-  "year": 2019,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": "1000"
-      }
-    ],
-    "compulsory_courses": [
-      "ECON1101",
-      "INDG3001",
-      "POLS2009",
-      "SOCR3001",
-      "SOCY2043",
-      "SOCY2101"
-    ],
     "x_from_here": [
       {
+        "units": 6,
         "type": "minimum",
+        "courses": [
+          "PHIL1008",
+          "PHIL2020"
+        ]
+      },
+      {
         "units": 30,
+        "type": "minimum",
         "courses": [
           "CRIM2001",
           "CRIM2003",
@@ -54,8 +45,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANIP3003",
           "ANIP3005",
@@ -65,24 +56,8 @@
         ]
       },
       {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POLS2044",
-          "SOCY2038"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "PHIL1008",
-          "PHIL2020"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "PHIL2115",
           "PHIL2122",
@@ -90,7 +65,32 @@
           "POLS2119",
           "POLS2120"
         ]
+      },
+      {
+        "units": 6,
+        "type": "minimum",
+        "courses": [
+          "POLS2044",
+          "SOCY2038"
+        ]
       }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": "1000"
+      }
+    ],
+    "compulsory_courses": [
+      "ECON1101",
+      "INDG3001",
+      "POLS2009",
+      "SOCR3001",
+      "SOCY2043",
+      "SOCY2101"
     ]
-  }
+  },
+  "name": "Bachelor of Public Policy",
+  "year": 2019
 }

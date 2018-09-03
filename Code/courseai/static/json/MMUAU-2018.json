@@ -1,8 +1,6 @@
 {
-  "name": "Master of Arts - Arts Administration / Master of Museum and Heritage Studies",
   "units": 30,
   "code": "MMUAU",
-  "year": 2018,
   "required": {
     "compulsory_courses": [
       "HUMN8027",
@@ -11,5 +9,7 @@
       "MUSC8012",
       "MUSC8017"
     ]
-  }
+  },
+  "name": "Master of Arts - Arts Administration / Master of Museum and Heritage Studies",
+  "year": 2018
 }
