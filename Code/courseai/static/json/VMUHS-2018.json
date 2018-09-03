@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VMUHS",
+  "name": "Master of Museum and Heritage Studies (Advanced)",
+  "year": 2018,
   "required": {
     "x_from_here": [
       {
@@ -27,7 +29,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Museum and Heritage Studies (Advanced)",
-  "year": 2018
+  }
 }

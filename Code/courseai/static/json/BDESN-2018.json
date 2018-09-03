@@ -1,7 +1,13 @@
 {
   "units": 144,
   "code": "BDESN",
+  "name": "Bachelor of Design",
+  "year": 2018,
   "required": {
+    "compulsory_courses": [
+      "DESN1001",
+      "DESN1002"
+    ],
     "x_from_here": [
       {
         "units": 18,
@@ -153,14 +159,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
-    ],
-    "compulsory_courses": [
-      "DESN1001",
-      "DESN1002"
     ]
-  },
-  "name": "Bachelor of Design",
-  "year": 2018
+  }
 }

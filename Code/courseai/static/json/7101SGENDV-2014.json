@@ -1,7 +1,15 @@
 {
   "units": 48,
   "code": "7101SGENDV",
+  "name": "Master of Applied Anthropology and Participatory Development (Gender and Development)",
+  "year": 2014,
   "required": {
+    "compulsory_courses": [
+      "ANTH8019",
+      "ANTH8028",
+      "ANTH8039",
+      "ANTH8060"
+    ],
     "x_from_here": [
       {
         "units": 12,
@@ -17,14 +25,6 @@
           "ANTH6025"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "ANTH8019",
-      "ANTH8028",
-      "ANTH8039",
-      "ANTH8060"
     ]
-  },
-  "name": "Master of Applied Anthropology and Participatory Development (Gender and Development)",
-  "year": 2014
+  }
 }

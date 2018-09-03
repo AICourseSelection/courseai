@@ -1,6 +1,8 @@
 {
   "units": 144,
   "code": "BVART",
+  "name": "Bachelor of Visual Arts",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
@@ -75,10 +77,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
     ]
-  },
-  "name": "Bachelor of Visual Arts",
-  "year": 2019
+  }
 }

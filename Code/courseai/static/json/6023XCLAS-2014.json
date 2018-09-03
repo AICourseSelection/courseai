@@ -1,6 +1,8 @@
 {
   "units": 24,
   "code": "6023XCLAS",
+  "name": "Graduate Certificate in Classical Studies",
+  "year": 2014,
   "required": {
     "x_from_here": [
       {
@@ -25,7 +27,5 @@
         ]
       }
     ]
-  },
-  "name": "Graduate Certificate in Classical Studies",
-  "year": 2014
+  }
 }

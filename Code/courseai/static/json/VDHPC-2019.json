@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VDHPC",
+  "name": "Master of Digital Humanities and Public Culture (Advanced)",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
@@ -82,7 +84,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Digital Humanities and Public Culture (Advanced)",
-  "year": 2019
+  }
 }

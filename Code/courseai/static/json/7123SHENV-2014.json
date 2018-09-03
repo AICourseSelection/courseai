@@ -1,6 +1,8 @@
 {
   "units": 48,
   "code": "7123SHENV",
+  "name": "Master of Culture, Health and Medicine (Health and Environment)",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "BIOL8021",
@@ -8,7 +10,5 @@
       "CHMD8014",
       "EMDV8001"
     ]
-  },
-  "name": "Master of Culture, Health and Medicine (Health and Environment)",
-  "year": 2014
+  }
 }

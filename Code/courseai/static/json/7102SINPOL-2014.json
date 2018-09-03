@@ -1,8 +1,8 @@
 {
-  "name": "Master of Public Policy (International Policy)",
   "code": "7102SINPOL",
-  "year": 2014,
   "units": 48,
+  "name": "Master of Public Policy (International Policy)",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "CRWF8000",

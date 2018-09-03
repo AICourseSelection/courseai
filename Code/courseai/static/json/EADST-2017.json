@@ -1,8 +1,8 @@
 {
-  "name": "Diploma of Advanced Studies",
   "code": "EADST",
-  "year": 2017,
   "units": 48,
+  "name": "Diploma of Advanced Studies",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {
@@ -27,10 +27,10 @@
     "max_by_level": [
       {
         "type": "fixed",
+        "units": 42,
         "level": [
           1000
-        ],
-        "units": 42
+        ]
       }
     ]
   }

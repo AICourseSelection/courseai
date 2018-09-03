@@ -1,8 +1,8 @@
 {
-  "name": "Master of Advanced National Security Policy",
   "code": "8210XMANSP",
-  "year": 2014,
   "units": 72,
+  "name": "Master of Advanced National Security Policy",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "NSPO8006",

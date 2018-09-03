@@ -1,8 +1,8 @@
 {
-  "name": "Master of Statistics",
   "code": "MSTAT",
-  "year": 2018,
   "units": 96,
+  "name": "Master of Statistics",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "STAT6038",

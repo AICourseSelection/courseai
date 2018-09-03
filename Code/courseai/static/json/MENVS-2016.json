@@ -1,8 +1,8 @@
 {
-  "name": "Master of Environmental Science",
   "code": "MENVS",
-  "year": 2016,
   "units": 1,
+  "name": "Master of Environmental Science",
+  "year": 2016,
   "required": {
     "x_from_here": [
       {

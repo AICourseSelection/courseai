@@ -1,8 +1,8 @@
 {
-  "name": "ANU Express",
   "code": "1003XEXPRS",
-  "year": 2018,
   "units": 24,
+  "name": "ANU Express",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "PREP1117"
@@ -11,11 +11,11 @@
       {
         "type": "fixed",
         "units": 0,
-        "min_courses": 1,
         "courses": [
           "PREP1118",
           "PREP1119"
-        ]
+        ],
+        "min_courses": 1
       },
       {
         "type": "fixed",

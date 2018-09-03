@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma of Business Information Systems",
   "code": "DBISY",
-  "year": 2015,
   "units": 48,
+  "name": "Graduate Diploma of Business Information Systems",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {

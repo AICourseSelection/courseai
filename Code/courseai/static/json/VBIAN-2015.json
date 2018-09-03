@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VBIAN",
+  "name": "Master of Biological Anthropology (Advanced)",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -48,7 +50,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Biological Anthropology (Advanced)",
-  "year": 2015
+  }
 }

@@ -1,6 +1,8 @@
 {
   "units": 48,
   "code": "HAHCR",
+  "name": "Bachelor of Art History and Curatorship (Honours)",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "ARTH4015",
@@ -10,7 +12,5 @@
       "ARTH4018",
       "HONS4100"
     ]
-  },
-  "name": "Bachelor of Art History and Curatorship (Honours)",
-  "year": 2016
+  }
 }

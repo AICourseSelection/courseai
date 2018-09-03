@@ -1,7 +1,7 @@
 {
   "units": 96,
   "code": "MSTUD",
-  "required": {},
   "name": "Master of Studies",
-  "year": 2015
+  "year": 2015,
+  "required": {}
 }

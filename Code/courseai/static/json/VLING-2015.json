@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VLING",
+  "name": "Master of General and Applied Linguistics (Advanced)",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -61,7 +63,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of General and Applied Linguistics (Advanced)",
-  "year": 2015
+  }
 }

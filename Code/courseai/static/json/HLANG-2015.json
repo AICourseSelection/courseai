@@ -1,6 +1,8 @@
 {
   "units": 48,
   "code": "HLANG",
+  "name": "Bachelor of Languages (Honours)",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -16,7 +18,5 @@
         ]
       }
     ]
-  },
-  "name": "Bachelor of Languages (Honours)",
-  "year": 2015
+  }
 }

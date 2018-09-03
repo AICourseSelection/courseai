@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "MMECA",
+  "name": "Master of Middle Eastern and Central Asian Studies",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
@@ -30,7 +32,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Middle Eastern and Central Asian Studies",
-  "year": 2015
+  }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Information Technology (Honours)",
   "code": "HIT",
-  "year": 2019,
   "units": 48,
+  "name": "Bachelor of Information Technology (Honours)",
+  "year": 2019,
   "required": {
     "compulsory_courses": [
       "COMP4450",

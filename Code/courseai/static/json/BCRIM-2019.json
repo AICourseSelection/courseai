@@ -1,7 +1,17 @@
 {
   "units": 144,
   "code": "BCRIM",
+  "name": "Bachelor of Criminology",
+  "year": 2019,
   "required": {
+    "compulsory_courses": [
+      "CRIM1001",
+      "CRIM2001",
+      "CRIM3001",
+      "PSYC2011",
+      "SOCY2038",
+      "SOCY2043"
+    ],
     "x_from_here": [
       {
         "units": 6,
@@ -62,18 +72,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
-    ],
-    "compulsory_courses": [
-      "CRIM1001",
-      "CRIM2001",
-      "CRIM3001",
-      "PSYC2011",
-      "SOCY2038",
-      "SOCY2043"
     ]
-  },
-  "name": "Bachelor of Criminology",
-  "year": 2019
+  }
 }

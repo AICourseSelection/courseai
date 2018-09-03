@@ -1,8 +1,8 @@
 {
-  "name": "Master of Finance",
   "code": "7418XMFIN",
-  "year": 2016,
   "units": 96,
+  "name": "Master of Finance",
+  "year": 2016,
   "required": {
     "x_from_here": [
       {

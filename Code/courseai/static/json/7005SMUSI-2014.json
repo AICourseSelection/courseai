@@ -1,7 +1,13 @@
 {
   "units": 48,
   "code": "7005SMUSI",
+  "name": "Master of Music (Musicology)",
+  "year": 2014,
   "required": {
+    "compulsory_courses": [
+      "MUSI8001",
+      "MUSI8002"
+    ],
     "x_from_here": [
       {
         "units": 12,
@@ -17,12 +23,6 @@
           "ANTH8101"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "MUSI8001",
-      "MUSI8002"
     ]
-  },
-  "name": "Master of Music (Musicology)",
-  "year": 2014
+  }
 }

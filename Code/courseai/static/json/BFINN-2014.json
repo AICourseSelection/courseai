@@ -1,29 +1,14 @@
 {
-  "name": "Bachelor of Finance",
   "code": "BFINN",
-  "year": 2014,
   "units": 144,
+  "name": "Bachelor of Finance",
+  "year": 2014,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BUSN1001",
       "ECON1101",
       "FINM1001",
       "STAT1008"
-    ],
-    "one_from_m/m/s": [
-      [
-        "CPMK-MAJ",
-        "QFIN-MAJ"
-      ]
     ],
     "x_from_here": [
       {
@@ -47,6 +32,21 @@
           "STAT2032"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
+      }
+    ],
+    "one_from_m/m/s": [
+      [
+        "CPMK-MAJ",
+        "QFIN-MAJ"
+      ]
     ]
   }
 }

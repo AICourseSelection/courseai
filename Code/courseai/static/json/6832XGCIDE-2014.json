@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Certificate of International and Development Economics",
   "code": "6832XGCIDE",
-  "year": 2014,
   "units": 24,
+  "name": "Graduate Certificate of International and Development Economics",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "IDEC8002",

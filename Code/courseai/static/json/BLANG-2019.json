@@ -1,15 +1,17 @@
 {
   "units": 144,
   "code": "BLANG",
+  "name": "Bachelor of Languages",
+  "year": 2019,
   "required": {
     "max_by_level": [
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
     ]
-  },
-  "name": "Bachelor of Languages",
-  "year": 2019
+  }
 }

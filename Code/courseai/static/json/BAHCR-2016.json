@@ -1,7 +1,15 @@
 {
   "units": 144,
   "code": "BAHCR",
+  "name": "Bachelor of Art History and Curatorship",
+  "year": 2016,
   "required": {
+    "compulsory_courses": [
+      "ARTH1006",
+      "ARTH1007",
+      "ARTH3001",
+      "ARTH2044"
+    ],
     "x_from_here": [
       {
         "units": 36,
@@ -50,16 +58,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
-    ],
-    "compulsory_courses": [
-      "ARTH1006",
-      "ARTH1007",
-      "ARTH3001",
-      "ARTH2044"
     ]
-  },
-  "name": "Bachelor of Art History and Curatorship",
-  "year": 2016
+  }
 }

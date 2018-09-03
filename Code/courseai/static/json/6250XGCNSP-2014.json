@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Certificate in National Security Policy",
   "code": "6250XGCNSP",
-  "year": 2014,
   "units": 24,
+  "name": "Graduate Certificate in National Security Policy",
+  "year": 2014,
   "required": {
     "x_from_here": [
       {

@@ -1,8 +1,8 @@
 {
-  "name": "Executive Master of Business Administration (Advanced)",
   "code": "VEBAD",
-  "year": 2019,
   "units": 96,
+  "name": "Executive Master of Business Administration (Advanced)",
+  "year": 2019,
   "required": {
     "compulsory_courses": [
       "MMIB8006",

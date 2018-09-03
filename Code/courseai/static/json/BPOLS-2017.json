@@ -1,7 +1,20 @@
 {
   "units": 144,
   "code": "BPOLS",
+  "name": "Bachelor of Policy Studies",
+  "year": 2017,
   "required": {
+    "compulsory_courses": [
+      "DEMO2001",
+      "ECON1101",
+      "POLS1002",
+      "POLS2009",
+      "POLS2105",
+      "SOCY1002",
+      "SOCY2038",
+      "SOCY2043",
+      "SOCY2101"
+    ],
     "x_from_here": [
       {
         "units": 6,
@@ -74,21 +87,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
-    ],
-    "compulsory_courses": [
-      "DEMO2001",
-      "ECON1101",
-      "POLS1002",
-      "POLS2009",
-      "POLS2105",
-      "SOCY1002",
-      "SOCY2038",
-      "SOCY2043",
-      "SOCY2101"
     ]
-  },
-  "name": "Bachelor of Policy Studies",
-  "year": 2017
+  }
 }

@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VDESN",
+  "name": "Master of Design (Advanced)",
+  "year": 2018,
   "required": {
     "x_from_here": [
       {
@@ -66,7 +68,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Design (Advanced)",
-  "year": 2018
+  }
 }

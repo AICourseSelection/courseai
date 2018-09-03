@@ -1,7 +1,7 @@
 {
   "units": 144,
   "code": "BMUSI",
-  "required": {},
   "name": "Bachelor of Music",
-  "year": 2018
+  "year": 2018,
+  "required": {}
 }

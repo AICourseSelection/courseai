@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Genetics",
   "code": "BGENE",
-  "year": 2019,
   "units": 144,
+  "name": "Bachelor of Genetics",
+  "year": 2019,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BIOL1003",
       "BIOL1004",
@@ -48,11 +39,20 @@
     "x_from_category": [
       {
         "type": "minimum",
+        "units": 36,
+        "courses": "Science List",
         "level": [
           3000
-        ],
-        "units": 36,
-        "courses": "Science List"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
       }
     ]
   }

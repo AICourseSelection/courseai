@@ -1,7 +1,19 @@
 {
   "units": 48,
   "code": "HARTS",
+  "name": "Bachelor of Arts (Honours)",
+  "year": 2015,
   "required": {
+    "compulsory_courses": [
+      "ANTH4011",
+      "ANTH4012",
+      "THES4103",
+      "ECON4021",
+      "ECON4021",
+      "ARCH4001",
+      "ARCH4002",
+      "ARCH4003"
+    ],
     "x_from_here": [
       {
         "units": 12,
@@ -137,18 +149,6 @@
           "PHIL4012"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "ANTH4011",
-      "ANTH4012",
-      "THES4103",
-      "ECON4021",
-      "ECON4021",
-      "ARCH4001",
-      "ARCH4002",
-      "ARCH4003"
     ]
-  },
-  "name": "Bachelor of Arts (Honours)",
-  "year": 2015
+  }
 }

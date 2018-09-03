@@ -1,6 +1,8 @@
 {
   "units": 96,
   "code": "VAAPD",
+  "name": "Master of Applied Anthropology and Participatory Development (Advanced)",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
@@ -29,7 +31,5 @@
         ]
       }
     ]
-  },
-  "name": "Master of Applied Anthropology and Participatory Development (Advanced)",
-  "year": 2019
+  }
 }

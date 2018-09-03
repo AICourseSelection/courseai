@@ -1,7 +1,13 @@
 {
   "units": 96,
   "code": "MMUSI",
+  "name": "Master of Music",
+  "year": 2018,
   "required": {
+    "compulsory_courses": [
+      "MUSI8011",
+      "MUSI8012"
+    ],
     "x_from_here": [
       {
         "units": 12,
@@ -13,12 +19,6 @@
           "MUSI8001"
         ]
       }
-    ],
-    "compulsory_courses": [
-      "MUSI8011",
-      "MUSI8012"
     ]
-  },
-  "name": "Master of Music",
-  "year": 2018
+  }
 }

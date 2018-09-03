@@ -1,7 +1,15 @@
 {
   "units": 144,
   "code": "BPLSC",
+  "name": "Bachelor of Political Science",
+  "year": 2019,
   "required": {
+    "compulsory_courses": [
+      "POLS1002",
+      "POLS1009",
+      "POLS2044",
+      "POLS2119"
+    ],
     "x_from_here": [
       {
         "units": 12,
@@ -93,16 +101,10 @@
       {
         "units": 60,
         "type": "maximum",
-        "level": "1000"
+        "level": [
+          1000
+        ]
       }
-    ],
-    "compulsory_courses": [
-      "POLS1002",
-      "POLS1009",
-      "POLS2044",
-      "POLS2119"
     ]
-  },
-  "name": "Bachelor of Political Science",
-  "year": 2019
+  }
 }
