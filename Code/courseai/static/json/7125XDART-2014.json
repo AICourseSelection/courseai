@@ -1,7 +1,7 @@
 {
-  "name": "Master of Digital Arts",
   "units": 48,
   "code": "7125XDART",
-  "year": 2014,
-  "required": {}
+  "required": {},
+  "name": "Master of Digital Arts",
+  "year": 2014
 }

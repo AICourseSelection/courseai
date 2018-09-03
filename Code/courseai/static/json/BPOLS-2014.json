@@ -1,44 +1,30 @@
 {
-  "name": "Bachelor of Policy Studies",
   "units": 144,
   "code": "BPOLS",
-  "year": 2014,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": "1000"
-      }
-    ],
-    "compulsory_courses": [
-      "ECON1101",
-      "POLS1002",
-      "POLS2009",
-      "POLS2105",
-      "POPS2001",
-      "SOCY1002",
-      "SOCY2038",
-      "SOCY2043",
-      "SOCY2101",
-      "SOCY3123",
-      "SOCY3030"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
-          "PHIL2065",
-          "PHIL2115",
-          "POLS2063",
-          "POLS2119",
-          "POLS2120"
+          "HIST2227",
+          "POLS2043",
+          "POLS2111",
+          "POLS2114",
+          "POLS2121"
         ]
       },
       {
+        "units": 6,
         "type": "minimum",
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
+      },
+      {
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANIP3005",
           "ASIA1022",
@@ -64,24 +50,38 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
-        "courses": [
-          "ECON1100",
-          "ECON1102"
-        ]
-      },
-      {
         "type": "minimum",
-        "units": 6,
         "courses": [
-          "HIST2227",
-          "POLS2043",
-          "POLS2111",
-          "POLS2114",
-          "POLS2121"
+          "PHIL2065",
+          "PHIL2115",
+          "POLS2063",
+          "POLS2119",
+          "POLS2120"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": "1000"
+      }
+    ],
+    "compulsory_courses": [
+      "ECON1101",
+      "POLS1002",
+      "POLS2009",
+      "POLS2105",
+      "POPS2001",
+      "SOCY1002",
+      "SOCY2038",
+      "SOCY2043",
+      "SOCY2101",
+      "SOCY3123",
+      "SOCY3030"
     ]
-  }
+  },
+  "name": "Bachelor of Policy Studies",
+  "year": 2014
 }

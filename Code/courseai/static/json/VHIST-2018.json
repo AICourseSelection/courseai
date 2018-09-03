@@ -1,13 +1,11 @@
 {
-  "name": "Master of History (Advanced)",
   "units": 96,
   "code": "VHIST",
-  "year": 2018,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "CLAS8019",
           "HIST6110",
@@ -15,5 +13,7 @@
         ]
       }
     ]
-  }
+  },
+  "name": "Master of History (Advanced)",
+  "year": 2018
 }

@@ -1,9 +1,17 @@
 {
-  "name": "Diploma of Liberal Studies",
   "units": 48,
   "code": "ELIBS",
-  "year": 2019,
   "required": {
+    "x_from_here": [
+      {
+        "units": 6,
+        "type": "minimum",
+        "courses": [
+          "ANUC1102",
+          "ANUC1103"
+        ]
+      }
+    ],
     "compulsory_courses": [
       "ANUC1101",
       "ANUC1104",
@@ -12,16 +20,8 @@
       "ANUC1108",
       "ANUC1109",
       "ANUC1113"
-    ],
-    "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ANUC1102",
-          "ANUC1103"
-        ]
-      }
     ]
-  }
+  },
+  "name": "Diploma of Liberal Studies",
+  "year": 2019
 }

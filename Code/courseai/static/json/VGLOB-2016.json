@@ -1,21 +1,11 @@
 {
-  "name": "Master of Globalisation (Advanced)",
   "units": 96,
   "code": "VGLOB",
-  "year": 2016,
   "required": {
-    "compulsory_courses": [
-      "THES8103",
-      "POLS8031",
-      "POLS8032",
-      "ANTH8042",
-      "ENVS6033",
-      "HIST8018"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANTH8042",
           "ENVS6033",
@@ -25,6 +15,16 @@
           "SOCY6045"
         ]
       }
+    ],
+    "compulsory_courses": [
+      "THES8103",
+      "POLS8031",
+      "POLS8032",
+      "ANTH8042",
+      "ENVS6033",
+      "HIST8018"
     ]
-  }
+  },
+  "name": "Master of Globalisation (Advanced)",
+  "year": 2016
 }

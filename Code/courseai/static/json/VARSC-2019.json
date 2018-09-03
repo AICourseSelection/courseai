@@ -1,23 +1,38 @@
 {
-  "name": "Master of Archaeological Science (Advanced)",
   "units": 96,
   "code": "VARSC",
-  "year": 2019,
   "required": {
-    "compulsory_courses": [
-      "ARCH8030",
-      "ARCH8032",
-      "ARCH8040",
-      "THES8102",
-      "ARCH6004",
-      "ARCH6005",
-      "ARCH6006",
-      "ARCH6022"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
+        "courses": [
+          "ARCH6004",
+          "ARCH6005",
+          "ARCH6006",
+          "ARCH6022",
+          "ARCH6037",
+          "ARCH6041",
+          "ARCH6050",
+          "ARCH6056",
+          "ARCH6108",
+          "ARCH6500",
+          "ARCH6521",
+          "BIAN6013",
+          "BIAN6510",
+          "BIAN6512",
+          "BIAN6515",
+          "BIAN6517",
+          "BIAN6518",
+          "EMSC6014",
+          "EMSC6027",
+          "EMSC6107",
+          "ENVS6529"
+        ]
+      },
+      {
+        "units": 24,
+        "type": "minimum",
         "courses": [
           "ARCH8002",
           "ARCH8029",
@@ -43,34 +58,19 @@
           "HUMN8019",
           "HUMN8022"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ARCH6004",
-          "ARCH6005",
-          "ARCH6006",
-          "ARCH6022",
-          "ARCH6037",
-          "ARCH6041",
-          "ARCH6050",
-          "ARCH6056",
-          "ARCH6108",
-          "ARCH6500",
-          "ARCH6521",
-          "BIAN6013",
-          "BIAN6510",
-          "BIAN6512",
-          "BIAN6515",
-          "BIAN6517",
-          "BIAN6518",
-          "EMSC6014",
-          "EMSC6027",
-          "EMSC6107",
-          "ENVS6529"
-        ]
       }
+    ],
+    "compulsory_courses": [
+      "ARCH8030",
+      "ARCH8032",
+      "ARCH8040",
+      "THES8102",
+      "ARCH6004",
+      "ARCH6005",
+      "ARCH6006",
+      "ARCH6022"
     ]
-  }
+  },
+  "name": "Master of Archaeological Science (Advanced)",
+  "year": 2019
 }

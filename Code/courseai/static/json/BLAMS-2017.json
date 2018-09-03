@@ -1,24 +1,11 @@
 {
-  "name": "Bachelor of Latin American Studies",
   "units": 144,
   "code": "BLAMS",
-  "year": 2017,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": "1000"
-      }
-    ],
-    "compulsory_courses": [
-      "POLS1007",
-      "HIST2230"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 30,
+        "type": "minimum",
         "courses": [
           "LING2027",
           "POLS2011",
@@ -35,6 +22,19 @@
           "SPAN2004"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": "1000"
+      }
+    ],
+    "compulsory_courses": [
+      "POLS1007",
+      "HIST2230"
     ]
-  }
+  },
+  "name": "Bachelor of Latin American Studies",
+  "year": 2017
 }

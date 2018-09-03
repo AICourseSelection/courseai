@@ -1,8 +1,6 @@
 {
-  "name": "Master of Culture, Health and Medicine (Global Health and Development)",
   "units": 48,
   "code": "7123SGHDEV",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "ANTH8007",
@@ -10,5 +8,7 @@
       "CHMD8006",
       "CHMD8014"
     ]
-  }
+  },
+  "name": "Master of Culture, Health and Medicine (Global Health and Development)",
+  "year": 2014
 }

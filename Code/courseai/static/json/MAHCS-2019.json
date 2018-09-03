@@ -1,13 +1,11 @@
 {
-  "name": "Master of Art History and Curatorial Studies",
   "units": 96,
   "code": "MAHCS",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ARTH8020",
           "ARTH8021",
@@ -21,8 +19,17 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
+        "courses": [
+          "ARTH6045",
+          "ARTH6057",
+          "ARTH8012"
+        ]
+      },
+      {
+        "units": 24,
+        "type": "minimum",
         "courses": [
           "ARTH6004",
           "ARTH6043",
@@ -50,16 +57,9 @@
           "ARTH6170",
           "ARTH6171"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ARTH6045",
-          "ARTH6057",
-          "ARTH8012"
-        ]
       }
     ]
-  }
+  },
+  "name": "Master of Art History and Curatorial Studies",
+  "year": 2019
 }

@@ -1,13 +1,11 @@
 {
-  "name": "Bachelor of Design Arts",
   "units": 144,
   "code": "BDESA",
-  "year": 2016,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
         "units": 60,
+        "type": "maximum",
         "level": "1000"
       }
     ],
@@ -17,5 +15,7 @@
       "ARTV1020",
       "DESA1022"
     ]
-  }
+  },
+  "name": "Bachelor of Design Arts",
+  "year": 2016
 }

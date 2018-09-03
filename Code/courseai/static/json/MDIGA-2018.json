@@ -1,23 +1,20 @@
 {
-  "name": "Master of Digital Arts",
   "units": 10,
   "code": "MDIGA",
-  "year": 2018,
   "required": {
     "x_from_here": [
       {
+        "units": 6,
         "type": "minimum",
-        "units": 18,
         "courses": [
-          "ARTV6000",
-          "ARTV6003",
-          "ARTV8038",
-          "DART8116"
+          "ARTH6050",
+          "ARTH6162",
+          "HIST6233"
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ARTV8038",
           "ARTV8039",
@@ -26,14 +23,17 @@
         ]
       },
       {
+        "units": 18,
         "type": "minimum",
-        "units": 6,
         "courses": [
-          "ARTH6050",
-          "ARTH6162",
-          "HIST6233"
+          "ARTV6000",
+          "ARTV6003",
+          "ARTV8038",
+          "DART8116"
         ]
       }
     ]
-  }
+  },
+  "name": "Master of Digital Arts",
+  "year": 2018
 }

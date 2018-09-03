@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Arts (Honours)",
   "units": 48,
   "code": "HART2",
-  "year": 2016,
-  "required": {}
+  "required": {},
+  "name": "Bachelor of Arts (Honours)",
+  "year": 2016
 }

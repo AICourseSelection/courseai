@@ -1,26 +1,11 @@
 {
-  "name": "Bachelor of Arts/Master of International Affairs",
   "units": 192,
   "code": "BARTVMIA",
-  "year": 2016,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": "1000"
-      }
-    ],
-    "compulsory_courses": [
-      "INTR8011",
-      "INTR8013",
-      "INTR8032",
-      "DIPL8003"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "DIPL8003",
           "DIPL8008",
@@ -53,6 +38,21 @@
           "STST8051"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": "1000"
+      }
+    ],
+    "compulsory_courses": [
+      "INTR8011",
+      "INTR8013",
+      "INTR8032",
+      "DIPL8003"
     ]
-  }
+  },
+  "name": "Bachelor of Arts/Master of International Affairs",
+  "year": 2016
 }
