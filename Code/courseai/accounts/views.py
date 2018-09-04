@@ -91,6 +91,11 @@ def register_view(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
+
+            # Save user info to Database after user confirm their email address to complete the registration
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+
             user.save()
             current_site = get_current_site(request)
             message = render_to_string('activate_account_email.html', {
@@ -104,15 +109,6 @@ def register_view(request):
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
             return HttpResponse('Please confirm your email address to complete the registration')
-    form = UserRegisterForm(request.POST or None, request)
-    # save new user to database
-    if form.is_valid():
-        user = form.save(commit=False)
-        password = form.cleaned_data.get('password')
-        user.set_password(password)
-        user.save()
-        login(request, user)
-        return HttpResponse('OK')
     errMsg = {(v[0]) for _, v in form.errors.items()}
     errStr = '<br>'.join(msg for msg in errMsg)
     return HttpResponse(errStr);
