@@ -2,7 +2,7 @@
 
 ### Important Links
 
-* [Product Backlog](product-backlog.md) (also see [Trello](Sprint_1/https://trello.com/b/lNhn5e9R/))
+* [Product Backlog](product-backlog.md) (also see [Trello](https://trello.com/b/lNhn5e9R/))
 * [API Documentation and mocking (Apiary)](https://courseai.docs.apiary.io/)
 
 ## Sprint 2: Weeks 6 - 7
@@ -19,7 +19,7 @@
 #### Week 5
 
 * [Course Enrolment Dataset Constraints](course-enrolment-dataset-constraints.md)
-* [User Testing: First Round](user-testing.md)
+* [User Testing: (First Round)](Sprint_1/user-testing.md)
 * [Meeting Minutes: Full Team](Sprint_1/team-week-5-minutes.md)
 * [Meeting Minutes: Accenture](Sprint_1/accenture-week-5-minutes.md)
 * [Meeting Minutes: Tutorial](Sprint_1/tutorial-week-5-minutes.md)
