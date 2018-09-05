@@ -14,6 +14,7 @@ body {
 
 #centre-panel {
     padding: 0 5px;
+    max-width: none;
 }
 
 #right-panel {
@@ -144,7 +145,6 @@ wrapper {
     -o-transition: background 1s linear;
     transition: background 1s linear;
 }
-
 .plan-cell {
     float: left;
     padding: 5px;
@@ -160,6 +160,9 @@ wrapper {
 .first-cell {
     padding: 5px;
     margin: 2px;
+    min-width: 7.6rem;
+    max-width: 7.6rem;
+    word-break: break-word;
 }
 
 .first-cell.delete {
@@ -175,6 +178,10 @@ wrapper {
     font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     table-layout: fixed;
     border-collapse: separate;
+}
+
+.row-ses {
+    display: none;
 }
 
 .course-code {
@@ -441,8 +448,8 @@ wrapper {
     margin-bottom: -10px;
 }
 
-#degree-reqs-list .degree-header {
-    /*margin: 0 -10px -10px -10px;*/
+#degree-reqs .degree-header {
+    padding: 0 5px;
 }
 
 .degree-header div {
@@ -531,7 +538,6 @@ wrapper {
     border-bottom: 1px solid #dee2e6;
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
-    /*padding: 0.25rem;*/
 }
 
 .deg-identifier {
@@ -540,11 +546,6 @@ wrapper {
 
 #degree-reqs-list {
     clear: left;
-    /*margin: -10px;*/
-}
-
-#degree-reqs {
-    margin: 0 -10px;
 }
 
 #degree-reqs .degree-body {
