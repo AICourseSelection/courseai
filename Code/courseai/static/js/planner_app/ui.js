@@ -56,6 +56,25 @@ function resetPlan() {
     loadDefaultPlan();
 }
 
+function addVerticalLinearGradient(colorClasses, box) {
+    const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
+    for (var j = 0; j < cssBrowserGradients.length; j++) {
+        let cssBackgroundStr = cssBrowserGradients[j] + 'linear-gradient(180deg';
+
+        let percent = 100 / colorClasses.length;
+        for (var i = 0; i < colorClasses.length; i++) {
+            let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
+            // add additional color stop to create hard lines between colors
+            if (i > 0 && i < colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+            }
+            cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
+        }
+        cssBackgroundStr += ')';
+        box.css('background', cssBackgroundStr);
+    }
+}
+
 function addColor(box, code) {
     box.css('background', ''); // clear existing gradients if they exist
 
@@ -76,24 +95,7 @@ function addColor(box, code) {
     let colorClasses = existingClasses.filter(f => COLOR_CLASSES.includes(f));
 
     // create gradient for the card
-    if (colorClasses.length > 1) {
-        const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
-        for (var j = 0; j < cssBrowserGradients.length; j++) {
-            let cssBackgroundStr = cssBrowserGradients[j] + 'linear-gradient(180deg';
-
-            let percent = 100 / colorClasses.length;
-            for (var i = 0; i < colorClasses.length; i++) {
-                let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
-                // add additional color stop to create hard lines between colors
-                if (i > 0 && i < colorClasses.length - 1) {
-                    cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
-                }
-                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
-            }
-            cssBackgroundStr += ')';
-            box.css('background', cssBackgroundStr);
-        }
-    }
+    if (colorClasses.length > 1) addVerticalLienarGradient(colorClasses, box);
 }
 
 function makeElective(box, session, code) {
@@ -101,7 +103,6 @@ function makeElective(box, session, code) {
     box.find('.course-code').text(ELECTIVE_TEXT);
     box.find('.course-title').text('');
     box.removeClass(COLOR_CLASSES_STR);
-    box.addClass('added-elective'); // TODO: change this if all cards shouldn't default to an elective
     makeSlotDroppable(box);
     PLAN.removeWarning('CourseForceAdded', code);
     PLAN.removeCourse(session, code);
@@ -864,7 +865,12 @@ function loadDefaultPlan() {
                 // }
             }
         });
-        grid.append(row);
+        // create wrapper and button for removing a year/sem
+        let rowWrapper = $('<div class="plan-row-wrapper"/>');
+        let removeBtn = $('<button class="remove-row-btn"/>').append($('<i class="fas fa-minus-square"/>'));
+        rowWrapper.append(removeBtn);
+        rowWrapper.append(row);
+        grid.append(rowWrapper);
     }
 
     // for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDD Plans

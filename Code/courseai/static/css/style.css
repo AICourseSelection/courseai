@@ -97,21 +97,52 @@ wrapper {
     margin-right: auto;
 }
 
+.remove-row-btn {
+    height: 15px;
+    width: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    cursor: pointer;
+    border: none;
+    color: red;
+    background-color: white;
+}
+
+.remove-row-btn:hover {
+    color: #AF1515;
+}
+
+.fa-minus-square {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+#centre-panel {
+    padding-left: 0;
+}
+
 #plan-grid {
     font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
-.plan-row {
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    margin-top: 5px;
+.plan-row-wrapper {
     float: left;
-    padding: 5px;
     display: flex;
     width: 100%;
+    margin-top: 5px;
     min-width: 628px;
     min-height: 124px;
     position: relative;
+}
+
+.plan-row {
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    float: left;
+    display: flex;
 }
 
 .plan-row:hover {
@@ -747,10 +778,6 @@ wrapper {
     background-color: #A9CCE3 ;
 }
 
-.added-elective {
-    /*background-color: #ffe6f2;*/
-}
-
 .compulsory {
     background-color: #ccebff;
 }
@@ -782,7 +809,7 @@ wrapper {
 .highlight-elective {
     background-color: #ccffcc;
     border-color: #37e131;
-    animation: pulse 1s infinite;
+    animation: pulse 2s infinite;
 }
 
 .plan-cell:hover, .list-group-item:hover  {
