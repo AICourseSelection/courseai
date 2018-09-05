@@ -123,7 +123,7 @@ function removeCourseInPlanner(code) {
 
 function addCourse(code, title, session, position) {
     const year = session.slice(0, 4);
-    const sem = SESSION_WORDS[session.slice(4)]; // TODO: Fix for Summer Sessions
+    const sem = SESSION_WORDS[session.slice(4)].replace("&nbsp;", " "); // TODO: Fix for Summer Sessions
     const row = $('#plan-grid').find('.plan-row').filter(function () {
         const first_cell = $(this.children[0]);
         return (first_cell.find('.row-year').text() === year && first_cell.find('.row-sem').text() === sem);
@@ -143,7 +143,7 @@ function addCourse(code, title, session, position) {
 
 function removeCourse(session, position) {
     const year = session.slice(0, 4);
-    const sem = SESSION_WORDS[session.slice(4)]; // TODO: Fix for Summer Sessions
+    const sem = SESSION_WORDS[session.slice(4)].replace("&nbsp;", " "); // TODO: Fix for Summer Sessions
     const row = $('#plan-grid').find('.plan-row').filter(function () {
         const first_cell = $(this.children[0]);
         return (first_cell.find('.row-year').text() === year && first_cell.find('.row-sem').text() === sem);
@@ -793,9 +793,11 @@ function loadDefaultPlan() {
         const ses = session.slice(4);
         let row = $('<div class="plan-row"/>');
         if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
+        let session_word = SESSION_WORDS[ses];
+        if (ses === "S1" || ses === "S2") session_word = session_word.replace(" ", "&nbsp;");
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
-            '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
+            '<div class="row-sem h5">' + session_word + '</div>' +
             '</div>';
         row.append(first_cell);
 
