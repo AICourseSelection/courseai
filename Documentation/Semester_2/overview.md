@@ -7,6 +7,10 @@
 
 ## Sprint 2: Weeks 6 - 7
 
+#### Teaching Break
+* [Deployment Documentation](Sprint_2/deployment-documentation.md)
+
+
 #### Week 6
 
 * [Meeting Minutes: Full Team](Sprint_2/team-week-6-minutes.md)
