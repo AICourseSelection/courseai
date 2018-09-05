@@ -219,6 +219,10 @@ function Plan() {
             if (warn.type === type && warn.text === text) return warn;
         }
     };
+
+    this.getNextSession = function() {
+        return nextSession(this.sessions[this.sessions.length - 1]);
+    }
 }
 
 const SESSION_ORDER = ['Su', 'S1', 'Au', 'Wi', 'S2', 'Sp'];

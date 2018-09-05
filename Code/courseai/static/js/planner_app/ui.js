@@ -839,9 +839,6 @@ function createEmptySessionRow(session) {
 
     row.sortable({
         items: "> .plan-cell",
-        start: function (event, ui) {
-            if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
-        },
         stop: function (event, ui) {
             const first_cell = $(event.target).find('.first-cell');
             if (first_cell.hasClass('delete')) {
@@ -868,6 +865,17 @@ function createAddSessionBtn(session) {
         $(this).parent().replaceWith(replacementDiv);
     });
     return addBtn;
+}
+
+function createNextSessionBtn(grid) {
+    let addDiv = $('<div class="add-row-wrapper"/>');
+    let addBtn = createAddSessionBtn(PLAN.getNextSession());
+    addBtn.click(function() {
+        createNextSessionBtn(grid); // recursively add next btn
+    });
+    addDiv.append(addBtn);
+    addDiv.append('<span class="add-row-line"/>');
+    grid.append(addDiv);
 }
 
 function loadDefaultPlan() {
@@ -958,6 +966,8 @@ function loadDefaultPlan() {
         rowWrapper.append(row);
         grid.append(rowWrapper);
     }
+
+    createNextSessionBtn(grid);
 
     // for (const plan_section of PLAN.degrees[0].suggestedPlan) { //TODO: Fix for FDD Plans
     //     for (const session in plan_section) {
