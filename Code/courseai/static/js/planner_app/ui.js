@@ -784,6 +784,92 @@ function reorganiseDegreeTracker(double) {
     }
 }
 
+function createRemoveSessionBtn(session, row) {
+    let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-minus-square"/>');
+    removeBtn.click(function() {
+        removeSession(session, row);
+        let replacementDiv = $('<div class="add-row-wrapper"/>');
+        let addBtn = createAddSessionBtn(session);
+        replacementDiv.append(addBtn);
+        replacementDiv.append('<span class="add-row-line"/>');
+        $(this).parent().replaceWith(replacementDiv);
+    });
+    return removeBtn;
+}
+
+function removeSession(session, row) {
+    // remove existing courses in the session
+    $(row).children(".plan-cell").each(function() {
+        var cellCode = $(this).find('.course-code').text() 
+        if (cellCode !== ELECTIVE_TEXT) {
+            PLAN.removeWarning('CourseForceAdded', cellCode);
+            PLAN.removeCourse(session, cellCode);
+        }
+    });
+    
+    // update trackers
+    updateWarningNotices();
+    updateProgress();
+    updateRecommendations();
+
+    PLAN.removeSession(session);
+}
+
+function createEmptySessionRow(session) {
+    const year = session.slice(0, 4);
+    const ses = session.slice(4);
+    let row = $('<div class="plan-row"/>');
+    let first_cell = '<div class="first-cell">' +
+        '<div class="row-year h4">' + year + '</div>' +
+        '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
+        '</div>';
+    row.append(first_cell);
+
+    for (var i = 0; i < 4; i++) {
+        let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
+        let title_node = $('<span class="course-title"/>');
+        cell.append('<div class="course-code">' + ELECTIVE_TEXT + '</div>');
+        cell.append('<div class="course-year">' + year + '</div>');
+        cell.append(title_node);
+        cell.click(clickCell);
+        cell.each(coursePopoverSetup);
+        makeSlotDroppable(cell);
+        row.append(cell);
+    }
+
+    row.sortable({
+        items: "> .plan-cell",
+        start: function (event, ui) {
+            if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
+        },
+        stop: function (event, ui) {
+            const first_cell = $(event.target).find('.first-cell');
+            if (first_cell.hasClass('delete')) {
+                first_cell.droppable('destroy');
+                first_cell.children().last().remove();
+                first_cell.removeClass('delete').removeClass('alert-danger');
+                first_cell.children().css({'display': 'block'});
+            }
+            }
+        });
+
+    return row;
+}
+
+function createAddSessionBtn(session) {
+    let addBtn = $('<button class="add-row-btn"/>').append('<i class="fas fa-plus-square"/>');
+    addBtn.click(function() {
+        PLAN.addSession(session); 
+        let replacementDiv = $('<div class="plan-row-wrapper"/>');
+        let row = createEmptySessionRow(session);
+        let removeBtn = createRemoveSessionBtn(session, row);
+        replacementDiv.append(removeBtn);
+        replacementDiv.append(row);
+        $(this).parent().replaceWith(replacementDiv);
+    });
+    return addBtn;
+}
+
 function loadDefaultPlan() {
     let titles_fill_nodes = {};
     let grid = $('#plan-grid');
@@ -867,8 +953,8 @@ function loadDefaultPlan() {
         });
         // create wrapper and button for removing a year/sem
         let rowWrapper = $('<div class="plan-row-wrapper"/>');
-        let removeBtn = $('<button class="remove-row-btn"/>').append($('<i class="fas fa-minus-square"/>'));
-        rowWrapper.append(removeBtn);
+
+        rowWrapper.append(createRemoveSessionBtn(session, row));
         rowWrapper.append(row);
         grid.append(rowWrapper);
     }
