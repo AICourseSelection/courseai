@@ -112,7 +112,7 @@ function removeCourseInPlanner(code) {
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row).find('.first-cell');
         const session = first_cell.find('.row-ses').text();
-        $(row).children(".plan-cell").each(function() {
+        $(row).children(".plan-cell").each(function () {
             const cellCode = $(this).find('.course-code').text();
             if (cellCode === code) {
                 makeElective($(this), session, code);
@@ -173,7 +173,7 @@ function addFilter(type, data) {
 
 // add color class for all cards in the search list
 function colorSearchList() {
-    $('#results-courses').find('.draggable-course').each(function() {
+    $('#results-courses').find('.draggable-course').each(function () {
         var code = $(this).find('.course-code').text();
         addColor($(this), code);
     });
@@ -182,8 +182,8 @@ function colorSearchList() {
 // add color class for the matching MMS card in planner
 function colorPlannerCards() {
     for (let row of $('#plan-grid').find('.plan-row')) {
-        $(row).children(".plan-cell").each(function() {
-            var code = $(this).find('.course-code').text() 
+        $(row).children(".plan-cell").each(function () {
+            var code = $(this).find('.course-code').text()
             addColor($(this), code);
         });
     }
@@ -365,8 +365,8 @@ async function updateClassColorMapping(colorClassName) {
 }
 
 async function updateColorMappings() {
-    COLOR_CLASSES.forEach(function(e) {
-       updateClassColorMapping(e); 
+    COLOR_CLASSES.forEach(function (e) {
+        updateClassColorMapping(e);
     });
 }
 
@@ -585,7 +585,20 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     });
     let titles_fill_nodes = {};
     let group = curr_popover.find('.related-courses');
+    let recCourses = [];
+    for (const clause of offering.rules) {
+        for (const item of clause) {
+            if (!(item.startsWith('~'))) recCourses.push({
+                'course': item,
+                'reasoning': 'This is a prerequisite course.'
+            });
+        }
+    }
     for (const course of res.response) {
+        if (recCourses.map(x => x.course).includes(course.course)) continue;
+        recCourses.push(course);
+    }
+    for (const course of recCourses) {
         const code = course.course;
         const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
         const reason = course.reasoning;
@@ -611,11 +624,11 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         item.each(coursePopoverSetup);
         group.append(item);
     }
+    await batchCourseTitles(titles_fill_nodes);
     html += group[0].outerHTML;
     curr_popover.find('.fa-sync-alt').parent().removeClass('d-flex').addClass('d-none');
     popover.config.content = html;
     popover['data-received'] = true;
-    await batchCourseTitles(titles_fill_nodes);
 }
 
 async function mmsPopoverData() {
@@ -751,7 +764,7 @@ function reorganiseDegreeTracker(double) {
         reqs.show();
         reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
         const headerUnitCount = $(tabsContent.children()[0]).find('.degree-header .unit-count');
-        headerUnitCount.text( headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
+        headerUnitCount.text(headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
         setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
         const tabs = $('#degree-tabs');
         for (const i in PLAN.degrees) {
@@ -802,7 +815,7 @@ function loadDefaultPlan() {
             if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                 title_node.text(course['title']);
             } else if (course.code !== ELECTIVE_TEXT) {
-                cell.addClass('compulsory'); 
+                cell.addClass('compulsory');
                 async_operations.push(PLAN.addCourse(session, course.code));
                 if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
                 titles_fill_nodes[course.code].push(function (title) {
@@ -863,6 +876,7 @@ function loadDefaultPlan() {
 
 function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
+    const year = $(this).find('.course-year').text() || THIS_YEAR;
     if (code === ELECTIVE_TEXT) return;
     $(this).popover({
         trigger: 'click',
@@ -880,21 +894,39 @@ function coursePopoverSetup(i, item) {
         '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
+
     $(this).on('show.bs.popover', function () {
-        coursePopoverData(this, $(item).hasClass('plan-cell'));
+        const popover = $(this).data('bs.popover');
+        coursePopoverData(this, $(item).hasClass('plan-cell')).then(function () {
+            setupRecommendations(popover);
+        });
     });
     $(this).on('shown.bs.popover', function () {
-        let popover = $(this).data('bs.popover');
-        if (popover['data-received'] || false) {
-            const recommendations = $(popover.tip).find('.result-course');
-            recommendations.each(coursePopoverSetup);
-            for (const entry of recommendations) {
-                const code = $(entry).find('.course-code').text();
-                const year = $(entry).find('.course-year').text();
-                makeCourseDraggable($(entry), code, year);
-            }
+        const popover = $(this).data('bs.popover');
+        if (popover['data-received'] || false) setupRecommendations(popover);
+    });
+    async function setupRecommendations(popover) {
+        const offering = await getCourseOffering(code, year);
+        let prereqsSatisfied = false; // whether or not this course's prereqs are satisfied in any session in the plan.
+        for (const session of PLAN.sessions) {
+            prereqsSatisfied = prereqsSatisfied || offering.checkRequirements(PLAN, session).sat
         }
-    })
+        const recommendations = $(popover.tip).find('.result-course');
+        recommendations.each(coursePopoverSetup);
+        for (const entry of recommendations) {
+            const code = $(entry).find('.course-code').text();
+            if (PLAN.getCourses(code).length) {
+                $(entry).remove();
+                continue;
+            }
+            const year = $(entry).find('.course-year').text();
+            const reason = $(entry).find('.course-reason').text();
+            if (reason === "This is a prerequisite course." && prereqsSatisfied) {
+                $(entry).remove();
+            }
+            makeCourseDraggable($(entry), code, year);
+        }
+    }
 }
 
 function mmsPopoverSetup() {
@@ -1031,13 +1063,13 @@ function makeCourseDraggable(item, code, year) {
 }
 
 function addRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).addClass(css_class_name);
     });
 }
 
 function removeRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).removeClass(css_class_name);
     });
 }

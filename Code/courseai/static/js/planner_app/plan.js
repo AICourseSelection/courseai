@@ -170,6 +170,16 @@ function Plan() {
         return false;
     };
 
+    this.getCourses = function (code) {
+        let matches = [];
+        for (const session of this.sessions) {
+            for (const course of this.courses[session]) {
+                if (course.code === code) matches.push(course);
+            }
+        }
+        return matches;
+    };
+
     this.clearAllCourses = function () {
         for (session of this.sessions) {
             this.courses[session] = [];
