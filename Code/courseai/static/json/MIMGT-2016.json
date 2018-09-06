@@ -1,8 +1,8 @@
 {
-  "name": "Master of International Management",
   "code": "MIMGT",
-  "year": 2016,
   "units": 96,
+  "name": "Master of International Management",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "BUSI7001",

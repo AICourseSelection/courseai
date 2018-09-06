@@ -1,13 +1,13 @@
 {
-  "name": "Master of Applied Anthropology and Participatory Development (Advanced) - Online",
-  "code": "VAAOL",
-  "year": 2015,
   "units": 96,
+  "code": "VAAOL",
+  "name": "Master of Applied Anthropology and Participatory Development (Advanced) - Online",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "ANTH6009",
           "ANTH6026",
@@ -21,57 +21,22 @@
         ]
       },
       {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "ANTH8006",
-          "ANTH8028"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
-          "ANTH6065",
-          "ANTH6066",
-          "ANTH8009",
-          "ANTH8016",
           "ANTH8029",
-          "ANTH8030",
           "ANTH8032",
-          "ANTH8037",
           "ANTH8042",
           "ANTH8046",
           "ANTH8047",
+          "ANTH8049",
           "ANTH8056",
-          "ANTH8057",
-          "ANTH8060",
-          "CHMD8006",
-          "EMDV8082",
-          "DEMO8048",
-          "DIPL8010",
-          "EMDV8009",
-          "HGEO8001",
-          "EMDV8124",
-          "HUMN8023",
-          "PASI6003",
-          "POGO8003",
-          "POGO8061",
-          "POGO8898",
-          "STST8032"
+          "ANTH8060"
         ]
       },
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8019",
-          "ANTH8028"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 18,
+        "type": "minimum",
         "courses": [
           "ANTH8007",
           "ANTH8009",
@@ -79,16 +44,16 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 18,
+        "type": "minimum",
         "courses": [
           "ANTH8019",
           "ANTH8008"
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANTH6065",
           "ANTH6066",
@@ -120,17 +85,52 @@
         ]
       },
       {
+        "units": 12,
         "type": "minimum",
-        "units": 6,
         "courses": [
+          "ANTH8019",
+          "ANTH8028"
+        ]
+      },
+      {
+        "units": 18,
+        "type": "minimum",
+        "courses": [
+          "ANTH8006",
+          "ANTH8028"
+        ]
+      },
+      {
+        "units": 6,
+        "type": "minimum",
+        "courses": [
+          "ANTH6065",
+          "ANTH6066",
+          "ANTH8009",
+          "ANTH8016",
           "ANTH8029",
+          "ANTH8030",
           "ANTH8032",
+          "ANTH8037",
           "ANTH8042",
           "ANTH8046",
           "ANTH8047",
-          "ANTH8049",
           "ANTH8056",
-          "ANTH8060"
+          "ANTH8057",
+          "ANTH8060",
+          "CHMD8006",
+          "EMDV8082",
+          "DEMO8048",
+          "DIPL8010",
+          "EMDV8009",
+          "HGEO8001",
+          "EMDV8124",
+          "HUMN8023",
+          "PASI6003",
+          "POGO8003",
+          "POGO8061",
+          "POGO8898",
+          "STST8032"
         ]
       }
     ]

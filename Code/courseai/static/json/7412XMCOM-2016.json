@@ -1,8 +1,8 @@
 {
-  "name": "Master of Commerce",
   "code": "7412XMCOM",
-  "year": 2016,
   "units": 96,
+  "name": "Master of Commerce",
+  "year": 2016,
   "required": {
     "x_from_here": [
       {

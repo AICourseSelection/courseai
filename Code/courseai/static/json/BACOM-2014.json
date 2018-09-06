@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Advanced Computing",
   "code": "BACOM",
-  "year": 2014,
   "units": 192,
+  "name": "Bachelor of Advanced Computing",
+  "year": 2014,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "COMP1130",
       "COMP1140",
@@ -46,6 +37,15 @@
         "courses": [
           "MATH1014",
           "MATH1116"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

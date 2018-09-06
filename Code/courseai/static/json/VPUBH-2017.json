@@ -1,8 +1,8 @@
 {
-  "name": "Master of Public Health (Advanced)",
   "code": "VPUBH",
-  "year": 2017,
   "units": 96,
+  "name": "Master of Public Health (Advanced)",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {

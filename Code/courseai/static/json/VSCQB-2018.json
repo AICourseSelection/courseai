@@ -1,8 +1,8 @@
 {
-  "name": "Master of Science (Advanced) in Quantitative Biology and Bioinformatics",
   "code": "VSCQB",
-  "year": 2018,
   "units": 12,
+  "name": "Master of Science (Advanced) in Quantitative Biology and Bioinformatics",
+  "year": 2018,
   "required": {
     "x_from_here": [
       {

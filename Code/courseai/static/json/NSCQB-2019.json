@@ -1,8 +1,8 @@
 {
-  "name": "Master of Science in Quantitative Biology and Bioinformatics",
   "code": "NSCQB",
-  "year": 2019,
   "units": 24,
+  "name": "Master of Science in Quantitative Biology and Bioinformatics",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {

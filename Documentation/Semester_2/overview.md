@@ -2,11 +2,14 @@
 
 ### Important Links
 
-* [Product Backlog](product-backlog.md) (also see [Trello](Sprint_1/https://trello.com/b/lNhn5e9R/))
-* [User Testing Progress](user-testing.md)
+* [Product Backlog](product-backlog.md) (also see [Trello](https://trello.com/b/lNhn5e9R/))
 * [API Documentation and mocking (Apiary)](https://courseai.docs.apiary.io/)
 
 ## Sprint 2: Weeks 6 - 7
+
+#### Teaching Break
+* [Deployment Documentation](Sprint_2/deployment-documentation.md)
+
 
 #### Week 6
 
@@ -14,10 +17,13 @@
 
 ## Sprint 1: Weeks 3 - 5
 
+* [User Testing (First Round)](Sprint_1/user-testing.md)
+* [User Stories, for use in testing](Sprint_1/user-story.md)
+
 #### Week 5
 
-* Anonymised Degree Plan Data: PPM conditions
-* [User Testing: First Round](user-testing.md)
+* [Course Enrolment Dataset Constraints](course-enrolment-dataset-constraints.md)
+* [User Testing: (First Round)](Sprint_1/user-testing.md)
 * [Meeting Minutes: Full Team](Sprint_1/team-week-5-minutes.md)
 * [Meeting Minutes: Accenture](Sprint_1/accenture-week-5-minutes.md)
 * [Meeting Minutes: Tutorial](Sprint_1/tutorial-week-5-minutes.md)

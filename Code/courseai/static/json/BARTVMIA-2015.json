@@ -1,16 +1,16 @@
 {
-  "name": "Bachelor of Arts/Master of International Affairs",
-  "code": "BARTVMIA",
-  "year": 2015,
   "units": 192,
+  "code": "BARTVMIA",
+  "name": "Bachelor of Arts/Master of International Affairs",
+  "year": 2015,
   "required": {
     "max_by_level": [
       {
+        "units": 60,
         "type": "maximum",
         "level": [
           1000
-        ],
-        "units": 60
+        ]
       }
     ]
   }

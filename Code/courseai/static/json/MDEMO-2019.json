@@ -1,30 +1,21 @@
 {
-  "name": "Master of Demography",
-  "code": "MDEMO",
-  "year": 2019,
   "units": 96,
+  "code": "MDEMO",
+  "name": "Master of Demography",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANIP6503",
-          "SOCR8002",
-          "SOCR8003"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
+        "type": "maximum",
         "courses": [
           "CHMD8004",
           "DEMO8082"
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "DEMO8047",
           "DEMO8048",
@@ -35,8 +26,17 @@
         ]
       },
       {
+        "units": 12,
         "type": "minimum",
+        "courses": [
+          "ANIP6503",
+          "SOCR8002",
+          "SOCR8003"
+        ]
+      },
+      {
         "units": 24,
+        "type": "minimum",
         "courses": [
           "BIAN6120",
           "CHMD8006",

@@ -1,8 +1,8 @@
 {
-  "name": "Master of Neuroscience",
   "code": "MNEUR",
-  "year": 2018,
   "units": 96,
+  "name": "Master of Neuroscience",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "NEUR6101",

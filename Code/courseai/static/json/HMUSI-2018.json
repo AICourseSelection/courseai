@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Music (Honours)",
-  "code": "HMUSI",
-  "year": 2018,
   "units": 48,
+  "code": "HMUSI",
+  "name": "Bachelor of Music (Honours)",
+  "year": 2018,
   "required": {}
 }

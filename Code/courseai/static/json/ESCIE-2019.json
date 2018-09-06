@@ -1,8 +1,8 @@
 {
-  "name": "Diploma of Science",
   "code": "ESCIE",
-  "year": 2019,
   "units": 48,
+  "name": "Diploma of Science",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {

@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of International Relations (Honours)",
-  "code": "HIR",
-  "year": 2015,
   "units": 48,
+  "code": "HIR",
+  "name": "Bachelor of International Relations (Honours)",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "POLS4009",

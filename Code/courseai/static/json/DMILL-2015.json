@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma of Military Law",
   "code": "DMILL",
-  "year": 2015,
   "units": 48,
+  "name": "Graduate Diploma of Military Law",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "LAWS8160",

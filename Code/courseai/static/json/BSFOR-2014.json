@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Science (Forest Sciences)",
   "code": "BSFOR",
-  "year": 2014,
   "units": 144,
+  "name": "Bachelor of Science (Forest Sciences)",
+  "year": 2014,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "ENVS1001",
       "ENVS1003",
@@ -45,6 +36,15 @@
         "type": "minimum",
         "units": "6",
         "courses": "Science List"
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
       }
     ]
   }

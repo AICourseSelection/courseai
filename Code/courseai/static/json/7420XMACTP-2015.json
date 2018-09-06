@@ -1,8 +1,8 @@
 {
-  "name": "Master of Actuarial Practice",
   "code": "7420XMACTP",
-  "year": 2015,
   "units": 120,
+  "name": "Master of Actuarial Practice",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "STAT6039",

@@ -1,8 +1,8 @@
 {
-  "name": "Master of Arts (Strategic Studies)",
   "code": "7816XMASTS",
-  "year": 2014,
   "units": 72,
+  "name": "Master of Arts (Strategic Studies)",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "STST8001",

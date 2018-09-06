@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of International Business",
   "code": "BINBS",
-  "year": 2015,
   "units": 144,
+  "name": "Bachelor of International Business",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BUSI2025",
       "BUSI3020"
@@ -50,6 +41,15 @@
         "courses": [
           "BUSI3024",
           "MGMT3025"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

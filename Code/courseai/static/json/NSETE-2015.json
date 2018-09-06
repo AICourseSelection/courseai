@@ -1,8 +1,8 @@
 {
-  "name": "Master of Engineering in Solar Energy Technologies",
   "code": "NSETE",
-  "year": 2015,
   "units": 96,
+  "name": "Master of Engineering in Solar Energy Technologies",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "ENGN6224",

@@ -1,16 +1,7 @@
 {
-  "name": "Bachelor of Software Engineering (Honours)",
   "code": "ASENG",
-  "year": 2019,
-  "units": 192,
+  "name": "Bachelor of Software Engineering (Honours)",
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [1000],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "COMP1600",
       "COMP2100",
@@ -46,6 +37,15 @@
           "COMP1130"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
+      }
     ]
   },
   "one_from_each": [
@@ -56,8 +56,12 @@
             "x_from_category": [
               {
                 "units": 12,
-                "area": ["COMP"],
-                "level": [4000]
+                "area": [
+                  "COMP"
+                ],
+                "level": [
+                  4000
+                ]
               }
             ]
           },
@@ -111,14 +115,14 @@
             "x_from_category": [
               {
                 "type": "minimum",
-                "level": [
-                  3000,
-                  4000
-                ],
+                "units": 6,
                 "area": [
                   "COMP"
                 ],
-                "units": 6
+                "level": [
+                  3000,
+                  4000
+                ]
               }
             ]
           }
@@ -153,15 +157,17 @@
             "x_from_category": [
               {
                 "type": "minimum",
+                "units": 6,
                 "area": [
                   "COMP"
-                ],
-                "units": 6
+                ]
               }
             ]
           }
         ]
       }
     ]
-  ]
+  ],
+  "units": 192,
+  "year": 2019
 }

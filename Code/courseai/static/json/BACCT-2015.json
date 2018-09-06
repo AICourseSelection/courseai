@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Accounting",
   "code": "BACCT",
-  "year": 2015,
   "units": 144,
+  "name": "Bachelor of Accounting",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BUSN1002",
       "BUSN1101",
@@ -47,6 +38,20 @@
           "BUSN3017"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
+      }
+    ],
+    "one_from_m/m/s": [
+      [
+        "BECE-MIN"
+      ]
     ]
   }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "Master of National Security Policy (Advanced)",
   "code": "VNSPO",
-  "year": 2016,
   "units": 96,
+  "name": "Master of National Security Policy (Advanced)",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "INTR8032",

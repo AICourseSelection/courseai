@@ -1,8 +1,8 @@
 {
-  "name": "Master of Public Policy (Development Policy)",
   "code": "7102SDEVPO",
-  "year": 2014,
   "units": 48,
+  "name": "Master of Public Policy (Development Policy)",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "CRWF8000",

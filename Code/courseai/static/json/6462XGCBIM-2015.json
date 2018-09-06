@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Certificate of Business Information Management",
   "code": "6462XGCBIM",
-  "year": 2015,
   "units": 24,
+  "name": "Graduate Certificate of Business Information Management",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "BUSN7024",
