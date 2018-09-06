@@ -60,6 +60,7 @@ Our configuration for the web-app uses a Kubernetes cluster for the web-app comp
 A diagram of the pipeline can be seen below (copied from [Codefresh](https://codefresh.io/docs/images/getting-started/quick-start-k8s/overview.png)).
 ![pipeline](https://codefresh.io/docs/images/getting-started/quick-start-k8s/overview.png)
 
+**Edit**: *as of 6/9/18, the repository was converted to a private repository. The pipeline was configured to pull directly from Codefresh's internal docker registry to avoid having to configure secrets with Dockerhub. Therefore, the pipeline is now simplified: git triggers cause a docker image to be built on Codefresh that the Kubernetes cluster pulls directly before being redeployed. Dockerhub is no longer included in the pipeline.*
 
 #### Miscellaneous
 The important files for deployment are: `courseai/Code/courseai/settings/settings.py` and `courseai/Code/courseai/degree/course_data_helper.py`. The first specifies Django related settings that must be modified for a production environment. The second contains the line `es_conn = Elasticsearch([os.environ.get("ES_IP")])`, which specifies that an environment variable should be used for the address of the server running Elasticsearch. This may be modified to an explicit IP address if desired.
