@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Statistics",
   "code": "BSTAT",
-  "year": 2015,
   "units": 144,
+  "name": "Bachelor of Statistics",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "COMP1100",
       "MATH1115",
@@ -33,6 +24,15 @@
         "courses": [
           "STAT1003",
           "STAT1008"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma of International and Development Economics",
   "code": "6830XGDIDE",
-  "year": 2014,
   "units": 48,
+  "name": "Graduate Diploma of International and Development Economics",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "IDEC8002",

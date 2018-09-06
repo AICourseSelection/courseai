@@ -1,8 +1,8 @@
 {
-  "name": "Master of International and Development Economics",
   "code": "MIDEC",
-  "year": 2019,
   "units": 96,
+  "name": "Master of International and Development Economics",
+  "year": 2019,
   "required": {
     "compulsory_courses": [
       "IDEC8002",

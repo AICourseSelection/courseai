@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Politics, Philosophy and Economics/Juris Doctor",
-  "code": "BPPEVMJD",
-  "year": 2014,
   "units": 264,
+  "code": "BPPEVMJD",
+  "name": "Bachelor of Politics, Philosophy and Economics/Juris Doctor",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "ECON1101",
@@ -19,18 +19,18 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
-          "ECON1102",
-          "ECON1100"
+          "ECON2101"
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
-          "ECON2101"
+          "ECON1102",
+          "ECON1100"
         ]
       }
     ]

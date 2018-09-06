@@ -1,7 +1,7 @@
 {
-  "name": "Graduate Diploma of Studies",
-  "code": "DSTUD",
-  "year": 2018,
   "units": 48,
+  "code": "DSTUD",
+  "name": "Graduate Diploma of Studies",
+  "year": 2018,
   "required": {}
 }

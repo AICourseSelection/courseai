@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Finance, Economics and Statistics (Honours)",
   "code": "AFEST",
-  "year": 2017,
   "units": 192,
+  "name": "Bachelor of Finance, Economics and Statistics (Honours)",
+  "year": 2017,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BUSN1001",
       "ECON1101",
@@ -59,6 +50,15 @@
         "courses": [
           "STAT2032",
           "STAT3040"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

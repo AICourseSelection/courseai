@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Economics (Honours)",
   "code": "HECON",
-  "year": 2016,
   "units": 48,
+  "name": "Bachelor of Economics (Honours)",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "ECON4411",

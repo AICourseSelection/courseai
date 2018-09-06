@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Actuarial Studies (Honours)",
   "code": "HACTS",
-  "year": 2018,
   "units": 48,
+  "name": "Bachelor of Actuarial Studies (Honours)",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "ACST4031",

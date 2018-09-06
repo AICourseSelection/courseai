@@ -1,8 +1,8 @@
 {
-  "name": "Master of Economics",
   "code": "MECON",
-  "year": 2015,
   "units": 96,
+  "name": "Master of Economics",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "ECON6015",

@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Criminology (Honours)",
-  "code": "HCRIM",
-  "year": 2018,
   "units": 48,
+  "code": "HCRIM",
+  "name": "Bachelor of Criminology (Honours)",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "CRIM4001",

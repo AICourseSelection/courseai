@@ -1,7 +1,7 @@
 {
-  "name": "Graduate Certificate of Studies - Online",
-  "code": "CSTOL",
-  "year": 2016,
   "units": 24,
+  "code": "CSTOL",
+  "name": "Graduate Certificate of Studies - Online",
+  "year": 2016,
   "required": {}
 }

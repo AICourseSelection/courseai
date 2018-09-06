@@ -1,7 +1,7 @@
 {
-  "name": "Graduate Certificate of Studies",
-  "code": "CSTUD",
-  "year": 2016,
   "units": 24,
+  "code": "CSTUD",
+  "name": "Graduate Certificate of Studies",
+  "year": 2016,
   "required": {}
 }

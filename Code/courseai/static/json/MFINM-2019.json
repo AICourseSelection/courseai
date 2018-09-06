@@ -1,8 +1,8 @@
 {
-  "name": "Master of Financial Management",
   "code": "MFINM",
-  "year": 2019,
   "units": 48,
+  "name": "Master of Financial Management",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {

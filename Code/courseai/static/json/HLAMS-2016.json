@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Latin American Studies (Honours)",
-  "code": "HLAMS",
-  "year": 2016,
   "units": 48,
+  "code": "HLAMS",
+  "name": "Bachelor of Latin American Studies (Honours)",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "POLS4009",

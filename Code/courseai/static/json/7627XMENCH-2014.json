@@ -1,8 +1,8 @@
 {
-  "name": "Master of Energy Change",
   "code": "7627XMENCH",
-  "year": 2014,
   "units": 48,
+  "name": "Master of Energy Change",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "PHYS8013",

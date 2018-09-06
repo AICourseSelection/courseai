@@ -1,8 +1,8 @@
 {
-  "name": "Master of Energy Change",
   "code": "MENCH",
-  "year": 2015,
   "units": 96,
+  "name": "Master of Energy Change",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "ENGN6516",

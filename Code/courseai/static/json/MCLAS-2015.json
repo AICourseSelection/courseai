@@ -1,13 +1,21 @@
 {
-  "name": "Master of Classical Studies",
-  "code": "MCLAS",
-  "year": 2015,
   "units": 96,
+  "code": "MCLAS",
+  "name": "Master of Classical Studies",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
+        "units": 12,
+        "type": "minimum",
+        "courses": [
+          "CLAS8002",
+          "CLAS8003"
+        ]
+      },
+      {
         "units": 48,
+        "type": "maximum",
         "courses": [
           "ANCH6013",
           "ANCH6023",
@@ -26,19 +34,11 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "GREK6112",
           "LATN6002"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "CLAS8002",
-          "CLAS8003"
         ]
       }
     ]

@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Politics, Philosophy and Economics",
-  "code": "BPPE",
-  "year": 2017,
   "units": 144,
+  "code": "BPPE",
+  "name": "Bachelor of Politics, Philosophy and Economics",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "ECON1101",
@@ -17,8 +17,8 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "CRIM2000",
           "ECHI1006",
@@ -34,8 +34,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "POLS2063",
           "POLS2094",
@@ -52,8 +52,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "PHIL2020",
           "PHIL2057",

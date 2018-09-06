@@ -1,8 +1,8 @@
 {
-  "name": "Master of Biotechnology",
   "code": "MBIOT",
-  "year": 2018,
   "units": 96,
+  "name": "Master of Biotechnology",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "BIOL6162",

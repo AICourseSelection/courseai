@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Arts (Honours)",
-  "code": "HART2",
-  "year": 2015,
   "units": 48,
+  "code": "HART2",
+  "name": "Bachelor of Arts (Honours)",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "ANTH4011",
@@ -16,8 +16,20 @@
     ],
     "x_from_here": [
       {
+        "units": 12,
         "type": "minimum",
+        "courses": [
+          "CLAS4006",
+          "ENGL4020",
+          "ENGL4021",
+          "LANG4004",
+          "LING4009",
+          "LING4010"
+        ]
+      },
+      {
         "units": 24,
+        "type": "minimum",
         "courses": [
           "ANTH4009",
           "ANTH4010",
@@ -29,16 +41,16 @@
         ]
       },
       {
-        "type": "maximum",
-        "units": 6,
+        "units": 12,
+        "type": "minimum",
         "courses": [
-          "LANG4004",
-          "LING4010"
+          "ENGL4018",
+          "ENGL4019"
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "MUSI4404",
           "MUSI4405",
@@ -48,24 +60,43 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
+        "courses": [
+          "ARTH4017",
+          "ARTH4018"
+        ]
+      },
+      {
+        "units": 12,
+        "type": "minimum",
+        "courses": [
+          "HIST4009",
+          "POLS4009",
+          "POLS4010"
+        ]
+      },
+      {
+        "units": 12,
+        "type": "minimum",
         "courses": [
           "LING4009",
           "POLS4011"
         ]
       },
       {
+        "units": 24,
         "type": "minimum",
-        "units": 12,
         "courses": [
-          "ENGL4018",
-          "ENGL4019"
+          "HIST4009",
+          "HIST4010",
+          "HIST4011",
+          "HIST4012"
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "CLAS4006",
           "ENGL4020",
@@ -78,16 +109,27 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
-          "ARTH4017",
-          "ARTH4018"
+          "CLAS4007",
+          "LANG4002",
+          "LANG4003",
+          "LING4011",
+          "LING4012"
         ]
       },
       {
+        "units": 6,
         "type": "maximum",
+        "courses": [
+          "LANG4004",
+          "LING4010"
+        ]
+      },
+      {
         "units": 12,
+        "type": "maximum",
         "courses": [
           "CLAS4007",
           "ENGL4018",
@@ -99,50 +141,8 @@
         ]
       },
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "HIST4009",
-          "POLS4009",
-          "POLS4010"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "CLAS4006",
-          "ENGL4020",
-          "ENGL4021",
-          "LANG4004",
-          "LING4009",
-          "LING4010"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "CLAS4007",
-          "LANG4002",
-          "LANG4003",
-          "LING4011",
-          "LING4012"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "HIST4009",
-          "HIST4010",
-          "HIST4011",
-          "HIST4012"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "PHIL4010",
           "PHIL4011",

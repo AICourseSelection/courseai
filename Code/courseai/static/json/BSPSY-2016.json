@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Science (Psychology)",
   "code": "BSPSY",
-  "year": 2016,
   "units": 144,
+  "name": "Bachelor of Science (Psychology)",
+  "year": 2016,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "PSYC1003",
       "PSYC1004",
@@ -33,21 +24,30 @@
       },
       {
         "type": "minimum",
+        "units": 12,
+        "courses": "Science List",
         "level": [
           1000
-        ],
-        "units": 12,
-        "courses": "Science List"
+        ]
       },
       {
         "type": "minimum",
-        "level": [
-          3000
-        ],
+        "units": 18,
         "area": [
           "PSYC"
         ],
-        "units": 18
+        "level": [
+          3000
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
       }
     ]
   }

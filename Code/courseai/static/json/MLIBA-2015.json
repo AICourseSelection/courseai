@@ -1,13 +1,13 @@
 {
-  "name": "Master of Liberal Arts",
-  "code": "MLIBA",
-  "year": 2015,
   "units": 96,
+  "code": "MLIBA",
+  "name": "Master of Liberal Arts",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "HUMN8007",
           "HUMN8012",

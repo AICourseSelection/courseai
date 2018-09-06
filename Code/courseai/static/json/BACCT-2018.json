@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Accounting",
   "code": "BACCT",
-  "year": 2018,
   "units": 144,
+  "name": "Bachelor of Accounting",
+  "year": 2018,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BUSN1002",
       "FINM1001",
@@ -50,6 +41,20 @@
           "INFS2005"
         ]
       }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
+      }
+    ],
+    "one_from_m/m/s": [
+      [
+        "BECE-MIN"
+      ]
     ]
   }
 }

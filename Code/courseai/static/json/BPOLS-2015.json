@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Policy Studies",
-  "code": "BPOLS",
-  "year": 2015,
   "units": 144,
+  "code": "BPOLS",
+  "name": "Bachelor of Policy Studies",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "ECON1101",
       "POLS1002",
@@ -28,8 +19,8 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "PHIL2020",
           "PHIL2115",
@@ -39,8 +30,27 @@
         ]
       },
       {
+        "units": 6,
         "type": "minimum",
+        "courses": [
+          "HIST2227",
+          "POLS2043",
+          "POLS2111",
+          "POLS2114",
+          "POLS2121"
+        ]
+      },
+      {
+        "units": 6,
+        "type": "minimum",
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
+      },
+      {
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ANIP3005",
           "ASIA1022",
@@ -64,24 +74,14 @@
           "STST3002",
           "STST3003"
         ]
-      },
+      }
+    ],
+    "max_by_level": [
       {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "HIST2227",
-          "POLS2043",
-          "POLS2111",
-          "POLS2114",
-          "POLS2121"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON1100",
-          "ECON1102"
+        "units": 60,
+        "type": "maximum",
+        "level": [
+          1000
         ]
       }
     ]

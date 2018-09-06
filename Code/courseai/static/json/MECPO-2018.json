@@ -1,8 +1,8 @@
 {
-  "name": "Master of Economic Policy",
   "code": "MECPO",
-  "year": 2018,
   "units": 96,
+  "name": "Master of Economic Policy",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "ECON7073",

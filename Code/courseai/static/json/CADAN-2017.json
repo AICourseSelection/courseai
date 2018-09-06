@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Certificate of Applied Data Analytics",
   "code": "CADAN",
-  "year": 2017,
   "units": 24,
+  "name": "Graduate Certificate of Applied Data Analytics",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "COMP7230",

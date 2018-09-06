@@ -1,8 +1,8 @@
 {
-  "name": "Master of Business Information Systems",
   "code": "7417XMBIS",
-  "year": 2017,
   "units": 96,
+  "name": "Master of Business Information Systems",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "BUSN7024",

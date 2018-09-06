@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Criminology",
-  "code": "BCRIM",
-  "year": 2017,
   "units": 144,
+  "code": "BCRIM",
+  "name": "Bachelor of Criminology",
+  "year": 2017,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "CRIM1001",
       "CRIM2001",
@@ -23,31 +14,16 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "SOCY1002",
           "SOCY1004"
         ]
       },
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANIP3005",
-          "BIAN2128",
-          "ENGL2081",
-          "GEND2021",
-          "INDG1001",
-          "LING2105",
-          "LING3032",
-          "SOCY3001",
-          "SOCY3123"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 42,
+        "type": "minimum",
         "courses": [
           "ANTH2130",
           "CRIM2000",
@@ -69,6 +45,30 @@
           "POLS3036",
           "SOCY2026",
           "SOCY2157"
+        ]
+      },
+      {
+        "units": 12,
+        "type": "minimum",
+        "courses": [
+          "ANIP3005",
+          "BIAN2128",
+          "ENGL2081",
+          "GEND2021",
+          "INDG1001",
+          "LING2105",
+          "LING3032",
+          "SOCY3001",
+          "SOCY3123"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": [
+          1000
         ]
       }
     ]
