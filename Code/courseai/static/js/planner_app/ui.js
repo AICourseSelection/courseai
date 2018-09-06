@@ -101,7 +101,6 @@ function makeElective(box, session, code) {
     box.find('.course-code').text(ELECTIVE_TEXT);
     box.find('.course-title').text('');
     box.removeClass(COLOR_CLASSES_STR);
-    box.addClass('added-elective'); // TODO: change this if all cards shouldn't default to an elective
     makeSlotDroppable(box);
     PLAN.removeWarning('CourseForceAdded', code);
     PLAN.removeCourse(session, code);
@@ -1313,9 +1312,9 @@ function setupDegreeRequirements(container, degree) {
                     '    <span class="unit-count mr-1">0/' + MMS_TYPE_UNITS[mms_type] + '</span>' +
                     '</div>');
                 let title_node = $('<span/>');
-                const identifier = code + '/' + year;
-                if (!(identifier in mms_to_retrieve)) mms_to_retrieve[identifier] = [];
-                mms_to_retrieve[identifier].push(function (mms) {
+                const mmsIdentifier = code + '/' + year;
+                if (!(mmsIdentifier in mms_to_retrieve)) mms_to_retrieve[mmsIdentifier] = [];
+                mms_to_retrieve[mmsIdentifier].push(function (mms) {
                     title_node.text(mms.title);
                     if (title_node.parent().hasClass('result-mms')) title_node.parent().each(mmsPopoverSetup);
                     if (mms_to_display.includes(code)) async_operations.push(mms_add(code, year));
@@ -1347,9 +1346,9 @@ function setupDegreeRequirements(container, degree) {
                     let level = section.level;
                     let card = $('<div class="deg deg-plain-text">\n' +
                         '    <div id="deg-' + identifier + '-section' + section_count + '"></div>\n' +
+                        '    <span class="unit-count mr-1">0/' + limit + '</span>' +
                         '    At most ' + limit + ' units of ' + level + '-level courses\n' +
                         '</div>');
-                    card.append('<span class="unit-count mr-1">0/' + limit + '</span>');
                     container.append(card);
                     section_count++;
                 } // TODO: Handle minimum sections
