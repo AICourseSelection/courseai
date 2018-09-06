@@ -226,4 +226,50 @@ function preparePlanForUpload(plan) {
     return sessions;
 }
 
+function serialisePlan(plan) {
+    let saved = {
+        degrees: [],
+        sessions: plan.sessions,
+        courses: {},
+        trackedMMS: [],
+        warnings: []
+    };
+    for (const degree of plan.degrees) {
+        saved.degrees.push({
+            code: degree.code,
+            year: degree.year
+        })
+    }
+    for (const session in plan.courses) {
+        if (!plan.courses.hasOwnProperty(session)) continue;
+        saved.courses[session] = [];
+        for (const enrolment of plan.courses[session]) {
+            saved.courses[session].push(Object.assign({}, enrolment));
+            saved.courses[session].course = {
+                code: enrolment.course.code,
+                year: enrolment.course.year
+            }
+        }
+    }
+    for (const mms of plan.trackedMMS) {
+        saved.trackedMMS.push({
+            code: mms.code,
+            year: mms.year
+        })
+    }
+    for (const warning of plan.warnings) {
+        let to_add = {
+            type: warning.type,
+            text: warning.text,
+            actions: []
+        };
+        for (const action of warning.actions) {
+            if (action.toString().includes("boxShadow: '0 0 25px #007bff'")) { // Crude check to see if the action is a glow-highlight-and-scroll one
+                to_add.actions.push()
+            }
+        }
+        saved.warnings.push(to_add);
+    }
+}
+
 // function generateBlankDegreePlan()

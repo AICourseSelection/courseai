@@ -693,6 +693,7 @@ function search(coursesOnly = false) {
 function dropOnSlot(event, ui) {
     ui.draggable.draggable("option", "revert", false);
     $(this).removeClass('active-drop');
+    makePlanCellDraggable($(event.target));
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
     const code = ui.draggable.find('.course-code').text();
@@ -826,44 +827,11 @@ function loadDefaultPlan() {
             cell.append(title_node);
             cell.click(clickCell);
             cell.each(coursePopoverSetup);
-            if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
+            if (course.code !== ELECTIVE_TEXT) makePlanCellDraggable(cell);
+            else makeSlotDroppable(cell);
             row.append(cell);
         }
 
-        row.sortable({
-            items: "> .plan-cell",
-            start: function (event, ui) {
-                if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
-                const first_cell = $(event.target).find('.first-cell');
-                first_cell.children().css({'display': 'none'});
-                first_cell.addClass('delete').addClass('alert-danger');
-                first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
-                    '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
-                    '    <div class="mt-2">Remove</div>\n' +
-                    '</div>');
-                first_cell.droppable({
-                    accept: '.plan-cell',
-                    drop: function (event, ui) {
-                        const session = first_cell.find('.row-ses').text();
-                        const position = ui.draggable.index();
-                        removeCourse(session, position);
-                        first_cell.droppable('destroy');
-                        first_cell.children().last().remove();
-                        first_cell.removeClass('delete').removeClass('alert-danger');
-                        first_cell.children().css({'display': ''});
-                    }
-                })
-            },
-            stop: function (event, ui) {
-                const first_cell = $(event.target).find('.first-cell');
-                if (first_cell.hasClass('delete')) {
-                    first_cell.droppable('destroy');
-                    first_cell.children().last().remove();
-                    first_cell.removeClass('delete').removeClass('alert-danger');
-                    first_cell.children().css({'display': ''});
-                }
-            }
-        });
         grid.append(row);
     }
     batchCourseTitles(titles_fill_nodes);
@@ -904,6 +872,7 @@ function coursePopoverSetup(i, item) {
         const popover = $(this).data('bs.popover');
         if (popover['data-received'] || false) setupRecommendations(popover);
     });
+
     async function setupRecommendations(popover) {
         const offering = await getCourseOffering(code, year);
         let prereqsSatisfied = false; // whether or not this course's prereqs are satisfied in any session in the plan.
@@ -1036,6 +1005,46 @@ function makeSlotDroppable(item) {
         },
         out: function (event, ui) {
             item.removeClass('active-drop');
+        }
+    });
+}
+
+function makePlanCellDraggable(item) {
+    item.draggable({
+        zIndex: 800,
+        revert: true,
+        helper: 'clone',
+        start: function (event, ui) {
+            ui.helper.addClass('dragged-course');
+            const first_cell = $(event.target.parentElement).find('.first-cell');
+            first_cell.children().css({'display': 'none'});
+            first_cell.addClass('delete').addClass('alert-danger');
+            first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
+                '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
+                '    <div class="mt-2">Remove</div>\n' +
+                '</div>');
+            first_cell.droppable({
+                accept: '.plan-cell',
+                drop: function (event, ui2) {
+                    const session = first_cell.find('.row-ses').text();
+                    const position = ui2.draggable.index();
+                    removeCourse(session, position);
+                    $(ui.helper.prevObject).draggable('destroy');
+                    first_cell.droppable('destroy');
+                    first_cell.children().last().remove();
+                    first_cell.removeClass('delete').removeClass('alert-danger');
+                    first_cell.children().css({'display': ''});
+                }
+            })
+        },
+        stop: function (event, ui) {
+            const first_cell = $(event.target.parentElement).find('.first-cell');
+            if (first_cell.hasClass('delete')) {
+                first_cell.droppable('destroy');
+                first_cell.children().last().remove();
+                first_cell.removeClass('delete').removeClass('alert-danger');
+                first_cell.children().css({'display': ''});
+            }
         }
     });
 }
