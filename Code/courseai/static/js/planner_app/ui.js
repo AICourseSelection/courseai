@@ -101,7 +101,6 @@ function makeElective(box, session, code) {
     box.find('.course-code').text(ELECTIVE_TEXT);
     box.find('.course-title').text('');
     box.removeClass(COLOR_CLASSES_STR);
-    box.addClass('added-elective'); // TODO: change this if all cards shouldn't default to an elective
     makeSlotDroppable(box);
     PLAN.removeWarning('CourseForceAdded', code);
     PLAN.removeCourse(session, code);
