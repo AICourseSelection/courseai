@@ -1,4 +1,4 @@
-[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/thienbuinguyen/AICourseSelection%2Fcourseai%2Fcourseai?branch=master&key=eyJhbGciOiJIUzI1NiJ9.NWI3NmRhMzZlYjZhMWMwMDAxODJjOGNj.U-Gvt_0DUewF54768YTxJioSR4ys7QvR4r2tfrrElgI&type=cf-1)]( https://g.codefresh.io/repositories/AICourseSelection/courseai/builds?filter=trigger:build;branch:master;service:5b7ac3035904b8378271a826~courseai)
+[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/thienbuinguyen/github-github%2FAICourseSelection%2Fcourseai%2Fcourseai?branch=master&key=eyJhbGciOiJIUzI1NiJ9.NWI3NmRhMzZlYjZhMWMwMDAxODJjOGNj.U-Gvt_0DUewF54768YTxJioSR4ys7QvR4r2tfrrElgI&type=cf-1)]( https://g.codefresh.io/repositories/AICourseSelection/courseai/builds?filter=trigger:build;branch:master;service:5b908ae56bccfe07ea4db74c~courseai)
 
 # AI Course Selection
 A personalised course discovery experience that employs AI. Students can interact with a digital persona for personalised course information and selection support, completing transactions including enrolling in a course, selecting subjects and scheduling classes.
