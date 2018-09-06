@@ -270,7 +270,7 @@ function serialisePlan(plan) {
                 to_add.actions.push({
                     type: 'scroll-and-glow',
                     session: target.siblings().find('.row-ses').text(),
-                    index: target.index()
+                    code: target.find('.course-code').text()
                 });
             }
         }
