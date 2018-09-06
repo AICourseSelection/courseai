@@ -182,7 +182,7 @@ function colorSearchList() {
 function colorPlannerCards() {
     for (let row of $('#plan-grid').find('.plan-row')) {
         $(row).children(".plan-cell").each(function() {
-            var code = $(this).find('.course-code').text() 
+            var code = $(this).find('.course-code').text()
             addColor($(this), code);
         });
     }
@@ -365,7 +365,7 @@ async function updateClassColorMapping(colorClassName) {
 
 async function updateColorMappings() {
     COLOR_CLASSES.forEach(function(e) {
-       updateClassColorMapping(e); 
+       updateClassColorMapping(e);
     });
 }
 
@@ -801,7 +801,7 @@ function loadDefaultPlan() {
             if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
                 title_node.text(course['title']);
             } else if (course.code !== ELECTIVE_TEXT) {
-                cell.addClass('compulsory'); 
+                cell.addClass('compulsory');
                 async_operations.push(PLAN.addCourse(session, course.code));
                 if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
                 titles_fill_nodes[course.code].push(function (title) {
@@ -1280,9 +1280,9 @@ function setupDegreeRequirements(container, degree) {
                     '    <span class="unit-count mr-1">0/' + MMS_TYPE_UNITS[mms_type] + '</span>' +
                     '</div>');
                 let title_node = $('<span/>');
-                const identifier = code + '/' + year;
-                if (!(identifier in mms_to_retrieve)) mms_to_retrieve[identifier] = [];
-                mms_to_retrieve[identifier].push(function (mms) {
+                const mmsIdentifier = code + '/' + year;
+                if (!(mmsIdentifier in mms_to_retrieve)) mms_to_retrieve[mmsIdentifier] = [];
+                mms_to_retrieve[mmsIdentifier].push(function (mms) {
                     title_node.text(mms.title);
                     if (title_node.parent().hasClass('result-mms')) title_node.parent().each(mmsPopoverSetup);
                     if (mms_to_display.includes(code)) async_operations.push(mms_add(code, year));
@@ -1314,9 +1314,9 @@ function setupDegreeRequirements(container, degree) {
                     let level = section.level;
                     let card = $('<div class="deg deg-plain-text">\n' +
                         '    <div id="deg-' + identifier + '-section' + section_count + '"></div>\n' +
+                        '    <span class="unit-count mr-1">0/' + limit + '</span>' +
                         '    At most ' + limit + ' units of ' + level + '-level courses\n' +
                         '</div>');
-                    card.append('<span class="unit-count mr-1">0/' + limit + '</span>');
                     container.append(card);
                     section_count++;
                 } // TODO: Handle minimum sections
