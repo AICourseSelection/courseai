@@ -244,11 +244,12 @@ function serialisePlan(plan) {
         if (!plan.courses.hasOwnProperty(session)) continue;
         saved.courses[session] = [];
         for (const enrolment of plan.courses[session]) {
-            saved.courses[session].push(Object.assign({}, enrolment));
-            saved.courses[session].course = {
+            let to_add = Object.assign({}, enrolment);
+            to_add.course = {
                 code: enrolment.course.code,
                 year: enrolment.course.year
-            }
+            };
+            saved.courses[session].push(to_add);
         }
     }
     for (const mms of plan.trackedMMS) {
@@ -264,12 +265,18 @@ function serialisePlan(plan) {
             actions: []
         };
         for (const action of warning.actions) {
-            if (action.toString().includes("boxShadow: '0 0 25px #007bff'")) { // Crude check to see if the action is a glow-highlight-and-scroll one
-                to_add.actions.push()
+            if (action.toString().includes("boxShadow: '0 0 25px #007bff'")) { // Crude check to see if the action is a scroll-and-glow one
+                const target = action.target;
+                to_add.actions.push({
+                    type: 'scroll-and-glow',
+                    session: target.siblings().find('.row-ses').text(),
+                    index: target.index()
+                });
             }
         }
         saved.warnings.push(to_add);
     }
+    return JSON.stringify(saved);
 }
 
 // function generateBlankDegreePlan()

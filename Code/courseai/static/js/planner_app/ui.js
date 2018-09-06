@@ -52,8 +52,7 @@ function clearAllCourses() {
 
 function resetPlan() {
     clearAllCourses();
-    $('#plan-grid').empty();
-    loadDefaultPlan();
+    loadCourseGrid(PLAN.degrees[0].suggestedPlan);
 }
 
 function addColor(box, code) {
@@ -373,7 +372,7 @@ async function updateColorMappings() {
 let PLAN = new Plan();
 let SEARCH = new Search(PLAN);
 let starting_degree = addDegree(degree_code, start_year);
-$.when(starting_degree.then(async function (degree) {
+starting_degree.then(async function (degree) {
     updateColorMappings();
     const singleReqsList = $('#degree-reqs-list');
     singleReqsList.hide();
@@ -387,8 +386,9 @@ $.when(starting_degree.then(async function (degree) {
     for (let i = 0; i < total_units / 24; i++) {
         PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
     }
-    loadDefaultPlan();
-}));
+    setupGrid();
+    loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+});
 
 let rc_button = $('#rc-button');
 
@@ -718,13 +718,7 @@ function dropOnSlot(event, ui) {
         override_button.off('click');
         override_button.click(function () {
             addCourse(code, title, session, position);
-            let warning = new Warning("CourseForceAdded", code, [function () {
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $(event.target).offset().top - $(window).height() * 3 / 10
-                }, 500);
-                $(event.target).animate({boxShadow: '0 0 25px #007bff'});
-                $(event.target).animate({boxShadow: '0 0 0px #007bff'});
-            }]);
+            let warning = new Warning("CourseForceAdded", code, [makeScrollAndGlow($(event.target))]);
             PLAN.warnings.push(warning);
             updateWarningNotices();
         });
@@ -789,11 +783,8 @@ function reorganiseDegreeTracker(double) {
     }
 }
 
-function loadDefaultPlan() {
-    let titles_fill_nodes = {};
+function setupGrid() { // put the loaded plan's sessions in first before using this.
     let grid = $('#plan-grid');
-    let async_operations = [];
-    const suggestedPlan = PLAN.degrees[0].suggestedPlan;
     for (const session of PLAN.sessions) {
         const year = session.slice(0, 4);
         const ses = session.slice(4);
@@ -807,35 +798,44 @@ function loadDefaultPlan() {
             '<div class="row-ses">' + session + '</div>' +
             '</div>';
         row.append(first_cell);
-
-        let course_list = suggestedPlan[session] || [{"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}];
-        for (const course of course_list) {
+        for (let i = 0; i < 4; i++) { // TODO: Fix for Overloading
             let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
-            let title_node = $('<span class="course-title"/>');
-            if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
-                title_node.text(course['title']);
-            } else if (course.code !== ELECTIVE_TEXT) {
-                cell.addClass('compulsory');
-                async_operations.push(PLAN.addCourse(session, course.code));
-                if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                titles_fill_nodes[course.code].push(function (title) {
-                    title_node.text(title);
-                });
-            }
-            cell.append('<div class="course-code">' + course['code'] + '</div>');
+            cell.append('<div class="course-code">' + ELECTIVE_TEXT + '</div>');
             cell.append('<div class="course-year">' + year + '</div>');
-            cell.append(title_node);
+            cell.append('<div class="course-title" />');
             cell.click(clickCell);
-            cell.each(coursePopoverSetup);
-            if (course.code !== ELECTIVE_TEXT) makePlanCellDraggable(cell);
-            else makeSlotDroppable(cell);
+            makeSlotDroppable(cell);
             row.append(cell);
         }
-
         grid.append(row);
     }
+}
+
+function loadCourseGrid(plan) {
+    let titles_fill_nodes = {};
+    let rows = $('#plan-grid').find('.plan-row');
+    let async_operations = [];
+    for (const session of PLAN.sessions) {
+        const row = rows.filter((_, y) => $(y).find('.row-ses').text() === session);
+        let course_list = plan[session] || [];
+        for (let i = 0; i < course_list.length; i++) {
+            const code = course_list[i].code;
+            if (code === ELECTIVE_TEXT) continue;
+            let cell = $(row.children()[i + 1]);
+            cell.find('.course-code').text(code);
+            if (compulsoryCourseCodes.includes(code)) cell.addClass('compulsory');
+            async_operations.push(PLAN.addCourse(session, code));
+            if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
+            titles_fill_nodes[code].push(function (title) {
+                cell.find('.course-title').text(title);
+            });
+            cell.each(coursePopoverSetup);
+            makePlanCellDraggable(cell);
+            cell.droppable('destroy');
+        }
+    }
     batchCourseTitles(titles_fill_nodes);
-    $.when.apply($, async_operations).done(function () {
+    Promise.all(async_operations).then(function () {
         updateProgress();
         updateRecommendations();
     });
@@ -1547,4 +1547,16 @@ function searchResultsLoading(show, courses) {
         mmsResultsList.find('.collapse').css({'display': cDisplay[show]});
         mmsResultsList.find('.fa-sync-alt').css({'display': rDisplay[show]});
     }
+}
+
+function makeScrollAndGlow(target) {
+    let action = function () {
+        $([document.documentElement, document.body]).animate({
+            scrollTop: target.offset().top - $(window).height() * 3 / 10
+        }, 500);
+        target.animate({boxShadow: '0 0 25px #007bff'});
+        target.animate({boxShadow: '0 0 0px #007bff'});
+    };
+    action.target = target;
+    return action;
 }

@@ -155,6 +155,7 @@ wrapper {
     border-radius: 0.25rem;
     background-color: white;
     box-shadow: 0 0 0 #007bff; /* Need this to allow glow animation to work on first click */
+    user-select: none;
 }
 
 .first-cell {
