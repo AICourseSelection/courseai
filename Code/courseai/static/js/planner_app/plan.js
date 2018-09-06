@@ -216,16 +216,16 @@ function Plan() {
     };
 
     this.removeWarning = function (type, text) {
-        for (warn of this.warnings) {
+        for (const warn of this.warnings) {
             if (warn.type === type && warn.text === text) {
-                this.warnings.splice(this.warnings.indexOf(warn, 1));
+                this.warnings.splice(this.warnings.indexOf(warn), 1);
                 return warn;
             }
         }
     };
 
     this.getWarning = function (type, text) {
-        for (warn of this.warnings) {
+        for (const warn of this.warnings) {
             if (warn.type === type && warn.text === text) return warn;
         }
     };

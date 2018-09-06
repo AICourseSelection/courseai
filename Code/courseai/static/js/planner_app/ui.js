@@ -371,28 +371,11 @@ async function updateColorMappings() {
 // Startup Section
 let PLAN = new Plan();
 let SEARCH = new Search(PLAN);
-let starting_degree = addDegree(degree_code, start_year);
-starting_degree.then(async function (degree) {
-    updateColorMappings();
-    const singleReqsList = $('#degree-reqs-list');
-    singleReqsList.hide();
-    setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
+setupPlanner();
 
-    if (degree_code2) await addDegree(degree_code2, start_year);
-    else singleReqsList.show();
+updateColorMappings();
 
-    let total_units = PLAN.degrees[0].units;
-    if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
-    for (let i = 0; i < total_units / 24; i++) {
-        PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
-    }
-    setupGrid();
-    loadCourseGrid(PLAN.degrees[0].suggestedPlan);
-});
-
-let rc_button = $('#rc-button');
-
-rc_button.click(function () {
+$('#rc-button').click(function () {
     $('#rc-modal').modal();
 });
 
@@ -749,6 +732,59 @@ async function mms_click_add() {
 }
 
 // Event Functions
+async function setupPlanner() {
+    if (!save_code) {
+        let startingDegree = await addDegree(degree_code, start_year);
+        const singleReqsList = $('#degree-reqs-list');
+        singleReqsList.hide();
+        setupDegreeRequirements(singleReqsList.find('.degree-body'), startingDegree);
+
+        if (degree_code2) await addDegree(degree_code2, start_year);
+        else singleReqsList.show();
+
+        let total_units = PLAN.degrees[0].units;
+        if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
+        for (let i = 0; i < total_units / 24; i++) {
+            PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
+        }
+        setupGrid();
+        loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+    }
+    else { // Loading from save
+        const plan = (await $.ajax({
+            url: 'degree/stored_plans',
+            method: 'GET',
+            data: {"query": save_code},
+            dataType: 'json',
+            contentType: 'application/json'
+        })).response;
+        const degree = await addDegree(plan.degrees[0].code, plan.degrees[0].year);
+        const singleReqsList = $('#degree-reqs-list');
+        singleReqsList.hide();
+        setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
+        if (plan.degrees[1]) {
+            await addDegree(plan.degrees[1].code, plan.degrees[1].year);
+        }
+        else singleReqsList.show();
+        for (const session of plan.sessions) PLAN.addSession(session);
+        for (const mms of plan.trackedMMS) mms_add(mms.code, mms.year);
+        setupGrid();
+        loadCourseGrid(plan.courses);
+        for (const warning of plan.warnings) {
+            const actions = [];
+            for (const action of warning.actions) { // Reconstruct the action functions
+                if (action.type === "scroll-and-glow") {
+                    const row = $('.plan-row').filter((_, x) => $(x).find('.row-ses').text() === action.session);
+                    const target = row.children().filter((_, x) => $(x).find('.course-code').text() === action.code);
+                    actions.push(makeScrollAndGlow($(target)));
+                }
+            }
+            PLAN.warnings.push(new Warning(warning.type, warning.text, actions))
+        }
+        updateWarningNotices();
+    }
+}
+
 function reorganiseDegreeTracker(double) {
     const reqs = $('#degree-reqs');
     const reqSingle = $('#degree-reqs-list');
@@ -789,7 +825,7 @@ function setupGrid() { // put the loaded plan's sessions in first before using t
         const year = session.slice(0, 4);
         const ses = session.slice(4);
         let row = $('<div class="plan-row"/>');
-        if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
+        if (ses === 'S1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
         let session_word = SESSION_WORDS[ses];
         if (ses === "S1" || ses === "S2") session_word = session_word.replace(" ", "&nbsp;");
         let first_cell = '<div class="first-cell">' +
