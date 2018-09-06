@@ -19,3 +19,27 @@
 
 #### Plan for next tute:
 * Take Peter through our Trello board
+
+#### Plan for the break:
+* Manal:
+  * Scrape and parse information for all courses across all years for better indexing
+  * Scrape and parse information for all majors, minors and specialisations
+  * Look into improving prerequisite parsing
+* Tom:
+  * Research and a disclaimer to the home page
+  * Update the degree list on the front page
+  * Implement the backend of an API that stores feedback provided by a user into a database
+* Joseph:
+  * Implement Cookie Store Plan
+    * Auto save plan (either after every action, or after every few seconds)
+    * Automatically load that plan, in case the page is refreshed
+  * Automatic resizing for most screens
+* Thien:
+  * Add or remove extra years from degree plan
+  * Save degree plans to user account
+    * Includes creating the interim page b/w the home page and the degree planner page
+* Scarlett:
+  * Scrape and parse the default study plans for all degrees for all years
+    * Includes FDDs
+* Yong Wei:
+  * Design and create a feedback form which is to be used during mass testing
