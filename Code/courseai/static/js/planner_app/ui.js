@@ -39,6 +39,7 @@ async function addDegree(code, year) {
 
 function clearAllCourses() {
     PLAN.clearAllCourses();
+    PLAN.clearWarnings();
     for (let box of $('#plan-grid').find('.plan-cell')) {
         $(box).popover('dispose');
         makeSlotDroppable($(box));
@@ -370,6 +371,12 @@ async function updateColorMappings() {
 }
 
 // Startup Section
+let CS = new CookieStore();
+if (!(save_code)) { // Use the cookie if no save_code was given from the server.
+    console.log('No save code provided, checking cookie. ');
+    save_code = CS.getCode();
+}
+
 let PLAN = new Plan();
 let SEARCH = new Search(PLAN);
 let SAVER = new AutoSave(PLAN, save_code);
@@ -381,33 +388,35 @@ $('#rc-button').click(function () {
     $('#rc-modal').modal();
 });
 
-$('#upload-button').click(function () {
-    $('#upload-modal').modal();
+$('#save-button').click(function () {
+    $('#save-code').text(save_code);
+    $('#save-modal').modal();
 });
 
-$('#confirm-upload-button').click(function () {
+$('#load-plan-button').click(function () {
+    const code = $('#save-code-box').val().trim();
+    if (!code) return;
+    $('#code-wrong').hide();
     $.ajax({
-        type: 'PUT',
-        url: 'degree/degreeplan',
-        data: JSON.stringify({
-            "code": degree_code,
-            "courses": preparePlanForUpload(PLAN)
-        }),
-        headers: {
-            "Content-Type": "application/json"
+        url: 'degree/stored_plans',
+        method: 'GET',
+        data: {"query": code},
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            save_code = code;
+            CS.setCode(code);
+            SAVER.code = code;
+            $('#save-modal').modal('hide');
+            $('#save-code-box').val("");
+            clearPlanner();
+            setupPlanner();
         },
-        success: function () {
-            $('#degree-submit-success').removeClass('d-none');
-        },
-        error: function () {
-            $('#degree-title').after('<div class="alert alert-danger alert-dismissible fade show mx-auto mb-0" role="alert">\n' +
-                '  Could not submit degree plan. Please try again. \n' +
-                '  <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
-                '    <span aria-hidden="true">&times;</span>\n' +
-                '  </button>\n' +
-                '</div>');
+        error: function (data) {
+            if (data.responseJSON.response !== "no matching plan found") return;
+            $('#code-wrong').show();
         }
-    })
+    });
 });
 
 $('#degree-submit-success').find('button.close').click(function () {
@@ -560,7 +569,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     await $.ajax({
         url: 'recommendations/recommend',
         data: {
-            'code': degree_code,
+            'code': PLAN.degrees[0].code, // TODO: Fix for FDD recommendations
             'courses': JSON.stringify([{[session]: [{"code": code}]}])
         },
         success: function (data) {
@@ -733,6 +742,14 @@ async function mms_click_add() {
 }
 
 // Event Functions
+function clearPlanner() {
+    PLAN = new Plan();  // Reset in case we are loading a plan on the user's request.
+    SAVER.plan = PLAN;
+    SEARCH.plan = PLAN;
+    $('#plan-grid').empty();
+    $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')).find('.degree-body').empty();
+}
+
 async function setupPlanner() {
     if (!save_code) {
         let startingDegree = await addDegree(degree_code, start_year);
@@ -752,6 +769,8 @@ async function setupPlanner() {
         loadCourseGrid(PLAN.degrees[0].suggestedPlan);
     }
     else { // Loading from save
+        console.log('Loading found save code (' + save_code + ').');
+        clearPlanner();
         const plan = (await $.ajax({
             url: 'degree/stored_plans',
             method: 'GET',
@@ -759,6 +778,7 @@ async function setupPlanner() {
             dataType: 'json',
             contentType: 'application/json'
         })).response;
+
         const degree = await addDegree(plan.degrees[0].code, plan.degrees[0].year);
         const singleReqsList = $('#degree-reqs-list');
         singleReqsList.hide();
@@ -802,8 +822,8 @@ function reorganiseDegreeTracker(double) {
             $(tabs.find('a')[i]).text(PLAN.degrees[i].title);
         }
         tabs.find('a').last().tab('show'); // Show the last (2nd) tab.
+        $('.degree-selector-title').text(PLAN.degrees[1].title); // Show the title of the 2nd degree.
         if (degree_code2) $('#degree-selector').find('.nav-arrow.right').click(); // If starting with 2 degrees, go to the first tab.
-        // This also puts the title into the display box.
     } else {
         reqs.hide();
         reqSingle.show();
@@ -1528,7 +1548,7 @@ async function updateRecommendations() {
     await $.ajax({
         url: 'recommendations/recommend',
         data: {
-            'code': degree_code,
+            'code': PLAN.degrees[0].code, // TODO: Fix for FDD Recommendations
             'courses': JSON.stringify(preparePlanForUpload(PLAN))
         },
         success: function (data) {

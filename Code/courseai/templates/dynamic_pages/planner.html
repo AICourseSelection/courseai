@@ -41,7 +41,7 @@
     </div>
     <div class="row mt-3 mb-2">
         <div class="col-12 h3" id="degree-title" tabindex="1">
-            <div id="upload-button" class="btn btn-outline-success my-auto" tabindex="2">Submit Degree Plan</div>
+            <div id="save-button" class="btn btn-outline-success my-auto" tabindex="2">Save/Load Plan</div>
             <div id="degree-title-text"></div>
             <div class="my-auto" style="min-width: 175px">
                 <div id="rc-button" class="btn btn-outline-danger" tabindex="3">Reset/Clear Courses</div>
@@ -302,24 +302,29 @@
         </div>
     </div>
 </div>
-<div class="modal" id="upload-modal" tabindex="-1" role="dialog">
+<div class="modal" id="save-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header alert-success">
-                <h5 class="modal-title">Submit Degree Plan</h5>
+            <div class="modal-header alert-warning">
+                <h5 class="modal-title">Save/Load Degree Plan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>When you have finished planning your degree, you can send your degree plan to us.
-                    This is anonymous, and we use it to improve the accuracy of our AI course recommendation. </p>
+                Your degree plan is automatically saved. You may load it again by entering this code:
+                <span id="save-code"></span>
+                <hr>
+                <h5>Load an existing plan</h5>
+                <p>You can load an existing plan by entering its code here. Please note that the current plan will be overwritten - take note of the code above. </p>
+                <input id="save-code-box" type="text" class="form-control" required placeholder="Enter code here"/>
+                <div id="code-wrong" class="alert-danger">We couldn't find any plan for this code.</div>
             </div>
             <div class="modal-footer">
-                <button id="confirm-upload-button" type="button" class="btn btn-success" data-dismiss="modal">
-                    Submit Degree Plan
+                <button id="load-plan-button" type="button" class="btn btn-warning">
+                    Load Degree Plan
                 </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button style="padding-left: 1.5rem; padding-right: 1.5rem" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -398,9 +403,10 @@ $('#form-register').submit(function(e) {
     const degree_code2 = "{{ degree_code2 }}";
     const start_year = {{ start_year }};
     const start_sem = {{ start_sem }};
-    const save_code = "{{ save_code }}";
+    let save_code = "{{ save_code }}";
 </script>
 
+<script src="{% static "js/cookie.js" %}"></script>
 <script src="{% static "js/planner_app/autosave.js" %}"></script>
 <script src="{% static "js/planner_app/course.js" %}"></script>
 <script src="{% static "js/planner_app/data.js" %}"></script>

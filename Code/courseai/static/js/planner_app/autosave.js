@@ -1,4 +1,4 @@
-const MIN_AUTOSAVE_INTERVAL = 5000; // Minimum time between autosaves, even if multiple actions are performed.
+const MIN_AUTOSAVE_INTERVAL = 2000; // Minimum time between autosaves, even if multiple actions are performed.
 
 function AutoSave(plan, code) {
     this.plan = plan;
@@ -42,6 +42,8 @@ function AutoSave(plan, code) {
                 success: function (data) {
                     console.log('store success, code = ' + data.response);
                     if (data.response) autoSaver.code = data.response;
+                    CS.setCode(data.response);  // Store the new code in a cookie.
+                    save_code = data.response; // TODO: Find a way to uncouple these two lines.
                 }
             })
         }

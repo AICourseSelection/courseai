@@ -238,7 +238,7 @@ function Plan() {
 
     this.addWarning = function (type, text, actions) {
         this.changesMade = true;
-        this.warnings.push(type, text, actions);
+        this.warnings.push(new Warning(type, text, actions));
     };
 
     this.removeWarning = function (type, text) {
@@ -255,6 +255,11 @@ function Plan() {
         for (const warn of this.warnings) {
             if (warn.type === type && warn.text === text) return warn;
         }
+    };
+
+    this.clearWarnings = function () {
+        this.changesMade = true;
+        this.warnings = [];
     };
 
     this.serialize = function () {

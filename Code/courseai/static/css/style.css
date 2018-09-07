@@ -37,7 +37,7 @@ wrapper {
     min-height: 80vh;
 }
 
-#planform, #planform input, #planform .btn-group .btn{
+#planform, #planform input, #planform .btn-group .btn {
     font-size: 14pt !important;
 }
 
@@ -48,6 +48,7 @@ wrapper {
 #planform .typeahead .dropdown-item:hover {
     background-color: #e3ebf3;
 }
+
 #planform .typeahead .dropdown-item:active {
     background-color: #007bff;
 }
@@ -110,6 +111,34 @@ wrapper {
     margin-right: auto;
 }
 
+#save-code {
+    font-family: monospace;
+    font-size: 14pt;
+    padding: 0 0.4rem;
+    background-color: lightgray;
+    border-radius: 0.3rem;
+    margin-left: 0.5rem;
+}
+
+#save-code-box {
+    font-family: monospace;
+    font-size: 13pt;
+    padding: 0.2rem 0.75rem;
+    text-align: center;
+}
+
+#save-code-box::placeholder {
+    font-style: italic;
+}
+
+#code-wrong {
+    text-align: center;
+    margin-top: 0.2rem;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    display: none;
+}
+
 #plan-grid {
     font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
@@ -145,6 +174,7 @@ wrapper {
     -o-transition: background 1s linear;
     transition: background 1s linear;
 }
+
 .plan-cell {
     float: left;
     padding: 5px;
@@ -380,7 +410,7 @@ wrapper {
 }
 
 #mms-active-list {
-    margin: .5rem -5px;
+    /* margin: .5rem -5px; */
 }
 
 #mms-active-list .card-header {
@@ -396,7 +426,7 @@ wrapper {
     padding: .2rem .3rem;
 }
 
-#right-panel .result-course:before, #right-panel .result-mms:before{
+#right-panel .result-course:before, #right-panel .result-mms:before {
     font-family: 'Font Awesome\ 5 Free';
     border-radius: .3rem;
     display: inline-block;
@@ -404,17 +434,17 @@ wrapper {
     text-align: center;
 }
 
-#right-panel .result-course.inc:before, #right-panel .result-mms.inc:before{
+#right-panel .result-course.inc:before, #right-panel .result-mms.inc:before {
     content: "\f00c";
     background-color: #bbf8cd;
 }
 
-#right-panel .result-course.exc:before, #right-panel .result-mms.exc:before{
+#right-panel .result-course.exc:before, #right-panel .result-mms.exc:before {
     content: "\f00d";
     background-color: #f8d7d6;
 }
 
-#right-panel .result-course.partial:before, #right-panel .result-mms.partial:before{
+#right-panel .result-course.partial:before, #right-panel .result-mms.partial:before {
     content: "\f0ae";
     background-color: #f7ebc7;
 }
@@ -749,12 +779,16 @@ wrapper {
 
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
-    0%,100% { opacity: 1 }
-    50% { opacity: 0.5 }
+    0%, 100% {
+        opacity: 1
+    }
+    50% {
+        opacity: 0.5
+    }
 }
 
 .plan-cell:active {
-    background-color: #A9CCE3 ;
+    background-color: #A9CCE3;
 }
 
 .compulsory {
@@ -782,7 +816,7 @@ wrapper {
 }
 
 .invalid-cell {
-    background-color: #ffe6e6; 
+    background-color: #ffe6e6;
 }
 
 .highlight-elective {
@@ -791,6 +825,6 @@ wrapper {
     animation: pulse 1s infinite;
 }
 
-.plan-cell:hover, .list-group-item:hover  {
+.plan-cell:hover, .list-group-item:hover {
     background: #80DEEA !important; /* make sure to override js styling */
 }
