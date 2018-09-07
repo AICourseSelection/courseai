@@ -51,6 +51,7 @@ function clearAllCourses() {
 }
 
 function resetPlan() {
+    SAVER.disableSaving();
     clearAllCourses();
     loadCourseGrid(PLAN.degrees[0].suggestedPlan);
 }
@@ -339,7 +340,7 @@ async function deleteMMS(button) {
     delete allMMSCourseCodes[code];
     let mmsClassName = MMS_CLASS_NAME + colorIndex;
     $("." + mmsClassName).removeClass(mmsClassName); // remove the class from all elements
-    PLAN.trackedMMS.splice(PLAN.trackedMMS.indexOf(mms), 1); // Delete from the plan.
+    PLAN.removeMMS(code, year); // Delete from the plan.
     $(button).parents('.mms').find('.result-course').popover('dispose');
     $(button).parents('.mms').remove();
     if ($('#mms-active-list').children().length === 0) $('#mms-list-placeholder').removeClass('d-none');
@@ -371,6 +372,7 @@ async function updateColorMappings() {
 // Startup Section
 let PLAN = new Plan();
 let SEARCH = new Search(PLAN);
+let SAVER = new AutoSave(PLAN, save_code);
 setupPlanner();
 
 updateColorMappings();
@@ -701,8 +703,7 @@ function dropOnSlot(event, ui) {
         override_button.off('click');
         override_button.click(function () {
             addCourse(code, title, session, position);
-            let warning = new Warning("CourseForceAdded", code, [makeScrollAndGlow($(event.target))]);
-            PLAN.warnings.push(warning);
+            PLAN.addWarning("CourseForceAdded", code, [makeScrollAndGlow($(event.target))]);
             updateWarningNotices();
         });
         modal.modal();
@@ -779,7 +780,7 @@ async function setupPlanner() {
                     actions.push(makeScrollAndGlow($(target)));
                 }
             }
-            PLAN.warnings.push(new Warning(warning.type, warning.text, actions))
+            PLAN.addWarning(warning.type, warning.text, actions);
         }
         updateWarningNotices();
     }
@@ -874,6 +875,7 @@ function loadCourseGrid(plan) {
     Promise.all(async_operations).then(function () {
         updateProgress();
         updateRecommendations();
+        SAVER.enableSaving();
     });
 }
 
