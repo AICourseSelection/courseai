@@ -919,12 +919,16 @@ function createAddSessionBtn(session) {
     return addBtn;
 }
 
-function createNextSessionBtn(grid) {
+function createAddSessionRow(grid, session, generateNext = false) {
     let addDiv = $('<div class="add-row-wrapper"/>');
-    let addBtn = createAddSessionBtn(PLAN.getNextSession());
-    addBtn.click(function() {
-        createNextSessionBtn(grid); // recursively add next btn
-    });
+    let addBtn = (generateNext) ? createAddSessionBtn(PLAN.getNextSession()) : createAddSessionBtn(session);
+
+    if (generateNext) {
+        addBtn.click(function() {
+            createAddSessionRow(grid, null, true); // recursively add next btn
+        });
+    } 
+
     addDiv.append('<span class="add-row-line-left"/>');
     addDiv.append(addBtn);
     addDiv.append('<span class="add-row-line-right"/>');
@@ -1017,9 +1021,17 @@ function loadDefaultPlan() {
         rowWrapper.append(createRemoveSessionBtn(session, row));
         rowWrapper.append(row);
         grid.append(rowWrapper);
+
+        // create add buttons for seasonal sessions
+        if (['S1', 'S2'].includes(ses) && PLAN.sessions[PLAN.sessions.length - 1] !== session) {
+            for (var i = 1; i <= 2; i++) {
+                const seasonalSession = nextSession(session, i);
+                createAddSessionRow(grid, seasonalSession);
+            }
+        }
     }
 
-    createNextSessionBtn(grid);
+    createAddSessionRow(grid, null, true);
     
     batchCourseTitles(titles_fill_nodes);
     $.when.apply($, async_operations).done(function () {
