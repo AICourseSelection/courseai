@@ -1,10 +1,10 @@
 // Reference Constants
 const SESSION_WORDS = {
     'Su': 'Summer Session',
-    'S1': 'Semester 1',
+    'S1': 'First Semester',
     'Au': 'Autumn Session',
     'Wi': 'Winter Session',
-    'S2': 'Semester 2',
+    'S2': 'Second Semester',
     'Sp': 'Spring Session'
 };
 
@@ -111,7 +111,7 @@ function removeCourseInPlanner(code) {
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row).find('.first-cell');
         const session = first_cell.find('.row-ses').text();
-        $(row).children(".plan-cell").each(function() {
+        $(row).children(".plan-cell").each(function () {
             const cellCode = $(this).find('.course-code').text();
             if (cellCode === code) {
                 makeElective($(this), session, code);
@@ -155,15 +155,28 @@ function removeCourse(session, position) {
     updateRecommendations();
 }
 
+function toggleFilter(type, data) {
+    if (SEARCH.getFilter(type, data)) deleteFilter(type, data);
+    else addFilter(type, data);
+}
+
+function deleteFilter(type, data) {
+    $('#filter-icons').find('.badge').filter(function (_, badge) {
+        return $(badge).text().slice(0, -1) === SEARCH.getFilter(type, data).toString();
+    }).remove();
+    $($('#show-filters').data('bs.popover').tip).find('#filter-buttons button').filter(function (_, badge) {
+        return $(badge).text() === data;
+    }).removeClass('active');
+    SEARCH.deleteFilter(type, data);
+    search(true);
+}
+
 function addFilter(type, data) {
-    if (SEARCH.getFilter(type, data)) return;
     const filter = SEARCH.addFilter(type, data);
     let filter_icon = $('<span class="badge badge-primary">' + filter + '</span>');
     let delete_button = $('<a class="filter-delete">×</a>');
     delete_button.click(function () {
-        SEARCH.deleteFilter(type, data);
-        filter_icon.remove();
-        search(true);
+        deleteFilter(type, data);
     });
     filter_icon.append(delete_button);
     $('#filter-icons').append(filter_icon, ' ');
@@ -172,7 +185,7 @@ function addFilter(type, data) {
 
 // add color class for all cards in the search list
 function colorSearchList() {
-    $('#results-courses').find('.draggable-course').each(function() {
+    $('#results-courses').find('.draggable-course').each(function () {
         var code = $(this).find('.course-code').text();
         addColor($(this), code);
     });
@@ -181,7 +194,7 @@ function colorSearchList() {
 // add color class for the matching MMS card in planner
 function colorPlannerCards() {
     for (let row of $('#plan-grid').find('.plan-row')) {
-        $(row).children(".plan-cell").each(function() {
+        $(row).children(".plan-cell").each(function () {
             var code = $(this).find('.course-code').text()
             addColor($(this), code);
         });
@@ -364,8 +377,8 @@ async function updateClassColorMapping(colorClassName) {
 }
 
 async function updateColorMappings() {
-    COLOR_CLASSES.forEach(function(e) {
-       updateClassColorMapping(e);
+    COLOR_CLASSES.forEach(function (e) {
+        updateClassColorMapping(e);
     });
 }
 
@@ -463,24 +476,24 @@ $('#results-majors, #results-minors, #results-specs').on('hide.bs.collapse', fun
 
 $('#show-filters').popover({
     trigger: 'click',
-    title: 'Search Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
+    title: 'Add Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
     placement: 'right',
     html: true,
     content: '<form onsubmit="return filterSubmit(this)">\n' +
     '<div class="form-row" style="padding: 0 5px">' +
-    '<label for="code-input">Filter course codes: </label></div>\n' +
+    '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
     '<div class="form-row" style="padding: 0 5px">\n' +
     '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
     '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
     '</div>\n' +
-    '<div class="form-row" style="padding: 0 5px"><label>Filter course level: </label></div>\n' +
-    '<div class="form-row">\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'1000\')">1000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'2000\')">2000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'3000\')">3000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'4000\')">4000</button></div>\n' +
+    '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
+    '<div id="filter-buttons" class="form-row">\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
     '</div>\n' +
-    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in the plan. </div>\n' +
+    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
     '</form>' +
     '',
     template: '<div class="popover filters-panel" role="tooltip">\n' +
@@ -489,6 +502,16 @@ $('#show-filters').popover({
     '    <div class="popover-body"></div>\n' +
     '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
     '</div>'
+}).on('shown.bs.popover', function () {
+    const popover = $(this).data('bs.popover');
+    const buttons = $(popover.tip).find('#filter-buttons button');
+    for (const b of buttons) {
+        $(b).on('click', function () {
+            $(b).toggleClass('active');
+            toggleFilter('level', $(b).text());
+        });
+        if (SEARCH.getFilter('level', $(b).text())) $(b).toggleClass('active');
+    }
 });
 
 $('#mms-active-list').sortable();
@@ -551,11 +574,10 @@ async function coursePopoverData(cell, descriptionOnly = false) {
             '<div class="result-description">' + truncated_description + '</div>\n';
     }
     if (!descriptionOnly) {
-        const semesters = offering.extras['semester'];
+        const semesters = offering.extras['sessions'];
         if (![undefined, 'nan'].includes(semesters)) {
-            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard semesters</h6>';
-            else if (semesters.length === 2) html += '<h6 class="mt-2">Available in both semesters</h6>';
-            else html += '<h6 class="mt-2">Available in Semester ' + semesters[0] + '</h6>';
+            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard sessions</h6>';
+            else html += '<h6 class="mt-2">Available in: ' + semesters.reduce((x, y) => x + ', ' + y) + '</h6>';
         }
 
         if (![undefined, 'nan'].includes(offering.extras['prerequisite_text'])) {
@@ -721,8 +743,21 @@ function dropOnSlot(event, ui) {
 }
 
 function filterSubmit(form) {
-    const code = $(form).find('input[type=text]').val().toUpperCase();
-    if (code) addFilter('code', code);
+    const input = $(form).find('input[type=text]');
+    const code = input.val().toUpperCase();
+    if (code && /^[A-Z]{4}$/.test(code) && !SEARCH.getFilter('code', code)) {
+        addFilter('code', code);
+        input.val('');
+        input.css('background-color', '');
+        input.css('color', '');
+    } else {
+        input.css('background-color', '#f8d7da');
+        input.css('color', '#721c24');
+        input.keydown(function () {
+            $(this).css('background-color', '');
+            $(this).css('color', '');
+        })
+    }
     return false;
 }
 
@@ -750,7 +785,7 @@ function reorganiseDegreeTracker(double) {
         reqs.show();
         reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
         const headerUnitCount = $(tabsContent.children()[0]).find('.degree-header .unit-count');
-        headerUnitCount.text( headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
+        headerUnitCount.text(headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
         setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
         const tabs = $('#degree-tabs');
         for (const i in PLAN.degrees) {
@@ -784,9 +819,8 @@ function loadDefaultPlan() {
         const year = session.slice(0, 4);
         const ses = session.slice(4);
         let row = $('<div class="plan-row"/>');
-        if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
+        if (ses === 'S1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
         let session_word = SESSION_WORDS[ses];
-        if (ses === "S1" || ses === "S2") session_word = session_word.replace(" ", "&nbsp;");
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
             '<div class="row-sem h5">' + session_word + '</div>' +
@@ -1030,13 +1064,13 @@ function makeCourseDraggable(item, code, year) {
 }
 
 function addRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).addClass(css_class_name);
     });
 }
 
 function removeRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).removeClass(css_class_name);
     });
 }
@@ -1044,10 +1078,10 @@ function removeRowCellsClass(row, css_class_name) {
 async function highlightInvalidSessions(offering) {
     offering = await offering;
     let invalid_sessions = {};
-    let offering_sessions = offering.extras.semester || [1, 2]; // Currently assumes empty = both semesters. TODO: Change for course sessions
+    let offering_sessions = offering.extras.sessions;
     for (const session of PLAN.sessions) {
         const checked = offering.checkRequirements(PLAN, session);
-        const offered = offering_sessions.includes(parseInt(session.slice(-1)));
+        const offered = offering_sessions.includes(SESSION_WORDS[session.slice(4)]);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"
