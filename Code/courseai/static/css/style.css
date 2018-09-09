@@ -112,7 +112,7 @@ wrapper {
 
 .add-row-wrapper {
     width: 100%;
-    min-height: 20px;
+    min-height: 15px;
     display: flex;
 }
 
@@ -199,7 +199,7 @@ wrapper {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    left: 20px;
     right: 0;
     background: rgba(255, 0, 0, 0.2);
     -webkit-transition: background 1s linear;
@@ -211,7 +211,7 @@ wrapper {
 
 .remove-row-animate {
     overflow: hidden;
-    min-height: 20px;
+    min-height: 15px;
     max-height: 0px;
     transition: min-height 0.4s;
     -webkit-transition: min-height 0.4s;
