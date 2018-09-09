@@ -112,7 +112,8 @@ wrapper {
 
 .add-row-wrapper {
     width: 100%;
-    min-height: 0px;
+    min-height: 20px;
+    display: flex;
 }
 
 .remove-row-btn, .add-row-btn {
@@ -151,12 +152,14 @@ wrapper {
 
 .add-row-line-left {
     display: inline-block;
+    margin-top: 10px;
     width: 49%;
     border-top: 1px solid #ccc;
 }
 
 .add-row-line-right {
     display: inline-block;
+    margin-top: 10px;
     width: 47%;
     border-top: 1px solid #ccc;
 }
@@ -208,10 +211,10 @@ wrapper {
 
 .remove-row-animate {
     overflow: hidden;
-    min-height: 0px;
+    min-height: 20px;
     max-height: 0px;
     transition: min-height 0.4s;
-   -webkit-transition: min-height 0.4s;
+    -webkit-transition: min-height 0.4s;
     -moz-transition: min-height 0.4s;
     -ms-transition: min-height 0.4s;
     -o-transition: min-height 0.4s;
