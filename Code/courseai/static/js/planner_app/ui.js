@@ -1,10 +1,10 @@
 // Reference Constants
 const SESSION_WORDS = {
     'Su': 'Summer Session',
-    'S1': 'Semester 1',
+    'S1': 'First Semester',
     'Au': 'Autumn Session',
     'Wi': 'Winter Session',
-    'S2': 'Semester 2',
+    'S2': 'Second Semester',
     'Sp': 'Spring Session'
 };
 
@@ -111,7 +111,7 @@ function removeCourseInPlanner(code) {
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row).find('.first-cell');
         const session = first_cell.find('.row-ses').text();
-        $(row).children(".plan-cell").each(function() {
+        $(row).children(".plan-cell").each(function () {
             const cellCode = $(this).find('.course-code').text();
             if (cellCode === code) {
                 makeElective($(this), session, code);
@@ -172,7 +172,7 @@ function addFilter(type, data) {
 
 // add color class for all cards in the search list
 function colorSearchList() {
-    $('#results-courses').find('.draggable-course').each(function() {
+    $('#results-courses').find('.draggable-course').each(function () {
         var code = $(this).find('.course-code').text();
         addColor($(this), code);
     });
@@ -181,7 +181,7 @@ function colorSearchList() {
 // add color class for the matching MMS card in planner
 function colorPlannerCards() {
     for (let row of $('#plan-grid').find('.plan-row')) {
-        $(row).children(".plan-cell").each(function() {
+        $(row).children(".plan-cell").each(function () {
             var code = $(this).find('.course-code').text()
             addColor($(this), code);
         });
@@ -364,8 +364,8 @@ async function updateClassColorMapping(colorClassName) {
 }
 
 async function updateColorMappings() {
-    COLOR_CLASSES.forEach(function(e) {
-       updateClassColorMapping(e);
+    COLOR_CLASSES.forEach(function (e) {
+        updateClassColorMapping(e);
     });
 }
 
@@ -551,11 +551,10 @@ async function coursePopoverData(cell, descriptionOnly = false) {
             '<div class="result-description">' + truncated_description + '</div>\n';
     }
     if (!descriptionOnly) {
-        const semesters = offering.extras['semester'];
+        const semesters = offering.extras['sessions'];
         if (![undefined, 'nan'].includes(semesters)) {
-            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard semesters</h6>';
-            else if (semesters.length === 2) html += '<h6 class="mt-2">Available in both semesters</h6>';
-            else html += '<h6 class="mt-2">Available in Semester ' + semesters[0] + '</h6>';
+            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard sessions</h6>';
+            else html += '<h6 class="mt-2">Available in: ' + semesters.reduce((x, y) => x + ', ' + y) + '</h6>';
         }
 
         if (![undefined, 'nan'].includes(offering.extras['prerequisite_text'])) {
@@ -750,7 +749,7 @@ function reorganiseDegreeTracker(double) {
         reqs.show();
         reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
         const headerUnitCount = $(tabsContent.children()[0]).find('.degree-header .unit-count');
-        headerUnitCount.text( headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
+        headerUnitCount.text(headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
         setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
         const tabs = $('#degree-tabs');
         for (const i in PLAN.degrees) {
@@ -784,9 +783,8 @@ function loadDefaultPlan() {
         const year = session.slice(0, 4);
         const ses = session.slice(4);
         let row = $('<div class="plan-row"/>');
-        if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
+        if (ses === 'S1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
         let session_word = SESSION_WORDS[ses];
-        if (ses === "S1" || ses === "S2") session_word = session_word.replace(" ", "&nbsp;");
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
             '<div class="row-sem h5">' + session_word + '</div>' +
@@ -1030,13 +1028,13 @@ function makeCourseDraggable(item, code, year) {
 }
 
 function addRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).addClass(css_class_name);
     });
 }
 
 function removeRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).removeClass(css_class_name);
     });
 }
@@ -1044,10 +1042,10 @@ function removeRowCellsClass(row, css_class_name) {
 async function highlightInvalidSessions(offering) {
     offering = await offering;
     let invalid_sessions = {};
-    let offering_sessions = offering.extras.semester || [1, 2]; // Currently assumes empty = both semesters. TODO: Change for course sessions
+    let offering_sessions = offering.extras.sessions;
     for (const session of PLAN.sessions) {
         const checked = offering.checkRequirements(PLAN, session);
-        const offered = offering_sessions.includes(parseInt(session.slice(-1)));
+        const offered = offering_sessions.includes(SESSION_WORDS[session.slice(4)]);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"

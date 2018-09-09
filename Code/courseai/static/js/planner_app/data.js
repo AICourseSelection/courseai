@@ -36,21 +36,12 @@ async function getCourseOffering(code, year) {
         } else {
             const req = $.ajax({
                 url: 'degree/coursedata',
-                data: {'query': code},
+                data: {'codes': '["' + code + '"]'},
                 success: function (data) {
-                    const res = data.response;
-                    if (!code in KNOWN_COURSES) KNOWN_COURSES[code] = {};
-                    KNOWN_COURSES[code][year] = new CourseOffering(
-                        code, year,
-                        res.title,
-                        res.units || 6, // TODO: Fix for Course Units
-                        res.prerequisites,
-                        {
-                            'description': res.description,
-                            'prerequisite_text': res.prerequisite_text,
-                            'semester': res.semester    // TODO: Change for course sessions.
-                        },
-                        res['repeatable'] || false);
+                    const res = data.response[code];
+                    for (const yr in res.versions) {
+                        recordCourseOffering(code, yr, res.versions[yr]);
+                    }
                 },
             });
             if (!(code in COURSE_REQUESTS)) COURSE_REQUESTS[code] = {};
@@ -77,29 +68,15 @@ async function batchCourseOfferingActions(courses_actions) {
     await $.ajax({
         url: 'degree/coursedata',
         data: {
-            'query': 'multiple',
             'codes': JSON.stringify(codesToRetrieve)
         },
         success: function (data) {
             console.log();
             for (const code in data.response) {
                 if (!(data.response.hasOwnProperty(code))) continue;
-                if (!(data.response)) continue;
-                const course = data.response[code];
-                const year = THIS_YEAR; //TODO: Fix for Course Years
-                const offering = new CourseOffering(
-                    code, year,
-                    course.title,
-                    course.units || 6, // TODO: Fix for Course Units
-                    course.prerequisites,
-                    {
-                        'description': course.description,
-                        'prerequisite_text': course.prerequisite_text,
-                        'semester': course.semester   // TODO: Change for course sessions.
-                    },
-                    course['repeatable'] || false);
-                if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
-                if (!(year in KNOWN_COURSES[code])) KNOWN_COURSES[code][year] = offering;
+                for (const yr in data.response[code].versions) {
+                    recordCourseOffering(code, yr, data.response[code].versions[yr]);
+                }
             }
             for (const code in courses_actions) {
                 if (!((KNOWN_COURSES[code] || {})[THIS_YEAR])) continue; // Skip failed retrievals.
@@ -226,4 +203,23 @@ function preparePlanForUpload(plan) {
     return sessions;
 }
 
-// function generateBlankDegreePlan()
+// Helpers
+function recordCourseOffering(code, year, data) {
+    if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
+    KNOWN_COURSES[code][year] = new CourseOffering(
+        code, year,
+        data.title,
+        data.units || 6,
+        data.prerequisites,
+        {
+            'description': data.description,
+            'prerequisite_text': data.prerequisite_text,
+            'sessions': data.sessions || [],
+            'majors': data.majors || [],
+            'minors': data.minors || [],
+            'areas_of_interest': data.areas_of_interest,
+            'convener': data.convener,
+            'learning_outcomes': data.learning_outcomes,
+        },
+        data['repeatable'] || false);
+}
