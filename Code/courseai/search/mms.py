@@ -13,8 +13,6 @@ def get_mms_data(es_conn, code):
     else:  # -SPEC or -HSPC
         return get_data(es_conn, code[-4:], code[:-5])
 
-    return JsonResponse({"error": "code must end with -MAJ, -MIN or -SPEC"})
-
 
 INDEX_NAMES = {
         "MAJ": "majors", 
@@ -22,6 +20,7 @@ INDEX_NAMES = {
         "SPEC": "specialisations",
         "HSPC": "specialisations"
 }
+
 
 def get_data(es_conn, index, code):
     response = Search(using=es_conn, index=INDEX_NAMES[index]).query("match",
