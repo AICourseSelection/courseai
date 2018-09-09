@@ -844,6 +844,7 @@ function createEmptySessionRow(session) {
     let first_cell = '<div class="first-cell">' +
         '<div class="row-year h4">' + year + '</div>' +
         '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
+        '<div class="row-ses">' + session + '</div>' +
         '</div>';
     row.append(first_cell);
 
@@ -859,18 +860,7 @@ function createEmptySessionRow(session) {
         row.append(cell);
     }
 
-    row.sortable({
-        items: "> .plan-cell",
-        stop: function (event, ui) {
-            const first_cell = $(event.target).find('.first-cell');
-            if (first_cell.hasClass('delete')) {
-                first_cell.droppable('destroy');
-                first_cell.children().last().remove();
-                first_cell.removeClass('delete').removeClass('alert-danger');
-                first_cell.children().css({'display': 'block'});
-            }
-            }
-        });
+    makeRowSortable(row);
 
     return row;
 }
@@ -904,6 +894,43 @@ function createNextSessionBtn(grid) {
     addDiv.append(addBtn);
     addDiv.append('<span class="add-row-line-right"/>');
     grid.append(addDiv);
+}
+
+function makeRowSortable(row) {
+    row.sortable({
+        items: "> .plan-cell",
+        start: function (event, ui) {
+            if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
+            const first_cell = $(event.target).find('.first-cell');
+            first_cell.children().css({'display': 'none'});
+            first_cell.addClass('delete').addClass('alert-danger');
+            first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
+                '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
+                '    <div class="mt-2">Remove</div>\n' +
+                '</div>');
+            first_cell.droppable({
+                accept: '.plan-cell',
+                drop: function (event, ui) {
+                    const session = first_cell.find('.row-ses').text();
+                    const position = ui.draggable.index();
+                    removeCourse(session, position);
+                    first_cell.droppable('destroy');
+                    first_cell.children().last().remove();
+                    first_cell.removeClass('delete').removeClass('alert-danger');
+                    first_cell.children().css({'display': ''});
+                }
+            })
+        },
+        stop: function (event, ui) {
+            const first_cell = $(event.target).find('.first-cell');
+            if (first_cell.hasClass('delete')) {
+                first_cell.droppable('destroy');
+                first_cell.children().last().remove();
+                first_cell.removeClass('delete').removeClass('alert-danger');
+                first_cell.children().css({'display': ''});
+            }
+        }
+    });
 }
 
 function loadDefaultPlan() {
@@ -948,40 +975,8 @@ function loadDefaultPlan() {
             row.append(cell);
         }
 
-        row.sortable({
-            items: "> .plan-cell",
-            start: function (event, ui) {
-                if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
-                const first_cell = $(event.target).find('.first-cell');
-                first_cell.children().css({'display': 'none'});
-                first_cell.addClass('delete').addClass('alert-danger');
-                first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
-                    '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
-                    '    <div class="mt-2">Remove</div>\n' +
-                    '</div>');
-                first_cell.droppable({
-                    accept: '.plan-cell',
-                    drop: function (event, ui) {
-                        const session = first_cell.find('.row-ses').text();
-                        const position = ui.draggable.index();
-                        removeCourse(session, position);
-                        first_cell.droppable('destroy');
-                        first_cell.children().last().remove();
-                        first_cell.removeClass('delete').removeClass('alert-danger');
-                        first_cell.children().css({'display': ''});
-                    }
-                })
-            },
-            stop: function (event, ui) {
-                const first_cell = $(event.target).find('.first-cell');
-                if (first_cell.hasClass('delete')) {
-                    first_cell.droppable('destroy');
-                    first_cell.children().last().remove();
-                    first_cell.removeClass('delete').removeClass('alert-danger');
-                    first_cell.children().css({'display': ''});
-                }
-            }
-        });
+        makeRowSortable(row);
+
         // create wrapper and button for removing a year/sem
         let rowWrapper = $('<div class="plan-row-wrapper"/>');
 
@@ -1187,12 +1182,15 @@ async function highlightInvalidSessions(offering) {
     for (const session of PLAN.sessions) {
         const checked = offering.checkRequirements(PLAN, session);
         const offered = offering_sessions.includes(parseInt(session.slice(-1)));
+        console.log(session);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"
         }
         if (!offered) invalid_sessions[session] = "Not available in this semester/ session"
     }
+    console.log("-----");
+    console.log(invalid_sessions);
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row.children[0]);
         const session = first_cell.find('.row-ses').text();
