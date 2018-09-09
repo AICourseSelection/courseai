@@ -1,10 +1,10 @@
 // Reference Constants
 const SESSION_WORDS = {
     'Su': 'Summer Session',
-    'S1': 'Semester 1',
+    'S1': 'First Semester',
     'Au': 'Autumn Session',
     'Wi': 'Winter Session',
-    'S2': 'Semester 2',
+    'S2': 'Second Semester',
     'Sp': 'Spring Session'
 };
 
@@ -545,11 +545,10 @@ async function coursePopoverData(cell, descriptionOnly = false) {
             '<div class="result-description">' + truncated_description + '</div>\n';
     }
     if (!descriptionOnly) {
-        const semesters = offering.extras['semester'];
+        const semesters = offering.extras['sessions'];
         if (![undefined, 'nan'].includes(semesters)) {
-            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard semesters</h6>';
-            else if (semesters.length === 2) html += '<h6 class="mt-2">Available in both semesters</h6>';
-            else html += '<h6 class="mt-2">Available in Semester ' + semesters[0] + '</h6>';
+            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard sessions</h6>';
+            else html += '<h6 class="mt-2">Available in: ' + semesters.reduce((x, y) => x + ', ' + y) + '</h6>';
         }
 
         if (![undefined, 'nan'].includes(offering.extras['prerequisite_text'])) {
@@ -848,7 +847,6 @@ function setupGrid() { // put the loaded plan's sessions in first before using t
         let row = $('<div class="plan-row"/>');
         if (ses === 'S1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
         let session_word = SESSION_WORDS[ses];
-        if (ses === "S1" || ses === "S2") session_word = session_word.replace(" ", "&nbsp;");
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
             '<div class="row-sem h5">' + session_word + '</div>' +
@@ -1143,10 +1141,10 @@ function removeRowCellsClass(row, css_class_name) {
 async function highlightInvalidSessions(offering) {
     offering = await offering;
     let invalid_sessions = {};
-    let offering_sessions = offering.extras.semester || [1, 2]; // Currently assumes empty = both semesters. TODO: Change for course sessions
+    let offering_sessions = offering.extras.sessions;
     for (const session of PLAN.sessions) {
         const checked = offering.checkRequirements(PLAN, session);
-        const offered = offering_sessions.includes(parseInt(session.slice(-1)));
+        const offered = offering_sessions.includes(SESSION_WORDS[session.slice(4)]);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"
