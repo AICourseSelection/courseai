@@ -112,6 +112,7 @@ wrapper {
 
 .add-row-wrapper {
     width: 100%;
+    min-height: 0px;
 }
 
 .remove-row-btn, .add-row-btn {
@@ -204,6 +205,27 @@ wrapper {
     -o-transition: background 1s linear;
     transition: background 1s linear;
 }
+
+.remove-row-animate {
+    overflow: hidden;
+    min-height: 0px;
+    max-height: 0px;
+    transition: min-height 0.4s;
+   -webkit-transition: min-height 0.4s;
+    -moz-transition: min-height 0.4s;
+    -ms-transition: min-height 0.4s;
+    -o-transition: min-height 0.4s;
+}
+
+.add-row-animate {
+    min-height: 124px;
+    transition: min-height 0.4s;
+    -webkit-transition: min-height 0.4s;
+    -moz-transition: min-height 0.4s;
+    -ms-transition: min-height 0.4s;
+    -o-transition: min-height 0.4s;
+}
+
 .plan-cell {
     float: left;
     padding: 5px;
@@ -846,7 +868,7 @@ wrapper {
 .highlight-elective {
     background-color: #ccffcc;
     border-color: #37e131;
-    animation: pulse 2s infinite;
+    animation: pulse 3s infinite;
 }
 
 .plan-cell:hover, .list-group-item:hover  {

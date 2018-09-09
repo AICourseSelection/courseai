@@ -809,7 +809,12 @@ function createRemoveSessionBtn(session, row) {
         replacementDiv.append('<span class="add-row-line-left"/>');
         replacementDiv.append(addBtn);
         replacementDiv.append('<span class="add-row-line-right"/>');
-        $(this).parent().replaceWith(replacementDiv);
+
+        let prevDiv = $(this).parent();
+        prevDiv.addClass('remove-row-animate').on('transitionend', function(e) {
+           $(e.target).replaceWith(replacementDiv);
+        });
+
     });
     return removeBtn;
 }
@@ -879,7 +884,12 @@ function createAddSessionBtn(session) {
         let removeBtn = createRemoveSessionBtn(session, row);
         replacementDiv.append(removeBtn);
         replacementDiv.append(row);
-        $(this).parent().replaceWith(replacementDiv);
+
+        let prevDiv = $(this).parent();
+        prevDiv.addClass('add-row-animate').on('transitionend', function(e) {
+            $(e.target).replaceWith(replacementDiv);
+        });
+
     });
     return addBtn;
 }
