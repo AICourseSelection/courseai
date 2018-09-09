@@ -210,7 +210,7 @@ function recordCourseOffering(code, year, data) {
         code, year,
         data.title,
         data.units || 6,
-        data.prerequisites,
+        data.prerequisites || [],
         {
             'description': data.description,
             'prerequisite_text': data.prerequisite_text,

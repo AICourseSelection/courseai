@@ -19,6 +19,8 @@ def get_course_data(codes):
         s = Search(using=es_conn, index='courseupdated')
         response = s.query(q).execute()
 
+        if not response['hits']['hits']:
+            continue
         hit = response['hits']['hits'][0].to_dict()
 
         course_data[hit['_source']['course_code']] = {
