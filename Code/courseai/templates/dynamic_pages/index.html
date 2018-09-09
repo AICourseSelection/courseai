@@ -175,7 +175,6 @@ $('#form-register').submit(function(e) {
     $.ajax({
         url: 'degree/all',
         success: function (data) {
-            console.log(data);
             let degreeDicts = [];
             for (i in data.response) {
                 degreeDicts.push({name: data.response[i].title});
