@@ -27,6 +27,14 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
     this.extras = extras;
     this.repeatable = repeatable;
 
+    if (typeof units === "number") {
+        this.units = units;
+    } else {
+        const bounds = this.units.split(" to ");
+        this.units = parseInt(bounds[0]);
+        this.maxUnits = parseInt(bounds[1]);
+    }
+
     /**
      * Check if the requirements for this course have been met.
      * @param plan  The degree plan to check requirements against.
