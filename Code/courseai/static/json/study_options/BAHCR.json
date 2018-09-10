@@ -1,0 +1,225 @@
+{
+  "code": "BAHCR",
+  "2014": [
+    {
+      "code": "Art History Major",
+      "level": "2000/3000 Course",
+      "unit": "6 units"
+    },
+    {
+      "code": "Art History Major",
+      "level": "2000/3000 level Course",
+      "unit": "6 units"
+    },
+    {
+      "code": "Curatorship Minor Internship",
+      "unit": "12 units"
+    },
+    {
+      "code": "."
+    },
+    [
+      {
+        "code": "Art History Major",
+        "level": "2000/3000 level Course",
+        "unit": "6 units"
+      },
+      {
+        "code": "Art History Major",
+        "level": "2000/3000 Course",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      }
+    ]
+  ],
+  "2015": [
+    {
+      "code": "Art History Major",
+      "level": "2000/3000 Course",
+      "unit": "6 units"
+    },
+    {
+      "code": "Art History Major",
+      "level": "2000/3000 level Course",
+      "unit": "6 units"
+    },
+    {
+      "code": "Curatorship Minor Internship",
+      "unit": "12 units"
+    },
+    {
+      "code": "."
+    },
+    [
+      {
+        "code": "Art History Major",
+        "level": "2000/3000 level Course",
+        "unit": "6 units"
+      },
+      {
+        "code": "Art History Major",
+        "level": "2000/3000 Course",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      }
+    ]
+  ],
+  "2016": [
+    {
+      "code": "",
+      "unit": "6 units from 36 units list"
+    },
+    {
+      "code": "",
+      "unit": "6 units from 36 units list"
+    },
+    {
+      "code": "Elective Course",
+      "unit": "6 units"
+    },
+    {
+      "code": "Elective Course",
+      "unit": "6 units"
+    },
+    [
+      {
+        "code": "ARTH3001",
+        "level": "Art History and Curatorship Internship",
+        "unit": "12 units"
+      },
+      {
+        "code": "."
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      }
+    ]
+  ],
+  "2017": [
+    {
+      "code": "",
+      "unit": "6 units from 36 units list"
+    },
+    {
+      "code": "",
+      "unit": "6 units from 36 units list"
+    },
+    {
+      "code": "",
+      "unit": "6 units from 36 units list"
+    },
+    {
+      "code": "Elective Course",
+      "unit": "6 units"
+    },
+    [
+      {
+        "code": "ARTH3001",
+        "level": "Art History and Curatorship Internship",
+        "unit": "12 units"
+      },
+      {
+        "code": "",
+        "unit": "6 units from 36 units list"
+      },
+      {
+        "code": "."
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      }
+    ]
+  ],
+  "2018": [
+    {
+      "code": "Art History and Theory List",
+      "unit": "6 units"
+    },
+    {
+      "code": "Art History and Theory List",
+      "unit": "6 units"
+    },
+    {
+      "code": "Art History and Theory List Course",
+      "unit": "6 units"
+    },
+    {
+      "code": "ANU Elective Course",
+      "unit": "6 units"
+    },
+    [
+      {
+        "code": "ARTH3001",
+        "level": "Art History and Curatorship Internship",
+        "unit": "12 units"
+      },
+      {
+        "code": "-"
+      },
+      {
+        "code": "Art History and Theory List",
+        "unit": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "unit": "6 units"
+      }
+    ]
+  ],
+  "2019": [
+    {
+      "code": "Art History and Theory List",
+      "unit": "6 units"
+    },
+    {
+      "code": "Art History and Theory List",
+      "unit": "6 units"
+    },
+    {
+      "code": "Art History and Theory List Course",
+      "unit": "6 units"
+    },
+    {
+      "code": "ANU Elective Course",
+      "unit": "6 units"
+    },
+    [
+      {
+        "code": "ARTH3001",
+        "level": "Art History and Curatorship Internship",
+        "unit": "12 units"
+      },
+      {
+        "code": "-"
+      },
+      {
+        "code": "Art History and Theory List",
+        "unit": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "unit": "6 units"
+      }
+    ]
+  ]
+}

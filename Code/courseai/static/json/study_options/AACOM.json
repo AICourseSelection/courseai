@@ -1,303 +1,216 @@
 {
   "code": "AACOM",
   "2014": [
+    {
+      "code": "COMP3630",
+      "level": "Theory of Computation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "24 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course"
+    },
     [
-      { "code": "COMP1130", "title": "Introduction to Programming and Algorithms (Advanced)" },
-      { "code": "ENGN1211", "title": "Discovering Engineering" },
-      { "code": "MATH1013", "title": "Mathematics and Applications 1" },
-      { "code": "STAT1003", "title": "Statistical Techniques" }
-    ],
-    [
-      { "code": "COMP1140", "title": "Introduction to Software Systems (Advanced)" },
-      { "code": "MATH1014", "title": "Mathematics and Applications 2" },
-      { "code": "Elective Course" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2100", "title": "Software Construction" },
-      { "code": "COMP2300", "title": "Introduction to Computer Systems" },
-      { "code": "Elective Course" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2130", "title": "Software Analysis and Design" },
-      { "code": "COMP2310", "title": "Concurrent and Distributed Systems" },
-      { "code": "COMP2600", "title": "Formal Methods in Software Engineering" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3100", "title": "Software Engineering Group Project" },
-      { "code": "COMP3120", "title": "Managing Software Development" },
-      { "code": "COMP3530", "title": "Systems Engineering for Software Engineers" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3100", "title": "Software Engineering Group Project" },
-      { "code": "COMP3600", "title": "Algorithms" },
-      { "code": "MGMT3027", "title": "Entrepreneurship and Innovation" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3630", "title": "Theory of Computation" },
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "COMP 3000/4000" },
-      { "code": "Elective Course" }
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "24 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "COMP 3000/4000",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course"
+      }
     ]
   ],
   "2015": [
+    {
+      "code": "COMP3630",
+      "level": "Theory of Computation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course"
+    },
     [
-      { "code": "COMP1130", "title": "Introduction to Programming and Algorithms (Advanced)" },
-      { "code": "ENGN1211", "title": "Discovering Engineering" },
-      { "code": "MATH1013", "title": "Mathematics and Applications 1" },
-      { "code": "STAT1003", "title": "Statistical Techniques" }
-    ],
-    [
-      { "code": "COMP1140", "title": "Introduction to Software Systems (Advanced)" },
-      { "code": "MATH1014", "title": "Mathematics and Applications 2" },
-      { "code": "Elective Course" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2100", "title": "Software Construction" },
-      { "code": "COMP2300", "title": "Introduction to Computer Systems" },
-      { "code": "Elective Course" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2130", "title": "Software Analysis and Design" },
-      { "code": "COMP2310", "title": "Concurrent and Distributed Systems" },
-      { "code": "COMP2600", "title": "Formal Methods in Software Engineering" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3100", "title": "Software Engineering Group Project" },
-      { "code": "COMP3120", "title": "Managing Software Development" },
-      { "code": "COMP3530", "title": "Systems Engineering for Software Engineers" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3100", "title": "Software Engineering Group Project" },
-      { "code": "COMP3600", "title": "Algorithms" },
-      { "code": "MGMT3027", "title": "Entrepreneurship and Innovation" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3630", "title": "Theory of Computation" },
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "COMP 3000/4000" },
-      { "code": "Elective Course" }
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "12 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "COMP 3000/4000",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course"
+      }
     ]
   ],
   "2016": [
+    {
+      "code": "COMP3630",
+      "level": "Theory of Computation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course"
+    },
     [
-      { "code": "COMP1130", "title": "Introduction to Programming and Algorithms (Advanced)" },
-      { "code": "ENGN1211", "title": "Discovering Engineering" },
-      { "code": "MATH1013", "title": "Mathematics and Applications 1" },
-      { "code": "STAT1003", "title": "Statistical Techniques" }
-    ],
-    [
-      { "code": "COMP1140", "title": "Introduction to Software Systems (Advanced)" },
-      { "code": "MATH1014", "title": "Mathematics and Applications 2" },
-      { "code": "Elective Course" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2100", "title": "Software Construction" },
-      { "code": "COMP2300", "title": "Introduction to Computer Systems" },
-      { "code": "Comp Elective Course" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2130", "title": "Software Analysis and Design" },
-      { "code": "COMP2310", "title": "Concurrent and Distributed Systems" },
-      { "code": "COMP2600", "title": "Formal Methods in Software Engineering" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3100", "title": "Software Engineering Group Project" },
-      { "code": "COMP3120", "title": "Managing Software Development" },
-      { "code": "COMP3530", "title": "Systems Engineering for Software Engineers" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3100", "title": "Software Engineering Group Project" },
-      { "code": "COMP3600", "title": "Algorithms" },
-      { "code": "MGMT3027", "title": "Entrepreneurship and Innovation" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP3630", "title": "Theory of Computation" },
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "COMP 3000/4000" },
-      { "code": "Elective Course" }
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "12 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "COMP 3000/4000",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course"
+      }
     ]
   ],
   "2017": [
+    {
+      "code": "Computing Research Specialisation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course",
+      "unit": "6 units"
+    },
     [
-      { "code": "COMP1100", "title": "Programming as Problem Solving" },
-      { "code": "MATH1005", "title": "Discrete Mathematical Models" },
-      { "code": "Computing Elective" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP1110", "title": "Structured Programming" },
-      { "code": "COMP1600", "title": "Foundations of Computing" },
-      { "code": "Computing Elective" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2100", "title": "Software Design Methodologies" },
-      { "code": "COMP2300", "title": "Computer Organisation and Program Execution" },
-      { "code": "COMP2420", "title": "Introduction to Data Management, Analysis and Security" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "COMP2120", "title": "Software Engineering" },
-      { "code": "COMP2310", "title": "Systems, Networks and Concurrency" },
-      { "code": "COMP3600", "title": "Algorithms" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "Computing Research Specialisation" },
-      { "code": "COMP4450", "title": "Advanced Computing Research Methods" },
-      { "code": "Computing Elective" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "Computing Research Specialisation" },
-      { "code": "Computing Elective" },
-      { "code": "Computing Elective" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "Computing Research Specialisation" },
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "Elective Course" }
-    ],
-    [
-      { "code": "Computing Research Specialisation" },
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "Elective Course" }
+      {
+        "code": "Computing Research Specialisation",
+        "unit": "6 units"
+      },
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "12 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      }
     ]
   ],
   "2018": [
+    {
+      "code": "Computing Specialisation Course ",
+      "level": "6 Units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "University Elective",
+      "unit": "6 units"
+    },
     [
-      { "code": "COMP1100", "title": "Programming as Problem Solving" },
-      { "code": "MATH1005", "title": "Discrete Mathematical Models" },
-      { "code": "Computing Elective" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "COMP1110", "title": "Structured Programming" },
-      { "code": "COMP1600", "title": "Foundations of Computing" },
-      { "code": "Computing Elective 6 Units" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "COMP2100", "title": "Software Design Methodologies" },
-      { "code": "COMP2300", "title": "Computer Organisation and Program Execution" },
-      { "code": "COMP2420", "title": "Introduction to Data Management, Analysis and Security" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "COMP2120", "title": "Software Engineering" },
-      { "code": "COMP2310", "title": "Systems, Networks and Concurrency" },
-      { "code": "COMP3600", "title": "Algorithms" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course ", "title": "6 Units" },
-      { "code": "COMP4450", "title": "Advanced Computing Research Methods" },
-      { "code": "Computing Elective" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course", "title": "6 Units" },
-      { "code": "Computing Elective" },
-      { "code": "Computing Elective" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course ", "title": "6 Units" },
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course ", "title": "6 Units" },
-      { "code": "COMP4450", "title": "Advanced Computing Research Methods" },
-      { "code": "COMP4550" },
-      { "code": "University Elective" }
+      {
+        "code": "Computing Specialisation Course ",
+        "level": "6 Units"
+      },
+      {
+        "code": "COMP4450",
+        "level": "Advanced Computing Research Methods",
+        "unit": "6 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "University Elective",
+        "unit": "6 units"
+      }
     ]
   ],
   "2019": [
+    {
+      "code": "Computing Specialisation Course ",
+      "level": "6 Units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "University Elective",
+      "unit": "6 units"
+    },
     [
-      { "code": "COMP1100", "title": "Programming as Problem Solving" },
-      { "code": "MATH1005", "title": "Discrete Mathematical Models" },
-      { "code": "Computing Elective" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "COMP1110", "title": "Structured Programming" },
-      { "code": "COMP1600", "title": "Foundations of Computing" },
-      { "code": "Computing Elective 6 Units" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "COMP2100", "title": "Software Design Methodologies" },
-      { "code": "COMP2300", "title": "Computer Organisation and Program Execution" },
-      { "code": "COMP2420", "title": "Introduction to Data Management, Analysis and Security" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "COMP2120", "title": "Software Engineering" },
-      { "code": "COMP2310", "title": "Systems, Networks and Concurrency" },
-      { "code": "COMP3600", "title": "Algorithms" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course ", "title": "6 Units" },
-      { "code": "COMP4450", "title": "Advanced Computing Research Methods" },
-      { "code": "Computing Elective" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course", "title": "6 Units" },
-      { "code": "Computing Elective" },
-      { "code": "Computing Elective" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course ", "title": "6 Units" },
-      { "code": "COMP4550", "title": "Advanced Computing Research Project" },
-      { "code": "COMP4550" },
-      { "code": "University Elective" }
-    ],
-    [
-      { "code": "Computing Specialisation Course ", "title": "6 Units" },
-      { "code": "COMP4450", "title": "Advanced Computing Research Methods" },
-      { "code": "COMP4550" },
-      { "code": "University Elective" }
+      {
+        "code": "Computing Specialisation Course ",
+        "level": "6 Units"
+      },
+      {
+        "code": "COMP4450",
+        "level": "Advanced Computing Research Methods",
+        "unit": "6 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "University Elective",
+        "unit": "6 units"
+      }
     ]
   ]
 }
