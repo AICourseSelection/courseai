@@ -836,7 +836,7 @@ function reorganiseDegreeTracker(double) {
 }
 
 function createRemoveSessionBtn(session, row) {
-    let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-minus-square"/>');
+    let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-xs fa-minus-square"/>');
     removeBtn.click(function() {
         removeSession(session, row);
         let replacementDiv = $('<div class="add-row-wrapper"/>');
@@ -901,7 +901,7 @@ function createEmptySessionRow(session) {
 }
 
 function createAddSessionBtn(session) {
-    let addBtn = $('<button class="add-row-btn"/>').append('<i class="fas fa-plus-square"/>');
+    let addBtn = $('<button class="add-row-btn"/>').append('<i class="fas fa-xs fa-plus-square"/>');
     addBtn.click(function() {
         PLAN.addSession(session); 
         let replacementDiv = $('<div class="plan-row-wrapper"/>');

@@ -112,8 +112,10 @@ wrapper {
 
 .add-row-wrapper {
     width: 100%;
-    min-height: 15px;
+    height: 18px;
     display: flex;
+    padding: 0;
+    margin: 0;
 }
 
 .remove-row-btn, .add-row-btn {
@@ -152,14 +154,14 @@ wrapper {
 
 .add-row-line-left {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 12px;
     width: 49%;
     border-top: 1px solid #ccc;
 }
 
 .add-row-line-right {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 12px;
     width: 47%;
     border-top: 1px solid #ccc;
 }
@@ -179,7 +181,7 @@ wrapper {
     width: 100%;
     position: relative;
     min-height: 124px;
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .plan-row {
@@ -222,12 +224,12 @@ wrapper {
 }
 
 .add-row-animate {
-    min-height: 124px;
-    transition: min-height 0.4s;
-    -webkit-transition: min-height 0.4s;
-    -moz-transition: min-height 0.4s;
-    -ms-transition: min-height 0.4s;
-    -o-transition: min-height 0.4s;
+    height: 124px;
+    transition: height 0.4s;
+    -webkit-transition: height 0.4s;
+    -moz-transition: height 0.4s;
+    -ms-transition: height 0.4s;
+    -o-transition: height 0.4s;
 }
 
 .plan-cell {
