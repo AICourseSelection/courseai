@@ -981,7 +981,7 @@ function loadDefaultPlan() {
         const year = session.slice(0, 4);
         const ses = session.slice(4);
         let row = $('<div class="plan-row"/>');
-        if (ses === 'S1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
+        // if (ses === 'S1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
         let session_word = SESSION_WORDS[ses];
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
@@ -1234,8 +1234,6 @@ async function highlightInvalidSessions(offering) {
         }
         if (!offered) invalid_sessions[session] = "Not available in this semester/ session"
     }
-    console.log("-----");
-    console.log(invalid_sessions);
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row.children[0]);
         const session = first_cell.find('.row-ses').text();

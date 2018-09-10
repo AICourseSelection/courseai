@@ -177,9 +177,8 @@ wrapper {
     display: flex;
     padding: 0;
     width: 100%;
+    margin-top: 5px;
     position: relative;
-    min-height: 124px;
-    margin-bottom: 5px;
 }
 
 .plan-row {
@@ -188,6 +187,7 @@ wrapper {
     border-radius: 0.25rem;
     float: left;
     display: flex;
+    min-height: 124px;
 }
 
 .plan-row:hover {
@@ -198,10 +198,10 @@ wrapper {
     content: "";
     display: block;
     position: absolute;
-    top: 0;
     bottom: 0;
     left: 19px;
-    right: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(255, 0, 0, 0.2);
     -webkit-transition: background 1s linear;
     -moz-transition: background 1s linear;
