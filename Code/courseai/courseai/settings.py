@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "21423443jcdieo" #os.environ.get("SECRET_KEY")
 SECURE_CONTENT_TYPE_NOSNIFF = False
 SECURE_BROWSER_XSS_FILTER = False
 SECURE_SSL_REDIRECT = False #TODO: set to true when domain name owned
@@ -28,7 +28,7 @@ CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") == 'True'
+DEBUG = True #os.environ.get("DEBUG") == 'True'
 
 ALLOWED_HOSTS = ["*"]
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'accounts',
+    'feedback',
 ]
 
 MIDDLEWARE = [
