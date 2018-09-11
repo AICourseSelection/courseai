@@ -247,7 +247,7 @@ async function mms_add(code, year) {
     collapsible.sortable({
         items: "> .mms-select-min, .mms-select-max"
     });
-    let titles_fill_nodes = {};
+    let courses_actions = {};
 
     let mmsCourseCodes = [];
     let colorIndex = getColorClassIndex(code);
@@ -258,15 +258,13 @@ async function mms_add(code, year) {
             let course_list = $('<div id="mms-active-' + identifier + '-select' + i + '" class="collapse show"/>');
             for (let course of value.course) {
                 let title_node = $('<span class="course-title"/>');
-                if (course.code in KNOWN_COURSES && year in KNOWN_COURSES[course.code]) {
-                    title_node.text(KNOWN_COURSES[course.code][year].title)
-                }
-                else {
-                    if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                    titles_fill_nodes[course.code].push(function (title) {
-                        title_node.text(title);
-                    });
-                }
+                let year_node = $('<span class="course-year"/>');
+                if (!(course.code in courses_actions)) courses_actions[course.code] = [];
+                courses_actions[course.code].push(function (offering) {
+                    title_node.text(offering.title);
+                    year_node.text(offering.year);
+                    makeCourseDraggable(item, course.code, offering.year);
+                });
                 let item = $(
                     '<div class="list-group-item list-group-item-action draggable-course result-course">' +
                     '    <span class="course-code">' + course.code + '</span> ' +
@@ -275,7 +273,7 @@ async function mms_add(code, year) {
                 item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 item.append(title_node);
-                makeCourseDraggable(item, course.code, year);
+                item.append(year_node);
                 item.each(coursePopoverSetup);
                 course_list.append(item);
                 required.append(course_list);
@@ -295,25 +293,23 @@ async function mms_add(code, year) {
             if (value.type === 'maximum') select.addClass('alert-success');
             let options = $('<div class="mms-optional list-group list-group-flush"/>');
             for (let course of value.course) {
-                let title_node = $('<span class="course-title"/>');
-                if (course.code in KNOWN_COURSES && year in KNOWN_COURSES[course.code]) {
-                    title_node.text(KNOWN_COURSES[course.code][year].title)
-                }
-                else {
-                    if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                    titles_fill_nodes[course.code].push(function (title) {
-                        title_node.text(title);
-                    });
-                }
                 let list_item = $(
                     '<div class="list-group-item list-group-item-action draggable-course result-course">' +
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
+                let title_node = $('<span class="course-title"/>');
+                let year_node = $('<span class="course-year"/>');
+                if (!(course.code in courses_actions)) courses_actions[course.code] = [];
+                courses_actions[course.code].push(function (offering) {
+                    title_node.text(offering.title);
+                    year_node.text(offering.year);
+                    makeCourseDraggable(list_item, course.code, offering.year);
+                });
                 list_item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 list_item.append(title_node);
-                makeCourseDraggable(list_item, course.code, year);
+                list_item.append(year_node);
                 list_item.each(coursePopoverSetup);
                 options.append(list_item);
             }
@@ -339,7 +335,7 @@ async function mms_add(code, year) {
     else $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')).find('.collapse').collapse('hide');
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
-    await batchCourseTitles(titles_fill_nodes);
+    await batchCourseOfferingActions(courses_actions);
     updateProgress();
 
     colorSearchList();
@@ -433,6 +429,10 @@ $('#load-plan-button').click(function () {
 
 $('#degree-submit-success').find('button.close').click(function () {
     $('#degree-submit-success').addClass('d-none');
+});
+
+$('#load-failed-notice').find('button.close').click(function () {
+    $('#load-failed-notice').addClass('d-none');
 });
 
 $('#confirm-clear-button').click(clearAllCourses);
@@ -548,8 +548,7 @@ function clearElectiveHighlights() {
 
 async function coursePopoverData(cell, descriptionOnly = false) {
     const code = $(cell).find('.course-code').text();
-    const year = $(cell).find('.course-year').text() || THIS_YEAR; // Current year, for popovers on courses that are not in the plan table.
-    // TODO: Fix for course years. Likely require server-side input (to search results) on the most recent year available.
+    const year = $(cell).find('.course-year').text();
     const me = cell;
     $(cell).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if (this !== me) $(this).popover('hide');
@@ -579,25 +578,21 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         }
     }
     html += '<h6 class="mt-2">Related Courses</h6>\n';
-    curr_popover.find('.popover-body').append(html);
-    curr_popover.find('.popover-body').append('<div class="related-courses list-group"/>');
+    curr_popover.find('.popover-body').prepend('<div class="related-courses list-group"/>');
+    curr_popover.find('.popover-body').prepend(html);
 
     const first_cell = $(cell.parentElement.firstElementChild);
     let session = year;
     if (first_cell.hasClass('first-cell')) session += first_cell.find('.row-ses').text().slice(4);
     else session += "S1"; // Placeholder session for courses which are not in the degree plan.
-    let res = {};
-    await $.ajax({
+    let res = await $.ajax({
         url: 'recommendations/recommend',
         data: {
             'code': PLAN.degrees[0].code, // TODO: Fix for FDD recommendations
             'courses': JSON.stringify([{[session]: [{"code": code}]}])
-        },
-        success: function (data) {
-            res = data;
-        },
+        }
     });
-    let titles_fill_nodes = {};
+    let courses_actions = {};
     let group = curr_popover.find('.related-courses');
     let recCourses = [];
     for (const clause of offering.rules) {
@@ -614,31 +609,25 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     }
     for (const course of recCourses) {
         const code = course.course;
-        const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
         const reason = course.reasoning;
 
         let item = $(
             '<div class="draggable-course result-course list-group-item list-group-item-action">\n' +
             '    <span class="course-code">' + code + '</span>\n' +
-            '    <span class="course-year">' + year + '</span>\n' +
             '</div>\n');
+        let year_node = $('<span class="course-year"></span>');
         let title_node = $('<span class="course-title"></span>');
-        if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
-            title_node.text(KNOWN_COURSES[code][year].title)
-        }
-        else {
-            if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-            titles_fill_nodes[code].push(function (title) {
-                title_node.text(title);
-            });
-        }
+        if (!(code in courses_actions)) courses_actions[code] = [];
+        courses_actions[code].push(function (offering) {
+            title_node.text(offering.title);
+            year_node.text(offering.year);
+            makeCourseDraggable(item, code, offering.year);
+        });
         item.append(title_node);
         item.append('<div class="course-reason">' + reason + '</div>');
-        makeCourseDraggable(item, code, year);
-        item.each(coursePopoverSetup);
         group.append(item);
     }
-    await batchCourseTitles(titles_fill_nodes);
+    await batchCourseOfferingActions(courses_actions);
     html += group[0].outerHTML;
     curr_popover.find('.fa-sync-alt').parent().removeClass('d-flex').addClass('d-none');
     popover.config.content = html;
@@ -805,13 +794,23 @@ async function setupPlanner() {
     else { // Loading from save
         console.log('Loading found save code (' + save_code + ').');
         clearPlanner();
-        const plan = (await $.ajax({
-            url: 'degree/stored_plans',
-            method: 'GET',
-            data: {"query": save_code},
-            dataType: 'json',
-            contentType: 'application/json'
-        })).response;
+        let plan;
+        try {
+            plan = (await $.ajax({
+                url: 'degree/stored_plans',
+                method: 'GET',
+                data: {"query": save_code},
+                dataType: 'json',
+                contentType: 'application/json'
+            })).response;
+        } catch (e) {
+            if (e.responseJSON.response === "no matching plan found") {
+                $('#load-failed-notice').removeClass('d-none');
+            }
+            save_code = undefined;
+            SAVER.code = save_code;
+            return setupPlanner();
+        }
 
         const degree = await addDegree(plan.degrees[0].code, plan.degrees[0].year);
         const singleReqsList = $('#degree-reqs-list');
@@ -902,11 +901,11 @@ function setupGrid() { // put the loaded plan's sessions in first before using t
 }
 
 function loadCourseGrid(plan) {
-    let titles_fill_nodes = {};
     let rows = $('#plan-grid').find('.plan-row');
-    let async_operations = [];
+    let courses_actions = {};
     for (const session of PLAN.sessions) {
         const row = rows.filter((_, y) => $(y).find('.row-ses').text() === session);
+        const year = session.slice(0, 4);
         let course_list = plan[session] || [];
         for (let i = 0; i < course_list.length; i++) {
             const code = course_list[i].code;
@@ -914,18 +913,17 @@ function loadCourseGrid(plan) {
             let cell = $(row.children()[i + 1]);
             cell.find('.course-code').text(code);
             if (compulsoryCourseCodes.includes(code)) cell.addClass('compulsory');
-            async_operations.push(PLAN.addCourse(session, code));
-            if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-            titles_fill_nodes[code].push(function (title) {
-                cell.find('.course-title').text(title);
+            if (!(code in courses_actions)) courses_actions[code + '-' + year] = [];
+            courses_actions[code + '-' + year].push(function (offering) {
+                cell.find('.course-title').text(offering.title);
+                PLAN.addCourse(session, code);
             });
             cell.each(coursePopoverSetup);
             makePlanCellDraggable(cell);
             cell.droppable('destroy');
         }
     }
-    batchCourseTitles(titles_fill_nodes);
-    Promise.all(async_operations).then(function () {
+    batchCourseOfferingActions(courses_actions).then(function () {
         updateProgress();
         updateRecommendations();
         SAVER.enableSaving();
@@ -934,7 +932,7 @@ function loadCourseGrid(plan) {
 
 function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
-    const year = $(this).find('.course-year').text() || THIS_YEAR;
+    const year = $(this).find('.course-year').text();
     if (code === ELECTIVE_TEXT) return;
     $(this).popover({
         trigger: 'click',
@@ -1220,7 +1218,7 @@ function setupDegreeRequirements(container, degree) {
     let header = container.parent().find('.degree-header');
     let unit_count = header.find('.unit-count');
     unit_count.text("0/" + degree.units + " units");
-    let titles_fill_nodes = {};
+    let courses_actions = {};
     let async_operations = [];
     let mms_to_retrieve = {};
     let mms_to_display = [];
@@ -1241,17 +1239,14 @@ function setupDegreeRequirements(container, degree) {
         });
         let group = $('<div class="list-group list-group-flush"/>');
         for (let code of courses) {
-            const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
             let title_node = $('<span class="course-title"/>');
-            if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
-                title_node.text(KNOWN_COURSES[code][year].title)
-            }
-            else {
-                if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-                titles_fill_nodes[code].push(function (title) {
-                    title_node.text(title);
-                });
-            }
+            let year_node = $('<span class="course-year"/>');
+            if (!(code in courses_actions)) courses_actions[code] = [];
+            courses_actions[code].push(function (offering) {
+                title_node.text(offering.title);
+                year_node.text(offering.year);
+                makeCourseDraggable(item, code, offering.year);
+            });
             let item = $(
                 '<div class="list-group-item list-group-item-action compulsory draggable-course result-course">' +
                 '    <span class="course-code">' + code + '</span> ' +
@@ -1259,8 +1254,8 @@ function setupDegreeRequirements(container, degree) {
             );
             compulsoryCourseCodes.push(code);
             item.append(title_node);
+            item.append(year_node);
             item.each(coursePopoverSetup);
-            makeCourseDraggable(item, code, year);
             group.append(item);
         }
         collapsible.append(group);
@@ -1457,7 +1452,7 @@ function setupDegreeRequirements(container, degree) {
         }
     }
     $.when.apply($, async_operations).then(function () {
-        batchCourseTitles(titles_fill_nodes);
+        batchCourseOfferingActions(courses_actions);
         batchMMSData(mms_to_retrieve);
         updateProgress();
     })
@@ -1508,12 +1503,11 @@ async function updateDegreeTrackers() {
             else if (["x_from_category", "max_by_level"].includes(type)) {
                 const group = card.find('.list-group');
                 for (const code of details.codes) {
-                    const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
-                    const offering = await getCourseOffering(code, year);
+                    const offering = await getCourseOffering(code, THIS_YEAR); // Get most appropriate offering
                     const item = $(
                         '<div class="list-group-item list-group-item-action result-course inc">' +
                         '    <span class="course-code">' + code + '</span> ' +
-                        '    <span class="course-year">' + year + '</span> ' +
+                        '    <span class="course-year">' + offering.year + '</span> ' +
                         '    <span class="course-title">' + offering.title + '</span>' +
                         '</div>'
                     );
@@ -1589,12 +1583,12 @@ async function updateRecommendations() {
             res = data;
         }
     });
+    let courses_actions = {};
     let titles_fill_nodes = {};
     group.find('.result-course').popover('dispose');
     group.empty();
     for (const course of res.response) {
         const code = course.course;
-        const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
         const reason = course.reasoning;
 
         let item = $(
@@ -1602,23 +1596,21 @@ async function updateRecommendations() {
             '    <span class="course-code">' + code + '</span>\n' +
             '</div>\n');
         let title_node = $('<span class="course-title"></span>');
-        if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
-            title_node.text(KNOWN_COURSES[code][year].title)
-        }
-        else {
-            if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-            titles_fill_nodes[code].push(function (title) {
-                title_node.text(title);
-            });
-        }
+        let year_node = $('<span class="course-year"></span>');
+        if (!(code in courses_actions)) courses_actions[code] = [];
+        courses_actions[code].push(function (offering) {
+            title_node.text(offering.title);
+            year_node.text(offering.year);
+            makeCourseDraggable(item, code, offering.year);
+        });
         item.append(title_node);
+        item.append(year_node);
         item.append('<div class="course-reason">' + reason + '</div>');
-        makeCourseDraggable(item, code, year);
         item.each(coursePopoverSetup);
         group.append(item);
         addColor(item, code);
     }
-    await batchCourseTitles(titles_fill_nodes);
+    await batchCourseOfferingActions(courses_actions);
 }
 
 /**
