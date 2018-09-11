@@ -112,18 +112,20 @@ wrapper {
 
 .add-row-wrapper {
     width: 100%;
-    height: 18px;
+    height: 14x;
+    min-height: 0;
     display: flex;
     padding: 0;
     margin: 0;
 }
 
 .remove-row-btn, .add-row-btn {
-    margin-top: auto;
-    margin-bottom: auto;
+    vertical-align: middle;
     padding: 0;
+    margin-top: 7px;
     cursor: pointer;
     border: none;
+    display: flex;
 }
 
 .remove-row-btn {
@@ -136,8 +138,8 @@ wrapper {
    padding: 0;
    color: #7AD55D;
    background-color: white; 
-   margin-left: 5px;
    margin-right: 5px;
+   margin-left: 5px;
 }
 
 .remove-row-btn:focus, .add-row-btn:focus {
@@ -153,15 +155,15 @@ wrapper {
 }
 
 .add-row-line-left {
-    display: inline-block;
-    margin-top: 12px;
-    width: 49%;
+    display: flex;
+    margin-top: 14px;
+    width: 50%;
     border-top: 1px solid #ccc;
 }
 
 .add-row-line-right {
-    display: inline-block;
-    margin-top: 12px;
+    display: flex;
+    margin-top: 14px;
     width: 47%;
     border-top: 1px solid #ccc;
 }
@@ -224,12 +226,32 @@ wrapper {
 }
 
 .add-row-animate {
-    height: 124px;
-    transition: height 0.4s;
-    -webkit-transition: height 0.4s;
-    -moz-transition: height 0.4s;
-    -ms-transition: height 0.4s;
-    -o-transition: height 0.4s;
+    min-height: 124px;
+    transition: min-height 0.4s;
+    -webkit-transition: min-height 0.4s;
+    -moz-transition: min-height 0.4s;
+    -ms-transition: min-height 0.4s;
+    -o-transition: min-height 0.4s;
+}
+
+.session-popover-body {
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.session-popover-btn {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+}
+
+.session-popover-submit {
+    width: 100%;
+    text-align: center;
+    border-radius: 0;
+    margin: 0;
 }
 
 .plan-cell {
