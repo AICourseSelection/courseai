@@ -21,6 +21,10 @@ const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', '
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
 
+const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
+let startSession = "";
+let endSession = "";
+
 // UI Functions
 async function addDegree(code, year) {
     let add = await PLAN.addDegree(code, year);
@@ -53,6 +57,13 @@ function clearAllCourses() {
 function resetPlan() {
     clearAllCourses();
     $('#plan-grid').empty();
+
+    let total_units = PLAN.degrees[0].units;
+    if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
+    for (let i = 0; i < total_units / 24; i++) {
+        PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
+    }
+
     loadDefaultPlan();
 }
 
@@ -422,6 +433,8 @@ $.when(starting_degree.then(async function (degree) {
 
     let total_units = PLAN.degrees[0].units;
     if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
+
+    startSession = start_year + 'S' + start_sem; // set the start session for tracking session removal
     for (let i = 0; i < total_units / 24; i++) {
         PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
     }
@@ -835,19 +848,41 @@ function reorganiseDegreeTracker(double) {
     }
 }
 
-function createRemoveSessionBtn(session, row) {
-    let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-xs fa-minus-square"/>');
-    removeBtn.click(function() {
-        removeSession(session, row);
-        let replacementDiv = $('<div class="add-row-wrapper"/>');
-        let addBtn = createAddSessionBtn(session);
-        replacementDiv.append('<span class="add-row-line-left"/>');
-        replacementDiv.append(addBtn);
-        replacementDiv.append('<span class="add-row-line-right"/>');
+function removeAddRows(row) {
+    row.addClass('add-row-wrapper');
 
-        let prevDiv = $(this).parent();
-        prevDiv.addClass('remove-row-animate').on('transitionend', function(e) {
-           $(e.target).replaceWith(replacementDiv);
+    if (row.prev().hasClass('add-row-wrapper')) row = row.prev();
+
+    // remove all add rows
+    for (var i = 0; i < 3 && row.hasClass('add-row-wrapper'); i++) {
+        let next = row.next();
+        row.remove();
+        row = next;
+    }
+    
+    // return the row after the add chain
+    return row;
+}
+
+function createRemoveSessionBtn(session, row) {
+    let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-sm fa-minus-square"/>');
+    removeBtn.click(function() {
+        let wrapper = $(this).parent();
+        wrapper.addClass('remove-row-animate').on('transitionend', function(e) {
+            if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
+                removeSession(session, row);
+                let temp = removeAddRows(wrapper);
+                $('#plan-grid').append(createAddSessionRow(session, true)); 
+            } else {
+                removeSession(session, row);
+                let rowAfter = removeAddRows(wrapper);
+                let prev = rowAfter.prev();
+                
+
+                if (prev.length === 0) rowAfter.before(createAddSessionRow(startSession, false));  // at first session in planner
+                else prev.after(createAddSessionRow(nextSession(prev.find('.row-ses').text()), false));
+            }
+
         });
 
     });
@@ -872,6 +907,7 @@ function removeSession(session, row) {
     PLAN.removeSession(session);
 }
 
+// Return an empty session row for the planner of the given session
 function createEmptySessionRow(session) {
     const year = session.slice(0, 4);
     const ses = session.slice(4);
@@ -900,39 +936,123 @@ function createEmptySessionRow(session) {
     return row;
 }
 
-function createAddSessionBtn(session) {
-    let addBtn = $('<button class="add-row-btn"/>').append('<i class="fas fa-xs fa-plus-square"/>');
-    addBtn.click(function() {
-        PLAN.addSession(session); 
+function createSessionRowEventListener(btn, session) {
+    btn.click(function() {
+        PLAN.addSession(session);
         let replacementDiv = $('<div class="plan-row-wrapper"/>');
         let row = createEmptySessionRow(session);
         let removeBtn = createRemoveSessionBtn(session, row);
         replacementDiv.append(removeBtn);
         replacementDiv.append(row);
 
-        let prevDiv = $(this).parent();
-        prevDiv.addClass('add-row-animate').on('transitionend', function(e) {
+        $(this).parent().addClass('add-row-animate').on('transitionend', function(e) {
             $(e.target).replaceWith(replacementDiv);
         });
 
     });
-    return addBtn;
 }
 
-function createAddSessionRow(grid, session, generateNext = false) {
-    let addDiv = $('<div class="add-row-wrapper"/>');
-    let addBtn = (generateNext) ? createAddSessionBtn(PLAN.getNextSession()) : createAddSessionBtn(session);
+function createAddSessionBtn() {
+    return $('<button class="add-row-btn"/>')
+        .append('<i class="fas fa-sm fa-plus-square"/>');
+}
 
-    if (generateNext) {
-        addBtn.click(function() {
-            createAddSessionRow(grid, null, true); // recursively add next btn
+function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
+    addBtn.popover({
+        trigger: 'click',
+        title: 'Add Sessions<a class="popover-close" onclick="closePopover(this)">×</a>',
+        placement: 'right',
+        html: true,
+        content: function() {
+            let html = "";
+            for (var i = 0; i < availableSessions.length; i++) {
+                html += "<button class='btn session-popover-btn btn-outline-primary'" + 
+                    "data-toggle='button' aria-pressed='false' value='" + availableSessions[i] + "'>" + 
+                    availableSessions[i].slice(0, 4) + " " + SESSION_WORDS[availableSessions[i].slice(-2)] + "</button>";
+            }
+            return html;
+        }, 
+        template: '<div class="popover session-popover">\n' +
+        '    <div class="arrow"></div>\n' +
+        '    <div class="h2 popover-header"></div>\n' +
+        '    <div class="popover-body session-popover-body"></div>\n' +
+        '    <button class="btn session-popover-submit btn-success">Add</button>'
+    }).on('shown.bs.popover', function () {
+        let buttons = $('.session-popover').find('.session-popover-btn');
+        let sessionsToAdd = {};
+        let count = 0;
+        for (var i = 0; i < availableSessions.length; i++) {
+            sessionsToAdd[availableSessions[i]] = false;
+        }
+
+        // create toggle event for each button
+        $(".session-popover-btn").click(function() {
+            const session = $(this).val();
+            if (!sessionsToAdd[session]) count++;
+            else count--;
+            sessionsToAdd[session] = !sessionsToAdd[session];
         });
-    } 
 
+        // add the selected sessions to the planner
+        $(".session-popover-submit").click(function() {
+            let sessionAdded = false;
+            for (var j = availableSessions.length - 1; j >= 0; j--) {
+                const addToPlanner = sessionsToAdd[availableSessions[j]];
+                if (addToPlanner) {
+                    PLAN.addSession(availableSessions[j]);
+                    let row = createEmptySessionRow(availableSessions[j]);
+                    let rowWrapper = $('<div class="plan-row-wrapper"/>');
+                    rowWrapper.append(createRemoveSessionBtn(availableSessions[j], row));
+                    rowWrapper.append(row);
+                    addRow.after(rowWrapper);
+
+                    // add additional add row if last option chosen
+                    if (last && j === availableSessions.length - 1) rowWrapper.after(createAddSessionRow(nextSession(availableSessions[j]), true));
+
+                    sessionAdded = true;
+                } else if (count > 0 && (j === 0 || sessionsToAdd[availableSessions[j - 1]])) { // create a new add row
+                    addRow.after(createAddSessionRow(availableSessions[j], last));
+                }
+            }
+
+            if (sessionAdded) {
+                addRow.remove();
+                $('.session-popover').popover('hide');
+            }
+        });
+    });
+}
+
+function getNextAvailableSessions(session, last) {
+    let availableSessions = [];
+
+    if (last) {
+        for (var i = 0; i < NUM_ADD_SESSIONS_END; i++) {
+            session = nextSession(session);
+            availableSessions.push(session);
+        }
+    } else {
+        while (!PLAN.sessions.includes(session)) {
+            availableSessions.push(session);
+            session = nextSession(session);
+        }
+    }
+
+    return availableSessions;
+}
+
+function createAddSessionRow(session, last) {
+    let addDiv = $('<div class="add-row-wrapper"/>');
+    let addBtn = createAddSessionBtn();
+    let availableSessions = getNextAvailableSessions(session, last);
+    
+    if (availableSessions.length > 1 || last) createNextSessionsPopover(addBtn, addDiv, availableSessions, last);    
+    else createSessionRowEventListener(addBtn, session);
+    
     addDiv.append('<span class="add-row-line-left"/>');
     addDiv.append(addBtn);
     addDiv.append('<span class="add-row-line-right"/>');
-    grid.append(addDiv);
+    return addDiv;
 }
 
 function makeRowSortable(row) {
@@ -1022,16 +1142,13 @@ function loadDefaultPlan() {
         rowWrapper.append(row);
         grid.append(rowWrapper);
 
-        // create add buttons for seasonal sessions
-        if (['S1', 'S2'].includes(ses) && PLAN.sessions[PLAN.sessions.length - 1] !== session) {
-            for (var i = 1; i <= 2; i++) {
-                const seasonalSession = nextSession(session, i);
-                createAddSessionRow(grid, seasonalSession);
-            }
+        // create add buttons for last and seasonal sessions
+        if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
+            grid.append(createAddSessionRow(session, true));
+        } else if (['S1', 'S2'].includes(ses)) {
+            grid.append(createAddSessionRow(nextSession(session), false));
         }
     }
-
-    createAddSessionRow(grid, null, true);
     
     batchCourseTitles(titles_fill_nodes);
     $.when.apply($, async_operations).done(function () {
