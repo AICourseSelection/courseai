@@ -275,7 +275,7 @@ async function mms_add(code, year) {
                 item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 item.append(title_node);
-                makeCourseDraggable(item, course.code);
+                makeCourseDraggable(item, course.code, year);
                 item.each(coursePopoverSetup);
                 course_list.append(item);
                 required.append(course_list);
@@ -313,7 +313,7 @@ async function mms_add(code, year) {
                 list_item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 list_item.append(title_node);
-                makeCourseDraggable(list_item, course.code);
+                makeCourseDraggable(list_item, course.code, year);
                 list_item.each(coursePopoverSetup);
                 options.append(list_item);
             }
@@ -327,7 +327,7 @@ async function mms_add(code, year) {
             collapsible.append(select);
         }
     }
-    mmsCourseCodes.concat.apply([], mmsCourseCodes)
+    mmsCourseCodes.concat.apply([], mmsCourseCodes);
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes[code] = mmsCourseCodes;
 
     mms_card.append(card_header);
