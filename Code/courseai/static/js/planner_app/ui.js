@@ -1006,6 +1006,12 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
                     rowWrapper.append(createRemoveSessionBtn(availableSessions[j], row));
                     rowWrapper.append(row);
 
+                    // create additional add row if last option chosen
+                    if (j === availableSessions.length - 1) {
+                        addRow.after(createAddSessionRow(nextSession(availableSessions[j]), last));
+                        last = false;
+                    }
+
                     // create temp div to animate adding the wrapper
                     let temp = $("<div class='add-row-wrapper'/>");
                     addRow.after(temp);
@@ -1017,14 +1023,10 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
                         });
                     }, 10);
 
-                    // add additional addrow if last option chosen
-                    if (last && j === availableSessions.length - 1) {
-                        rowWrapper.after(createAddSessionRow(nextSession(availableSessions[j]), true));
-                    }
-
                     sessionAdded = true;
                 } else if (count > 0 && (j === 0 || sessionsToAdd[availableSessions[j - 1]])) { // create a new add row
-                    addRow.after(createAddSessionRow(availableSessions[j], false));
+                    addRow.after(createAddSessionRow(availableSessions[j], last));
+                    last = false;
                 }
             }
 
@@ -1041,8 +1043,8 @@ function getNextAvailableSessions(session, last) {
 
     if (last) {
         for (var i = 0; i < NUM_ADD_SESSIONS_END; i++) {
-            session = nextSession(session);
             availableSessions.push(session);
+            session = nextSession(session);
         }
     } else {
         while (!PLAN.sessions.includes(session)) {
@@ -1058,7 +1060,7 @@ function createAddSessionRow(session, last) {
     let addDiv = $('<div class="add-row-wrapper"/>');
     let addBtn = createAddSessionBtn();
     let availableSessions = getNextAvailableSessions(session, last);
-    
+
     if (availableSessions.length > 1 || last) createNextSessionsPopover(addBtn, addDiv, availableSessions, last);    
     else createSessionRowEventListener(addBtn, session);
     
@@ -1156,11 +1158,8 @@ function loadDefaultPlan() {
         grid.append(rowWrapper);
 
         // create add buttons for last and seasonal sessions
-        if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
-            grid.append(createAddSessionRow(session, true));
-        } else if (['S1', 'S2'].includes(ses)) {
-            grid.append(createAddSessionRow(nextSession(session), false));
-        }
+        if (session === PLAN.sessions[PLAN.sessions.length - 1]) grid.append(createAddSessionRow(nextSession(session), true));
+        else if (['S1', 'S2'].includes(ses)) grid.append(createAddSessionRow(nextSession(session), false));
     }
     
     batchCourseTitles(titles_fill_nodes);
