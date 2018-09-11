@@ -58,6 +58,7 @@ function resetPlan() {
     clearAllCourses();
     $('#plan-grid').empty();
 
+    PLAN.sessions = [];
     let total_units = PLAN.degrees[0].units;
     if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
     for (let i = 0; i < total_units / 24; i++) {
