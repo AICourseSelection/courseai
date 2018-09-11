@@ -29,6 +29,8 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
 
     if (typeof units === "number") {
         this.units = units;
+    } else if (units === undefined) {
+        this.units = 6;
     } else {
         const bounds = this.units.split(" to ");
         this.units = parseInt(bounds[0]);
