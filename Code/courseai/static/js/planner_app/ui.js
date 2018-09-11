@@ -1286,6 +1286,7 @@ function setupDegreeRequirements(container, degree) {
         }
         description += 'courses starting with: ';
         for (let i in codes) {
+            if (typeof(codes[i]) !== "string") continue;
             if (i > 0) description += ', ';
             description += '<a href="javascript:void(0)" class="code-filter" onclick="addFilter(\'code\',\'' + codes[i] + '\')">' + codes[i] + '</a>';
         }
@@ -1392,6 +1393,10 @@ function setupDegreeRequirements(container, degree) {
             for (let section of required[type]) {
                 let title = 'Choose at least ' + (section.num || section.units) + ' units' +
                     '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
+                if (section.type === "min_max") {
+                    title = 'Choose between ' + section.units.minimum + ' and ' + section.units.maximum + ' units' +
+                    '<span class="unit-count mr-2">0/' + section.units.minimum + '</span>\n';
+                }
                 let card = createCourseCategorySection(type, title, section['area'], section.level);
                 container.append(card);
                 section_count++;
@@ -1502,6 +1507,7 @@ async function updateDegreeTrackers() {
             }
             else if (["x_from_category", "max_by_level"].includes(type)) {
                 const group = card.find('.list-group');
+                group.empty();
                 for (const code of details.codes) {
                     const offering = await getCourseOffering(code, THIS_YEAR); // Get most appropriate offering
                     const item = $(
