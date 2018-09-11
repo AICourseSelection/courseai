@@ -1,4 +1,5 @@
 import json
+import ast
 from builtins import Exception, eval, str
 
 from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest, QueryDict
@@ -25,9 +26,12 @@ def all_degrees(request):
 def degree_plan(request):
     if request.method == "GET":
         try:
-            code = request.GET['query']
-            starting_year = request.GET['start_year_sem']
-            return degree_plan_helper.generate_degree_plan(code, starting_year)
+            code = request.GET['degree_code']
+            year = request.GET['year']
+            with open(code + ".json", newline="") as f:
+                study_options_str = f.read()
+                study_options_dict = ast.literal_eval(study_options_str)
+            return JsonResponse({"response": study_options_dict[year]})
         except Exception:
             return JsonResponse({"response": "null"})
     elif request.method == "PUT":
