@@ -1,5 +1,5 @@
 {
-  "code": "AACOM",
+  "code": "AACRD",
   "2014": [
     [
       {
@@ -8,13 +8,13 @@
         "units": "6 units"
       },
       {
-        "code": "ENGN1211",
-        "level": "Discovering Engineering",
+        "code": "COMP2300",
+        "level": "Introduction to Computer Systems",
         "units": "6 units"
       },
       {
-        "code": "MATH1013",
-        "level": "Mathematics and Applications 1",
+        "code": "MATH1115",
+        "level": "Mathematics and Applications 1 Honours",
         "units": "6 units"
       },
       {
@@ -30,15 +30,18 @@
         "units": "6 units"
       },
       {
-        "code": "MATH1014",
-        "level": "Mathematics and Applications 2",
+        "code": "COMP2600",
+        "level": "Formal Methods in Software Engineering",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "MATH1116",
+        "level": "Mathematics and Applications 2 Honours",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -48,15 +51,17 @@
         "units": "6 units"
       },
       {
-        "code": "COMP2300",
-        "level": "Introduction to Computer Systems",
+        "code": "COMP2550",
+        "level": "Advanced Computing R&D Methods",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -71,20 +76,16 @@
         "units": "6 units"
       },
       {
-        "code": "COMP2600",
-        "level": "Formal Methods in Software Engineering",
+        "code": "COMP2560",
+        "level": "Studies in Advanced Computing R&D",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
-        "units": "6 units"
-      },
       {
         "code": "COMP3120",
         "level": "Managing Software Development",
@@ -96,14 +97,20 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP3550",
+        "level": "Advanced Computing R&D Project",
+        "units": "12 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
-        "units": "6 units"
+        "code": "COMP3550",
+        "level": "Advanced Computing R&D Project",
+        "units": "12 units"
       },
       {
         "code": "COMP3600",
@@ -116,7 +123,8 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -131,10 +139,14 @@
         "units": "24 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "24 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP Course",
+        "level": "3000/4000",
+        "units": "6 units"
       }
     ],
     [
@@ -144,14 +156,19 @@
         "units": "24 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "24 units"
       },
       {
-        "code": "COMP 3000/4000",
+        "code": "COMP Course",
+        "level": "3000/4000",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP Course",
+        "level": "3000/4000",
+        "units": "6 units"
       }
     ]
   ],
@@ -163,13 +180,13 @@
         "units": "6 units"
       },
       {
-        "code": "ENGN1211",
-        "level": "Discovering Engineering",
+        "code": "COMP2300",
+        "level": "Introduction to Computer Systems",
         "units": "6 units"
       },
       {
-        "code": "MATH1013",
-        "level": "Mathematics and Applications 1",
+        "code": "MATH1115",
+        "level": "Advanced Mathematics and Applications 1",
         "units": "6 units"
       },
       {
@@ -185,15 +202,18 @@
         "units": "6 units"
       },
       {
-        "code": "MATH1014",
-        "level": "Mathematics and Applications 2",
+        "code": "COMP2600",
+        "level": "Formal Methods in Software Engineering",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "MATH1116",
+        "level": "Advanced Mathematics and Applications  2",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -203,15 +223,17 @@
         "units": "6 units"
       },
       {
-        "code": "COMP2300",
-        "level": "Introduction to Computer Systems",
+        "code": "COMP2550",
+        "level": "Advanced Computing R&D Methods",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -226,20 +248,16 @@
         "units": "6 units"
       },
       {
-        "code": "COMP2600",
-        "level": "Formal Methods in Software Engineering",
+        "code": "COMP2560",
+        "level": "Studies in Advanced Computing R&D",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
-        "units": "6 units"
-      },
       {
         "code": "COMP3120",
         "level": "Managing Software Development",
@@ -251,13 +269,19 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP3550",
+        "level": "Advanced Computing R&D Project",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3550",
+        "level": "Advanced Computing R&D Project",
         "units": "6 units"
       },
       {
@@ -271,7 +295,8 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -286,10 +311,14 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP Course",
+        "level": "3000/4000",
+        "units": "6 units"
       }
     ],
     [
@@ -299,14 +328,19 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "COMP 3000/4000",
+        "code": "COMP Course",
+        "level": "3000/4000",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP Course",
+        "level": "3000/4000",
+        "units": "6 units"
       }
     ]
   ],
@@ -318,13 +352,12 @@
         "units": "6 units"
       },
       {
-        "code": "ENGN1211",
-        "level": "Discovering Engineering",
+        "code": "Elective Course",
         "units": "6 units"
       },
       {
-        "code": "MATH1013",
-        "level": "Mathematics and Applications 1",
+        "code": "MATH1115",
+        "level": "Advanced Mathematics and Applications 1",
         "units": "6 units"
       },
       {
@@ -340,15 +373,18 @@
         "units": "6 units"
       },
       {
-        "code": "MATH1014",
-        "level": "Mathematics and Applications 2",
+        "code": "COMP2600",
+        "level": "Formal Methods in Software Engineering",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "MATH1116",
+        "level": "Advanced Mathematics and Applications  2",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -358,15 +394,18 @@
         "units": "6 units"
       },
       {
+        "code": "COMP2550",
+        "level": "Advanced Computing R&D Methods",
+        "units": "6 units"
+      },
+      {
         "code": "COMP2300",
         "level": "Introduction to Computer Systems",
         "units": "6 units"
       },
       {
-        "code": "Comp Elective Course"
-      },
-      {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -381,20 +420,16 @@
         "units": "6 units"
       },
       {
-        "code": "COMP2600",
-        "level": "Formal Methods in Software Engineering",
+        "code": "COMP2560",
+        "level": "Studies in Advanced Computing R&D",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
-        "units": "6 units"
-      },
       {
         "code": "COMP3120",
         "level": "Managing Software Development",
@@ -406,13 +441,19 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP3550",
+        "level": "Advanced Computing R&D Project",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3550",
+        "level": "Advanced Computing R&D Project",
         "units": "6 units"
       },
       {
@@ -426,7 +467,8 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -441,10 +483,14 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP Course",
+        "level": "3000/4000",
+        "units": "6 units"
       }
     ],
     [
@@ -454,22 +500,27 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "COMP 3000/4000",
+        "code": "COMP Course",
+        "level": "3000/4000",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP Course",
+        "level": "3000/4000",
+        "units": "6 units"
       }
     ]
   ],
   "2017": [
     [
       {
-        "code": "COMP1100",
-        "level": "Programming as Problem Solving",
+        "code": "COMP1130",
+        "level": "Programming as Problem Solving (Advanced)",
         "units": "6 units"
       },
       {
@@ -478,7 +529,8 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "MATH1013",
+        "level": "Mathematics and Applications 1",
         "units": "6 units"
       },
       {
@@ -488,8 +540,8 @@
     ],
     [
       {
-        "code": "COMP1110",
-        "level": "Structured Programming",
+        "code": "COMP1140",
+        "level": "Structured Programming (Advanced)",
         "units": "6 units"
       },
       {
@@ -498,7 +550,8 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "MATH1014",
+        "level": "Mathematics and Applications 2",
         "units": "6 units"
       },
       {
@@ -523,7 +576,8 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course",
+        "code": "COMP2550",
+        "level": "Advanced Computing R&D Methods",
         "units": "6 units"
       }
     ],
@@ -539,13 +593,14 @@
         "units": "6 units"
       },
       {
+        "code": "COMP2560",
+        "level": "Studies in Advanced Computing R&D",
+        "units": "6 units"
+      },
+      {
         "code": "COMP3600",
         "level": "Algorithms",
         "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
       }
     ],
     [
@@ -554,33 +609,12 @@
         "units": "6 units"
       },
       {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
-        "units": "6 units"
-      },
-      {
-        "code": "Computing Elective",
-        "level": "3000 level",
+        "code": "COMP3770",
+        "level": "Individual Research Project",
         "units": "6 units"
       },
       {
         "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "Computing Research Specialisation",
-        "units": "6 units"
-      },
-      {
-        "code": "Computing Elective",
-        "level": "3000 level",
-        "units": "6 units"
-      },
-      {
-        "code": "Computing Elective",
-        "level": "4000 level",
         "units": "6 units"
       },
       {
@@ -594,12 +628,13 @@
         "units": "6 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
+        "code": "COMP3770",
+        "level": "Individual Research Project",
+        "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "Elective Course",
+        "units": "6 units"
       },
       {
         "code": "Elective Course",
@@ -617,7 +652,29 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Computing Research Specialisation",
+        "units": "6 units"
+      },
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
+      },
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
         "code": "Elective Course",
@@ -628,8 +685,8 @@
   "2018": [
     [
       {
-        "code": "COMP1100",
-        "level": "Programming as Problem Solving",
+        "code": "COMP1130",
+        "level": "Programming as Problem Solving (Advanced)",
         "units": "6 units"
       },
       {
@@ -638,18 +695,19 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "MATH1013",
+        "level": "Mathematics and Applications 1",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP1110",
-        "level": "Structured Programming",
+        "code": "COMP1140",
+        "level": "Structured Programming (Advanced)",
         "units": "6 units"
       },
       {
@@ -658,10 +716,12 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective 6 Units"
+        "code": "MATH1014",
+        "level": "Mathematics and Applications 2",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -682,7 +742,8 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "COMP2550",
+        "level": "Advanced Computing R&D Methods",
         "units": "6 units"
       }
     ],
@@ -698,59 +759,58 @@
         "units": "6 units"
       },
       {
+        "code": "COMP2560",
+        "level": "Studies in Advanced Computing R&D",
+        "units": "6 units"
+      },
+      {
         "code": "COMP3600",
         "level": "Algorithms",
         "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Computing Research Specialisation",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "COMP3770",
+        "level": "Individual Research Project",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
+        "code": "Computing Research Specialisation",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "3000 or 4000 level",
+        "code": "COMP3770",
+        "level": "Individual Research Project",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "Computing Specialisation Course",
-        "level": "6 Units"
-      },
-      {
-        "code": "Computing Elective",
-        "level": "3000 level",
+        "code": "Elective Course",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "4000 level",
-        "units": "6 units"
-      },
-      {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
+        "code": "Computing Research Specialisation",
+        "units": "6 units"
       },
       {
         "code": "COMP4550",
@@ -758,28 +818,32 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
+        "code": "Computing Research Specialisation",
         "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "University Elective",
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ]
@@ -787,8 +851,8 @@
   "2019": [
     [
       {
-        "code": "COMP1100",
-        "level": "Programming as Problem Solving",
+        "code": "COMP1130",
+        "level": "Programming as Problem Solving (Advanced)",
         "units": "6 units"
       },
       {
@@ -797,18 +861,19 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "MATH1013",
+        "level": "Mathematics and Applications 1",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP1110",
-        "level": "Structured Programming",
+        "code": "COMP1140",
+        "level": "Structured Programming (Advanced)",
         "units": "6 units"
       },
       {
@@ -817,10 +882,12 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective 6 Units"
+        "code": "MATH1014",
+        "level": "Mathematics and Applications 2",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -841,7 +908,8 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "COMP2550",
+        "level": "Advanced Computing R&D Methods",
         "units": "6 units"
       }
     ],
@@ -857,59 +925,58 @@
         "units": "6 units"
       },
       {
+        "code": "COMP2560",
+        "level": "Studies in Advanced Computing R&D",
+        "units": "6 units"
+      },
+      {
         "code": "COMP3600",
         "level": "Algorithms",
         "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Computing Research Specialisation",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "COMP3770",
+        "level": "Individual Research Project",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
+        "code": "Computing Research Specialisation",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "3000 or 4000 level",
+        "code": "COMP3770",
+        "level": "Individual Research Project",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "Computing Specialisation Course",
-        "level": "6 Units"
-      },
-      {
-        "code": "Computing Elective",
-        "level": "3000 level",
+        "code": "Elective Course",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "4000 level",
-        "units": "6 units"
-      },
-      {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
+        "code": "Computing Research Specialisation",
+        "units": "6 units"
       },
       {
         "code": "COMP4550",
@@ -917,28 +984,32 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
+        "code": "Computing Research Specialisation",
         "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
       },
       {
-        "code": "University Elective",
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "units": "12 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ]

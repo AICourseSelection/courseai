@@ -1,19 +1,20 @@
 {
-  "code": "BAHCR",
+  "code": "BLANG",
   "2014": [
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
+        "code": "Minor",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Elective Course",
+        "code": "LING1001",
+        "level": "Introduction to the Study of Language",
         "units": "6 units"
       },
       {
@@ -23,16 +24,76 @@
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
+        "code": "Minor",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
+        "code": "Linguistics Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "LANG Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "LANG Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
         "code": "Elective Course",
         "units": "6 units"
       },
@@ -43,74 +104,13 @@
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "2000/3000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Curatorship Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "Arts Major",
+        "code": "Major",
         "level": "2000/3000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Curatorship Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Curatorship Minor Internship",
-        "units": "12 units"
-      },
-      {
-        "code": "."
-      }
-    ],
-    [
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 Course",
         "units": "6 units"
       },
       {
@@ -126,17 +126,18 @@
   "2015": [
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
+        "code": "Minor",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Elective Course",
+        "code": "LING1001",
+        "level": "Introduction to the Study of Language",
         "units": "6 units"
       },
       {
@@ -146,16 +147,76 @@
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
+        "code": "Minor",
         "level": "1000 level Course",
         "units": "6 units"
       },
       {
+        "code": "Linguistics Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "LANG Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "LANG Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
         "code": "Elective Course",
         "units": "6 units"
       },
@@ -166,74 +227,13 @@
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "2000/3000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Curatorship Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "Arts Major",
+        "code": "Major",
         "level": "2000/3000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Curatorship Minor",
-        "level": "2000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Curatorship Minor Internship",
-        "units": "12 units"
-      },
-      {
-        "code": "."
-      }
-    ],
-    [
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History Major",
-        "level": "2000/3000 Course",
         "units": "6 units"
       },
       {
@@ -249,12 +249,90 @@
   "2016": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List\r"
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Linguistics Major Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "1000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Linguistics Major Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "units": "6 units from second major list"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "\nor",
+        "level": "Linguistic major course",
+        "units": "6 units from second major list\r"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
       },
       {
         "code": "Elective Course",
@@ -267,78 +345,14 @@
     ],
     [
       {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
+        "code": "Major",
+        "level": "2000/3000 level Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List"
-      },
-      {
-        "code": "Elective Course",
+        "code": "Major",
+        "level": "2000/3000 level Course",
         "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH2044",
-        "level": "Art and Its Context: Materials, Techniques, Display",
-        "units": "6 units"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from Language Minor or Major/MinorList"
-      },
-      {
-        "units": "6 units from 36 units list"
-      }
-    ],
-    [
-      {
-        "code": "ARTH2045",
-        "level": "Curatorship Theory and Practice",
-        "units": "6 units"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from Language Minor or Major/Minor List"
-      },
-      {
-        "units": "6 units from 36 units list"
-      }
-    ],
-    [
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
-      },
-      {
-        "code": "."
       },
       {
         "code": "Elective Course",
@@ -353,12 +367,88 @@
   "2017": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List\r"
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Linguistics Major Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "1000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Linguistics Major Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Course from min 6 unit list"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Course from min 6 unit list or Linguistic major course"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
       },
       {
         "code": "Elective Course",
@@ -371,82 +461,18 @@
     ],
     [
       {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
+        "code": "Major",
+        "level": "2000/3000 level Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List"
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
       },
       {
         "code": "Elective Course",
         "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH2044",
-        "level": "Art and Its Context: Materials, Techniques, Display",
-        "units": "6 units"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from Language Minor or Major/MinorList"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH2045",
-        "level": "Curatorship Theory and Practice",
-        "units": "6 units"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from Language Minor or Major/Minor List"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "code": "."
       },
       {
         "code": "Elective Course",
@@ -457,115 +483,115 @@
   "2018": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
+        "code": "Minor Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
+        "code": "Linguistics Major Course",
         "units": "6 units"
       },
       {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units"
-      },
-      {
-        "code": "ANU Elective Course",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
-      },
-      {
-        "code": "-"
-      },
-      {
-        "code": "Art History and Theory List",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "ANU Elective Course",
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Linguistics Major Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Course from min 6 unit list"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Course from min 6 unit list or Linguistic major course"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ]
@@ -573,115 +599,115 @@
   "2019": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
+        "code": "Minor Course",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
+        "code": "Linguistics Major Course",
         "units": "6 units"
       },
       {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units"
-      },
-      {
-        "code": "ANU Elective Course",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
-      },
-      {
-        "code": "-"
-      },
-      {
-        "code": "Art History and Theory List",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "code": "ANU Elective Course",
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Linguistics Major Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Course from min 6 unit list"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Course from min 6 unit list or Linguistic major course"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ]

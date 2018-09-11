@@ -1,9 +1,9 @@
 {
-  "code": "BAHCR",
+  "code": "BEURO",
   "2014": [
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
@@ -23,7 +23,7 @@
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
@@ -43,8 +43,8 @@
     ],
     [
       {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
+        "code": "Major",
+        "level": "2000 level Course",
         "units": "6 units"
       },
       {
@@ -53,8 +53,7 @@
         "units": "6 units"
       },
       {
-        "code": "Curatorship Minor",
-        "level": "2000 level Course",
+        "code": "Elective Course",
         "units": "6 units"
       },
       {
@@ -64,8 +63,8 @@
     ],
     [
       {
-        "code": "Arts Major",
-        "level": "2000/3000 level Course",
+        "code": "Major",
+        "level": "2000 level Course",
         "units": "6 units"
       },
       {
@@ -74,42 +73,39 @@
         "units": "6 units"
       },
       {
-        "code": "Curatorship Minor",
+        "code": "Major",
         "level": "2000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Elective Course",
+        "code": "Major",
+        "level": "2000 level Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Art History Major",
-        "level": "2000/3000 Course",
-        "units": "6 units"
+        "code": "Semester in Europe",
+        "units": "24 units"
       },
       {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
-        "units": "6 units"
+        "code": "Semester in Europe"
       },
       {
-        "code": "Curatorship Minor Internship",
-        "units": "12 units"
+        "code": "Semester in Europe"
       },
       {
-        "code": "."
+        "code": "Semester in Europe"
       }
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "2000/3000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "2000/3000 Course",
         "units": "6 units"
       },
@@ -126,7 +122,7 @@
   "2015": [
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
@@ -146,7 +142,7 @@
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "1000 level Course",
         "units": "6 units"
       },
@@ -166,8 +162,8 @@
     ],
     [
       {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
+        "code": "Major",
+        "level": "2000 level Course",
         "units": "6 units"
       },
       {
@@ -176,8 +172,7 @@
         "units": "6 units"
       },
       {
-        "code": "Curatorship Minor",
-        "level": "2000 level Course",
+        "code": "Elective Course",
         "units": "6 units"
       },
       {
@@ -187,8 +182,8 @@
     ],
     [
       {
-        "code": "Arts Major",
-        "level": "2000/3000 level Course",
+        "code": "Major",
+        "level": "2000 level Course",
         "units": "6 units"
       },
       {
@@ -197,42 +192,39 @@
         "units": "6 units"
       },
       {
-        "code": "Curatorship Minor",
+        "code": "Major",
         "level": "2000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Elective Course",
+        "code": "Major",
+        "level": "2000 level Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Art History Major",
-        "level": "2000/3000 Course",
-        "units": "6 units"
+        "code": "Semester in Europe",
+        "units": "24 units"
       },
       {
-        "code": "Art History Major",
-        "level": "2000/3000 level Course",
-        "units": "6 units"
+        "code": "Semester in Europe"
       },
       {
-        "code": "Curatorship Minor Internship",
-        "units": "12 units"
+        "code": "Semester in Europe"
       },
       {
-        "code": "."
+        "code": "Semester in Europe"
       }
     ],
     [
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "2000/3000 level Course",
         "units": "6 units"
       },
       {
-        "code": "Art History Major",
+        "code": "Major",
         "level": "2000/3000 Course",
         "units": "6 units"
       },
@@ -249,30 +241,14 @@
   "2016": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List\r"
-      },
-      {
-        "code": "Elective Course",
+        "code": "Language Minor",
+        "level": "1000 level Course",
         "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
-        "units": "6 units"
-      },
-      {
-        "units": "6 units from Language Minor or Major/Minor List"
       },
       {
         "code": "Elective Course",
@@ -285,42 +261,14 @@
     ],
     [
       {
-        "code": "ARTH2044",
-        "level": "Art and Its Context: Materials, Techniques, Display",
+        "code": "Major",
+        "level": "1000 level Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from Language Minor or Major/MinorList"
-      },
-      {
-        "units": "6 units from 36 units list"
-      }
-    ],
-    [
-      {
-        "code": "ARTH2045",
-        "level": "Curatorship Theory and Practice",
+        "code": "Language Minor",
+        "level": "1000 level Course",
         "units": "6 units"
-      },
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from Language Minor or Major/Minor List"
-      },
-      {
-        "units": "6 units from 36 units list"
-      }
-    ],
-    [
-      {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from 36 units list"
       },
       {
         "code": "Elective Course",
@@ -333,12 +281,71 @@
     ],
     [
       {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
+        "code": "Major",
+        "level": "2000 level Course",
+        "units": "6 units"
       },
       {
-        "code": "."
+        "code": "Language Minor",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000 level Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Semester in Europe",
+        "units": "24 units"
+      },
+      {
+        "code": "Semester in Europe"
+      },
+      {
+        "code": "Semester in Europe"
+      },
+      {
+        "code": "Semester in Europe"
+      }
+    ],
+    [
+      {
+        "code": "Major",
+        "level": "2000/3000 level Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Major",
+        "level": "2000/3000 Course",
+        "units": "6 units"
       },
       {
         "code": "Elective Course",
@@ -353,103 +360,110 @@
   "2017": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "HIST1214",
+        "level": "Clash of Empires: 1450 to the Present",
         "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List\r"
-      },
-      {
-        "code": "Elective Course",
+        "code": "Language Minor Course",
         "units": "6 units"
       },
       {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
+        "code": "ANU Elective Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      },
-      {
-        "code": "Elective Course",
+        "code": "ANU Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "ARTH2044",
-        "level": "Art and Its Context: Materials, Techniques, Display",
+        "code": "EURO1004",
+        "level": "Europe in the Modern Era",
         "units": "6 units"
       },
       {
-        "units": "6 units from 36 units list"
-      },
-      {
-        "units": "6 units from Language Minor or Major/MinorList"
-      },
-      {
-        "code": "Elective Course",
-        "units": "6 units"
-      }
-    ],
-    [
-      {
-        "code": "ARTH2045",
-        "level": "Curatorship Theory and Practice",
+        "code": "Language Minor Course",
         "units": "6 units"
       },
       {
-        "units": "6 units from 36 units list"
+        "code": "Contemporary Europe Course",
+        "units": "6 units"
       },
       {
-        "units": "6 units from Language Minor or Major/Minor List"
-      },
-      {
-        "code": "Elective Course",
+        "code": "ANU Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "units": "6 units from 36 units list"
+        "code": "EURO2003",
+        "level": "European Union: Policies, Institutions and Challenges",
+        "units": "6 units"
       },
       {
-        "units": "6 units from 36 units list"
+        "code": "Language Minor Course",
+        "units": "6 units"
       },
       {
-        "units": "6 units from 36 units list"
+        "code": "European History Course",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course",
+        "code": "ANU Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
+        "code": "Internship",
+        "units": "24 units"
       },
       {
-        "units": "6 units from 36 units list"
+        "code": "-"
       },
       {
-        "code": "."
+        "code": "-"
       },
       {
-        "code": "Elective Course",
+        "code": "-"
+      }
+    ],
+    [
+      {
+        "code": "European History Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "EURO3001",
+        "level": "Uniting Europe: history, politics, theory",
+        "units": "6 units"
+      },
+      {
+        "code": "Contemporary Europe Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
         "units": "6 units"
       }
     ]
@@ -457,93 +471,16 @@
   "2018": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "HIST1214",
+        "level": "Clash of Empires: 1450 to the Present",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
+        "code": "Language Minor Course",
         "units": "6 units"
       },
       {
         "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
         "units": "6 units"
       },
       {
@@ -553,15 +490,87 @@
     ],
     [
       {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
+        "code": "EURO1004",
+        "level": "Europe in the Modern Era",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Contemporary Europe Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "EURO2012",
+        "level": "Uniting Europe: history, politics, theory",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "European History Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Internship",
+        "units": "24 units"
       },
       {
         "code": "-"
       },
       {
-        "code": "Art History and Theory List",
+        "code": "-"
+      },
+      {
+        "code": "-"
+      }
+    ],
+    [
+      {
+        "code": "European History Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "EURO3002",
+        "level": "Comparative European Politics",
+        "units": "6 units"
+      },
+      {
+        "code": "Contemporary Europe Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
         "units": "6 units"
       },
       {
@@ -573,93 +582,16 @@
   "2019": [
     [
       {
-        "code": "ARTH1006",
-        "level": "Art and Design Histories: Form and Space",
+        "code": "HIST1214",
+        "level": "Clash of Empires: 1450 to the Present",
         "units": "6 units"
       },
       {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "ARTH1007",
-        "level": "Art and Design Histories: Making and Meaning",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
+        "code": "Language Minor Course",
         "units": "6 units"
       },
       {
         "code": "ANU Elective Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units\r"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Curatorship list course",
-        "units": "6 units"
-      },
-      {
-        "code": "Language Minor",
-        "level": "or Major/Minor List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
-        "units": "6 units"
-      },
-      {
-        "code": "ANU Elective Course",
-        "units": "6 units\r"
-      }
-    ],
-    [
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List",
-        "units": "6 units"
-      },
-      {
-        "code": "Art History and Theory List Course",
         "units": "6 units"
       },
       {
@@ -669,15 +601,87 @@
     ],
     [
       {
-        "code": "ARTH3001",
-        "level": "Art History and Curatorship Internship",
-        "units": "12 units"
+        "code": "EURO1004",
+        "level": "Europe in the Modern Era",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Contemporary Europe Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "EURO2012",
+        "level": "Uniting Europe: history, politics, theory",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "European History Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "Internship",
+        "units": "24 units"
       },
       {
         "code": "-"
       },
       {
-        "code": "Art History and Theory List",
+        "code": "-"
+      },
+      {
+        "code": "-"
+      }
+    ],
+    [
+      {
+        "code": "European History Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Language Minor Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "EURO3002",
+        "level": "Comparative European Politics",
+        "units": "6 units"
+      },
+      {
+        "code": "Contemporary Europe Course",
+        "units": "6 units"
+      },
+      {
+        "code": "ANU Elective Course",
         "units": "6 units"
       },
       {

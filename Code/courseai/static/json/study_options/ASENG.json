@@ -1,10 +1,10 @@
 {
-  "code": "AACOM",
+  "code": "ASENG",
   "2014": [
     [
       {
-        "code": "COMP1130",
-        "level": "Introduction to Advanced Computing I",
+        "code": "COMP1100",
+        "level": "Introduction to Programming and Algorithms",
         "units": "6 units"
       },
       {
@@ -18,15 +18,20 @@
         "units": "6 units"
       },
       {
-        "code": "STAT1003",
-        "level": "Statistical Techniques",
+        "code": "Elective Course",
+        "level": "Engn/Sc",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP1140",
-        "level": "Introduction to Advanced Computing II",
+        "code": "COMP1510",
+        "level": "Introduction to Software Engineering",
+        "units": "6 units"
+      },
+      {
+        "code": "COMP2400",
+        "level": "Relational Databases",
         "units": "6 units"
       },
       {
@@ -35,28 +40,29 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
-      },
-      {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "level": "Engn/Sc",
+        "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP2100",
-        "level": "Software Construction",
-        "units": "6 units"
-      },
       {
         "code": "COMP2300",
         "level": "Introduction to Computer Systems",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP2500",
+        "level": "Software Construction for Software Engineers",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -76,18 +82,19 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3120",
+        "level": "Managing Software Development",
         "units": "6 units"
       },
       {
-        "code": "COMP3120",
-        "level": "Managing Software Development",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
@@ -96,13 +103,14 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
@@ -111,55 +119,60 @@
         "units": "6 units"
       },
       {
-        "code": "MGMT3027",
-        "level": "Entrepreneurship and Innovation",
+        "code": "ENGN3230",
+        "level": "Engineering Innovation",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3630",
-        "level": "Theory of Computation",
+        "code": "COMP4130",
+        "level": "Managing Software Quality and Process",
         "units": "6 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "24 units"
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
+        "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "24 units"
-      },
-      {
-        "code": "COMP4550"
-      },
-      {
-        "code": "COMP 3000/4000",
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ]
   ],
   "2015": [
     [
       {
-        "code": "COMP1130",
-        "level": "Introduction to Programming and Algorithms (Advanced)",
+        "code": "COMP1100",
+        "level": "Introduction to Programming and Algorithms",
         "units": "6 units"
       },
       {
@@ -173,15 +186,20 @@
         "units": "6 units"
       },
       {
-        "code": "STAT1003",
-        "level": "Statistical Techniques",
+        "code": "Elective Course",
+        "level": "Engn/Sc",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP1140",
-        "level": "Introduction to Software Systems (Advanced)",
+        "code": "COMP1510",
+        "level": "Introduction to Software Engineering",
+        "units": "6 units"
+      },
+      {
+        "code": "COMP2400",
+        "level": "Relational Databases",
         "units": "6 units"
       },
       {
@@ -190,28 +208,29 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
-      },
-      {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "level": "Engn/Sc",
+        "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP2100",
-        "level": "Software Construction",
-        "units": "6 units"
-      },
       {
         "code": "COMP2300",
         "level": "Introduction to Computer Systems",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "COMP2500",
+        "level": "Software Construction for Software Engineers",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -231,18 +250,19 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3120",
+        "level": "Managing Software Development",
         "units": "6 units"
       },
       {
-        "code": "COMP3120",
-        "level": "Managing Software Development",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
@@ -251,13 +271,14 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
@@ -266,55 +287,60 @@
         "units": "6 units"
       },
       {
-        "code": "MGMT3027",
-        "level": "Entrepreneurship and Innovation",
+        "code": "ENGN3230",
+        "level": "Engineering Innovation",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3630",
-        "level": "Theory of Computation",
+        "code": "COMP4130",
+        "level": "Managing Software Quality and Process",
         "units": "6 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
+        "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
-        "code": "COMP4550"
-      },
-      {
-        "code": "COMP 3000/4000",
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ]
   ],
   "2016": [
     [
       {
-        "code": "COMP1130",
-        "level": "Introduction to Programming and Algorithms (Advanced)",
+        "code": "COMP1100",
+        "level": "Introduction to Programming and Algorithms",
         "units": "6 units"
       },
       {
@@ -328,15 +354,20 @@
         "units": "6 units"
       },
       {
-        "code": "STAT1003",
-        "level": "Statistical Techniques",
+        "code": "Elective Course",
+        "level": "Engn/Sc",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP1140",
-        "level": "Introduction to Software Systems (Advanced)",
+        "code": "COMP1510",
+        "level": "Introduction to Software Engineering",
+        "units": "6 units"
+      },
+      {
+        "code": "COMP2400",
+        "level": "Relational Databases",
         "units": "6 units"
       },
       {
@@ -345,28 +376,29 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
-      },
-      {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "level": "Engn/Sc",
+        "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP2100",
-        "level": "Software Construction",
-        "units": "6 units"
-      },
       {
         "code": "COMP2300",
         "level": "Introduction to Computer Systems",
         "units": "6 units"
       },
       {
-        "code": "Comp Elective Course"
+        "code": "COMP2500",
+        "level": "Software Construction for Software Engineers",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
@@ -386,18 +418,19 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3120",
+        "level": "Managing Software Development",
         "units": "6 units"
       },
       {
-        "code": "COMP3120",
-        "level": "Managing Software Development",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
@@ -406,13 +439,14 @@
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3100",
-        "level": "Software Engineering Group Project",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
@@ -421,47 +455,52 @@
         "units": "6 units"
       },
       {
-        "code": "MGMT3027",
-        "level": "Entrepreneurship and Innovation",
+        "code": "ENGN3230",
+        "level": "Engineering Innovation",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP3630",
-        "level": "Theory of Computation",
+        "code": "COMP4130",
+        "level": "Managing Software Quality and Process",
         "units": "6 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
+        "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ],
     [
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
-        "code": "COMP4550"
-      },
-      {
-        "code": "COMP 3000/4000",
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
         "units": "6 units"
       },
       {
-        "code": "Elective Course"
+        "code": "Core Course 3000/4000 level",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
+        "units": "6 units"
       }
     ]
   ],
@@ -478,7 +517,8 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "ENGN1211",
+        "level": "Discovering Engineering",
         "units": "6 units"
       },
       {
@@ -498,7 +538,7 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "Computing elective",
         "units": "6 units"
       },
       {
@@ -550,17 +590,18 @@
     ],
     [
       {
-        "code": "Computing Research Specialisation",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
+        "code": "COMP3120",
+        "level": "Managing Software Development",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "3000 level",
+        "code": "COMP3530",
+        "level": "Systems Engineering for Software Engineers",
         "units": "6 units"
       },
       {
@@ -570,12 +611,13 @@
     ],
     [
       {
-        "code": "Computing Research Specialisation",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "3000 level",
+        "code": "Computing / VC elective",
+        "level": "3000 or 4000 level",
         "units": "6 units"
       },
       {
@@ -590,16 +632,19 @@
     ],
     [
       {
-        "code": "Computing Research Specialisation",
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
         "units": "6 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
+        "code": "COMP4130",
+        "level": "Managing Software Quality and Process",
+        "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "COMP4450",
+        "level": "Advanced Computing Research Methods",
+        "units": "6 units"
       },
       {
         "code": "Elective Course",
@@ -608,16 +653,19 @@
     ],
     [
       {
-        "code": "Computing Research Specialisation",
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
         "units": "6 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
+        "code": "ENGN3230",
+        "level": "Engineering Innovation",
+        "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "Computing Elective",
+        "level": "4000 level",
+        "units": "6 units"
       },
       {
         "code": "Elective Course",
@@ -638,11 +686,12 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "ENGN1211",
+        "level": "Discovering Engineering",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -658,10 +707,11 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective 6 Units"
+        "code": "Computing elective",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -682,7 +732,7 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -703,38 +753,40 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "COMP3120",
+        "level": "Managing Software Development",
+        "units": "6 units"
+      },
+      {
+        "code": "Computing / VC elective",
         "level": "3000 or 4000 level",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course",
-        "level": "6 Units"
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
+        "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "3000 level",
+        "code": "COMP3530",
+        "level": "Systems Engineering for Software Engineers",
         "units": "6 units"
       },
       {
@@ -743,32 +795,20 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
-        "code": "COMP4550"
-      },
-      {
-        "code": "University Elective",
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
         "units": "6 units"
-      }
-    ],
-    [
+      },
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
+        "code": "COMP4130",
+        "level": "Managing Software Quality and Process",
+        "units": "6 units"
       },
       {
         "code": "COMP4450",
@@ -776,10 +816,28 @@
         "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "ENGN3230",
+        "level": "Engineering Innovation",
+        "units": "6 units"
+      },
+      {
+        "code": "Computing Elective",
+        "level": "4000 level",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ]
@@ -797,11 +855,12 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "ENGN1211",
+        "level": "Discovering Engineering",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -817,10 +876,11 @@
         "units": "6 units"
       },
       {
-        "code": "Computing Elective 6 Units"
+        "code": "Computing elective",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -841,7 +901,7 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
@@ -862,38 +922,40 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4450",
-        "level": "Advanced Computing Research Methods",
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
         "units": "6 units"
       },
       {
-        "code": "Computing Elective",
+        "code": "COMP3120",
+        "level": "Managing Software Development",
+        "units": "6 units"
+      },
+      {
+        "code": "Computing / VC elective",
         "level": "3000 or 4000 level",
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course",
-        "level": "6 Units"
+        "code": "COMP3500",
+        "level": "Software Engineering Project",
+        "units": "6 units"
       },
       {
-        "code": "Computing Elective",
-        "level": "3000 level",
+        "code": "COMP3530",
+        "level": "Systems Engineering for Software Engineers",
         "units": "6 units"
       },
       {
@@ -902,32 +964,20 @@
         "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "Elective Course",
         "units": "6 units"
       }
     ],
     [
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
-      },
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
-        "code": "COMP4550"
-      },
-      {
-        "code": "University Elective",
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
         "units": "6 units"
-      }
-    ],
-    [
+      },
       {
-        "code": "Computing Specialisation Course ",
-        "level": "6 Units"
+        "code": "COMP4130",
+        "level": "Managing Software Quality and Process",
+        "units": "6 units"
       },
       {
         "code": "COMP4450",
@@ -935,10 +985,28 @@
         "units": "6 units"
       },
       {
-        "code": "COMP4550"
+        "code": "Elective Course",
+        "units": "6 units"
+      }
+    ],
+    [
+      {
+        "code": "COMP4500",
+        "level": "Software Engineering Practice",
+        "units": "6 units"
       },
       {
-        "code": "University Elective",
+        "code": "ENGN3230",
+        "level": "Engineering Innovation",
+        "units": "6 units"
+      },
+      {
+        "code": "Computing Elective",
+        "level": "4000 level",
+        "units": "6 units"
+      },
+      {
+        "code": "Elective Course",
         "units": "6 units"
       }
     ]
