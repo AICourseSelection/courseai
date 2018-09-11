@@ -868,6 +868,7 @@ function removeAddRows(row) {
 function createRemoveSessionBtn(session, row) {
     let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-sm fa-minus-square"/>');
     removeBtn.click(function() {
+        $('.session-popover').popover('hide');
         let wrapper = $(this).parent();
         wrapper.addClass('remove-row-animate').on('transitionend', function(e) {
             if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
@@ -966,7 +967,7 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
         content: function() {
             let html = "";
             for (var i = 0; i < availableSessions.length; i++) {
-                html += "<button class='btn session-popover-btn btn-outline-primary'" + 
+                html += "<button class='btn session-popover-btn btn-outline-dark'" + 
                     "data-toggle='button' aria-pressed='false' value='" + availableSessions[i] + "'>" + 
                     availableSessions[i].slice(0, 4) + " " + SESSION_WORDS[availableSessions[i].slice(-2)] + "</button>";
             }
@@ -977,7 +978,9 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
         '    <div class="h2 popover-header"></div>\n' +
         '    <div class="popover-body session-popover-body"></div>\n' +
         '    <button class="btn session-popover-submit btn-success">Add</button>'
-    }).on('shown.bs.popover', function () {
+    }).on('shown.bs.popover', function (e) {
+        $("[rel=popover]").not(e.target).popover("destroy");
+        $(".popover").remove();  
         let buttons = $('.session-popover').find('.session-popover-btn');
         let sessionsToAdd = {};
         let count = 0;
@@ -1017,7 +1020,9 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
                     }, 10);
 
                     // add additional addrow if last option chosen
-                    if (last && j === availableSessions.length - 1) rowWrapper.after(createAddSessionRow(nextSession(availableSessions[j]), true));
+                    if (last && j === availableSessions.length - 1) {
+                        rowWrapper.after(createAddSessionRow(nextSession(availableSessions[j]), true));
+                    }
 
                     sessionAdded = true;
                 } else if (count > 0 && (j === 0 || sessionsToAdd[availableSessions[j - 1]])) { // create a new add row
