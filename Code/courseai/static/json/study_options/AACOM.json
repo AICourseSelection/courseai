@@ -1,0 +1,216 @@
+{
+  "code": "AACOM",
+  "2014": [
+    {
+      "code": "COMP3630",
+      "level": "Theory of Computation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "24 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course"
+    },
+    [
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "24 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "COMP 3000/4000",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course"
+      }
+    ]
+  ],
+  "2015": [
+    {
+      "code": "COMP3630",
+      "level": "Theory of Computation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course"
+    },
+    [
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "12 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "COMP 3000/4000",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course"
+      }
+    ]
+  ],
+  "2016": [
+    {
+      "code": "COMP3630",
+      "level": "Theory of Computation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course"
+    },
+    [
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "12 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "COMP 3000/4000",
+        "unit": "6 units"
+      },
+      {
+        "code": "Elective Course"
+      }
+    ]
+  ],
+  "2017": [
+    {
+      "code": "Computing Research Specialisation",
+      "unit": "6 units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "Elective Course",
+      "unit": "6 units"
+    },
+    [
+      {
+        "code": "Computing Research Specialisation",
+        "unit": "6 units"
+      },
+      {
+        "code": "COMP4550",
+        "level": "Advanced Computing Research Project",
+        "unit": "12 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "Elective Course",
+        "unit": "6 units"
+      }
+    ]
+  ],
+  "2018": [
+    {
+      "code": "Computing Specialisation Course ",
+      "level": "6 Units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "University Elective",
+      "unit": "6 units"
+    },
+    [
+      {
+        "code": "Computing Specialisation Course ",
+        "level": "6 Units"
+      },
+      {
+        "code": "COMP4450",
+        "level": "Advanced Computing Research Methods",
+        "unit": "6 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "University Elective",
+        "unit": "6 units"
+      }
+    ]
+  ],
+  "2019": [
+    {
+      "code": "Computing Specialisation Course ",
+      "level": "6 Units"
+    },
+    {
+      "code": "COMP4550",
+      "level": "Advanced Computing Research Project",
+      "unit": "12 units"
+    },
+    {
+      "code": "COMP4550"
+    },
+    {
+      "code": "University Elective",
+      "unit": "6 units"
+    },
+    [
+      {
+        "code": "Computing Specialisation Course ",
+        "level": "6 Units"
+      },
+      {
+        "code": "COMP4450",
+        "level": "Advanced Computing Research Methods",
+        "unit": "6 units"
+      },
+      {
+        "code": "COMP4550"
+      },
+      {
+        "code": "University Elective",
+        "unit": "6 units"
+      }
+    ]
+  ]
+}
