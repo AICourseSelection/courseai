@@ -1123,7 +1123,7 @@ function makePlanCellDraggable(item) {
                     removeCourse(session, position);
                     $(ui.helper.prevObject).draggable('destroy');
                     first_cell.droppable('destroy');
-                    first_cell.children().last().remove();
+                    first_cell.find('.course-delete').remove();
                     first_cell.removeClass('delete').removeClass('alert-danger');
                     first_cell.children().css({'display': ''});
                 }
@@ -1133,7 +1133,7 @@ function makePlanCellDraggable(item) {
             const first_cell = $(event.target.parentElement).find('.first-cell');
             if (first_cell.hasClass('delete')) {
                 first_cell.droppable('destroy');
-                first_cell.children().last().remove();
+                first_cell.find('.course-delete').remove();
                 first_cell.removeClass('delete').removeClass('alert-danger');
                 first_cell.children().css({'display': ''});
             }
