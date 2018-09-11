@@ -873,6 +873,7 @@ function createRemoveSessionBtn(session, row) {
             if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
                 removeSession(session, row);
                 let temp = removeAddRows(wrapper);
+                if (PLAN.sessions.length === 0) session = startSession; // start from the beginning if all sessions are removed
                 $('#plan-grid').append(createAddSessionRow(session, true)); 
             } else {
                 removeSession(session, row);
