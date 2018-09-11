@@ -233,9 +233,9 @@ async function mms_add(code, year) {
         '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#mms-active-' + identifier + '">\n' +
         '    <span class="mms-code">' + code + '</span>\n' +
         '    <span class="mms-year">' + year + '</span>\n' +
-        '    <strong>' + MMS_TYPE_PRINT[mms.type] + '</strong>: ' + mms.title + '\n' +
         '    <button class="mms-delete btn btn-danger" onclick="deleteMMS(this)">×</button>\n' +
         '    <span class="unit-count mr-2">0/' + mms.units + '</span>\n' +
+        '    <strong>' + MMS_TYPE_PRINT[mms.type] + '</strong>: ' + mms.title + '\n' +
         '</div>');
     let collapsible = $(
         '<div id="mms-active-' + identifier + '" class="collapse show">' +
@@ -349,7 +349,6 @@ async function mms_add(code, year) {
 async function deleteMMS(button) {
     const code = $(button).parent().find('.mms-code').text();
     const year = $(button).parent().find('.mms-year').text();
-    const mms = await getMMSOffering(code, year);
     let colorIndex = getColorClassIndex(code);
     delete allMMSCourseCodes[code];
     let mmsClassName = MMS_CLASS_NAME + colorIndex;
@@ -603,7 +602,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     let recCourses = [];
     for (const clause of offering.rules) {
         for (const item of clause) {
-            if (!(item.startsWith('~'))) recCourses.push({
+            if (/^[A-Z]{4}[0-9]{4}/.test(item)) recCourses.push({
                 'course': item,
                 'reasoning': 'This is a prerequisite course.'
             });
@@ -1118,6 +1117,7 @@ function makePlanCellDraggable(item) {
             first_cell.droppable({
                 accept: '.plan-cell',
                 drop: function (event, ui2) {
+                    ui2.draggable.draggable("option", "revert", false);
                     const session = first_cell.find('.row-ses').text();
                     const position = ui2.draggable.index();
                     removeCourse(session, position);

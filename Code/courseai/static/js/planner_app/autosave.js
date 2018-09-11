@@ -17,14 +17,14 @@ function AutoSave(plan, code) {
     };
 
     this.save = function () {
-        if (!(plan.changesMade)) return;    // Check if the plan needs saving.
+        if (!(this.plan.changesMade)) return;    // Check if the plan needs saving.
         if (this.code) {    // Code present. Use update endpoint.
             $.ajax({
                 url: 'degree/stored_plans',
                 method: 'PUT',
                 data: {
                     "code": this.code,
-                    "plan": plan.serialize()
+                    "plan": this.plan.serialize()
                 },
                 dataType: 'json',
                 contentType: 'application/json',
@@ -35,7 +35,7 @@ function AutoSave(plan, code) {
                 url: 'degree/stored_plans',
                 method: 'POST',
                 data: {
-                    "plan": plan.serialize()
+                    "plan": this.plan.serialize()
                 },
                 dataType: 'json',
                 contentType: 'application/json',
@@ -47,6 +47,6 @@ function AutoSave(plan, code) {
                 }
             })
         }
-        plan.changesMade = false;
+        this.plan.changesMade = false;
     };
 }
