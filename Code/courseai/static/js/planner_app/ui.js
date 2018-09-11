@@ -560,7 +560,6 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
     $('#show-filters').popover('hide');
 });
 
-
 // Event Handlers
 function cycleDegrees() {
     const direction = $(this).hasClass('right') * 2 - 1;
@@ -973,14 +972,13 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
             }
             return html;
         }, 
-        template: '<div class="popover session-popover">\n' +
+        template: '<div class="popover session-popover" data-container=".popover-body">\n' +
         '    <div class="arrow"></div>\n' +
         '    <div class="h2 popover-header"></div>\n' +
         '    <div class="popover-body session-popover-body"></div>\n' +
         '    <button class="btn session-popover-submit btn-success">Add</button>'
     }).on('shown.bs.popover', function (e) {
-        $("[rel=popover]").not(e.target).popover("destroy");
-        $(".popover").remove();  
+        $('.add-row-btn').not(this).popover('hide');
         let buttons = $('.session-popover').find('.session-popover-btn');
         let sessionsToAdd = {};
         let count = 0;
@@ -1026,7 +1024,7 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
 
                     sessionAdded = true;
                 } else if (count > 0 && (j === 0 || sessionsToAdd[availableSessions[j - 1]])) { // create a new add row
-                    addRow.after(createAddSessionRow(availableSessions[j], last));
+                    addRow.after(createAddSessionRow(availableSessions[j], false));
                 }
             }
 
