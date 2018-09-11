@@ -192,6 +192,7 @@ wrapper {
     border-radius: 0.25rem;
     float: left;
     display: flex;
+    width: 100%;
 }
 
 .plan-row:hover {
