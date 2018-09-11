@@ -877,7 +877,6 @@ function createRemoveSessionBtn(session, row) {
                 removeSession(session, row);
                 let rowAfter = removeAddRows(wrapper);
                 let prev = rowAfter.prev();
-                
 
                 if (prev.length === 0) rowAfter.before(createAddSessionRow(startSession, false));  // at first session in planner
                 else prev.after(createAddSessionRow(nextSession(prev.find('.row-ses').text()), false));
@@ -1004,9 +1003,19 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
                     let rowWrapper = $('<div class="plan-row-wrapper"/>');
                     rowWrapper.append(createRemoveSessionBtn(availableSessions[j], row));
                     rowWrapper.append(row);
-                    addRow.after(rowWrapper);
 
-                    // add additional add row if last option chosen
+                    // create temp div to animate adding the wrapper
+                    let temp = $("<div class='add-row-wrapper'/>");
+                    addRow.after(temp);
+
+                    // force the browser to render the transition
+                    setTimeout(function() {
+                        temp.addClass('add-row-animate').on('transitionend', function(e) {
+                            $(e.target).replaceWith(rowWrapper);
+                        });
+                    }, 10);
+
+                    // add additional addrow if last option chosen
                     if (last && j === availableSessions.length - 1) rowWrapper.after(createAddSessionRow(nextSession(availableSessions[j]), true));
 
                     sessionAdded = true;
