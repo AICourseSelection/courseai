@@ -30,25 +30,26 @@ async function batchCourseTitles(courses_actions) {
 async function getCourseOffering(code, year) {
     if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
     if (!(year in KNOWN_COURSES[code])) {
-        if (year in (COURSE_REQUESTS[code] || {})) {  // Check if there is already a request to get this course
-            await COURSE_REQUESTS[code][year];      // Wait for that request to complete
-            return KNOWN_COURSES[code][year];       // The data has been retrieved, so return it
+        if (year in (COURSE_REQUESTS[code] || {})) {  // Check if there is already a request to get this course.
+            await COURSE_REQUESTS[code][year];      // Wait for that request to complete.
         } else {
             const req = $.ajax({
                 url: 'degree/coursedata',
                 data: {'codes': '["' + code + '"]'},
                 success: function (data) {
-                    const res = data.response[code];
-                    for (const yr in res.versions) {
-                        recordCourseOffering(code, yr, res.versions[yr]);
-                    }
+                    recordCourseOfferings(code, data.response[code].versions);
                 },
             });
             if (!(code in COURSE_REQUESTS)) COURSE_REQUESTS[code] = {};
             COURSE_REQUESTS[code][year] = req;
             await req;
+            console.log();
         }
     }
+    const maxYear = Math.max(...Object.keys(KNOWN_COURSES[code]));
+    const minYear = Math.min(...Object.keys(KNOWN_COURSES[code]));
+    if (year > maxYear) return KNOWN_COURSES[code][maxYear];
+    if (year < minYear) return KNOWN_COURSES[code][minYear];
     return KNOWN_COURSES[code][year];
 }
 
@@ -74,9 +75,7 @@ async function batchCourseOfferingActions(courses_actions) {
             console.log();
             for (const code in data.response) {
                 if (!(data.response.hasOwnProperty(code))) continue;
-                for (const yr in data.response[code].versions) {
-                    recordCourseOffering(code, yr, data.response[code].versions[yr]);
-                }
+                recordCourseOfferings(code, data.response[code].versions);
             }
             for (const code in courses_actions) {
                 if (!((KNOWN_COURSES[code] || {})[THIS_YEAR])) continue; // Skip failed retrievals.
@@ -204,22 +203,31 @@ function preparePlanForUpload(plan) {
 }
 
 // Helpers
-function recordCourseOffering(code, year, data) {
-    if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
-    KNOWN_COURSES[code][year] = new CourseOffering(
-        code, year,
-        data.title,
-        data.units || 6,
-        data.prerequisites || [],
-        {
-            'description': data.description,
-            'prerequisite_text': data.prerequisite_text,
-            'sessions': data.sessions || [],
-            'majors': data.majors || [],
-            'minors': data.minors || [],
-            'areas_of_interest': data.areas_of_interest,
-            'convener': data.convener,
-            'learning_outcomes': data.learning_outcomes,
-        },
-        data['repeatable'] || false);
+function recordCourseOfferings(code, offerings) {
+    for (const year in offerings) {
+        let data = offerings[year];
+
+        if (Object.keys(data)[0] === "sessions" && Object.keys(data).length === 1) {
+            data = offerings[year - 1];
+            data.sessions = offerings[year].sessions;
+        }
+
+        if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
+        KNOWN_COURSES[code][year] = new CourseOffering(
+            code, year,
+            data.title,
+            data.units || 6,
+            data.prerequisites || [],
+            {
+                'description': data.description,
+                'prerequisite_text': data.prerequisite_text,
+                'sessions': data.sessions || [],
+                'majors': data.majors || [],
+                'minors': data.minors || [],
+                'areas_of_interest': data.areas_of_interest,
+                'convener': data.convener,
+                'learning_outcomes': data.learning_outcomes,
+            },
+            data['repeatable'] || false);
+    }
 }

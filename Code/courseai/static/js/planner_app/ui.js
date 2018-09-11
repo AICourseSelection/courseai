@@ -156,15 +156,28 @@ function removeCourse(session, position) {
     updateRecommendations();
 }
 
+function toggleFilter(type, data) {
+    if (SEARCH.getFilter(type, data)) deleteFilter(type, data);
+    else addFilter(type, data);
+}
+
+function deleteFilter(type, data) {
+    $('#filter-icons').find('.badge').filter(function (_, badge) {
+        return $(badge).text().slice(0, -1) === SEARCH.getFilter(type, data).toString();
+    }).remove();
+    $($('#show-filters').data('bs.popover').tip).find('#filter-buttons button').filter(function (_, badge) {
+        return $(badge).text() === data;
+    }).removeClass('active');
+    SEARCH.deleteFilter(type, data);
+    search(true);
+}
+
 function addFilter(type, data) {
-    if (SEARCH.getFilter(type, data)) return;
     const filter = SEARCH.addFilter(type, data);
     let filter_icon = $('<span class="badge badge-primary">' + filter + '</span>');
     let delete_button = $('<a class="filter-delete">×</a>');
     delete_button.click(function () {
-        SEARCH.deleteFilter(type, data);
-        filter_icon.remove();
-        search(true);
+        deleteFilter(type, data);
     });
     filter_icon.append(delete_button);
     $('#filter-icons').append(filter_icon, ' ');
@@ -457,24 +470,24 @@ $('#results-majors, #results-minors, #results-specs').on('hide.bs.collapse', fun
 
 $('#show-filters').popover({
     trigger: 'click',
-    title: 'Search Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
+    title: 'Add Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
     placement: 'right',
     html: true,
     content: '<form onsubmit="return filterSubmit(this)">\n' +
     '<div class="form-row" style="padding: 0 5px">' +
-    '<label for="code-input">Filter course codes: </label></div>\n' +
+    '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
     '<div class="form-row" style="padding: 0 5px">\n' +
     '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
     '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
     '</div>\n' +
-    '<div class="form-row" style="padding: 0 5px"><label>Filter course level: </label></div>\n' +
-    '<div class="form-row">\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'1000\')">1000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'2000\')">2000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'3000\')">3000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'4000\')">4000</button></div>\n' +
+    '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
+    '<div id="filter-buttons" class="form-row">\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
     '</div>\n' +
-    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in the plan. </div>\n' +
+    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
     '</form>' +
     '',
     template: '<div class="popover filters-panel" role="tooltip">\n' +
@@ -483,6 +496,16 @@ $('#show-filters').popover({
     '    <div class="popover-body"></div>\n' +
     '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
     '</div>'
+}).on('shown.bs.popover', function () {
+    const popover = $(this).data('bs.popover');
+    const buttons = $(popover.tip).find('#filter-buttons button');
+    for (const b of buttons) {
+        $(b).on('click', function () {
+            $(b).toggleClass('active');
+            toggleFilter('level', $(b).text());
+        });
+        if (SEARCH.getFilter('level', $(b).text())) $(b).toggleClass('active');
+    }
 });
 
 $('#mms-active-list').sortable();
@@ -721,8 +744,21 @@ function dropOnSlot(event, ui) {
 }
 
 function filterSubmit(form) {
-    const code = $(form).find('input[type=text]').val().toUpperCase();
-    if (code) addFilter('code', code);
+    const input = $(form).find('input[type=text]');
+    const code = input.val().toUpperCase();
+    if (code && /^[A-Z]{4}$/.test(code) && !SEARCH.getFilter('code', code)) {
+        addFilter('code', code);
+        input.val('');
+        input.css('background-color', '');
+        input.css('color', '');
+    } else {
+        input.css('background-color', '#f8d7da');
+        input.css('color', '#721c24');
+        input.keydown(function () {
+            $(this).css('background-color', '');
+            $(this).css('color', '');
+        })
+    }
     return false;
 }
 
