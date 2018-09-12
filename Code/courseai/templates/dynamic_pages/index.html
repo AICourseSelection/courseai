@@ -208,7 +208,7 @@
     $('#fdd-button').click(function (e) {
         e.preventDefault();
         if (fdd) {
-            $(this).text('Double Degree')
+            $(this).text('Double Degree');
         } else {
             $(this).text('Single Degree')
         }
@@ -227,7 +227,7 @@
             }
             $($('input.degree-code')[i]).val(degreeCodes[field.val()]);
         }
-        if (fddField.val() === $(degreeInputs[0]).val()) {
+        if (fdd && fddField.val() === $(degreeInputs[0]).val()) {
             e.preventDefault();
             fddField.popover('show');
             const popover = $(fddField.data('bs.popover').tip);
