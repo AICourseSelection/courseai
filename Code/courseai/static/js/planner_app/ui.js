@@ -851,16 +851,16 @@ function reorganiseDegreeTracker(double) {
 function removeAddRows(row) {
     row.addClass('add-row-wrapper');
 
-    if (row.prev().hasClass('add-row-wrapper')) row = row.prev();
+    if (row.next().hasClass('add-row-wrapper')) row = row.next();
 
     // remove all add rows
     for (var i = 0; i < 3 && row.hasClass('add-row-wrapper'); i++) {
-        let next = row.next();
+        let prev = row.prev();
         row.remove();
-        row = next;
+        row = prev;
     }
     
-    // return the row after the add chain
+    // return the row before the add chain
     return row;
 }
 
@@ -872,15 +872,17 @@ function createRemoveSessionBtn(session, row) {
         wrapper.addClass('remove-row-animate').on('transitionend', function(e) {
             if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
                 removeSession(session, row);
-                let temp = removeAddRows(wrapper);
-                if (PLAN.sessions.length === 0) session = startSession; // start from the beginning if all sessions are removed
-                $('#plan-grid').append(createAddSessionRow(session, true)); 
+                let prev = removeAddRows(wrapper);
+
+                if (prev.find('.row-ses').length !== 0) session = prev.find('.row-ses').text();
+                else if (PLAN.sessions.length === 0) session = startSession; // start from the beginning if all sessions are removed
+
+                $('#plan-grid').append(createAddSessionRow(nextSession(session), true)); 
             } else {
                 removeSession(session, row);
-                let rowAfter = removeAddRows(wrapper);
-                let prev = rowAfter.prev();
+                let prev = removeAddRows(wrapper);
 
-                if (prev.length === 0) rowAfter.before(createAddSessionRow(startSession, false));  // at first session in planner
+                if (prev.length === 0) $('#plan-grid').prepend(createAddSessionRow(startSession, false));  // at first session in planner
                 else prev.after(createAddSessionRow(nextSession(prev.find('.row-ses').text()), false));
             }
 
@@ -1008,7 +1010,7 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
                     rowWrapper.append(row);
 
                     // create additional add row if last option chosen
-                    if (j === availableSessions.length - 1) {
+                    if (last && j === availableSessions.length - 1) {
                         addRow.after(createAddSessionRow(nextSession(availableSessions[j]), last));
                         last = false;
                     }
