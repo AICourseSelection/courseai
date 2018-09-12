@@ -44,7 +44,7 @@ wrapper {
     min-width: -moz-fit-content;
 }
 
-#planform, #planform input, #planform .btn-group .btn{
+#planform, #planform input, #planform .btn-group .btn {
     font-size: 14pt !important;
 }
 
@@ -146,11 +146,86 @@ wrapper {
     display: none;
 }
 
+.add-row-wrapper {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.remove-row-btn, .add-row-btn {
+    vertical-align: middle;
+    padding: 0;
+    margin-top: 7px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+}
+
+.remove-row-btn {
+    margin: auto 0;
+    color: #FF6E6E;
+    background-color: white;
+    margin-right: 5px;
+    width: 12px;
+    height: 14px;
+}
+
+.add-row-btn {
+    padding: 0;
+    color: #7AD55D;
+    background-color: white;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.remove-row-btn:focus, .add-row-btn:focus {
+    outline: 0;
+}
+
+.remove-row-btn:hover {
+    color: #AF1515;
+}
+
+.add-row-btn:hover {
+    color: #4DB324;
+}
+
+.add-row-line-left {
+    display: flex;
+    margin-top: 14px;
+    width: 50%;
+    border-top: 1px solid #ccc;
+}
+
+.add-row-line-right {
+    display: flex;
+    margin-top: 14px;
+    width: 47%;
+    border-top: 1px solid #ccc;
+}
+
+#centre-panel {
+    padding-left: 0;
+}
+
 #plan-grid {
     font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
+.plan-row-wrapper {
+    float: left;
+    display: flex;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    min-height: 124px;
+    margin-top: 5px;
+}
+
 .plan-row {
+    padding: 5px;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     margin-top: 5px;
@@ -172,7 +247,7 @@ wrapper {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    left: 19px;
     right: 0;
     background: rgba(255, 0, 0, 0.2);
     -webkit-transition: background 1s linear;
@@ -180,6 +255,46 @@ wrapper {
     -ms-transition: background 1s linear;
     -o-transition: background 1s linear;
     transition: background 1s linear;
+}
+
+.remove-row-animate {
+    overflow: hidden;
+    min-height: 10px;
+    max-height: 0px;
+    transition: min-height 0.4s;
+    -webkit-transition: min-height 0.4s;
+    -moz-transition: min-height 0.4s;
+    -ms-transition: min-height 0.4s;
+    -o-transition: min-height 0.4s;
+}
+
+.add-row-animate {
+    min-height: 124px;
+    transition: min-height 0.4s;
+    -webkit-transition: min-height 0.4s;
+    -moz-transition: min-height 0.4s;
+    -ms-transition: min-height 0.4s;
+    -o-transition: min-height 0.4s;
+}
+
+.session-popover-body {
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.session-popover-btn {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+}
+
+.session-popover-submit {
+    width: 100%;
+    text-align: center;
+    border-radius: 0;
+    margin: 0;
 }
 
 .plan-cell {
@@ -786,8 +901,12 @@ wrapper {
 
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
-    0%,100% { opacity: 1 }
-    50% { opacity: 0.5 }
+    0%, 100% {
+        opacity: 1
+    }
+    50% {
+        opacity: 0.5
+    }
 }
 
 .plan-cell:active {
@@ -825,7 +944,7 @@ wrapper {
 .highlight-elective {
     background-color: #ccffcc;
     border-color: #37e131;
-    animation: pulse 1s infinite;
+    animation: pulse 3s infinite;
 }
 
 .plan-cell:hover, .list-group-item:hover {

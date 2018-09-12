@@ -257,6 +257,10 @@ function Plan() {
         }
     };
 
+    this.getNextSession = function () {
+        return nextSession(this.sessions[this.sessions.length - 1]);
+    };
+
     this.clearWarnings = function () {
         this.changesMade = true;
         this.warnings = [];
