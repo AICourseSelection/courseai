@@ -21,6 +21,9 @@ const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', '
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
 
+const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
+let startSession = "";
+
 // UI Functions
 async function addDegree(code, year) {
     let add = await PLAN.addDegree(code, year);
@@ -57,6 +60,48 @@ function resetPlan() {
     loadCourseGrid(PLAN.degrees[0].suggestedPlan);
 }
 
+function addLinearGradient(colorClasses, box) {
+    const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
+    for (var j = 0; j < cssBrowserGradients.length; j++) {
+        let cssBackgroundStr = cssBrowserGradients[j] + 'linear-gradient(135deg';
+
+        let percent = 100 / colorClasses.length;
+        for (var i = 0; i < colorClasses.length; i++) {
+            let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
+            // add additional color stop to create hard lines between colors
+            if (i > 0 && i < colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+            }
+            cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
+        }
+        cssBackgroundStr += ')';
+        box.css('background', cssBackgroundStr);
+    }
+}
+
+// TODO: remove if not used later
+function addRepeatingLinearGradient(colorClasses, box) {
+    const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
+    for (var j = 0; j < cssBrowserGradients.length; j++) {
+        let cssBackgroundStr = cssBrowserGradients[j] + 'repeating-linear-gradient(135deg';
+
+        const percent = 2;
+        cssBackgroundStr += ',' + colorMappings[colorClasses[0]];
+        for (var i = 0; i < colorClasses.length; i++) {
+            // add additional color stop to create hard lines between colors
+            if (i > 0 && i < colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+            }
+
+            if (i !== colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * (i + 1))+ "%";
+            }
+        }
+        cssBackgroundStr += ')';
+        box.css('background', cssBackgroundStr);
+    }
+}
+
 function addColor(box, code) {
     box.css('background', ''); // clear existing gradients if they exist
 
@@ -77,24 +122,7 @@ function addColor(box, code) {
     let colorClasses = existingClasses.filter(f => COLOR_CLASSES.includes(f));
 
     // create gradient for the card
-    if (colorClasses.length > 1) {
-        const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
-        for (var j = 0; j < cssBrowserGradients.length; j++) {
-            let cssBackgroundStr = cssBrowserGradients[j] + 'linear-gradient(180deg';
-
-            let percent = 100 / colorClasses.length;
-            for (var i = 0; i < colorClasses.length; i++) {
-                let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
-                // add additional color stop to create hard lines between colors
-                if (i > 0 && i < colorClasses.length - 1) {
-                    cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
-                }
-                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
-            }
-            cssBackgroundStr += ')';
-            box.css('background', cssBackgroundStr);
-        }
-    }
+    if (colorClasses.length > 1) addLinearGradient(colorClasses, box);
 }
 
 function makeElective(box, session, code) {
@@ -514,7 +542,6 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
     $('#show-filters').popover('hide');
 });
 
-
 // Event Handlers
 function cycleDegrees() {
     const direction = $(this).hasClass('right') * 2 - 1;
@@ -871,6 +898,230 @@ function reorganiseDegreeTracker(double) {
             }
         }
     }
+}
+
+function removeAddRows(row) {
+    row.addClass('add-row-wrapper');
+
+    if (row.next().hasClass('add-row-wrapper')) row = row.next();
+
+    // remove all add rows
+    for (var i = 0; i < 3 && row.hasClass('add-row-wrapper'); i++) {
+        let prev = row.prev();
+        row.remove();
+        row = prev;
+    }
+
+    // return the row before the add chain
+    return row;
+}
+
+function createRemoveSessionBtn(session, row) {
+    let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-sm fa-minus-square"/>');
+    removeBtn.click(function() {
+        $('.session-popover').popover('hide');
+        let wrapper = $(this).parent();
+        wrapper.addClass('remove-row-animate').on('transitionend', function(e) {
+            if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
+                removeSession(session, row);
+                let prev = removeAddRows(wrapper);
+
+                if (PLAN.sessions.length === 0) { // only session in planner
+                    $('#plan-grid').append(createAddSessionRow(startSession, true)); // start from the beginning
+                } else $('#plan-grid').append(createAddSessionRow(nextSession(prev.find('.row-ses').text()), true));
+            } else {
+                removeSession(session, row);
+                let prev = removeAddRows(wrapper);
+
+                if (prev.length === 0) $('#plan-grid').prepend(createAddSessionRow(startSession, false));  // at first session in planner
+                else prev.after(createAddSessionRow(nextSession(prev.find('.row-ses').text()), false));
+            }
+
+        });
+
+    });
+    return removeBtn;
+}
+
+function removeSession(session, row) {
+    // remove existing courses in the session
+    $(row).children(".plan-cell").each(function() {
+        var cellCode = $(this).find('.course-code').text()
+        if (cellCode !== ELECTIVE_TEXT) {
+            PLAN.removeWarning('CourseForceAdded', cellCode);
+            PLAN.removeCourse(session, cellCode);
+        }
+    });
+
+    // update trackers
+    updateWarningNotices();
+    updateProgress();
+    updateRecommendations();
+
+    PLAN.removeSession(session);
+}
+
+// Return an empty session row for the planner of the given session
+function createEmptySessionRow(session) {
+    const year = session.slice(0, 4);
+    const ses = session.slice(4);
+    let row = $('<div class="plan-row"/>');
+    let first_cell = '<div class="first-cell">' +
+        '<div class="row-year h4">' + year + '</div>' +
+        '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
+        '<div class="row-ses">' + session + '</div>' +
+        '</div>';
+    row.append(first_cell);
+
+    for (var i = 0; i < 4; i++) {
+        let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
+        let title_node = $('<span class="course-title"/>');
+        cell.append('<div class="course-code">' + ELECTIVE_TEXT + '</div>');
+        cell.append('<div class="course-year">' + year + '</div>');
+        cell.append(title_node);
+        cell.click(clickCell);
+        cell.each(coursePopoverSetup);
+        makeSlotDroppable(cell);
+        row.append(cell);
+    }
+
+    makeRowSortable(row);
+
+    return row;
+}
+
+function createSessionRowEventListener(btn, session) {
+    btn.click(function() {
+        PLAN.addSession(session);
+        let replacementDiv = $('<div class="plan-row-wrapper"/>');
+        let row = createEmptySessionRow(session);
+        let removeBtn = createRemoveSessionBtn(session, row);
+        replacementDiv.append(removeBtn);
+        replacementDiv.append(row);
+
+        $(this).parent().addClass('add-row-animate').on('transitionend', function(e) {
+            $(e.target).replaceWith(replacementDiv);
+        });
+
+    });
+}
+
+function createAddSessionBtn() {
+    return $('<button class="add-row-btn"/>')
+        .append('<i class="fas fa-sm fa-plus-square"/>');
+}
+
+function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
+    addBtn.popover({
+        trigger: 'click',
+        title: 'Add Sessions<a class="popover-close" onclick="closePopover(this)">×</a>',
+        placement: 'right',
+        html: true,
+        content: function() {
+            let html = "";
+            for (var i = 0; i < availableSessions.length; i++) {
+                html += "<button class='btn session-popover-btn btn-outline-dark'" +
+                    "data-toggle='button' aria-pressed='false' value='" + availableSessions[i] + "'>" +
+                    availableSessions[i].slice(0, 4) + " " + SESSION_WORDS[availableSessions[i].slice(-2)] + "</button>";
+            }
+            return html;
+        },
+        template: '<div class="popover session-popover" data-container=".popover-body">\n' +
+        '    <div class="arrow"></div>\n' +
+        '    <div class="h2 popover-header"></div>\n' +
+        '    <div class="popover-body session-popover-body"></div>\n' +
+        '    <button class="btn session-popover-submit btn-success">Add</button>'
+    }).on('shown.bs.popover', function (e) {
+        $('.add-row-btn').not(this).popover('hide');
+        let buttons = $('.session-popover').find('.session-popover-btn');
+        let sessionsToAdd = {};
+        let count = 0;
+        for (var i = 0; i < availableSessions.length; i++) {
+            sessionsToAdd[availableSessions[i]] = false;
+        }
+
+        // create toggle event for each button
+        $(".session-popover-btn").click(function() {
+            const session = $(this).val();
+            if (!sessionsToAdd[session]) count++;
+            else count--;
+            sessionsToAdd[session] = !sessionsToAdd[session];
+        });
+
+        // add the selected sessions to the planner
+        $(".session-popover-submit").click(function() {
+            let sessionAdded = false;
+            for (var j = availableSessions.length - 1; j >= 0; j--) {
+                const addToPlanner = sessionsToAdd[availableSessions[j]];
+                if (addToPlanner) {
+                    PLAN.addSession(availableSessions[j]);
+                    let row = createEmptySessionRow(availableSessions[j]);
+                    let rowWrapper = $('<div class="plan-row-wrapper"/>');
+                    rowWrapper.append(createRemoveSessionBtn(availableSessions[j], row));
+                    rowWrapper.append(row);
+
+                    // create additional add row if last option chosen
+                    if (last && j === availableSessions.length - 1) {
+                        addRow.after(createAddSessionRow(nextSession(availableSessions[j]), last));
+                        last = false;
+                    }
+
+                    // create temp div to animate adding the wrapper
+                    let temp = $("<div class='add-row-wrapper'/>");
+                    addRow.after(temp);
+
+                    // force the browser to render the transition
+                    setTimeout(function() {
+                        temp.addClass('add-row-animate').on('transitionend', function(e) {
+                            $(e.target).replaceWith(rowWrapper);
+                        });
+                    }, 10);
+
+                    sessionAdded = true;
+                } else if (count > 0 && (j === 0 || sessionsToAdd[availableSessions[j - 1]])) { // create a new add row
+                    addRow.after(createAddSessionRow(availableSessions[j], last));
+                    last = false;
+                }
+            }
+
+            if (sessionAdded) {
+                addRow.remove();
+                $('.session-popover').popover('hide');
+            }
+        });
+    });
+}
+
+function getNextAvailableSessions(session, last) {
+    let availableSessions = [];
+
+    if (last) {
+        for (var i = 0; i < NUM_ADD_SESSIONS_END; i++) {
+            availableSessions.push(session);
+            session = nextSession(session);
+        }
+    } else {
+        while (!PLAN.sessions.includes(session)) {
+            availableSessions.push(session);
+            session = nextSession(session);
+        }
+    }
+
+    return availableSessions;
+}
+
+function createAddSessionRow(session, last) {
+    let addDiv = $('<div class="add-row-wrapper"/>');
+    let addBtn = createAddSessionBtn();
+    let availableSessions = getNextAvailableSessions(session, last);
+
+    if (availableSessions.length > 1 || last) createNextSessionsPopover(addBtn, addDiv, availableSessions, last);
+    else createSessionRowEventListener(addBtn, session);
+
+    addDiv.append('<span class="add-row-line-left"/>');
+    addDiv.append(addBtn);
+    addDiv.append('<span class="add-row-line-right"/>');
+    return addDiv;
 }
 
 function setupGrid() { // put the loaded plan's sessions in first before using this.
