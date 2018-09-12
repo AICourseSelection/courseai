@@ -22,7 +22,6 @@ const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
 
 const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
-let startSession = "";
 
 // UI Functions
 async function addDegree(code, year) {
@@ -918,6 +917,7 @@ function removeAddRows(row) {
 
 function createRemoveSessionBtn(session, row) {
     let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-sm fa-minus-square"/>');
+    let startSession = start_year + 'S' + start_sem;
     removeBtn.click(function () {
         $('.session-popover').popover('hide');
         let wrapper = $(this).parent();
