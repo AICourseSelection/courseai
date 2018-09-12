@@ -202,6 +202,7 @@ function deleteFilter(type, data) {
 
 function addFilter(type, data) {
     const filter = SEARCH.addFilter(type, data);
+    if (!filter) return; // Stop if filter is already present
     let filter_icon = $('<span class="badge badge-primary">' + filter + '</span>');
     let delete_button = $('<a class="filter-delete">×</a>');
     delete_button.click(function () {
