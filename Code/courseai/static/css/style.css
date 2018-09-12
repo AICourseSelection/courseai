@@ -37,6 +37,13 @@ wrapper {
     min-height: 80vh;
 }
 
+#year-descriptor {
+    padding-right: 5px;
+    line-height: 2.25;
+    min-width: fit-content;
+    min-width: -moz-fit-content;
+}
+
 #planform, #planform input, #planform .btn-group .btn{
     font-size: 14pt !important;
 }
