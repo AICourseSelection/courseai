@@ -1128,12 +1128,13 @@ function loadDefaultPlan() {
         row.append(first_cell);
 
         let course_list = suggestedPlan[session] || [{"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}];
-        for (const course of course_list) {
+        for (let course of course_list) {
+            if (!(/^[A-Z]{4}[0-9]{4}$/.test(course.code))) { // Ignore everything but course codes
+                course.code = ELECTIVE_TEXT;
+            }
             let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
             let title_node = $('<span class="course-title"/>');
-            if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
-                title_node.text(course['title']);
-            } else if (course.code !== ELECTIVE_TEXT) {
+            if (course.code !== ELECTIVE_TEXT) {
                 cell.addClass('compulsory');
                 async_operations.push(PLAN.addCourse(session, course.code));
                 if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
@@ -1757,16 +1758,24 @@ function updateProgress() {
 async function updateRecommendations() {
     let group = $('#degree-recommendations-list');
     let res = {};
-    await $.ajax({
-        url: 'recommendations/recommend',
-        data: {
-            'code': degree_code,
-            'courses': JSON.stringify(preparePlanForUpload(PLAN))
-        },
-        success: function (data) {
-            res = data;
+    try {
+        await $.ajax({
+            url: 'recommendations/recommend',
+            data: {
+                'code': degree_code,
+                'courses': JSON.stringify(preparePlanForUpload(PLAN))
+            },
+            success: function (data) {
+                res = data;
+            }
+        });
+    } catch (e) {
+        if (e.statusText === "Internal Server Error") {
+            group.text('No recommendations could be made.');
         }
-    });
+        return;
+    }
+
     let titles_fill_nodes = {};
     group.find('.result-course').popover('dispose');
     group.empty();
