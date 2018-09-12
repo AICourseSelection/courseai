@@ -1135,6 +1135,9 @@ function createAddSessionRow(session, last) {
 
 function setupGrid() { // put the loaded plan's sessions in first before using this.
     let grid = $('#plan-grid');
+    let startSession = start_year + 'S' + start_sem;
+    if (PLAN.sessions.length === 0 || PLAN.sessions[0] !== start_year + 'S' + start_sem)
+        grid.append(createAddSessionRow(startSession, false));
     for (const session of PLAN.sessions) {
         const year = session.slice(0, 4);
         const ses = session.slice(4);
