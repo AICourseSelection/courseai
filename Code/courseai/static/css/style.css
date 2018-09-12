@@ -129,9 +129,12 @@ wrapper {
 }
 
 .remove-row-btn {
+    margin: auto 0;
     color: #FF6E6E;
     background-color: white;
     margin-right: 5px;
+    width: 12px;
+    height: 14px;
 }
 
 .add-row-btn {

@@ -23,7 +23,6 @@ let colorMappings = {};
 
 const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
 let startSession = "";
-let endSession = "";
 
 // UI Functions
 async function addDegree(code, year) {
@@ -874,10 +873,9 @@ function createRemoveSessionBtn(session, row) {
                 removeSession(session, row);
                 let prev = removeAddRows(wrapper);
 
-                if (prev.find('.row-ses').length !== 0) session = prev.find('.row-ses').text();
-                else if (PLAN.sessions.length === 0) session = startSession; // start from the beginning if all sessions are removed
-
-                $('#plan-grid').append(createAddSessionRow(nextSession(session), true)); 
+                if (PLAN.sessions.length === 0) { // only session in planner
+                    $('#plan-grid').append(createAddSessionRow(startSession, true)); // start from the beginning 
+                } else $('#plan-grid').append(createAddSessionRow(nextSession(prev.find('.row-ses').text()), true)); 
             } else {
                 removeSession(session, row);
                 let prev = removeAddRows(wrapper);
@@ -905,7 +903,8 @@ function removeSession(session, row) {
     // update trackers
     updateWarningNotices();
     updateProgress();
-    updateRecommendations();
+    // TODO: re-enable this
+    // updateRecommendations();
 
     PLAN.removeSession(session);
 }
@@ -1063,7 +1062,7 @@ function createAddSessionRow(session, last) {
     let addDiv = $('<div class="add-row-wrapper"/>');
     let addBtn = createAddSessionBtn();
     let availableSessions = getNextAvailableSessions(session, last);
-
+    
     if (availableSessions.length > 1 || last) createNextSessionsPopover(addBtn, addDiv, availableSessions, last);    
     else createSessionRowEventListener(addBtn, session);
     
