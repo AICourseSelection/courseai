@@ -1,8 +1,8 @@
 {
-  "name": "Master of Financial Management",
   "code": "MFINM",
-  "year": 2015,
   "units": 48,
+  "name": "Master of Financial Management",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "BUSN7008",

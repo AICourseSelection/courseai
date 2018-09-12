@@ -1,8 +1,8 @@
 {
-  "name": "Master of Environmental and Resource Economics",
   "code": "7823XMEREC",
-  "year": 2014,
   "units": 48,
+  "name": "Master of Environmental and Resource Economics",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "CRWF8000",

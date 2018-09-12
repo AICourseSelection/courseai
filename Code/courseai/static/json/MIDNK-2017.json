@@ -1,8 +1,8 @@
 {
-  "name": "Master of International and Development Economics - ANU-Nankai University",
   "code": "MIDNK",
-  "year": 2017,
   "units": 72,
+  "name": "Master of International and Development Economics - ANU-Nankai University",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "CRWF8000",

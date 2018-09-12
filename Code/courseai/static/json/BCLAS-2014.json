@@ -1,22 +1,13 @@
 {
-  "name": "Bachelor of Classical Studies",
-  "code": "BCLAS",
-  "year": 2014,
   "units": 144,
+  "code": "BCLAS",
+  "name": "Bachelor of Classical Studies",
+  "year": 2014,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "ARCH1111",
           "ARCH1112",
@@ -26,6 +17,15 @@
           "ARTH2054",
           "DRAM1006",
           "DRAM2014"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": [
+          1000
         ]
       }
     ]

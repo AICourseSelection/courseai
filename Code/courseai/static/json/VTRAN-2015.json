@@ -1,8 +1,8 @@
 {
-  "name": "Master of Translation (Advanced)",
-  "code": "VTRAN",
-  "year": 2015,
   "units": 96,
+  "code": "VTRAN",
+  "name": "Master of Translation (Advanced)",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "LANG6001",

@@ -1,13 +1,13 @@
 {
-  "name": "Master of Political Science (Advanced)",
-  "code": "VPLSC",
-  "year": 2019,
   "units": 96,
+  "code": "VPLSC",
+  "name": "Master of Political Science (Advanced)",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "POLS8027",
           "POLS8032",
@@ -22,8 +22,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "SOCR8001",
           "SOCR8002",

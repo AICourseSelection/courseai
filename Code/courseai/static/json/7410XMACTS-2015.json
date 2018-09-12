@@ -1,8 +1,8 @@
 {
-  "name": "Master of Actuarial Studies",
   "code": "7410XMACTS",
-  "year": 2015,
   "units": 96,
+  "name": "Master of Actuarial Studies",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "STAT6039",

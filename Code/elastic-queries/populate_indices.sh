@@ -10,7 +10,7 @@ fi
 
 curl -X DELETE "$1:9200/cbelists"
 
-declare -a BULKS=("@course_bulk" "@degree_bulk" "@major_bulk" "@minor_bulk" "@minor_bulk" "@specialisations_bulk"  "@courselists_bulk" "@cse_bulk")
+declare -a BULKS=("@course_bulk" "@degree_bulk" "@major_bulk" "@minor_bulk" "@minor_bulk" "@specialisations_bulk"  "@courselists_bulk" "@cse_bulk" "@course_updated_bulk")
 
 for bulk in "${BULKS[@]}"
 do

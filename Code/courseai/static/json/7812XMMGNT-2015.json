@@ -1,8 +1,8 @@
 {
-  "name": "Master of Management",
   "code": "7812XMMGNT",
-  "year": 2015,
   "units": 48,
+  "name": "Master of Management",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "BUSI7033",

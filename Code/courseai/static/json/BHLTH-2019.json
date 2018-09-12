@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Health Science",
   "code": "BHLTH",
-  "year": 2019,
   "units": 144,
+  "name": "Bachelor of Health Science",
+  "year": 2019,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BIOL1004",
       "BIOL1008",
@@ -102,6 +93,15 @@
           "SCOM1002",
           "SCOM2031",
           "SOCY2162"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

@@ -1,8 +1,8 @@
 {
-  "name": "Master of Culture, Health and Medicine (Health and Indigenous Australian Policy)",
-  "code": "7123SHIA",
-  "year": 2014,
   "units": 48,
+  "code": "7123SHIA",
+  "name": "Master of Culture, Health and Medicine (Health and Indigenous Australian Policy)",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "ANTH8029",

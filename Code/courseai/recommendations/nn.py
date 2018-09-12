@@ -3,7 +3,7 @@ from builtins import eval
 import numpy as np
 from degree.course_data_helper import get_all
 from sklearn.feature_extraction.text import TfidfVectorizer
-from degree.course_data_helper import get_data
+from degree.course_data_helper import get_course_data
 from degree.models import Degree
 
 from sklearn.neural_network import MLPRegressor
@@ -18,9 +18,9 @@ course_ids = np.identity(len(get_all())) * 100
 
 
 def get_course_vector(code):
-    if get_data(code) is None:
+    if get_course_data([code]) is None:
         return None
-    return tfidf.transform([get_data(code)['description']]).toarray().tolist()
+    return tfidf.transform([get_course_data([code])['description']]).toarray().tolist()
 
 
 def create_vector(degree_requirements):
@@ -77,9 +77,9 @@ def create_training_arrays(degree_requirements):
                         if get_course_vector(d["code"]) is not None:
                             ave_vec += np.array(get_course_vector(d["code"])[0])
         if not (training_vector == []):
-            if get_data(training_vector) is not None:
+            if get_course_data([training_vector]) is not None:
                 X.append(ave_vec)
-                Y.append(course_ids[int(get_data(training_vector)['id'])])
+                Y.append(course_ids[int(get_course_data([training_vector])['id'])])
         leave_out += 1
     return np.array(X), np.array(Y)
 

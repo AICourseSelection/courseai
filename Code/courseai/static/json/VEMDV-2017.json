@@ -1,8 +1,8 @@
 {
-  "name": "Master of Environmental Management and Development (Advanced)",
   "code": "VEMDV",
-  "year": 2017,
   "units": 96,
+  "name": "Master of Environmental Management and Development (Advanced)",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "EMDV8078",

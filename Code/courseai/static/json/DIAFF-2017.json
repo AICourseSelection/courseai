@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma of International Affairs",
   "code": "DIAFF",
-  "year": 2017,
   "units": 48,
+  "name": "Graduate Diploma of International Affairs",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {

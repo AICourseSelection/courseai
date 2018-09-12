@@ -1,4 +1,5 @@
 import json
+import ast
 from builtins import Exception, eval, str
 
 from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest, QueryDict
@@ -27,12 +28,13 @@ def degree_plan(request):
         try:
             code = request.GET['degree_code']
             year = request.GET['year']
-            with open(code + ".json", newline="") as f:
+            with open('static/json/study_options/{}.json'.format(code)) as f:
                 study_options_str = f.read()
                 study_options_dict = ast.literal_eval(study_options_str)
             return JsonResponse({"response": study_options_dict[year]})
         except Exception:
-            return JsonResponse({"response": "null"})
+            res = JsonResponse({"response": "Default options of the requested degree-year combination could not be found. "})
+            return HttpResponseBadRequest(res)
     elif request.method == "PUT":
         data = request.body.decode('utf-8')
         code = json.loads(data)["code"]
@@ -57,17 +59,9 @@ def degree_plan(request):
 
 def course_data(request):
     try:
-        query = request.GET['query']
-        if query == 'titles':
-            return JsonResponse({"response": course_data_helper.get_titles(request.GET.get('codes', '[]'))})
-        elif query == 'prereqs':
-            return JsonResponse({"response": course_data_helper.get_prereqs(request.GET.get('codes', '[]'))})
-        elif query == 'multiple':
-            return JsonResponse({"response": course_data_helper.get_multiple(request.GET.get('codes', '[]'))})
-        else:
-            return JsonResponse({"response": course_data_helper.get_data(query)})
-
-    except Exception:
+        res = {"response": course_data_helper.get_course_data(request.GET['codes'])}
+        return JsonResponse(res)
+    except IndexError:
         res = JsonResponse({"response": "Please provide a valid course code"})
         return HttpResponseBadRequest(res)
 
@@ -79,16 +73,16 @@ def degree_reqs(request):
         return HttpResponse(response, content_type="application/json")
     except Exception:
         res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
-        raise HttpResponseBadRequest(res)
+        return HttpResponseBadRequest(res)
 
 
 @csrf_exempt
 def stored_plans(request):
-    if (request.method == "GET"):
+    if request.method == "GET":
         return retrieve_plan(request)
-    elif (request.method == "POST"):
+    elif request.method == "POST":
         return store_plan(request)
-    elif (request.method == "PUT"):
+    elif request.method == "PUT":
         return update_plan(request)
     else:
         res = JsonResponse({"response": "Error, please provide a GET, POST, or PUT request"})
@@ -125,7 +119,7 @@ def update_plan(request):
     proc = QueryDict(data)
     code = proc['code']
     matched = DegreePlanStore.objects.filter(code=code)
-    if (len(matched) == 0):
+    if len(matched) == 0:
         res = JsonResponse({"response": "no matching plan found"})
         return HttpResponseBadRequest(res)
     retrieved = matched[0]

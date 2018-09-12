@@ -1,29 +1,13 @@
 {
-  "name": "Master of Applied Anthropology and Participatory Development - Online",
-  "code": "MAAOL",
-  "year": 2016,
   "units": 96,
+  "code": "MAAOL",
+  "name": "Master of Applied Anthropology and Participatory Development - Online",
+  "year": 2016,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 18,
-        "courses": [
-          "ANTH8006",
-          "ANTH8028"
-        ]
-      },
-      {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8019",
-          "ANTH8028"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "ANTH8007",
           "ANTH8009",
@@ -31,8 +15,24 @@
         ]
       },
       {
+        "units": 12,
         "type": "minimum",
+        "courses": [
+          "ANTH8019",
+          "ANTH8028"
+        ]
+      },
+      {
+        "units": 18,
+        "type": "minimum",
+        "courses": [
+          "ANTH8006",
+          "ANTH8028"
+        ]
+      },
+      {
         "units": 36,
+        "type": "minimum",
         "courses": [
           "ANTH6009",
           "ANTH6026",
@@ -72,8 +72,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 18,
+        "type": "minimum",
         "courses": [
           "ANTH8008",
           "ANTH8019"

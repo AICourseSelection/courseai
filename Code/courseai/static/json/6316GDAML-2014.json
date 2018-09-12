@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma in Advanced Military Law",
   "code": "6316GDAML",
-  "year": 2014,
   "units": 24,
+  "name": "Graduate Diploma in Advanced Military Law",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "LAWS8164",

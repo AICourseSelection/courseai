@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma in Legal Practice",
   "code": "6303XGDLP",
-  "year": 2015,
   "units": 48,
+  "name": "Graduate Diploma in Legal Practice",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {

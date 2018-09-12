@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Political Science",
-  "code": "BPLSC",
-  "year": 2019,
   "units": 144,
+  "code": "BPLSC",
+  "name": "Bachelor of Political Science",
+  "year": 2019,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "POLS1002",
       "POLS1009",
@@ -21,28 +12,28 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
-          "ASIA2065",
-          "POLS2043",
-          "POLS2126",
-          "POLS2134",
-          "POLS2135",
-          "POLS3037"
+          "ECON2141",
+          "POLS2125",
+          "POLS2130",
+          "SOCY2043"
         ]
       },
       {
+        "units": 12,
         "type": "minimum",
-        "units": 6,
         "courses": [
-          "HIST2227",
-          "HIST2022"
+          "POLS2009",
+          "POLS2111",
+          "POLS2114",
+          "POLS2121"
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "PHIL1004",
           "PHIL2020",
@@ -54,18 +45,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
-        "courses": [
-          "POLS2009",
-          "POLS2111",
-          "POLS2114",
-          "POLS2121"
-        ]
-      },
-      {
         "type": "minimum",
-        "units": 12,
         "courses": [
           "ASIA2090",
           "ECON2013",
@@ -75,18 +56,28 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
-          "ECON2141",
-          "POLS2125",
-          "POLS2130",
-          "SOCY2043"
+          "ASIA2065",
+          "POLS2043",
+          "POLS2126",
+          "POLS2134",
+          "POLS2135",
+          "POLS3037"
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "maximum",
+        "courses": [
+          "HIST2227",
+          "HIST2022"
+        ]
+      },
+      {
+        "units": 6,
+        "type": "maximum",
         "courses": [
           "ASIA2026",
           "ASIA2031",
@@ -103,6 +94,15 @@
           "POLS2070",
           "POLS2095",
           "POLS2127"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "units": 60,
+        "type": "maximum",
+        "level": [
+          1000
         ]
       }
     ]

@@ -1,13 +1,32 @@
 {
-  "name": "Master of Design (Advanced)",
-  "code": "VDESN",
-  "year": 2017,
   "units": 10,
+  "code": "VDESN",
+  "name": "Master of Design (Advanced)",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {
+        "units": 6,
         "type": "minimum",
+        "courses": [
+          "ARTV6008",
+          "ARTV6030",
+          "ARTV6808"
+        ]
+      },
+      {
+        "units": 18,
+        "type": "minimum",
+        "courses": [
+          "ARTV6006",
+          "ARTV6057",
+          "DESN6001",
+          "DESN6002"
+        ]
+      },
+      {
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ARTV8107",
           "ARTV8207",
@@ -17,27 +36,8 @@
         ]
       },
       {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ARTV6008",
-          "ARTV6030",
-          "ARTV6808"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "ARTV6006",
-          "ARTV6057",
-          "DESN6001",
-          "DESN6002"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "ARTV6000",
           "ARTV6057",

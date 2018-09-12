@@ -1,8 +1,8 @@
 {
-  "name": "Master of International and Development Economics",
   "code": "7822XMIDEC",
-  "year": 2014,
   "units": 48,
+  "name": "Master of International and Development Economics",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "CRWF8000",

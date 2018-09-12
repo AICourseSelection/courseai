@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Engineering (Research and Development) (Honours)",
   "code": "AENRD",
-  "year": 2016,
   "units": 192,
+  "name": "Bachelor of Engineering (Research and Development) (Honours)",
+  "year": 2016,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "ENGN1211",
       "ENGN1215",
@@ -55,6 +46,15 @@
         "courses": [
           "MATH1014",
           "MATH1116"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

@@ -1,13 +1,13 @@
 {
-  "name": "Master of Anthropology (Advanced)",
-  "code": "VANTH",
-  "year": 2019,
   "units": 96,
+  "code": "VANTH",
+  "name": "Master of Anthropology (Advanced)",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 18,
+        "type": "minimum",
         "courses": [
           "ANTH6004",
           "ANTH6009",
@@ -25,8 +25,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 6,
+        "type": "minimum",
         "courses": [
           "ANTH6002",
           "ANTH6003"

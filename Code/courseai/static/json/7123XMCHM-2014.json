@@ -1,8 +1,8 @@
 {
-  "name": "Master of Culture, Health and Medicine",
-  "code": "7123XMCHM",
-  "year": 2014,
   "units": 48,
+  "code": "7123XMCHM",
+  "name": "Master of Culture, Health and Medicine",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "CHMD8004",
