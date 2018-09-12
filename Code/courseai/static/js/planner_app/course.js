@@ -51,7 +51,7 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
             if (sessionIsAfter(ses, session) || ses === session) continue;
             Array.prototype.push.apply(courses_taken, plan.courses[ses]);
         }
-        let courses_taking = plan.courses[session];
+        let courses_taking = plan.courses[session] || [];
 
         for (let clause of this.rules) {
             let clause_sat = false;

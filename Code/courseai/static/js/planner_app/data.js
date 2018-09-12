@@ -159,22 +159,25 @@ async function getDegreeOffering(code, year) {
             }
 
         }
-        await $.ajax({
-            url: 'degree/degreeplan',
-            data: {
-                'degree_code': code,
-                'year': year
-            },
-            success: function (data) {
-                const suggestedPlan = {};
-                let session = year + "S1"; // Starting value
-                for (const ses of data.response) {
-                    suggestedPlan[session] = ses;
-                    session = nextSession(session, 3);
+        let defaultPlan;
+        try {
+            defaultPlan = await $.ajax({
+                url: 'degree/degreeplan',
+                data: {
+                    'degree_code': code,
+                    'year': year
                 }
-                KNOWN_DEGREES[code][year].suggestedPlan = suggestedPlan;
-            }
-        })
+            });
+        } catch (e) {
+            defaultPlan = {response: []};
+        }
+        const suggestedPlan = {};
+        let session = year + "S1"; // Starting value
+        for (const ses of defaultPlan.response) {
+            suggestedPlan[session] = ses;
+            session = nextSession(session, 3);
+        }
+        KNOWN_DEGREES[code][year].suggestedPlan = suggestedPlan;
     }
     return KNOWN_DEGREES[code][year];
 }
