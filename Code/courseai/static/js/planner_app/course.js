@@ -56,7 +56,7 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
         for (let clause of this.rules) {
             let clause_sat = false;
             for (let course of clause) {
-                if (clause_sat) continue;
+                if (clause_sat || !/^~?[A-Z]{4}[0-9]{4}/.test(course)) continue; // Skip if satisfied or unknown requirement.
                 if (course.charAt(0) === '~') {
                     let code = course.slice(1);
                     if (checkCoursePresent(courses_taken.concat(courses_taking), code)) {
