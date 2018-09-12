@@ -56,8 +56,8 @@ function clearAllCourses() {
 
 function resetPlan() {
     SAVER.disableSaving();
-    clearAllCourses();
-    loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+    clearPlanner();
+    setupPlanner(true);
 }
 
 function addLinearGradient(colorClasses, box) {
@@ -94,7 +94,7 @@ function addRepeatingLinearGradient(colorClasses, box) {
             }
 
             if (i !== colorClasses.length - 1) {
-                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * (i + 1))+ "%";
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * (i + 1)) + "%";
             }
         }
         cssBackgroundStr += ')';
@@ -800,8 +800,8 @@ function clearPlanner() {
     $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')).find('.degree-body').empty();
 }
 
-async function setupPlanner() {
-    if (!save_code) {
+async function setupPlanner(ignoreSaveCode = false) {
+    if (!save_code || ignoreSaveCode) {
         let startingDegree = await addDegree(degree_code, start_year);
         const singleReqsList = $('#degree-reqs-list');
         singleReqsList.hide();
@@ -918,10 +918,10 @@ function removeAddRows(row) {
 
 function createRemoveSessionBtn(session, row) {
     let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-sm fa-minus-square"/>');
-    removeBtn.click(function() {
+    removeBtn.click(function () {
         $('.session-popover').popover('hide');
         let wrapper = $(this).parent();
-        wrapper.addClass('remove-row-animate').on('transitionend', function(e) {
+        wrapper.addClass('remove-row-animate').on('transitionend', function (e) {
             if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
                 removeSession(session, row);
                 let prev = removeAddRows(wrapper);
@@ -945,7 +945,7 @@ function createRemoveSessionBtn(session, row) {
 
 function removeSession(session, row) {
     // remove existing courses in the session
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         var cellCode = $(this).find('.course-code').text()
         if (cellCode !== ELECTIVE_TEXT) {
             PLAN.removeWarning('CourseForceAdded', cellCode);
@@ -973,7 +973,7 @@ function createEmptySessionRow(session) {
         '</div>';
     row.append(first_cell);
 
-    for (var i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) { // TODO: Fix for Overloading
         let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
         let title_node = $('<span class="course-title"/>');
         cell.append('<div class="course-code">' + ELECTIVE_TEXT + '</div>');
@@ -984,14 +984,11 @@ function createEmptySessionRow(session) {
         makeSlotDroppable(cell);
         row.append(cell);
     }
-
-    makeRowSortable(row);
-
     return row;
 }
 
 function createSessionRowEventListener(btn, session) {
-    btn.click(function() {
+    btn.click(function () {
         PLAN.addSession(session);
         let replacementDiv = $('<div class="plan-row-wrapper"/>');
         let row = createEmptySessionRow(session);
@@ -999,7 +996,7 @@ function createSessionRowEventListener(btn, session) {
         replacementDiv.append(removeBtn);
         replacementDiv.append(row);
 
-        $(this).parent().addClass('add-row-animate').on('transitionend', function(e) {
+        $(this).parent().addClass('add-row-animate').on('transitionend', function (e) {
             $(e.target).replaceWith(replacementDiv);
         });
 
@@ -1017,7 +1014,7 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
         title: 'Add Sessions<a class="popover-close" onclick="closePopover(this)">×</a>',
         placement: 'right',
         html: true,
-        content: function() {
+        content: function () {
             let html = "";
             for (var i = 0; i < availableSessions.length; i++) {
                 html += "<button class='btn session-popover-btn btn-outline-dark'" +
@@ -1041,7 +1038,7 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
         }
 
         // create toggle event for each button
-        $(".session-popover-btn").click(function() {
+        $(".session-popover-btn").click(function () {
             const session = $(this).val();
             if (!sessionsToAdd[session]) count++;
             else count--;
@@ -1049,7 +1046,7 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
         });
 
         // add the selected sessions to the planner
-        $(".session-popover-submit").click(function() {
+        $(".session-popover-submit").click(function () {
             let sessionAdded = false;
             for (var j = availableSessions.length - 1; j >= 0; j--) {
                 const addToPlanner = sessionsToAdd[availableSessions[j]];
@@ -1071,8 +1068,8 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
                     addRow.after(temp);
 
                     // force the browser to render the transition
-                    setTimeout(function() {
-                        temp.addClass('add-row-animate').on('transitionend', function(e) {
+                    setTimeout(function () {
+                        temp.addClass('add-row-animate').on('transitionend', function (e) {
                             $(e.target).replaceWith(rowWrapper);
                         });
                     }, 10);
@@ -1130,7 +1127,6 @@ function setupGrid() { // put the loaded plan's sessions in first before using t
         const year = session.slice(0, 4);
         const ses = session.slice(4);
         let row = $('<div class="plan-row"/>');
-        if (ses === 'S1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
         let session_word = SESSION_WORDS[ses];
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
@@ -1148,6 +1144,16 @@ function setupGrid() { // put the loaded plan's sessions in first before using t
             row.append(cell);
         }
         grid.append(row);
+        // create wrapper and button for removing a year/sem
+        let rowWrapper = $('<div class="plan-row-wrapper"/>');
+
+        rowWrapper.append(createRemoveSessionBtn(session, row));
+        rowWrapper.append(row);
+        grid.append(rowWrapper);
+
+        // create add buttons for last and seasonal sessions
+        if (session === PLAN.sessions[PLAN.sessions.length - 1]) grid.append(createAddSessionRow(nextSession(session), true));
+        else if (['S1', 'S2'].includes(ses)) grid.append(createAddSessionRow(nextSession(session), false));
     }
 }
 
@@ -1164,7 +1170,7 @@ function loadCourseGrid(plan) {
             let cell = $(row.children()[i + 1]);
             cell.find('.course-code').text(code);
             if (compulsoryCourseCodes.includes(code)) cell.addClass('compulsory');
-            if (!(code in courses_actions)) courses_actions[code + '-' + year] = [];
+            if (!((code + '-' + year) in courses_actions)) courses_actions[code + '-' + year] = [];
             courses_actions[code + '-' + year].push(function (offering) {
                 cell.find('.course-title').text(offering.title);
                 PLAN.addCourse(session, code);
@@ -1646,7 +1652,7 @@ function setupDegreeRequirements(container, degree) {
                     '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
                 if (section.type === "min_max") {
                     title = 'Choose between ' + section.units.minimum + ' and ' + section.units.maximum + ' units' +
-                    '<span class="unit-count mr-2">0/' + section.units.minimum + '</span>\n';
+                        '<span class="unit-count mr-2">0/' + section.units.minimum + '</span>\n';
                 }
                 let card = createCourseCategorySection(type, title, section['area'], section.level);
                 container.append(card);
@@ -1832,15 +1838,15 @@ async function updateRecommendations() {
     let res = {};
     try {
         await $.ajax({
-        url: 'recommendations/recommend',
-        data: {
-            'code': PLAN.degrees[0].code, // TODO: Fix for FDD Recommendations
-            'courses': JSON.stringify(preparePlanForUpload(PLAN))
-        },
-        success: function (data) {
-            res = data;
-        }
-    });
+            url: 'recommendations/recommend',
+            data: {
+                'code': PLAN.degrees[0].code, // TODO: Fix for FDD Recommendations
+                'courses': JSON.stringify(preparePlanForUpload(PLAN))
+            },
+            success: function (data) {
+                res = data;
+            }
+        });
     } catch (e) {
         if (e.statusText === "Internal Server Error") {
             group.text('No recommendations could be made.');

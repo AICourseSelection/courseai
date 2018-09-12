@@ -89,6 +89,7 @@ async function batchCourseOfferingActions(courses_actions) {
         COURSE_REQUESTS[code] = req;
     }
     await req;
+    return await req; // This forces the planner to wait for the success callback? Don't know why its necessary.
 }
 
 async function getMMSOffering(code, year) {
@@ -246,8 +247,8 @@ function closestYear(code, year) {
     if (year in availableYears) return year;
     const maxYear = Math.max(...availableYears);
     const minYear = Math.min(...availableYears);
-    if (year > maxYear) return maxYear;
-    if (year < minYear) return minYear;
+    if (year >= maxYear) return maxYear;
+    if (year <= minYear) return minYear;
     for (let i = 1; i <= Math.max(maxYear - year, year - minYear); i++) {
         if ((year + i) in availableYears) return year + i;
         if ((year - i) in availableYears) return year - i;
