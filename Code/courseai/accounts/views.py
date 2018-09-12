@@ -63,55 +63,55 @@ def login_view(request):
     return HttpResponse(errStr);
 
 
-# # @csrf_protect
-# @csrf_exempt  # TODO: change me later
-# @require_AJAX
-# def register_view(request):
-#     form = UserRegisterForm(request.POST or None, request)
-#
-#     # save new user to database
-#     if form.is_valid():
-#         user = form.save(commit=False)
-#         password = form.cleaned_data.get('password')
-#         user.set_password(password)
-#         user.save()
-#         login(request, user)
-#         return HttpResponse('OK')
-#
-#     errMsg = {(v[0]) for _, v in form.errors.items()}
-#     errStr = '<br>'.join(msg for msg in errMsg)
-#     return HttpResponse(errStr);
-
-@csrf_protect
-@csrf_exempt
-# TODO: send confirmation email to user
+# @csrf_protect
+@csrf_exempt  # TODO: change me later
+@require_AJAX
 def register_view(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
+    form = UserRegisterForm(request.POST or None, request)
 
-            # Save user info to Database after user confirm their email address to complete the registration
-            password = form.cleaned_data.get('password')
-            user.set_password(password)
+    # save new user to database
+    if form.is_valid():
+        user = form.save(commit=False)
+        password = form.cleaned_data.get('password')
+        user.set_password(password)
+        user.save()
+        login(request, user)
+        return HttpResponse('OK')
 
-            user.save()
-            current_site = get_current_site(request)
-            message = render_to_string('activate_account_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            mail_subject = 'Activate your blog account.'
-            to_email = form.cleaned_data.get('username')
-            email = EmailMessage(mail_subject, message, to=[to_email])
-            email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
     errMsg = {(v[0]) for _, v in form.errors.items()}
     errStr = '<br>'.join(msg for msg in errMsg)
     return HttpResponse(errStr);
+
+# @csrf_protect
+# @csrf_exempt
+# # TODO: send confirmation email to user
+# def register_view(request):
+#     if request.method == 'POST':
+#         form = UserRegisterForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.is_active = False
+#
+#             # Save user info to Database after user confirm their email address to complete the registration
+#             password = form.cleaned_data.get('password')
+#             user.set_password(password)
+#
+#             user.save()
+#             current_site = get_current_site(request)
+#             message = render_to_string('activate_account_email.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token': account_activation_token.make_token(user),
+#             })
+#             mail_subject = 'Activate your blog account.'
+#             to_email = form.cleaned_data.get('username')
+#             email = EmailMessage(mail_subject, message, to=[to_email])
+#             email.send()
+#             return HttpResponse('Please confirm your email address to complete the registration')
+#     errMsg = {(v[0]) for _, v in form.errors.items()}
+#     errStr = '<br>'.join(msg for msg in errMsg)
+#     return HttpResponse(errStr);
 
 
 @csrf_exempt  # TODO: Add CSRF protection for logout? Necessary?
@@ -122,38 +122,36 @@ def logout_view(request):
 
 # @csrf_protect
 def code_view(request):
-    if request.method == "PUT" or request.method == "DELETE" or request.method == "GET":
-        data = request.body.decode('utf-8')
-        proc = QueryDict(data)
-        email = proc['email']
+    data = request.body.decode('utf-8')
+    proc = QueryDict(data)
+    email = proc['email']
+    a = User.objects.get(username=email)
+    store_code = a.profile.degree_plan_code
+
+    if request.method == "PUT":
         code = proc['code']
+        i = 0
+        while i < len(store_code) - 5:
+            if store_code[i: i + 10] == code:
+                return JsonResponse({"response": "success"})
+            i += 11
+        store_code += "," + code
+        a.profile.save()
+        return JsonResponse({"response": "success"})
+    elif request.method == "DELETE":
+        code = proc['code']
+        i = 0
+        while i < len(store_code) - 5:
+            if store_code[i: i + 10] == code:
+                store_code.strip(store_code[i:i + 10])
+                a.profile.save()
+                return JsonResponse({"response": "success"})
+            i += 11
+        return JsonResponse({"response": "success"})
+    elif request.method == "GET":
+        return (store_code)
 
-        a = User.objects.get(username=email)
-        store_code = a.profile.degree_plan_code
-        res_success = JsonResponse({"response": "success"})
-        res_error = JsonResponse({"response": "error"})
-
-        if request.method == "PUT":
-            i = 0
-            while i < len(store_code) - 5:
-                if store_code[i: i + 10] == code:
-                    return HttpResponse(res_success)
-                i += 11
-            store_code += "," + code
-            a.profile.save()
-            return HttpResponse(res_success)
-        elif request.method == "DELETE":
-            i = 0
-            while i < len(store_code) - 5:
-                if store_code[i: i + 10] == code:
-                    store_code.strip(store_code[i:i + 10])
-                    a.profile.save()
-                    return HttpResponse(res_success)
-                i += 11
-            return HttpResponse(res_success)
-        elif request.method == "GET":
-            return (store_code)
-    return HttpResponse(res_error)
+    return JsonResponse({"response": "fail to require a GET or PUT or DELETE request"})
 
 
 @csrf_exempt  # TODO: change me later
