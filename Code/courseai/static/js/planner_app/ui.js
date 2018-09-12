@@ -904,7 +904,7 @@ function removeSession(session, row) {
     updateWarningNotices();
     updateProgress();
     // TODO: re-enable this
-    // updateRecommendations();
+    updateRecommendations();
 
     PLAN.removeSession(session);
 }
