@@ -37,7 +37,14 @@ wrapper {
     min-height: 80vh;
 }
 
-#planform, #planform input, #planform .btn-group .btn {
+#year-descriptor {
+    padding-right: 5px;
+    line-height: 2.25;
+    min-width: fit-content;
+    min-width: -moz-fit-content;
+}
+
+#planform, #planform input, #planform .btn-group .btn{
     font-size: 14pt !important;
 }
 
@@ -779,12 +786,8 @@ wrapper {
 
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
-    0%, 100% {
-        opacity: 1
-    }
-    50% {
-        opacity: 0.5
-    }
+    0%,100% { opacity: 1 }
+    50% { opacity: 0.5 }
 }
 
 .plan-cell:active {
