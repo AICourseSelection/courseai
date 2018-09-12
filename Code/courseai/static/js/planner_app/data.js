@@ -166,13 +166,15 @@ async function getDegreeOffering(code, year) {
         await $.ajax({
             url: 'degree/degreeplan',
             data: {
-                'query': code,
-                'start_year_sem': year + "S1"
+                'degree_code': code,
+                'year': year
             },
             success: function (data) {
                 const suggestedPlan = {};
-                for (const item of data.response) {
-                    for (const session in item) suggestedPlan[session] = item[session];
+                let session = year + "S1"; // Starting value
+                for (const ses of data.response) {
+                    suggestedPlan[session] = ses;
+                    session = nextSession(session, 3);
                 }
                 KNOWN_DEGREES[code][year].suggestedPlan = suggestedPlan;
             }
@@ -220,7 +222,7 @@ function recordCourseOfferings(code, offerings) {
         KNOWN_COURSES[code][year] = new CourseOffering(
             code, year,
             data.title,
-            data.units || 6,
+            data.units,
             data.prerequisites || [],
             {
                 'description': data.description,

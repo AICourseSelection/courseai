@@ -909,7 +909,7 @@ function loadCourseGrid(plan) {
         let course_list = plan[session] || [];
         for (let i = 0; i < course_list.length; i++) {
             const code = course_list[i].code;
-            if (code === ELECTIVE_TEXT) continue;
+            if (!(/^[A-Z]{4}[0-9]{4}$/.test(code))) continue;
             let cell = $(row.children()[i + 1]);
             cell.find('.course-code').text(code);
             if (compulsoryCourseCodes.includes(code)) cell.addClass('compulsory');
@@ -1579,7 +1579,8 @@ function updateProgress() {
 async function updateRecommendations() {
     let group = $('#degree-recommendations-list');
     let res = {};
-    await $.ajax({
+    try {
+        await $.ajax({
         url: 'recommendations/recommend',
         data: {
             'code': PLAN.degrees[0].code, // TODO: Fix for FDD Recommendations
@@ -1589,8 +1590,14 @@ async function updateRecommendations() {
             res = data;
         }
     });
+    } catch (e) {
+        if (e.statusText === "Internal Server Error") {
+            group.text('No recommendations could be made.');
+        }
+        return;
+    }
+
     let courses_actions = {};
-    let titles_fill_nodes = {};
     group.find('.result-course').popover('dispose');
     group.empty();
     for (const course of res.response) {
