@@ -61,7 +61,8 @@ async function batchCourseOfferingActions(courses_actions) {
     let codesToRetrieve = [];
     for (const combo in courses_actions) {
         const code = combo.split('-')[0];
-        if (code in KNOWN_COURSES || code in COURSE_REQUESTS) continue;
+        // if (code in KNOWN_COURSES || code in COURSE_REQUESTS) continue;
+        if (code in KNOWN_COURSES) continue;
         codesToRetrieve.push(code);
     }
     const req = $.ajax({
@@ -77,7 +78,7 @@ async function batchCourseOfferingActions(courses_actions) {
             }
             for (const combo in courses_actions) {
                 const code = combo.split('-')[0];
-                if ((!code in KNOWN_COURSES) || $.isEmptyObject(KNOWN_COURSES[code])) continue; // Skip failed retrievals.
+                if ((!code in KNOWN_COURSES) || $.isEmptyObject(KNOWN_COURSES[code])) continue;
                 const year = closestYear(code, combo.split('-')[1] || THIS_YEAR);
                 for (const action of courses_actions[combo]) {
                     action(KNOWN_COURSES[code][year]);

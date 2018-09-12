@@ -413,7 +413,7 @@ if (!(save_code)) { // Use the cookie if no save_code was given from the server.
     save_code = CS.getCode();
 }
 
-let PLAN = new Plan();
+let PLAN = new Plan(start_year, start_sem);
 let SEARCH = new Search(PLAN);
 let SAVER = new AutoSave(PLAN, save_code);
 setupPlanner();
@@ -802,6 +802,7 @@ function clearPlanner() {
 
 async function setupPlanner(ignoreSaveCode = false) {
     if (!save_code || ignoreSaveCode) {
+        PLAN.startSem = start_sem;
         let startingDegree = await addDegree(degree_code, start_year);
         const singleReqsList = $('#degree-reqs-list');
         singleReqsList.hide();
@@ -838,15 +839,28 @@ async function setupPlanner(ignoreSaveCode = false) {
             SAVER.code = save_code;
             return setupPlanner();
         }
+        start_year = plan.degrees[0].year;
+        start_sem = plan.startSem;
 
+        PLAN.startSem = plan.startSem;
         const degree = await addDegree(plan.degrees[0].code, plan.degrees[0].year);
+        degree_code = degree.code;
+        degree_name = degree.title;
         const singleReqsList = $('#degree-reqs-list');
+        const multiReqsList = $('#degree-reqs');
         singleReqsList.hide();
+        multiReqsList.hide();
         setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
         if (plan.degrees[1]) {
-            await addDegree(plan.degrees[1].code, plan.degrees[1].year);
+            multiReqsList.show();
+            const degree2 = await addDegree(plan.degrees[1].code, plan.degrees[1].year);
+            degree_code2 = degree2.code;
+            degree_name2 = degree2.title;
         }
-        else singleReqsList.show();
+        else {
+            singleReqsList.show();
+            degree_code2 = degree_name2 = "";
+        }
         for (const session of plan.sessions) PLAN.addSession(session);
         for (const mms of plan.trackedMMS) mms_add(mms.code, mms.year);
         setupGrid();
@@ -1115,9 +1129,7 @@ function createAddSessionRow(session, last) {
     if (availableSessions.length > 1 || last) createNextSessionsPopover(addBtn, addDiv, availableSessions, last);
     else createSessionRowEventListener(addBtn, session);
 
-    addDiv.append('<span class="add-row-line-left"/>');
     addDiv.append(addBtn);
-    addDiv.append('<span class="add-row-line-right"/>');
     return addDiv;
 }
 

@@ -148,10 +148,12 @@ wrapper {
 
 .add-row-wrapper {
     width: 100%;
-    min-height: 0;
     display: flex;
     padding: 0;
-    margin: 0;
+    position: relative;
+    z-index: 100;
+    min-height: 0; /* Required for transition */
+    max-height: 0;
 }
 
 .remove-row-btn, .add-row-btn {
@@ -176,8 +178,7 @@ wrapper {
     padding: 0;
     color: #7AD55D;
     background-color: white;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-top: -4px;
 }
 
 .remove-row-btn:focus, .add-row-btn:focus {
@@ -221,7 +222,6 @@ wrapper {
     width: 100%;
     position: relative;
     min-height: 124px;
-    margin-top: 5px;
 }
 
 .plan-row {

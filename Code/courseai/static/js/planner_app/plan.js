@@ -75,7 +75,7 @@ function Plan() {
      */
     this.addDegree = async function (code, year) {
         for (const deg of this.degrees) if (deg.code === code) return;
-        let degree = await getDegreeOffering(code, year);
+        let degree = Object.assign({}, await getDegreeOffering(code, year));
         this.degrees.push(degree);
         if (this.degrees.length === 1) return degree;
         for (const deg of this.degrees) {
@@ -316,6 +316,7 @@ function Plan() {
             }
             saved.warnings.push(to_add);
         }
+        if (this.startSem) saved.startSem = this.startSem;
         return JSON.stringify(saved);
 
     }
