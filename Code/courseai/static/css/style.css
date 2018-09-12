@@ -3,6 +3,14 @@ body {
     min-width: 300px;
 }
 
+.modal-backdrop {
+    z-index: 1070;
+}
+
+.modal {
+    z-index: 1080;
+}
+
 .planner-container {
     margin: 20px 30px 30px 30px;
     min-width: 860px;
@@ -247,7 +255,7 @@ wrapper {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 19px;
+    left: 0;
     right: 0;
     background: rgba(255, 0, 0, 0.2);
     -webkit-transition: background 1s linear;
