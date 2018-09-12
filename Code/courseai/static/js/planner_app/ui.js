@@ -44,6 +44,7 @@ function clearAllCourses() {
     PLAN.clearWarnings();
     for (let box of $('#plan-grid').find('.plan-cell')) {
         $(box).popover('dispose');
+        if ($(box).find('.course-code').text() !== ELECTIVE_TEXT) $(box).draggable('destroy');
         makeSlotDroppable($(box));
         $(box).find('.course-code').text(ELECTIVE_TEXT);
         $(box).find('.course-title').text('');
