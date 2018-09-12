@@ -1,16 +1,16 @@
 {
-  "name": "Bachelor of Asia-Pacific Studies (Year in Asia)",
   "code": "BAPYA",
-  "year": 2015,
   "units": 192,
+  "name": "Bachelor of Asia-Pacific Studies (Year in Asia)",
+  "year": 2015,
   "required": {
     "max_by_level": [
       {
         "type": "maximum",
+        "units": 60,
         "level": [
           1000
-        ],
-        "units": 60
+        ]
       }
     ]
   }

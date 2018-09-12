@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Philosophy (Honours) / Bachelor of Science (Honours) - ANU as home institution",
   "code": "APNSC",
-  "year": 2018,
   "units": 192,
+  "name": "Bachelor of Philosophy (Honours) / Bachelor of Science (Honours) - ANU as home institution",
+  "year": 2018,
   "required": {
     "compulsory_courses": [
       "CHEM1101",

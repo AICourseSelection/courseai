@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Medical Science",
   "code": "BMEDS",
-  "year": 2017,
   "units": 144,
+  "name": "Bachelor of Medical Science",
+  "year": 2017,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BIOL1003",
       "BIOL1004",
@@ -67,6 +58,15 @@
           "BIOL2151",
           "BIOL2162",
           "BIOL2174"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

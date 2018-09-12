@@ -1,8 +1,8 @@
 {
-  "name": "Master of Neuroscience (Advanced)",
   "code": "VNEUR",
-  "year": 2015,
   "units": 96,
+  "name": "Master of Neuroscience (Advanced)",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "NEUR6101",

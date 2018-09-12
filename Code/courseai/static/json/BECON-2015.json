@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Economics",
   "code": "BECON",
-  "year": 2015,
   "units": 144,
+  "name": "Bachelor of Economics",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "ECON1101",
       "ECON3101",
@@ -65,6 +56,15 @@
         "courses": [
           "ECON2101",
           "ECON2111"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

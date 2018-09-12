@@ -1,18 +1,9 @@
 {
-  "name": "Bachelor of Medical Science",
   "code": "BMDSA",
-  "year": 2015,
   "units": 144,
+  "name": "Bachelor of Medical Science",
+  "year": 2015,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "BIOL1003",
       "BIOL1004",
@@ -58,6 +49,15 @@
           "BIOL3208",
           "NEUR3101",
           "NEUR3112"
+        ]
+      }
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
         ]
       }
     ]

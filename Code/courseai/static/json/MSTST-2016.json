@@ -1,8 +1,8 @@
 {
-  "name": "Master of Strategic Studies",
   "code": "MSTST",
-  "year": 2016,
   "units": 96,
+  "name": "Master of Strategic Studies",
+  "year": 2016,
   "required": {
     "compulsory_courses": [
       "STST8001",

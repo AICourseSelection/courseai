@@ -1,12 +1,25 @@
 {
-  "name": "Master of Globalisation",
-  "code": "7156XMGLB",
-  "year": 2014,
   "units": 48,
+  "code": "7156XMGLB",
+  "name": "Master of Globalisation",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "POLS8031",
       "POLS8032"
+    ],
+    "x_from_here": [
+      {
+        "units": 12,
+        "type": "minimum",
+        "courses": [
+          "ANTH8042",
+          "ENVS6033",
+          "HIST8018",
+          "LAWS8182",
+          "SOCY6045"
+        ]
+      }
     ]
   }
 }

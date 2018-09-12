@@ -1,8 +1,8 @@
 {
-  "name": "Bachelor of Philosophy (Honours)",
-  "code": "APHAR",
-  "year": 2014,
   "units": 192,
+  "code": "APHAR",
+  "name": "Bachelor of Philosophy (Honours)",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "ARTS1101",

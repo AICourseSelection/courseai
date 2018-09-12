@@ -1,8 +1,8 @@
 {
-  "name": "Doctor of Medicine and Surgery",
   "code": "8950XMCHD",
-  "year": 2019,
   "units": 192,
+  "name": "Doctor of Medicine and Surgery",
+  "year": 2019,
   "required": {
     "compulsory_courses": [
       "MEDI8011",

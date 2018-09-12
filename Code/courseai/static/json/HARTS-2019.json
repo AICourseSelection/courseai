@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Arts (Honours)",
-  "code": "HARTS",
-  "year": 2019,
   "units": 10,
+  "code": "HARTS",
+  "name": "Bachelor of Arts (Honours)",
+  "year": 2019,
   "required": {}
 }

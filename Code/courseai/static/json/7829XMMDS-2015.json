@@ -1,8 +1,8 @@
 {
-  "name": "Master of Military and Defence Studies",
   "code": "7829XMMDS",
-  "year": 2015,
   "units": 72,
+  "name": "Master of Military and Defence Studies",
+  "year": 2015,
   "required": {
     "x_from_here": [
       {

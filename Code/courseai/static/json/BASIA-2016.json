@@ -1,21 +1,21 @@
 {
-  "name": "Bachelor of Asian Studies",
   "code": "BASIA",
-  "year": 2016,
   "units": 144,
+  "name": "Bachelor of Asian Studies",
+  "year": 2016,
   "required": {
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "level": [
-          1000
-        ],
-        "units": 60
-      }
-    ],
     "compulsory_courses": [
       "ASIA1025",
       "ASIA1030"
+    ],
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "units": 60,
+        "level": [
+          1000
+        ]
+      }
     ]
   }
 }

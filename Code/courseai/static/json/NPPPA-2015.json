@@ -1,8 +1,8 @@
 {
-  "name": "Master of Public Policy in Policy Analysis",
   "code": "NPPPA",
-  "year": 2015,
   "units": 96,
+  "name": "Master of Public Policy in Policy Analysis",
+  "year": 2015,
   "required": {
     "compulsory_courses": [
       "POGO8012",

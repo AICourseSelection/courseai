@@ -3,14 +3,10 @@
 #### Standup:
 * Tom: Researched the Q&A. Aiming to show a prototype of permission code generations.
 * Joseph: Frontend refactoring taking more time than expected. Needs to complete  refactoring and adding a couple of features by Monday. 
-* Thien: Got the pipeline for continuous development working. Hasn't been tested yet. Currently, the `deploy` branch is connected to the production server. * Manal: Scraped and parsed degrees from CBE, Science and some from Laws and ANU Wide. Update on communication with PPM: it should be possible to obtain the dataset of anonymised degree plans subject to PPM director approval.
+* Thien: Got the pipeline for continuous development working. Hasn't been tested yet. Currently, the `deploy` branch is connected to the production server. 
+* Manal: Scraped and parsed degrees from CBE, Science and some from Laws and ANU Wide. Update on communication with PPM: it should be possible to obtain the dataset of anonymised degree plans subject to PPM director approval.
 * Scarlett: Worked on the register and log in page.
 * Yong Wei: Worked on the deployment. Waiting for domain name approval. Found 6 more user testers.
-
-* Thien: Got the pipeline for continuous development working. Hasn't been tested yet. Currently, the `deploy` branch is connected to the production server. * Manal: Scraped and parsed degrees from CBE, Science and some from Laws and ANU Wide. Update on communication with PPM: it should be possible to obtain the dataset of anonymised degree plans subject to PPM director approval.
-* Scarlett: Worked on the register and log in page.
-* Yong Wei: Worked on the deployment. Waiting for domain name approval. Found 6 more user testers.
-
 
 #### TODO:
 * Tom: Work on demonstrating the permission code system for the audit.

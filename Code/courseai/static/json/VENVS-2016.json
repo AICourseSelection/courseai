@@ -1,8 +1,8 @@
 {
-  "name": "Master of Environmental Science (Advanced)",
   "code": "VENVS",
-  "year": 2016,
   "units": 1,
+  "name": "Master of Environmental Science (Advanced)",
+  "year": 2016,
   "required": {
     "x_from_here": [
       {

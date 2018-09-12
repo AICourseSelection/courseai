@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Diploma of Environmental and Resource Economics",
   "code": "6831XGDERE",
-  "year": 2014,
   "units": 48,
+  "name": "Graduate Diploma of Environmental and Resource Economics",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "IDEC8015",

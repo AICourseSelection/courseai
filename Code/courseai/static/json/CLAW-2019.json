@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Certificate of Law",
   "code": "CLAW",
-  "year": 2019,
   "units": 24,
+  "name": "Graduate Certificate of Law",
+  "year": 2019,
   "required": {
     "x_from_here": [
       {

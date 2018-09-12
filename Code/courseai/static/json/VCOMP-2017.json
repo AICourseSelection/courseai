@@ -1,8 +1,8 @@
 {
-  "name": "Master of Computing (Advanced)",
   "code": "VCOMP",
-  "year": 2017,
   "units": 96,
+  "name": "Master of Computing (Advanced)",
+  "year": 2017,
   "required": {
     "compulsory_courses": [
       "COMP6442",

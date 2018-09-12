@@ -1,8 +1,8 @@
 {
-  "name": "Master of Liberal Arts (Biographical Research and Writing)",
-  "code": "7107XMLABW",
-  "year": 2014,
   "units": 48,
+  "code": "7107XMLABW",
+  "name": "Master of Liberal Arts (Biographical Research and Writing)",
+  "year": 2014,
   "required": {
     "compulsory_courses": [
       "HIST8011",
@@ -10,8 +10,8 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
         "units": 24,
+        "type": "minimum",
         "courses": [
           "HIST6007",
           "HIST6110",
@@ -25,8 +25,8 @@
         ]
       },
       {
-        "type": "minimum",
         "units": 12,
+        "type": "minimum",
         "courses": [
           "HIST8004",
           "HIST8013"

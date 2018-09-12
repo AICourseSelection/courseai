@@ -1,24 +1,24 @@
 {
-  "name": "Bachelor of Middle Eastern and Central Asian Studies (Honours)",
-  "code": "HMECA",
-  "year": 2017,
   "units": 48,
+  "code": "HMECA",
+  "name": "Bachelor of Middle Eastern and Central Asian Studies (Honours)",
+  "year": 2017,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "LING4009",
-          "POLS4011"
-        ]
-      },
-      {
-        "type": "maximum",
         "units": 6,
+        "type": "maximum",
         "courses": [
           "LANG4004",
           "LING4010"
+        ]
+      },
+      {
+        "units": 12,
+        "type": "minimum",
+        "courses": [
+          "LING4009",
+          "POLS4011"
         ]
       }
     ]

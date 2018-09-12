@@ -1,8 +1,8 @@
 {
-  "name": "Graduate Certificate of Military Law",
   "code": "CMILL",
-  "year": 2019,
   "units": 24,
+  "name": "Graduate Certificate of Military Law",
+  "year": 2019,
   "required": {
     "compulsory_courses": [
       "LAWS8160",
