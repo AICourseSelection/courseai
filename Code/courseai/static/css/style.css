@@ -907,9 +907,10 @@ wrapper {
 
 }
 
-/* ----- USER PROFILES ----- */
-.load-btn {
-    margin-right: 5px;
+.btn-container > button {
+    width: calc(90% / 2);  
+    display: inline-block;
+    margin: 2%;
 }
 
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */

@@ -21,7 +21,7 @@ const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', '
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
 
-const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
+const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
 // UI Functions
 async function addDegree(code, year) {
