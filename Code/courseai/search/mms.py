@@ -15,17 +15,23 @@ def get_mms_data(es_conn, code):
 
 
 INDEX_NAMES = {
-        "MAJ": "majors", 
-        "MIN": "minors", 
-        "SPEC": "specialisations",
-        "HSPC": "specialisations"
+    "MAJ": "majors",
+    "MIN": "minors",
+    "SPEC": "specialisations",
+    "HSPC": "specialisations"
+}
+
+DEFAULT_QUERIES = {
+    "MAJ": "MAJ",
+    "MIN": "MIN",
+    "SPEC": "SPEC-HSPC",
+    "HSPC": "SPEC-HSPC"
 }
 
 
 def get_data(es_conn, index, code):
     response = Search(using=es_conn, index=INDEX_NAMES[index]).query("match",
-            code=code).execute().to_dict()  # the to_dict() works like magic
-
+                                                                     code=code).execute().to_dict()
     responses = response['hits']['hits']
     if not responses:
         return JsonResponse({})
@@ -34,7 +40,7 @@ def get_data(es_conn, index, code):
 
 
 def search_all(es_conn, index):
-    responses = Search(using=es_conn, index=INDEX_NAMES[index]).query("match", code=index)
+    responses = Search(using=es_conn, index=INDEX_NAMES[index]).query("match", code=DEFAULT_QUERIES[index])
     count = responses.count()
     result = responses[0:count].execute().to_dict()
     res = {'response': result['hits']['hits']}
@@ -43,10 +49,15 @@ def search_all(es_conn, index):
 
 def mms_by_name(es_conn, name, index_name):
     should = []
+
+    fields = []
+    for i in range(2014, 2020):
+        fields.append('versions.' + str(i) + '.title')
+
     for word in name.split(" "):
-        should.append(MultiMatch(query=word, type="phrase_prefix", fields=['name']))
+        should.append(MultiMatch(query=word, type="phrase_prefix", fields=fields))
     q = Q('bool', should=should, minimum_should_match=1)
-    response = Search(using=es_conn, index=index_name).query(q).execute().to_dict()  # the to_dict() works like magic
+    response = Search(using=es_conn, index=index_name).query(q).execute().to_dict()
 
     responses = response['hits']['hits']
 

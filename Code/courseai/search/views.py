@@ -3,7 +3,7 @@ from degree.course_data_helper import es_conn
 from . import mms, search
 
 import json
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 
 
 def index(request):
@@ -33,6 +33,7 @@ def index(request):
 
 
 def mms_request(request):
+    print("In MMS_Request")
     try:
         code = request.GET['query']
         return mms.get_mms_data(es_conn, code)
@@ -41,6 +42,7 @@ def mms_request(request):
 
 
 def all_majors(request):
+    print("In all_majors")
     try:
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'majors')
@@ -49,6 +51,7 @@ def all_majors(request):
 
 
 def all_minors(request):
+    print("in all_minors")
     try:
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'minors')
@@ -57,10 +60,8 @@ def all_minors(request):
 
 
 def all_specs(request):
+    print("in all_specs")
     try:
-        print("***")
-        print(list(request.GET.keys()))
-        print("***")
         name = request.GET['query']
         return mms.mms_by_name(es_conn, name, 'specialisations')
     except:
@@ -68,9 +69,7 @@ def all_specs(request):
 
 
 def course_lists(request):
-    global es_conn
-    print("***")
-    print(list(request.GET.keys()))
-    print("***")
+    # global es_conn
+
     query = request.GET['query']
     return mms.course_lists(es_conn, query)
