@@ -97,6 +97,7 @@ def store_plan(request):
     proc = QueryDict(data)
     # generate a random code
     code = get_random_string(length=10)
+    code = code.replace(" ","c")
     plan = DegreePlanStore(code=code, plan=proc['plan'])
     plan.save()
     res = JsonResponse({"response": code})
