@@ -71,10 +71,8 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                 }
             }
             else if (["x_from_category", "max_by_level"].includes(type)) {
-                const maxL = type === "max_by_level";
                 for (const i in req[type]) {
                     const section = req[type][i];
-                    if (section.type === "minimum" && maxL || section.type === "maximum" && !maxL) continue; // TODO: Handle min_by_level and max_by_category
                     let courseCodes = [];
                     let courseLevels = [];
                     let unitThreshold = 0;
@@ -85,7 +83,11 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                     let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
                     let section_codes = matches.map(c => c.code);
                     let section_sat = true;
-                    section_sat = (2 * maxL - 1) * (section_units - unitThreshold) <= 0;
+                    if (section.type === "minimum") section_sat = section_units >= unitThreshold;
+                    if (section.type === "maximum") section_sat = section_units <= unitThreshold;
+                    if (section.type === "min_max") {
+                        section_sat = section_units >= unitThreshold.minimum && section_units <= unitThreshold.maximum;
+                    }
                     overall_sat = overall_sat && section_sat;
                     rule_details.push({'type': type, 'sat': section_sat, 'units': section_units, 'codes': section_codes});
                 }

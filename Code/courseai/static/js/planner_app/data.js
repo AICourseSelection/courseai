@@ -4,7 +4,7 @@ let KNOWN_MMS = {};             // 2D Dictionary: (code, year) -> MMS object
 let KNOWN_DEGREES = {};         // 2D Dictionary: (code, year) -> Degree object
 let KNOWN_COURSE_LISTS = {};    // Dictionary: list name (e.g. CBE_List_1) -> List of codes
 
-let COURSE_REQUESTS = {};       // 2D Dictionary: (code, year) -> AJAX call to degree/coursedata
+let COURSE_REQUESTS = {};       // Dictionary: code -> AJAX call to degree/coursedata
 
 // Retrieve Data
 
@@ -12,103 +12,85 @@ let COURSE_REQUESTS = {};       // 2D Dictionary: (code, year) -> AJAX call to d
  * Batch retrieve course titles, and perform an action with each one.
  * Retrieve titles for all the courses at once.
  * Then, the function provided with each course code will be evaluated with the title as a parameter.
- * @param courses_actions   An object, mapping a course code to a list of functions.
+ * @param courses_actions   An object, mapping [code - year] (e.g. "COMP1100-2016") to a list of functions.
  */
-async function batchCourseTitles(courses_actions) {
-    let new_ca = {};
-    for (course in courses_actions) {
-        if (!(course in new_ca)) new_ca[course] = [];
-        for (const action of courses_actions[course]) {
-            new_ca[course].push(function (offering) {
-                action(offering.title);
-            })
-        }
-    }
-    await batchCourseOfferingActions(new_ca);
-}
+// async function batchCourseTitles(courses_actions) {
+//     let new_ca = {};
+//     for (combo in courses_actions) {
+//         if (!(combo in new_ca)) new_ca[combo] = [];
+//         for (const action of courses_actions[combo]) {
+//             new_ca[combo].push(function (offering) {
+//                 action(offering.title);
+//             })
+//         }
+//     }
+//     await batchCourseOfferingActions(new_ca);
+// }
 
 async function getCourseOffering(code, year) {
     if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
     if (!(year in KNOWN_COURSES[code])) {
-        if (year in (COURSE_REQUESTS[code] || {})) {  // Check if there is already a request to get this course
-            await COURSE_REQUESTS[code][year];      // Wait for that request to complete
-            return KNOWN_COURSES[code][year];       // The data has been retrieved, so return it
+        if (code in COURSE_REQUESTS) {   // Check if there is already a request to get this course.
+            await COURSE_REQUESTS[code]; // Wait for that request to complete.
         } else {
             const req = $.ajax({
                 url: 'degree/coursedata',
-                data: {'query': code},
+                data: {'codes': '["' + code + '"]'},
                 success: function (data) {
-                    const res = data.response;
-                    if (!code in KNOWN_COURSES) KNOWN_COURSES[code] = {};
-                    KNOWN_COURSES[code][year] = new CourseOffering(
-                        code, year,
-                        res.title,
-                        res.units || 6, // TODO: Fix for Course Units
-                        res.prerequisites,
-                        {
-                            'description': res.description,
-                            'prerequisite_text': res.prerequisite_text,
-                            'semester': res.semester    // TODO: Change for course sessions.
-                        },
-                        res['repeatable'] || false);
+                    recordCourseOfferings(code, data.response[code].versions);
                 },
             });
             if (!(code in COURSE_REQUESTS)) COURSE_REQUESTS[code] = {};
             COURSE_REQUESTS[code][year] = req;
             await req;
+            console.log();
         }
     }
-    return KNOWN_COURSES[code][year];
+    return KNOWN_COURSES[code][closestYear(code, year)];
 }
 
 /**
  * Batch retrieve course data, and perform an action with each one.
  * Retrieve data for all the courses at once.
  * Then, the function provided with each course code will be evaluated with the CourseOffering as a parameter.
- * @param courses_actions   An object, mapping a course code to a list of functions.
+ * @param courses_actions   An object, mapping [code - year] (e.g. "COMP1100-2016") to a list of functions.
+ * Can provide a course only to automatically operate on the closest available year to the current year.
  */
 async function batchCourseOfferingActions(courses_actions) {
     if ($.isEmptyObject(courses_actions)) return;   // TODO: Check for other pending requests and only request new codes.
     let codesToRetrieve = [];
-    for (const code in courses_actions) {
-        if (code in KNOWN_COURSES && KNOWN_COURSES[code][THIS_YEAR]) continue; // TODO: Fix for Course Years
+    for (const combo in courses_actions) {
+        const code = combo.split('-')[0];
+        // if (code in KNOWN_COURSES || code in COURSE_REQUESTS) continue;
+        if (code in KNOWN_COURSES) continue;
         codesToRetrieve.push(code);
     }
-    await $.ajax({
+    const req = $.ajax({
         url: 'degree/coursedata',
         data: {
-            'query': 'multiple',
             'codes': JSON.stringify(codesToRetrieve)
         },
         success: function (data) {
             console.log();
             for (const code in data.response) {
                 if (!(data.response.hasOwnProperty(code))) continue;
-                if (!(data.response)) continue;
-                const course = data.response[code];
-                const year = THIS_YEAR; //TODO: Fix for Course Years
-                const offering = new CourseOffering(
-                    code, year,
-                    course.title,
-                    course.units || 6, // TODO: Fix for Course Units
-                    course.prerequisites,
-                    {
-                        'description': course.description,
-                        'prerequisite_text': course.prerequisite_text,
-                        'semester': course.semester   // TODO: Change for course sessions.
-                    },
-                    course['repeatable'] || false);
-                if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
-                if (!(year in KNOWN_COURSES[code])) KNOWN_COURSES[code][year] = offering;
+                recordCourseOfferings(code, data.response[code].versions);
             }
-            for (const code in courses_actions) {
-                if (!((KNOWN_COURSES[code] || {})[THIS_YEAR])) continue; // Skip failed retrievals.
-                for (const action of courses_actions[code]) {
-                    action(KNOWN_COURSES[code][THIS_YEAR]); // TODO: Fix for Course Years
+            for (const combo in courses_actions) {
+                const code = combo.split('-')[0];
+                if ((!code in KNOWN_COURSES) || $.isEmptyObject(KNOWN_COURSES[code])) continue;
+                const year = closestYear(code, combo.split('-')[1] || THIS_YEAR);
+                for (const action of courses_actions[combo]) {
+                    action(KNOWN_COURSES[code][year]);
                 }
             }
         }
-    })
+    });
+    for (const code of codesToRetrieve) {
+        COURSE_REQUESTS[code] = req;
+    }
+    await req;
+    return await req; // This forces the planner to wait for the success callback? Don't know why its necessary.
 }
 
 async function getMMSOffering(code, year) {
@@ -183,20 +165,25 @@ async function getDegreeOffering(code, year) {
             }
 
         }
-        await $.ajax({
-            url: 'degree/degreeplan',
-            data: {
-                'query': code,
-                'start_year_sem': year + "S1"
-            },
-            success: function (data) {
-                const suggestedPlan = {};
-                for (const item of data.response) {
-                    for (const session in item) suggestedPlan[session] = item[session];
+        let defaultPlan;
+        try {
+            defaultPlan = await $.ajax({
+                url: 'degree/degreeplan',
+                data: {
+                    'degree_code': code,
+                    'year': year
                 }
-                KNOWN_DEGREES[code][year].suggestedPlan = suggestedPlan;
-            }
-        })
+            });
+        } catch (e) {
+            defaultPlan = {response: []};
+        }
+        const suggestedPlan = {};
+        let session = year + "S1"; // Starting value
+        for (const ses of defaultPlan.response) {
+            suggestedPlan[session] = ses;
+            session = nextSession(session, 3);
+        }
+        KNOWN_DEGREES[code][year].suggestedPlan = suggestedPlan;
     }
     return KNOWN_DEGREES[code][year];
 }
@@ -226,4 +213,46 @@ function preparePlanForUpload(plan) {
     return sessions;
 }
 
-// function generateBlankDegreePlan()
+// Helpers
+function recordCourseOfferings(code, offerings) {
+    for (const year in offerings) {
+        let data = offerings[year];
+
+        if (Object.keys(data)[0] === "sessions" && Object.keys(data).length === 1) {
+            data = offerings[year - 1];
+            data.sessions = offerings[year].sessions;
+        }
+
+        if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};
+        KNOWN_COURSES[code][year] = new CourseOffering(
+            code, year,
+            data.title,
+            data.units,
+            data.prerequisites || [],
+            {
+                'description': data.description,
+                'prerequisite_text': data.prerequisite_text,
+                'sessions': data.sessions || [],
+                'majors': data.majors || [],
+                'minors': data.minors || [],
+                'areas_of_interest': data.areas_of_interest,
+                'convener': data.convener,
+                'learning_outcomes': data.learning_outcomes,
+            },
+            data['repeatable'] || false);
+    }
+}
+
+function closestYear(code, year) {
+    const availableYears = Object.keys(KNOWN_COURSES[code]);
+    if (year in availableYears) return year;
+    const maxYear = Math.max(...availableYears);
+    const minYear = Math.min(...availableYears);
+    if (year >= maxYear) return maxYear;
+    if (year <= minYear) return minYear;
+    for (let i = 1; i <= Math.max(maxYear - year, year - minYear); i++) {
+        if ((year + i) in availableYears) return year + i;
+        if ((year - i) in availableYears) return year - i;
+    }
+    return THIS_YEAR; // Fallback, but code should never reach here.
+}
