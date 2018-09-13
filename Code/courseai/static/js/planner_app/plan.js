@@ -265,6 +265,35 @@ function Plan() {
         this.changesMade = true;
         this.warnings = [];
     };
+    
+    this.serializeSimple = function() {
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1;
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+        let saved = {
+            degrees: [],
+            trackedMMS: [],
+            date: day + "/" + month + "/" + year
+        }
+        
+        for (const degree of this.degrees) {
+            saved.degrees.push({
+                code: degree.code,
+                year: degree.year
+            })
+        }
+        
+        for (const mms of this.trackedMMS) {
+            saved.trackedMMS.push({
+                code: mms.code,
+                year: mms.year
+            })
+        }
+        
+        if (this.startSem) saved.startSem = this.startSem;
+        return JSON.stringify(saved);
+    }
 
     this.serialize = function () {
         let saved = {
