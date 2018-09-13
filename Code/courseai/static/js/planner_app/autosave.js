@@ -18,7 +18,8 @@ function AutoSave(plan, code) {
 
     this.save = function () {
         if (!(this.plan.changesMade)) return;    // Check if the plan needs saving.
-        if (loggedIn && this.code) { // save to the users profile
+        
+        if (loggedIn && this.code) { // update degree plan details on the user's profile
             $.ajax({
                 url: 'accounts/degree_plan_view',
                 method: 'PUT',
@@ -32,36 +33,36 @@ function AutoSave(plan, code) {
                     console.log("Degree plan saved to user profile." );
                 }
             })
-        } else {
-            if (this.code) {    // Code present. Use update endpoint.
-                $.ajax({
-                    url: 'degree/stored_plans',
-                    method: 'PUT',
-                    data: {
-                        "code": this.code,
-                        "plan": this.plan.serialize()
-                    },
-                    dataType: 'json',
-                    contentType: 'application/json',
-                })
-            } else {    // Code not present. Use store endpoint.
-                const autoSaver = this;
-                $.ajax({
-                    url: 'degree/stored_plans',
-                    method: 'POST',
-                    data: {
-                        "plan": this.plan.serialize()
-                    },
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        console.log('store success, code = ' + data.response);
-                        if (data.response) autoSaver.code = data.response;
-                        CS.setCode(data.response);  // Store the new code in a cookie.
-                        save_code = data.response; // TODO: Find a way to uncouple these two lines.
-                    }
-                })
-            }
+        }
+        
+        if (this.code) {    // Code present. Use update endpoint.
+            $.ajax({
+                url: 'degree/stored_plans',
+                method: 'PUT',
+                data: {
+                    "code": this.code,
+                    "plan": this.plan.serialize()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+            })
+        } else {    // Code not present. Use store endpoint.
+            const autoSaver = this;
+            $.ajax({
+                url: 'degree/stored_plans',
+                method: 'POST',
+                data: {
+                    "plan": this.plan.serialize()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log('store success, code = ' + data.response);
+                    if (data.response) autoSaver.code = data.response;
+                    CS.setCode(data.response);  // Store the new code in a cookie.
+                    save_code = data.response; // TODO: Find a way to uncouple these two lines.
+                }
+            })
         }
         this.plan.changesMade = false;
     };

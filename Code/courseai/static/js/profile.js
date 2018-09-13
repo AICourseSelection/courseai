@@ -40,9 +40,9 @@ function stringifyDegrees(degreesList) {
 
 function stringifyMMS(mmsList) {
     str = "";
-    for (var i = 0; i < mmsList; i++) {
+    for (var i = 0; i < mmsList.length; i++) {
         if (i != 0) str += ", ";
-        str += mmsList[i];
+        str += mmsList[i].code;
     }
     return str;
 }
@@ -69,7 +69,7 @@ $.ajax({
                 let code = plans[i][0];
                 let row = $('<tr>');
                 let btnsCol = $('<td class="w-25" align="right"/>');
-                let startYear = calculateStartYear(obj.degrees);                           
+                let startYear = calculateStartYear(obj.degrees);                
                              
                 row.append('<td class="">' + plans[i][0] + '</td>');                                    // code
                 row.append('<td class="">' + stringifyDegrees(obj.degrees) + '</td>');                  // degrees
