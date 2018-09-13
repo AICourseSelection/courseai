@@ -907,6 +907,23 @@ wrapper {
 
 }
 
+/* ----- USER PROFILE TABLE ----- */
+/* Code by ConnorsFan from https://stackoverflow.com/questions/17012421/auto-number-table-rows */
+
+table {
+    counter-reset: rowNumber;
+}
+
+table tr > td:first-child {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}
+
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
     0%, 100% {
