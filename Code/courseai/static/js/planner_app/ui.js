@@ -1,10 +1,10 @@
 // Reference Constants
 const SESSION_WORDS = {
     'Su': 'Summer Session',
-    'S1': 'Semester 1',
+    'S1': 'First Semester',
     'Au': 'Autumn Session',
     'Wi': 'Winter Session',
-    'S2': 'Semester 2',
+    'S2': 'Second Semester',
     'Sp': 'Spring Session'
 };
 
@@ -20,6 +20,8 @@ let compulsoryCourseCodes = [];
 const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'mms-course-list0', 'added-elective', 'compulsory']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
+
+const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
 
 // UI Functions
 async function addDegree(code, year) {
@@ -39,8 +41,10 @@ async function addDegree(code, year) {
 
 function clearAllCourses() {
     PLAN.clearAllCourses();
+    PLAN.clearWarnings();
     for (let box of $('#plan-grid').find('.plan-cell')) {
         $(box).popover('dispose');
+        if ($(box).find('.course-code').text() !== ELECTIVE_TEXT) $(box).draggable('destroy');
         makeSlotDroppable($(box));
         $(box).find('.course-code').text(ELECTIVE_TEXT);
         $(box).find('.course-title').text('');
@@ -51,9 +55,51 @@ function clearAllCourses() {
 }
 
 function resetPlan() {
-    clearAllCourses();
-    $('#plan-grid').empty();
-    loadDefaultPlan();
+    SAVER.disableSaving();
+    clearPlanner();
+    setupPlanner(true);
+}
+
+function addLinearGradient(colorClasses, box) {
+    const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
+    for (var j = 0; j < cssBrowserGradients.length; j++) {
+        let cssBackgroundStr = cssBrowserGradients[j] + 'linear-gradient(135deg';
+
+        let percent = 100 / colorClasses.length;
+        for (var i = 0; i < colorClasses.length; i++) {
+            let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
+            // add additional color stop to create hard lines between colors
+            if (i > 0 && i < colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+            }
+            cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
+        }
+        cssBackgroundStr += ')';
+        box.css('background', cssBackgroundStr);
+    }
+}
+
+// TODO: remove if not used later
+function addRepeatingLinearGradient(colorClasses, box) {
+    const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
+    for (var j = 0; j < cssBrowserGradients.length; j++) {
+        let cssBackgroundStr = cssBrowserGradients[j] + 'repeating-linear-gradient(135deg';
+
+        const percent = 2;
+        cssBackgroundStr += ',' + colorMappings[colorClasses[0]];
+        for (var i = 0; i < colorClasses.length; i++) {
+            // add additional color stop to create hard lines between colors
+            if (i > 0 && i < colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
+            }
+
+            if (i !== colorClasses.length - 1) {
+                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * (i + 1)) + "%";
+            }
+        }
+        cssBackgroundStr += ')';
+        box.css('background', cssBackgroundStr);
+    }
 }
 
 function addColor(box, code) {
@@ -76,24 +122,7 @@ function addColor(box, code) {
     let colorClasses = existingClasses.filter(f => COLOR_CLASSES.includes(f));
 
     // create gradient for the card
-    if (colorClasses.length > 1) {
-        const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
-        for (var j = 0; j < cssBrowserGradients.length; j++) {
-            let cssBackgroundStr = cssBrowserGradients[j] + 'linear-gradient(180deg';
-
-            let percent = 100 / colorClasses.length;
-            for (var i = 0; i < colorClasses.length; i++) {
-                let divisions = (i == colorClasses.length - 1) ? 100 - percent : (i + 1) * percent;
-                // add additional color stop to create hard lines between colors
-                if (i > 0 && i < colorClasses.length - 1) {
-                    cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
-                }
-                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + divisions + "%";
-            }
-            cssBackgroundStr += ')';
-            box.css('background', cssBackgroundStr);
-        }
-    }
+    if (colorClasses.length > 1) addLinearGradient(colorClasses, box);
 }
 
 function makeElective(box, session, code) {
@@ -111,7 +140,7 @@ function removeCourseInPlanner(code) {
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row).find('.first-cell');
         const session = first_cell.find('.row-ses').text();
-        $(row).children(".plan-cell").each(function() {
+        $(row).children(".plan-cell").each(function () {
             const cellCode = $(this).find('.course-code').text();
             if (cellCode === code) {
                 makeElective($(this), session, code);
@@ -155,15 +184,29 @@ function removeCourse(session, position) {
     updateRecommendations();
 }
 
+function toggleFilter(type, data) {
+    if (SEARCH.getFilter(type, data)) deleteFilter(type, data);
+    else addFilter(type, data);
+}
+
+function deleteFilter(type, data) {
+    $('#filter-icons').find('.badge').filter(function (_, badge) {
+        return $(badge).text().slice(0, -1) === SEARCH.getFilter(type, data).toString();
+    }).remove();
+    $($('#show-filters').data('bs.popover').tip).find('#filter-buttons button').filter(function (_, badge) {
+        return $(badge).text() === data;
+    }).removeClass('active');
+    SEARCH.deleteFilter(type, data);
+    search(true);
+}
+
 function addFilter(type, data) {
-    if (SEARCH.getFilter(type, data)) return;
     const filter = SEARCH.addFilter(type, data);
+    if (!filter) return; // Stop if filter is already present
     let filter_icon = $('<span class="badge badge-primary">' + filter + '</span>');
     let delete_button = $('<a class="filter-delete">×</a>');
     delete_button.click(function () {
-        SEARCH.deleteFilter(type, data);
-        filter_icon.remove();
-        search(true);
+        deleteFilter(type, data);
     });
     filter_icon.append(delete_button);
     $('#filter-icons').append(filter_icon, ' ');
@@ -172,7 +215,7 @@ function addFilter(type, data) {
 
 // add color class for all cards in the search list
 function colorSearchList() {
-    $('#results-courses').find('.draggable-course').each(function() {
+    $('#results-courses').find('.draggable-course').each(function () {
         var code = $(this).find('.course-code').text();
         addColor($(this), code);
     });
@@ -181,7 +224,7 @@ function colorSearchList() {
 // add color class for the matching MMS card in planner
 function colorPlannerCards() {
     for (let row of $('#plan-grid').find('.plan-row')) {
-        $(row).children(".plan-cell").each(function() {
+        $(row).children(".plan-cell").each(function () {
             var code = $(this).find('.course-code').text()
             addColor($(this), code);
         });
@@ -219,9 +262,9 @@ async function mms_add(code, year) {
         '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#mms-active-' + identifier + '">\n' +
         '    <span class="mms-code">' + code + '</span>\n' +
         '    <span class="mms-year">' + year + '</span>\n' +
-        '    <strong>' + MMS_TYPE_PRINT[mms.type] + '</strong>: ' + mms.title + '\n' +
         '    <button class="mms-delete btn btn-danger" onclick="deleteMMS(this)">×</button>\n' +
         '    <span class="unit-count mr-2">0/' + mms.units + '</span>\n' +
+        '    <strong>' + MMS_TYPE_PRINT[mms.type] + '</strong>: ' + mms.title + '\n' +
         '</div>');
     let collapsible = $(
         '<div id="mms-active-' + identifier + '" class="collapse show">' +
@@ -233,7 +276,7 @@ async function mms_add(code, year) {
     collapsible.sortable({
         items: "> .mms-select-min, .mms-select-max"
     });
-    let titles_fill_nodes = {};
+    let courses_actions = {};
 
     let mmsCourseCodes = [];
     let colorIndex = getColorClassIndex(code);
@@ -244,15 +287,13 @@ async function mms_add(code, year) {
             let course_list = $('<div id="mms-active-' + identifier + '-select' + i + '" class="collapse show"/>');
             for (let course of value.course) {
                 let title_node = $('<span class="course-title"/>');
-                if (course.code in KNOWN_COURSES && year in KNOWN_COURSES[course.code]) {
-                    title_node.text(KNOWN_COURSES[course.code][year].title)
-                }
-                else {
-                    if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                    titles_fill_nodes[course.code].push(function (title) {
-                        title_node.text(title);
-                    });
-                }
+                let year_node = $('<span class="course-year"/>');
+                if (!(course.code in courses_actions)) courses_actions[course.code] = [];
+                courses_actions[course.code].push(function (offering) {
+                    title_node.text(offering.title);
+                    year_node.text(offering.year);
+                    makeCourseDraggable(item, course.code, offering.year);
+                });
                 let item = $(
                     '<div class="list-group-item list-group-item-action draggable-course result-course">' +
                     '    <span class="course-code">' + course.code + '</span> ' +
@@ -261,7 +302,7 @@ async function mms_add(code, year) {
                 item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 item.append(title_node);
-                makeCourseDraggable(item, course.code);
+                item.append(year_node);
                 item.each(coursePopoverSetup);
                 course_list.append(item);
                 required.append(course_list);
@@ -281,25 +322,23 @@ async function mms_add(code, year) {
             if (value.type === 'maximum') select.addClass('alert-success');
             let options = $('<div class="mms-optional list-group list-group-flush"/>');
             for (let course of value.course) {
-                let title_node = $('<span class="course-title"/>');
-                if (course.code in KNOWN_COURSES && year in KNOWN_COURSES[course.code]) {
-                    title_node.text(KNOWN_COURSES[course.code][year].title)
-                }
-                else {
-                    if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                    titles_fill_nodes[course.code].push(function (title) {
-                        title_node.text(title);
-                    });
-                }
                 let list_item = $(
                     '<div class="list-group-item list-group-item-action draggable-course result-course">' +
                     '    <span class="course-code">' + course.code + '</span> ' +
                     '</div>'
                 );
+                let title_node = $('<span class="course-title"/>');
+                let year_node = $('<span class="course-year"/>');
+                if (!(course.code in courses_actions)) courses_actions[course.code] = [];
+                courses_actions[course.code].push(function (offering) {
+                    title_node.text(offering.title);
+                    year_node.text(offering.year);
+                    makeCourseDraggable(list_item, course.code, offering.year);
+                });
                 list_item.addClass(MMS_CLASS_NAME + colorIndex);
                 mmsCourseCodes.push(course.code);
                 list_item.append(title_node);
-                makeCourseDraggable(list_item, course.code);
+                list_item.append(year_node);
                 list_item.each(coursePopoverSetup);
                 options.append(list_item);
             }
@@ -313,7 +352,7 @@ async function mms_add(code, year) {
             collapsible.append(select);
         }
     }
-    mmsCourseCodes.concat.apply([], mmsCourseCodes)
+    mmsCourseCodes.concat.apply([], mmsCourseCodes);
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes[code] = mmsCourseCodes;
 
     mms_card.append(card_header);
@@ -325,7 +364,7 @@ async function mms_add(code, year) {
     else $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')).find('.collapse').collapse('hide');
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
-    await batchCourseTitles(titles_fill_nodes);
+    await batchCourseOfferingActions(courses_actions);
     updateProgress();
 
     colorSearchList();
@@ -335,12 +374,11 @@ async function mms_add(code, year) {
 async function deleteMMS(button) {
     const code = $(button).parent().find('.mms-code').text();
     const year = $(button).parent().find('.mms-year').text();
-    const mms = await getMMSOffering(code, year);
     let colorIndex = getColorClassIndex(code);
     delete allMMSCourseCodes[code];
     let mmsClassName = MMS_CLASS_NAME + colorIndex;
     $("." + mmsClassName).removeClass(mmsClassName); // remove the class from all elements
-    PLAN.trackedMMS.splice(PLAN.trackedMMS.indexOf(mms), 1); // Delete from the plan.
+    PLAN.removeMMS(code, year); // Delete from the plan.
     $(button).parents('.mms').find('.result-course').popover('dispose');
     $(button).parents('.mms').remove();
     if ($('#mms-active-list').children().length === 0) $('#mms-list-placeholder').removeClass('d-none');
@@ -364,69 +402,66 @@ async function updateClassColorMapping(colorClassName) {
 }
 
 async function updateColorMappings() {
-    COLOR_CLASSES.forEach(function(e) {
-       updateClassColorMapping(e);
+    COLOR_CLASSES.forEach(function (e) {
+        updateClassColorMapping(e);
     });
 }
 
 // Startup Section
-let PLAN = new Plan();
+let CS = new CookieStore();
+if (!(save_code)) { // Use the cookie if no save_code was given from the server.
+    console.log('No save code provided, checking cookie. ');
+    save_code = CS.getCode();
+}
+
+let PLAN = new Plan(start_year, start_sem);
 let SEARCH = new Search(PLAN);
-let starting_degree = addDegree(degree_code, start_year);
-$.when(starting_degree.then(async function (degree) {
-    updateColorMappings();
-    const singleReqsList = $('#degree-reqs-list');
-    singleReqsList.hide();
-    setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
+let SAVER = new AutoSave(PLAN, save_code);
+setupPlanner();
 
-    if (degree_code2) await addDegree(degree_code2, start_year);
-    else singleReqsList.show();
+updateColorMappings();
 
-    let total_units = PLAN.degrees[0].units;
-    if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
-    for (let i = 0; i < total_units / 24; i++) {
-        PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
-    }
-    loadDefaultPlan();
-}));
-
-let rc_button = $('#rc-button');
-
-rc_button.click(function () {
+$('#rc-button').click(function () {
     $('#rc-modal').modal();
 });
 
-$('#upload-button').click(function () {
-    $('#upload-modal').modal();
+$('#save-button').click(function () {
+    $('#save-code').text(save_code);
+    $('#save-modal').modal();
 });
 
-$('#confirm-upload-button').click(function () {
+$('#load-plan-button').click(function () {
+    const code = $('#save-code-box').val().trim();
+    if (!code) return;
+    $('#code-wrong').hide();
     $.ajax({
-        type: 'PUT',
-        url: 'degree/degreeplan',
-        data: JSON.stringify({
-            "code": degree_code,
-            "courses": preparePlanForUpload(PLAN)
-        }),
-        headers: {
-            "Content-Type": "application/json"
+        url: 'degree/stored_plans',
+        method: 'GET',
+        data: {"query": code},
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            save_code = code;
+            CS.setCode(code);
+            SAVER.code = code;
+            $('#save-modal').modal('hide');
+            $('#save-code-box').val("");
+            clearPlanner();
+            setupPlanner();
         },
-        success: function () {
-            $('#degree-submit-success').removeClass('d-none');
-        },
-        error: function () {
-            $('#degree-title').after('<div class="alert alert-danger alert-dismissible fade show mx-auto mb-0" role="alert">\n' +
-                '  Could not submit degree plan. Please try again. \n' +
-                '  <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
-                '    <span aria-hidden="true">&times;</span>\n' +
-                '  </button>\n' +
-                '</div>');
+        error: function (data) {
+            if (data.responseJSON.response !== "no matching plan found") return;
+            $('#code-wrong').show();
         }
-    })
+    });
 });
 
 $('#degree-submit-success').find('button.close').click(function () {
     $('#degree-submit-success').addClass('d-none');
+});
+
+$('#load-failed-notice').find('button.close').click(function () {
+    $('#load-failed-notice').addClass('d-none');
 });
 
 $('#confirm-clear-button').click(clearAllCourses);
@@ -463,24 +498,24 @@ $('#results-majors, #results-minors, #results-specs').on('hide.bs.collapse', fun
 
 $('#show-filters').popover({
     trigger: 'click',
-    title: 'Search Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
+    title: 'Add Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
     placement: 'right',
     html: true,
     content: '<form onsubmit="return filterSubmit(this)">\n' +
     '<div class="form-row" style="padding: 0 5px">' +
-    '<label for="code-input">Filter course codes: </label></div>\n' +
+    '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
     '<div class="form-row" style="padding: 0 5px">\n' +
     '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
     '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
     '</div>\n' +
-    '<div class="form-row" style="padding: 0 5px"><label>Filter course level: </label></div>\n' +
-    '<div class="form-row">\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'1000\')">1000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'2000\')">2000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'3000\')">3000</button></div>\n' +
-    '    <div class="col-3"><button class="btn btn-outline-primary btn-sm" onclick="addFilter(\'level\', \'4000\')">4000</button></div>\n' +
+    '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
+    '<div id="filter-buttons" class="form-row">\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
     '</div>\n' +
-    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in the plan. </div>\n' +
+    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
     '</form>' +
     '',
     template: '<div class="popover filters-panel" role="tooltip">\n' +
@@ -489,6 +524,16 @@ $('#show-filters').popover({
     '    <div class="popover-body"></div>\n' +
     '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
     '</div>'
+}).on('shown.bs.popover', function () {
+    const popover = $(this).data('bs.popover');
+    const buttons = $(popover.tip).find('#filter-buttons button');
+    for (const b of buttons) {
+        $(b).on('click', function () {
+            $(b).toggleClass('active');
+            toggleFilter('level', $(b).text());
+        });
+        if (SEARCH.getFilter('level', $(b).text())) $(b).toggleClass('active');
+    }
 });
 
 $('#mms-active-list').sortable();
@@ -497,7 +542,6 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
     $('#left-panel').find('.result-course').popover('hide');
     $('#show-filters').popover('hide');
 });
-
 
 // Event Handlers
 function cycleDegrees() {
@@ -532,8 +576,7 @@ function clearElectiveHighlights() {
 
 async function coursePopoverData(cell, descriptionOnly = false) {
     const code = $(cell).find('.course-code').text();
-    const year = $(cell).find('.course-year').text() || THIS_YEAR; // Current year, for popovers on courses that are not in the plan table.
-    // TODO: Fix for course years. Likely require server-side input (to search results) on the most recent year available.
+    const year = $(cell).find('.course-year').text();
     const me = cell;
     $(cell).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if (this !== me) $(this).popover('hide');
@@ -551,11 +594,10 @@ async function coursePopoverData(cell, descriptionOnly = false) {
             '<div class="result-description">' + truncated_description + '</div>\n';
     }
     if (!descriptionOnly) {
-        const semesters = offering.extras['semester'];
+        const semesters = offering.extras['sessions'];
         if (![undefined, 'nan'].includes(semesters)) {
-            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard semesters</h6>';
-            else if (semesters.length === 2) html += '<h6 class="mt-2">Available in both semesters</h6>';
-            else html += '<h6 class="mt-2">Available in Semester ' + semesters[0] + '</h6>';
+            if (semesters.length === 0) html += '<h6 class="mt-2">Not available in standard sessions</h6>';
+            else html += '<h6 class="mt-2">Available in: ' + semesters.reduce((x, y) => x + ', ' + y) + '</h6>';
         }
 
         if (![undefined, 'nan'].includes(offering.extras['prerequisite_text'])) {
@@ -564,57 +606,60 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         }
     }
     html += '<h6 class="mt-2">Related Courses</h6>\n';
-    curr_popover.find('.popover-body').append(html);
-    curr_popover.find('.popover-body').append('<div class="related-courses list-group"/>');
+    curr_popover.find('.popover-body').prepend('<div class="related-courses list-group"/>');
+    curr_popover.find('.popover-body').prepend(html);
 
     const first_cell = $(cell.parentElement.firstElementChild);
     let session = year;
     if (first_cell.hasClass('first-cell')) session += first_cell.find('.row-ses').text().slice(4);
     else session += "S1"; // Placeholder session for courses which are not in the degree plan.
-    let res = {};
-    await $.ajax({
+    let res = await $.ajax({
         url: 'recommendations/recommend',
         data: {
-            'code': degree_code,
+            'code': PLAN.degrees[0].code, // TODO: Fix for FDD recommendations
             'courses': JSON.stringify([{[session]: [{"code": code}]}])
-        },
-        success: function (data) {
-            res = data;
-        },
+        }
     });
-    let titles_fill_nodes = {};
+    let courses_actions = {};
     let group = curr_popover.find('.related-courses');
+    let recCourses = [];
+    for (const clause of offering.rules) {
+        for (const item of clause) {
+            if (/^[A-Z]{4}[0-9]{4}/.test(item)) recCourses.push({
+                'course': item,
+                'reasoning': 'This is a prerequisite course.'
+            });
+        }
+    }
     for (const course of res.response) {
+        if (recCourses.map(x => x.course).includes(course.course)) continue;
+        recCourses.push(course);
+    }
+    for (const course of recCourses) {
         const code = course.course;
-        const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
         const reason = course.reasoning;
 
         let item = $(
             '<div class="draggable-course result-course list-group-item list-group-item-action">\n' +
             '    <span class="course-code">' + code + '</span>\n' +
-            '    <span class="course-year">' + year + '</span>\n' +
             '</div>\n');
+        let year_node = $('<span class="course-year"></span>');
         let title_node = $('<span class="course-title"></span>');
-        if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
-            title_node.text(KNOWN_COURSES[code][year].title)
-        }
-        else {
-            if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-            titles_fill_nodes[code].push(function (title) {
-                title_node.text(title);
-            });
-        }
+        if (!(code in courses_actions)) courses_actions[code] = [];
+        courses_actions[code].push(function (offering) {
+            title_node.text(offering.title);
+            year_node.text(offering.year);
+            makeCourseDraggable(item, code, offering.year);
+        });
         item.append(title_node);
         item.append('<div class="course-reason">' + reason + '</div>');
-        makeCourseDraggable(item, code, year);
-        item.each(coursePopoverSetup);
         group.append(item);
     }
+    await batchCourseOfferingActions(courses_actions);
     html += group[0].outerHTML;
     curr_popover.find('.fa-sync-alt').parent().removeClass('d-flex').addClass('d-none');
     popover.config.content = html;
     popover['data-received'] = true;
-    await batchCourseTitles(titles_fill_nodes);
 }
 
 async function mmsPopoverData() {
@@ -680,6 +725,7 @@ function search(coursesOnly = false) {
 function dropOnSlot(event, ui) {
     ui.draggable.draggable("option", "revert", false);
     $(this).removeClass('active-drop');
+    makePlanCellDraggable($(event.target));
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
     const code = ui.draggable.find('.course-code').text();
@@ -704,14 +750,7 @@ function dropOnSlot(event, ui) {
         override_button.off('click');
         override_button.click(function () {
             addCourse(code, title, session, position);
-            let warning = new Warning("CourseForceAdded", code, [function () {
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $(event.target).offset().top - $(window).height() * 3 / 10
-                }, 500);
-                $(event.target).animate({boxShadow: '0 0 25px #007bff'});
-                $(event.target).animate({boxShadow: '0 0 0px #007bff'});
-            }]);
-            PLAN.warnings.push(warning);
+            PLAN.addWarning("CourseForceAdded", code, [makeScrollAndGlow($(event.target))]);
             updateWarningNotices();
         });
         modal.modal();
@@ -721,8 +760,21 @@ function dropOnSlot(event, ui) {
 }
 
 function filterSubmit(form) {
-    const code = $(form).find('input[type=text]').val().toUpperCase();
-    if (code) addFilter('code', code);
+    const input = $(form).find('input[type=text]');
+    const code = input.val().toUpperCase();
+    if (code && /^[A-Z]{4}$/.test(code) && !SEARCH.getFilter('code', code)) {
+        addFilter('code', code);
+        input.val('');
+        input.css('background-color', '');
+        input.css('color', '');
+    } else {
+        input.css('background-color', '#f8d7da');
+        input.css('color', '#721c24');
+        input.keydown(function () {
+            $(this).css('background-color', '');
+            $(this).css('color', '');
+        })
+    }
     return false;
 }
 
@@ -741,6 +793,94 @@ async function mms_click_add() {
 }
 
 // Event Functions
+function clearPlanner() {
+    PLAN = new Plan();  // Reset in case we are loading a plan on the user's request.
+    SAVER.plan = PLAN;
+    SEARCH.plan = PLAN;
+    $('#plan-grid').empty();
+    $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')).find('.degree-body').empty();
+}
+
+async function setupPlanner(ignoreSaveCode = false) {
+    if (!save_code || ignoreSaveCode) {
+        PLAN.startSem = start_sem;
+        let startingDegree = await addDegree(degree_code, start_year);
+        const singleReqsList = $('#degree-reqs-list');
+        singleReqsList.hide();
+        setupDegreeRequirements(singleReqsList.find('.degree-body'), startingDegree);
+
+        if (degree_code2) await addDegree(degree_code2, start_year);
+        else singleReqsList.show();
+
+        let total_units = PLAN.degrees[0].units;
+        if (PLAN.degrees[1]) total_units += PLAN.degrees[1].units;
+        for (let i = 0; i < total_units / 24; i++) {
+            PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
+        }
+        setupGrid();
+        loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+    }
+    else { // Loading from save
+        console.log('Loading found save code (' + save_code + ').');
+        clearPlanner();
+        let plan;
+        try {
+            plan = (await $.ajax({
+                url: 'degree/stored_plans',
+                method: 'GET',
+                data: {"query": save_code},
+                dataType: 'json',
+                contentType: 'application/json'
+            })).response;
+        } catch (e) {
+            if (e.responseJSON.response === "no matching plan found") {
+                $('#load-failed-notice').removeClass('d-none');
+            }
+            save_code = undefined;
+            SAVER.code = save_code;
+            return setupPlanner();
+        }
+        start_year = plan.degrees[0].year;
+        start_sem = plan.startSem;
+
+        PLAN.startSem = plan.startSem;
+        const degree = await addDegree(plan.degrees[0].code, plan.degrees[0].year);
+        degree_code = degree.code;
+        degree_name = degree.title;
+        const singleReqsList = $('#degree-reqs-list');
+        const multiReqsList = $('#degree-reqs');
+        singleReqsList.hide();
+        multiReqsList.hide();
+        setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
+        if (plan.degrees[1]) {
+            multiReqsList.show();
+            const degree2 = await addDegree(plan.degrees[1].code, plan.degrees[1].year);
+            degree_code2 = degree2.code;
+            degree_name2 = degree2.title;
+        }
+        else {
+            singleReqsList.show();
+            degree_code2 = degree_name2 = "";
+        }
+        for (const session of plan.sessions) PLAN.addSession(session);
+        for (const mms of plan.trackedMMS) mms_add(mms.code, mms.year);
+        setupGrid();
+        loadCourseGrid(plan.courses);
+        for (const warning of plan.warnings) {
+            const actions = [];
+            for (const action of warning.actions) { // Reconstruct the action functions
+                if (action.type === "scroll-and-glow") {
+                    const row = $('.plan-row').filter((_, x) => $(x).find('.row-ses').text() === action.session);
+                    const target = row.children().filter((_, x) => $(x).find('.course-code').text() === action.code);
+                    actions.push(makeScrollAndGlow($(target)));
+                }
+            }
+            PLAN.addWarning(warning.type, warning.text, actions);
+        }
+        updateWarningNotices();
+    }
+}
+
 function reorganiseDegreeTracker(double) {
     const reqs = $('#degree-reqs');
     const reqSingle = $('#degree-reqs-list');
@@ -750,15 +890,15 @@ function reorganiseDegreeTracker(double) {
         reqs.show();
         reqSingle.find('.degree-body').children().appendTo($(tabsContent.children()[0]).find('.degree-body'));
         const headerUnitCount = $(tabsContent.children()[0]).find('.degree-header .unit-count');
-        headerUnitCount.text( headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
+        headerUnitCount.text(headerUnitCount.text().split('/')[0] + '/' + PLAN.degrees[0].units + ' units');
         setupDegreeRequirements($(tabsContent.children()[1]).find('.degree-body'), PLAN.degrees[1]);
         const tabs = $('#degree-tabs');
         for (const i in PLAN.degrees) {
             $(tabs.find('a')[i]).text(PLAN.degrees[i].title);
         }
         tabs.find('a').last().tab('show'); // Show the last (2nd) tab.
+        $('.degree-selector-title').text(PLAN.degrees[1].title); // Show the title of the 2nd degree.
         if (degree_code2) $('#degree-selector').find('.nav-arrow.right').click(); // If starting with 2 degrees, go to the first tab.
-        // This also puts the title into the display box.
     } else {
         reqs.hide();
         reqSingle.show();
@@ -775,93 +915,298 @@ function reorganiseDegreeTracker(double) {
     }
 }
 
-function loadDefaultPlan() {
-    let titles_fill_nodes = {};
+function removeAddRows(row) {
+    row.addClass('add-row-wrapper');
+
+    if (row.next().hasClass('add-row-wrapper')) row = row.next();
+
+    // remove all add rows
+    for (var i = 0; i < 3 && row.hasClass('add-row-wrapper'); i++) {
+        let prev = row.prev();
+        row.remove();
+        row = prev;
+    }
+
+    // return the row before the add chain
+    return row;
+}
+
+function createRemoveSessionBtn(session, row) {
+    let removeBtn = $('<button class="remove-row-btn"/>').append('<i class="fas fa-sm fa-minus-square"/>');
+    let startSession = start_year + 'S' + start_sem;
+    removeBtn.click(function () {
+        $('.session-popover').popover('hide');
+        let wrapper = $(this).parent();
+        wrapper.addClass('remove-row-animate').on('transitionend', function (e) {
+            if (session === PLAN.sessions[PLAN.sessions.length - 1]) {
+                removeSession(session, row);
+                let prev = removeAddRows(wrapper);
+
+                if (PLAN.sessions.length === 0) { // only session in planner
+                    $('#plan-grid').append(createAddSessionRow(startSession, true)); // start from the beginning
+                } else $('#plan-grid').append(createAddSessionRow(nextSession(prev.find('.row-ses').text()), true));
+            } else {
+                removeSession(session, row);
+                let prev = removeAddRows(wrapper);
+
+                if (prev.length === 0) $('#plan-grid').prepend(createAddSessionRow(startSession, false));  // at first session in planner
+                else prev.after(createAddSessionRow(nextSession(prev.find('.row-ses').text()), false));
+            }
+
+        });
+
+    });
+    return removeBtn;
+}
+
+function removeSession(session, row) {
+    // remove existing courses in the session
+    $(row).children(".plan-cell").each(function () {
+        var cellCode = $(this).find('.course-code').text()
+        if (cellCode !== ELECTIVE_TEXT) {
+            PLAN.removeWarning('CourseForceAdded', cellCode);
+            PLAN.removeCourse(session, cellCode);
+        }
+    });
+
+    // update trackers
+    updateWarningNotices();
+    updateProgress();
+    updateRecommendations();
+
+    PLAN.removeSession(session);
+}
+
+// Return an empty session row for the planner of the given session
+function createEmptySessionRow(session) {
+    const year = session.slice(0, 4);
+    const ses = session.slice(4);
+    let row = $('<div class="plan-row"/>');
+    let first_cell = '<div class="first-cell">' +
+        '<div class="row-year h4">' + year + '</div>' +
+        '<div class="row-sem h5">' + SESSION_WORDS[ses] + '</div>' +
+        '<div class="row-ses">' + session + '</div>' +
+        '</div>';
+    row.append(first_cell);
+
+    for (let i = 0; i < 4; i++) { // TODO: Fix for Overloading
+        let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
+        let title_node = $('<span class="course-title"/>');
+        cell.append('<div class="course-code">' + ELECTIVE_TEXT + '</div>');
+        cell.append('<div class="course-year">' + year + '</div>');
+        cell.append(title_node);
+        cell.click(clickCell);
+        cell.each(coursePopoverSetup);
+        makeSlotDroppable(cell);
+        row.append(cell);
+    }
+    return row;
+}
+
+function createSessionRowEventListener(btn, session) {
+    btn.click(function () {
+        PLAN.addSession(session);
+        let replacementDiv = $('<div class="plan-row-wrapper"/>');
+        let row = createEmptySessionRow(session);
+        let removeBtn = createRemoveSessionBtn(session, row);
+        replacementDiv.append(removeBtn);
+        replacementDiv.append(row);
+
+        $(this).parent().addClass('add-row-animate').on('transitionend', function (e) {
+            $(e.target).replaceWith(replacementDiv);
+        });
+
+    });
+}
+
+function createAddSessionBtn() {
+    return $('<button class="add-row-btn"/>')
+        .append('<i class="fas fa-sm fa-plus-square"/>');
+}
+
+function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
+    addBtn.popover({
+        trigger: 'click',
+        title: 'Add Sessions<a class="popover-close" onclick="closePopover(this)">×</a>',
+        placement: 'right',
+        html: true,
+        content: function () {
+            let html = "";
+            for (var i = 0; i < availableSessions.length; i++) {
+                html += "<button class='btn session-popover-btn btn-outline-dark'" +
+                    "data-toggle='button' aria-pressed='false' value='" + availableSessions[i] + "'>" +
+                    availableSessions[i].slice(0, 4) + " " + SESSION_WORDS[availableSessions[i].slice(-2)] + "</button>";
+            }
+            return html;
+        },
+        template: '<div class="popover session-popover" data-container=".popover-body">\n' +
+        '    <div class="arrow"></div>\n' +
+        '    <div class="h2 popover-header"></div>\n' +
+        '    <div class="popover-body session-popover-body"></div>\n' +
+        '    <button class="btn session-popover-submit btn-success">Add</button>'
+    }).on('shown.bs.popover', function (e) {
+        $('.add-row-btn').not(this).popover('hide');
+        let buttons = $('.session-popover').find('.session-popover-btn');
+        let sessionsToAdd = {};
+        let count = 0;
+        for (var i = 0; i < availableSessions.length; i++) {
+            sessionsToAdd[availableSessions[i]] = false;
+        }
+
+        // create toggle event for each button
+        $(".session-popover-btn").click(function () {
+            const session = $(this).val();
+            if (!sessionsToAdd[session]) count++;
+            else count--;
+            sessionsToAdd[session] = !sessionsToAdd[session];
+        });
+
+        // add the selected sessions to the planner
+        $(".session-popover-submit").click(function () {
+            let sessionAdded = false;
+            for (var j = availableSessions.length - 1; j >= 0; j--) {
+                const addToPlanner = sessionsToAdd[availableSessions[j]];
+                if (addToPlanner) {
+                    PLAN.addSession(availableSessions[j]);
+                    let row = createEmptySessionRow(availableSessions[j]);
+                    let rowWrapper = $('<div class="plan-row-wrapper"/>');
+                    rowWrapper.append(createRemoveSessionBtn(availableSessions[j], row));
+                    rowWrapper.append(row);
+
+                    // create additional add row if last option chosen
+                    if (last && j === availableSessions.length - 1) {
+                        addRow.after(createAddSessionRow(nextSession(availableSessions[j]), last));
+                        last = false;
+                    }
+
+                    // create temp div to animate adding the wrapper
+                    let temp = $("<div class='add-row-wrapper'/>");
+                    addRow.after(temp);
+
+                    // force the browser to render the transition
+                    setTimeout(function () {
+                        temp.addClass('add-row-animate').on('transitionend', function (e) {
+                            $(e.target).replaceWith(rowWrapper);
+                        });
+                    }, 10);
+
+                    sessionAdded = true;
+                } else if (count > 0 && (j === 0 || sessionsToAdd[availableSessions[j - 1]])) { // create a new add row
+                    addRow.after(createAddSessionRow(availableSessions[j], last));
+                    last = false;
+                }
+            }
+
+            if (sessionAdded) {
+                addRow.remove();
+                $('.session-popover').popover('hide');
+            }
+        });
+    });
+}
+
+function getNextAvailableSessions(session, last) {
+    let availableSessions = [];
+
+    if (last) {
+        for (var i = 0; i < NUM_ADD_SESSIONS_END; i++) {
+            availableSessions.push(session);
+            session = nextSession(session);
+        }
+    } else {
+        while (!PLAN.sessions.includes(session)) {
+            availableSessions.push(session);
+            session = nextSession(session);
+        }
+    }
+
+    return availableSessions;
+}
+
+function createAddSessionRow(session, last) {
+    let addDiv = $('<div class="add-row-wrapper"/>');
+    let addBtn = createAddSessionBtn();
+    let availableSessions = getNextAvailableSessions(session, last);
+
+    if (availableSessions.length > 1 || last) createNextSessionsPopover(addBtn, addDiv, availableSessions, last);
+    else createSessionRowEventListener(addBtn, session);
+
+    addDiv.append(addBtn);
+    return addDiv;
+}
+
+function setupGrid() { // put the loaded plan's sessions in first before using this.
     let grid = $('#plan-grid');
-    let async_operations = [];
-    const suggestedPlan = PLAN.degrees[0].suggestedPlan;
+    let startSession = start_year + 'S' + start_sem;
+    if (PLAN.sessions.length === 0 || PLAN.sessions[0] !== start_year + 'S' + start_sem)
+        grid.append(createAddSessionRow(startSession, false));
     for (const session of PLAN.sessions) {
         const year = session.slice(0, 4);
         const ses = session.slice(4);
         let row = $('<div class="plan-row"/>');
-        if (ses === 'Semester 1') row.addClass('mt-3'); //TODO: Fix for Summer Sessions
         let session_word = SESSION_WORDS[ses];
-        if (ses === "S1" || ses === "S2") session_word = session_word.replace(" ", "&nbsp;");
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
             '<div class="row-sem h5">' + session_word + '</div>' +
             '<div class="row-ses">' + session + '</div>' +
             '</div>';
         row.append(first_cell);
-
-        let course_list = suggestedPlan[session] || [{"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}, {"code": "Elective Course"}];
-        for (const course of course_list) {
+        for (let i = 0; i < 4; i++) { // TODO: Fix for Overloading
             let cell = $('<div class="plan-cell result-course" tabindex="5"/>'); // Tabindex so we can have :active selector
-            let title_node = $('<span class="course-title"/>');
-            if (false && course['title'] !== undefined) {   // Ignore the degree's own titles for now
-                title_node.text(course['title']);
-            } else if (course.code !== ELECTIVE_TEXT) {
-                cell.addClass('compulsory');
-                async_operations.push(PLAN.addCourse(session, course.code));
-                if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                titles_fill_nodes[course.code].push(function (title) {
-                    title_node.text(title);
-                });
-            }
-            cell.append('<div class="course-code">' + course['code'] + '</div>');
+            cell.append('<div class="course-code">' + ELECTIVE_TEXT + '</div>');
             cell.append('<div class="course-year">' + year + '</div>');
-            cell.append(title_node);
+            cell.append('<div class="course-title" />');
             cell.click(clickCell);
-            cell.each(coursePopoverSetup);
-            if (course['code'] === ELECTIVE_TEXT) makeSlotDroppable(cell);
+            makeSlotDroppable(cell);
             row.append(cell);
         }
-
-        row.sortable({
-            items: "> .plan-cell",
-            start: function (event, ui) {
-                if (ui.item.find('.course-code').text() === ELECTIVE_TEXT) return;
-                const first_cell = $(event.target).find('.first-cell');
-                first_cell.children().css({'display': 'none'});
-                first_cell.addClass('delete').addClass('alert-danger');
-                first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
-                    '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
-                    '    <div class="mt-2">Remove</div>\n' +
-                    '</div>');
-                first_cell.droppable({
-                    accept: '.plan-cell',
-                    drop: function (event, ui) {
-                        const session = first_cell.find('.row-ses').text();
-                        const position = ui.draggable.index();
-                        removeCourse(session, position);
-                        first_cell.droppable('destroy');
-                        first_cell.children().last().remove();
-                        first_cell.removeClass('delete').removeClass('alert-danger');
-                        first_cell.children().css({'display': ''});
-                    }
-                })
-            },
-            stop: function (event, ui) {
-                const first_cell = $(event.target).find('.first-cell');
-                if (first_cell.hasClass('delete')) {
-                    first_cell.droppable('destroy');
-                    first_cell.children().last().remove();
-                    first_cell.removeClass('delete').removeClass('alert-danger');
-                    first_cell.children().css({'display': ''});
-                }
-            }
-        });
         grid.append(row);
+        // create wrapper and button for removing a year/sem
+        let rowWrapper = $('<div class="plan-row-wrapper"/>');
+
+        rowWrapper.append(createRemoveSessionBtn(session, row));
+        rowWrapper.append(row);
+        grid.append(rowWrapper);
+
+        // create add buttons for last and seasonal sessions
+        if (session === PLAN.sessions[PLAN.sessions.length - 1]) grid.append(createAddSessionRow(nextSession(session), true));
+        else if (['S1', 'S2'].includes(ses)) grid.append(createAddSessionRow(nextSession(session), false));
     }
-    batchCourseTitles(titles_fill_nodes);
-    $.when.apply($, async_operations).done(function () {
+}
+
+function loadCourseGrid(plan) {
+    let rows = $('#plan-grid').find('.plan-row');
+    let courses_actions = {};
+    for (const session of PLAN.sessions) {
+        const row = rows.filter((_, y) => $(y).find('.row-ses').text() === session);
+        const year = session.slice(0, 4);
+        let course_list = plan[session] || [];
+        for (let i = 0; i < course_list.length; i++) {
+            const code = course_list[i].code;
+            if (!(/^[A-Z]{4}[0-9]{4}$/.test(code))) continue;
+            let cell = $(row.children()[i + 1]);
+            cell.find('.course-code').text(code);
+            if (compulsoryCourseCodes.includes(code)) cell.addClass('compulsory');
+            if (!((code + '-' + year) in courses_actions)) courses_actions[code + '-' + year] = [];
+            courses_actions[code + '-' + year].push(function (offering) {
+                cell.find('.course-title').text(offering.title);
+                PLAN.addCourse(session, code);
+            });
+            cell.each(coursePopoverSetup);
+            makePlanCellDraggable(cell);
+            cell.droppable('destroy');
+        }
+    }
+    batchCourseOfferingActions(courses_actions).then(function () {
         updateProgress();
         updateRecommendations();
+        SAVER.enableSaving();
     });
 }
 
 function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
+    const year = $(this).find('.course-year').text();
     if (code === ELECTIVE_TEXT) return;
     $(this).popover({
         trigger: 'click',
@@ -879,21 +1224,40 @@ function coursePopoverSetup(i, item) {
         '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
+
     $(this).on('show.bs.popover', function () {
-        coursePopoverData(this, $(item).hasClass('plan-cell'));
+        const popover = $(this).data('bs.popover');
+        coursePopoverData(this, $(item).hasClass('plan-cell')).then(function () {
+            setupRecommendations(popover);
+        });
     });
     $(this).on('shown.bs.popover', function () {
-        let popover = $(this).data('bs.popover');
-        if (popover['data-received'] || false) {
-            const recommendations = $(popover.tip).find('.result-course');
-            recommendations.each(coursePopoverSetup);
-            for (const entry of recommendations) {
-                const code = $(entry).find('.course-code').text();
-                const year = $(entry).find('.course-year').text();
-                makeCourseDraggable($(entry), code, year);
-            }
+        const popover = $(this).data('bs.popover');
+        if (popover['data-received'] || false) setupRecommendations(popover);
+    });
+
+    async function setupRecommendations(popover) {
+        const offering = await getCourseOffering(code, year);
+        let prereqsSatisfied = false; // whether or not this course's prereqs are satisfied in any session in the plan.
+        for (const session of PLAN.sessions) {
+            prereqsSatisfied = prereqsSatisfied || offering.checkRequirements(PLAN, session).sat
         }
-    })
+        const recommendations = $(popover.tip).find('.result-course');
+        recommendations.each(coursePopoverSetup);
+        for (const entry of recommendations) {
+            const code = $(entry).find('.course-code').text();
+            if (PLAN.getCourses(code).length) {
+                $(entry).remove();
+                continue;
+            }
+            const year = $(entry).find('.course-year').text();
+            const reason = $(entry).find('.course-reason').text();
+            if (reason === "This is a prerequisite course." && prereqsSatisfied) {
+                $(entry).remove();
+            }
+            makeCourseDraggable($(entry), code, year);
+        }
+    }
 }
 
 function mmsPopoverSetup() {
@@ -1008,6 +1372,47 @@ function makeSlotDroppable(item) {
     });
 }
 
+function makePlanCellDraggable(item) {
+    item.draggable({
+        zIndex: 800,
+        revert: true,
+        helper: 'clone',
+        start: function (event, ui) {
+            ui.helper.addClass('dragged-course');
+            const first_cell = $(event.target.parentElement).find('.first-cell');
+            first_cell.children().css({'display': 'none'});
+            first_cell.addClass('delete').addClass('alert-danger');
+            first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
+                '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
+                '    <div class="mt-2">Remove</div>\n' +
+                '</div>');
+            first_cell.droppable({
+                accept: '.plan-cell',
+                drop: function (event, ui2) {
+                    ui2.draggable.draggable("option", "revert", false);
+                    const session = first_cell.find('.row-ses').text();
+                    const position = ui2.draggable.index();
+                    removeCourse(session, position);
+                    $(ui.helper.prevObject).draggable('destroy');
+                    first_cell.droppable('destroy');
+                    first_cell.find('.course-delete').remove();
+                    first_cell.removeClass('delete').removeClass('alert-danger');
+                    first_cell.children().css({'display': ''});
+                }
+            })
+        },
+        stop: function (event, ui) {
+            const first_cell = $(event.target.parentElement).find('.first-cell');
+            if (first_cell.hasClass('delete')) {
+                first_cell.droppable('destroy');
+                first_cell.find('.course-delete').remove();
+                first_cell.removeClass('delete').removeClass('alert-danger');
+                first_cell.children().css({'display': ''});
+            }
+        }
+    });
+}
+
 function makeCourseDraggable(item, code, year) {
     item.draggable({
         zIndex: 800,
@@ -1030,13 +1435,13 @@ function makeCourseDraggable(item, code, year) {
 }
 
 function addRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).addClass(css_class_name);
     });
 }
 
 function removeRowCellsClass(row, css_class_name) {
-    $(row).children(".plan-cell").each(function() {
+    $(row).children(".plan-cell").each(function () {
         $(this).removeClass(css_class_name);
     });
 }
@@ -1044,10 +1449,10 @@ function removeRowCellsClass(row, css_class_name) {
 async function highlightInvalidSessions(offering) {
     offering = await offering;
     let invalid_sessions = {};
-    let offering_sessions = offering.extras.semester || [1, 2]; // Currently assumes empty = both semesters. TODO: Change for course sessions
+    let offering_sessions = offering.extras.sessions;
     for (const session of PLAN.sessions) {
         const checked = offering.checkRequirements(PLAN, session);
-        const offered = offering_sessions.includes(parseInt(session.slice(-1)));
+        const offered = offering_sessions.includes(SESSION_WORDS[session.slice(4)]);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"
@@ -1087,7 +1492,7 @@ function setupDegreeRequirements(container, degree) {
     let header = container.parent().find('.degree-header');
     let unit_count = header.find('.unit-count');
     unit_count.text("0/" + degree.units + " units");
-    let titles_fill_nodes = {};
+    let courses_actions = {};
     let async_operations = [];
     let mms_to_retrieve = {};
     let mms_to_display = [];
@@ -1108,17 +1513,14 @@ function setupDegreeRequirements(container, degree) {
         });
         let group = $('<div class="list-group list-group-flush"/>');
         for (let code of courses) {
-            const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
             let title_node = $('<span class="course-title"/>');
-            if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
-                title_node.text(KNOWN_COURSES[code][year].title)
-            }
-            else {
-                if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-                titles_fill_nodes[code].push(function (title) {
-                    title_node.text(title);
-                });
-            }
+            let year_node = $('<span class="course-year"/>');
+            if (!(code in courses_actions)) courses_actions[code] = [];
+            courses_actions[code].push(function (offering) {
+                title_node.text(offering.title);
+                year_node.text(offering.year);
+                makeCourseDraggable(item, code, offering.year);
+            });
             let item = $(
                 '<div class="list-group-item list-group-item-action compulsory draggable-course result-course">' +
                 '    <span class="course-code">' + code + '</span> ' +
@@ -1126,8 +1528,8 @@ function setupDegreeRequirements(container, degree) {
             );
             compulsoryCourseCodes.push(code);
             item.append(title_node);
+            item.append(year_node);
             item.each(coursePopoverSetup);
-            makeCourseDraggable(item, code, year);
             group.append(item);
         }
         collapsible.append(group);
@@ -1158,6 +1560,7 @@ function setupDegreeRequirements(container, degree) {
         }
         description += 'courses starting with: ';
         for (let i in codes) {
+            if (typeof(codes[i]) !== "string") continue;
             if (i > 0) description += ', ';
             description += '<a href="javascript:void(0)" class="code-filter" onclick="addFilter(\'code\',\'' + codes[i] + '\')">' + codes[i] + '</a>';
         }
@@ -1264,6 +1667,10 @@ function setupDegreeRequirements(container, degree) {
             for (let section of required[type]) {
                 let title = 'Choose at least ' + (section.num || section.units) + ' units' +
                     '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
+                if (section.type === "min_max") {
+                    title = 'Choose between ' + section.units.minimum + ' and ' + section.units.maximum + ' units' +
+                        '<span class="unit-count mr-2">0/' + section.units.minimum + '</span>\n';
+                }
                 let card = createCourseCategorySection(type, title, section['area'], section.level);
                 container.append(card);
                 section_count++;
@@ -1324,7 +1731,7 @@ function setupDegreeRequirements(container, degree) {
         }
     }
     $.when.apply($, async_operations).then(function () {
-        batchCourseTitles(titles_fill_nodes);
+        batchCourseOfferingActions(courses_actions);
         batchMMSData(mms_to_retrieve);
         updateProgress();
     })
@@ -1374,13 +1781,13 @@ async function updateDegreeTrackers() {
             }
             else if (["x_from_category", "max_by_level"].includes(type)) {
                 const group = card.find('.list-group');
+                group.empty();
                 for (const code of details.codes) {
-                    const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
-                    const offering = await getCourseOffering(code, year);
+                    const offering = await getCourseOffering(code, THIS_YEAR); // Get most appropriate offering
                     const item = $(
                         '<div class="list-group-item list-group-item-action result-course inc">' +
                         '    <span class="course-code">' + code + '</span> ' +
-                        '    <span class="course-year">' + year + '</span> ' +
+                        '    <span class="course-year">' + offering.year + '</span> ' +
                         '    <span class="course-title">' + offering.title + '</span>' +
                         '</div>'
                     );
@@ -1446,22 +1853,29 @@ function updateProgress() {
 async function updateRecommendations() {
     let group = $('#degree-recommendations-list');
     let res = {};
-    await $.ajax({
-        url: 'recommendations/recommend',
-        data: {
-            'code': degree_code,
-            'courses': JSON.stringify(preparePlanForUpload(PLAN))
-        },
-        success: function (data) {
-            res = data;
+    try {
+        await $.ajax({
+            url: 'recommendations/recommend',
+            data: {
+                'code': PLAN.degrees[0].code, // TODO: Fix for FDD Recommendations
+                'courses': JSON.stringify(preparePlanForUpload(PLAN))
+            },
+            success: function (data) {
+                res = data;
+            }
+        });
+    } catch (e) {
+        if (e.statusText === "Internal Server Error") {
+            group.text('No recommendations could be made.');
         }
-    });
-    let titles_fill_nodes = {};
+        return;
+    }
+
+    let courses_actions = {};
     group.find('.result-course').popover('dispose');
     group.empty();
     for (const course of res.response) {
         const code = course.course;
-        const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
         const reason = course.reasoning;
 
         let item = $(
@@ -1469,23 +1883,21 @@ async function updateRecommendations() {
             '    <span class="course-code">' + code + '</span>\n' +
             '</div>\n');
         let title_node = $('<span class="course-title"></span>');
-        if (code in KNOWN_COURSES && year in KNOWN_COURSES[code]) {
-            title_node.text(KNOWN_COURSES[code][year].title)
-        }
-        else {
-            if (!(code in titles_fill_nodes)) titles_fill_nodes[code] = [];
-            titles_fill_nodes[code].push(function (title) {
-                title_node.text(title);
-            });
-        }
+        let year_node = $('<span class="course-year"></span>');
+        if (!(code in courses_actions)) courses_actions[code] = [];
+        courses_actions[code].push(function (offering) {
+            title_node.text(offering.title);
+            year_node.text(offering.year);
+            makeCourseDraggable(item, code, offering.year);
+        });
         item.append(title_node);
+        item.append(year_node);
         item.append('<div class="course-reason">' + reason + '</div>');
-        makeCourseDraggable(item, code, year);
         item.each(coursePopoverSetup);
         group.append(item);
         addColor(item, code);
     }
-    await batchCourseTitles(titles_fill_nodes);
+    await batchCourseOfferingActions(courses_actions);
 }
 
 /**
@@ -1506,4 +1918,16 @@ function searchResultsLoading(show, courses) {
         mmsResultsList.find('.collapse').css({'display': cDisplay[show]});
         mmsResultsList.find('.fa-sync-alt').css({'display': rDisplay[show]});
     }
+}
+
+function makeScrollAndGlow(target) {
+    let action = function () {
+        $([document.documentElement, document.body]).animate({
+            scrollTop: target.offset().top - $(window).height() * 3 / 10
+        }, 500);
+        target.animate({boxShadow: '0 0 25px #007bff'});
+        target.animate({boxShadow: '0 0 0px #007bff'});
+    };
+    action.target = target;
+    return action;
 }
