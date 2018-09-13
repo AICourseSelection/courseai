@@ -15,7 +15,13 @@
   
 <wrapper class="d-flex flex-column">
     <div class="container" style="margin-bottom: 135px">
-        Your saved degrees will be displayed here... (coming soon!)
+        <table id="codes-table" class="table table-hover">
+            <thead class="thead-dark">
+                <tr>Saved Degree Plan Codes</tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
     
   {% include "dynamic_pages/chatbox.html" %}
@@ -36,6 +42,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 <script src="{% static "js/chatbox.js" %}"></script>
+<script src="{% static "js/profile.js" %}"></script>
 </body>
 </html>
 

@@ -82,38 +82,36 @@ def logout_view(request):
 
 # @csrf_protect
 def code_view(request):
-    if request.method == "PUT" or request.method == "DELETE" or request.method == "GET":
-        data = request.body.decode('utf-8')
-        proc = QueryDict(data)
-        email = proc['email']
-        code = proc['code']
-
-        a = User.objects.get(username=email)
-        store_code = a.profile.degree_plan_code
+    if request.user.is_authenticated:
         res_success = JsonResponse({"response": "success"})
-        res_error = JsonResponse({"response": "error"})
 
         if request.method == "PUT":
+            proc = QueryDict(request.body.decode('utf-8'))
+            code = proc['code']
             i = 0
-            while i < len(store_code) - 5:
-                if store_code[i: i + 10] == code:
+            while i <= len(request.user.profile.degree_plan_code) - 10:
+                if request.user.profile.degree_plan_code[i: i + 10] == code:
                     return HttpResponse(res_success)
                 i += 11
-            store_code += "," + code
-            a.profile.save()
+            if len(request.user.profile.degree_plan_code) > 0:
+                request.user.profile.degree_plan_code += ","
+            request.user.profile.degree_plan_code += code
+            request.user.profile.save()
             return HttpResponse(res_success)
         elif request.method == "DELETE":
+            proc = QueryDict(request.body.decode('utf-8'))
+            code = proc['code']
             i = 0
-            while i < len(store_code)-5:
-                if store_code[i: i + 10] == code:
-                    store_code.strip(store_code[i:i + 10])
-                    a.profile.save()
+            while i <= len(request.user.profile.degree_plan_code) - 10:
+                if request.user.profile.degree_plan_code[i: i + 10] == code:
+                    request.user.profile.degree_plan_code.strip(user.profile.degree_plan_code[i:i + 10])
+                    request.user.profile.save()
                     return HttpResponse(res_success)
                 i += 11
             return HttpResponse(res_success)
         elif request.method == "GET":
-            return (store_code)
-    return HttpResponse(res_error)
+            return HttpResponse(request.user.profile.degree_plan_code)
+    return HttpResponse(JsonResponse({"response": "error"}))
 
 @csrf_exempt #TODO: change me later
 @login_required
