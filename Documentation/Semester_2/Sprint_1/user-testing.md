@@ -48,6 +48,7 @@
 
 
 **User H2** : (unsupervised unedited comments)
+
 *Positives*
 Tried the ask a question thing. Really helpful. Though, I find some of the range of questions limiting, (like asking what are some of the features of the website), its still a good function to have. The add filter was a nice touch. It helps find the specific courses you're looking for. I also like the recommendation tab but it currently doesn't do anything. The standout feature, I found, was the add to plan feature a really good concept. It really streamlined the process and opens the student up for courses they don't know about. I also just understood what the 12/24 around the "your degree" section meant. Perhaps including how much unit a course would have (i know its displayed in the programs and course website but i just think it maybe easier. Feel free to discard this comment though)
 
