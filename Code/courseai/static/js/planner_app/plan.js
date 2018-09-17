@@ -267,28 +267,22 @@ function Plan() {
     };
     
     this.serializeSimple = function() {
-        var dateObj = new Date();
-        var month = dateObj.getUTCMonth() + 1;
-        var day = dateObj.getUTCDate();
-        var year = dateObj.getUTCFullYear();
+        var d = new Date();
+        
         let saved = {
             degrees: [],
             trackedMMS: [],
-            date: day + "/" + month + "/" + year
+            created: d.toString(),
+            startYear: Infinity
         }
         
         for (const degree of this.degrees) {
-            saved.degrees.push({
-                code: degree.code,
-                year: degree.year
-            })
+            if (degree.year < saved.startYear) saved.startYear = degree.year;
+            saved.degrees.push(degree.code);
         }
         
         for (const mms of this.trackedMMS) {
-            saved.trackedMMS.push({
-                code: mms.code,
-                year: mms.year
-            })
+            saved.trackedMMS.push(mms.code);
         }
         
         if (this.startSem) saved.startSem = this.startSem;
