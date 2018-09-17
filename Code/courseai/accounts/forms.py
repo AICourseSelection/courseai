@@ -19,14 +19,16 @@ class UserLoginForm(forms.Form):
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
-        if email and password:
-            user = authenticate(username=email, password=password)
-            if not user:
-                raise forms.ValidationError("This user does not exist.")
-            if not user.is_active:
-                raise forms.ValidationError("This user is not active.")
-            if not user.check_password(password):
-                raise forms.ValidationError("This password is incorrect.")
+        user_qs = User.objects.filter(username=email)
+        if user_qs.count() == 0:
+            raise forms.ValidationError("The user does not exist")
+        else:
+            if email and password:
+                user = authenticate(username=email, password=password)
+                if not user:
+                    raise forms.ValidationError("Incorrect password")
+                if not user.is_active:
+                    raise forms.ValidationError("This user is no longer active")
         return super(UserLoginForm, self).clean(*args, **kwargs)    # return default, not giving field error.
 
 

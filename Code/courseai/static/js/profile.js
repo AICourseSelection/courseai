@@ -2,7 +2,7 @@ const PLAN_DELIMITER = '|';
 const CODE_DELIMITER = '~';
 
 function createDeleteBtn(code) {
-    let btn = $('<button class="btn btn-danger btn-default btn-delete">Delete</button>');
+    let btn = $('<button class="btn btn-outline-danger btn-default btn-delete">Delete</button>');
     btn.on('click', function() {
         // remove the code from the user's profile
         $.ajax({
@@ -21,7 +21,7 @@ function createDeleteBtn(code) {
 }
 
 function createLoadBtn(code, startYear, startSem) {
-    let btn = $('<button class="btn btn-success btn-default load-btn">Load</button>');
+    let btn = $('<button class="btn btn-outline-success btn-default load-btn">Load</button>');
     btn.on('click', function() {
         let codeCell = $(this).parent().prev();
         if (codeCell.length !== 0) {
@@ -31,32 +31,6 @@ function createLoadBtn(code, startYear, startSem) {
         }
     });
     return btn;
-}
-
-function stringifyDegrees(degreesList) {
-    str = "";
-    for (var i = 0; i < degreesList.length; i++) {
-        if (i != 0) str += ", ";
-        str += degreesList[i].code;
-    }
-    return str;
-}
-
-function stringifyMMS(mmsList) {
-    str = "";
-    for (var i = 0; i < mmsList.length; i++) {
-        if (i != 0) str += ", ";
-        str += mmsList[i].code;
-    }
-    return str;
-}
-
-function calculateStartYear(degrees) {
-    let startYear = Infinity;
-    for (var j = 0; j < degrees.length; j++) {
-        if (degrees[j].year < startYear) startYear = degrees[j].year;
-    }
-    return startYear;
 }
 
 $.ajax({
@@ -73,16 +47,15 @@ $.ajax({
                 let obj = JSON.parse(plans[i][1]);
                 let code = plans[i][0];
                 let row = $('<tr class="d-flex">');
-                let btnsCol = $('<td class="col-2 btn-container"/>');
-                let startYear = calculateStartYear(obj.degrees);                
+                let btnsCol = $('<td class="col-2 btn-container"/>');           
                              
-                // row.append('<td class="">' + plans[i][0] + '</td>');                                    // code
-                row.append('<td class="col-2">' + stringifyDegrees(obj.degrees) + '</td>');                  // degrees
-                row.append('<td class="col-4">' + stringifyMMS(obj.trackedMMS) + '</td>');                   // mms
-                row.append('<td class="col-2">' + 'Semester ' + obj.startSem + ' ' + startYear + '</td>');   // start date
-                row.append('<td class="col-2">' + obj.date.toString() + '</td>');                            // created
+                // row.append('<td class="">' + plans[i][0] + '</td>');                                                 // code
+                row.append('<td class="col-2 text-center">' + obj.degrees.join(', ') + '</td>');                         // degrees
+                row.append('<td class="col-4 text-center">' + obj.trackedMMS.join(', ') + '</td>');                      // mms
+                row.append('<td class="col-2 text-center">' + 'Semester ' + obj.startSem + ' ' + obj.startYear + '</td>');   // start date
+                row.append('<td class="col-2 text-center">' + obj.created + '</td>');                                   // created
                 
-                btnsCol.append(createLoadBtn(code, startYear, obj.startSem));
+                btnsCol.append(createLoadBtn(code, obj.startYear, obj.startSem));
                 btnsCol.append(createDeleteBtn(code));
                 row.append(btnsCol);
                 tableBody.append(row);
