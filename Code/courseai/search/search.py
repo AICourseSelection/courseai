@@ -80,7 +80,7 @@ def raw_search(search_object, phrase, codes, levels, sem_queried):
         # perform the semester filtering here
         try:
             sem_offered = hit['_source']['semester']
-        except:
+        except KeyError:
             continue
         if sem_queried is None:
             course = {'code': hit['_source']['code'], 'title': hit['_source']['title']}
