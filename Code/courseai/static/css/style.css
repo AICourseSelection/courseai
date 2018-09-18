@@ -907,6 +907,12 @@ wrapper {
 
 }
 
+.btn-container > button {
+    width: calc(90% / 2);  
+    display: inline-block;
+    margin: 2%;
+}
+
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
     0%, 100% {

@@ -79,41 +79,62 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
-
+    
+def deserialize_plan(degreePlans):
+    if len(degreePlans) == 0:
+        return []
+    plans = degreePlans.split('|')
+    allDegreePlans = []
+    for plan in plans:
+        allDegreePlans.append(plan.split('~'))
+    return allDegreePlans
+    
+def serialize_plan(degreePlans):
+    joinedCodesAndPlans = []
+    for plan in degreePlans:
+        joinedCodesAndPlans.append(plan[0] + '~' + plan[1])
+    return '|'.join([s for s in joinedCodesAndPlans])
+    
 # @csrf_protect
+@csrf_exempt
+@require_AJAX
 def code_view(request):
-    if request.method == "PUT" or request.method == "DELETE" or request.method == "GET":
-        data = request.body.decode('utf-8')
-        proc = QueryDict(data)
-        email = proc['email']
-        code = proc['code']
-
-        a = User.objects.get(username=email)
-        store_code = a.profile.degree_plan_code
+    if request.user.is_authenticated:
         res_success = JsonResponse({"response": "success"})
-        res_error = JsonResponse({"response": "error"})
+        
+        if request.method == "GET":
+            return HttpResponse(request.user.profile.degree_plan_code)
+        
+        proc = QueryDict(request.body.decode('utf-8'))
+        code = proc['code']
+        degreePlans = deserialize_plan(request.user.profile.degree_plan_code)
 
         if request.method == "PUT":
-            i = 0
-            while i < len(store_code) - 5:
-                if store_code[i: i + 10] == code:
+            plan = proc['plan']
+            # update the plan
+            for p in degreePlans:
+                if p[0] == code:
+                    p[1] = plan
+                    request.user.profile.degree_plan_code = serialize_plan(degreePlans)
+                    request.user.profile.save()
                     return HttpResponse(res_success)
-                i += 11
-            store_code += "," + code
-            a.profile.save()
+     
+            if len(degreePlans) != 0:
+                request.user.profile.degree_plan_code += "|"
+            
+            serialized = code + '~' + plan
+            request.user.profile.degree_plan_code += serialized
+            request.user.profile.save()
             return HttpResponse(res_success)
         elif request.method == "DELETE":
-            i = 0
-            while i < len(store_code)-5:
-                if store_code[i: i + 10] == code:
-                    store_code.strip(store_code[i:i + 10])
-                    a.profile.save()
+            for p in degreePlans:
+                if p[0] == code:
+                    degreePlans.remove(p)
+                    request.user.profile.degree_plan_code = serialize_plan(degreePlans)
+                    request.user.profile.save()
                     return HttpResponse(res_success)
-                i += 11
             return HttpResponse(res_success)
-        elif request.method == "GET":
-            return (store_code)
-    return HttpResponse(res_error)
+    return HttpResponse(JsonResponse({"response": "error"}))
 
 @csrf_exempt #TODO: change me later
 @login_required

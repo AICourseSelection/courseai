@@ -21,7 +21,7 @@ const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', '
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
 
-const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
+const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
 // UI Functions
 async function addDegree(code, year) {
@@ -1138,17 +1138,17 @@ function createAddSessionRow(session, last) {
 function setupGrid() { // put the loaded plan's sessions in first before using this.
     let grid = $('#plan-grid');
     let startSession = start_year + 'S' + start_sem;
-    if (PLAN.sessions.length === 0 || PLAN.sessions[0] !== start_year + 'S' + start_sem)
-        grid.append(createAddSessionRow(startSession, false));
-    for (const session of PLAN.sessions) {
-        const year = session.slice(0, 4);
-        const ses = session.slice(4);
+    if (PLAN.sessions.length === 0) grid.append(createAddSessionRow(startSession, true));
+    else if (PLAN.sessions[0] !== start_year + 'S' + start_sem) grid.append(createAddSessionRow(startSession, false));
+    for (var i = 0; i < PLAN.sessions.length; i++) {
+        const year = PLAN.sessions[i].slice(0, 4);
+        const ses = PLAN.sessions[i].slice(4);
         let row = $('<div class="plan-row"/>');
         let session_word = SESSION_WORDS[ses];
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
             '<div class="row-sem h5">' + session_word + '</div>' +
-            '<div class="row-ses">' + session + '</div>' +
+            '<div class="row-ses">' + PLAN.sessions[i] + '</div>' +
             '</div>';
         row.append(first_cell);
         for (let i = 0; i < 4; i++) { // TODO: Fix for Overloading
@@ -1164,13 +1164,14 @@ function setupGrid() { // put the loaded plan's sessions in first before using t
         // create wrapper and button for removing a year/sem
         let rowWrapper = $('<div class="plan-row-wrapper"/>');
 
-        rowWrapper.append(createRemoveSessionBtn(session, row));
+        rowWrapper.append(createRemoveSessionBtn(PLAN.sessions[i], row));
         rowWrapper.append(row);
         grid.append(rowWrapper);
 
         // create add buttons for last and seasonal sessions
-        if (session === PLAN.sessions[PLAN.sessions.length - 1]) grid.append(createAddSessionRow(nextSession(session), true));
-        else if (['S1', 'S2'].includes(ses)) grid.append(createAddSessionRow(nextSession(session), false));
+        if (i === PLAN.sessions.length - 1) grid.append(createAddSessionRow(nextSession(PLAN.sessions[i]), true));
+        else if (nextSession(PLAN.sessions[i]) !== PLAN.sessions[i + 1])
+            grid.append(createAddSessionRow(nextSession(PLAN.sessions[i]), false));
     }
 }
 
