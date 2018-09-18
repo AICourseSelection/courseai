@@ -177,7 +177,7 @@ function removeCourse(session, position) {
     box.removeClass(COLOR_CLASSES_STR);
     if (box.prevAll().hasClass('ui-sortable-placeholder')) position--;
 
-    makeElective(box, session, code); // make the slot an elective slot and update planner 
+    makeElective(box, session, code); // make the slot an elective slot and update planner
 
     updateWarningNotices();
     updateProgress();
@@ -1776,6 +1776,7 @@ async function updateDegreeTrackers() {
             if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
                 for (const c of card.find('.result-course')) {
                     const code = $(c).find('.course-code').text();
+                    // alert(details.codes);
                     setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
                 }
                 section_status = details.sat ? 'done' : 'incomplete';
