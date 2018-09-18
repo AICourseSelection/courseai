@@ -1,5 +1,7 @@
 {% load static %}
+
 {% if user.is_authenticated %}
+<script>var loggedIn = true</script>
 
 <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
 	<div class="container-fluid">
@@ -34,6 +36,7 @@
 </nav>
 
 {% else %}
+<script>var loggedIn = false</script>
 
 <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
 	<div class="container-fluid">

@@ -7,7 +7,7 @@ def planner(request):
     user = None
     if not request.user is None:
         user = request.user
-
+    
     context = {
         'degree_name': request.GET['degreeName'],
         'degree_code': request.GET['degreeCode'],
