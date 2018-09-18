@@ -1378,8 +1378,13 @@ function makePlanCellDraggable(item) {
         zIndex: 800,
         revert: true,
         helper: 'clone',
+        containment: 'document',
         start: function (event, ui) {
             ui.helper.addClass('dragged-course');
+            $(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            }; 
             const first_cell = $(event.target.parentElement).find('.first-cell');
             first_cell.children().css({'display': 'none'});
             first_cell.addClass('delete').addClass('alert-danger');
@@ -1421,6 +1426,11 @@ function makeCourseDraggable(item, code, year) {
         helper: 'clone',
         start: function (event, ui) {
             ui.helper.addClass('dragged-course');
+            $(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            }; 
+
             highlightInvalidSessions(getCourseOffering(code, year));
             highlightElectives();
         },

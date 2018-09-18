@@ -11,7 +11,7 @@ body {
     z-index: 1080;
 }
 
-.planner-container {
+#planner-container {
     margin: 20px 30px 30px 30px;
     min-width: 860px;
 }
