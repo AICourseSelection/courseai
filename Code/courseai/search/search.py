@@ -39,7 +39,7 @@ def level_filter(levels):
 
 def raw_search(search_object, phrase, codes, levels, sem_queried):
     should = []
-    for word in phrase.split(" "):
+    for word in phrase.split():
         should.append(
             MultiMatch(query=word, type="phrase_prefix", fields=['code^4', 'title^3', 'description^1.5', 'outcome']))
     q = Q('bool', should=should, minimum_should_match=1)
