@@ -265,26 +265,26 @@ function Plan() {
         this.changesMade = true;
         this.warnings = [];
     };
-    
+
     this.serializeSimple = function() {
         var d = new Date();
-        
+
         let saved = {
             degrees: [],
             trackedMMS: [],
-            created: d.toString(),
+            created: d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear(),
             startYear: Infinity
         }
-        
+
         for (const degree of this.degrees) {
             if (degree.year < saved.startYear) saved.startYear = degree.year;
             saved.degrees.push(degree.code);
         }
-        
+
         for (const mms of this.trackedMMS) {
             saved.trackedMMS.push(mms.code);
         }
-        
+
         if (this.startSem) saved.startSem = this.startSem;
         return JSON.stringify(saved);
     }

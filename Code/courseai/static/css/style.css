@@ -907,10 +907,12 @@ wrapper {
 
 }
 
-.btn-container > button {
-    width: calc(90% / 2);  
-    display: inline-block;
-    margin: 2%;
+.btn-container button {
+    width: 70px;
+}
+
+.btn-load {
+    margin-right: 10px;
 }
 
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
