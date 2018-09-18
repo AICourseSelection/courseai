@@ -13,3 +13,4 @@ db.sqlite3
 venv
 *.swp
 *.swo
+.gitignore
