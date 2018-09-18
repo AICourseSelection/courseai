@@ -482,6 +482,11 @@ wrapper {
     max-width: 400px;
 }
 
+.course-popover .popover-body {
+    height: 420px;
+    overflow-y: scroll;
+}
+
 .mms-popover .popover-header {
     border-bottom: 0;
 }
@@ -520,7 +525,7 @@ wrapper {
 }
 
 .related-courses {
-    max-height: 224px;
+    height: 168px;
     overflow-y: scroll;
     overflow-x: hidden;
 }

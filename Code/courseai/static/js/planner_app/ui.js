@@ -1205,14 +1205,20 @@ function loadCourseGrid(plan) {
     });
 }
 
+function forcePopoverReposition() {
+    window.scrollBy(0, 1);
+    window.scrollBy(0, -1);
+}
+
 function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
     const year = $(this).find('.course-year').text();
+    let placement = ($(this).index() <= 2) ? 'right' : 'left';
     if (code === ELECTIVE_TEXT) return;
     $(this).popover({
         trigger: 'click',
         title: code + '<a class="popover-close" onclick="closePopover(this)">×</a>',
-        placement: 'right',
+        placement: placement,
         html: true,
         content: '<div class="d-flex">\n' +
         '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
@@ -1222,14 +1228,15 @@ function coursePopoverSetup(i, item) {
         '    <div class="h3 popover-header"></div>\n' +
         '    <div class="popover-body"></div>\n' +
         '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
-        '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+        '     " class="h6 popover-footer mb-0 text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
 
     $(this).on('show.bs.popover', function () {
-        const popover = $(this).data('bs.popover');
+        var popover = $(this).data('bs.popover');
         coursePopoverData(this, $(item).hasClass('plan-cell')).then(function () {
             setupRecommendations(popover);
+            // forcePopoverReposition();
         });
     });
     $(this).on('shown.bs.popover', function () {
@@ -1267,7 +1274,7 @@ function mmsPopoverSetup() {
     $(this).popover({
         trigger: 'click',
         title: name + '<a class="popover-close" onclick="closePopover(this)">×</a>',
-        placement: 'right',
+        placement: 'left',
         html: true,
         content: '<div class="d-flex">\n' +
         '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
