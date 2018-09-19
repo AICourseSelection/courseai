@@ -10,7 +10,6 @@ Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 
 Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 --- | --- | --- | --- | --- | ---
-Fix the overflow that occurs in the chat bubble when the word is too long | | Yong Wei | | | 
 Automate responses to Tier-1 enquiries | | | Tom, Manal | |
 
 
