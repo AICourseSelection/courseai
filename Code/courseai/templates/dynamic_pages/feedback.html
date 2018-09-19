@@ -1,29 +1,65 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/solid.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/fontawesome.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+    <title>Degree Builder</title>
 </head>
 <body style="background: linear-gradient(azure, white 40%); background-repeat: no-repeat">
+<div id="error-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modal-title" class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div id="modal-body" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% include "dynamic_pages/navbar.html" %}
 
-<h1>Feedback Portal</h1>
-<form method="post">
-    {% csrf_token %}
-	<div align="center">
-	{{ form.as_p }}
-		<div class="form-actions">
-		<button type="submit">Send</button>
-		</div>
+<h1 style="text-align:center">Let Us Know Your Thoughts</h1>
+<div align="center">
+	<div class="form-group">
+	<textarea class="typeahead form-control" cols="50" rows="5" id="feedbackForm" placeholder="My thoughts about ICS..."></textarea>
+
+	</div>
+	<button id="submitFeedbackButton" class="btn btn-primary btn-lg" type="submit" onclick=submitFeedback()>Send</button>
+	<script>
+		function submitFeedback() {
+			document.getElementById("submitFeedbackButton").innerHTML = "Thanks for your feedback!";
+			$.ajax({
+            url: 'feedback/give_feedback?email=none&feedback='+document.getElementById("feedbackForm").value,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json'
+			});
+	}
+	</script>
 	</div>
 </form>
 
+
+
 {% include "dynamic_pages/chatbox.html" %}
 {% include "dynamic_pages/footer.html" %}
-<! IGNORE {%  include 'tellme/js_inc.html' %}>
+
 
 <script src="{% static "js/jquery.min.js" %}"></script>
 <script src="{% static "js/popper.min.js" %}"></script>

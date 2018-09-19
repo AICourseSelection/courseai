@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY
 
-SECRET_KEY = "21423443jcdieo" #os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 SECURE_CONTENT_TYPE_NOSNIFF = False
 SECURE_BROWSER_XSS_FILTER = False
 SECURE_SSL_REDIRECT = False #TODO: set to true when domain name owned
@@ -110,8 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://wsvincent.com/django-contact-form/
 # https://docs.djangoproject.com/en/2.1/topics/email/
 
-EMAIL_BACKEND =
-  'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'testing@example.com'
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
