@@ -1236,9 +1236,14 @@ function coursePopoverSetup(i, item) {
         var popover = $(this).data('bs.popover');
         coursePopoverData(this, $(item).hasClass('plan-cell')).then(function () {
             setupRecommendations(popover);
-            // forcePopoverReposition();
         });
     });
+
+    // reposition on click event trigger, which fires after the show.bs.popover event
+    $(this).on('click', function(e) {
+       forcePopoverReposition();
+    });
+
     $(this).on('shown.bs.popover', function () {
         const popover = $(this).data('bs.popover');
         if (popover['data-received'] || false) setupRecommendations(popover);
@@ -1289,6 +1294,8 @@ function mmsPopoverSetup() {
         '</div>'
     });
     $(this).on('show.bs.popover', mmsPopoverData)
+
+    $(this).on('click', forcePopoverReposition());
 }
 
 function updateCourseSearchResults(response) {
@@ -1524,7 +1531,7 @@ function setupDegreeRequirements(container, degree) {
             '</div>'
         );
         let collapsible = $(
-            '<div id="deg-' + identifier + '-section' + counter + '" class="collapse show"/>'
+            '<div id="deg-' + identifier + '-section' + counter + '" class="collapse hide"/>'
         );
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-course').popover('hide');
