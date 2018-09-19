@@ -11,6 +11,7 @@ from . import degree_plan_helper
 from .models import Degree, PreviousStudentDegree, DegreePlanStore
 
 
+
 def all_degrees(request):
     degree_list = Degree.objects.all()
     results = []

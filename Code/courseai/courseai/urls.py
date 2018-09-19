@@ -24,6 +24,7 @@ from courseai import views
 
 urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + [
     path(r'', TemplateView.as_view(template_name='dynamic_pages/index.html'), name='index'),
+    path(r'feedbackform', TemplateView.as_view(template_name='dynamic_pages/feedback.html'), name='feedbackform'),
     path(r'planner', views.planner, name='planner'),
     path(r'search/', include('search.urls')),
     path(r'degree/', include('degree.urls')),
