@@ -1199,7 +1199,7 @@ function loadCourseGrid(plan) {
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
-        updateProgress();
+            updateProgress();
         updateRecommendations();
         SAVER.enableSaving();
     });
@@ -1445,6 +1445,8 @@ function makeCourseDraggable(item, code, year) {
                 top: Math.floor(ui.helper.height() / 2)
             }; 
 
+            $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
+
             highlightInvalidSessions(getCourseOffering(code, year));
             highlightElectives();
         },
@@ -1531,7 +1533,7 @@ function setupDegreeRequirements(container, degree) {
             '</div>'
         );
         let collapsible = $(
-            '<div id="deg-' + identifier + '-section' + counter + '" class="collapse hide"/>'
+            '<div id="deg-' + identifier + '-section' + counter + '" class="collapse show"/>'
         );
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-course').popover('hide');
@@ -1800,7 +1802,6 @@ async function updateDegreeTrackers() {
             if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
                 for (const c of card.find('.result-course')) {
                     const code = $(c).find('.course-code').text();
-                    // alert(details.codes);
                     setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
                 }
                 section_status = details.sat ? 'done' : 'incomplete';
