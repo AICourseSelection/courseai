@@ -274,7 +274,7 @@ async function mms_add(code, year) {
         $(this).find('.result-course').popover('hide');
     });
     collapsible.sortable({
-        items: "> .mms-select-min, .mms-select-max"
+        items: "> .mms-select-min, .mms-select-max",
     });
     let courses_actions = {};
 
@@ -480,7 +480,7 @@ $('#degree-selector').find('a').click(cycleDegrees);
 
 $('#degree-tabs-content').find('.degree-body').sortable();
 
-$('#degree-reqs-list').find('.degree-body').sortable();
+$('#degree-reqs-list').find('.degree-body').sortable({containment: $('body')});
 
 $('.collapse-all').click(function () {
     if (this.textContent === "Collapse all") {
@@ -536,7 +536,7 @@ $('#show-filters').popover({
     }
 });
 
-$('#mms-active-list').sortable();
+$('#mms-active-list').sortable({containment: $('body')});
 
 $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
     $('#left-panel').find('.result-course').popover('hide');
