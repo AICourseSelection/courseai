@@ -13,3 +13,9 @@ db.sqlite3
 venv
 *.swp
 *.swo
+Code/courseai/templates/dynamic_pages/about.css
+Code/courseai/templates/dynamic_pages/about.html
+Code/courseai/templates/dynamic_pages/backup button.txt
+Code/courseai/templates/dynamic_pages/js_button.html
+Code/courseai/templates/dynamic_pages/new 2.txt
+Code/courseai/templates/dynamic_pages/new 3.txt

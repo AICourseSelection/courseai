@@ -18,3 +18,5 @@ def give_feedback(request):
 
     return JsonResponse({"response": "success"})
 
+def successView(request):
+    return HttpResponse('Success! Thank you for your feedback.')
