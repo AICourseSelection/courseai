@@ -10,5 +10,7 @@ Change "start" to "started" |  | Client | Joseph | https://trello.com/c/7mxap6j7
 Create a dropdown for the years |  | Client | Joseph | https://trello.com/c/7mxap6j7 |
 Remove the close button and replace it with arrow signs | | Client | | https://trello.com/c/7mxap6j7 | 
 The card zooming back to its originial place after dragging it into the degree plan confuses users. Fix that. | | Shadows | Joseph | https://trello.com/c/7mxap6j7 |
+Fix the overflow that occurs in the chat bubble when the word is too long | | Yong Wei | | | 
+
 
 
