@@ -192,19 +192,19 @@ def course_search(search_object, phrase):
 def execute_search(es_conn, phrase, request, codes, levels, semesters_offered=None, level=None):
     s = Search(using=es_conn, index='courseupdated')
 
-    if '\"' in phrase:
-        c = '\"'
-
-        quote_positions = [pos for pos, char in enumerate(phrase) if char == c][:2]
-        if len(quote_positions) < 2 or quote_positions[1] - quote_positions[0] < 2:
-            response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered, level=level)
-
-        else:
-            f_string = phrase[quote_positions[0] + 1: quote_positions[1]]
-            response = __filtered_search(s, phrase, f_string, codes, levels, sem_queried=semesters_offered, level=level)
-
-    else:
-        response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered, level=level)
+    # if '\"' in phrase:
+    #     c = '\"'
+    #
+    #     quote_positions = [pos for pos, char in enumerate(phrase) if char == c][:2]
+    #     if len(quote_positions) < 2 or quote_positions[1] - quote_positions[0] < 2:
+    #         response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered, level=level)
+    #
+    #     else:
+    #         f_string = phrase[quote_positions[0] + 1: quote_positions[1]]
+    #         response = __filtered_search(s, phrase, f_string, codes, levels, sem_queried=semesters_offered, level=level)
+    # 
+    # else:
+    response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered, level=level)
 
     resp = {'query': phrase, 'response': response}
     return JsonResponse(resp)
