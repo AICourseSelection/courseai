@@ -17,7 +17,7 @@ function AutoSave(plan, code) {
     };
 
     this.save = function () {
-        if (!(this.plan.changesMade)) return;    // Check if the plan needs saving.
+        if (!this.plan.changesMade) return;    // Check if the plan needs saving.
         
         if (loggedIn && this.code) { // update degree plan details on the user's profile
             $.ajax({
