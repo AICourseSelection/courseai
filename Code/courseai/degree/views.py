@@ -28,12 +28,13 @@ def degree_plan(request):
         try:
             code = request.GET['degree_code']
             year = request.GET['year']
-            with open(code + ".json", newline="") as f:
+            with open('static/json/study_options/{}.json'.format(code)) as f:
                 study_options_str = f.read()
                 study_options_dict = ast.literal_eval(study_options_str)
             return JsonResponse({"response": study_options_dict[year]})
         except Exception:
-            return JsonResponse({"response": "null"})
+            res = JsonResponse({"response": "Default options of the requested degree-year combination could not be found. "})
+            return HttpResponseBadRequest(res)
     elif request.method == "PUT":
         data = request.body.decode('utf-8')
         code = json.loads(data)["code"]
@@ -93,6 +94,7 @@ def store_plan(request):
     proc = QueryDict(data)
     # generate a random code
     code = get_random_string(length=10)
+    code = code.replace(" ","c")
     plan = DegreePlanStore(code=code, plan=proc['plan'])
     plan.save()
     res = JsonResponse({"response": code})
