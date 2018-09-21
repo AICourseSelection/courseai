@@ -47,17 +47,26 @@ def search_all(es_conn, index):
     return JsonResponse(res)
 
 
-def mms_by_name(es_conn, name, index_name):
+def mms_by_name(es_conn, name, index_name, level=None):
     should = []
 
     fields = []
     for i in range(2014, 2020):
         fields.append('versions.' + str(i) + '.title')
 
-    for word in name.split(" "):
+    for word in name.split():
         should.append(MultiMatch(query=word, type="phrase_prefix", fields=fields))
     q = Q('bool', should=should, minimum_should_match=1)
-    response = Search(using=es_conn, index=index_name).query(q).execute().to_dict()
+
+    if level is None:
+        response = Search(using=es_conn, index=index_name).query(q).execute().to_dict()
+
+    else:
+        if level not in ['undergraduate', 'postgraduate']:
+            return JsonResponse({'response': 'Level' + level + 'not recognised'})
+        response = Search(using=es_conn, index=index_name).query(q).query(
+            Q('match', level=level)
+        ).execute().to_dict()
 
     responses = response['hits']['hits']
 
