@@ -5,6 +5,8 @@ function Plan() {
     this.trackedMMS = [];  // List of Majors, Minors, etc. currently tracked.
     this.warnings = []; // List of warnings that have been ignored by the user.
 
+    this.changesMade = false;
+
     this.unsatisfiedCourses = function () {
         let unsat = [];
         for (const session of this.sessions) {
@@ -73,12 +75,13 @@ function Plan() {
      */
     this.addDegree = async function (code, year) {
         for (const deg of this.degrees) if (deg.code === code) return;
-        let degree = await getDegreeOffering(code, year);
+        let degree = Object.assign({}, await getDegreeOffering(code, year));
         this.degrees.push(degree);
         if (this.degrees.length === 1) return degree;
         for (const deg of this.degrees) {
             deg.units -= 48; // Remove elective unit requirement
         }
+        this.changesMade = true;
         return degree;
     };
 
@@ -98,6 +101,7 @@ function Plan() {
             if (this.degrees[i].code === degreeCode) {
                 this.degrees.splice(i, 1);
                 this.degrees[0].units += 48; // Re-add elective unit requirement
+                this.changesMade = true;
                 return true;
             }
         }
@@ -113,6 +117,7 @@ function Plan() {
      */
     this.addSession = function (session) {
         if (session in this.sessions) return false;
+        this.changesMade = true;
         for (let i = 0; i < this.sessions.length; i++) {
             if (!sessionIsAfter(session, this.sessions[i])) {
                 this.sessions.splice(i, 0, session);
@@ -136,6 +141,7 @@ function Plan() {
         this.sessions.splice(sessionIndex, 1);
         deletedCourses = this.courses[session];
         delete this.courses[session];
+        this.changesMade = true;
         return deletedCourses;
     };
 
@@ -152,7 +158,7 @@ function Plan() {
         let offering = await getCourseOffering(code, year);
         let enrolment = new CourseEnrolment(offering, session);
         this.courses[session].push(enrolment);
-
+        this.changesMade = true;
         return true;
         //TODO: Throw exception when course doesn't exist or couldn't be retrieved.
     };
@@ -164,16 +170,28 @@ function Plan() {
             const enrolment = courses[i];
             if (enrolment.code === code) {
                 courses.splice(i, 1);
+                this.changesMade = true;
                 return true;
             }
         }
         return false;
     };
 
+    this.getCourses = function (code) {
+        let matches = [];
+        for (const session of this.sessions) {
+            for (const course of this.courses[session]) {
+                if (course.code === code) matches.push(course);
+            }
+        }
+        return matches;
+    };
+
     this.clearAllCourses = function () {
         for (session of this.sessions) {
             this.courses[session] = [];
         }
+        this.changesMade = true;
     };
 
     /**
@@ -188,8 +206,21 @@ function Plan() {
         for (const mms of this.trackedMMS) if (mms.code === code) return false;
         let newMMS = await getMMSOffering(code, year);
         this.trackedMMS.unshift(newMMS);
+        this.changesMade = true;
         return true;
         //TODO: Throw exception when MMS doesn't exist or couldn't be retrieved.
+    };
+
+    this.removeMMS = function (code, year) {
+        for (let i in this.trackedMMS) {
+            const mms = this.trackedMMS[i];
+            if (mms.code === code && mms.year === year) {
+                this.trackedMMS.splice(i, 1);
+                this.changesMade = true;
+                return true;
+            }
+        }
+        return false
     };
 
     /**
@@ -205,20 +236,90 @@ function Plan() {
         return false;
     };
 
+    this.addWarning = function (type, text, actions) {
+        this.changesMade = true;
+        this.warnings.push(new Warning(type, text, actions));
+    };
+
     this.removeWarning = function (type, text) {
-        for (warn of this.warnings) {
+        for (const warn of this.warnings) {
             if (warn.type === type && warn.text === text) {
-                this.warnings.splice(this.warnings.indexOf(warn, 1));
+                this.warnings.splice(this.warnings.indexOf(warn), 1);
+                this.changesMade = true;
                 return warn;
             }
         }
     };
 
     this.getWarning = function (type, text) {
-        for (warn of this.warnings) {
+        for (const warn of this.warnings) {
             if (warn.type === type && warn.text === text) return warn;
         }
     };
+
+    this.getNextSession = function () {
+        return nextSession(this.sessions[this.sessions.length - 1]);
+    };
+
+    this.clearWarnings = function () {
+        this.changesMade = true;
+        this.warnings = [];
+    };
+
+    this.serialize = function () {
+        let saved = {
+            degrees: [],
+            sessions: this.sessions,
+            courses: {},
+            trackedMMS: [],
+            warnings: []
+        };
+        for (const degree of this.degrees) {
+            saved.degrees.push({
+                code: degree.code,
+                year: degree.year
+            })
+        }
+        for (const session in this.courses) {
+            if (!this.courses.hasOwnProperty(session)) continue;
+            saved.courses[session] = [];
+            for (const enrolment of this.courses[session]) {
+                let to_add = Object.assign({}, enrolment);
+                to_add.course = {
+                    code: enrolment.course.code,
+                    year: enrolment.course.year
+                };
+                saved.courses[session].push(to_add);
+            }
+        }
+        for (const mms of this.trackedMMS) {
+            saved.trackedMMS.push({
+                code: mms.code,
+                year: mms.year
+            })
+        }
+        for (const warning of this.warnings) {
+            let to_add = {
+                type: warning.type,
+                text: warning.text,
+                actions: []
+            };
+            for (const action of warning.actions) {
+                if (action.toString().includes("boxShadow: '0 0 25px #007bff'")) { // Crude check to see if the action is a scroll-and-glow one
+                    const target = action.target;
+                    to_add.actions.push({
+                        type: 'scroll-and-glow',
+                        session: target.siblings().find('.row-ses').text(),
+                        code: target.find('.course-code').text()
+                    });
+                }
+            }
+            saved.warnings.push(to_add);
+        }
+        if (this.startSem) saved.startSem = this.startSem;
+        return JSON.stringify(saved);
+
+    }
 }
 
 const SESSION_ORDER = ['Su', 'S1', 'Au', 'Wi', 'S2', 'Sp'];

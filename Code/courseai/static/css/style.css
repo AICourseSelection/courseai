@@ -3,6 +3,14 @@ body {
     min-width: 300px;
 }
 
+.modal-backdrop {
+    z-index: 1070;
+}
+
+.modal {
+    z-index: 1080;
+}
+
 .planner-container {
     margin: 20px 30px 30px 30px;
     min-width: 860px;
@@ -37,7 +45,14 @@ wrapper {
     min-height: 80vh;
 }
 
-#planform, #planform input, #planform .btn-group .btn{
+#year-descriptor {
+    padding-right: 5px;
+    line-height: 2.25;
+    min-width: fit-content;
+    min-width: -moz-fit-content;
+}
+
+#planform, #planform input, #planform .btn-group .btn {
     font-size: 14pt !important;
 }
 
@@ -48,6 +63,7 @@ wrapper {
 #planform .typeahead .dropdown-item:hover {
     background-color: #e3ebf3;
 }
+
 #planform .typeahead .dropdown-item:active {
     background-color: #007bff;
 }
@@ -110,11 +126,114 @@ wrapper {
     margin-right: auto;
 }
 
+#save-code {
+    font-family: monospace;
+    font-size: 14pt;
+    padding: 0 0.4rem;
+    background-color: lightgray;
+    border-radius: 0.3rem;
+    margin-left: 0.5rem;
+}
+
+#save-code-box {
+    font-family: monospace;
+    font-size: 13pt;
+    padding: 0.2rem 0.75rem;
+    text-align: center;
+}
+
+#save-code-box::placeholder {
+    font-style: italic;
+}
+
+#code-wrong {
+    text-align: center;
+    margin-top: 0.2rem;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    display: none;
+}
+
+.add-row-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 0;
+    position: relative;
+    z-index: 100;
+    min-height: 0; /* Required for transition */
+    max-height: 0;
+}
+
+.remove-row-btn, .add-row-btn {
+    vertical-align: middle;
+    padding: 0;
+    margin-top: 7px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+}
+
+.remove-row-btn {
+    margin: auto 0;
+    color: #FF6E6E;
+    background-color: white;
+    margin-right: 5px;
+    width: 12px;
+    height: 14px;
+}
+
+.add-row-btn {
+    padding: 0;
+    color: #7AD55D;
+    background-color: white;
+    margin-top: -4px;
+}
+
+.remove-row-btn:focus, .add-row-btn:focus {
+    outline: 0;
+}
+
+.remove-row-btn:hover {
+    color: #AF1515;
+}
+
+.add-row-btn:hover {
+    color: #4DB324;
+}
+
+.add-row-line-left {
+    display: flex;
+    margin-top: 14px;
+    width: 50%;
+    border-top: 1px solid #ccc;
+}
+
+.add-row-line-right {
+    display: flex;
+    margin-top: 14px;
+    width: 47%;
+    border-top: 1px solid #ccc;
+}
+
+#centre-panel {
+    padding-left: 0;
+}
+
 #plan-grid {
     font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
+.plan-row-wrapper {
+    float: left;
+    display: flex;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    min-height: 124px;
+}
+
 .plan-row {
+    padding: 5px;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     margin-top: 5px;
@@ -145,6 +264,47 @@ wrapper {
     -o-transition: background 1s linear;
     transition: background 1s linear;
 }
+
+.remove-row-animate {
+    overflow: hidden;
+    min-height: 10px;
+    max-height: 0px;
+    transition: min-height 0.4s;
+    -webkit-transition: min-height 0.4s;
+    -moz-transition: min-height 0.4s;
+    -ms-transition: min-height 0.4s;
+    -o-transition: min-height 0.4s;
+}
+
+.add-row-animate {
+    min-height: 124px;
+    transition: min-height 0.4s;
+    -webkit-transition: min-height 0.4s;
+    -moz-transition: min-height 0.4s;
+    -ms-transition: min-height 0.4s;
+    -o-transition: min-height 0.4s;
+}
+
+.session-popover-body {
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.session-popover-btn {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+}
+
+.session-popover-submit {
+    width: 100%;
+    text-align: center;
+    border-radius: 0;
+    margin: 0;
+}
+
 .plan-cell {
     float: left;
     padding: 5px;
@@ -155,6 +315,7 @@ wrapper {
     border-radius: 0.25rem;
     background-color: white;
     box-shadow: 0 0 0 #007bff; /* Need this to allow glow animation to work on first click */
+    user-select: none;
 }
 
 .first-cell {
@@ -379,7 +540,7 @@ wrapper {
 }
 
 #mms-active-list {
-    margin: .5rem -5px;
+    /* margin: .5rem -5px; */
 }
 
 #mms-active-list .card-header {
@@ -395,7 +556,7 @@ wrapper {
     padding: .2rem .3rem;
 }
 
-#right-panel .result-course:before, #right-panel .result-mms:before{
+#right-panel .result-course:before, #right-panel .result-mms:before {
     font-family: 'Font Awesome\ 5 Free';
     border-radius: .3rem;
     display: inline-block;
@@ -403,17 +564,17 @@ wrapper {
     text-align: center;
 }
 
-#right-panel .result-course.inc:before, #right-panel .result-mms.inc:before{
+#right-panel .result-course.inc:before, #right-panel .result-mms.inc:before {
     content: "\f00c";
     background-color: #bbf8cd;
 }
 
-#right-panel .result-course.exc:before, #right-panel .result-mms.exc:before{
+#right-panel .result-course.exc:before, #right-panel .result-mms.exc:before {
     content: "\f00d";
     background-color: #f8d7d6;
 }
 
-#right-panel .result-course.partial:before, #right-panel .result-mms.partial:before{
+#right-panel .result-course.partial:before, #right-panel .result-mms.partial:before {
     content: "\f0ae";
     background-color: #f7ebc7;
 }
@@ -748,12 +909,16 @@ wrapper {
 
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
-    0%,100% { opacity: 1 }
-    50% { opacity: 0.5 }
+    0%, 100% {
+        opacity: 1
+    }
+    50% {
+        opacity: 0.5
+    }
 }
 
 .plan-cell:active {
-    background-color: #A9CCE3 ;
+    background-color: #A9CCE3;
 }
 
 .compulsory {
@@ -781,15 +946,15 @@ wrapper {
 }
 
 .invalid-cell {
-    background-color: #ffe6e6; 
+    background-color: #ffe6e6;
 }
 
 .highlight-elective {
     background-color: #ccffcc;
     border-color: #37e131;
-    animation: pulse 1s infinite;
+    animation: pulse 3s infinite;
 }
 
-.plan-cell:hover, .list-group-item:hover  {
+.plan-cell:hover, .list-group-item:hover {
     background: #80DEEA !important; /* make sure to override js styling */
 }

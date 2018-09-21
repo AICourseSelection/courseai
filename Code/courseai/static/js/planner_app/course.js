@@ -27,6 +27,16 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
     this.extras = extras;
     this.repeatable = repeatable;
 
+    if (typeof units === "number") {
+        this.units = units;
+    } else if (units === undefined) {
+        this.units = 6;
+    } else {
+        const bounds = this.units.split(" to ");
+        this.units = parseInt(bounds[0]);
+        this.maxUnits = parseInt(bounds[1]);
+    }
+
     /**
      * Check if the requirements for this course have been met.
      * @param plan  The degree plan to check requirements against.
@@ -41,12 +51,12 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
             if (sessionIsAfter(ses, session) || ses === session) continue;
             Array.prototype.push.apply(courses_taken, plan.courses[ses]);
         }
-        let courses_taking = plan.courses[session];
+        let courses_taking = plan.courses[session] || [];
 
         for (let clause of this.rules) {
             let clause_sat = false;
             for (let course of clause) {
-                if (clause_sat) continue;
+                if (clause_sat || !/^~?[A-Z]{4}[0-9]{4}/.test(course)) continue; // Skip if satisfied or unknown requirement.
                 if (course.charAt(0) === '~') {
                     let code = course.slice(1);
                     if (checkCoursePresent(courses_taken.concat(courses_taking), code)) {
