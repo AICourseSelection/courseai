@@ -301,7 +301,7 @@ async function mms_add(code, year) {
         });
         let group = $('<div class="list-group list-group-flush"/>');
         for (let code of courses) {
-            code = code.code; // TODO: Fix this
+            code = code[0].code;
             let title_node = $('<span class="course-title"/>');
             let year_node = $('<span class="course-year"/>');
             if (!(code in courses_actions)) courses_actions[code] = [];
@@ -378,7 +378,6 @@ async function mms_add(code, year) {
         }
         if (type === "x_from_here") {
             for (let section of required[type]) {
-                if (section instanceof Array) section = section[0]; // TODO: Fix this
                 let title = 'Choose at least ';
                 if (section.type === "maximum") title = 'Choose up to ';
                 title += (section.num || section.units) + ' units' +
