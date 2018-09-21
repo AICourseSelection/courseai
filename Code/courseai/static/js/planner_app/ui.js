@@ -243,90 +243,189 @@ async function mms_add(code, year) {
     collapsible.on('hide.bs.collapse', function () {
         $(this).find('.result-course').popover('hide');
     });
-    collapsible.sortable({
-        items: "> .mms-select-min, .mms-select-max"
-    });
-    let titles_fill_nodes = {};
+    // collapsible.sortable({
+    //     items: "> .mms-select-min, .mms-select-max"
+    // });
 
     let mmsCourseCodes = [];
     let colorIndex = getColorClassIndex(code);
-    for (let i in mms.rules) {
-        let value = mms.rules[i];
-        if (value.type === "fixed") {
-            let required = $('<div class="mms-required list-group list-group-flush"/>');
-            let course_list = $('<div id="mms-active-' + identifier + '-select' + i + '" class="collapse show"/>');
-            for (let course of value.course) {
-                let title_node = $('<span class="course-title"/>');
-                if (course.code in KNOWN_COURSES && year in KNOWN_COURSES[course.code]) {
-                    title_node.text(KNOWN_COURSES[course.code][year].title)
-                }
-                else {
-                    if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                    titles_fill_nodes[course.code].push(function (title) {
-                        title_node.text(title);
-                    });
-                }
-                let item = $(
-                    '<div class="list-group-item list-group-item-action draggable-course result-course">' +
-                    '    <span class="course-code">' + course.code + '</span> ' +
-                    '</div>'
-                );
-                item.addClass(MMS_CLASS_NAME + colorIndex);
-                mmsCourseCodes.push(course.code);
-                item.append(title_node);
-                makeCourseDraggable(item, course.code);
-                item.each(coursePopoverSetup);
-                course_list.append(item);
-                required.append(course_list);
-            }
-            collapsible.append(required);
-        } else if (['minimum', 'maximum'].includes(value.type)) {
-            let label_text = 'at least ';
-            if (value.type === 'maximum') label_text = 'up to ';
-            let select = $(
-                '<div class="mms-select-' + value.type.slice(0, 3) + ' card">\n' +
-                '    <div class="card-header btn text-left pl-2" data-toggle="collapse"\n' +
-                '         data-target="#mms-active-' + identifier + '-select' + i + '">\n' +
-                '        Choose ' + label_text + value.units + ' units\n' +
-                '        <span class="unit-count mr-2">0/' + value.units + '</span>\n' +
-                '    </div>\n' +
-                '</div>');
-            if (value.type === 'maximum') select.addClass('alert-success');
-            let options = $('<div class="mms-optional list-group list-group-flush"/>');
-            for (let course of value.course) {
-                let title_node = $('<span class="course-title"/>');
-                if (course.code in KNOWN_COURSES && year in KNOWN_COURSES[course.code]) {
-                    title_node.text(KNOWN_COURSES[course.code][year].title)
-                }
-                else {
-                    if (!(course.code in titles_fill_nodes)) titles_fill_nodes[course.code] = [];
-                    titles_fill_nodes[course.code].push(function (title) {
-                        title_node.text(title);
-                    });
-                }
-                let list_item = $(
-                    '<div class="list-group-item list-group-item-action draggable-course result-course">' +
-                    '    <span class="course-code">' + course.code + '</span> ' +
-                    '</div>'
-                );
-                list_item.addClass(MMS_CLASS_NAME + colorIndex);
-                mmsCourseCodes.push(course.code);
-                list_item.append(title_node);
-                makeCourseDraggable(list_item, course.code);
-                list_item.each(coursePopoverSetup);
-                options.append(list_item);
-            }
 
-            let collapse = $('<div id="mms-active-' + identifier + '-select' + i + '" class="collapse show"/>');
-            collapse.on('hide.bs.collapse', function () {
-                $(this).find('.result-course').popover('hide');
+    let courses_actions = {};
+    let section_count = 0;
+    let async_operations = [];
+    let mms_to_retrieve = {};
+    const required = mms.rules;
+
+    function createCourseListSection(type, title, courses, counter = section_count) {
+        let section = $('<div class="mms-internal card"/>');
+        let card_header = $(
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#mms-internal-' + identifier + '-section' + counter + '">\n' +
+            '    <span class="requirement-type">' + type + '</span>\n' + title +
+            '</div>'
+        );
+        let collapsible = $(
+            '<div id="mms-internal-' + identifier + '-section' + counter + '" class="collapse show"/>'
+        );
+        collapsible.on('hide.bs.collapse', function () {
+            $(this).find('.result-course').popover('hide');
+        });
+        let group = $('<div class="list-group list-group-flush"/>');
+        for (let code of courses) {
+            code = code.code; // TODO: Fix this
+            let title_node = $('<span class="course-title"/>');
+            let year_node = $('<span class="course-year"/>');
+            if (!(code in courses_actions)) courses_actions[code] = [];
+            courses_actions[code].push(function (offering) {
+                title_node.text(offering.title);
+                year_node.text(offering.year);
+                makeCourseDraggable(item, code, offering.year);
             });
-            collapse.append(options);
-            select.append(collapse);
-            collapsible.append(select);
+            let item = $(
+                '<div class="list-group-item list-group-item-action compulsory draggable-course result-course">' +
+                '    <span class="course-code">' + code + '</span> ' +
+                '</div>'
+            );
+            item.addClass(MMS_CLASS_NAME + colorIndex);
+            item.append(title_node);
+            item.append(year_node);
+            item.each(coursePopoverSetup);
+            group.append(item);
+        }
+        collapsible.append(group);
+        section.append(card_header);
+        section.append(collapsible);
+        return section;
+    }
+
+    function createCourseCategorySection(type, title, codes, levels) {
+        let section = $('<div class="mms-internal card"/>');
+        let card_header = $(
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#mms-internal-' + identifier + '-section' + section_count + '">\n' +
+            '    <span class="requirement-type">' + type + '</span>\n' + title +
+            '</div>'
+        );
+        let collapsible = $(
+            '<div id="mms-internal-' + identifier + '-section' + section_count + '" class="collapse show"/>'
+        );
+        collapsible.on('hide.bs.collapse', function () {
+            $(this).find('.result-course').popover('hide');
+        });
+        let description = '<div class="mms-internal-category-description">From ';
+        if (levels && levels.length > 0) {
+            for (let i in levels) {
+                if (i > 0) description += '/ ';
+                description += '<a href="javascript:void(0)" class="level-filter" onclick="addFilter(\'level\',\'' + levels[i] + '\')">' + levels[i] + '</a> ';
+            }
+        }
+        description += 'courses starting with: ';
+        for (let i in codes) {
+            if (typeof(codes[i]) !== "string") continue;
+            if (i > 0) description += ', ';
+            description += '<a href="javascript:void(0)" class="code-filter" onclick="addFilter(\'code\',\'' + codes[i] + '\')">' + codes[i] + '</a>';
+        }
+        description = $(description + '</div>');
+        collapsible.append(description);
+        collapsible.append($('<div class="list-group list-group-flush"/>'));
+        section.append(card_header);
+        section.append(collapsible);
+        return section;
+    }
+
+    for (let type in required) {
+        if (!required.hasOwnProperty(type)) continue;
+        mmsCourseCodes = Array.prototype.concat(mmsCourseCodes, required[type].courses || []);
+        if (type === "compulsory_courses") {
+            let card = createCourseListSection(type, "Compulsory courses", required[type]);
+            collapsible.append(card);
+            section_count++;
+        }
+        if (type === "one_from_here") {
+            for (let section of required[type]) {
+                let card = createCourseListSection(type, "Pick at least one", section);
+                collapsible.append(card);
+                section_count++;
+            }
+        }
+        if (type === "x_from_here") {
+            for (let section of required[type]) {
+                if (section instanceof Array) section = section[0]; // TODO: Fix this
+                let title = 'Choose at least ';
+                if (section.type === "maximum") title = 'Choose up to ';
+                title += (section.num || section.units) + ' units' +
+                    '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
+                if (typeof(section['courses']) === "string") {
+                    const name = section['courses'];
+                    let placeholder = $('<div/>');
+                    collapsible.append(placeholder);
+                    const original_section_count = section_count;
+                    section_count++;
+                    if (name in KNOWN_COURSE_LISTS) {
+                        let card = createCourseListSection(type, title, KNOWN_COURSE_LISTS[name], original_section_count);
+                        placeholder.replaceWith(card);
+                    } else {
+                        async_operations.push($.ajax({
+                            url: 'search/courselists',
+                            data: {'query': name},
+                            success: function (data) {
+                                let courses = data.response.courses;
+                                courses = courses.map(function (value, index, array) {
+                                    if (typeof(value) !== "string") return value[0];
+                                    else return value;
+                                });
+                                KNOWN_COURSE_LISTS[name] = courses;
+                                if (data.response.type !== name) return;
+                                let card = createCourseListSection(type, title, courses, original_section_count);
+                                placeholder.replaceWith(card);
+                            }
+                        }));
+                    }
+                } else {
+                    let card = createCourseListSection(type, title, section['courses']);
+                    collapsible.append(card);
+                    section_count++;
+                }
+            }
+        }
+        if (type === "x_from_category") {
+            for (let section of required[type]) {
+                let title = 'Choose at least ' + (section.num || section.units) + ' units' +
+                    '<span class="unit-count mr-2">0/' + (section.num || section.units) + '</span>\n';
+                if (section.type === "min_max") {
+                    title = 'Choose between ' + section.units.minimum + ' and ' + section.units.maximum + ' units' +
+                        '<span class="unit-count mr-2">0/' + section.units.minimum + '</span>\n';
+                }
+                let card = createCourseCategorySection(type, title, section['area'], section.level);
+                collapsible.append(card);
+                section_count++;
+            }
+        }
+        if (type === "required_m/m/s") {
+            for (let code of required[type]) {
+                const year = THIS_YEAR; // TODO: Fix for MMS years. Need the most recent year with data available.
+                let mms_type = code.split('-').pop();
+                let card = $('<div class="mms-internal deg-plain-text">\n' +
+                    '    <span class="mms-code">' + code + '</span>\n' +
+                    '    <strong>Compulsory ' + MMS_TYPE_PRINT[mms_type] + ':</strong>\n' +
+                    '    <div id="deg-' + identifier + '-section' + section_count + '"></div>' +
+                    '    <span class="unit-count mr-1">0/' + MMS_TYPE_UNITS[mms_type] + '</span>' +
+                    '</div>');
+                let title_node = $('<span/>');
+                const mmsIdentifier = code + '/' + year;
+                if (!(mmsIdentifier in mms_to_retrieve)) mms_to_retrieve[mmsIdentifier] = [];
+                mms_to_retrieve[mmsIdentifier].push(function (mms) {
+                    title_node.text(mms.title);
+                    if (title_node.parent().hasClass('result-mms')) title_node.parent().each(mmsPopoverSetup);
+                    async_operations.push(mms_add(code, year));
+                });
+                card.append(title_node);
+                collapsible.append(card);
+                section_count++;
+            }
         }
     }
-    mmsCourseCodes.concat.apply([], mmsCourseCodes)
+
+
+    mmsCourseCodes.concat.apply([], mmsCourseCodes);
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes[code] = mmsCourseCodes;
 
     mms_card.append(card_header);
@@ -338,8 +437,11 @@ async function mms_add(code, year) {
     else $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')).find('.collapse').collapse('hide');
     $(this).attr("disabled", true);
     $(this).text('Already in Plan');
-    await batchCourseTitles(titles_fill_nodes);
-    updateProgress();
+    $.when.apply($, async_operations).then(function () {
+        batchCourseOfferingActions(courses_actions);
+        batchMMSData(mms_to_retrieve);
+        updateProgress();
+    });
 
     colorSearchList();
     colorPlannerCards();
@@ -660,27 +762,17 @@ async function mmsPopoverData() {
 
     if (popover['data-received'] || false) return;
     let offering = await getMMSOffering(code, year);
-    const composition = $('<div class="result-composition"/>');
-    for (let section of offering.rules) {
-        if (section.course.length === 0) continue;
-        const comp_section = $('<div class="mms-comp-section"/>');
-        const label = $('<div class="mms-comp-label"/>');
-        if (section.type === 'fixed') label.text('Compulsory: ');
-        if (section.type === 'minimum') label.text('At least ' + section.units + ' units: ');
-        if (section.type === 'maximum') label.text('Up to ' + section.units + ' units: ');
-        const group = $('<div class="list-group"/>');
-        for (let course of section.course) {
-            group.append('<div class="list-group-item">' +
-                '<span class="course-code">' + course.code + '</span>' +
-                '<span class="course-title"> ' + '' + '</span>' +
-                '</div>');
-        }
-        comp_section.append(label);
-        comp_section.append(group);
-        composition.append(comp_section);
+    let html = '';
+    if (offering.extras['description']) {
+        const truncated_description = offering.extras['description'].slice(0, 350) + '...';
+        html += '<h6 class="mt-2">Description</h6>\n' +
+            '<div class="result-description">' + truncated_description + '</div>\n';
     }
-
-    const html = '<h6 class="mt-2">Study Requirements</h6>\n' + composition.prop('outerHTML');
+    if (offering.extras['learning_outcomes']) {
+        const truncated_los = offering.extras['learning_outcomes'].slice(0, 350) + '...';
+        html += '<h6 class="mt-2">Learning Outcomes</h6>\n' +
+            '<div class="result-learning-outcomes">' + truncated_los + '</div>\n';
+    }
     popover.config.content = html;
     curr_popover.find('.fa-sync-alt').css({'display': 'none'});
     curr_popover.find('.popover-body').append(html);
@@ -993,8 +1085,12 @@ function updateMMSSearchResults(data, type) {
     const responses = data.responses;
     if (responses.length > 0) {
         for (let r of responses) {
-            const code = r['code'];
-            const name = r['name'];
+            const code = r.code;
+            let name;
+            for (const year in r.versions) { // TODO: Fix for MMS Years.
+                name = r.versions[year].title;
+                if (year == THIS_YEAR) break;
+            }
             let item = $(
                 '<div class="draggable-course result-mms list-group-item list-group-item-action">\n    ' +
                 '<span class="mms-code">' + code + '</span>' +
@@ -1368,18 +1464,51 @@ function updateMMSTrackers() {
     for (const mms of PLAN.trackedMMS) {
         const mms_card = $('#mms-active-list').find('#mms-active-' + mms.identifier).parent();
         const results = mms.checkRequirements(PLAN);
-        for (const i in results.rule_details) {
+        for (const i in results.rule_details) { // TODO: Fix for Optional Sections
             const details = results.rule_details[i];
-            const type = mms.rules[i].type;
-            const card = mms_card.find('#mms-active-' + mms.identifier + '-select' + i).parent();
-            for (const c of card.find('.result-course')) {
-                const code = $(c).find('.course-code').text();
-                let checked = details.codes.includes(code);
-                setChecked($(c), checked, type === 'fixed');
-                colorPlannerCards(code);
+            const type = details.type;
+            const card = mms_card.find('#mms-internal-' + mms.identifier + '-section' + i).parent();
+            let section_status = "";
+            if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
+                for (const c of card.find('.result-course')) {
+                    const code = $(c).find('.course-code').text();
+                    setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
+                }
+                section_status = details.sat ? 'done' : 'incomplete';
             }
-            updateUnitCount(card.find('.unit-count'), details.units);
-            setPanelStatus(card, details.sat ? 'done' : 'incomplete');
+            else if (["x_from_category", "max_by_level"].includes(type)) {
+                const group = card.find('.list-group');
+                group.empty();
+                for (const code of details.codes) {
+                    getCourseOffering(code, THIS_YEAR).then(function (offering) { // Get most appropriate offering
+                        const item = $(
+                            '<div class="list-group-item list-group-item-action result-course inc">' +
+                            '    <span class="course-code">' + code + '</span> ' +
+                            '    <span class="course-year">' + offering.year + '</span> ' +
+                            '    <span class="course-title">' + offering.title + '</span>' +
+                            '</div>'
+                        );
+                        item.each(coursePopoverSetup);
+                        group.append(item);
+                    });
+                }
+                section_status = details.sat ? 'done' : (type === "max_by_level" ? 'problem' : 'incomplete');
+            }
+            else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
+                for (const entry of card.find('.mms-code')) {
+                    const code = $(entry).text();
+                    if (details.completed.includes(code)) {
+                        $(entry).parent().addClass('inc').removeClass('partial');
+                    } else if (details.codes.includes(code)) {
+                        $(entry).parent().addClass('partial').removeClass('inc')
+                    } else $(entry).parent().removeClass('inc partial');
+                }
+                if (details.sat) section_status = 'done';
+                else if (details.codes.length) section_status = 'incomplete';
+                else section_status = 'problem'
+            }
+            if (details.units !== undefined) updateUnitCount(card.find('.unit-count'), details.units);
+            setPanelStatus(card, section_status);
         }
         updateUnitCount($(mms_card[0].firstElementChild).find('.unit-count'), results.units);
         setPanelStatus(mms_card, results.sat ? 'done' : 'incomplete');
