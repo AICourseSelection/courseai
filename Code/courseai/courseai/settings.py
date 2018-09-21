@@ -24,7 +24,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = False
 SECURE_BROWSER_XSS_FILTER = False
 SECURE_SSL_REDIRECT = False #TODO: set to true when domain name owned
 # SECURE_HSTS_SECONDS # TODO: set a value for this when only serving over SSL
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 X_FRAME_OPTIONS = 'DENY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
