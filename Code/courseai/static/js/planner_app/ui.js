@@ -1199,7 +1199,9 @@ function loadCourseGrid(plan) {
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
+        window.setTimeout(function() {
             updateProgress();
+        }, 250);
         updateRecommendations();
         SAVER.enableSaving();
     });
