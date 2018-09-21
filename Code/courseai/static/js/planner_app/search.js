@@ -15,15 +15,15 @@ function Search(plan) {
         let filters = {
             'codes': [],
             'levels': [],
-            'semesters': [],
+            'sessions': [],
         };
         for (let f of activeFilters) {
             if (f.type === 'level') filters.levels.push(f.data);
             else if (f.type === 'code') filters.codes.push(f.data);
-            else filters.semesters.push();
-
-            const sem = parseInt(f.data.slice(-1));
-            if (sem && !filters['semesters'].includes(sem)) filters['semesters'].push(sem);
+            else {
+                let session = {year: f.data.slice(0, 4), semester: SESSION_WORDS[f.data.slice(4)]};
+                if (sem && !filters['semesters'].includes(sem)) filters['semesters'].push(session);
+            }
         }
         this.requests['course'] = $.ajax({
             url: 'search/coursesearch',

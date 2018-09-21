@@ -962,7 +962,7 @@ function updateCourseSearchResults(response) {
 
     if (response.length > 0) {
         for (let r of response.slice(0, 10)) {
-            const code = r.code;
+            const code = r.course_code;
             const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
             const title = r.title;
             let item = $(
