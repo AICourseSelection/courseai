@@ -94,8 +94,7 @@ async function getMMSOffering(code, year) {
             url: 'search/mms',
             data: {'query': code},
             success: function (data) {
-                if (!code in KNOWN_MMS) KNOWN_MMS[code] = {};
-                KNOWN_MMS[code][year] = new MMS(code, year, data.name, data.composition);
+                recordMMSOfferings(code, data.versions)
             }
         })
     }
@@ -103,25 +102,28 @@ async function getMMSOffering(code, year) {
 }
 
 async function batchMMSData(mms_actions) {
-    if (jQuery.isEmptyObject(mms_actions)) return;
     for (const mms in mms_actions) {
         if (!mms_actions.hasOwnProperty(mms)) continue;
         const code = mms.split('/')[0];
         const year = mms.split('/')[1];
-        $.ajax({
-            url: 'search/mms',
-            data: {
-                'query': code,
-            },
-            success: function (data) {
-                if (!(code in KNOWN_MMS)) KNOWN_MMS[code] = {};
-                const new_mms = new MMS(code, year, data.name, data.composition);
-                KNOWN_MMS[code][year] = new_mms;
-                for (const action of mms_actions[mms]) {
-                    action(new_mms)
+        if (!(code in KNOWN_COURSES)) {
+            $.ajax({
+                url: 'search/mms',
+                data: {
+                    'query': code,
+                },
+                success: function (data) {
+                    recordMMSOfferings(code, data.versions);
+                    for (const action of mms_actions[mms]) {
+                        action(KNOWN_MMS[code][year])
+                    }
                 }
+            });
+        } else {
+            for (const action of mms_actions[mms]) {
+                action(KNOWN_MMS[code][year])
             }
-        });
+        }
     }
 }
 
@@ -229,5 +231,20 @@ function recordCourseOfferings(code, offerings) {
                 'learning_outcomes': data.learning_outcomes,
             },
             data['repeatable'] || false);
+    }
+}
+
+function recordMMSOfferings(code, offerings) {
+    for (const year in offerings) {
+        let data = offerings[year];
+        if (!(code in KNOWN_MMS)) KNOWN_MMS[code] = {};
+        KNOWN_MMS[code][year] = new MMS(
+            code, year,
+            data.title,
+            data.requirements,
+            {
+                'description': data.description,
+                'learning_outcomes': data.learning_outcomes,
+            });
     }
 }
