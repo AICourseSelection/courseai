@@ -21,7 +21,7 @@ function createDeleteBtn(code) {
 }
 
 function createLoadBtn(code, startYear, startSem) {
-    let btn = $('<button class="btn btn-outline-success btn-default load-btn">Load</button>');
+    let btn = $('<button class="btn btn-outline-success btn-default btn-load">Load</button>');
     btn.on('click', function() {
         let codeCell = $(this).parent().prev();
         if (codeCell.length !== 0) {
@@ -38,7 +38,7 @@ $.ajax({
     success: function(data) {
         if (data.length > 1) {
             let plans = data.split(PLAN_DELIMITER);
-            for (var i = 0; i < plans.length; i++) 
+            for (var i = 0; i < plans.length; i++)
                 plans[i] = plans[i].split(CODE_DELIMITER);
 
             // insert degree plans into the table
@@ -47,14 +47,14 @@ $.ajax({
                 let obj = JSON.parse(plans[i][1]);
                 let code = plans[i][0];
                 let row = $('<tr class="d-flex">');
-                let btnsCol = $('<td class="col-2 btn-container"/>');           
-                             
+                let btnsCol = $('<td class="col-2 btn-container row-fluid"/>');
+
                 // row.append('<td class="">' + plans[i][0] + '</td>');                                                 // code
                 row.append('<td class="col-2 text-center">' + obj.degrees.join(', ') + '</td>');                         // degrees
                 row.append('<td class="col-4 text-center">' + obj.trackedMMS.join(', ') + '</td>');                      // mms
                 row.append('<td class="col-2 text-center">' + 'Semester ' + obj.startSem + ' ' + obj.startYear + '</td>');   // start date
                 row.append('<td class="col-2 text-center">' + obj.created + '</td>');                                   // created
-                
+
                 btnsCol.append(createLoadBtn(code, obj.startYear, obj.startSem));
                 btnsCol.append(createDeleteBtn(code));
                 row.append(btnsCol);
