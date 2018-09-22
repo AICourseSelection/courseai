@@ -177,7 +177,7 @@ function removeCourse(session, position) {
     box.removeClass(COLOR_CLASSES_STR);
     if (box.prevAll().hasClass('ui-sortable-placeholder')) position--;
 
-    makeElective(box, session, code); // make the slot an elective slot and update planner 
+    makeElective(box, session, code); // make the slot an elective slot and update planner
 
     updateWarningNotices();
     updateProgress();
@@ -452,7 +452,6 @@ async function mms_add(code, year) {
             }
         }
     }
-
     mmsCourseCodes.concat.apply([], mmsCourseCodes);
     if (mmsCourseCodes.length !== 0) allMMSCourseCodes[code] = mmsCourseCodes;
 
@@ -584,7 +583,7 @@ $('#degree-selector').find('a').click(cycleDegrees);
 
 $('#degree-tabs-content').find('.degree-body').sortable();
 
-$('#degree-reqs-list').find('.degree-body').sortable();
+$('#degree-reqs-list').find('.degree-body').sortable({containment: $('body')});
 
 $('.collapse-all').click(function () {
     if (this.textContent === "Collapse all") {
@@ -640,7 +639,7 @@ $('#show-filters').popover({
     }
 });
 
-$('#mms-active-list').sortable();
+$('#mms-active-list').sortable({containment: $('body')});
 
 $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
     $('#left-panel').find('.result-course').popover('hide');
@@ -1293,20 +1292,28 @@ function loadCourseGrid(plan) {
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
-        updateProgress();
+        window.setTimeout(function() {
+            updateProgress();
+        }, 250);
         updateRecommendations();
         SAVER.enableSaving();
     });
 }
 
+function forcePopoverReposition() {
+    window.scrollBy(0, 1);
+    window.scrollBy(0, -1);
+}
+
 function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
     const year = $(this).find('.course-year').text();
+    let placement = ($(this).index() <= 2) ? 'right' : 'left';
     if (code === ELECTIVE_TEXT) return;
     $(this).popover({
         trigger: 'click',
         title: code + '<a class="popover-close" onclick="closePopover(this)">×</a>',
-        placement: 'right',
+        placement: placement,
         html: true,
         content: '<div class="d-flex">\n' +
         '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
@@ -1316,16 +1323,22 @@ function coursePopoverSetup(i, item) {
         '    <div class="h3 popover-header"></div>\n' +
         '    <div class="popover-body"></div>\n' +
         '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
-        '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+        '     " class="h6 popover-footer mb-0 text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
 
     $(this).on('show.bs.popover', function () {
-        const popover = $(this).data('bs.popover');
+        var popover = $(this).data('bs.popover');
         coursePopoverData(this, $(item).hasClass('plan-cell')).then(function () {
             setupRecommendations(popover);
         });
     });
+
+    // reposition on click event trigger, which fires after the show.bs.popover event
+    $(this).on('click', function(e) {
+       forcePopoverReposition();
+    });
+
     $(this).on('shown.bs.popover', function () {
         const popover = $(this).data('bs.popover');
         if (popover['data-received'] || false) setupRecommendations(popover);
@@ -1361,7 +1374,7 @@ function mmsPopoverSetup() {
     $(this).popover({
         trigger: 'click',
         title: name + '<a class="popover-close" onclick="closePopover(this)">×</a>',
-        placement: 'right',
+        placement: 'left',
         html: true,
         content: '<div class="d-flex">\n' +
         '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
@@ -1376,6 +1389,8 @@ function mmsPopoverSetup() {
         '</div>'
     });
     $(this).on('show.bs.popover', mmsPopoverData)
+
+    $(this).on('click', forcePopoverReposition());
 }
 
 function updateCourseSearchResults(response) {
@@ -1476,8 +1491,13 @@ function makePlanCellDraggable(item) {
         zIndex: 800,
         revert: true,
         helper: 'clone',
+        containment: 'document',
         start: function (event, ui) {
             ui.helper.addClass('dragged-course');
+            $(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            };
             const first_cell = $(event.target.parentElement).find('.first-cell');
             first_cell.children().css({'display': 'none'});
             first_cell.addClass('delete').addClass('alert-danger');
@@ -1519,6 +1539,13 @@ function makeCourseDraggable(item, code, year) {
         helper: 'clone',
         start: function (event, ui) {
             ui.helper.addClass('dragged-course');
+            $(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            };
+
+            $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
+
             highlightInvalidSessions(getCourseOffering(code, year));
             highlightElectives();
         },
