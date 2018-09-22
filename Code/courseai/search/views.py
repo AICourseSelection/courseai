@@ -15,7 +15,8 @@ def index(request):
     filters = request.GET.get('filters', None)
     codes = None
     levels = None
-    semesters = None
+    sessions = None
+    level = None
 
     if filters is not None:
         filters = json.loads(filters)
@@ -26,10 +27,13 @@ def index(request):
         if 'levels' in filters and filters['levels']:
             levels = filters['levels']
 
-        if 'semesters' in filters and filters['semesters']:
-            semesters = filters['semesters']
+        if 'sessions' in filters and filters['sessions']:
+            sessions = filters['sessions']
 
-    return search.execute_search(es_conn, original_query, request, codes=codes, levels=levels, semesters_offered=semesters)
+        if 'level' in filters:
+            level = filters['level']
+
+    return search.execute_search(es_conn, original_query, request, codes=codes, levels=levels, semesters_offered=sessions, level=level)
 
 
 def mms_request(request):

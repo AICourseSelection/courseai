@@ -1421,9 +1421,9 @@ function updateCourseSearchResults(response) {
 
     if (response.length > 0) {
         for (let r of response.slice(0, 10)) {
-            const code = r.code;
-            const year = THIS_YEAR; // TODO: Fix for course years. Need the most recent year with data available.
-            const title = r.title;
+            const code = r.course_code;
+            const year = closestYear(THIS_YEAR, Object.keys(r.versions)); // TODO: Fix for course years. Need the most recent year with data available.
+            const title = r.versions[year].title;
             let item = $(
                 '<div class="draggable-course result-course list-group-item list-group-item-action">\n    ' +
                 '<span class="course-code">' + code + '</span>\n    ' +

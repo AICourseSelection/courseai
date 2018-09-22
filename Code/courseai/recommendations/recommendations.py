@@ -9,13 +9,11 @@ from degree.course_data_helper import get_all, es_conn
 tfidf = TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=0, stop_words='english', max_df=0.7)
 tfidf.fit(list(map(lambda x: x['_source']['description'], get_all())))
 
-def raw_search(search_object, phrase, codes, levels):
+
+def raw_search(search_object, phrase):
     q = MultiMatch(query=phrase, fields=['title^2', 'description', 'outcome^1.5'])
 
-    response = {}
-
-    if codes is None and levels is None:
-        response = search_object.query(q).execute()
+    response = search_object.query(q).execute()
 
     course_list = []
     for hit in response['hits']['hits']:
@@ -79,7 +77,7 @@ def get_recommendations(course_list):
 
     for tag in sorted_tags:
         # search on the search engine
-        courses = raw_search(s, '"' + tag[0] + '"', codes=None, levels=None)
+        courses = raw_search(s, '"' + tag[0] + '"')
         course_codes = [course['code'] for course in courses]
 
         # get the top result that has not been done
