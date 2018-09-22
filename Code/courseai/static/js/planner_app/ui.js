@@ -712,20 +712,26 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         }
     }
     html += '<h6 class="mt-2">Related Courses</h6>\n';
-    curr_popover.find('.popover-body').prepend('<div class="related-courses list-group"/>');
+    curr_popover.find('.popover-body').prepend('<div class="related-courses list-group d-none"/>');
     curr_popover.find('.popover-body').prepend(html);
 
     const first_cell = $(cell.parentElement.firstElementChild);
     let session = year;
     if (first_cell.hasClass('first-cell')) session += first_cell.find('.row-ses').text().slice(4);
     else session += "S1"; // Placeholder session for courses which are not in the degree plan.
-    let res = await $.ajax({
-        url: 'recommendations/recommend',
-        data: {
-            'code': PLAN.degrees[0].code, // TODO: Fix for FDD recommendations
-            'courses': JSON.stringify([{[session]: [{"code": code}]}])
-        }
-    });
+    let res;
+    try {
+        res = await $.ajax({
+            url: 'recommendations/recommend',
+            data: {
+                'code': PLAN.degrees[0].code, // TODO: Fix for FDD recommendations
+                'courses': JSON.stringify([{[session]: [{"code": code}]}])
+            }
+        });
+    } catch {
+        curr_popover.find('.fa-sync-alt').parent().removeClass('d-flex').addClass('d-none');
+        return;
+    }
     let courses_actions = {};
     let group = curr_popover.find('.related-courses');
     let recCourses = [];
@@ -762,6 +768,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
         group.append(item);
     }
     await batchCourseOfferingActions(courses_actions);
+    group.removeClass('d-none');
     html += group[0].outerHTML;
     curr_popover.find('.fa-sync-alt').parent().removeClass('d-flex').addClass('d-none');
     popover.config.content = html;
@@ -770,7 +777,8 @@ async function coursePopoverData(cell, descriptionOnly = false) {
 
 async function mmsPopoverData() {
     const code = $(this).find('.mms-code').text();
-    const year = start_year;
+    let offering = await getMMSOffering(code, start_year);
+    const year = offering.year;
     $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if ($(this).find('.mms-code').text() !== code) {
             $(this).popover('hide');
@@ -788,16 +796,20 @@ async function mmsPopoverData() {
     }
 
     if (popover['data-received'] || false) return;
-    let offering = await getMMSOffering(code, year);
+
     let html = '';
+
     if (offering.extras['description']) {
-        let truncated_description = offering.extras['description'].slice(0, 350) + '...';
+        const description = offering.extras['description'];
+        let targetLength = offering.extras['learning_outcomes'] ? 350 : 700;
+        let truncated_description = (description.length > targetLength) ? description.slice(0, targetLength) + '...' : description;
         truncated_description = truncated_description.replace(/\n/g, '<br />');
         html += '<h6 class="mt-2">Description</h6>\n' +
             '<div class="result-description">' + truncated_description + '</div>\n';
     }
     if (offering.extras['learning_outcomes']) {
-        let truncated_los = offering.extras['learning_outcomes'].slice(0, 350) + '...';
+        const lo = offering.extras['learning_outcomes'];
+        let truncated_los = (lo.length > 350) ? lo.slice(0, 350) + '...' : lo;
         truncated_los = truncated_los.replace(/\n/g, '<br />');
         html += '<h6 class="mt-2">Learning Outcomes</h6>\n' +
             '<div class="result-learning-outcomes">' + truncated_los + '</div>\n';
@@ -811,6 +823,10 @@ async function mmsPopoverData() {
 
 function search(coursesOnly = false) {
     const query = $('#add-course').val();
+    const lists = $('#search-results-list').find('.card-body');
+    lists.find('.result-mms').popover('dispose');
+    lists.empty();
+    if (!(query.trim())) return;
     SEARCH.courseSearch(query, function () {
         searchResultsLoading(true, true)
     }, updateCourseSearchResults);
@@ -917,6 +933,7 @@ async function setupPlanner(ignoreSaveCode = false) {
         }
         setupGrid();
         loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+        updateWarningNotices();
     }
     else { // Loading from save
         console.log('Loading found save code (' + save_code + ').');
@@ -1297,7 +1314,7 @@ function loadCourseGrid(plan) {
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             updateProgress();
         }, 250);
         updateRecommendations();
@@ -1340,8 +1357,8 @@ function coursePopoverSetup(i, item) {
     });
 
     // reposition on click event trigger, which fires after the show.bs.popover event
-    $(this).on('click', function(e) {
-       forcePopoverReposition();
+    $(this).on('click', function (e) {
+        forcePopoverReposition();
     });
 
     $(this).on('shown.bs.popover', function () {
@@ -1378,7 +1395,7 @@ function mmsPopoverSetup() {
     const code = $(this).find('.mms-code').text();
     $(this).popover({
         trigger: 'click',
-        title: name + '<a class="popover-close" onclick="closePopover(this)">×</a>',
+        title: '<a class="popover-close" onclick="closePopover(this)">×</a>' + name,
         placement: 'left',
         html: true,
         content: '<div class="d-flex">\n' +
@@ -1401,9 +1418,6 @@ function mmsPopoverSetup() {
 function updateCourseSearchResults(response) {
     let results = $('#results-courses');
     let cbody = $(results.find('.card-body'));
-
-    cbody.find('.result-course').popover('dispose');
-    cbody.empty();
 
     if (response.length > 0) {
         for (let r of response.slice(0, 10)) {
@@ -1433,8 +1447,7 @@ function updateMMSSearchResults(data, type) {
         'major': '#results-majors', 'minor': '#results-minors', 'specialisation': '#results-specs'
     }[type]);
     let body = section.find('.card-body');
-    body.find('.result-mms').popover('dispose');
-    body.empty();
+
     const responses = data.responses;
     if (responses.length > 0) {
         for (let r of responses) {
@@ -1719,7 +1732,7 @@ function setupDegreeRequirements(container, degree) {
 
         let group = $('<div class="list-group list-group-flush"/>');
         for (let code of mms) {
-            const year = THIS_YEAR; // TODO: Fix for MMS years. Need the most recent year with data available.
+            const year = start_year;
             let title_node = $('<span class="mms-name"/>');
             const identifier = code + '/' + year;
             if (!(identifier in mms_to_retrieve)) mms_to_retrieve[identifier] = [];
@@ -1809,7 +1822,7 @@ function setupDegreeRequirements(container, degree) {
         }
         if (type === "required_m/m/s") {
             for (let code of required[type]) {
-                const year = THIS_YEAR; // TODO: Fix for MMS years. Need the most recent year with data available.
+                const year = start_year;
                 let mms_type = code.split('-').pop();
                 let card = $('<div class="deg deg-plain-text">\n' +
                     '    <span class="mms-code">' + code + '</span>\n' +
