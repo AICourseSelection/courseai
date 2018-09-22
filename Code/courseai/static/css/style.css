@@ -972,3 +972,15 @@ wrapper {
 .plan-cell:hover, .list-group-item:hover {
     background: #80DEEA !important; /* make sure to override js styling */
 }
+
+#team-members img {
+    display: flex;
+    margin: 0 auto;
+}
+
+.member-email {
+    display: flex;
+    width: fit-content;
+    width: -moz-fit-content;
+    margin: 0 auto;
+}
