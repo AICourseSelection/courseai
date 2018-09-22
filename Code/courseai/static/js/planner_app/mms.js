@@ -5,11 +5,12 @@
  * @param title     Name of the MMS, e.g. Theoretical Computer...
  * @param rules     Program Requirements (requirements to graduate).
  */
-function MMS(code, year, title, rules) {
+function MMS(code, year, title, rules, extras) {
     this.code = code;
     this.year = year;
     this.title = title;
     this.rules = rules;
+    this.extras = extras;
 
     this.identifier = code + '-' + year;
     this.type = code.split('-')[1]; // Type of MMS, e.g. MAJ, MIN, etc.
@@ -33,18 +34,76 @@ function MMS(code, year, title, rules) {
         let overall_units = 0;
         let rule_details = [];
 
-        for (let section in this.rules) {
-            if (!(this.rules.hasOwnProperty(section))) continue;
-            const rule = this.rules[section];
-            const matches = matchInDegree(plan, new Set(rule.course.map(c => c.code)));
-            let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
-            let section_codes = matches.map(c => c.code);
-            let section_sat = true;
-            if (rule.type === 'fixed') section_sat = matches.length === rule.course.length;
-            if (rule.type === 'minimum') section_sat = section_units >= rule.units;
-            overall_sat = overall_sat && section_sat;
-            overall_units += (rule.type === 'maximum') ? Math.min(section_units, rule.units) : section_units;
-            rule_details.push({'sat': section_sat, 'units': section_units, 'codes': section_codes});
+        let req = this.rules;
+        for (let type in req) {
+            if (!(req.hasOwnProperty(type))) continue;
+
+            if (["compulsory_courses", "one_from_here", "x_from_here"].includes(type)) {
+                for (const section of (type === "compulsory_courses") ? [req[type]] : req[type]) {
+                    const courses = (type === "x_from_here") ? section.courses : section;
+                    const matches = matchInDegree(plan, new Set(courses.map(cs => cs[0].code))); // TODO: Fix for MMS "OR" requirements
+                    let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
+                    let section_codes = matches.map(c => c.code);
+                    let section_sat = true;
+                    if (type === "compulsory_courses") section_sat = matches.length === section.length;
+                    if (type === "one_from_here") section_sat = matches.length >= 1;
+                    if (type === "x_from_here") {
+                        if (section.type === 'minimum') section_sat = section_units >= (section.num || section.units);
+                    }
+                    overall_units += (section.type === 'maximum') ? Math.min(section_units, section.units) : section_units;
+                    overall_sat = overall_sat && section_sat;
+                    rule_details.push({
+                        'type': type, 'sat': section_sat, 'units': section_units, 'codes': section_codes
+                    });
+                }
+            }
+            else if (["x_from_category", "max_by_level"].includes(type)) {
+                for (const i in req[type]) {
+                    const section = req[type][i];
+                    let courseCodes = [];
+                    let courseLevels = [];
+                    let unitThreshold = 0;
+                    courseCodes = section["area"] || [];
+                    courseLevels = section["level"] || [];
+                    unitThreshold = section["units"];
+                    const matches = matchCategoryInDegree(plan, courseCodes, courseLevels);
+                    let section_units = matches.map(c => c.course.units).reduce((x, y) => x + y, 0);
+                    let section_codes = matches.map(c => c.code);
+                    let section_sat = true;
+                    if (section.type === "minimum") section_sat = section_units >= unitThreshold;
+                    if (section.type === "maximum") section_sat = section_units <= unitThreshold;
+                    if (section.type === "min_max") {
+                        section_sat = section_units >= unitThreshold.minimum && section_units <= unitThreshold.maximum;
+                    }
+                    overall_units += section_units;
+                    overall_sat = overall_sat && section_sat;
+                    rule_details.push({'type': type, 'sat': section_sat, 'units': section_units, 'codes': section_codes});
+
+                }
+            }
+            else if (type === "required_m/m/s".includes(type)) {
+            const section = req[type];
+                let matched_codes = [];
+                let completed_codes = [];
+                let units_completed = 0;
+                for (const mms of plan.trackedMMS) {
+                    if (section.includes(mms.code)) {
+                        matched_codes.push(mms.code);
+                        const results = mms.checkRequirements(plan);
+                        if (results.sat) {
+                            completed_codes.push(mms.code);
+                            units_completed = Math.max(units_completed, results.units);
+                        }
+                    }
+
+                }
+                let section_sat = completed_codes.length > 0;
+                overall_sat = overall_sat && section_sat;
+                rule_details.push({
+                    'type': type, 'sat': section_sat,
+                    'units': units_completed, 'codes': matched_codes, 'completed': completed_codes
+                });
+            }
         }
         overall_sat = overall_sat && overall_units >= this.units;
         return {'sat': overall_sat, 'units': overall_units, 'rule_details': rule_details};
