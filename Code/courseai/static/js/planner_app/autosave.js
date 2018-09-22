@@ -17,7 +17,24 @@ function AutoSave(plan, code) {
     };
 
     this.save = function () {
-        if (!(this.plan.changesMade)) return;    // Check if the plan needs saving.
+        if (!this.plan.changesMade) return;    // Check if the plan needs saving.
+        
+        if (loggedIn && this.code) { // update degree plan details on the user's profile
+            $.ajax({
+                url: 'accounts/degree_plan_view',
+                method: 'PUT',
+                data: {
+                    "code": this.code,
+                    "plan": this.plan.serializeSimple()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log("Degree plan saved to user profile." );
+                }
+            })
+        }
+        
         if (this.code) {    // Code present. Use update endpoint.
             $.ajax({
                 url: 'degree/stored_plans',
