@@ -9,9 +9,13 @@ if [ $# -eq 0 ]
 fi 
 
 curl -X DELETE "$1:9200/cbelists"
-curl -X DELETE "$1:9200/courseupdated"
+curl -X DELETE "$1:9200/majors"
+curl -X DELETE "$1:9200/minors"
+curl -X DELETE "$1:9200/specialisations"
+curl -X DELETE "$1:9200/courses"
 
-declare -a BULKS=("@degree_bulk" "@major_bulk" "@minor_bulk" "@specialisations_bulk"  "@courselists_bulk" "@cse_bulk" "@course_updated_bulk")
+
+declare -a BULKS=("@degree_bulk" "@major_updated_bulk" "@minor_updated_bulk" "@specialisation_updated_bulk"  "@courselists_bulk" "@course_updated_bulk")
 
 for bulk in "${BULKS[@]}"
 do
