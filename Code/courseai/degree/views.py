@@ -1,6 +1,7 @@
 import json
 import ast
 from builtins import Exception, eval, str
+import pandas as pd
 
 from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest, QueryDict
 from django.utils.crypto import get_random_string
@@ -11,13 +12,12 @@ from . import course_data_helper
 from . import degree_plan_helper
 from .models import Degree, PreviousStudentDegree, DegreePlanStore
 
-
 def all_degrees(request):
-    degree_list = Degree.objects.all()
+    degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
     results = []
 
-    for degree in degree_list:
-        results.append({"code": degree.code, "title": degree.name})
+    for index, degree in degree_list.iterrows():
+        results.append({"code": degree[0], "title": degree[1]})
 
     return JsonResponse({"response": results})
 

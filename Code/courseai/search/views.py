@@ -3,7 +3,7 @@ from degree.course_data_helper import es_conn
 from . import mms, search
 
 import json
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 
 
 def index(request):
@@ -33,44 +33,41 @@ def index(request):
 
 
 def mms_request(request):
+    print("In MMS_Request")
     try:
         code = request.GET['query']
         return mms.get_mms_data(es_conn, code)
-    except:
+    except KeyError:
         raise Exception("Malformed JSON as input. Expects a field called query.")
 
 
 def all_majors(request):
     try:
         name = request.GET['query']
-        return mms.mms_by_name(es_conn, name, 'majors')
-    except:
+        level = request.GET['level'] if 'level' in request.GET else None
+        return mms.mms_by_name(es_conn, name, 'majors', level=level)
+    except KeyError:
         return mms.search_all(es_conn, "MAJ")
 
 
 def all_minors(request):
     try:
         name = request.GET['query']
-        return mms.mms_by_name(es_conn, name, 'minors')
-    except:
+        level = request.GET['level'] if 'level' in request.GET else None
+        return mms.mms_by_name(es_conn, name, 'minors', level=level)
+    except KeyError:
         return mms.search_all(es_conn, "MIN")
 
 
 def all_specs(request):
     try:
-        print("***")
-        print(list(request.GET.keys()))
-        print("***")
         name = request.GET['query']
-        return mms.mms_by_name(es_conn, name, 'specialisations')
-    except:
+        level = request.GET['level'] if 'level' in request.GET else None
+        return mms.mms_by_name(es_conn, name, 'specialisations', level=level)
+    except KeyError:
         return mms.search_all(es_conn, "SPEC")
 
 
 def course_lists(request):
-    global es_conn
-    print("***")
-    print(list(request.GET.keys()))
-    print("***")
     query = request.GET['query']
     return mms.course_lists(es_conn, query)
