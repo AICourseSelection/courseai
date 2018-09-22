@@ -11,7 +11,7 @@ body {
     z-index: 1080;
 }
 
-.planner-container {
+#planner-container {
     margin: 20px 30px 30px 30px;
     min-width: 860px;
 }
@@ -39,6 +39,7 @@ body {
     text-align: center;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 wrapper {
@@ -482,6 +483,11 @@ wrapper {
     max-width: 400px;
 }
 
+.course-popover .popover-body, .mms-popover .popover-body {
+    height: 420px;
+    overflow-y: scroll;
+}
+
 .mms-popover .popover-header {
     border-bottom: 0;
 }
@@ -520,7 +526,7 @@ wrapper {
 }
 
 .related-courses {
-    max-height: 224px;
+    height: 168px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -907,10 +913,12 @@ wrapper {
 
 }
 
-.btn-container > button {
-    width: calc(90% / 2);  
-    display: inline-block;
-    margin: 2%;
+.btn-container button {
+    width: 70px;
+}
+
+.btn-load {
+    margin-right: 10px;
 }
 
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
