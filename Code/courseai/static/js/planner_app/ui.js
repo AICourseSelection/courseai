@@ -363,14 +363,15 @@ async function mms_add(code, year) {
 
     for (let type in required) {
         if (!required.hasOwnProperty(type)) continue;
-        mmsCourseCodes = Array.prototype.concat(mmsCourseCodes, required[type].courses || []);
         if (type === "compulsory_courses") {
+            mmsCourseCodes = mmsCourseCodes.concat([].concat.apply([], required[type].courses.map(l => l.map(c => c.code)) || []));
             let card = createCourseListSection(type, "Compulsory courses", required[type]);
             collapsible.append(card);
             section_count++;
         }
         if (type === "one_from_here") {
             for (let section of required[type]) {
+                mmsCourseCodes = mmsCourseCodes.concat([].concat.apply([], section.courses.map(l => l.map(c => c.code)) || []));
                 let card = createCourseListSection(type, "Pick at least one", section);
                 collapsible.append(card);
                 section_count++;
@@ -378,6 +379,7 @@ async function mms_add(code, year) {
         }
         if (type === "x_from_here") {
             for (let section of required[type]) {
+                mmsCourseCodes = mmsCourseCodes.concat([].concat.apply([], section.courses.map(l => l.map(c => c.code)) || []));
                 let title = 'Choose at least ';
                 if (section.type === "maximum") title = 'Choose up to ';
                 title += (section.num || section.units) + ' units' +
@@ -692,7 +694,8 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     let offering = await getCourseOffering(code, year);
     let html = '<div class="h6 result-title mb-1">' + offering.title + '</div>\n';
     if (![undefined, 'nan'].includes(offering.extras['description'])) {
-        const truncated_description = offering.extras['description'].slice(0, 350) + '...';
+        let truncated_description = offering.extras['description'].slice(0, 350) + '...';
+        truncated_description = truncated_description.replace(/\n/g, '<br />');
         html += '<h6 class="mt-2">Description</h6>\n' +
             '<div class="result-description">' + truncated_description + '</div>\n';
     }
@@ -767,7 +770,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
 
 async function mmsPopoverData() {
     const code = $(this).find('.mms-code').text();
-    const year = THIS_YEAR; // TODO: Fix for MMS years. Need the most recent year with data available.
+    const year = start_year;
     $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if ($(this).find('.mms-code').text() !== code) {
             $(this).popover('hide');
@@ -788,12 +791,14 @@ async function mmsPopoverData() {
     let offering = await getMMSOffering(code, year);
     let html = '';
     if (offering.extras['description']) {
-        const truncated_description = offering.extras['description'].slice(0, 350) + '...';
+        let truncated_description = offering.extras['description'].slice(0, 350) + '...';
+        truncated_description = truncated_description.replace(/\n/g, '<br />');
         html += '<h6 class="mt-2">Description</h6>\n' +
             '<div class="result-description">' + truncated_description + '</div>\n';
     }
     if (offering.extras['learning_outcomes']) {
-        const truncated_los = offering.extras['learning_outcomes'].slice(0, 350) + '...';
+        let truncated_los = offering.extras['learning_outcomes'].slice(0, 350) + '...';
+        truncated_los = truncated_los.replace(/\n/g, '<br />');
         html += '<h6 class="mt-2">Learning Outcomes</h6>\n' +
             '<div class="result-learning-outcomes">' + truncated_los + '</div>\n';
     }
@@ -1388,7 +1393,7 @@ function mmsPopoverSetup() {
         '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
-    $(this).on('show.bs.popover', mmsPopoverData)
+    $(this).on('show.bs.popover', mmsPopoverData);
 
     $(this).on('click', forcePopoverReposition());
 }
