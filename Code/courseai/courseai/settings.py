@@ -28,7 +28,7 @@ CSRF_COOKIE_SECURE = False
 X_FRAME_OPTIONS = 'DENY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #os.environ.get("DEBUG") == 'True'
+DEBUG = os.environ.get("DEBUG") == 'True'
 
 ALLOWED_HOSTS = ["*"]
 
