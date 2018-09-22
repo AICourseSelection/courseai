@@ -21,7 +21,7 @@ const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', '
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
 
-const NUM_ADD_SESSIONS_END = 5; // an additional year of sessions
+const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
 // UI Functions
 async function addDegree(code, year) {
@@ -177,7 +177,7 @@ function removeCourse(session, position) {
     box.removeClass(COLOR_CLASSES_STR);
     if (box.prevAll().hasClass('ui-sortable-placeholder')) position--;
 
-    makeElective(box, session, code); // make the slot an elective slot and update planner 
+    makeElective(box, session, code); // make the slot an elective slot and update planner
 
     updateWarningNotices();
     updateProgress();
@@ -274,7 +274,7 @@ async function mms_add(code, year) {
         $(this).find('.result-course').popover('hide');
     });
     collapsible.sortable({
-        items: "> .mms-select-min, .mms-select-max"
+        items: "> .mms-select-min, .mms-select-max",
     });
     let courses_actions = {};
 
@@ -480,7 +480,7 @@ $('#degree-selector').find('a').click(cycleDegrees);
 
 $('#degree-tabs-content').find('.degree-body').sortable();
 
-$('#degree-reqs-list').find('.degree-body').sortable();
+$('#degree-reqs-list').find('.degree-body').sortable({containment: $('body')});
 
 $('.collapse-all').click(function () {
     if (this.textContent === "Collapse all") {
@@ -536,7 +536,7 @@ $('#show-filters').popover({
     }
 });
 
-$('#mms-active-list').sortable();
+$('#mms-active-list').sortable({containment: $('body')});
 
 $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
     $('#left-panel').find('.result-course').popover('hide');
@@ -1138,17 +1138,17 @@ function createAddSessionRow(session, last) {
 function setupGrid() { // put the loaded plan's sessions in first before using this.
     let grid = $('#plan-grid');
     let startSession = start_year + 'S' + start_sem;
-    if (PLAN.sessions.length === 0 || PLAN.sessions[0] !== start_year + 'S' + start_sem)
-        grid.append(createAddSessionRow(startSession, false));
-    for (const session of PLAN.sessions) {
-        const year = session.slice(0, 4);
-        const ses = session.slice(4);
+    if (PLAN.sessions.length === 0) grid.append(createAddSessionRow(startSession, true));
+    else if (PLAN.sessions[0] !== start_year + 'S' + start_sem) grid.append(createAddSessionRow(startSession, false));
+    for (var i = 0; i < PLAN.sessions.length; i++) {
+        const year = PLAN.sessions[i].slice(0, 4);
+        const ses = PLAN.sessions[i].slice(4);
         let row = $('<div class="plan-row"/>');
         let session_word = SESSION_WORDS[ses];
         let first_cell = '<div class="first-cell">' +
             '<div class="row-year h4">' + year + '</div>' +
             '<div class="row-sem h5">' + session_word + '</div>' +
-            '<div class="row-ses">' + session + '</div>' +
+            '<div class="row-ses">' + PLAN.sessions[i] + '</div>' +
             '</div>';
         row.append(first_cell);
         for (let i = 0; i < 4; i++) { // TODO: Fix for Overloading
@@ -1164,13 +1164,14 @@ function setupGrid() { // put the loaded plan's sessions in first before using t
         // create wrapper and button for removing a year/sem
         let rowWrapper = $('<div class="plan-row-wrapper"/>');
 
-        rowWrapper.append(createRemoveSessionBtn(session, row));
+        rowWrapper.append(createRemoveSessionBtn(PLAN.sessions[i], row));
         rowWrapper.append(row);
         grid.append(rowWrapper);
 
         // create add buttons for last and seasonal sessions
-        if (session === PLAN.sessions[PLAN.sessions.length - 1]) grid.append(createAddSessionRow(nextSession(session), true));
-        else if (['S1', 'S2'].includes(ses)) grid.append(createAddSessionRow(nextSession(session), false));
+        if (i === PLAN.sessions.length - 1) grid.append(createAddSessionRow(nextSession(PLAN.sessions[i]), true));
+        else if (nextSession(PLAN.sessions[i]) !== PLAN.sessions[i + 1])
+            grid.append(createAddSessionRow(nextSession(PLAN.sessions[i]), false));
     }
 }
 
@@ -1198,20 +1199,28 @@ function loadCourseGrid(plan) {
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
-        updateProgress();
+        window.setTimeout(function() {
+            updateProgress();
+        }, 250);
         updateRecommendations();
         SAVER.enableSaving();
     });
 }
 
+function forcePopoverReposition() {
+    window.scrollBy(0, 1);
+    window.scrollBy(0, -1);
+}
+
 function coursePopoverSetup(i, item) {
     const code = $(this).find('.course-code').text();
     const year = $(this).find('.course-year').text();
+    let placement = ($(this).index() <= 2) ? 'right' : 'left';
     if (code === ELECTIVE_TEXT) return;
     $(this).popover({
         trigger: 'click',
         title: code + '<a class="popover-close" onclick="closePopover(this)">×</a>',
-        placement: 'right',
+        placement: placement,
         html: true,
         content: '<div class="d-flex">\n' +
         '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
@@ -1221,16 +1230,22 @@ function coursePopoverSetup(i, item) {
         '    <div class="h3 popover-header"></div>\n' +
         '    <div class="popover-body"></div>\n' +
         '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
-        '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+        '     " class="h6 popover-footer mb-0 text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
         '</div>'
     });
 
     $(this).on('show.bs.popover', function () {
-        const popover = $(this).data('bs.popover');
+        var popover = $(this).data('bs.popover');
         coursePopoverData(this, $(item).hasClass('plan-cell')).then(function () {
             setupRecommendations(popover);
         });
     });
+
+    // reposition on click event trigger, which fires after the show.bs.popover event
+    $(this).on('click', function(e) {
+       forcePopoverReposition();
+    });
+
     $(this).on('shown.bs.popover', function () {
         const popover = $(this).data('bs.popover');
         if (popover['data-received'] || false) setupRecommendations(popover);
@@ -1266,7 +1281,7 @@ function mmsPopoverSetup() {
     $(this).popover({
         trigger: 'click',
         title: name + '<a class="popover-close" onclick="closePopover(this)">×</a>',
-        placement: 'right',
+        placement: 'left',
         html: true,
         content: '<div class="d-flex">\n' +
         '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
@@ -1281,6 +1296,8 @@ function mmsPopoverSetup() {
         '</div>'
     });
     $(this).on('show.bs.popover', mmsPopoverData)
+
+    $(this).on('click', forcePopoverReposition());
 }
 
 function updateCourseSearchResults(response) {
@@ -1377,8 +1394,13 @@ function makePlanCellDraggable(item) {
         zIndex: 800,
         revert: true,
         helper: 'clone',
+        containment: 'document',
         start: function (event, ui) {
             ui.helper.addClass('dragged-course');
+            $(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            }; 
             const first_cell = $(event.target.parentElement).find('.first-cell');
             first_cell.children().css({'display': 'none'});
             first_cell.addClass('delete').addClass('alert-danger');
@@ -1420,6 +1442,13 @@ function makeCourseDraggable(item, code, year) {
         helper: 'clone',
         start: function (event, ui) {
             ui.helper.addClass('dragged-course');
+            $(this).draggable('instance').offset.click = {
+                left: Math.floor(ui.helper.width() / 2),
+                top: Math.floor(ui.helper.height() / 2)
+            }; 
+
+            $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
+
             highlightInvalidSessions(getCourseOffering(code, year));
             highlightElectives();
         },
