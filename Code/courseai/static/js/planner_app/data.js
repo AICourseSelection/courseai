@@ -46,7 +46,7 @@ async function getCourseOffering(code, year) {
             console.log();
         }
     }
-    return KNOWN_COURSES[code][closestYear(code, year)];
+    return KNOWN_COURSES[code][closestYear(year, Object.keys(KNOWN_COURSES[code]))];
 }
 
 /**
@@ -79,7 +79,7 @@ async function batchCourseOfferingActions(courses_actions) {
             for (const combo in courses_actions) {
                 const code = combo.split('-')[0];
                 if ((!code in KNOWN_COURSES) || $.isEmptyObject(KNOWN_COURSES[code])) continue;
-                const year = closestYear(code, combo.split('-')[1] || THIS_YEAR);
+                const year = closestYear(combo.split('-')[1] || THIS_YEAR, Object.keys(KNOWN_COURSES[code]));
                 for (const action of courses_actions[combo]) {
                     action(KNOWN_COURSES[code][year]);
                 }
@@ -104,7 +104,7 @@ async function getMMSOffering(code, year) {
             }
         })
     }
-    return KNOWN_MMS[code][year];
+    return KNOWN_MMS[code][closestYear(year, Object.keys(KNOWN_MMS[code]))];
 }
 
 async function batchMMSData(mms_actions) {
@@ -121,13 +121,13 @@ async function batchMMSData(mms_actions) {
                 success: function (data) {
                     recordMMSOfferings(code, data.versions);
                     for (const action of mms_actions[mms]) {
-                        action(KNOWN_MMS[code][year])
+                        action(KNOWN_MMS[code][closestYear(year, Object.keys(KNOWN_MMS[code]))])
                     }
                 }
             });
         } else {
             for (const action of mms_actions[mms]) {
-                action(KNOWN_MMS[code][year])
+                action(KNOWN_MMS[code][closestYear(year, Object.keys(KNOWN_MMS[code]))])
             }
         }
     }
@@ -260,16 +260,15 @@ function recordMMSOfferings(code, offerings) {
     }
 }
 
-function closestYear(code, year) {
-    const availableYears = Object.keys(KNOWN_COURSES[code]);
-    if (year in availableYears) return year;
-    const maxYear = Math.max(...availableYears);
-    const minYear = Math.min(...availableYears);
+function closestYear(year, list = []) {
+    if (list.includes(year)) return year;
+    const maxYear = Math.max(...list);
+    const minYear = Math.min(...list);
     if (year >= maxYear) return maxYear;
     if (year <= minYear) return minYear;
     for (let i = 1; i <= Math.max(maxYear - year, year - minYear); i++) {
-        if ((year + i) in availableYears) return year + i;
-        if ((year - i) in availableYears) return year - i;
+        if ((year + i) in list) return year + i;
+        if ((year - i) in list) return year - i;
     }
     return THIS_YEAR; // Fallback, but code should never reach here.
 }
