@@ -37,6 +37,7 @@ def index(request):
 
 
 def mms_request(request):
+    print("In MMS_Request")
     try:
         code = request.GET['query']
         return mms.get_mms_data(es_conn, code)
@@ -47,7 +48,8 @@ def mms_request(request):
 def all_majors(request):
     try:
         name = request.GET['query']
-        return mms.mms_by_name(es_conn, name, 'majors')
+        level = request.GET['level'] if 'level' in request.GET else None
+        return mms.mms_by_name(es_conn, name, 'majors', level=level)
     except KeyError:
         return mms.search_all(es_conn, "MAJ")
 
@@ -55,7 +57,8 @@ def all_majors(request):
 def all_minors(request):
     try:
         name = request.GET['query']
-        return mms.mms_by_name(es_conn, name, 'minors')
+        level = request.GET['level'] if 'level' in request.GET else None
+        return mms.mms_by_name(es_conn, name, 'minors', level=level)
     except KeyError:
         return mms.search_all(es_conn, "MIN")
 
@@ -63,7 +66,8 @@ def all_minors(request):
 def all_specs(request):
     try:
         name = request.GET['query']
-        return mms.mms_by_name(es_conn, name, 'specialisations')
+        level = request.GET['level'] if 'level' in request.GET else None
+        return mms.mms_by_name(es_conn, name, 'specialisations', level=level)
     except KeyError:
         return mms.search_all(es_conn, "SPEC")
 
