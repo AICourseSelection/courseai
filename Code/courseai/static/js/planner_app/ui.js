@@ -839,12 +839,15 @@ function search(coursesOnly = false) {
 function dropOnSlot(event, ui) {
     ui.draggable.draggable("option", "revert", false);
     $(this).removeClass('active-drop');
-    makePlanCellDraggable($(event.target));
+
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
     const code = ui.draggable.find('.course-code').text();
     const title = ui.draggable.find('.course-title').text();
     const session = first_cell.find('.row-ses').text();
+
+    makePlanCellDraggable($(event.target), code, session.year, false);
+
     const position = $(event.target).index() - 1;
     if ($(row).hasClass('unavailable')) {
         const reason = $(first_cell[0].lastElementChild).text();
@@ -1307,10 +1310,12 @@ function loadCourseGrid(plan) {
             courses_actions[code + '-' + year].push(function (offering) {
                 cell.find('.course-title').text(offering.title);
                 PLAN.addCourse(session, code);
+                makePlanCellDraggable(cell, code, session.year, false);
+
             });
             cell.each(coursePopoverSetup);
-            makePlanCellDraggable(cell);
-            cell.droppable('destroy');
+            makePlanCellDraggable(cell, null, null, true);
+            //cell.droppable('destroy');
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
@@ -1504,7 +1509,9 @@ function makeSlotDroppable(item) {
     });
 }
 
-function makePlanCellDraggable(item) {
+function makePlanCellDraggable(item, code, year, elective) {
+    item.addClass('draggable-course');
+
     item.draggable({
         zIndex: 800,
         revert: true,
@@ -1516,30 +1523,21 @@ function makePlanCellDraggable(item) {
                 left: Math.floor(ui.helper.width() / 2),
                 top: Math.floor(ui.helper.height() / 2)
             };
+            $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
             const first_cell = $(event.target.parentElement).find('.first-cell');
-            first_cell.children().css({'display': 'none'});
-            first_cell.addClass('delete').addClass('alert-danger');
-            first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
-                '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
-                '    <div class="mt-2">Remove</div>\n' +
-                '</div>');
-            first_cell.droppable({
-                accept: '.plan-cell',
-                drop: function (event, ui2) {
-                    ui2.draggable.draggable("option", "revert", false);
-                    const session = first_cell.find('.row-ses').text();
-                    const position = ui2.draggable.index();
-                    removeCourse(session, position);
-                    $(ui.helper.prevObject).draggable('destroy');
-                    first_cell.droppable('destroy');
-                    first_cell.find('.course-delete').remove();
-                    first_cell.removeClass('delete').removeClass('alert-danger');
-                    first_cell.children().css({'display': ''});
-                }
-            })
+            if(!elective) {
+                highlightInvalidSessions(getCourseOffering(code, year),ui,first_cell);
+                highlightElectives();
+            }
         },
         stop: function (event, ui) {
             const first_cell = $(event.target.parentElement).find('.first-cell');
+            $(event.toElement).one('click', function (e) {
+                e.stopImmediatePropagation();
+            });
+            removeSessionHighlights();
+            clearElectiveHighlights();
+            updateWarningNotices();
             if (first_cell.hasClass('delete')) {
                 first_cell.droppable('destroy');
                 first_cell.find('.course-delete').remove();
@@ -1561,10 +1559,7 @@ function makeCourseDraggable(item, code, year) {
                 left: Math.floor(ui.helper.width() / 2),
                 top: Math.floor(ui.helper.height() / 2)
             };
-
-            $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
-
-            highlightInvalidSessions(getCourseOffering(code, year));
+            highlightInvalidSessions(getCourseOffering(code, year),ui,null);
             highlightElectives();
         },
         stop: function (event, ui) {
@@ -1590,7 +1585,7 @@ function removeRowCellsClass(row, css_class_name) {
     });
 }
 
-async function highlightInvalidSessions(offering) {
+async function highlightInvalidSessions(offering, ui, first_cell) {
     offering = await offering;
     let invalid_sessions = {};
     let offering_sessions = offering.extras.sessions;
@@ -1616,6 +1611,31 @@ async function highlightInvalidSessions(offering) {
 
         addRowCellsClass(row, 'invalid-cell');
     }
+    if(first_cell !== null) {
+
+        first_cell.children().css({'display': 'none'});
+        first_cell.addClass('delete').addClass('alert-danger');
+        first_cell.append('<div class="course-delete mx-auto my-auto text-center" style="font-weight: bold;">\n' +
+            '    <i class="fas fa-trash-alt" aria-hidden="true" style="font-size: 32pt;"></i>\n' +
+            '    <div class="mt-2">Remove</div>\n' +
+            '</div>');
+
+        first_cell.droppable({
+            accept: '.plan-cell',
+            drop: function (event, ui2) {
+                ui2.draggable.draggable("option", "revert", false);
+                const session = first_cell.find('.row-ses').text();
+                const position = ui2.draggable.index();
+                removeCourse(session, position);
+                $(ui.helper.prevObject).draggable('destroy');
+                first_cell.droppable('destroy');
+                first_cell.find('.course-delete').remove();
+                first_cell.removeClass('delete').removeClass('alert-danger');
+                first_cell.children().css({'display': ''});
+            }
+        });
+    }
+
 }
 
 function removeSessionHighlights() {
