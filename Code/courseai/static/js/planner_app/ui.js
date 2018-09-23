@@ -848,7 +848,6 @@ function dropOnSlot(event, ui) {
 
     makePlanCellDraggable($(event.target), code, session.year, false);
 
-
     const position = $(event.target).index() - 1;
     if ($(row).hasClass('unavailable')) {
         const reason = $(first_cell[0].lastElementChild).text();
@@ -1530,7 +1529,6 @@ function makePlanCellDraggable(item, code, year, elective) {
                 highlightInvalidSessions(getCourseOffering(code, year),ui,first_cell);
                 highlightElectives();
             }
-
         },
         stop: function (event, ui) {
             const first_cell = $(event.target.parentElement).find('.first-cell');
@@ -1539,6 +1537,7 @@ function makePlanCellDraggable(item, code, year, elective) {
             });
             removeSessionHighlights();
             clearElectiveHighlights();
+            updateWarningNotices();
             if (first_cell.hasClass('delete')) {
                 first_cell.droppable('destroy');
                 first_cell.find('.course-delete').remove();
@@ -1547,7 +1546,6 @@ function makePlanCellDraggable(item, code, year, elective) {
             }
         }
     });
-
 }
 
 function makeCourseDraggable(item, code, year) {
@@ -1562,7 +1560,7 @@ function makeCourseDraggable(item, code, year) {
                 top: Math.floor(ui.helper.height() / 2)
             };
 
-            $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
+            //$(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
 
             highlightInvalidSessions(getCourseOffering(code, year),ui,null);
             highlightElectives();
