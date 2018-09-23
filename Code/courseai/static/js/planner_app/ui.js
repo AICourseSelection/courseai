@@ -1559,9 +1559,6 @@ function makeCourseDraggable(item, code, year) {
                 left: Math.floor(ui.helper.width() / 2),
                 top: Math.floor(ui.helper.height() / 2)
             };
-
-            //$(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
-
             highlightInvalidSessions(getCourseOffering(code, year),ui,null);
             highlightElectives();
         },
