@@ -16,22 +16,22 @@
 <wrapper class="d-flex flex-column">
     <div class="container" style="margin-bottom: 135px">
         <h2>Saved Degree Plans</h2>
-        <table id="codes-table" class="table table-hover table-bordered table-striped">
+        <table id="saved-plans-table" class="table table-hover table-bordered table-striped">
             <thead class="thead-dark">
                 <tr class ="d-flex">
+                    <td class="col-2 text-center">Name</td>
+                    <td class="col-1 text-center">Code</td>
                     <td class="col-2 text-center">Degree/s</td>
                     <td class="col-4 text-center">Majors/Minors/Specialisations</td>
-                    <td class="col-2 text-center">Start Date</td>
-                    <td class="col-2 text-center">Created</td>
-                    <td class="col-2 text-center"></td>
+                    <td class="col-1 text-center">Start Date</td>
+                    <td class="col-1 text-center">Created</td>
+                    <td class="col-1 text-center"></td>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
     </div>
-    
-  {% include "dynamic_pages/chatbox.html" %}
 </wrapper>
 
 {% include "dynamic_pages/footer.html" %}

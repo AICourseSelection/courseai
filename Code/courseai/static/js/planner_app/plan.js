@@ -282,7 +282,10 @@ function Plan() {
         }
 
         for (const mms of this.trackedMMS) {
-            saved.trackedMMS.push(mms.code);
+            saved.trackedMMS.push({
+                code: mms.code,
+                year: mms.year
+            })
         }
 
         if (this.startSem) saved.startSem = this.startSem;

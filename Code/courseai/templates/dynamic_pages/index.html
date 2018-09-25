@@ -191,6 +191,7 @@
             for (i in data.response) {
                 degreeDicts.push({name: data.response[i].title});
                 degreeList.add(data.response[i].title);
+                console.log(data.response[i].title);
                 degreeCodes[data.response[i].title] = data.response[i].code;
             }
             $('.typeahead').typeahead({source: degreeDicts});
