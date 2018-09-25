@@ -61,6 +61,10 @@ wrapper {
     text-align: center;
 }
 
+.typeahead li {
+    width: 580px;
+}
+
 #planform .typeahead .dropdown-item:hover {
     background-color: #e3ebf3;
 }
