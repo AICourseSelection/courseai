@@ -273,7 +273,8 @@ function Plan() {
             degrees: [],
             trackedMMS: [],
             created: d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear(),
-            startYear: Infinity
+            startYear: Infinity,
+            name: ""
         }
 
         for (const degree of this.degrees) {
