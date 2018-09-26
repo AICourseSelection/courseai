@@ -1,7 +1,16 @@
 {
-  "code": "AACOM",
   "name": "Bachelor of Advanced Computing (Honours)",
+  "code": "AACOM",
+  "year": 2018,
+  "units": 192,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "COMP1600",
       "COMP2100",
@@ -24,40 +33,42 @@
       },
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENGN3230",
+          "VCUG3001",
+          "VCUG3002"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "COMP1110",
           "COMP1140"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH1013",
+          "MATH1014",
+          "MATH1115",
+          "MATH1116",
+          "MATH2301",
+          "ENGN1211",
+          "STAT1008",
+          "STAT1003"
         ]
       }
     ],
     "x_from_category": [
       {
         "type": "minimum",
-        "units": 6,
-        "area": [
-          "COMP"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "area": [
-          "COMP"
-        ],
-        "level": [
-          3000,
-          4000
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
+        "level": "3000, 4000",
+        "area": "COMP",
+        "units": 6
       }
     ],
     "one_from_m/m/s": [
@@ -67,132 +78,5 @@
         "THCS-SPEC"
       ]
     ]
-  },
-  "one_from_each": [
-    [
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "courses": [
-                  "ENGN3230",
-                  "VCUG3001",
-                  "VCUG3002"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "area": [
-                  "COMP"
-                ],
-                "level": [
-                  3000,
-                  4000
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    [
-      {
-        "options": [
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "units": 6,
-                "area": [
-                  "COMP"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 6,
-                "courses": [
-                  "MATH1013",
-                  "MATH1014",
-                  "MATH1115",
-                  "MATH1116",
-                  "MATH2301",
-                  "ENGN1211",
-                  "STAT1008",
-                  "STAT1003"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    [
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "fixed",
-                "units": 24,
-                "courses": [
-                  "COMP4550"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "courses": [
-                  "COMP4560"
-                ]
-              }
-            ]
-          },
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "area": [
-                  "COMP"
-                ],
-                "level": [
-                  4000
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  ],
-  "units": 192,
-  "year": 2018
+  }
 }

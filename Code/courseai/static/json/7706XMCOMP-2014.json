@@ -1,8 +1,8 @@
 {
-  "code": "7706XMCOMP",
-  "units": 96,
   "name": "Master of Computing",
+  "code": "7706XMCOMP",
   "year": 2014,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "COMP6442",

@@ -1,8 +1,8 @@
 {
-  "code": "NENPH",
-  "units": 96,
   "name": "Master of Engineering in Photonics",
+  "code": "NENPH",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ENGN6250",
