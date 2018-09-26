@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load pipeline %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
           integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+    {% stylesheet 'main' %}
     <title>Degree Builder</title>
 </head>
 <body style="background: linear-gradient(azure, white 40%); background-repeat: no-repeat">
@@ -72,8 +72,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
-<script src="{% static "js/ajax_csrf.js" %}"></script>
-<script src="{% static "js/cookie.js" %}"></script>
+{% javascript 'main' %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script>
