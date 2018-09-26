@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import django
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY")
 SECURE_CONTENT_TYPE_NOSNIFF = False
 SECURE_BROWSER_XSS_FILTER = False
-SECURE_SSL_REDIRECT = False #TODO: set to true when domain name owned
+SECURE_SSL_REDIRECT = False  # TODO: set to true when domain name owned
 # SECURE_HSTS_SECONDS # TODO: set a value for this when only serving over SSL
 CSRF_COOKIE_SECURE = False
 X_FRAME_OPTIONS = 'DENY'
@@ -34,6 +33,8 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 INSTALLED_APPS = [
+    'pipeline',
+    'ics',
     'degree.apps.DegreeConfig',
     'search.apps.SearchConfig',
     'django.contrib.admin',
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'accounts',
-    'feedback',
+    'feedback'
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://wsvincent.com/django-contact-form/
 # https://docs.djangoproject.com/en/2.1/topics/email/
 
-EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'testing@example.com'
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
@@ -142,5 +143,52 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'pipeline.finders.PipelineFinder',
 )
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+PIPELINE = {
+    # 'PIPELINE_ENABLED': True,
+    'CSS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
+    'JS_COMPRESSOR': 'pipeline.compressors.closure.ClosureCompressor',
+    'CLOSURE_BINARY': os.environ.get("CC_PATH", 'closure-compiler/run-compiler.sh'),
+    'DISABLE_WRAPPER': True,
+    'STYLESHEETS': {
+        'main': {
+            'source_filenames': (
+                'css/style.css',
+            ),
+            'output_filename': 'css/main.min.css',
+        },
+    },
+    'JAVASCRIPT': {
+        'main': {
+            'source_filenames': (
+                'js/ajax_csrf.js',
+                'js/cookie.js',
+            ),
+            'output_filename': 'js/main.min.js'
+        },
+        'index': {
+            'source_filenames': (
+                'js/index.js',
+            ),
+            'output_filename': 'js/index.min.js'
+        },
+        'planner': {
+            'source_filenames': (
+                'js/planner_app/*.js',
+            ),
+            'output_filename': 'js/planner.min.js',
+        },
+        'profile': {
+            'source_filenames': (
+                'js/profile.js',
+            ),
+            'output_filename': 'js/profile.min.js'
+        }
+    }
+}
+
 django.setup()
