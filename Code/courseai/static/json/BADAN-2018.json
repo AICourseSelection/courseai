@@ -1,9 +1,16 @@
 {
-  "code": "BADAN",
-  "units": 144,
   "name": "Bachelor of Applied Data Analytics",
+  "code": "BADAN",
   "year": 2018,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "COMP2400",
       "COMP3425",
@@ -42,15 +49,6 @@
           "COMP1100",
           "COMP1130",
           "COMP1730"
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
         ]
       }
     ]

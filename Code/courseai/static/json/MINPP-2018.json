@@ -1,8 +1,8 @@
 {
-  "code": "MINPP",
-  "units": 96,
   "name": "Master of Innovation and Professional Practice",
+  "code": "MINPP",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "MGMT8015",

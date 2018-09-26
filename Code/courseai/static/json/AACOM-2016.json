@@ -1,7 +1,16 @@
 {
-  "code": "AACOM",
   "name": "Bachelor of Advanced Computing (Honours)",
+  "code": "AACOM",
+  "year": 2016,
+  "units": 192,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "COMP2100",
       "COMP2130",
@@ -22,16 +31,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1110",
-          "COMP1140"
+          "MATH1014",
+          "MATH1116"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH1014",
-          "MATH1116"
+          "COMP1110",
+          "COMP1140"
         ]
       },
       {
@@ -62,70 +71,10 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "units": 12,
-        "area": [
-          "COMP"
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
+        "level": 4000,
+        "area": "COMP",
+        "units": 12
       }
     ]
-  },
-  "one_from_each": [
-    [
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "fixed",
-                "units": 24,
-                "courses": [
-                  "COMP4550"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "courses": [
-                  "COMP4560"
-                ]
-              }
-            ]
-          },
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "area": [
-                  "COMP"
-                ],
-                "level": [
-                  4000
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  ],
-  "units": 192,
-  "year": 2016
+  }
 }

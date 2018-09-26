@@ -1,8 +1,8 @@
 {
-  "code": "NENRE",
-  "units": 96,
   "name": "Master of Engineering in Renewable Energy",
+  "code": "NENRE",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ENGN6250",
