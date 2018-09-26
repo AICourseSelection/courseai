@@ -845,13 +845,14 @@ function dropOnSlot(event, ui) {
     const code = ui.draggable.find('.course-code').text();
     const title = ui.draggable.find('.course-title').text();
     const session = first_cell.find('.row-ses').text();
-
+    const reason = $(first_cell[0].lastElementChild).text();
+    console.log(reason)
     makePlanCellDraggable($(event.target), code, session.year, false);
 
     const position = $(event.target).index() - 1;
     if ($(row).hasClass('unavailable')) {
-        const reason = $(first_cell[0].lastElementChild).text();
-        let modal;
+
+        let modal = null;
         if (reason === "Prerequisites not met") {
             $('#prereq-modal-course').text(ui.draggable.find('.course-code').text());
             modal = $('#prereq-modal');
@@ -862,7 +863,10 @@ function dropOnSlot(event, ui) {
         } else if (reason === "Not available in this semester/ session") {
             $('#unavail-modal-course').text(ui.draggable.find('.course-code').text());
             modal = $('#unavail-modal');
+        } else {
+            return
         }
+
         let override_button = modal.find('#course-add-override');
         override_button.off('click');
         override_button.click(function () {
@@ -1511,7 +1515,6 @@ function makeSlotDroppable(item) {
 
 function makePlanCellDraggable(item, code, year, elective) {
     item.addClass('draggable-course');
-
     item.draggable({
         zIndex: 800,
         revert: true,
@@ -1544,6 +1547,7 @@ function makePlanCellDraggable(item, code, year, elective) {
                 first_cell.removeClass('delete').removeClass('alert-danger');
                 first_cell.children().css({'display': ''});
             }
+
         }
     });
 }
