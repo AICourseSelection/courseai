@@ -178,7 +178,14 @@ PIPELINE = {
         },
         'planner': {
             'source_filenames': (
-                'js/planner_app/*.js',
+                'js/planner_app/autosave.js',
+                'js/planner_app/course.js',
+                'js/planner_app/data.js',
+                'js/planner_app/degree.js',
+                'js/planner_app/mms.js',
+                'js/planner_app/plan.js',
+                'js/planner_app/search.js',
+                'js/planner_app/ui.js',
             ),
             'output_filename': 'js/planner.min.js',
         },
