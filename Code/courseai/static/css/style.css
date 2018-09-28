@@ -44,6 +44,7 @@ body {
     background: transparent;
     resize: none;
     text-align: center;
+    border-style: dashed;
 }
 
 .btn-container button {
@@ -74,8 +75,8 @@ body {
 .text-area-icon {
     position: absolute;
     z-index: 999;
-    right: 8px;
-    top: 8px;
+    left: 10px;
+    top: 7px;
 }
 
 .text-area-icon i {
@@ -205,6 +206,7 @@ wrapper {
 
 #code-wrong {
     text-align: center;
+    margin-top: 0.2rem;
     margin-top: 0.2rem;
     padding: 0.2rem;
     border-radius: 0.2rem;
@@ -968,7 +970,6 @@ wrapper {
     border: 1px solid #b9b9b9;
 
 }
-
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
     0%, 100% {
