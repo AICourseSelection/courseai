@@ -1,4 +1,5 @@
 {% load static %}
+{% load pipeline %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -360,8 +361,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
-<script src="{% static "js/chatbox.js" %}"></script>
-<script src="{% static "js/ajax_csrf.js" %}"></script>
+{% javascript 'main' %}
 <script>
     $('#form-login').submit(function (e) {
         e.preventDefault();
@@ -421,14 +421,6 @@
     let start_sem = {{ start_sem }};
     let save_code = "{{ save_code }}";
 </script>
-<script src="{% static "js/cookie.js" %}"></script>
-<script src="{% static "js/planner_app/autosave.js" %}"></script>
-<script src="{% static "js/planner_app/course.js" %}"></script>
-<script src="{% static "js/planner_app/data.js" %}"></script>
-<script src="{% static "js/planner_app/degree.js" %}"></script>
-<script src="{% static "js/planner_app/mms.js" %}"></script>
-<script src="{% static "js/planner_app/plan.js" %}"></script>
-<script src="{% static "js/planner_app/search.js" %}"></script>
-<script src="{% static "js/planner_app/ui.js" %}"></script>
+{% javascript 'planner' %}
 </body>
 </html>
