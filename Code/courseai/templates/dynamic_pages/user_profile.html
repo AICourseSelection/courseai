@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ user.username }}</title>
+    <title>Your Saved Plans: {{ user.username }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/solid.css"
@@ -35,7 +35,6 @@
         </table>
     </div>
 
-    {% include "dynamic_pages/chatbox.html" %}
 </wrapper>
 
 {% include "dynamic_pages/footer.html" %}
