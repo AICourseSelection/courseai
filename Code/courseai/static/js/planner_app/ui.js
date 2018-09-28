@@ -1321,7 +1321,7 @@ function loadCourseGrid(plan) {
     batchCourseOfferingActions(courses_actions).then(function () {
         window.setTimeout(function () {
             updateProgress();
-        }, 250);
+        }, 1000);
         updateRecommendations();
         SAVER.enableSaving();
     });
@@ -1361,9 +1361,13 @@ function coursePopoverSetup(i, item) {
         });
     });
 
+    let firstOpen = true;
     // reposition on click event trigger, which fires after the show.bs.popover event
     $(this).on('click', function (e) {
-        forcePopoverReposition();
+        if (firstOpen) {
+            firstOpen = false;
+            forcePopoverReposition();
+        }
     });
 
     $(this).on('shown.bs.popover', function () {
@@ -1417,7 +1421,14 @@ function mmsPopoverSetup() {
     });
     $(this).on('show.bs.popover', mmsPopoverData);
 
-    $(this).on('click', forcePopoverReposition());
+    let firstOpen = true;
+    // reposition on click event trigger, which fires after the show.bs.popover event
+    $(this).on('click', function (e) {
+        if (firstOpen) {
+            firstOpen = false;
+            forcePopoverReposition();
+        }
+    });
 }
 
 function updateCourseSearchResults(response) {
@@ -1915,6 +1926,7 @@ function updateMMSTrackers() {
                     const code = $(c).find('.course-code').text();
                     setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
                 }
+                alert(details.sat);
                 section_status = details.sat ? 'done' : 'incomplete';
             }
             else if (["x_from_category", "max_by_level"].includes(type)) {
