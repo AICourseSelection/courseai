@@ -1,1 +1,69 @@
-var _0x9d72=["\x70\x6C\x61\x6E","\x63\x6F\x64\x65","\x69\x6E\x74\x65\x72\x76\x61\x6C\x49\x44","\x65\x6E\x61\x62\x6C\x65\x53\x61\x76\x69\x6E\x67","\x62\x69\x6E\x64","\x73\x61\x76\x65","\x64\x69\x73\x61\x62\x6C\x65\x53\x61\x76\x69\x6E\x67","\x63\x68\x61\x6E\x67\x65\x73\x4D\x61\x64\x65","\x61\x63\x63\x6F\x75\x6E\x74\x73\x2F\x64\x65\x67\x72\x65\x65\x5F\x70\x6C\x61\x6E\x5F\x76\x69\x65\x77","\x50\x55\x54","\x73\x65\x72\x69\x61\x6C\x69\x7A\x65\x53\x69\x6D\x70\x6C\x65","\x6A\x73\x6F\x6E","\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2F\x6A\x73\x6F\x6E","\x44\x65\x67\x72\x65\x65\x20\x70\x6C\x61\x6E\x20\x73\x61\x76\x65\x64\x20\x74\x6F\x20\x75\x73\x65\x72\x20\x70\x72\x6F\x66\x69\x6C\x65\x2E","\x6C\x6F\x67","\x61\x6A\x61\x78","\x64\x65\x67\x72\x65\x65\x2F\x73\x74\x6F\x72\x65\x64\x5F\x70\x6C\x61\x6E\x73","\x73\x65\x72\x69\x61\x6C\x69\x7A\x65","\x50\x4F\x53\x54","\x73\x74\x6F\x72\x65\x20\x73\x75\x63\x63\x65\x73\x73\x2C\x20\x63\x6F\x64\x65\x20\x3D\x20","\x72\x65\x73\x70\x6F\x6E\x73\x65","\x73\x65\x74\x43\x6F\x64\x65"];const MIN_AUTOSAVE_INTERVAL=2000;function AutoSave(_0xe47dx3,_0xe47dx4){this[_0x9d72[0]]= _0xe47dx3;this[_0x9d72[1]]= _0xe47dx4;this[_0x9d72[2]]= null;this[_0x9d72[3]]= function(){if(this[_0x9d72[2]]!== null){return};this[_0x9d72[2]]= setInterval(this[_0x9d72[5]][_0x9d72[4]](this),MIN_AUTOSAVE_INTERVAL)};this[_0x9d72[6]]= function(){clearInterval(this[_0x9d72[2]]);this[_0x9d72[2]]= null};this[_0x9d72[5]]= function(){if(!this[_0x9d72[0]][_0x9d72[7]]){return};if(loggedIn&& this[_0x9d72[1]]){$[_0x9d72[15]]({url:_0x9d72[8],method:_0x9d72[9],data:{"\x63\x6F\x64\x65":this[_0x9d72[1]],"\x70\x6C\x61\x6E":this[_0x9d72[0]][_0x9d72[10]]()},dataType:_0x9d72[11],contentType:_0x9d72[12],success:function(_0xe47dx5){console[_0x9d72[14]](_0x9d72[13])}})};if(this[_0x9d72[1]]){$[_0x9d72[15]]({url:_0x9d72[16],method:_0x9d72[9],data:{"\x63\x6F\x64\x65":this[_0x9d72[1]],"\x70\x6C\x61\x6E":this[_0x9d72[0]][_0x9d72[17]]()},dataType:_0x9d72[11],contentType:_0x9d72[12]})}else {const _0xe47dx6=this;$[_0x9d72[15]]({url:_0x9d72[16],method:_0x9d72[18],data:{"\x70\x6C\x61\x6E":this[_0x9d72[0]][_0x9d72[17]]()},dataType:_0x9d72[11],contentType:_0x9d72[12],success:function(_0xe47dx5){console[_0x9d72[14]](_0x9d72[19]+ _0xe47dx5[_0x9d72[20]]);if(_0xe47dx5[_0x9d72[20]]){_0xe47dx6[_0x9d72[1]]= _0xe47dx5[_0x9d72[20]]};CS[_0x9d72[21]](_0xe47dx5[_0x9d72[20]]);save_code= _0xe47dx5[_0x9d72[20]]}})};this[_0x9d72[0]][_0x9d72[7]]= false}}
+const MIN_AUTOSAVE_INTERVAL = 2000; // Minimum time between autosaves, even if multiple actions are performed.
+
+function AutoSave(plan, code) {
+    this.plan = plan;
+    this.code = code;
+
+    this.intervalID = null;
+
+    this.enableSaving = function () {   // Turn on the saving loop (it is off on object creation).
+        if (this.intervalID !== null) return;
+        this.intervalID = setInterval(this.save.bind(this), MIN_AUTOSAVE_INTERVAL);
+    };
+
+    this.disableSaving = function () {  // Turn off the saving loop.
+        clearInterval(this.intervalID);
+        this.intervalID = null;
+    };
+
+    this.save = function () {
+        if (!this.plan.changesMade) return;    // Check if the plan needs saving.
+        
+        if (loggedIn && this.code) { // update degree plan details on the user's profile
+            $.ajax({
+                url: 'accounts/degree_plan_view',
+                method: 'PUT',
+                data: {
+                    "code": this.code,
+                    "plan": this.plan.serializeSimple()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log("Degree plan saved to user profile." );
+                }
+            })
+        }
+        
+        if (this.code) {    // Code present. Use update endpoint.
+            $.ajax({
+                url: 'degree/stored_plans',
+                method: 'PUT',
+                data: {
+                    "code": this.code,
+                    "plan": this.plan.serialize()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+            })
+        } else {    // Code not present. Use store endpoint.
+            const autoSaver = this;
+            $.ajax({
+                url: 'degree/stored_plans',
+                method: 'POST',
+                data: {
+                    "plan": this.plan.serialize()
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log('store success, code = ' + data.response);
+                    if (data.response) autoSaver.code = data.response;
+                    CS.setCode(data.response);  // Store the new code in a cookie.
+                    save_code = data.response; // TODO: Find a way to uncouple these two lines.
+                }
+            })
+        }
+        this.plan.changesMade = false;
+    };
+}
