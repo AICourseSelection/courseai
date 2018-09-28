@@ -919,6 +919,7 @@ function clearPlanner() {
     SAVER.plan = PLAN;
     SEARCH.plan = PLAN;
     $('#plan-grid').empty();
+    $('#mms-active-list').find('.mms-delete').click();
     $.merge($('#degree-tabs-content').children(), $('#degree-reqs-list')).find('.degree-body').empty();
 }
 
