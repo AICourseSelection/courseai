@@ -1321,7 +1321,7 @@ function loadCourseGrid(plan) {
     batchCourseOfferingActions(courses_actions).then(function () {
         window.setTimeout(function () {
             updateProgress();
-        }, 1000);
+        }, 750);
         updateRecommendations();
         SAVER.enableSaving();
     });
@@ -1926,7 +1926,6 @@ function updateMMSTrackers() {
                     const code = $(c).find('.course-code').text();
                     setChecked($(c), details.codes.includes(code), type === 'compulsory_courses');
                 }
-                alert(details.sat);
                 section_status = details.sat ? 'done' : 'incomplete';
             }
             else if (["x_from_category", "max_by_level"].includes(type)) {
@@ -2042,16 +2041,14 @@ function setChecked(node, checked, useCrosses) {
 }
 
 function setPanelStatus(panel, status) {
+    panel.removeClass('alert-success alert-warning alert-danger');
     if (status === 'done') {                // Done
         panel.addClass('alert-success');
-        panel.removeClass('alert-warning alert-danger');
     } else if (status === 'incomplete') {   // Incomplete
         panel.addClass('alert-warning');
-        panel.removeClass('alert-success alert-danger');
     } else if (status === 'problem') {      // Problem
         panel.addClass('alert-danger');
-        panel.removeClass('alert-success alert-warning');
-    } else panel.removeClass('alert-success alert-warning alert-danger');
+    } 
 }
 
 function updateProgress() {
