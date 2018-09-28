@@ -846,7 +846,6 @@ function dropOnSlot(event, ui) {
     const title = ui.draggable.find('.course-title').text();
     const session = first_cell.find('.row-ses').text();
     const reason = $(first_cell[0].lastElementChild).text();
-    console.log(reason)
     makePlanCellDraggable($(event.target), code, session.year, false);
 
     const position = $(event.target).index() - 1;
@@ -1319,8 +1318,8 @@ function loadCourseGrid(plan) {
 
             });
             cell.each(coursePopoverSetup);
+            cell.droppable('destroy');
             makePlanCellDraggable(cell, null, null, true);
-            //cell.droppable('destroy');
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
