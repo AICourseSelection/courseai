@@ -542,7 +542,7 @@ wrapper {
 }
 
 .course-popover .popover-body, .mms-popover .popover-body {
-    /* height: 420px; */
+    height: 420px;
     overflow-y: scroll;
 }
 
