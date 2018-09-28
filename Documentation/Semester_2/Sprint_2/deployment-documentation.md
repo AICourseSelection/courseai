@@ -29,7 +29,7 @@ sudo apt-get install docker
 #### Local Hosting
 Go to `courseai/Code/courseai` then build the docker image with:
 ```
-run sudo docker build -t courseai-app .
+sudo docker build -t courseai-app .
 ```
 This builds an image tagged as `courseai-app` and may take several minutes. Next run the following line to begin hosting the web-app locally. 
 ```
