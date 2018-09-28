@@ -1,1 +1,141 @@
-var _0x34ff=["\x63\x6F\x64\x65","\x73\x65\x73\x73\x69\x6F\x6E\x73","\x61\x64\x64\x53\x65\x73\x73\x69\x6F\x6E","\x69\x6E\x63\x6C\x75\x64\x65\x73","\x70\x75\x73\x68","\x79\x65\x61\x72","\x74\x69\x74\x6C\x65","\x75\x6E\x69\x74\x73","\x72\x75\x6C\x65\x73","\x65\x78\x74\x72\x61\x73","\x72\x65\x70\x65\x61\x74\x61\x62\x6C\x65","\x6E\x75\x6D\x62\x65\x72","\x20\x74\x6F\x20","\x73\x70\x6C\x69\x74","\x6D\x61\x78\x55\x6E\x69\x74\x73","\x63\x68\x65\x63\x6B\x52\x65\x71\x75\x69\x72\x65\x6D\x65\x6E\x74\x73","\x63\x6F\x75\x72\x73\x65\x73","\x61\x70\x70\x6C\x79","\x70\x72\x6F\x74\x6F\x74\x79\x70\x65","\x74\x65\x73\x74","\x63\x68\x61\x72\x41\x74","\x7E","\x73\x6C\x69\x63\x65","\x63\x6F\x6E\x63\x61\x74","\x63\x6F\x75\x72\x73\x65","\x73\x65\x73\x73\x69\x6F\x6E","\x66\x61\x69\x6C\x65\x64","\x67\x72\x61\x64\x65","\x6E\x6F\x74\x65\x73","\x6D\x61\x72\x6B\x46\x61\x69\x6C\x65\x64","\x73\x65\x74\x47\x72\x61\x64\x65","\x63\x6C\x65\x61\x72\x47\x72\x61\x64\x65","\x73\x65\x74\x4E\x6F\x74\x65\x73","\x63\x6C\x65\x61\x72\x4E\x6F\x74\x65\x73"];function Course(_0x4b8fx2,_0x4b8fx3){this[_0x34ff[0]]= _0x4b8fx2;this[_0x34ff[1]]= _0x4b8fx3|| [];this[_0x34ff[2]]= function(_0x4b8fx4){if(this[_0x34ff[1]][_0x34ff[3]](_0x4b8fx4)){return};this[_0x34ff[1]][_0x34ff[4]](_0x4b8fx4)}}function CourseOffering(_0x4b8fx2,_0x4b8fx6,_0x4b8fx7,_0x4b8fx8,_0x4b8fx9,_0x4b8fxa,_0x4b8fxb= false){this[_0x34ff[0]]= _0x4b8fx2;this[_0x34ff[5]]= _0x4b8fx6;this[_0x34ff[6]]= _0x4b8fx7;this[_0x34ff[7]]= _0x4b8fx8;this[_0x34ff[8]]= _0x4b8fx9;this[_0x34ff[9]]= _0x4b8fxa;this[_0x34ff[10]]= _0x4b8fxb;if( typeof _0x4b8fx8=== _0x34ff[11]){this[_0x34ff[7]]= _0x4b8fx8}else {if(_0x4b8fx8=== undefined){this[_0x34ff[7]]= 6}else {const _0x4b8fxc=this[_0x34ff[7]][_0x34ff[13]](_0x34ff[12]);this[_0x34ff[7]]= parseInt(_0x4b8fxc[0]);this[_0x34ff[14]]= parseInt(_0x4b8fxc[1])}};this[_0x34ff[15]]= function(_0x4b8fxd,_0x4b8fx4){let _0x4b8fxe=[];let _0x4b8fxf=true;let _0x4b8fx10=[];for(let _0x4b8fx11 of _0x4b8fxd[_0x34ff[1]]){if(sessionIsAfter(_0x4b8fx11,_0x4b8fx4)|| _0x4b8fx11=== _0x4b8fx4){continue};Array[_0x34ff[18]][_0x34ff[4]][_0x34ff[17]](_0x4b8fx10,_0x4b8fxd[_0x34ff[16]][_0x4b8fx11])};let _0x4b8fx12=_0x4b8fxd[_0x34ff[16]][_0x4b8fx4]|| [];for(let _0x4b8fx13 of this[_0x34ff[8]]){let _0x4b8fx14=false;for(let _0x4b8fx15 of _0x4b8fx13){if(_0x4b8fx14||  !/^~?[A-Z]{4}[0-9]{4}/[_0x34ff[19]](_0x4b8fx15)){continue};if(_0x4b8fx15[_0x34ff[20]](0)=== _0x34ff[21]){let _0x4b8fx2=_0x4b8fx15[_0x34ff[22]](1);if(checkCoursePresent(_0x4b8fx10[_0x34ff[23]](_0x4b8fx12),_0x4b8fx2)){_0x4b8fxe[_0x34ff[4]](_0x4b8fx2)}else {_0x4b8fx14= true}}else {_0x4b8fx14= checkCoursePresent(_0x4b8fx10,_0x4b8fx15)}};_0x4b8fxf= _0x4b8fxf&& _0x4b8fx14};return {"\x73\x61\x74":_0x4b8fxf,"\x69\x6E\x63":_0x4b8fxe}}}function CourseEnrolment(_0x4b8fx15,_0x4b8fx4){this[_0x34ff[0]]= _0x4b8fx15[_0x34ff[0]];this[_0x34ff[24]]= _0x4b8fx15;this[_0x34ff[25]]= _0x4b8fx4;this[_0x34ff[26]]= false;this[_0x34ff[27]]= null;this[_0x34ff[28]]= null;this[_0x34ff[29]]= function(_0x4b8fx17= true){this[_0x34ff[26]]= _0x4b8fx17};this[_0x34ff[30]]= function(_0x4b8fx18){this[_0x34ff[27]]= _0x4b8fx18};this[_0x34ff[31]]= function(){this[_0x34ff[27]]= null};this[_0x34ff[32]]= function(_0x4b8fx19){this[_0x34ff[28]]= _0x4b8fx19};this[_0x34ff[33]]= function(){this[_0x34ff[28]]= null}}function checkCoursePresent(_0x4b8fx1b,_0x4b8fx2){for(let _0x4b8fx1c of _0x4b8fx1b){if(_0x4b8fx1c[_0x34ff[0]]!== _0x4b8fx2|| _0x4b8fx1c[_0x34ff[26]]){continue};return true};return false}
+function Course(code, sessions) {
+    this.code = code;
+    this.sessions = sessions || [];
+
+    this.addSession = function (session) {
+        if (this.sessions.includes(session)) return;
+        this.sessions.push(session)
+    }
+}
+
+/**
+ * Class that represents a course in a particular year.
+ * @param {string} code     Course code, e.g. COMP1100.
+ * @param {int} year        Version of the course, e.g. 2016, for the 2016 version of COMP1100.
+ * @param {string} title    Title of the course.
+ * @param {int} units       Number of units the course provides. Usually 6.
+ * @param {Object} rules    Course prerequisite and incompatibility rules.
+ * @param {Object} extras   Description, learning outcomes, etc.
+ * @param {boolean} repeatable  Whether or not this course can be taken across multiple sessions.
+ */
+function CourseOffering(code, year, title, units, rules, extras, repeatable = false) {
+    this.code = code;
+    this.year = year;
+    this.title = title;
+    this.units = units;
+    this.rules = rules;
+    this.extras = extras;
+    this.repeatable = repeatable;
+
+    if (typeof units === "number") {
+        this.units = units;
+    } else if (units === undefined) {
+        this.units = 6;
+    } else {
+        const bounds = this.units.split(" to ");
+        this.units = parseInt(bounds[0]);
+        this.maxUnits = parseInt(bounds[1]);
+    }
+
+    /**
+     * Check if the requirements for this course have been met.
+     * @param plan  The degree plan to check requirements against.
+     * @param session   The prospective session for this course.
+     */
+    this.checkRequirements = function (plan, session) {
+        let incompatible_courses = [];
+        let overall_sat = true;
+
+        let courses_taken = [];
+        for (let ses of plan.sessions) {
+            if (sessionIsAfter(ses, session) || ses === session) continue;
+            Array.prototype.push.apply(courses_taken, plan.courses[ses]);
+        }
+        let courses_taking = plan.courses[session] || [];
+
+        for (let clause of this.rules) {
+            let clause_sat = false;
+            for (let course of clause) {
+                if (clause_sat || !/^~?[A-Z]{4}[0-9]{4}/.test(course)) continue; // Skip if satisfied or unknown requirement.
+                if (course.charAt(0) === '~') {
+                    let code = course.slice(1);
+                    if (checkCoursePresent(courses_taken.concat(courses_taking), code)) {
+                        incompatible_courses.push(code);
+                    } else clause_sat = true
+                } else {
+                    clause_sat = checkCoursePresent(courses_taken, course)
+                }
+            }
+            overall_sat = overall_sat && clause_sat;
+        }
+        return {'sat': overall_sat, 'inc': incompatible_courses};
+    }
+}
+
+/**
+ * Class that represents a course currently in a plan.
+ * @param {CourseOffering} course   CourseOffering object representing the course.
+ * @param {string} session          The session that this course is taken in, e.g. 2016S1.
+ */
+function CourseEnrolment(course, session) {
+    this.code = course.code;
+    this.course = course;
+    this.session = session;
+
+    this.failed = false;    // Default to not failed.
+    this.grade = null;      // Do not store grade data by default.
+    this.notes = null;      // Do not store notes data by default.
+
+    /**
+     * Mark a course as having been failed.
+     * @param {boolean} failed    Set to false to remove failed tag. Otherwise defaults to true.
+     */
+    this.markFailed = function (failed = true) {
+        this.failed = failed
+    };
+
+    /**
+     * Set the student's grade for a course.
+     * @param {int} grade   User's grade from 0 to 100.
+     */
+    this.setGrade = function (grade) {
+        this.grade = grade;
+    };
+
+    /**
+     * Clear the student's grade info for a course.
+     */
+    this.clearGrade = function () {
+        this.grade = null;
+    };
+
+    /**
+     * Set the student's custom notes for a course.
+     * @param {string} notes   User's own custom notes for the course.
+     */
+    this.setNotes = function (notes) {
+        this.notes = notes;
+    };
+
+    /**
+     * Clear the student's custom notes for a course.
+     */
+    this.clearNotes = function () {
+        this.notes = null;
+    };
+}
+
+/**
+ * Determine if a user has completed a course code within a list of courses.
+ * Ignores courses in the list which the user has marked as failed.
+ * @param courses   The completed courses to look through.
+ * @param code      The course code to search for.
+ * @returns {boolean}   Whether the course with the code has been completed without failure.
+ */
+function checkCoursePresent(courses, code) {
+    for (let c of courses) {
+        if (c.code !== code || c.failed) continue;
+        return true;
+    }
+    return false;
+}
