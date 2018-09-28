@@ -1,4 +1,5 @@
 {% load static %}
+{% load pipeline %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,8 +13,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
           integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
-    <title>Degree Builder</title>
+    {% stylesheet 'main' %}
+    <title>Interactive Course Scheduler</title>
 </head>
 <body style="background: linear-gradient(azure, white 40%); background-repeat: no-repeat">
 
@@ -113,22 +114,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
-<script src="{% static "js/ajax_csrf.js" %}"></script>
-<script src="{% static "js/cookie.js" %}"></script>
-
-<!-- create drop down list of years available -->
-<script>
-    var options = "";
-    const THIS_YEAR = (new Date()).getFullYear();
-    for (var i = 2014; i <= 2019; i++) {
-        if (i === THIS_YEAR) options += '<option selected="selected">' + i + '</option>';
-        else options += "<option>" + i + "</option>";
-    }
-    document.getElementById("yearList").innerHTML = options;
-</script>
+{% javascript 'main' %}
+{% javascript 'index' %}
 
 <script>
-
     $('#form-login').submit(function (e) {
         e.preventDefault();
         var email = $.trim($('#login-email').val());
@@ -178,75 +167,6 @@
             }
         })
     })
-</script>
-
-<script>
-    const degreeList = new Set();
-    const degreeCodes = {};
-    let fdd = false;
-    $.ajax({
-        url: 'degree/all',
-        success: function (data) {
-            let degreeDicts = [];
-            for (i in data.response) {
-                degreeDicts.push({name: data.response[i].title});
-                degreeList.add(data.response[i].title);
-                console.log(data.response[i].title);
-                degreeCodes[data.response[i].title] = data.response[i].code;
-            }
-            $('.typeahead').typeahead({source: degreeDicts});
-        }
-    });
-    let degreeInputs = $('input.typeahead');
-    degreeInputs.popover({
-        trigger: 'manual',
-        placement: 'bottom',
-        html: true,
-        content: '<div class="degreeWrongPopover">Please choose a degree from the list.</div>'
-    });
-    $('#fdd-button').click(function (e) {
-        e.preventDefault();
-        if (fdd) {
-            $(this).text('Double Degree');
-        } else {
-            $(this).text('Single Degree')
-        }
-        $('#fdd-row').toggle();
-        fdd = !fdd;
-    });
-    $('#planform').submit(function (e) {
-        const fddField = $(degreeInputs[1]);
-        for (let i = 0; i < degreeInputs.length; i++) {
-            if (!(i === 0 || fdd)) continue;
-            const field = $(degreeInputs[i]);
-            if (!degreeList.has(field.val())) {
-                e.preventDefault();
-                field.popover('show');
-                errorPopoverSetup(field);
-            }
-            $($('input.degree-code')[i]).val(degreeCodes[field.val()]);
-        }
-        if (fdd && fddField.val() === $(degreeInputs[0]).val()) {
-            e.preventDefault();
-            fddField.popover('show');
-            const popover = $(fddField.data('bs.popover').tip);
-            popover.find('.degreeWrongPopover').text('You cannot add two of the same degree.');
-            errorPopoverSetup(fddField);
-        }
-        new CookieStore().clearCode();
-    });
-
-    function errorPopoverSetup(source) {
-        popover = $(source.data('bs.popover').tip);
-        popover.addClass('popover-error');
-        popover.click(function () {
-            source.popover('hide')
-        });
-        popover.css('cursor', 'pointer');
-        source.keydown(function () {
-            source.popover('hide')
-        });
-    }
 </script>
 </body>
 </html>
