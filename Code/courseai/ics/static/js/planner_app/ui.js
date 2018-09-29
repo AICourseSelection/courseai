@@ -1589,13 +1589,15 @@ function removeRowCellsClass(row, css_class_name) {
     });
 }
 
-async function highlightInvalidSessions(offering, ui, first_cell) {
-    offering = await offering;
+async function highlightInvalidSessions(course, ui, first_cell) {
+    course = await course; // The course parameter is a getCourseOffering call.
     let invalid_sessions = {};
-    let offering_sessions = offering.extras.sessions;
     for (const session of PLAN.sessions) {
+        const year = session.slice(0, 4);
+        const offering = await getCourseOffering( // Course data will be downloaded by this point because of the await.
+            course.code, closestYear(year, Object.keys(KNOWN_COURSES[course.code])));
         const checked = offering.checkRequirements(PLAN, session);
-        const offered = offering_sessions.includes(SESSION_WORDS[session.slice(4)]);
+        const offered = offering.extras.sessions.includes(SESSION_WORDS[session.slice(4)]);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"
