@@ -254,6 +254,7 @@ function getColorClassIndex(mmsCode) {
 
 async function mms_add(code, year) {
     const mms = await getMMSOffering(code, year);
+    year = mms.year;
     PLAN.addMMS(code, year);
     let mms_active_list = $('#mms-active-list');
     let mms_card = $('<div class="mms card"/>');
@@ -607,28 +608,28 @@ $('#show-filters').popover({
     placement: 'right',
     html: true,
     content: '<form onsubmit="return filterSubmit(this)">\n' +
-    '<div class="form-row" style="padding: 0 5px">' +
-    '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
-    '<div class="form-row" style="padding: 0 5px">\n' +
-    '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
-    '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
-    '</div>\n' +
-    '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
-    '<div id="filter-buttons" class="form-row">\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
-    '</div>\n' +
-    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
-    '</form>' +
-    '',
+        '<div class="form-row" style="padding: 0 5px">' +
+        '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
+        '<div class="form-row" style="padding: 0 5px">\n' +
+        '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
+        '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
+        '</div>\n' +
+        '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
+        '<div id="filter-buttons" class="form-row">\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
+        '</div>\n' +
+        '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
+        '</form>' +
+        '',
     template: '<div class="popover filters-panel" role="tooltip">\n' +
-    '    <div class="arrow"></div>\n' +
-    '    <div class="h3 popover-header"></div>\n' +
-    '    <div class="popover-body"></div>\n' +
-    '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
-    '</div>'
+        '    <div class="arrow"></div>\n' +
+        '    <div class="h3 popover-header"></div>\n' +
+        '    <div class="popover-body"></div>\n' +
+        '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
+        '</div>'
 }).on('shown.bs.popover', function () {
     const popover = $(this).data('bs.popover');
     const buttons = $(popover.tip).find('#filter-buttons button');
@@ -846,7 +847,7 @@ function dropOnSlot(event, ui) {
     const title = ui.draggable.find('.course-title').text();
     const session = first_cell.find('.row-ses').text();
     const reason = $(first_cell[0].lastElementChild).text();
-    makePlanCellDraggable($(event.target), code, session.year, false);
+    makePlanCellDraggable($(event.target), code, session.slice(0, 4), false);
 
     const position = $(event.target).index() - 1;
     if ($(row).hasClass('unavailable')) {
@@ -1162,10 +1163,10 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
             return html;
         },
         template: '<div class="popover session-popover" data-container=".popover-body">\n' +
-        '    <div class="arrow"></div>\n' +
-        '    <div class="h2 popover-header"></div>\n' +
-        '    <div class="popover-body session-popover-body"></div>\n' +
-        '    <button class="btn session-popover-submit btn-success">Add</button>'
+            '    <div class="arrow"></div>\n' +
+            '    <div class="h2 popover-header"></div>\n' +
+            '    <div class="popover-body session-popover-body"></div>\n' +
+            '    <button class="btn session-popover-submit btn-success">Add</button>'
     }).on('shown.bs.popover', function (e) {
         $('.add-row-btn').not(this).popover('hide');
         let buttons = $('.session-popover').find('.session-popover-btn');
@@ -1314,12 +1315,12 @@ function loadCourseGrid(plan) {
             courses_actions[code + '-' + year].push(function (offering) {
                 cell.find('.course-title').text(offering.title);
                 PLAN.addCourse(session, code);
-                makePlanCellDraggable(cell, code, session.year, false);
+                makePlanCellDraggable(cell, code, year, false);
 
             });
             cell.each(coursePopoverSetup);
             cell.droppable('destroy');
-            makePlanCellDraggable(cell, null, null, true);
+            // makePlanCellDraggable(cell, null, null, true);
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
@@ -1347,15 +1348,15 @@ function coursePopoverSetup(i, item) {
         placement: placement,
         html: true,
         content: '<div class="d-flex">\n' +
-        '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
-        '</div>',
+            '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
+            '</div>',
         template: '<div class="popover course-popover" role="tooltip">\n' +
-        '    <div class="arrow"></div>\n' +
-        '    <div class="h3 popover-header"></div>\n' +
-        '    <div class="popover-body"></div>\n' +
-        '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
-        '     " class="h6 popover-footer mb-0 text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
-        '</div>'
+            '    <div class="arrow"></div>\n' +
+            '    <div class="h3 popover-header"></div>\n' +
+            '    <div class="popover-body"></div>\n' +
+            '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
+            '     " class="h6 popover-footer mb-0 text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+            '</div>'
     });
 
     $(this).on('show.bs.popover', function () {
@@ -1408,16 +1409,16 @@ function mmsPopoverSetup() {
         placement: 'left',
         html: true,
         content: '<div class="d-flex">\n' +
-        '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
-        '</div>',
+            '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
+            '</div>',
         template: '<div class="popover mms-popover" role="tooltip" data-code="' + code + '">\n' +
-        '    <div class="arrow"></div>\n' +
-        '    <div class="h3 popover-header"></div>\n' +
-        '    <div class="mms-add"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
-        '    <div class="popover-body"></div>\n' +
-        '    <a href="https://programsandcourses.anu.edu.au/' + MMS_TYPE_PRINT[code.split('-')[1]].toLowerCase() + '/' + code +
-        '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
-        '</div>'
+            '    <div class="arrow"></div>\n' +
+            '    <div class="h3 popover-header"></div>\n' +
+            '    <div class="mms-add"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
+            '    <div class="popover-body"></div>\n' +
+            '    <a href="https://programsandcourses.anu.edu.au/' + MMS_TYPE_PRINT[code.split('-')[1]].toLowerCase() + '/' + code +
+            '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+            '</div>'
     });
     $(this).on('show.bs.popover', mmsPopoverData);
 
@@ -1515,6 +1516,8 @@ function makeSlotDroppable(item) {
 
 function makePlanCellDraggable(item, code, year, elective) {
     item.addClass('draggable-course');
+    if (code === null) code = item.find('.course-code').text();
+    if (year === null) code = item.find('.course-year').text();
     item.draggable({
         zIndex: 800,
         revert: true,
@@ -1528,8 +1531,8 @@ function makePlanCellDraggable(item, code, year, elective) {
             };
             $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
             const first_cell = $(event.target.parentElement).find('.first-cell');
-            if(!elective) {
-                highlightInvalidSessions(getCourseOffering(code, year),ui,first_cell);
+            if (!elective) {
+                highlightInvalidSessions(getCourseOffering(code, year), ui, first_cell);
                 highlightElectives();
             }
         },
@@ -1563,7 +1566,7 @@ function makeCourseDraggable(item, code, year) {
                 left: Math.floor(ui.helper.width() / 2),
                 top: Math.floor(ui.helper.height() / 2)
             };
-            highlightInvalidSessions(getCourseOffering(code, year),ui,null);
+            highlightInvalidSessions(getCourseOffering(code, year), ui, null);
             highlightElectives();
         },
         stop: function (event, ui) {
@@ -1617,7 +1620,7 @@ async function highlightInvalidSessions(course, ui, first_cell) {
 
         addRowCellsClass(row, 'invalid-cell');
     }
-    if(first_cell !== null) {
+    if (first_cell !== null) {
 
         first_cell.children().css({'display': 'none'});
         first_cell.addClass('delete').addClass('alert-danger');
