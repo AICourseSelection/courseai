@@ -1,4 +1,5 @@
 {% load static %}
+{% load pipeline %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,8 +13,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
           integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
-    <title>Interactive Course Scheduler - About</title>
+    {%  stylesheet 'main' %}
+    <title>Intelligent Course Scheduler - About</title>
 </head>
 <body>
 
