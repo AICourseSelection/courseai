@@ -1,4 +1,7 @@
 // Reference Constants
+const EARLIEST_YEAR = 2014; // Oldest year (of any course/degree/etc.) with data available.
+const LATEST_YEAR = 2019; // Most recent year (of any course/degree/etc.) with data available.
+
 const SESSION_WORDS = {
     'Su': 'Summer Session',
     'S1': 'First Semester',
@@ -860,7 +863,7 @@ function dropOnSlot(event, ui) {
             $('#incompat-course1').text(ui.draggable.find('.course-code').text());
             $('#incompat-course2').text(reason.split(' ').pop());
             modal = $('#incompat-modal');
-        } else if (reason === "Not available in this semester/ session") {
+        } else if (reason === "Not available in this semester/ session" || reason === "Not available in this year") {
             $('#unavail-modal-course').text(ui.draggable.find('.course-code').text());
             modal = $('#unavail-modal');
         } else {
@@ -1597,15 +1600,34 @@ async function highlightInvalidSessions(course, ui, first_cell) {
     let invalid_sessions = {};
     for (const session of PLAN.sessions) {
         const year = session.slice(0, 4);
+        const offeredYears = Object.keys(KNOWN_COURSES[course.code]);
+
+        function offeredInYear(year) { // Check to see if the course is available in the year.
+            const y = parseInt(year);
+            // If it looks like it was offered in a time before our available data
+            if (y < EARLIEST_YEAR) return offeredYears.includes(EARLIEST_YEAR.toString());
+            // If it looks like it will be offered in a time after our available data
+            else if (y > LATEST_YEAR) return offeredYears.includes(LATEST_YEAR.toString());
+            else return offeredYears.includes(year);
+        }
+
+        if (!offeredInYear(year)) {
+            invalid_sessions[session] = "Not available in this year";
+            continue;
+        }
+
         const offering = await getCourseOffering( // Course data will be downloaded by this point because of the await.
             course.code, closestYear(year, Object.keys(KNOWN_COURSES[course.code])));
+        if (!offering.extras.sessions.includes(SESSION_WORDS[session.slice(4)])) {
+            invalid_sessions[session] = "Not available in this semester/ session";
+            continue;
+        }
+
         const checked = offering.checkRequirements(PLAN, session);
-        const offered = offering.extras.sessions.includes(SESSION_WORDS[session.slice(4)]);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"
         }
-        if (!offered) invalid_sessions[session] = "Not available in this semester/ session"
     }
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row.children[0]);
