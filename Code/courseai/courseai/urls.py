@@ -20,17 +20,13 @@ from django.urls import include, path
 from django.conf.urls import include, url
 from django.views.generic import TemplateView
 
-from courseai import views
-
 urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + [
-    path(r'', TemplateView.as_view(template_name='dynamic_pages/index.html'), name='index'),
-    path(r'about/', TemplateView.as_view(template_name='dynamic_pages/about.html'), name='about'),
-    path(r'feedbackform', TemplateView.as_view(template_name='dynamic_pages/feedback.html'), name='feedbackform'),
-    path(r'planner', views.planner, name='planner'),
+    path(r'', include('ics.urls')),
     path(r'search/', include('search.urls')),
     path(r'degree/', include('degree.urls')),
     path(r'accounts/', include('accounts.urls')),
     path(r'recommendations/', include('recommendations.urls')),
     path(r'admin/', admin.site.urls),
-    path(r'feedback/', include('feedback.urls'))
+    path(r'feedback/', include('feedback.urls')),
+    path(r'feedbackform', TemplateView.as_view(template_name='dynamic_pages/feedback.html'), name='feedbackform')
 ]

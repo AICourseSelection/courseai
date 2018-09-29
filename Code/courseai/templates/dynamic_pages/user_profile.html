@@ -1,36 +1,40 @@
 {% load static %}
+{% load pipeline %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your Saved Plans: {{user.username}}</title>
-    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
-    <link rel="stylesheet" href="{% static "css/solid.css" %}"/>
-    <link rel="stylesheet" href="{% static "css/fontawesome.css" %}"/>
-    <link rel="stylesheet" href="{% static "css/style.css" %}"/>
+    <title>Your Saved Plans: {{ user.username }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/solid.css"
+          integrity="sha384-VxweGom9fDoUf7YfLTHgO0r70LVNHP5+Oi8dcR4hbEjS8UnpRtrwTx7LpHq/MWLI" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
+          integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
+    {% stylesheet 'main' %}
 </head>
 <body>
-  {% include "dynamic_pages/navbar.html" %}
-  
+{% include "dynamic_pages/navbar.html" %}
+
 <wrapper class="d-flex flex-column">
     <div class="container" style="margin-bottom: 135px">
         <h2>Saved Degree Plans</h2>
         <table id="codes-table" class="table table-hover table-bordered table-striped">
             <thead class="thead-dark">
-                <tr class ="d-flex">
-                    <td class="col-2 text-center">Degree/s</td>
-                    <td class="col-4 text-center">Majors/Minors/Specialisations</td>
-                    <td class="col-2 text-center">Start Date</td>
-                    <td class="col-2 text-center">Created</td>
-                    <td class="col-2 text-center"></td>
-                </tr>
+            <tr class="d-flex">
+                <td class="col-2 text-center">Degree/s</td>
+                <td class="col-4 text-center">Majors/Minors/Specialisations</td>
+                <td class="col-2 text-center">Start Date</td>
+                <td class="col-2 text-center">Created</td>
+                <td class="col-2 text-center"></td>
+            </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
     </div>
-    
+
 </wrapper>
 
 {% include "dynamic_pages/footer.html" %}
@@ -47,8 +51,8 @@
         integrity="sha256-LOnFraxKlOhESwdU/dX+K0GArwymUDups0czPWLEg4E=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
-<script src="{% static "js/chatbox.js" %}"></script>
-<script src="{% static "js/profile.js" %}"></script>
+{% javascript 'main' %}
+{% javascript 'profile' %}
 </body>
 </html>
 
