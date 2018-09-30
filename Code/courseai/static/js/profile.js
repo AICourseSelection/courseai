@@ -136,7 +136,7 @@ function createSavedPlansTable() {
                     let code = plans[i][0];
                     let row = $('<tr class="d-flex">');
                     let btnsCol = $('<td class="col-1 btn-container text-center"/>');
-                    let textarea = $('<textarea class="plan-name-input form-control" pattern="[A-Za-z0-9\'\.\,\-]" placeholder="edit name"/>');
+                    let textarea = $('<textarea class="plan-name-input form-control" maxlength="250" placeholder="edit name"/>');
 
                     if ('name' in obj && obj['name'].length !== 0) textarea.val(obj['name']);
                     else textarea.addClass('hidden');

@@ -114,6 +114,9 @@ def code_view(request):
             mode = proc['mode']
             if mode == 'NAME': # update name property of the plan
                 name = proc['name']
+                # double check length of name input
+                if len(name) > 250:
+                    return HttpResponse(JsonResponse({"response": "error"}));
                 for p in degreePlans:
                     if p[0] == code:
                         plan = json.loads(p[1])
@@ -127,7 +130,7 @@ def code_view(request):
                 # update the plan
                 for p in degreePlans:
                     if p[0] == code:
-                        oldPlanName = json.loads(p[1])['name']
+                        oldPlanName = '' if 'name' not in json.loads(p[1]) else json.loads(p[1])['name']
                         plan = json.loads(plan)
                         plan['name'] = oldPlanName
                         p[1] = json.dumps(plan)

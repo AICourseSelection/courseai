@@ -476,6 +476,34 @@ wrapper {
     padding: .4rem .6rem;
 }
 
+#color-coding {
+    margin-bottom: 8px;
+    border: 1px solid #d1ecf1;
+    padding: 0;
+}
+
+#color-coding-header {
+    width: 100%;
+    padding: 0;
+    color: #0c5460;
+    background-color: #d1ecf1;
+}
+
+.color-coding-row {
+    padding: 2px;
+    border: 1px solid rgba(0,0,0,.125);
+    display: flex;
+    align-items: center;
+}
+
+.color-coding-box {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin: 0 8px;
+    border: 1px solid black;
+}
+
 .card-header:before {
     font-family: 'Font Awesome\ 5 Free';
     width: 1rem;
@@ -985,27 +1013,27 @@ wrapper {
 }
 
 .compulsory {
-    background-color: #ccebff;
+    background-color: #d2eaff;
 }
 
 .mms-course-list0 {
-    background-color: #C7FFEB;
+    background-color: #dfffe4;
 }
 
 .mms-course-list1 {
-    background-color: #F6EAFF;
+    background-color: #e9dafd;
 }
 
 .mms-course-list2 {
-    background-color: #FEFFDE;
+    background-color: #fcffc8;
 }
 
 .mms-course-list3 {
-    background-color: #C6FFCD;
+    background-color: #e1e1e1;
 }
 
 .mms-course-list4 {
-    background-color: #FFE8CF;
+    background-color: #ffe5ca;
 }
 
 .invalid-cell {
