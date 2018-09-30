@@ -17,10 +17,10 @@ const ELECTIVE_TEXT = "Elective Course";
 const MMS_CLASS_NAME = 'mms-course-list';
 let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
-const COLOR_CLASSES = ['compulsory', 'mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'invalid-cell']; // list of classes used for colouring cells - used when clearing plans
+const COLOR_CLASSES = ['compulsory', 'elective', 'mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'invalid-cell']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
-let legendMappings = {'compulsory': 'Compulsory Courses'};
+let legendMappings = {'compulsory': 'Compulsory Courses', 'elective': 'Elective Courses'};
 
 const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
