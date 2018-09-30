@@ -17,9 +17,10 @@ const ELECTIVE_TEXT = "Elective Course";
 const MMS_CLASS_NAME = 'mms-course-list';
 let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
-const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'mms-course-list0', 'added-elective', 'compulsory']; // list of classes used for colouring cells - used when clearing plans
+const COLOR_CLASSES = ['compulsory', 'mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'invalid-cell']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
 let colorMappings = {};
+let legendMappings = {'compulsory': 'Compulsory Courses'};
 
 const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
@@ -58,6 +59,27 @@ function resetPlan() {
     SAVER.disableSaving();
     clearPlanner();
     setupPlanner(true);
+}
+
+function updateColorLegend() {
+    let section = $('#color-coding-section');
+    section.empty(); // remove existing legend items
+
+    for (var i = 0; i < COLOR_CLASSES.length; i++) {
+        let classKey = COLOR_CLASSES[i];
+        if (classKey in legendMappings) {
+            let row = $('<div class="color-coding-row"/>');
+            let color = $('<div class="color-coding-box"/>');
+            let title = $('<span class="color-coding-text"/>');
+
+            color.css('background-color', colorMappings[classKey]);
+            title.text(legendMappings[classKey]);
+
+            row.append(color);
+            row.append(title);
+            section.append(row);
+        }
+    }
 }
 
 function addLinearGradient(colorClasses, box) {
@@ -279,6 +301,8 @@ async function mms_add(code, year) {
 
     let mmsCourseCodes = [];
     let colorIndex = getColorClassIndex(code);
+    legendMappings[MMS_CLASS_NAME + colorIndex] = mms.title; // add mapping of MMS class color to its title
+    updateColorLegend();
 
     let courses_actions = {};
     let section_count = 0;
@@ -482,6 +506,8 @@ async function deleteMMS(button) {
     let colorIndex = getColorClassIndex(code);
     delete allMMSCourseCodes[code];
     let mmsClassName = MMS_CLASS_NAME + colorIndex;
+    delete legendMappings[mmsClassName]; // remove the specified class to title mapping for the color coding legend
+    updateColorLegend();
     $("." + mmsClassName).removeClass(mmsClassName); // remove the class from all elements
     PLAN.removeMMS(code, year); // Delete from the plan.
     $(button).parents('.mms').find('.result-course').popover('dispose');
@@ -525,6 +551,7 @@ let SAVER = new AutoSave(PLAN, save_code);
 setupPlanner();
 
 updateColorMappings();
+updateColorLegend();
 
 $('#rc-button').click(function () {
     $('#rc-modal').modal();
