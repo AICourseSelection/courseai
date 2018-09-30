@@ -75,8 +75,8 @@ body {
 .text-area-icon {
     position: absolute;
     z-index: 999;
-    left: 10px;
-    top: 8px;
+    left: 11px;
+    top: 7px;
 }
 
 .text-area-icon i {
