@@ -18,6 +18,18 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 18,
+        "courses": [
+          "BUSN7017",
+          "BUSN7045",
+          "BUSN8102",
+          "BUSN8802",
+          "INFS8201",
+          "MKTG7035"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 24,
         "courses": [
           "BUSN7008",
@@ -28,19 +40,8 @@
           "MGMT7030",
           "MKTG7001"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "BUSN7017",
-          "BUSN7045",
-          "BUSN8102",
-          "BUSN8802",
-          "INFS8201",
-          "MKTG7035"
-        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

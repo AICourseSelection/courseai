@@ -4,6 +4,14 @@
   "year": 2019,
   "units": 72,
   "required": {
-    "compulsory_courses": []
+    "compulsory_courses": [],
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      [
+        "MGMC-SPEC",
+        "MGME-SPEC",
+        "BSNE-SPEC"
+      ]
+    ]
   }
 }

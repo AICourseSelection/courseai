@@ -1,47 +1,26 @@
 {
-  "name": "Bachelor of Arts/Master of International Affairs",
-  "code": "BARTVMIA",
-  "year": 2014,
-  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
         "level": [
           1000
         ],
+        "type": "maximum",
         "units": 60
       }
     ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
-          "HIST2139",
-          "POLS2043",
-          "POLS2064",
-          "POLS2094",
-          "POLS2101",
-          "POLS2104",
-          "POLS2113",
-          "POLS3001",
-          "POLS3017",
-          "POLS3025",
-          "PHIL2113",
-          "SOCY2038",
-          "SOCY2043",
-          "SOCY2101",
-          "SOCY3123",
-          "ANIP3004",
-          "ANIP3005",
-          "ANIP3006",
-          "ANIP3007"
-        ]
+          "INTR8031",
+          "INTR8048",
+          "INTR8047",
+          "INTR8012"
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 36,
         "courses": [
           "ANTH8038",
           "ASIA8814",
@@ -72,18 +51,39 @@
           "POLS8020",
           "STST8021",
           "STST8051"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
-          "INTR8031",
-          "INTR8048",
-          "INTR8047",
-          "INTR8012"
-        ]
+          "HIST2139",
+          "POLS2043",
+          "POLS2064",
+          "POLS2094",
+          "POLS2101",
+          "POLS2104",
+          "POLS2113",
+          "POLS3001",
+          "POLS3017",
+          "POLS3025",
+          "PHIL2113",
+          "SOCY2038",
+          "SOCY2043",
+          "SOCY2101",
+          "SOCY3123",
+          "ANIP3004",
+          "ANIP3005",
+          "ANIP3006",
+          "ANIP3007"
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "BARTVMIA",
+  "year": 2014,
+  "name": "Bachelor of Arts/Master of International Affairs",
+  "units": 144
 }

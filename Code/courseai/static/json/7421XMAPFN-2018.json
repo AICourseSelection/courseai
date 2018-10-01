@@ -9,14 +9,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT6038",
-          "STAT7001"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "ECON8069",
           "STAT6046",
           "FINM7045",
@@ -28,7 +20,16 @@
           "STAT7030",
           "STAT7040"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT6038",
+          "STAT7001"
+        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

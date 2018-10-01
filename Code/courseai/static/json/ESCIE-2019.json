@@ -1,13 +1,7 @@
 {
-  "name": "Diploma of Science",
-  "code": "ESCIE",
-  "year": 2019,
-  "units": 48,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "ANUC1003",
           "ANUC1005",
@@ -16,8 +10,14 @@
           "ANUC1104",
           "ANUC1107",
           "ANUC1710"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
     ]
-  }
+  },
+  "code": "ESCIE",
+  "year": 2019,
+  "name": "Diploma of Science",
+  "units": 48
 }

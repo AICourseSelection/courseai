@@ -1,13 +1,7 @@
 {
-  "name": "Master of Environmental Science",
-  "code": "MENVS",
-  "year": 2016,
-  "units": 1,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 36,
         "courses": [
           "BIOL6002",
           "BIOL6003",
@@ -28,11 +22,11 @@
           "BIOL6206",
           "BIOL6631",
           "BIOL8021"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       },
       {
-        "type": "minimum",
-        "units": 36,
         "courses": [
           "ENVS6005",
           "ENVS6015",
@@ -61,11 +55,11 @@
           "ENVS6529",
           "ENVS6555",
           "ENVS8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       },
       {
-        "type": "minimum",
-        "units": 36,
         "courses": [
           "ENVS6005",
           "ENVS6015",
@@ -93,11 +87,11 @@
           "ENVS6529",
           "ENVS6555",
           "ENVS8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       },
       {
-        "type": "minimum",
-        "units": 36,
         "courses": [
           "EMSC6014",
           "EMSC6015",
@@ -117,19 +111,19 @@
           "EMSC8023",
           "EMSC8706",
           "EMSC8707"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ENVS8015",
           "ENVS8048"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "maximum",
-        "units": 24,
         "courses": [
           "ANTH6026",
           "ANTH6064",
@@ -170,11 +164,11 @@
           "MATH6103",
           "SCOM8021",
           "SCOM6027"
-        ]
+        ],
+        "type": "maximum",
+        "units": 24
       },
       {
-        "type": "maximum",
-        "units": 24,
         "courses": [
           "ANTH6026",
           "ANTH6064",
@@ -215,28 +209,28 @@
           "MATH6103",
           "SCOM6027",
           "SCOM8021"
-        ]
+        ],
+        "type": "maximum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BIOL8700",
           "BIOL8706"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ENVS8015",
           "ENVS8048",
           "ENVS8049"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 36,
         "courses": [
           "EMSC6014",
           "EMSC6015",
@@ -254,8 +248,14 @@
           "EMSC8018",
           "EMSC8706",
           "EMSC8707"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       }
     ]
-  }
+  },
+  "code": "MENVS",
+  "year": 2016,
+  "name": "Master of Environmental Science",
+  "units": 1
 }

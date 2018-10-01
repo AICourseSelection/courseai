@@ -1,19 +1,7 @@
 {
-  "name": "Master of Public Policy (Policy Analysis)",
-  "code": "7102SPOLAN",
-  "year": 2014,
-  "units": 48,
   "required": {
-    "compulsory_courses": [
-      "CRWF8000",
-      "POGO8081",
-      "POGO8082",
-      "POGO8096"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "CRWF8004",
           "CRWF8006",
@@ -22,8 +10,20 @@
           "POGO8021",
           "POGO8083",
           "POGO8101"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
+    ],
+    "compulsory_courses": [
+      "CRWF8000",
+      "POGO8081",
+      "POGO8082",
+      "POGO8096"
     ]
-  }
+  },
+  "code": "7102SPOLAN",
+  "year": 2014,
+  "name": "Master of Public Policy (Policy Analysis)",
+  "units": 48
 }

@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Environmental Studies (Honours)",
+  "required": {},
   "code": "HENVS",
   "year": 2017,
-  "units": 48,
-  "required": {}
+  "name": "Bachelor of Environmental Studies (Honours)",
+  "units": 48
 }

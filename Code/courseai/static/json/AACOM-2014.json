@@ -49,62 +49,6 @@
         ]
       }
     ],
-    "x_from_category": [
-      {
-        "type": "minimum",
-        "units": 12,
-        "area": [
-          "COMP"
-        ]
-      }
-    ]
-  },
-  "one_from_each": [
-    [
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "fixed",
-                "units": 24,
-                "courses": [
-                  "COMP4550"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "courses": [
-                  "COMP4560"
-                ]
-              }
-            ]
-          },
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "level": [
-                  4000
-                ],
-                "area": [
-                  "COMP"
-                ],
-                "units": 12
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  ]
+    "required_m/m/s": []
+  }
 }

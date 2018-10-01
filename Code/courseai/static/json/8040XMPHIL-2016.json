@@ -3,5 +3,7 @@
   "code": "8040XMPHIL",
   "year": 2016,
   "units": 60,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

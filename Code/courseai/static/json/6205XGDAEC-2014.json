@@ -3,5 +3,7 @@
   "code": "6205XGDAEC",
   "year": 2014,
   "units": 36,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -38,9 +36,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON2102",
-          "ECON2016",
-          "ECON2112"
+          "ECHI3008",
+          "ECHI3018",
+          "ECHI3009",
+          "ECHI3019",
+          "ECON2014",
+          "ECON2026",
+          "ECON2091",
+          "ECON2120",
+          "ECON2139",
+          "ECON2141",
+          "ECON2142"
         ]
       },
       {
@@ -55,19 +61,13 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECHI3008",
-          "ECHI3018",
-          "ECHI3009",
-          "ECHI3019",
-          "ECON2014",
-          "ECON2026",
-          "ECON2091",
-          "ECON2120",
-          "ECON2139",
-          "ECON2141",
-          "ECON2142"
+          "ECON2102",
+          "ECON2016",
+          "ECON2112"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

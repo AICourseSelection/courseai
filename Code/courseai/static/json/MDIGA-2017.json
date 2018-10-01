@@ -1,22 +1,18 @@
 {
-  "name": "Master of Digital Arts",
-  "code": "MDIGA",
-  "year": 2017,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
-          "ARTV8038",
-          "ARTV8039",
-          "ARTV8040"
-        ]
+          "ARTH6050",
+          "ARTV6008",
+          "DART8067",
+          "DART8071",
+          "HIST6233"
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "maximum",
-        "units": 18,
         "courses": [
           "ARTV6000",
           "ARTV6003",
@@ -28,19 +24,23 @@
           "DART8116",
           "DART8117",
           "DART8118"
-        ]
+        ],
+        "type": "maximum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
-          "ARTH6050",
-          "ARTV6008",
-          "DART8067",
-          "DART8071",
-          "HIST6233"
-        ]
+          "ARTV8038",
+          "ARTV8039",
+          "ARTV8040"
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "MDIGA",
+  "year": 2017,
+  "name": "Master of Digital Arts",
+  "units": 96
 }

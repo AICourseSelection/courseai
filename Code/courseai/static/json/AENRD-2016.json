@@ -37,16 +37,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1100",
-          "COMP1730"
+          "MATH1013",
+          "MATH1115"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH1013",
-          "MATH1115"
+          "COMP1100",
+          "COMP1730"
         ]
       },
       {
@@ -57,6 +57,17 @@
           "MATH1116"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "BMSY-MAJ",
+        "BMSY-MAJ",
+        "ELCO-MAJ",
+        "MMSY-MAJ",
+        "MTSY-MAJ",
+        "PHOT-MAJ"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

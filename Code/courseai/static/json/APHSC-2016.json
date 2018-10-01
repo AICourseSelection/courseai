@@ -1,7 +1,28 @@
 {
-  "name": "Bachelor of Philosophy (Honours) - Science",
+  "required": {},
   "code": "APHSC",
   "year": 2016,
+  "name": "Bachelor of Philosophy (Honours) - Science",
   "units": 192,
-  "required": {}
+  "one_from_m/m/s": [
+      [
+        "ASTR-HSPC",
+        "BIAN-HSPC",
+        "BIOL-HSPC",
+        "CHEM-HSPC",
+        "COMP-HSPC",
+        "EMSC-HSPC",
+        "ENVI-HSPC",
+        "MATH-HSPC",
+        "MEDR-HSPC",
+        "PHYS-HSPC",
+        "POTE-HSPC",
+        "POPH-HSPC",
+        "PSYC-HSPC",
+        "SCNC-HSPC",
+        "SCOM-HSPC",
+        "STAT-HSPC"
+      ]
+    ],
+    "required_m/m/s": []
 }

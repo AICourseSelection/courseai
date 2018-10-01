@@ -13,7 +13,17 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
+        "courses": [
+          "IDEC8010",
+          "IDEC8011",
+          "IDEC8023",
+          "IDEC8026"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "ECON8002",
           "ECON8006",
@@ -55,17 +65,7 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "IDEC8010",
-          "IDEC8011",
-          "IDEC8023",
-          "IDEC8026"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
+        "units": 12,
         "courses": [
           "ECON8002",
           "ECON8006",
@@ -135,6 +135,8 @@
           "FINM8016"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

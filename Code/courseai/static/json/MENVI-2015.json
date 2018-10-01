@@ -1,23 +1,17 @@
 {
-  "name": "Master of Environment",
-  "code": "MENVI",
-  "year": 2015,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ENVS6025",
           "ENVS6306",
           "ENVS8048",
           "ENVS8049"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ANTH8019",
           "EMDV8002",
@@ -28,11 +22,11 @@
           "ENVS6103",
           "MATH6102",
           "MATH6103"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8026",
           "ENVS6022",
@@ -55,11 +49,11 @@
           "ENVS8003",
           "ENVS8006",
           "ENVS8015"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "CRWF8000",
           "EMDV8079",
@@ -81,11 +75,11 @@
           "LAWS8146",
           "LAWS8189",
           "LAWS8280"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ANTH8007",
           "ANTH8008",
@@ -112,8 +106,14 @@
           "ENVS6301",
           "POGO8008",
           "POGO8061"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "MENVI",
+  "year": 2015,
+  "name": "Master of Environment",
+  "units": 96
 }

@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, Psychology",
+  "required": {},
   "code": "9723XPHD",
   "year": 2019,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, Psychology",
+  "units": 100
 }

@@ -1,7 +1,23 @@
 {
-  "name": "Master of Applied Anthropology and Participatory Development",
+  "required": {
+    "x_from_here": [
+      {
+        "courses": [
+          "ANTH8007",
+          "ANTH8009",
+          "ANTH8030",
+          "ANTH8038",
+          "ANTH8039",
+          "ANTH8058",
+          "ANTH8107"
+        ],
+        "type": "minimum",
+        "units": 12
+      }
+    ]
+  },
   "code": "MAAPD",
   "year": 2018,
-  "units": 96,
-  "required": {}
+  "name": "Master of Applied Anthropology and Participatory Development",
+  "units": 96
 }

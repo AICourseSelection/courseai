@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Science (Honours)",
+  "required": {},
   "code": "HSC",
   "year": 2018,
-  "units": 48,
-  "required": {}
+  "name": "Bachelor of Science (Honours)",
+  "units": 48
 }

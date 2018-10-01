@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, Research School of Chemistry",
+  "required": {},
   "code": "9620XPHD",
   "year": 2017,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, Research School of Chemistry",
+  "units": 100
 }

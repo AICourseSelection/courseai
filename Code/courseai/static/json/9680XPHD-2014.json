@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, Research School of Physics and Engineering",
+  "required": {},
   "code": "9680XPHD",
   "year": 2014,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, Research School of Physics and Engineering",
+  "units": 100
 }

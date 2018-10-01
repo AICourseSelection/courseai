@@ -24,14 +24,30 @@
       "COMP4450",
       "MATH1005"
     ],
-    "one_from_m/m/s": [
-      [
-        "INSY-SPEC",
-        "SYAR-SPEC",
-        "THCS-SPEC"
-      ]
-    ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENGN3230",
+          "VCUG3001",
+          "VCUG3002"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH1013",
+          "MATH1014",
+          "MATH1115",
+          "MATH1116",
+          "MATH2301",
+          "ENGN1211",
+          "STAT1008",
+          "STAT1003"
+        ]
+      },
       {
         "type": "minimum",
         "units": 6,
@@ -52,13 +68,6 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "units": 6,
-        "area": [
-          "COMP"
-        ]
-      },
-      {
-        "type": "minimum",
         "level": [
           3000,
           4000
@@ -68,131 +77,14 @@
         ],
         "units": 6
       }
-    ]
-  },
-  "one_from_each": [
-    [
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "courses": [
-                  "ENGN3230",
-                  "VCUG3001",
-                  "VCUG3002"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "level": [
-                  3000,
-                  4000
-                ],
-                "area": [
-                  "COMP"
-                ],
-                "units": 12
-              }
-            ]
-          }
-        ]
-      }
     ],
-    [
-      {
-        "options": [
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "units": 6,
-                "area": [
-                  "COMP"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 6,
-                "courses": [
-                  "MATH1013",
-                  "MATH1014",
-                  "MATH1115",
-                  "MATH1116",
-                  "MATH2301",
-                  "ENGN1211",
-                  "STAT1008",
-                  "STAT1003"
-                ]
-              }
-            ]
-          }
-        ]
-      }
+    "one_from_m/m/s": [
+      [
+        "INSY-SPEC",
+        "SYAR-SPEC",
+        "THCS-SPEC"
+      ]
     ],
-    [
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "fixed",
-                "units": 24,
-                "courses": [
-                  "COMP4550"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "options": [
-          {
-            "x_from_here": [
-              {
-                "type": "minimum",
-                "units": 12,
-                "courses": [
-                  "COMP4560"
-                ]
-              }
-            ]
-          },
-          {
-            "x_from_category": [
-              {
-                "type": "minimum",
-                "level": [
-                  4000
-                ],
-                "area": [
-                  "COMP"
-                ],
-                "units": 12
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  ]
+    "required_m/m/s": []
+  }
 }

@@ -1,13 +1,7 @@
 {
-  "name": "Graduate Certificate of Public Health",
-  "code": "CPUBH",
-  "year": 2015,
-  "units": 24,
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 12,
         "courses": [
           "INDG8001",
           "BIOL8021",
@@ -27,8 +21,14 @@
           "NSPO8013",
           "POGO8029",
           "POPH8315"
-        ]
+        ],
+        "type": "maximum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "CPUBH",
+  "year": 2015,
+  "name": "Graduate Certificate of Public Health",
+  "units": 24
 }

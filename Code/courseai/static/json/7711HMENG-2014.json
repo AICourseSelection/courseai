@@ -3,5 +3,7 @@
   "code": "7711HMENG",
   "year": 2014,
   "units": 96,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, ANU College of Law",
+  "required": {},
   "code": "9030XPHD",
   "year": 2015,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, ANU College of Law",
+  "units": 100
 }

@@ -43,15 +43,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "IDEC8011",
-          "IDEC8023",
-          "IDEC8026"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "EMDV8007",
           "EMDV8013",
           "EMDV8026",
@@ -66,6 +57,15 @@
           "EMDV8078",
           "IDEC8003",
           "IDEC8030"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "IDEC8011",
+          "IDEC8023",
+          "IDEC8026"
         ]
       },
       {
@@ -100,6 +100,8 @@
           "IDEC8123"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

@@ -1,18 +1,18 @@
 {
-  "name": "Master of Science in Biological Sciences",
-  "code": "NSCBS",
-  "year": 2019,
-  "units": 24,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "BIOL8704",
           "BIOL8700"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "NSCBS",
+  "year": 2019,
+  "name": "Master of Science in Biological Sciences",
+  "units": 24
 }

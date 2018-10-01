@@ -6,14 +6,11 @@
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
+        "type": "maximum",
         "units": 6,
         "courses": [
-          "STAT6038",
-          "STAT6039",
-          "STAT7001",
-          "STAT7026",
-          "STAT7055"
+          "SOCR8201",
+          "SOCR8202"
         ]
       },
       {
@@ -30,13 +27,17 @@
         ]
       },
       {
-        "type": "maximum",
+        "type": "minimum",
         "units": 6,
         "courses": [
-          "SOCR8201",
-          "SOCR8202"
+          "STAT6038",
+          "STAT6039",
+          "STAT7001",
+          "STAT7026",
+          "STAT7055"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

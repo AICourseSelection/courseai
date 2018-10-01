@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -23,16 +21,18 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1040",
-          "COMP1100"
+          "STAT1003",
+          "STAT1008"
         ]
       },
       {
         "type": "minimum",
-        "units": 6,
+        "units": 12,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "MATH1013",
+          "MATH1014",
+          "MATH1115",
+          "MATH1116"
         ]
       },
       {
@@ -45,14 +45,21 @@
       },
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
         "courses": [
-          "MATH1013",
-          "MATH1014",
-          "MATH1115",
-          "MATH1116"
+          "COMP1040",
+          "COMP1100"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "APST-MAJ",
+        "PSTO-MAJ",
+        "STDA-MAJ",
+        "THST-MAJ"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

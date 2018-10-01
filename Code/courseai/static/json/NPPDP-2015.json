@@ -1,48 +1,34 @@
 {
-  "name": "Master of Public Policy in Development Policy",
-  "code": "NPPDP",
-  "year": 2015,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "POGO8012",
-      "POGO8019",
-      "POGO8024",
-      "POGO8062",
-      "POGO8072",
-      "POGO8117"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8016",
           "POGO8081"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8004",
           "POGO8048",
           "POGO8049",
           "POGO8095",
           "POGO8102"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8082",
           "POGO8090"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "maximum",
-        "units": 18,
         "courses": [
           "POGO8004",
           "POGO8015",
@@ -83,8 +69,22 @@
           "EURO8003",
           "POPH8103",
           "NSPO8007"
-        ]
+        ],
+        "type": "maximum",
+        "units": 18
       }
+    ],
+    "compulsory_courses": [
+      "POGO8012",
+      "POGO8019",
+      "POGO8024",
+      "POGO8062",
+      "POGO8072",
+      "POGO8117"
     ]
-  }
+  },
+  "code": "NPPDP",
+  "year": 2015,
+  "name": "Master of Public Policy in Development Policy",
+  "units": 96
 }

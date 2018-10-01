@@ -8,6 +8,18 @@
       "COMP6442",
       "COMP8701",
       "COMP8705"
+    ],
+    "one_from_m/m/s": [
+      [
+        "ALGD-SPEC",
+        "COMS-SPEC",
+        "CMSY-SPEC",
+        "IHCC-SPEC",
+        "SENG-SPEC"
+      ]
+    ],
+    "required_m/m/s": [
+      "PCOM-SPEC"
     ]
   }
 }

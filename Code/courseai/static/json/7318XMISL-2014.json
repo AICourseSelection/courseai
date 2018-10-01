@@ -1,8 +1,4 @@
 {
-  "name": "Master of International Security Law",
-  "code": "7318XMISL",
-  "year": 2014,
-  "units": 7318,
   "required": {
     "compulsory_courses": [
       "LAWS8023",
@@ -11,5 +7,9 @@
       "LAWS8182",
       "LAWS8019"
     ]
-  }
+  },
+  "code": "7318XMISL",
+  "year": 2014,
+  "name": "Master of International Security Law",
+  "units": 7318
 }

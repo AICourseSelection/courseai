@@ -1,8 +1,4 @@
 {
-  "name": "Master of Biotechnology",
-  "code": "MBIOT",
-  "year": 2016,
-  "units": 96,
   "required": {
     "compulsory_courses": [
       "BIOL6162",
@@ -12,5 +8,9 @@
       "BIOL6006",
       "BIOL6106"
     ]
-  }
+  },
+  "code": "MBIOT",
+  "year": 2016,
+  "name": "Master of Biotechnology",
+  "units": 96
 }

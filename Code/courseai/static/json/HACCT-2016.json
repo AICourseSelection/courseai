@@ -3,5 +3,10 @@
   "code": "HACCT",
   "year": 2016,
   "units": 48,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "ACCT-HSPC"
+    ]
+  }
 }

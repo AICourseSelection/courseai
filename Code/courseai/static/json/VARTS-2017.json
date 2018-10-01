@@ -1,18 +1,34 @@
 {
-  "name": "Master of Arts (Advanced)",
-  "code": "VARTS",
-  "year": 2017,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "MUSI7003",
-      "MUSI8001",
-      "MUSI8002"
-    ],
     "x_from_here": [
       {
+        "courses": [
+          "ANCH6013",
+          "ANCH6023",
+          "ANCH6101",
+          "ANCH6502",
+          "ANCH6505",
+          "ANCH6506",
+          "CLAS8019",
+          "CLAS8020",
+          "CLAS8018",
+          "GREK6101",
+          "GREK6125",
+          "LATN6101",
+          "LATN6125"
+        ],
+        "type": "maximum",
+        "units": 24
+      },
+      {
+        "courses": [
+          "ENGL8020",
+          "ENGL8021"
+        ],
         "type": "minimum",
-        "units": 18,
+        "units": 12
+      },
+      {
         "courses": [
           "MUSI7001",
           "MUSI7002",
@@ -20,11 +36,19 @@
           "MUSI8008",
           "MUSI8009",
           "MUSI8010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
+        "courses": [
+          "CLAS8002",
+          "CLAS8003"
+        ],
         "type": "minimum",
-        "units": 24,
+        "units": 12
+      },
+      {
         "courses": [
           "ENGL6020",
           "ENGL6021",
@@ -45,51 +69,27 @@
           "ENGL6036",
           "ENGL6037",
           "ENGL6086"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "GREK6112",
           "LATN6002"
-        ]
-      },
-      {
+        ],
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENGL8020",
-          "ENGL8021"
-        ]
-      },
-      {
-        "type": "maximum",
-        "units": 24,
-        "courses": [
-          "ANCH6013",
-          "ANCH6023",
-          "ANCH6101",
-          "ANCH6502",
-          "ANCH6505",
-          "ANCH6506",
-          "CLAS8019",
-          "CLAS8020",
-          "CLAS8018",
-          "GREK6101",
-          "GREK6125",
-          "LATN6101",
-          "LATN6125"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "CLAS8002",
-          "CLAS8003"
-        ]
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "MUSI7003",
+      "MUSI8001",
+      "MUSI8002"
     ]
-  }
+  },
+  "code": "VARTS",
+  "year": 2017,
+  "name": "Master of Arts (Advanced)",
+  "units": 96
 }

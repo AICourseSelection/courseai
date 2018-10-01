@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, Research School of Population Health",
+  "required": {},
   "code": "9602XPHD",
   "year": 2018,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, Research School of Population Health",
+  "units": 100
 }

@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -28,14 +26,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "EMET1001",
           "MKTG2003",
           "STAT2032"
@@ -48,7 +38,23 @@
           "ECON2101",
           "ECON2111"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "ACMK-MAJ",
+        "CPMK-MAJ",
+        "QFIN-MAJ"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

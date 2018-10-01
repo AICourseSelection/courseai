@@ -12,14 +12,6 @@
     ],
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 12,
-        "courses": [
-          "BUSN8007",
-          "BUSN8801"
-        ]
-      },
-      {
         "type": "minimum",
         "units": 24,
         "courses": [
@@ -44,7 +36,16 @@
           "BUSN7052",
           "INFS7004"
         ]
+      },
+      {
+        "type": "maximum",
+        "units": 12,
+        "courses": [
+          "BUSN8007",
+          "BUSN8801"
+        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

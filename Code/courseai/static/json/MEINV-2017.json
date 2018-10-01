@@ -36,6 +36,12 @@
           "MKTG7050"
         ]
       }
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "MGMC-SPEC",
+      "MGME-SPEC",
+      "ENIN-SPEC"
     ]
   }
 }

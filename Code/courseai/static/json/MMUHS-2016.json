@@ -1,13 +1,7 @@
 {
-  "name": "Master of Museum and Heritage Studies",
-  "code": "MMUHS",
-  "year": 2016,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "HUMN8007",
           "HUMN8012",
@@ -24,8 +18,14 @@
           "MUSC8008",
           "MUSC8009",
           "MUSC8011"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "MMUHS",
+  "year": 2016,
+  "name": "Master of Museum and Heritage Studies",
+  "units": 96
 }

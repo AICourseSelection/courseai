@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Psychology (Clinical)",
+  "required": {},
   "code": "9063XDPSYC",
   "year": 2019,
-  "units": 96,
-  "required": {}
+  "name": "Doctor of Psychology (Clinical)",
+  "units": 96
 }

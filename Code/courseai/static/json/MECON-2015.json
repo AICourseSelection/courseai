@@ -13,6 +13,7 @@
       "EMET7001",
       "EMET8005",
       "STAT7055"
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

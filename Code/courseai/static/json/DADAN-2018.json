@@ -24,19 +24,20 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP6240",
-          "COMP7240"
+          "COMP1040",
+          "COMP6730",
+          "COMP7230"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1040",
-          "COMP6730",
-          "COMP7230"
+          "COMP6240",
+          "COMP7240"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

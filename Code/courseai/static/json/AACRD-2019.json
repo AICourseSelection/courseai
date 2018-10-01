@@ -47,13 +47,6 @@
           "STAT1003",
           "STAT1008"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "COMP4550"
-        ]
       }
     ],
     "one_from_m/m/s": [
@@ -62,6 +55,7 @@
         "SYAR-SPEC",
         "THCS-SPEC"
       ]
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

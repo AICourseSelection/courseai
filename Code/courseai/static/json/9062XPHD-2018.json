@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, ANU Colleges of Science (Joint Degree ANU-NUS)",
+  "required": {},
   "code": "9062XPHD",
   "year": 2018,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, ANU Colleges of Science (Joint Degree ANU-NUS)",
+  "units": 100
 }

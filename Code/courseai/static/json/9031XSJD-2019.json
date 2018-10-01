@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Juridical Science (SJD), ANU College of Law",
+  "required": {},
   "code": "9031XSJD",
   "year": 2019,
-  "units": 8000,
-  "required": {}
+  "name": "Doctor of Juridical Science (SJD), ANU College of Law",
+  "units": 8000
 }

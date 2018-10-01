@@ -7,6 +7,11 @@
     "compulsory_courses": [
       "MMIB8006",
       "MGMT7250"
+    ],
+    "required_m/m/s": [
+      "MGMC-SPEC",
+      "MGME-SPEC",
+      "BSNE-SPEC"
     ]
   }
 }

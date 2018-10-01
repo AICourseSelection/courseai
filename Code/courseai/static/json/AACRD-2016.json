@@ -41,36 +41,21 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "COMP3530",
+          "VCUG3001"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP3530",
-          "VCUG3001"
+          "STAT1003",
+          "STAT1008"
         ]
       }
     ],
-    "one_from_m/m/s": [
-      [
-        "RSCC-MAJ"
-      ]
-    ],
-    "x_from_category": [
-      {
-        "type": "minimum",
-        "level": [
-          3000,
-          4000
-        ],
-        "units": 18,
-        "area": [
-          "COMP"
-        ]
-      }
+    "required_m/m/s": [
+      "RSCC-MAJ"
     ]
   }
 }

@@ -13,28 +13,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8012"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8009",
-          "ANTH8019"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8104"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ANTH8014",
@@ -55,7 +33,15 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ANTH8028"
+          "EMDV8104"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANTH8009",
+          "ANTH8019"
         ]
       },
       {
@@ -71,7 +57,23 @@
           "EMDV8104",
           "EMDV8124"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8028"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8012"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

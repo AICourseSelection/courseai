@@ -1,20 +1,7 @@
 {
-  "name": "Master of Legal Practice",
-  "code": "MLEGP",
-  "year": 2015,
-  "units": 72,
   "required": {
-    "compulsory_courses": [
-      "LEGW8141",
-      "LEGW8142",
-      "LEGW8143",
-      "LEGW8114",
-      "LEGW8135"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "LEGW8114",
           "LEGW8135",
@@ -24,11 +11,11 @@
           "LEGW8106",
           "LEGW8107",
           "LEGW8124"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "LAWS8030",
           "LAWS8030",
@@ -53,22 +40,21 @@
           "LAWS8591",
           "LAWS8592",
           "LAWS8593"
-        ]
-      },
-      {
+        ],
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "LEGW8114",
-          "LEGW8135",
-          "LEGW8136",
-          "LEGW8118",
-          "LEGW8137",
-          "LEGW8106",
-          "LEGW8107",
-          "LEGW8124"
-        ]
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "LEGW8141",
+      "LEGW8142",
+      "LEGW8143",
+      "LEGW8114",
+      "LEGW8135"
     ]
-  }
+  },
+  "code": "MLEGP",
+  "year": 2015,
+  "name": "Master of Legal Practice",
+  "units": 72
 }

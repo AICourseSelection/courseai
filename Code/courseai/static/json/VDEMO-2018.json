@@ -1,13 +1,7 @@
 {
-  "name": "Master of Demography (Advanced)",
-  "code": "VDEMO",
-  "year": 2018,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "DEMO6001",
           "BIAN6120",
@@ -16,20 +10,11 @@
           "POPH8104",
           "CHMD8006",
           "SOCY6066"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANIP6503",
-          "SOCR8002",
-          "SOCR8003"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "DEMO8047",
           "DEMO8048",
@@ -37,16 +22,31 @@
           "DEMO8090",
           "DEMO8063",
           "INDG8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
+        "courses": [
+          "ANIP6503",
+          "SOCR8002",
+          "SOCR8003"
+        ],
         "type": "minimum",
-        "units": 6,
+        "units": 12
+      },
+      {
         "courses": [
           "DEMO8082",
           "CHMD8004"
-        ]
+        ],
+        "type": "maximum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "VDEMO",
+  "year": 2018,
+  "name": "Master of Demography (Advanced)",
+  "units": 96
 }

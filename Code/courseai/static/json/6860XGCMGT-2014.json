@@ -3,5 +3,7 @@
   "code": "6860XGCMGT",
   "year": 2014,
   "units": 24,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

@@ -1,13 +1,7 @@
 {
-  "name": "Master of General and Applied Linguistics (Advanced)",
-  "code": "VLING",
-  "year": 2019,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "HUMN6001",
           "HUMN6003",
@@ -16,11 +10,11 @@
           "LING6009",
           "LING8026",
           "LING8027"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "LING6001",
           "LING6002",
@@ -32,8 +26,14 @@
           "LING6021",
           "LING6105",
           "LING6311"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
     ]
-  }
+  },
+  "code": "VLING",
+  "year": 2019,
+  "name": "Master of General and Applied Linguistics (Advanced)",
+  "units": 96
 }

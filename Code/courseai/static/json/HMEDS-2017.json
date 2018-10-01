@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Medical Science (Honours)",
+  "required": {},
   "code": "HMEDS",
   "year": 2017,
-  "units": 48,
-  "required": {}
+  "name": "Bachelor of Medical Science (Honours)",
+  "units": 48
 }

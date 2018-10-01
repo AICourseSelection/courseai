@@ -49,14 +49,6 @@
         ]
       },
       {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POGO8082",
-          "POGO8090"
-        ]
-      },
-      {
         "type": "maximum",
         "units": 30,
         "courses": [
@@ -100,7 +92,17 @@
           "POPH8103",
           "NSPO8007"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8082",
+          "POGO8090"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }
