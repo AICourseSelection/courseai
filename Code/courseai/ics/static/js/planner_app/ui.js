@@ -831,6 +831,7 @@ async function mmsPopoverData() {
 function search(coursesOnly = false) {
     const query = $('#add-course').val();
     const lists = $('#search-results-list').find('.card-body');
+    lists.find('.result-course').popover('dispose');
     lists.find('.result-mms').popover('dispose');
     lists.empty();
     if (!(query.trim())) return;
@@ -1438,8 +1439,9 @@ function updateCourseSearchResults(response) {
     if (response.length > 0) {
         for (let r of response.slice(0, 10)) {
             const code = r.course_code;
-            const year = closestYear(THIS_YEAR, Object.keys(r.versions)); // TODO: Fix for course years. Need the most recent year with data available.
-            const title = r.versions[year].title;
+            recordCourseOfferings(code, r.versions);
+            const year = closestYear(THIS_YEAR, Object.keys(KNOWN_COURSES[code]));
+            const title = KNOWN_COURSES[code][year].title;
             let item = $(
                 '<div class="draggable-course result-course list-group-item list-group-item-action">\n    ' +
                 '<span class="course-code">' + code + '</span>\n    ' +
