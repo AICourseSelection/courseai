@@ -19,8 +19,9 @@ let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
 const COLOR_CLASSES = ['compulsory', 'elective', 'mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'invalid-cell']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
+const MMS_TYPES_MAPPING = { 'MAJ': 'Major', 'MIN': 'Minor', 'SPEC': 'Specialisation', 'HSPC': 'Honours Specialisation' };
 let colorMappings = {};
-let legendMappings = {'compulsory': 'Compulsory Courses', 'elective': 'Elective Courses'};
+let legendMappings = {'compulsory': 'Degree Program Courses', 'elective': 'Elective Courses'};
 
 const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
@@ -64,6 +65,7 @@ function resetPlan() {
 function updateColorLegend() {
     let section = $('#color-coding-section');
     section.empty(); // remove existing legend items
+    let mmsClasses = ['mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4'];
 
     for (var i = 0; i < COLOR_CLASSES.length; i++) {
         let classKey = COLOR_CLASSES[i];
@@ -73,7 +75,11 @@ function updateColorLegend() {
             let title = $('<span class="color-coding-text"/>');
 
             color.css('background-color', colorMappings[classKey]);
-            title.text(legendMappings[classKey]);
+            if (mmsClasses.includes(classKey)) {
+                title.text(MMS_TYPES_MAPPING[legendMappings[classKey]['type']] + ': ' + legendMappings[classKey]['title']);
+            } else {
+                title.text(legendMappings[classKey]);
+            }
 
             row.append(color);
             row.append(title);
@@ -301,7 +307,7 @@ async function mms_add(code, year) {
 
     let mmsCourseCodes = [];
     let colorIndex = getColorClassIndex(code);
-    legendMappings[MMS_CLASS_NAME + colorIndex] = mms.title; // add mapping of MMS class color to its title
+    legendMappings[MMS_CLASS_NAME + colorIndex] = {'title': mms.title, 'type': mms.type}; // add mapping of MMS class color to its title and type
     updateColorLegend();
 
     let courses_actions = {};
