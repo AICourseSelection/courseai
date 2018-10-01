@@ -14,4 +14,7 @@ venv
 *.swp
 *.swo
 .gitignore
-Code/courseai/static
+Code/courseai/static/admin
+Code/courseai/static/css
+Code/courseai/static/img
+Code/courseai/static/js
