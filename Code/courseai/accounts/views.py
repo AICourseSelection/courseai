@@ -9,6 +9,7 @@ from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
+import json
 
 from django.contrib.auth import (
     authenticate,
@@ -110,22 +111,40 @@ def code_view(request):
         degreePlans = deserialize_plan(request.user.profile.degree_plan_code)
 
         if request.method == "PUT":
-            plan = proc['plan']
-            # update the plan
-            for p in degreePlans:
-                if p[0] == code:
-                    p[1] = plan
-                    request.user.profile.degree_plan_code = serialize_plan(degreePlans)
-                    request.user.profile.save()
-                    return HttpResponse(res_success)
-     
-            if len(degreePlans) != 0:
-                request.user.profile.degree_plan_code += "|"
-            
-            serialized = code + '~' + plan
-            request.user.profile.degree_plan_code += serialized
-            request.user.profile.save()
-            return HttpResponse(res_success)
+            mode = proc['mode']
+            if mode == 'NAME': # update name property of the plan
+                name = proc['name']
+                # double check length of name input
+                if len(name) > 250:
+                    return HttpResponse(JsonResponse({"response": "error"}));
+                for p in degreePlans:
+                    if p[0] == code:
+                        plan = json.loads(p[1])
+                        plan['name'] = name
+                        p[1] = json.dumps(plan)
+                        request.user.profile.degree_plan_code = serialize_plan(degreePlans)
+                        request.user.profile.save()
+                        return HttpResponse(res_success)
+            else: #  
+                plan = proc['plan']
+                # update the plan
+                for p in degreePlans:
+                    if p[0] == code:
+                        oldPlanName = '' if 'name' not in json.loads(p[1]) else json.loads(p[1])['name']
+                        plan = json.loads(plan)
+                        plan['name'] = oldPlanName
+                        p[1] = json.dumps(plan)
+                        request.user.profile.degree_plan_code = serialize_plan(degreePlans)
+                        request.user.profile.save()
+                        return HttpResponse(res_success)
+         
+                if len(degreePlans) != 0:
+                    request.user.profile.degree_plan_code += "|"
+                
+                serialized = code + '~' + plan
+                request.user.profile.degree_plan_code += serialized
+                request.user.profile.save()
+                return HttpResponse(res_success)
         elif request.method == "DELETE":
             for p in degreePlans:
                 if p[0] == code:
