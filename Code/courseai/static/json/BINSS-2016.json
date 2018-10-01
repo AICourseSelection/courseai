@@ -11,31 +11,7 @@
         "units": 60
       }
     ],
-    "one_from_m/m/s": [
-      [
-        "ARAB-MAJ",
-        "ASPP-MAJ",
-        "CHIN-MAJ",
-        "FREN-MAJ",
-        "GERM-MAJ",
-        "HIND-MAJ",
-        "INDN-MAJ",
-        "IREL-MAJ",
-        "ITAL-MAJ",
-        "JPNS-MAJ",
-        "KORE-MAJ",
-        "LAMS-MAJ",
-        "MECA-MAJ",
-        "PAST-MAJ",
-        "PECO-MAJ",
-        "PERS-MAJ",
-        "SANS-MAJ",
-        "SPAH-MAJ",
-        "THAI-MAJ",
-        "VIET-MAJ"
-      ]
-    ],
-    "required_m/m/s": [ 
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

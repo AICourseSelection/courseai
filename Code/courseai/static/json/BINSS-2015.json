@@ -11,32 +11,7 @@
         "units": 60
       }
     ],
-    "one_from_m/m/s": [ 
-      [
-        "ASPP-MIN",
-        "COMPF-MIN",
-        "FREN-MIN",
-        "GERM-MIN",
-        "HIND-MIN",
-        "INDN-MIN",
-        "IREL-MIN",
-        "ITAL-MIN",
-        "JPNS-MIN",
-        "KORE-MIN",
-        "LAMS-MIN",
-        "MECA-MIN",
-        "PAST-MIN",
-        "PCWS-MIN",
-        "PERS-MIN",
-        "RUSS-MIN",
-        "SANS-MIN",
-        "SPAH-MIN",
-        "THAI-MIN",
-        "URDU-MIN",
-        "VIET-MIN"
-      ]
-    ],
-    "required_m/m/s": [ 
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

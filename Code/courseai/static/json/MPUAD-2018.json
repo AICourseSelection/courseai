@@ -1,7 +1,13 @@
 {
+  "name": "Master of Public Administration",
+  "code": "MPUAD",
+  "year": 2018,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 48,
         "courses": [
           "POGO8213",
           "POGO8212",
@@ -20,14 +26,10 @@
           "POGO8045",
           "POGO8044",
           "POGO8035"
-        ],
-        "type": "minimum",
-        "units": 48
+        ]
       }
-    ]
-  },
-  "code": "MPUAD",
-  "year": 2018,
-  "name": "Master of Public Administration",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

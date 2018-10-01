@@ -1,76 +1,13 @@
 {
+  "name": "Master of Climate Change",
+  "code": "MCLCH",
+  "year": 2019,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "courses": [
-          "EMDV8007",
-          "EMDV8078",
-          "EMDV8002",
-          "EMDV8012",
-          "EMDV8124",
-          "EMDV8001",
-          "EMDV8079",
-          "EMDV8082",
-          "EMDV8103",
-          "EMDV8104",
-          "EMDV8124",
-          "ENVS6005",
-          "ENVS6013",
-          "ENVS6015",
-          "ENVS6205",
-          "ENVS6033",
-          "ENVS6204",
-          "ENVS6301",
-          "ENVS6303",
-          "ENVS6311",
-          "ENVS6315",
-          "ENVS6319",
-          "ENVS6528",
-          "ENVS6529",
-          "ENVS6555"
-        ],
-        "type": "minimum",
-        "units": 24
-      },
-      {
-        "courses": [
-          "EMDV8013",
-          "EMDV8101",
-          "ENVS8015",
-          "ENVS8016"
-        ],
-        "type": "minimum",
-        "units": 18
-      },
-      {
-        "courses": [
-          "EMDV8102",
-          "ENVS6025"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "EMDV8014",
-          "ENVS8013",
-          "EMDV8066",
-          "ENVS8048"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "EMDV8080",
-          "EMDV8081",
-          "ENVS6307",
-          "ENVS8003"
-        ],
-        "type": "minimum",
-        "units": 18
-      },
-      {
+        "type": "maximum",
+        "units": 24,
         "courses": [
           "EMDV8008",
           "EMDV8009",
@@ -119,14 +56,79 @@
           "SCOM8014",
           "VCPG8001",
           "VCPG8002"
-        ],
-        "type": "maximum",
-        "units": 24
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "EMDV8013",
+          "EMDV8101",
+          "ENVS8015",
+          "ENVS8016"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8014",
+          "ENVS8013",
+          "EMDV8066",
+          "ENVS8048"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8102",
+          "ENVS6025"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "EMDV8007",
+          "EMDV8078",
+          "EMDV8002",
+          "EMDV8012",
+          "EMDV8124",
+          "EMDV8001",
+          "EMDV8079",
+          "EMDV8082",
+          "EMDV8103",
+          "EMDV8104",
+          "EMDV8124",
+          "ENVS6005",
+          "ENVS6013",
+          "ENVS6015",
+          "ENVS6205",
+          "ENVS6033",
+          "ENVS6204",
+          "ENVS6301",
+          "ENVS6303",
+          "ENVS6311",
+          "ENVS6315",
+          "ENVS6319",
+          "ENVS6528",
+          "ENVS6529",
+          "ENVS6555"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "EMDV8080",
+          "EMDV8081",
+          "ENVS6307",
+          "ENVS8003"
+        ]
       }
-    ]
-  },
-  "code": "MCLCH",
-  "year": 2019,
-  "name": "Master of Climate Change",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

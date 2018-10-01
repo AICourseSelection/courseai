@@ -1,23 +1,25 @@
 {
+  "name": "Master of Criminology, Justice and Regulation",
+  "code": "MCRJR",
+  "year": 2019,
+  "units": 24,
   "required": {
-    "x_from_here": [
-      {
-        "courses": [
-          "ANIP6503",
-          "ANIP6505"
-        ],
-        "type": "minimum",
-        "units": 12
-      }
-    ],
     "compulsory_courses": [
       "CRIM8001",
       "REGN8001",
       "REGN8052"
-    ]
-  },
-  "code": "MCRJR",
-  "year": 2019,
-  "name": "Master of Criminology, Justice and Regulation",
-  "units": 24
+    ],
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANIP6503",
+          "ANIP6505"
+        ]
+      }
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

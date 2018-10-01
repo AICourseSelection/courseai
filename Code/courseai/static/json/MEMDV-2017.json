@@ -1,15 +1,36 @@
 {
+  "name": "Master of Environmental Management and Development",
+  "code": "MEMDV",
+  "year": 2017,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "EMDV8078",
+      "EMDV8101",
+      "EMDV8013",
+      "EMDV8102",
+      "EMDV8104"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "EMDV8002",
           "EMDV8012"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8028",
+          "EMDV8103"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "ANTH6009",
           "ANTH8049",
@@ -49,29 +70,10 @@
           "POGO8115",
           "POGO8210",
           "POGO8212"
-        ],
-        "type": "minimum",
-        "units": 12
-      },
-      {
-        "courses": [
-          "ANTH8028",
-          "EMDV8103"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       }
     ],
-    "compulsory_courses": [
-      "EMDV8078",
-      "EMDV8101",
-      "EMDV8013",
-      "EMDV8102",
-      "EMDV8104"
-    ]
-  },
-  "code": "MEMDV",
-  "year": 2017,
-  "name": "Master of Environmental Management and Development",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }
