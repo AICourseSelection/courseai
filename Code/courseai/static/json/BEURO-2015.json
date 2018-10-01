@@ -1,17 +1,17 @@
 {
-  "units": 144,
-  "code": "BEURO",
-  "name": "Bachelor of European Studies",
-  "year": 2015,
   "required": {
     "max_by_level": [
       {
-        "units": 60,
-        "type": "maximum",
         "level": [
           1000
-        ]
+        ],
+        "type": "maximum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "BEURO",
+  "year": 2015,
+  "name": "Bachelor of European Studies",
+  "units": 144
 }

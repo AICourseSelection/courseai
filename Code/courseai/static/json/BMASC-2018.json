@@ -1,9 +1,21 @@
 {
-  "code": "BMASC",
-  "units": 144,
-  "name": "Bachelor of Mathematical Sciences",
-  "year": 2018,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
+    "x_from_category": [
+      {
+        "courses": "Science List",
+        "type": "minimum",
+        "units": "24"
+      }
+    ],
     "compulsory_courses": [
       "MATH1115",
       "MATH1116",
@@ -11,22 +23,10 @@
       "MATH2305",
       "MATH2320",
       "MATH2322"
-    ],
-    "x_from_category": [
-      {
-        "type": "minimum",
-        "units": "24",
-        "courses": "Science List"
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
     ]
-  }
+  },
+  "code": "BMASC",
+  "year": 2018,
+  "name": "Bachelor of Mathematical Sciences",
+  "units": 144
 }

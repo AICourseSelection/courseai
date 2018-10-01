@@ -1,18 +1,7 @@
 {
-  "units": 96,
-  "code": "VARTS",
-  "name": "Master of Arts (Advanced)",
-  "year": 2017,
   "required": {
-    "compulsory_courses": [
-      "MUSI7003",
-      "MUSI8001",
-      "MUSI8002"
-    ],
     "x_from_here": [
       {
-        "units": 24,
-        "type": "maximum",
         "courses": [
           "ANCH6013",
           "ANCH6023",
@@ -27,19 +16,19 @@
           "GREK6125",
           "LATN6101",
           "LATN6125"
-        ]
+        ],
+        "type": "maximum",
+        "units": 24
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ENGL8020",
           "ENGL8021"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 18,
-        "type": "minimum",
         "courses": [
           "MUSI7001",
           "MUSI7002",
@@ -47,19 +36,19 @@
           "MUSI8008",
           "MUSI8009",
           "MUSI8010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "CLAS8002",
           "CLAS8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "ENGL6020",
           "ENGL6021",
@@ -80,16 +69,27 @@
           "ENGL6036",
           "ENGL6037",
           "ENGL6086"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "GREK6112",
           "LATN6002"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "MUSI7003",
+      "MUSI8001",
+      "MUSI8002"
     ]
-  }
+  },
+  "code": "VARTS",
+  "year": 2017,
+  "name": "Master of Arts (Advanced)",
+  "units": 96
 }

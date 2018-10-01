@@ -1,8 +1,8 @@
 {
-  "code": "7421XMAPFN",
-  "units": 72,
   "name": "Master of Applied Finance",
+  "code": "7421XMAPFN",
   "year": 2019,
+  "units": 72,
   "required": {
     "x_from_here": [
       {
@@ -29,6 +29,7 @@
           "STAT7040"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

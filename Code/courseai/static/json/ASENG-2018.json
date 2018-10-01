@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -34,13 +36,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH1013",
-          "MATH1014",
-          "MATH1115",
-          "MATH1116",
-          "MATH2301",
-          "STAT1003",
-          "STAT1008"
+          "VCUG3001",
+          "VCUG3002"
         ]
       },
       {
@@ -63,18 +60,29 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "VCUG3001",
-          "VCUG3002"
+          "MATH1013",
+          "MATH1014",
+          "MATH1115",
+          "MATH1116",
+          "MATH2301",
+          "STAT1003",
+          "STAT1008"
         ]
       }
     ],
     "x_from_category": [
       {
         "type": "minimum",
-        "level": "3000, 4000",
-        "area": "COMP",
+        "level": [
+          3000,
+          4000
+        ],
+        "area": [
+          "COMP"
+        ],
         "units": 6
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

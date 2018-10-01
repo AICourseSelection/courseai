@@ -1,7 +1,9 @@
 {
-  "code": "6455XGCBST",
-  "units": 24,
   "name": "Graduate Certificate in Business Statistics",
+  "code": "6455XGCBST",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "required_m/m/s": []
+  }
 }

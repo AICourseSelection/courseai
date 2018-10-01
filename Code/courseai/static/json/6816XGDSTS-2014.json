@@ -1,8 +1,4 @@
 {
-  "code": "6816XGDSTS",
-  "units": 24,
-  "name": "Graduate Diploma in Strategic Studies",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "STST8001",
@@ -10,5 +6,9 @@
       "STST8004",
       "STST8013"
     ]
-  }
+  },
+  "code": "6816XGDSTS",
+  "year": 2014,
+  "name": "Graduate Diploma in Strategic Studies",
+  "units": 24
 }

@@ -1,17 +1,17 @@
 {
-  "code": "BINSS",
-  "units": 144,
-  "name": "Bachelor of International Security Studies",
-  "year": 2019,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
-        "units": 60,
         "level": [
           1000
-        ]
+        ],
+        "type": "maximum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "BINSS",
+  "year": 2019,
+  "name": "Bachelor of International Security Studies",
+  "units": 144
 }

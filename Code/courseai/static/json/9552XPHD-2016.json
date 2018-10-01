@@ -1,7 +1,7 @@
 {
-  "units": 100,
+  "required": {},
   "code": "9552XPHD",
-  "name": "Doctor of Philosophy, Research School of Humanities and the Arts",
   "year": 2016,
-  "required": {}
+  "name": "Doctor of Philosophy, Research School of Humanities and the Arts",
+  "units": 100
 }

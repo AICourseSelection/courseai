@@ -1,19 +1,7 @@
 {
-  "code": "MDIPL",
-  "units": 96,
-  "name": "Master of Diplomacy",
-  "year": 2018,
   "required": {
-    "compulsory_courses": [
-      "DIPL8002",
-      "INTR8069",
-      "DIPL8001",
-      "DIPL8004"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "ANIP6503",
           "DIPL8000",
@@ -57,11 +45,11 @@
           "NSPO8019",
           "POGO8115",
           "SOCY8004"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "DIPL8000",
           "DIPL8003",
@@ -71,8 +59,20 @@
           "DIPL8010",
           "DIPL8012",
           "DIPL8013"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
+    ],
+    "compulsory_courses": [
+      "DIPL8002",
+      "INTR8069",
+      "DIPL8001",
+      "DIPL8004"
     ]
-  }
+  },
+  "code": "MDIPL",
+  "year": 2018,
+  "name": "Master of Diplomacy",
+  "units": 96
 }

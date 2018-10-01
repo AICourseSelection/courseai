@@ -1,7 +1,7 @@
 {
+  "required": {},
   "code": "BPAST",
-  "units": 144,
-  "name": "Bachelor of Pacific Studies",
   "year": 2014,
-  "required": {}
+  "name": "Bachelor of Pacific Studies",
+  "units": 144
 }

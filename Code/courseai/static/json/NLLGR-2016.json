@@ -1,13 +1,7 @@
 {
-  "code": "NLLGR",
-  "units": 48,
-  "name": "Master of Laws in Government and Regulation",
-  "year": 2016,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 30,
         "courses": [
           "LAWS8003",
           "LAWS8009",
@@ -63,8 +57,14 @@
           "LAWS8317",
           "LAWS8076",
           "LAWS8323"
-        ]
+        ],
+        "type": "minimum",
+        "units": 30
       }
     ]
-  }
+  },
+  "code": "NLLGR",
+  "year": 2016,
+  "name": "Master of Laws in Government and Regulation",
+  "units": 48
 }

@@ -1,7 +1,7 @@
 {
-  "units": 24,
+  "required": {},
   "code": "6030XLING",
-  "name": "Graduate Certificate in Linguistics",
   "year": 2014,
-  "required": {}
+  "name": "Graduate Certificate in Linguistics",
+  "units": 24
 }

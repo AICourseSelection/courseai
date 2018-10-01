@@ -1,8 +1,4 @@
 {
-  "code": "7624XMSCO",
-  "units": 48,
-  "name": "Master of Science Communication Outreach",
-  "year": 2018,
   "required": {
     "compulsory_courses": [
       "SCOM8004",
@@ -12,5 +8,9 @@
       "SCOM6012",
       "SCOM6016"
     ]
-  }
+  },
+  "code": "7624XMSCO",
+  "year": 2018,
+  "name": "Master of Science Communication Outreach",
+  "units": 48
 }

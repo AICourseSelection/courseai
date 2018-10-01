@@ -1,27 +1,16 @@
 {
-  "code": "MBIOT",
-  "units": 96,
-  "name": "Master of Biotechnology",
-  "year": 2018,
   "required": {
-    "compulsory_courses": [
-      "BIOL6162",
-      "BIOL8702",
-      "BIOL8291"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BIOL8291",
           "BIOL8700",
           "BIOL8704"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "maximum",
-        "units": 66,
         "courses": [
           "BIOL6006",
           "BIOL6106",
@@ -44,8 +33,19 @@
           "MATH6100",
           "MATH6208",
           "VCPG6001"
-        ]
+        ],
+        "type": "maximum",
+        "units": 66
       }
+    ],
+    "compulsory_courses": [
+      "BIOL6162",
+      "BIOL8702",
+      "BIOL8291"
     ]
-  }
+  },
+  "code": "MBIOT",
+  "year": 2018,
+  "name": "Master of Biotechnology",
+  "units": 96
 }

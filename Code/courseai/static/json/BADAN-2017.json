@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -30,21 +32,22 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1030",
-          "COMP1100",
-          "COMP1130",
-          "COMP1730"
+          "COMP1040",
+          "COMP1110",
+          "COMP1140"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1040",
-          "COMP1110",
-          "COMP1140"
+          "COMP1030",
+          "COMP1100",
+          "COMP1130",
+          "COMP1730"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

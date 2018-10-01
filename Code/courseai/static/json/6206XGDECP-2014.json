@@ -1,7 +1,9 @@
 {
-  "code": "6206XGDECP",
-  "units": 36,
   "name": "Graduate Diploma in Economic Policy",
+  "code": "6206XGDECP",
   "year": 2014,
-  "required": {}
+  "units": 36,
+  "required": {
+    "required_m/m/s": []
+  }
 }

@@ -1,27 +1,27 @@
 {
-  "code": "DPUBH",
-  "units": 48,
-  "name": "Graduate Diploma of Public Health",
-  "year": 2018,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POPH8100",
           "POPH8552"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "POPH8101",
           "POPH8103",
           "POPH8108"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
     ]
-  }
+  },
+  "code": "DPUBH",
+  "year": 2018,
+  "name": "Graduate Diploma of Public Health",
+  "units": 48
 }

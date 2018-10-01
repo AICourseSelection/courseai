@@ -1,12 +1,12 @@
 {
-  "code": "7628XMENCR",
-  "units": 72,
-  "name": "Master of Energy Change (Research)",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "PHYS8013",
       "ENGN6516"
     ]
-  }
+  },
+  "code": "7628XMENCR",
+  "year": 2014,
+  "name": "Master of Energy Change (Research)",
+  "units": 72
 }

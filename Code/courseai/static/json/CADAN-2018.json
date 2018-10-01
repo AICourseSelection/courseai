@@ -6,17 +6,6 @@
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "STAT6038",
-          "STAT6039",
-          "STAT7001",
-          "STAT7026",
-          "STAT7055"
-        ]
-      },
-      {
         "type": "maximum",
         "units": 6,
         "courses": [
@@ -36,7 +25,19 @@
           "COMP8410",
           "COMP8430"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT6038",
+          "STAT6039",
+          "STAT7001",
+          "STAT7026",
+          "STAT7055"
+        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

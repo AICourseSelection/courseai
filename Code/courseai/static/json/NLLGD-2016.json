@@ -1,13 +1,7 @@
 {
-  "code": "NLLGD",
-  "units": 48,
-  "name": "Master of Laws in Law, Governance and Development",
-  "year": 2016,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "LAWS8003",
           "LAWS8006",
@@ -27,20 +21,26 @@
           "LAWS8583",
           "LAWS8594",
           "LAWS8301"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
     ],
     "x_from_category": [
       {
+        "level": [
+          8000
+        ],
         "type": "maximum",
         "units": 12,
         "area": [
           "LAWS"
-        ],
-        "level": [
-          8000
         ]
       }
     ]
-  }
+  },
+  "code": "NLLGD",
+  "year": 2016,
+  "name": "Master of Laws in Law, Governance and Development",
+  "units": 48
 }

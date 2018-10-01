@@ -1,47 +1,33 @@
 {
-  "code": "NPPIP",
-  "units": 96,
-  "name": "Master of Public Policy in International Policy",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "POGO8024",
-      "POGO8072",
-      "POGO8012",
-      "POGO8019",
-      "POGO8062",
-      "POGO8117"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8016",
           "POGO8081"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8029",
           "POGO8050",
           "POGO8115",
           "POGO8213"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8090",
           "POGO8082"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "POGO8015",
           "POGO8029",
@@ -53,11 +39,11 @@
           "IDEC8007",
           "EURO8003",
           "NSPO8007"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "maximum",
-        "units": 18,
         "courses": [
           "POGO8004",
           "POGO8015",
@@ -98,8 +84,22 @@
           "EURO8003",
           "POPH8103",
           "NSPO8007"
-        ]
+        ],
+        "type": "maximum",
+        "units": 18
       }
+    ],
+    "compulsory_courses": [
+      "POGO8024",
+      "POGO8072",
+      "POGO8012",
+      "POGO8019",
+      "POGO8062",
+      "POGO8117"
     ]
-  }
+  },
+  "code": "NPPIP",
+  "year": 2015,
+  "name": "Master of Public Policy in International Policy",
+  "units": 96
 }

@@ -1,8 +1,8 @@
 {
-  "code": "HECON",
-  "units": 48,
   "name": "Bachelor of Economics (Honours)",
+  "code": "HECON",
   "year": 2018,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "ECON4411",
@@ -45,6 +45,8 @@
           "EMET4314"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

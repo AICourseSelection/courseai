@@ -1,18 +1,7 @@
 {
-  "code": "7316XMMIL",
-  "units": 48,
-  "name": "Master of Military Law",
-  "year": 2014,
   "required": {
-    "compulsory_courses": [
-      "LAWS8164",
-      "LAWS8165",
-      "LAWS8166"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 30,
         "courses": [
           "LAWS6202",
           "LAWS6205",
@@ -147,8 +136,19 @@
           "LAWS8567",
           "LAWS8568",
           "LAWS8570"
-        ]
+        ],
+        "type": "minimum",
+        "units": 30
       }
+    ],
+    "compulsory_courses": [
+      "LAWS8164",
+      "LAWS8165",
+      "LAWS8166"
     ]
-  }
+  },
+  "code": "7316XMMIL",
+  "year": 2014,
+  "name": "Master of Military Law",
+  "units": 48
 }

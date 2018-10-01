@@ -1,8 +1,4 @@
 {
-  "units": 96,
-  "code": "VTRAN",
-  "name": "Master of Translation (Advanced)",
-  "year": 2016,
   "required": {
     "compulsory_courses": [
       "LANG6001",
@@ -12,5 +8,9 @@
       "CHIN6041",
       "CHIN6042"
     ]
-  }
+  },
+  "code": "VTRAN",
+  "year": 2016,
+  "name": "Master of Translation (Advanced)",
+  "units": 96
 }

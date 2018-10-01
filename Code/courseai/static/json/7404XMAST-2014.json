@@ -1,7 +1,9 @@
 {
-  "code": "7404XMAST",
-  "units": 48,
   "name": "Master of Applied Statistics",
+  "code": "7404XMAST",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "required_m/m/s": []
+  }
 }

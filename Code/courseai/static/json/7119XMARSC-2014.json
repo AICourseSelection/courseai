@@ -1,7 +1,7 @@
 {
-  "units": 48,
+  "required": {},
   "code": "7119XMARSC",
-  "name": "Master of Archaeological Science",
   "year": 2014,
-  "required": {}
+  "name": "Master of Archaeological Science",
+  "units": 48
 }

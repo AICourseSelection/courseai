@@ -1,17 +1,17 @@
 {
-  "code": "BASEC",
-  "units": 144,
-  "name": "Bachelor of Asia-Pacific Security",
-  "year": 2014,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
-        "units": 60,
         "level": [
           1000
-        ]
+        ],
+        "type": "maximum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "BASEC",
+  "year": 2014,
+  "name": "Bachelor of Asia-Pacific Security",
+  "units": 144
 }

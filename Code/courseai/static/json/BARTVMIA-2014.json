@@ -1,23 +1,26 @@
 {
-  "units": 144,
-  "code": "BARTVMIA",
-  "name": "Bachelor of Arts/Master of International Affairs",
-  "year": 2014,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
     "x_from_here": [
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "INTR8031",
           "INTR8048",
           "INTR8047",
           "INTR8012"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 36,
-        "type": "minimum",
         "courses": [
           "ANTH8038",
           "ASIA8814",
@@ -48,11 +51,11 @@
           "POLS8020",
           "STST8021",
           "STST8051"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "HIST2139",
           "POLS2043",
@@ -73,17 +76,14 @@
           "ANIP3005",
           "ANIP3006",
           "ANIP3007"
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "BARTVMIA",
+  "year": 2014,
+  "name": "Bachelor of Arts/Master of International Affairs",
+  "units": 144
 }

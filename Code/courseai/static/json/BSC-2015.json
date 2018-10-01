@@ -1,32 +1,32 @@
 {
-  "code": "BSC",
-  "units": 144,
-  "name": "Bachelor of Science",
-  "year": 2015,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
     "x_from_category": [
       {
+        "courses": "Science List",
         "type": "minimum",
-        "units": "96",
-        "courses": "Science List"
+        "units": "96"
       },
       {
-        "type": "minimum",
-        "units": 36,
         "courses": "Science List",
         "level": [
           3000
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       }
     ]
-  }
+  },
+  "code": "BSC",
+  "year": 2015,
+  "name": "Bachelor of Science",
+  "units": 144
 }

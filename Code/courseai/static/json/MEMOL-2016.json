@@ -1,66 +1,54 @@
 {
-  "code": "MEMOL",
-  "units": 96,
-  "name": "Master of Environmental Management and Development - Online",
-  "year": 2016,
   "required": {
-    "compulsory_courses": [
-      "EMDV8007",
-      "EMDV8013",
-      "EMDV8078",
-      "EMDV8101"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8012"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH8009",
           "ANTH8019"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8104"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH8014",
           "EMDV8108",
           "EMDV8124"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH6009",
           "ANTH8049",
           "CHMD8020"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ANTH8028"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH8028",
           "ANTH8038",
@@ -70,8 +58,20 @@
           "EMDV8079",
           "EMDV8104",
           "EMDV8124"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "EMDV8007",
+      "EMDV8013",
+      "EMDV8078",
+      "EMDV8101"
     ]
-  }
+  },
+  "code": "MEMOL",
+  "year": 2016,
+  "name": "Master of Environmental Management and Development - Online",
+  "units": 96
 }

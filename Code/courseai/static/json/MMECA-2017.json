@@ -1,13 +1,7 @@
 {
-  "units": 96,
-  "code": "MMECA",
-  "name": "Master of Middle Eastern and Central Asian Studies",
-  "year": 2017,
   "required": {
     "x_from_here": [
       {
-        "units": 60,
-        "type": "minimum",
         "courses": [
           "ARAB6511",
           "MEAS6503",
@@ -32,8 +26,14 @@
           "MEAS8121",
           "MEAS8122",
           "MEAS8123"
-        ]
+        ],
+        "type": "minimum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "MMECA",
+  "year": 2017,
+  "name": "Master of Middle Eastern and Central Asian Studies",
+  "units": 96
 }

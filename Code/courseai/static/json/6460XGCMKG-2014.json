@@ -1,7 +1,9 @@
 {
-  "code": "6460XGCMKG",
-  "units": 24,
   "name": "Graduate Certificate in Marketing",
+  "code": "6460XGCMKG",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "required_m/m/s": []
+  }
 }

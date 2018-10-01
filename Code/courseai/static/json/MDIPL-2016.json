@@ -1,21 +1,7 @@
 {
-  "code": "MDIPL",
-  "units": 96,
-  "name": "Master of Diplomacy",
-  "year": 2016,
   "required": {
-    "compulsory_courses": [
-      "DIPL8001",
-      "DIPL8002",
-      "DIPL8003",
-      "DIPL8004",
-      "DIPL8000",
-      "DIPL8006"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 60,
         "courses": [
           "DIPL8000",
           "DIPL8006",
@@ -53,8 +39,22 @@
           "POGO8115",
           "SOCY8004",
           "STST8017"
-        ]
+        ],
+        "type": "minimum",
+        "units": 60
       }
+    ],
+    "compulsory_courses": [
+      "DIPL8001",
+      "DIPL8002",
+      "DIPL8003",
+      "DIPL8004",
+      "DIPL8000",
+      "DIPL8006"
     ]
-  }
+  },
+  "code": "MDIPL",
+  "year": 2016,
+  "name": "Master of Diplomacy",
+  "units": 96
 }

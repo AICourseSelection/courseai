@@ -1,7 +1,9 @@
 {
-  "code": "6200XGDEC",
-  "units": 36,
   "name": "Graduate Diploma in Economics",
+  "code": "6200XGDEC",
   "year": 2014,
-  "required": {}
+  "units": 36,
+  "required": {
+    "required_m/m/s": []
+  }
 }

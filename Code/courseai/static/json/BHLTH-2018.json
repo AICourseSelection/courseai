@@ -1,25 +1,16 @@
 {
-  "code": "BHLTH",
-  "units": 144,
-  "name": "Bachelor of Health Science",
-  "year": 2018,
   "required": {
-    "compulsory_courses": [
-      "BIOL1004",
-      "BIOL1008",
-      "HLTH1001",
-      "HLTH1002",
-      "HLTH3001",
-      "HLTH3002",
-      "MEDN2001",
-      "MEDN2002",
-      "POPH3000",
-      "SCOM3303"
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
     ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BIAN3125",
           "BIOL3006",
@@ -36,21 +27,21 @@
           "NEUR3112",
           "PSYC3020",
           "SCOM3027"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "BIOL2142",
           "BIOL2161",
           "BIOL2174",
           "PHYS1004"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BIOL3006",
           "BIOL3108",
@@ -65,11 +56,11 @@
           "BIOL3209",
           "NEUR3101",
           "NEUR3112"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "ANTH1002",
           "ANTH1003",
@@ -93,17 +84,26 @@
           "SCOM1002",
           "SCOM2031",
           "SOCY2162"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
+    "compulsory_courses": [
+      "BIOL1004",
+      "BIOL1008",
+      "HLTH1001",
+      "HLTH1002",
+      "HLTH3001",
+      "HLTH3002",
+      "MEDN2001",
+      "MEDN2002",
+      "POPH3000",
+      "SCOM3303"
     ]
-  }
+  },
+  "code": "BHLTH",
+  "year": 2018,
+  "name": "Bachelor of Health Science",
+  "units": 144
 }

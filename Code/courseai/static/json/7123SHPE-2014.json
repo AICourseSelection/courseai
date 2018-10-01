@@ -1,8 +1,4 @@
 {
-  "units": 48,
-  "code": "7123SHPE",
-  "name": "Master of Culture, Health and Medicine (Health Policy and Ethics)",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "CHMD8004",
@@ -10,5 +6,9 @@
       "MEDI8203",
       "PAAE8007"
     ]
-  }
+  },
+  "code": "7123SHPE",
+  "year": 2014,
+  "name": "Master of Culture, Health and Medicine (Health Policy and Ethics)",
+  "units": 48
 }

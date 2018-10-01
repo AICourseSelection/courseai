@@ -1,17 +1,17 @@
 {
-  "code": "BASIVMGLOB",
-  "units": 192,
-  "name": "Bachelor of Asian Studies/Master of Globalisation",
-  "year": 2016,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
-        "units": 60,
         "level": [
           1000
-        ]
+        ],
+        "type": "maximum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "BASIVMGLOB",
+  "year": 2016,
+  "name": "Bachelor of Asian Studies/Master of Globalisation",
+  "units": 192
 }

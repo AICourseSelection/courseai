@@ -1,8 +1,4 @@
 {
-  "code": "APSYC",
-  "units": 192,
-  "name": "Bachelor of Psychology (Honours)",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "PSYC1003",
@@ -17,5 +13,9 @@
       "PSYC3026",
       "PSYC4005"
     ]
-  }
+  },
+  "code": "APSYC",
+  "year": 2014,
+  "name": "Bachelor of Psychology (Honours)",
+  "units": 192
 }

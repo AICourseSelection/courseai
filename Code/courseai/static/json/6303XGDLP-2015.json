@@ -1,28 +1,28 @@
 {
-  "code": "6303XGDLP",
-  "units": 48,
-  "name": "Graduate Diploma in Legal Practice",
-  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 42,
         "courses": [
           "LEGW8141",
           "LEGW8142",
           "LEGW8143"
-        ]
+        ],
+        "type": "minimum",
+        "units": 42
       },
       {
-        "type": "minimum",
-        "units": 30,
         "courses": [
           "LEGW8141",
           "LEGW8142",
           "LEGW8143"
-        ]
+        ],
+        "type": "minimum",
+        "units": 30
       }
     ]
-  }
+  },
+  "code": "6303XGDLP",
+  "year": 2015,
+  "name": "Graduate Diploma in Legal Practice",
+  "units": 48
 }

@@ -1,19 +1,16 @@
 {
-  "units": 144,
-  "code": "BPLSC",
-  "name": "Bachelor of Political Science",
-  "year": 2016,
   "required": {
-    "compulsory_courses": [
-      "POLS1002",
-      "POLS1009",
-      "POLS2119",
-      "POLS3025"
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
     ],
     "x_from_here": [
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "PHIL1004",
           "PHIL2020",
@@ -23,11 +20,11 @@
           "POLS2075",
           "POLS2102",
           "POLS2120"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ASIA2065",
           "POLS2043",
@@ -36,22 +33,22 @@
           "POLS2126",
           "POLS3029",
           "POLS3031"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "HIST2227",
           "POLS2009",
           "POLS2111",
           "POLS2114",
           "POLS2121"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ASIA2026",
           "ASIA2031",
@@ -70,39 +67,42 @@
           "POLS2118",
           "POLS2127",
           "POLS3030"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ECON2141",
           "POLS2125",
           "POLS2130",
           "SOCY2038",
           "SOCY2043"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 6,
-        "type": "maximum",
         "courses": [
           "ECON2013",
           "MEAS2105",
           "PHIL2120",
           "POLS2011",
           "POLS2094"
-        ]
+        ],
+        "type": "maximum",
+        "units": 6
       }
     ],
-    "max_by_level": [
-      {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
-        ]
-      }
+    "compulsory_courses": [
+      "POLS1002",
+      "POLS1009",
+      "POLS2119",
+      "POLS3025"
     ]
-  }
+  },
+  "code": "BPLSC",
+  "year": 2016,
+  "name": "Bachelor of Political Science",
+  "units": 144
 }

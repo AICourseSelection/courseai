@@ -1,8 +1,8 @@
 {
-  "code": "6459XGCACC",
-  "units": 24,
   "name": "Graduate Certificate of Accounting",
+  "code": "6459XGCACC",
   "year": 2016,
+  "units": 24,
   "required": {
     "x_from_here": [
       {
@@ -26,6 +26,7 @@
           "STAT7055"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

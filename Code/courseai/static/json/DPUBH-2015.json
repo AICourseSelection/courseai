@@ -1,13 +1,7 @@
 {
-  "code": "DPUBH",
-  "units": 48,
-  "name": "Graduate Diploma of Public Health",
-  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 24,
         "courses": [
           "CHMD8004",
           "CHMD8006",
@@ -26,8 +20,14 @@
           "NSPO8013",
           "POGO8029",
           "POPH8315"
-        ]
+        ],
+        "type": "maximum",
+        "units": 24
       }
     ]
-  }
+  },
+  "code": "DPUBH",
+  "year": 2015,
+  "name": "Graduate Diploma of Public Health",
+  "units": 48
 }

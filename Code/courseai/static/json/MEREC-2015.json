@@ -1,21 +1,7 @@
 {
-  "code": "MEREC",
-  "units": 96,
-  "name": "Master of Environmental and Resource Economics",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "IDEC8001",
-      "IDEC8002",
-      "IDEC8015",
-      "IDEC8016",
-      "IDEC8017",
-      "IDEC8029"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ECON8010",
           "ECON8015",
@@ -43,40 +29,40 @@
           "IDEC8127",
           "IDEC8081",
           "IDEC8088"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "IDEC8011",
           "IDEC8023",
           "IDEC8026"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8007",
           "EMDV8013",
           "EMDV8026",
           "EMDV8101",
           "EMDV8108"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8078",
           "IDEC8003",
           "IDEC8030"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "maximum",
-        "units": 12,
         "courses": [
           "POGO8210",
           "EMDV8080",
@@ -92,8 +78,22 @@
           "POGO8004",
           "POGO8057",
           "POGO8076"
-        ]
+        ],
+        "type": "maximum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "IDEC8001",
+      "IDEC8002",
+      "IDEC8015",
+      "IDEC8016",
+      "IDEC8017",
+      "IDEC8029"
     ]
-  }
+  },
+  "code": "MEREC",
+  "year": 2015,
+  "name": "Master of Environmental and Resource Economics",
+  "units": 96
 }

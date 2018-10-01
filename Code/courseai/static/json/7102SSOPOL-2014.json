@@ -1,19 +1,7 @@
 {
-  "code": "7102SSOPOL",
-  "units": 48,
-  "name": "Master of Public Policy (Social Policy)",
-  "year": 2014,
   "required": {
-    "compulsory_courses": [
-      "CRWF8000",
-      "POGO8081",
-      "POGO8082",
-      "POGO8096"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "DEMO8045",
           "MEDI8203",
@@ -23,8 +11,20 @@
           "POGO8084",
           "POGO8085",
           "POGO8099"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
+    ],
+    "compulsory_courses": [
+      "CRWF8000",
+      "POGO8081",
+      "POGO8082",
+      "POGO8096"
     ]
-  }
+  },
+  "code": "7102SSOPOL",
+  "year": 2014,
+  "name": "Master of Public Policy (Social Policy)",
+  "units": 48
 }

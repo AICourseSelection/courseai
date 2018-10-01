@@ -1,7 +1,7 @@
 {
-  "units": 24,
+  "required": {},
   "code": "7134XMGLBA",
-  "name": "Master of Globalisation Advanced",
   "year": 2014,
-  "required": {}
+  "name": "Master of Globalisation Advanced",
+  "units": 24
 }

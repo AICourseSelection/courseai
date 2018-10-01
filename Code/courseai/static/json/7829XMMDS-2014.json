@@ -1,8 +1,4 @@
 {
-  "code": "7829XMMDS",
-  "units": 72,
-  "name": "Master of Military and Defence Studies",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "STST8100",
@@ -15,5 +11,9 @@
       "STST8107",
       "STST8109"
     ]
-  }
+  },
+  "code": "7829XMMDS",
+  "year": 2014,
+  "name": "Master of Military and Defence Studies",
+  "units": 72
 }

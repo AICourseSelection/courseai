@@ -1,22 +1,22 @@
 {
-  "units": 96,
-  "code": "MCHAM",
-  "name": "Master of Culture, Health and Medicine",
-  "year": 2017,
   "required": {
-    "compulsory_courses": [
-      "CHMD8004",
-      "CHMD8014"
-    ],
     "x_from_here": [
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "CHMD8009",
           "CHMD8010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "CHMD8004",
+      "CHMD8014"
     ]
-  }
+  },
+  "code": "MCHAM",
+  "year": 2017,
+  "name": "Master of Culture, Health and Medicine",
+  "units": 96
 }

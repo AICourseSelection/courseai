@@ -18,6 +18,7 @@
         "DTSC-SPEC",
         "HCSD-SPEC"
       ]
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

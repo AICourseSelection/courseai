@@ -1,13 +1,7 @@
 {
-  "code": "CLAW",
-  "units": 24,
-  "name": "Graduate Certificate of Law",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "LAWS8001",
           "LAWS8003",
@@ -126,8 +120,14 @@
           "LAWS8593",
           "LAWS8651",
           "LAWS8652"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
     ]
-  }
+  },
+  "code": "CLAW",
+  "year": 2019,
+  "name": "Graduate Certificate of Law",
+  "units": 24
 }

@@ -1,13 +1,7 @@
 {
-  "code": "VMASC",
-  "units": 96,
-  "name": "Master of Mathematical Sciences (Advanced)",
-  "year": 2017,
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 54,
         "courses": [
           "MATH6100",
           "MATH6103",
@@ -19,8 +13,14 @@
           "MATH6242",
           "MATH6405",
           "MATH6406"
-        ]
+        ],
+        "type": "maximum",
+        "units": 54
       }
     ]
-  }
+  },
+  "code": "VMASC",
+  "year": 2017,
+  "name": "Master of Mathematical Sciences (Advanced)",
+  "units": 96
 }

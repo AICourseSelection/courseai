@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -39,6 +41,14 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "STAT1003",
+          "STAT1008"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "COMP1110",
           "COMP1140"
         ]
@@ -55,14 +65,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT1003",
-          "STAT1008"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "COMP1100",
           "COMP1130"
         ]
@@ -71,10 +73,15 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "level": 4000,
-        "area": "COMP",
+        "level": [
+          4000
+        ],
+        "area": [
+          "COMP"
+        ],
         "units": 12
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

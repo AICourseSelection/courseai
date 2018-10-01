@@ -1,13 +1,13 @@
 {
-  "code": "6619XGCAPE",
-  "units": 24,
-  "name": "Graduate Certificate of Applied Epidemiology",
-  "year": 2016,
   "required": {
     "compulsory_courses": [
       "POPH8316",
       "POPH8313",
       "POPH8317"
     ]
-  }
+  },
+  "code": "6619XGCAPE",
+  "year": 2016,
+  "name": "Graduate Certificate of Applied Epidemiology",
+  "units": 24
 }

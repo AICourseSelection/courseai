@@ -1,11 +1,23 @@
 {
-  "code": "VMGMT",
-  "units": 96,
   "name": "Master of Management (Advanced)",
+  "code": "VMGMT",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "MMIB8006"
+    ],
+    "one_from_m/m/s": [
+        "ENIN-SPEC",
+        "BUSI-SPEC",
+        "LEAD-SPEC",
+        "MKTG-SPEC",
+        "PROM-SPEC",
+        "HRMG-SPEC" 
+    ],
+    "required_m/m/s": [
+        "MGMC-SPEC",
+        "MGME-SPEC"
     ]
   }
 }

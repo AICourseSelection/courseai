@@ -1,8 +1,4 @@
 {
-  "code": "MEMDV",
-  "units": 96,
-  "name": "Master of Environmental Management and Development",
-  "year": 2018,
   "required": {
     "compulsory_courses": [
       "EMDV8101",
@@ -10,5 +6,9 @@
       "EMDV8078",
       "EMDV8104"
     ]
-  }
+  },
+  "code": "MEMDV",
+  "year": 2018,
+  "name": "Master of Environmental Management and Development",
+  "units": 96
 }

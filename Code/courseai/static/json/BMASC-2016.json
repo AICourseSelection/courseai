@@ -1,9 +1,43 @@
 {
-  "code": "BMASC",
-  "units": 144,
-  "name": "Bachelor of Mathematical Sciences",
-  "year": 2016,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
+    "x_from_here": [
+      {
+        "courses": [
+          "STAT1003",
+          "STAT1008"
+        ],
+        "type": "minimum",
+        "units": 6
+      },
+      {
+        "courses": [
+          "COMP1100",
+          "COMP1130",
+          "COMP1730"
+        ],
+        "type": "minimum",
+        "units": 6
+      }
+    ],
+    "x_from_category": [
+      {
+        "courses": "Science List",
+        "level": [
+          3000
+        ],
+        "type": "minimum",
+        "units": 24
+      }
+    ],
     "compulsory_courses": [
       "MATH1115",
       "MATH1116",
@@ -11,44 +45,10 @@
       "MATH2305",
       "MATH2320",
       "MATH2322"
-    ],
-    "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "STAT1003",
-          "STAT1008"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "COMP1100",
-          "COMP1130",
-          "COMP1730"
-        ]
-      }
-    ],
-    "x_from_category": [
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": "Science List",
-        "level": [
-          3000
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
     ]
-  }
+  },
+  "code": "BMASC",
+  "year": 2016,
+  "name": "Bachelor of Mathematical Sciences",
+  "units": 144
 }

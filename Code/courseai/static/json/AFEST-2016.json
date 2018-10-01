@@ -1,9 +1,16 @@
 {
-  "code": "AFEST",
-  "units": 192,
   "name": "Bachelor of Finance, Economics and Statistics (Honours)",
+  "code": "AFEST",
   "year": 2016,
+  "units": 192,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "BUSN1001",
       "ECON1100",
@@ -32,26 +39,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH2320",
-          "MATH2322",
-          "MATH3029"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ECON4411",
-          "ECON4422",
-          "ECON4488"
+          "STAT2032",
+          "STAT3040"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT2032",
-          "STAT3040"
+          "MATH2320",
+          "MATH2322",
+          "MATH3029"
         ]
       },
       {
@@ -86,16 +84,20 @@
           "EMET4312",
           "EMET4314"
         ]
-      }
-    ],
-    "max_by_level": [
+      },
       {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "ECON4411",
+          "ECON4422",
+          "ECON4488"
         ]
       }
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      []
     ]
   }
 }

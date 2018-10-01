@@ -1,9 +1,16 @@
 {
-  "code": "BINBS",
-  "units": 144,
   "name": "Bachelor of International Business",
+  "code": "BINBS",
   "year": 2018,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "BUSI2025",
       "BUSI3020"
@@ -21,6 +28,14 @@
       },
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BUSI3024",
+          "MGMT3025"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "BUSI2023",
@@ -34,24 +49,11 @@
           "BUSI3030",
           "MGMT3025"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BUSI3024",
-          "MGMT3025"
-        ]
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "BECE-MIN"
     ]
   }
 }

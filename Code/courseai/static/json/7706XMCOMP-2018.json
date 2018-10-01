@@ -12,12 +12,8 @@
       "COMP8260",
       "MATH6005"
     ],
-    "one_from_m/m/s": [
-      [
-        "ALGD-SPEC",
-        "DTSC-SPEC",
-        "HCSD-SPEC"
-      ]
-    ]
+    "one_from_m/m/s": [ 
+    ],
+    "required_m/m/s": []
   }
 }

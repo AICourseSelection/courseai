@@ -1,7 +1,19 @@
 {
-  "code": "HCOMM",
-  "units": 48,
   "name": "Bachelor of Commerce (Honours)",
+  "code": "HCOMM",
   "year": 2016,
-  "required": {}
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "ACCT-SPEC",
+        "BISY-SPEC",
+        "FINM-SPEC",
+        "BUSI-SPEC",
+        "MGMT-HSPC",
+        "MKTG-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

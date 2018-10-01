@@ -1,35 +1,35 @@
 {
-  "code": "APASP",
-  "units": 10,
-  "name": "Bachelor of Philosophy (Honours) - Asia and the Pacific",
-  "year": 2018,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "THES4501",
           "THES4502"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ASIA4001",
           "STST4001"
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "APASP",
+  "year": 2018,
+  "name": "Bachelor of Philosophy (Honours) - Asia and the Pacific",
+  "units": 10
 }

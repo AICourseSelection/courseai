@@ -1,13 +1,7 @@
 {
-  "units": 24,
-  "code": "6023XCLAS",
-  "name": "Graduate Certificate in Classical Studies",
-  "year": 2014,
   "required": {
     "x_from_here": [
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "ANCH6013",
           "ANCH6014",
@@ -24,8 +18,14 @@
           "LATN6002",
           "LATN6101",
           "LATN6125"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
     ]
-  }
+  },
+  "code": "6023XCLAS",
+  "year": 2014,
+  "name": "Graduate Certificate in Classical Studies",
+  "units": 24
 }

@@ -1,7 +1,9 @@
 {
-  "code": "6401XGDACT",
-  "units": 48,
   "name": "Graduate Diploma of Accounting",
+  "code": "6401XGDACT",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "required_m/m/s": []
+  }
 }

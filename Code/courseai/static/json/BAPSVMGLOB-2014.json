@@ -1,17 +1,16 @@
 {
-  "code": "BAPSVMGLOB",
-  "units": 192,
-  "name": "Bachelor of Asia-Pacific Studies/Master of Globalisation",
-  "year": 2014,
   "required": {
-    "compulsory_courses": [
-      "POLS8031",
-      "POLS8032"
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
     ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ASIA2056",
           "ASIA2065",
@@ -38,17 +37,18 @@
           "SOCY2043",
           "SOCY2101",
           "SOCY3123"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
+    "compulsory_courses": [
+      "POLS8031",
+      "POLS8032"
     ]
-  }
+  },
+  "code": "BAPSVMGLOB",
+  "year": 2014,
+  "name": "Bachelor of Asia-Pacific Studies/Master of Globalisation",
+  "units": 192
 }

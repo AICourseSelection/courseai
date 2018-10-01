@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -29,6 +31,7 @@
           "MATH1116"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

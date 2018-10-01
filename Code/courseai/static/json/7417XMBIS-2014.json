@@ -1,7 +1,9 @@
 {
-  "code": "7417XMBIS",
-  "units": 70,
   "name": "Master of Business Information Systems",
+  "code": "7417XMBIS",
   "year": 2014,
-  "required": {}
+  "units": 70,
+  "required": {
+    "required_m/m/s": []
+  }
 }

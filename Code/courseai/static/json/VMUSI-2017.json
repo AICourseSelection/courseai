@@ -1,22 +1,7 @@
 {
-  "units": 96,
-  "code": "VMUSI",
-  "name": "Master of Music (Advanced)",
-  "year": 2017,
   "required": {
-    "compulsory_courses": [
-      "MUSI7003",
-      "MUSI8001",
-      "MUSI8002",
-      "THES8105",
-      "MUSI7001",
-      "MUSI7002",
-      "MUSI8007"
-    ],
     "x_from_here": [
       {
-        "units": 30,
-        "type": "minimum",
         "courses": [
           "MUSI7001",
           "MUSI7002",
@@ -26,11 +11,11 @@
           "MUSI8008",
           "MUSI8009",
           "MUSI8010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 30
       },
       {
-        "units": 18,
-        "type": "minimum",
         "courses": [
           "MUSI7001",
           "MUSI7002",
@@ -38,8 +23,23 @@
           "MUSI8008",
           "MUSI8009",
           "MUSI8010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
+    ],
+    "compulsory_courses": [
+      "MUSI7003",
+      "MUSI8001",
+      "MUSI8002",
+      "THES8105",
+      "MUSI7001",
+      "MUSI7002",
+      "MUSI8007"
     ]
-  }
+  },
+  "code": "VMUSI",
+  "year": 2017,
+  "name": "Master of Music (Advanced)",
+  "units": 96
 }

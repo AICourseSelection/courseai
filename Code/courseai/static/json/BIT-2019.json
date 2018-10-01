@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -20,13 +22,11 @@
     ],
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 12,
+        "type": "minimum",
+        "units": 6,
         "courses": [
-          "ENGN1211",
-          "VCUG2002",
-          "VCUG2004",
-          "VCUG3001"
+          "COMP1110",
+          "COMP1140"
         ]
       },
       {
@@ -51,13 +51,16 @@
         ]
       },
       {
-        "type": "minimum",
-        "units": 6,
+        "type": "maximum",
+        "units": 12,
         "courses": [
-          "COMP1110",
-          "COMP1140"
+          "ENGN1211",
+          "VCUG2002",
+          "VCUG2004",
+          "VCUG3001"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

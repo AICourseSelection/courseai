@@ -1,7 +1,9 @@
 {
-  "code": "6205XGDAEC",
-  "units": 36,
   "name": "Graduate Diploma  in Applied Economics",
+  "code": "6205XGDAEC",
   "year": 2014,
-  "required": {}
+  "units": 36,
+  "required": {
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,9 @@
 {
-  "code": "9040XPHD",
-  "units": 100,
   "name": "Doctor of Philosophy, ANU College of Business and Economics",
+  "code": "9040XPHD",
   "year": 2019,
-  "required": {}
+  "units": 100,
+  "required": {
+    "required_m/m/s": []
+  }
 }

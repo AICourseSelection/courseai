@@ -1,13 +1,7 @@
 {
-  "code": "MCLCH",
-  "units": 96,
-  "name": "Master of Climate Change",
-  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 18,
         "courses": [
           "BUSN7017",
           "EMDV8001",
@@ -31,37 +25,37 @@
           "IDEC8001",
           "MGMT7007",
           "SCOM8027"
-        ]
+        ],
+        "type": "maximum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8102",
           "ENVS6025"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "EMDV8080",
           "EMDV8081",
           "ENVS6307",
           "ENVS8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ENVS8015",
           "ENVS8016"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "ARCH6022",
           "BIOL6125",
@@ -80,24 +74,30 @@
           "ENVS6204",
           "ENVS6303",
           "ENVS6528"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8013",
           "EMDV8101"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8014",
           "ENVS8013"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "MCLCH",
+  "year": 2015,
+  "name": "Master of Climate Change",
+  "units": 96
 }

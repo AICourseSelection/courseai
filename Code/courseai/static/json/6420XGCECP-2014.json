@@ -1,7 +1,9 @@
 {
-  "code": "6420XGCECP",
-  "units": 24,
   "name": "Graduate Certificate in Economic Policy",
+  "code": "6420XGCECP",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "required_m/m/s": []
+  }
 }

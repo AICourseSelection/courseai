@@ -1,13 +1,7 @@
 {
-  "units": 96,
-  "code": "MANTH",
-  "name": "Master of Anthropology",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "units": 18,
-        "type": "minimum",
         "courses": [
           "ANTH6004",
           "ANTH6009",
@@ -22,16 +16,22 @@
           "ANTH6518",
           "ANTH6519",
           "ESEN6101"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "ANTH6002",
           "ANTH6003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "MANTH",
+  "year": 2019,
+  "name": "Master of Anthropology",
+  "units": 96
 }

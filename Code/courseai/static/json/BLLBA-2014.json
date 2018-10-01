@@ -1,9 +1,14 @@
 {
-  "code": "BLLBA",
-  "units": 192,
-  "name": "Bachelor of Laws",
-  "year": 2014,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "LAWS1201",
       "LAWS1202",
@@ -20,15 +25,10 @@
       "LAWS2244",
       "LAWS2249",
       "LAWS2250"
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
     ]
-  }
+  },
+  "code": "BLLBA",
+  "year": 2014,
+  "name": "Bachelor of Laws",
+  "units": 192
 }

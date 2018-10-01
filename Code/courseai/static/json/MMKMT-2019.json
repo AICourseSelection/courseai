@@ -1,7 +1,14 @@
 {
-  "code": "MMKMT",
-  "units": 96,
   "name": "Master of Marketing Management",
+  "code": "MMKMT",
   "year": 2019,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "MGMC-SPEC",
+      "MGME-SPEC",
+      "MKTG-SPEC"
+    ]
+  }
 }

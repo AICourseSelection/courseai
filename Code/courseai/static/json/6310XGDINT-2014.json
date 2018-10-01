@@ -1,12 +1,12 @@
 {
-  "code": "6310XGDINT",
-  "units": 6310,
-  "name": "Graduate Diploma in International Law",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "LAWS8182",
       "LAWS8183"
     ]
-  }
+  },
+  "code": "6310XGDINT",
+  "year": 2014,
+  "name": "Graduate Diploma in International Law",
+  "units": 6310
 }

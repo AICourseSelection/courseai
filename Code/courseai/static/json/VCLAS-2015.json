@@ -1,28 +1,15 @@
 {
-  "units": 96,
-  "code": "VCLAS",
-  "name": "Master of Classical Studies (Advanced)",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "CLAS6001",
-      "THES8105",
-      "CLAS8002",
-      "CLAS8003",
-      "GREK6112"
-    ],
     "x_from_here": [
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "CLAS8002",
           "CLAS8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 48,
-        "type": "maximum",
         "courses": [
           "ANCH6013",
           "ANCH6023",
@@ -38,16 +25,29 @@
           "GREK6125",
           "LATN6101",
           "LATN6125"
-        ]
+        ],
+        "type": "maximum",
+        "units": 48
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "GREK6112",
           "LATN6002"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "CLAS6001",
+      "THES8105",
+      "CLAS8002",
+      "CLAS8003",
+      "GREK6112"
     ]
-  }
+  },
+  "code": "VCLAS",
+  "year": 2015,
+  "name": "Master of Classical Studies (Advanced)",
+  "units": 96
 }

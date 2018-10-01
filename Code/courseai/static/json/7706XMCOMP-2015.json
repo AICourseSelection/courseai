@@ -17,6 +17,8 @@
         "CMSY-SPEC",
         "IHCC-SPEC"
       ]
+    ],
+    "required_m/m/s": [ 
     ]
   }
 }

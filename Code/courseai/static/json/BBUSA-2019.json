@@ -1,9 +1,16 @@
 {
-  "code": "BBUSA",
-  "units": 144,
   "name": "Bachelor of Business Administration",
+  "code": "BBUSA",
   "year": 2019,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": "1000",
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "BUSI2025",
       "BUSN1001",
@@ -25,27 +32,20 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MGMT2003",
-          "STAT1008"
+          "ECON1100",
+          "ECON1102"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON1100",
-          "ECON1102"
+          "MGMT2003",
+          "STAT1008"
         ]
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

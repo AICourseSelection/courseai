@@ -1,7 +1,7 @@
 {
-  "units": 24,
+  "required": {},
   "code": "6038XDEST",
-  "name": "Graduate Certificate in Development",
   "year": 2014,
-  "required": {}
+  "name": "Graduate Certificate in Development",
+  "units": 24
 }

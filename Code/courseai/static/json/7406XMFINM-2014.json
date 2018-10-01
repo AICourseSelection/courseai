@@ -1,7 +1,9 @@
 {
-  "code": "7406XMFINM",
-  "units": 48,
   "name": "Master of Financial Management",
+  "code": "7406XMFINM",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "required_m/m/s": []
+  }
 }

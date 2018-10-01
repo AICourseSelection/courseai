@@ -1,8 +1,8 @@
 {
-  "code": "MSTAT",
-  "units": 96,
   "name": "Master of Statistics",
+  "code": "MSTAT",
   "year": 2016,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -37,6 +37,8 @@
           "EMET8005"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

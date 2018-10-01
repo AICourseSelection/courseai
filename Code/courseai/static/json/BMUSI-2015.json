@@ -1,12 +1,12 @@
 {
-  "units": 144,
-  "code": "BMUSI",
-  "name": "Bachelor of Music",
-  "year": 2015,
   "required": {
     "compulsory_courses": [
       "MUSI1104",
       "MUSI1109"
     ]
-  }
+  },
+  "code": "BMUSI",
+  "year": 2015,
+  "name": "Bachelor of Music",
+  "units": 144
 }

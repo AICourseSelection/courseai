@@ -1,18 +1,10 @@
 {
-  "code": "MFINM",
-  "units": 48,
   "name": "Master of Financial Management",
+  "code": "MFINM",
   "year": 2018,
+  "units": 48,
   "required": {
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "STAT6038",
-          "STAT7001"
-        ]
-      },
       {
         "type": "minimum",
         "units": 6,
@@ -20,7 +12,17 @@
           "ECON8069",
           "STAT6046"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT6038",
+          "STAT7001"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

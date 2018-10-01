@@ -1,8 +1,4 @@
 {
-  "units": 48,
-  "code": "HVART",
-  "name": "Bachelor of Visual Arts (Honours)",
-  "year": 2016,
   "required": {
     "compulsory_courses": [
       "ARTV4022",
@@ -10,5 +6,9 @@
       "THES4105",
       "HONS4100"
     ]
-  }
+  },
+  "code": "HVART",
+  "year": 2016,
+  "name": "Bachelor of Visual Arts (Honours)",
+  "units": 48
 }

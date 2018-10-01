@@ -1,17 +1,17 @@
 {
-  "units": 144,
-  "code": "BARTS",
-  "name": "Bachelor of Arts",
-  "year": 2015,
   "required": {
     "max_by_level": [
       {
-        "units": 60,
-        "type": "maximum",
         "level": [
           1000
-        ]
+        ],
+        "type": "maximum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "BARTS",
+  "year": 2015,
+  "name": "Bachelor of Arts",
+  "units": 144
 }

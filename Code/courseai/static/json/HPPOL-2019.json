@@ -1,8 +1,4 @@
 {
-  "units": 48,
-  "code": "HPPOL",
-  "name": "Bachelor of Public Policy (Honours)",
-  "year": 2019,
   "required": {
     "compulsory_courses": [
       "POLS4009",
@@ -11,5 +7,9 @@
       "THES4103",
       "HONS4100"
     ]
-  }
+  },
+  "code": "HPPOL",
+  "year": 2019,
+  "name": "Bachelor of Public Policy (Honours)",
+  "units": 48
 }

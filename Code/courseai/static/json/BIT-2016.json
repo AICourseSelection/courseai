@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -18,6 +20,15 @@
       "COMP3120"
     ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH1005",
+          "MATH1013",
+          "MATH1115"
+        ]
+      },
       {
         "type": "minimum",
         "units": 18,
@@ -34,16 +45,8 @@
           "COMP1040",
           "COMP2140"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "MATH1005",
-          "MATH1013",
-          "MATH1115"
-        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }
