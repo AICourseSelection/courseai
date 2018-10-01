@@ -18,6 +18,17 @@
           "COMP8755"
         ]
       }
+    ],
+    "one_from_m/m/s": [
+      [
+        "ALGD-SPEC",
+        "COMS-SPEC",
+        "CMSY-SPEC",
+        "IHCC-SPEC",
+        "SENG-SPEC"
+      ]
+    ],
+    "required_m/m/s": [ 
     ]
   }
 }

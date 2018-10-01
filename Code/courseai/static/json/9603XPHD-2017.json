@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, Australian National Centre for the Public Awareness of Science",
+  "required": {},
   "code": "9603XPHD",
   "year": 2017,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, Australian National Centre for the Public Awareness of Science",
+  "units": 100
 }

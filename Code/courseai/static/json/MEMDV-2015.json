@@ -72,23 +72,10 @@
       },
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8014",
-          "ANTH8107",
-          "EMDV8001",
-          "EMDV8009",
-          "EMDV8026",
-          "EMDV8108",
-          "EMDV8124"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
         "courses": [
-          "CRWF8000",
-          "EMDV8104"
+          "ANTH8028",
+          "EMDV8103"
         ]
       },
       {
@@ -115,12 +102,27 @@
       },
       {
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANTH8014",
+          "ANTH8107",
+          "EMDV8001",
+          "EMDV8009",
+          "EMDV8026",
+          "EMDV8108",
+          "EMDV8124"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
-          "ANTH8028",
-          "EMDV8103"
+          "CRWF8000",
+          "EMDV8104"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

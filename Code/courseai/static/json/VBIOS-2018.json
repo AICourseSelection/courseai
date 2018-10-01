@@ -1,7 +1,7 @@
 {
-  "name": "Master of Biological Sciences (Advanced)",
+  "required": {},
   "code": "VBIOS",
   "year": 2018,
-  "units": 96,
-  "required": {}
+  "name": "Master of Biological Sciences (Advanced)",
+  "units": 96
 }

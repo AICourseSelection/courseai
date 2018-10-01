@@ -1,34 +1,16 @@
 {
-  "name": "Bachelor of Medical Science",
-  "code": "BMEDS",
-  "year": 2017,
-  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
         "level": [
           1000
         ],
+        "type": "maximum",
         "units": 60
       }
     ],
-    "compulsory_courses": [
-      "BIOL1003",
-      "BIOL1004",
-      "BIOL2142",
-      "BIOL2161",
-      "BIOL2171",
-      "BIOL3006",
-      "BIOL3141",
-      "BIOL3190",
-      "CHEM1101",
-      "CHEM1201"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "BIOL3107",
           "BIOL3108",
@@ -46,29 +28,47 @@
           "NEUR3101",
           "NEUR3112",
           "POPH3000"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "BIAN3014",
           "BIOL2001",
           "BIOL2202",
           "ENVS1003",
           "PSYC2009"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BIOL2117",
           "BIOL2151",
           "BIOL2162",
           "BIOL2174"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "BIOL1003",
+      "BIOL1004",
+      "BIOL2142",
+      "BIOL2161",
+      "BIOL2171",
+      "BIOL3006",
+      "BIOL3141",
+      "BIOL3190",
+      "CHEM1101",
+      "CHEM1201"
     ]
-  }
+  },
+  "code": "BMEDS",
+  "year": 2017,
+  "name": "Bachelor of Medical Science",
+  "units": 144
 }

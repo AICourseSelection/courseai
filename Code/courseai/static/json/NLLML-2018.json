@@ -1,17 +1,7 @@
 {
-  "name": "Master of Laws in Migration Law",
-  "code": "NLLML",
-  "year": 2018,
-  "units": 48,
   "required": {
-    "compulsory_courses": [
-      "LAWS8651",
-      "LAWS8652"
-    ],
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 36,
         "courses": [
           "LAWS8301",
           "LAWS8650",
@@ -22,8 +12,18 @@
           "LAWS8657",
           "LAWS8658",
           "LAWS8659"
-        ]
+        ],
+        "type": "maximum",
+        "units": 36
       }
+    ],
+    "compulsory_courses": [
+      "LAWS8651",
+      "LAWS8652"
     ]
-  }
+  },
+  "code": "NLLML",
+  "year": 2018,
+  "name": "Master of Laws in Migration Law",
+  "units": 48
 }

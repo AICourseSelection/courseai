@@ -3,5 +3,7 @@
   "code": "9040XPHD",
   "year": 2017,
   "units": 100,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

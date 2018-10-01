@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -50,6 +48,10 @@
           "INFS2005"
         ]
       }
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "BECE-MIN"
     ]
   }
 }

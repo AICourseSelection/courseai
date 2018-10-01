@@ -7,14 +7,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON8069",
-          "STAT6046"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 42,
         "courses": [
           "BUSN7008",
@@ -24,6 +16,14 @@
           "FINM7041",
           "FINM7044",
           "STAT7055"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON8069",
+          "STAT6046"
         ]
       },
       {
@@ -40,6 +40,7 @@
           "FINM8100"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

@@ -20,18 +20,19 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 42,
-        "courses": [
-          "BUSN7008"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ACST8047"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 42,
+        "courses": [
+          "BUSN7008"
+        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

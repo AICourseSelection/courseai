@@ -1,13 +1,7 @@
 {
-  "name": "Master of Political Science",
-  "code": "MPLSC",
-  "year": 2019,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "SOCR8001",
           "SOCR8002",
@@ -18,8 +12,14 @@
           "STAT8002",
           "STAT8004",
           "STAT8027"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "MPLSC",
+  "year": 2019,
+  "name": "Master of Political Science",
+  "units": 96
 }

@@ -3,5 +3,7 @@
   "code": "7207XMITER",
   "year": 2014,
   "units": 48,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

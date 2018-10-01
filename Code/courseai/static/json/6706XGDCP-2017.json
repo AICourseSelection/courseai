@@ -3,5 +3,7 @@
   "code": "6706XGDCP",
   "year": 2017,
   "units": 48,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

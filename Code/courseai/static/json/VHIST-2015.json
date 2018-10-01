@@ -1,21 +1,7 @@
 {
-  "name": "Master of History (Advanced)",
-  "code": "VHIST",
-  "year": 2015,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "HIST6007",
-      "HIST6110",
-      "THES8102",
-      "HIST6022",
-      "HIST6107",
-      "HIST6121"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "HIST6022",
           "HIST6107",
@@ -35,8 +21,22 @@
           "HIST6236",
           "HIST6237",
           "HIST6509"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
+    ],
+    "compulsory_courses": [
+      "HIST6007",
+      "HIST6110",
+      "THES8102",
+      "HIST6022",
+      "HIST6107",
+      "HIST6121"
     ]
-  }
+  },
+  "code": "VHIST",
+  "year": 2015,
+  "name": "Master of History (Advanced)",
+  "units": 96
 }

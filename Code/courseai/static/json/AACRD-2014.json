@@ -30,23 +30,8 @@
       "MGMT3027",
       "STAT1003"
     ],
-    "one_from_m/m/s": [
-      [
-        "RSCC-MAJ"
-      ]
-    ],
-    "x_from_category": [
-      {
-        "type": "minimum",
-        "level": [
-          3000,
-          4000
-        ],
-        "units": 18,
-        "area": [
-          "COMP"
-        ]
-      }
+    "required_m/m/s": [
+      "RSCC-MAJ"
     ]
   }
 }

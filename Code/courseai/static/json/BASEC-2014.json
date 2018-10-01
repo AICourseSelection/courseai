@@ -7,11 +7,26 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
+    ],
+    "one_from_m/m/s": [
+        "ARAB-MIN",
+        "CHIN-MIN",
+        "FREN-MIN",
+        "HIND-MIN",
+        "INDN-MIN",
+        "JPNS-MAJ",
+        "KORE-MAJ",
+        "SANS-MAJ",
+        "STAT-MIN",
+        "THAI-MIN",
+        "URDU-MIN",
+        "VIET-MIN"
+    ],
+    "required_m/m/s": [
+      "SECU-MAJ"
     ]
   }
 }

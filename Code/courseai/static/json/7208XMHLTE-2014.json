@@ -3,5 +3,7 @@
   "code": "7208XMHLTE",
   "year": 2014,
   "units": 36,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

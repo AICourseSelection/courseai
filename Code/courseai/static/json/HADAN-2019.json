@@ -3,5 +3,19 @@
   "code": "HADAN",
   "year": 2019,
   "units": 48,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "BIOL-HSPC",
+        "BISS-HSPC",
+        "COMP-HSPC",
+        "DIGH-HSPC",
+        "MATH-HSPC",
+        "POPH-HSPC",
+        "STAT-HSPC",
+        "SOCY-HSPC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

@@ -1,33 +1,7 @@
 {
-  "name": "Master of General and Applied Linguistics",
-  "code": "MLING",
-  "year": 2015,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "LING6001",
-          "LING6002",
-          "LING6020",
-          "LING6311",
-          "LING6509",
-          "LING6525",
-          "LING8001",
-          "LING8003",
-          "LING8009",
-          "LING8010",
-          "LING8011",
-          "LING8012",
-          "LING8026",
-          "HUMN6001"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "ASIA6001",
           "ASIA6101",
@@ -60,8 +34,34 @@
           "LING8025",
           "PASI6010",
           "PASI6020"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
+      },
+      {
+        "courses": [
+          "LING6001",
+          "LING6002",
+          "LING6020",
+          "LING6311",
+          "LING6509",
+          "LING6525",
+          "LING8001",
+          "LING8003",
+          "LING8009",
+          "LING8010",
+          "LING8011",
+          "LING8012",
+          "LING8026",
+          "HUMN6001"
+        ],
+        "type": "minimum",
+        "units": 18
       }
     ]
-  }
+  },
+  "code": "MLING",
+  "year": 2015,
+  "name": "Master of General and Applied Linguistics",
+  "units": 96
 }

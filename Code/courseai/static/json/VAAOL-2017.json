@@ -1,17 +1,25 @@
 {
-  "name": "Master of Applied Anthropology and Participatory Development (Advanced) - Online",
-  "code": "VAAOL",
-  "year": 2017,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "ANTH8019",
-      "ANTH8028"
-    ],
     "x_from_here": [
       {
+        "courses": [
+          "ANTH8007",
+          "ANTH8009",
+          "ANTH8038",
+          "ANTH8058"
+        ],
         "type": "minimum",
-        "units": 36,
+        "units": 24
+      },
+      {
+        "courses": [
+          "ANTH8050",
+          "THES8103"
+        ],
+        "type": "minimum",
+        "units": 24
+      },
+      {
         "courses": [
           "ANTH6009",
           "ANTH6065",
@@ -46,26 +54,18 @@
           "INDG8004",
           "SOCY6045",
           "STST8032"
-        ]
-      },
-      {
+        ],
         "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ANTH8007",
-          "ANTH8009",
-          "ANTH8038",
-          "ANTH8058"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ANTH8050",
-          "THES8103"
-        ]
+        "units": 36
       }
+    ],
+    "compulsory_courses": [
+      "ANTH8019",
+      "ANTH8028"
     ]
-  }
+  },
+  "code": "VAAOL",
+  "year": 2017,
+  "name": "Master of Applied Anthropology and Participatory Development (Advanced) - Online",
+  "units": 96
 }

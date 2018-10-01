@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy (Clinical Psychology)",
+  "required": {},
   "code": "9064XCLPSY",
   "year": 2018,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy (Clinical Psychology)",
+  "units": 100
 }

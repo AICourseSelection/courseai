@@ -3,5 +3,7 @@
   "code": "7412XMCOM",
   "year": 2014,
   "units": 70,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

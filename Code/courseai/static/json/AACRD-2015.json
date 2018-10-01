@@ -32,15 +32,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MGMT3027",
-          "VCUG2002",
-          "ENGN3230"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "STAT1003",
           "STAT1008"
         ]
@@ -52,25 +43,19 @@
           "COMP3530",
           "VCUG3001"
         ]
-      }
-    ],
-    "one_from_m/m/s": [
-      [
-        "RSCC-MAJ"
-      ]
-    ],
-    "x_from_category": [
+      },
       {
         "type": "minimum",
-        "level": [
-          3000,
-          4000
-        ],
-        "units": 18,
-        "area": [
-          "COMP"
+        "units": 6,
+        "courses": [
+          "MGMT3027",
+          "VCUG2002",
+          "ENGN3230"
         ]
       }
+    ],
+    "required_m/m/s": [
+      "RSCC-MAJ"
     ]
   }
 }

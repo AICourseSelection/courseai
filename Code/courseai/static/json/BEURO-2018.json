@@ -1,28 +1,16 @@
 {
-  "name": "Bachelor of European Studies",
-  "code": "BEURO",
-  "year": 2018,
-  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
         "level": [
           1000
         ],
+        "type": "maximum",
         "units": 60
       }
     ],
-    "compulsory_courses": [
-      "EURO1004",
-      "EURO2012",
-      "EURO3002",
-      "HIST1214"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BUSI2034",
           "ENGL2101",
@@ -35,11 +23,11 @@
           "POLS2025",
           "POLS2069",
           "SOCY2055"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "HIST2133",
           "HIST2136",
@@ -56,8 +44,20 @@
           "HIST2240",
           "HIST2220",
           "HIST2242"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "EURO1004",
+      "EURO2012",
+      "EURO3002",
+      "HIST1214"
     ]
-  }
+  },
+  "code": "BEURO",
+  "year": 2018,
+  "name": "Bachelor of European Studies",
+  "units": 144
 }

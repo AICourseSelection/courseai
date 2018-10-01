@@ -6,7 +6,7 @@
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
+        "type": "maximum",
         "units": 48,
         "courses": [
           "POGO8213",
@@ -28,6 +28,8 @@
           "POGO8035"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

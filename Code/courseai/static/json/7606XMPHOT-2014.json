@@ -1,7 +1,7 @@
 {
-  "name": "Master of Photonics",
+  "required": {},
   "code": "7606XMPHOT",
   "year": 2014,
-  "units": 48,
-  "required": {}
+  "name": "Master of Photonics",
+  "units": 48
 }

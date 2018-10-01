@@ -1,21 +1,15 @@
 {
-  "name": "Master of Earth Sciences (Advanced)",
-  "code": "VEASC",
-  "year": 2016,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMSC8022",
           "EMSC8023"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMSC6014",
           "EMSC6015",
@@ -36,17 +30,23 @@
           "EMSC8014",
           "EMSC8706",
           "EMSC8707"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMSC8018",
           "EMSC8019",
           "EMSC8021"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "VEASC",
+  "year": 2016,
+  "name": "Master of Earth Sciences (Advanced)",
+  "units": 96
 }

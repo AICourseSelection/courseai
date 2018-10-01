@@ -1,21 +1,15 @@
 {
-  "name": "Master of Environmental Management and Development",
-  "code": "7804XMENVD",
-  "year": 2014,
-  "units": 48,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8002",
           "EMDV8012"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "ANTH8007",
           "ANTH8028",
@@ -50,26 +44,32 @@
           "POGO8082",
           "POGO8083",
           "POGO8095"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8103",
           "ANTH8028",
           "EMDV8008",
           "EMDV8066"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "CRWF8000",
           "EMDV8104"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "7804XMENVD",
+  "year": 2014,
+  "name": "Master of Environmental Management and Development",
+  "units": 48
 }

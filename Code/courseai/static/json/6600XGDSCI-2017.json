@@ -1,7 +1,7 @@
 {
-  "name": "Graduate Diploma of Science",
+  "required": {},
   "code": "6600XGDSCI",
   "year": 2017,
-  "units": 48,
-  "required": {}
+  "name": "Graduate Diploma of Science",
+  "units": 48
 }

@@ -25,8 +25,6 @@
           "EMDV8103",
           "EMDV8002",
           "EMDV8012",
-          "EMDV8001",
-          "EMDV8012",
           "EMDV8009",
           "EMDV8007",
           "EMDV8079",
@@ -80,6 +78,8 @@
           "POGO8212"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

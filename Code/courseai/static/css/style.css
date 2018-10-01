@@ -8,6 +8,19 @@ body {
     min-width: 860px;
 }
 
+#left-panel {
+    padding: 0 5px 0 0;
+}
+
+#centre-panel {
+    padding: 0 5px;
+    max-width: none;
+}
+
+#right-panel {
+    padding: 0 0 0 5px;
+}
+
 .container {
     margin-top: 50px;
 }
@@ -22,6 +35,13 @@ body {
 
 wrapper {
     min-height: 80vh;
+}
+
+#year-descriptor {
+    padding-right: 5px;
+    line-height: 2.25;
+    min-width: fit-content;
+    min-width: -moz-fit-content;
 }
 
 #planform, #planform input, #planform .btn-group .btn{
@@ -109,7 +129,6 @@ wrapper {
     padding: 5px;
     display: flex;
     width: 100%;
-    min-width: 628px;
     min-height: 124px;
     position: relative;
 }
@@ -133,13 +152,11 @@ wrapper {
     -o-transition: background 1s linear;
     transition: background 1s linear;
 }
-
 .plan-cell {
     float: left;
     padding: 5px;
     margin: 2px;
     width: 22%;
-    min-width: 120px;
     cursor: pointer;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
@@ -150,8 +167,9 @@ wrapper {
 .first-cell {
     padding: 5px;
     margin: 2px;
-    width: 12%;
-    min-width: 116px;
+    min-width: 7.6rem;
+    max-width: 7.6rem;
+    word-break: break-word;
 }
 
 .first-cell.delete {
@@ -167,6 +185,10 @@ wrapper {
     font-family: "Myriad Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     table-layout: fixed;
     border-collapse: separate;
+}
+
+.row-ses {
+    display: none;
 }
 
 .course-code {
@@ -430,11 +452,11 @@ wrapper {
 
 .degree-header {
     display: flex;
-    margin: 0 10px;
+    margin-bottom: -10px;
 }
 
-#degree-reqs-list .degree-header {
-    margin: 0 -10px -10px -10px;
+#degree-reqs .degree-header {
+    padding: 0 5px;
 }
 
 .degree-header div {
@@ -443,16 +465,16 @@ wrapper {
 
 .degree-header .collapse-all {
     flex: 0 0 27%;
-    font-size: 10.5pt;
+    font-size: 10pt;
     color: black;
     line-height: 2.1;
 }
 
 .degree-header .unit-count {
     flex: 0 0 27%;
-    font-size: 11pt;
+    font-size: 10pt;
     font-weight: normal;
-    line-height: 1.8;
+    line-height: 2.1;
 }
 
 .degree-header label {
@@ -523,7 +545,6 @@ wrapper {
     border-bottom: 1px solid #dee2e6;
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
-    /*padding: 0.25rem;*/
 }
 
 .deg-identifier {
@@ -532,11 +553,6 @@ wrapper {
 
 #degree-reqs-list {
     clear: left;
-    margin: -10px;
-}
-
-#degree-reqs {
-    margin: 0 -10px;
 }
 
 #degree-reqs .degree-body {
@@ -737,23 +753,14 @@ wrapper {
 
 }
 
-
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
     0%,100% { opacity: 1 }
     50% { opacity: 0.5 }
 }
 
-.plan-cell:hover, .list-group-item:hover {
-    background-color: #80DEEA;
-}
-
 .plan-cell:active {
-    background-color: #A9CCE3;
-}
-
-.added-elective {
-    /*background-color: #ffe6f2;*/
+    background-color: #A9CCE3 ;
 }
 
 .compulsory {
@@ -761,23 +768,23 @@ wrapper {
 }
 
 .mms-course-list0 {
-    background-color: #ffddcc;
+    background-color: #C7FFEB;
 }
 
 .mms-course-list1 {
-    background-color: #b3ffd9;
+    background-color: #F6EAFF;
 }
 
 .mms-course-list2 {
-    background-color: #ccffff;
+    background-color: #FEFFDE;
 }
 
 .mms-course-list3 {
-    background-color: #e0ccff;
+    background-color: #C6FFCD;
 }
 
 .mms-course-list4 {
-    background-color: #ffb3b3;
+    background-color: #FFE8CF;
 }
 
 .invalid-cell {
@@ -788,4 +795,8 @@ wrapper {
     background-color: #ccffcc;
     border-color: #37e131;
     animation: pulse 1s infinite;
+}
+
+.plan-cell:hover, .list-group-item:hover  {
+    background: #80DEEA !important; /* make sure to override js styling */
 }

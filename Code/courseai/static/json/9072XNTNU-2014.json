@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, ANU/NTNU",
+  "required": {},
   "code": "9072XNTNU",
   "year": 2014,
-  "units": 3,
-  "required": {}
+  "name": "Doctor of Philosophy, ANU/NTNU",
+  "units": 3
 }

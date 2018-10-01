@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, Research School of Astronomy and Astrophysics",
+  "required": {},
   "code": "9670XPHD",
   "year": 2015,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, Research School of Astronomy and Astrophysics",
+  "units": 100
 }

@@ -3,5 +3,12 @@
   "code": "MMKMT",
   "year": 2019,
   "units": 96,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "MGMC-SPEC",
+      "MGME-SPEC",
+      "MKTG-SPEC"
+    ]
+  }
 }

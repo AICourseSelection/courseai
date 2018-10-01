@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, Research School of Earth Sciences",
+  "required": {},
   "code": "9640XPHD",
   "year": 2017,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, Research School of Earth Sciences",
+  "units": 100
 }

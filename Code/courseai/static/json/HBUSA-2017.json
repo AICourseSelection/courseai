@@ -3,5 +3,15 @@
   "code": "HBUSA",
   "year": 2017,
   "units": 48,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "BUSI-SPEC",
+        "MGMT-HSPC",
+        "MKTG-SPEC",
+        "BISY-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

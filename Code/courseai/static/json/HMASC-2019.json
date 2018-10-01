@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Mathematical Sciences (Honours)",
+  "required": {},
   "code": "HMASC",
   "year": 2019,
-  "units": 48,
-  "required": {}
+  "name": "Bachelor of Mathematical Sciences (Honours)",
+  "units": 48
 }

@@ -1,26 +1,16 @@
 {
-  "name": "Master of Social Research",
-  "code": "MSRES",
-  "year": 2019,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "DEMO8082",
-      "SOCR8001"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "SOCR8008",
           "SOCR8009",
           "SOCR8201"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "ANTH6009",
           "ANTH6025",
@@ -40,11 +30,11 @@
           "SOCR8202",
           "SOCR8203",
           "SOCR8204"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "DEMO8008",
           "DEMO8024",
@@ -60,8 +50,18 @@
           "SOCR8009",
           "SOCR8201",
           "SOCY6066"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "DEMO8082",
+      "SOCR8001"
     ]
-  }
+  },
+  "code": "MSRES",
+  "year": 2019,
+  "name": "Master of Social Research",
+  "units": 96
 }

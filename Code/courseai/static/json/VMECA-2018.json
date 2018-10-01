@@ -1,36 +1,7 @@
 {
-  "name": "Master of Middle Eastern and Central Asian Studies (Advanced)",
-  "code": "VMECA",
-  "year": 2018,
-  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANIP6503",
-          "MEAS8100",
-          "MEAS8105",
-          "MEAS8108",
-          "MEAS8121",
-          "MEAS8123",
-          "MEAS8126"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "POLS8004",
-          "POLS8042",
-          "SOCR8006",
-          "SOCR8008"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "MEAS6503",
           "MEAS6504",
@@ -51,8 +22,37 @@
           "MEAS8122",
           "MEAS8124",
           "MEAS8125"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
+      },
+      {
+        "courses": [
+          "ANIP6503",
+          "MEAS8100",
+          "MEAS8105",
+          "MEAS8108",
+          "MEAS8121",
+          "MEAS8123",
+          "MEAS8126"
+        ],
+        "type": "minimum",
+        "units": 12
+      },
+      {
+        "courses": [
+          "POLS8004",
+          "POLS8042",
+          "SOCR8006",
+          "SOCR8008"
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "VMECA",
+  "year": 2018,
+  "name": "Master of Middle Eastern and Central Asian Studies (Advanced)",
+  "units": 96
 }

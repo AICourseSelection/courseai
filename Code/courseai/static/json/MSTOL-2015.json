@@ -1,7 +1,7 @@
 {
-  "name": "Master of Studies - Online",
+  "required": {},
   "code": "MSTOL",
   "year": 2015,
-  "units": 96,
-  "required": {}
+  "name": "Master of Studies - Online",
+  "units": 96
 }

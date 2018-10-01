@@ -6,6 +6,18 @@
   "required": {
     "compulsory_courses": [
       "MMIB8006"
+    ],
+    "one_from_m/m/s": [
+        "ENIN-SPEC",
+        "BUSI-SPEC",
+        "LEAD-SPEC",
+        "MKTG-SPEC",
+        "PROM-SPEC",
+        "HRMG-SPEC" 
+    ],
+    "required_m/m/s": [
+        "MGMC-SPEC",
+        "MGME-SPEC"
     ]
   }
 }

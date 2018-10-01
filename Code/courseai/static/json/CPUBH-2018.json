@@ -1,27 +1,27 @@
 {
-  "name": "Graduate Certificate of Public Health",
-  "code": "CPUBH",
-  "year": 2018,
-  "units": 24,
   "required": {
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 6,
         "courses": [
           "POPH8100",
           "POPH8552"
-        ]
+        ],
+        "type": "maximum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POPH8101",
           "POPH8103",
           "POPH8108"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "CPUBH",
+  "year": 2018,
+  "name": "Graduate Certificate of Public Health",
+  "units": 24
 }

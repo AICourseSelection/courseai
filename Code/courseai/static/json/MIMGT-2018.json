@@ -3,5 +3,18 @@
   "code": "MIMGT",
   "year": 2018,
   "units": 96,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "MGMC-SPEC"
+      ],
+      [
+        "MGME-SPEC"
+      ],
+      [
+        "BUSI-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

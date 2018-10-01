@@ -1,7 +1,7 @@
 {
-  "name": "Doctor of Philosophy, John Curtin School of Medical Research",
+  "required": {},
   "code": "9710XPHD",
   "year": 2014,
-  "units": 100,
-  "required": {}
+  "name": "Doctor of Philosophy, John Curtin School of Medical Research",
+  "units": 100
 }

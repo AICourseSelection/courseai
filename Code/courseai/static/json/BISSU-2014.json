@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Interdisciplinary Studies (Sustainability)",
+  "required": {},
   "code": "BISSU",
   "year": 2014,
-  "units": 144,
-  "required": {}
+  "name": "Bachelor of Interdisciplinary Studies (Sustainability)",
+  "units": 144
 }

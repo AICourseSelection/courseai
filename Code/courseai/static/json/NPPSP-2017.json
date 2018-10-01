@@ -1,29 +1,15 @@
 {
-  "name": "Master of Public Policy in Social Policy",
-  "code": "NPPSP",
-  "year": 2017,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "POGO8012",
-      "POGO8019",
-      "POGO8024",
-      "POGO8062",
-      "POGO8072",
-      "POGO8117"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8016",
           "POGO8081"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8025",
           "POGO8029",
@@ -31,11 +17,11 @@
           "POGO8084",
           "POGO8085",
           "POGO8102"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "maximum",
-        "units": 18,
         "courses": [
           "POGO8004",
           "POGO8015",
@@ -59,16 +45,30 @@
           "POGO8088",
           "POGO8095",
           "POGO8096"
-        ]
+        ],
+        "type": "maximum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8082",
           "POGO8090"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "POGO8012",
+      "POGO8019",
+      "POGO8024",
+      "POGO8062",
+      "POGO8072",
+      "POGO8117"
     ]
-  }
+  },
+  "code": "NPPSP",
+  "year": 2017,
+  "name": "Master of Public Policy in Social Policy",
+  "units": 96
 }

@@ -15,6 +15,18 @@
       },
       {
         "type": "minimum",
+        "units": 36,
+        "courses": [
+          "BUSN7008",
+          "FINM7006",
+          "FINM7007",
+          "FINM7008",
+          "FINM8007",
+          "STAT7055"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "ECON8069",
@@ -40,19 +52,8 @@
           "STAT7030",
           "STAT7040"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 36,
-        "courses": [
-          "BUSN7008",
-          "FINM7006",
-          "FINM7007",
-          "FINM7008",
-          "FINM8007",
-          "STAT7055"
-        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

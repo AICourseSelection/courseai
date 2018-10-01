@@ -1,17 +1,17 @@
 {
-  "name": "Graduate Certificate of Music",
-  "code": "6107XGCMUS",
-  "year": 2014,
-  "units": 24,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH8101"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "6107XGCMUS",
+  "year": 2014,
+  "name": "Graduate Certificate of Music",
+  "units": 24
 }

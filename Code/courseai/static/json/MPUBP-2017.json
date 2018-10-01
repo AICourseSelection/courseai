@@ -16,14 +16,6 @@
     ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POGO8016",
-          "POGO8081"
-        ]
-      },
-      {
         "type": "maximum",
         "units": 12,
         "courses": [
@@ -51,6 +43,14 @@
       },
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8016",
+          "POGO8081"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 24,
         "courses": [
           "CRWF7000",
@@ -70,6 +70,8 @@
           "POGO8090"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

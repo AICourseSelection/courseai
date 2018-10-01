@@ -1,7 +1,7 @@
 {
-  "name": "Master of Classical Studies",
+  "required": {},
   "code": "7157XCLAS",
   "year": 2014,
-  "units": 48,
-  "required": {}
+  "name": "Master of Classical Studies",
+  "units": 48
 }

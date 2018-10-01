@@ -17,6 +17,19 @@
       "BUSN8181",
       "MGMT8022",
       "MGMT8003"
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "APFN-SPEC",
+        "BISY-SPEC",
+        "ENIN-SPEC",
+        "BUSI-SPEC",
+        "LEAD-SPEC",
+        "MKTG-SPEC",
+        "PROM-SPEC",
+        "REPG-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

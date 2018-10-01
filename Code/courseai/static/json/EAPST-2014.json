@@ -3,5 +3,8 @@
   "code": "EAPST",
   "year": 2014,
   "units": 48,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

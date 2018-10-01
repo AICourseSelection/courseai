@@ -1,8 +1,4 @@
 {
-  "name": "Bachelor of Policy Studies (Honours)",
-  "code": "HPOLS",
-  "year": 2017,
-  "units": 48,
   "required": {
     "compulsory_courses": [
       "SOCY4009",
@@ -10,5 +6,9 @@
       "THES4103",
       "HONS4100"
     ]
-  }
+  },
+  "code": "HPOLS",
+  "year": 2017,
+  "name": "Bachelor of Policy Studies (Honours)",
+  "units": 48
 }

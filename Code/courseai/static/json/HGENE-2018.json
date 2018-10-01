@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Genetics (Honours)",
+  "required": {},
   "code": "HGENE",
   "year": 2018,
-  "units": 48,
-  "required": {}
+  "name": "Bachelor of Genetics (Honours)",
+  "units": 48
 }

@@ -1,23 +1,23 @@
 {
-  "name": "Bachelor of Environment and Sustainability Advanced (Honours)",
-  "code": "AENSU",
-  "year": 2019,
-  "units": 192,
   "required": {
     "x_from_category": [
       {
+        "courses": "Science List",
         "type": "minimum",
-        "units": "24",
-        "courses": "Science List"
+        "units": "24"
       },
       {
-        "type": "minimum",
+        "courses": "Science List",
         "level": [
           3000
         ],
-        "units": 36,
-        "courses": "Science List"
+        "type": "minimum",
+        "units": 36
       }
     ]
-  }
+  },
+  "code": "AENSU",
+  "year": 2019,
+  "name": "Bachelor of Environment and Sustainability Advanced (Honours)",
+  "units": 192
 }

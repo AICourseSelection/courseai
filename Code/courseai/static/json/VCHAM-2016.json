@@ -1,21 +1,37 @@
 {
-  "name": "Master of Culture Health and Medicine (Advanced)",
-  "code": "VCHAM",
-  "year": 2016,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "CHMD8004",
-      "CHMD8014",
-      "THES8103",
-      "ANTH6004",
-      "ANTH6009",
-      "ANTH6017"
-    ],
     "x_from_here": [
       {
+        "courses": [
+          "ANTH6005",
+          "ANTH8007",
+          "ANTH8029",
+          "ANTH8038",
+          "BIAN6512",
+          "BIAN6519",
+          "BIOL8021",
+          "CHMD8001",
+          "CHMD8005",
+          "CHMD8006",
+          "CHMD8008",
+          "CHMD8009",
+          "CHMD8010",
+          "CHMD8011",
+          "CHMD8015",
+          "CHMD8016",
+          "CHMD8019",
+          "CHMD8020",
+          "DEMO8079",
+          "EMDV8001",
+          "GEND6501",
+          "MEDI8111",
+          "NSPO8013",
+          "POPM8001"
+        ],
         "type": "minimum",
-        "units": 24,
+        "units": 12
+      },
+      {
         "courses": [
           "ANTH6004",
           "ANTH6009",
@@ -57,11 +73,11 @@
           "POLS6101",
           "SCOM8014",
           "SOCY6045"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH6005",
           "ANTH8007",
@@ -87,38 +103,22 @@
           "MEDI8111",
           "NSPO8013",
           "POPM8001"
-        ]
-      },
-      {
+        ],
         "type": "minimum",
-        "units": 36,
-        "courses": [
-          "ANTH6005",
-          "ANTH8007",
-          "ANTH8029",
-          "ANTH8038",
-          "BIAN6512",
-          "BIAN6519",
-          "BIOL8021",
-          "CHMD8001",
-          "CHMD8005",
-          "CHMD8006",
-          "CHMD8008",
-          "CHMD8009",
-          "CHMD8010",
-          "CHMD8011",
-          "CHMD8015",
-          "CHMD8016",
-          "CHMD8019",
-          "CHMD8020",
-          "DEMO8079",
-          "EMDV8001",
-          "GEND6501",
-          "MEDI8111",
-          "NSPO8013",
-          "POPM8001"
-        ]
+        "units": 36
       }
+    ],
+    "compulsory_courses": [
+      "CHMD8004",
+      "CHMD8014",
+      "THES8103",
+      "ANTH6004",
+      "ANTH6009",
+      "ANTH6017"
     ]
-  }
+  },
+  "code": "VCHAM",
+  "year": 2016,
+  "name": "Master of Culture Health and Medicine (Advanced)",
+  "units": 96
 }

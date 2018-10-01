@@ -3,5 +3,12 @@
   "code": "MPROM",
   "year": 2018,
   "units": 96,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "MGMC-SPEC",
+      "PROM-SPEC",
+      "PMGE-SPEC"
+    ]
+  }
 }

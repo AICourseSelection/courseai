@@ -1,25 +1,15 @@
 {
-  "name": "Master of Neuroscience (Advanced)",
-  "code": "VNEUR",
-  "year": 2019,
-  "units": 96,
   "required": {
-    "compulsory_courses": [
-      "NEUR6101",
-      "NEUR6102"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "BIOL6174",
           "PSYC6010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "BIOL6001",
           "BIOL6161",
@@ -37,8 +27,18 @@
           "PSYC6016",
           "SCOM6031",
           "VCPG6002"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
+    ],
+    "compulsory_courses": [
+      "NEUR6101",
+      "NEUR6102"
     ]
-  }
+  },
+  "code": "VNEUR",
+  "year": 2019,
+  "name": "Master of Neuroscience (Advanced)",
+  "units": 96
 }

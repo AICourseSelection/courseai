@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -18,6 +16,21 @@
         "units": "18",
         "courses": "CBE List 1"
       }
+    ],
+    "one_from_m/m/s": [
+      [
+        "ACCT-MAJ",
+        "BUSN-MAJ",
+        "CORP-MAJ",
+        "ECST-MAJ",
+        "FINM-MAJ",
+        "INTB-MAJ",
+        "MGMT-MAJ",
+        "MARK-MAJ"
+      ]
+    ],
+    "required_m/m/s": [
+      "BECE-MIN"
     ]
   }
 }

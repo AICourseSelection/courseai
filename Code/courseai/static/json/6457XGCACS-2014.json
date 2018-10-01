@@ -3,5 +3,7 @@
   "code": "6457XGCACS",
   "year": 2014,
   "units": 24,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

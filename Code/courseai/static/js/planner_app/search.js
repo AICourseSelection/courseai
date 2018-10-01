@@ -52,13 +52,14 @@ function Search(plan) {
                     course_action_items[code].push(function (offering) {
                         let matched_filters = !filtered_sessions.length;
                         for (const session of filtered_sessions) {
-                            matched_filters = matched_filters || offering.checkRequirements(plan, session).sat;
+                            const checked = offering.checkRequirements(plan, session).sat;
+                            const offered = offering.extras.sessions.includes(SESSION_WORDS[session.slice(4)]);
+                            matched_filters = matched_filters || (checked && offered);
                         }
                         if (matched_filters) new_data.push(course)
                     })
                 }
                 $.when(batchCourseOfferingActions(course_action_items).then(function () {
-                    console.log(1);
                     after(new_data);
                 }));
             },

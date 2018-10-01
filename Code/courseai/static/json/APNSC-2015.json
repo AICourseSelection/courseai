@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Philosophy (Honours) / Bachelor of Science (Honours) - ANU as home institution",
+  "required": {},
   "code": "APNSC",
   "year": 2015,
-  "units": 3,
-  "required": {}
+  "name": "Bachelor of Philosophy (Honours) / Bachelor of Science (Honours) - ANU as home institution",
+  "units": 3
 }

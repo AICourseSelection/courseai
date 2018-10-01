@@ -3,5 +3,15 @@
   "code": "CFAS",
   "year": 2018,
   "units": 24,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "FINM-SPEC",
+        "ASTA-SPEC",
+        "ACST-SPEC",
+        "STAT-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

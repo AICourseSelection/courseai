@@ -12,13 +12,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "VCPG6200"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
         "courses": [
           "ENVS6014",
@@ -31,7 +24,15 @@
           "SOCY8101",
           "STAT6006"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "VCPG6200"
+        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

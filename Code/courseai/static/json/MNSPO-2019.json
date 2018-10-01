@@ -5,7 +5,6 @@
   "units": 96,
   "required": {
     "compulsory_courses": [
-      "INTR8065",
       "NSPO8006",
       "NSPO8020",
       "NSPO8023",
@@ -14,59 +13,20 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 30,
-        "courses": [
-          "NSPO8008",
-          "NSPO8004",
-          "NSPO8006",
-          "NSPO8007",
-          "NSPO8010",
-          "NSPO8012",
-          "NSPO8013",
-          "NSPO8014",
-          "NSPO8015",
-          "NSPO8017",
-          "NSPO8018",
-          "NSPO8019",
-          "NSPO8021",
-          "NSPO8022",
-          "NSPO8024",
-          "NSPO8025",
-          "NSPO8009"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 36,
         "courses": [
-          "ANTH8032",
-          "ANTH8043",
           "CRWF8000",
           "DIPL8006",
+          "INTR8017",
           "INTR8062",
           "INTR8065",
           "INTR8067",
+          "INTR8068",
           "MEAS8111",
           "MEAS8115",
-          "NSPO8008",
-          "NSPO8004",
-          "NSPO8006",
-          "NSPO8007",
-          "NSPO8009",
-          "NSPO8010",
-          "NSPO8012",
-          "NSPO8013",
-          "NSPO8014",
-          "NSPO8015",
-          "NSPO8017",
-          "NSPO8018",
-          "NSPO8019",
-          "NSPO8021",
-          "NSPO8022",
-          "NSPO8024",
-          "NSPO8025",
-          "POGO8012",
-          "POGO8095",
+          "POGO8045",
+          "POGO8083",
+          "REGN8007",
           "STST8001",
           "STST8002",
           "STST8004",
@@ -76,7 +36,30 @@
           "STST8027",
           "STST8051"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 30,
+        "courses": [
+          "NSPO8007",
+          "NSPO8008",
+          "NSPO8009",
+          "NSPO8010",
+          "NSPO8012",
+          "NSPO8014",
+          "NSPO8017",
+          "NSPO8018",
+          "NSPO8021",
+          "NSPO8022",
+          "NSPO8024",
+          "NSPO8025",
+          "NSPO8026",
+          "NSPO8027",
+          "NSPO8028"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

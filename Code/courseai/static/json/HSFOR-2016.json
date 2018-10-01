@@ -1,7 +1,7 @@
 {
-  "name": "Bachelor of Science (Forest Sciences) (Honours)",
+  "required": {},
   "code": "HSFOR",
   "year": 2016,
-  "units": 48,
-  "required": {}
+  "name": "Bachelor of Science (Forest Sciences) (Honours)",
+  "units": 48
 }

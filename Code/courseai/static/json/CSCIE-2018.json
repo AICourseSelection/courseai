@@ -1,7 +1,7 @@
 {
-  "name": "Graduate Certificate of Science",
+  "required": {},
   "code": "CSCIE",
   "year": 2018,
-  "units": 24,
-  "required": {}
+  "name": "Graduate Certificate of Science",
+  "units": 24
 }

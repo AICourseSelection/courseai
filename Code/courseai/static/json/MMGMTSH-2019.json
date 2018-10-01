@@ -3,5 +3,8 @@
   "code": "MMGMTSH",
   "year": 2019,
   "units": 72,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

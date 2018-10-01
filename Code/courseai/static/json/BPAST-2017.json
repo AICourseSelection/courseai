@@ -3,5 +3,10 @@
   "code": "BPAST",
   "year": 2017,
   "units": 144,
-  "required": {}
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": [ 
+      "PAST-MAJ"
+    ]
+  }
 }
