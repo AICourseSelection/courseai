@@ -17,9 +17,11 @@ const ELECTIVE_TEXT = "Elective Course";
 const MMS_CLASS_NAME = 'mms-course-list';
 let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
-const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'mms-course-list0', 'added-elective', 'compulsory']; // list of classes used for colouring cells - used when clearing plans
+const COLOR_CLASSES = ['compulsory', 'elective', 'mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'invalid-cell']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
+const MMS_TYPES_MAPPING = { 'MAJ': 'Major', 'MIN': 'Minor', 'SPEC': 'Specialisation', 'HSPC': 'Honours Specialisation' };
 let colorMappings = {};
+let legendMappings = {'compulsory': 'Degree Program Courses', 'elective': 'Elective Courses'};
 
 const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
@@ -58,6 +60,32 @@ function resetPlan() {
     SAVER.disableSaving();
     clearPlanner();
     setupPlanner(true);
+}
+
+function updateColorLegend() {
+    let section = $('#color-coding-section');
+    section.empty(); // remove existing legend items
+    let mmsClasses = ['mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4'];
+
+    for (var i = 0; i < COLOR_CLASSES.length; i++) {
+        let classKey = COLOR_CLASSES[i];
+        if (classKey in legendMappings) {
+            let row = $('<div class="color-coding-row"/>');
+            let color = $('<div class="color-coding-box"/>');
+            let title = $('<span class="color-coding-text"/>');
+
+            color.css('background-color', colorMappings[classKey]);
+            if (mmsClasses.includes(classKey)) {
+                title.text(MMS_TYPES_MAPPING[legendMappings[classKey]['type']] + ': ' + legendMappings[classKey]['title']);
+            } else {
+                title.text(legendMappings[classKey]);
+            }
+
+            row.append(color);
+            row.append(title);
+            section.append(row);
+        }
+    }
 }
 
 function addLinearGradient(colorClasses, box) {
@@ -279,6 +307,8 @@ async function mms_add(code, year) {
 
     let mmsCourseCodes = [];
     let colorIndex = getColorClassIndex(code);
+    legendMappings[MMS_CLASS_NAME + colorIndex] = {'title': mms.title, 'type': mms.type}; // add mapping of MMS class color to its title and type
+    updateColorLegend();
 
     let courses_actions = {};
     let section_count = 0;
@@ -482,6 +512,8 @@ async function deleteMMS(button) {
     let colorIndex = getColorClassIndex(code);
     delete allMMSCourseCodes[code];
     let mmsClassName = MMS_CLASS_NAME + colorIndex;
+    delete legendMappings[mmsClassName]; // remove the specified class to title mapping for the color coding legend
+    updateColorLegend();
     $("." + mmsClassName).removeClass(mmsClassName); // remove the class from all elements
     PLAN.removeMMS(code, year); // Delete from the plan.
     $(button).parents('.mms').find('.result-course').popover('dispose');
@@ -525,6 +557,7 @@ let SAVER = new AutoSave(PLAN, save_code);
 setupPlanner();
 
 updateColorMappings();
+updateColorLegend();
 
 $('#rc-button').click(function () {
     $('#rc-modal').modal();
@@ -1325,7 +1358,7 @@ function loadCourseGrid(plan) {
     batchCourseOfferingActions(courses_actions).then(function () {
         window.setTimeout(function () {
             updateProgress();
-        }, 250);
+        }, 750);
         updateRecommendations();
         SAVER.enableSaving();
     });
@@ -1365,9 +1398,13 @@ function coursePopoverSetup(i, item) {
         });
     });
 
+    let firstOpen = true;
     // reposition on click event trigger, which fires after the show.bs.popover event
     $(this).on('click', function (e) {
-        forcePopoverReposition();
+        if (firstOpen) {
+            firstOpen = false;
+            forcePopoverReposition();
+        }
     });
 
     $(this).on('shown.bs.popover', function () {
@@ -1421,7 +1458,14 @@ function mmsPopoverSetup() {
     });
     $(this).on('show.bs.popover', mmsPopoverData);
 
-    $(this).on('click', forcePopoverReposition());
+    let firstOpen = true;
+    // reposition on click event trigger, which fires after the show.bs.popover event
+    $(this).on('click', function (e) {
+        if (firstOpen) {
+            firstOpen = false;
+            forcePopoverReposition();
+        }
+    });
 }
 
 function updateCourseSearchResults(response) {
@@ -2034,16 +2078,14 @@ function setChecked(node, checked, useCrosses) {
 }
 
 function setPanelStatus(panel, status) {
+    panel.removeClass('alert-success alert-warning alert-danger');
     if (status === 'done') {                // Done
         panel.addClass('alert-success');
-        panel.removeClass('alert-warning alert-danger');
     } else if (status === 'incomplete') {   // Incomplete
         panel.addClass('alert-warning');
-        panel.removeClass('alert-success alert-danger');
     } else if (status === 'problem') {      // Problem
         panel.addClass('alert-danger');
-        panel.removeClass('alert-success alert-warning');
-    } else panel.removeClass('alert-success alert-warning alert-danger');
+    } 
 }
 
 function updateProgress() {
