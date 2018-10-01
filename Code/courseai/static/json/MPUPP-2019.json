@@ -1,14 +1,18 @@
 {
+  "name": "Master of Public Policy",
+  "code": "MPUPP",
+  "year": 2019,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "POGO8016",
       "POGO8062",
       "POGO8401",
       "POGO8402"
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "Not found"
     ]
-  },
-  "code": "MPUPP",
-  "year": 2019,
-  "name": "Master of Public Policy",
-  "units": 96
+  }
 }

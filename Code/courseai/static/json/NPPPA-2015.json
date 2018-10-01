@@ -1,26 +1,21 @@
 {
+  "name": "Master of Public Policy in Policy Analysis",
+  "code": "NPPPA",
+  "year": 2015,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "POGO8012",
+      "POGO8019",
+      "POGO8024",
+      "POGO8062",
+      "POGO8072",
+      "POGO8117"
+    ],
     "x_from_here": [
       {
-        "courses": [
-          "POGO8016",
-          "POGO8081"
-        ],
         "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "POGO8021",
-          "POGO8025",
-          "POGO8057",
-          "POGO8083",
-          "POGO8101"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
+        "units": 12,
         "courses": [
           "POGO8021",
           "POGO8025",
@@ -31,19 +26,19 @@
           "EMDV8080",
           "EMDV8081",
           "IDEC8088"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
-          "POGO8082",
-          "POGO8090"
-        ],
-        "type": "minimum",
-        "units": 6
+          "POGO8016",
+          "POGO8081"
+        ]
       },
       {
+        "type": "maximum",
+        "units": 18,
         "courses": [
           "POGO8004",
           "POGO8015",
@@ -84,22 +79,29 @@
           "EURO8003",
           "POPH8103",
           "NSPO8007"
-        ],
-        "type": "maximum",
-        "units": 18
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8021",
+          "POGO8025",
+          "POGO8057",
+          "POGO8083",
+          "POGO8101"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8082",
+          "POGO8090"
+        ]
       }
     ],
-    "compulsory_courses": [
-      "POGO8012",
-      "POGO8019",
-      "POGO8024",
-      "POGO8062",
-      "POGO8072",
-      "POGO8117"
-    ]
-  },
-  "code": "NPPPA",
-  "year": 2015,
-  "name": "Master of Public Policy in Policy Analysis",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

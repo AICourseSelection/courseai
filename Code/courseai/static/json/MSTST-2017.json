@@ -1,15 +1,26 @@
 {
+  "name": "Master of Strategic Studies",
+  "code": "MSTST",
+  "year": 2017,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "STST8002",
+      "STST8010",
+      "STST8052"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "STST8004",
           "STST8051"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       },
       {
+        "type": "minimum",
+        "units": 30,
         "courses": [
           "INTR8053",
           "INTR8067",
@@ -28,19 +39,10 @@
           "STST8032",
           "STST8033",
           "STST8051"
-        ],
-        "type": "minimum",
-        "units": 30
+        ]
       }
     ],
-    "compulsory_courses": [
-      "STST8002",
-      "STST8010",
-      "STST8052"
-    ]
-  },
-  "code": "MSTST",
-  "year": 2017,
-  "name": "Master of Strategic Studies",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

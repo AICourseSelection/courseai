@@ -1,15 +1,23 @@
 {
+  "name": "Master of Public Policy",
+  "code": "MPUBP",
+  "year": 2017,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "CRWF8000",
+      "POGO8012",
+      "POGO8019",
+      "POGO8024",
+      "POGO8062",
+      "POGO8072",
+      "POGO8117",
+      "POGO8096"
+    ],
     "x_from_here": [
       {
-        "courses": [
-          "POGO8016",
-          "POGO8081"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
+        "type": "maximum",
+        "units": 12,
         "courses": [
           "ANTH8009",
           "ANTH8028",
@@ -31,11 +39,19 @@
           "NSPO8007",
           "POPH8103",
           "SOCY8004"
-        ],
-        "type": "maximum",
-        "units": 12
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8016",
+          "POGO8081"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "CRWF7000",
           "POGO8004",
@@ -44,32 +60,18 @@
           "POGO8025",
           "POGO8032",
           "POGO8035"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "POGO8082",
           "POGO8090"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       }
     ],
-    "compulsory_courses": [
-      "CRWF8000",
-      "POGO8012",
-      "POGO8019",
-      "POGO8024",
-      "POGO8062",
-      "POGO8072",
-      "POGO8117",
-      "POGO8096"
-    ]
-  },
-  "code": "MPUBP",
-  "year": 2017,
-  "name": "Master of Public Policy",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }
