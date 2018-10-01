@@ -1,8 +1,8 @@
 {
-  "code": "7420XMACTP",
-  "units": 120,
   "name": "Master of Actuarial Practice",
+  "code": "7420XMACTP",
   "year": 2017,
+  "units": 120,
   "required": {
     "compulsory_courses": [
       "ACST8033",
@@ -20,19 +20,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ACST8045",
-          "ACST8047",
-          "ACST8048",
-          "ACST8049",
-          "ACST8060",
-          "ACST8061",
-          "FINM8006"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 42,
         "courses": [
           "ACST8050",
@@ -44,7 +31,21 @@
           "FINM7008",
           "FINM7041"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ACST8045",
+          "ACST8047",
+          "ACST8048",
+          "ACST8049",
+          "ACST8060",
+          "ACST8061",
+          "FINM8006"
+        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

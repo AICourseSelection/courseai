@@ -1,13 +1,7 @@
 {
-  "units": 96,
-  "code": "VAAPD",
-  "name": "Master of Applied Anthropology and Participatory Development (Advanced)",
-  "year": 2015,
   "required": {
     "x_from_here": [
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ANTH6065",
           "ANTH6066",
@@ -36,11 +30,11 @@
           "POGO8061",
           "POGO8898",
           "STST8032"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "ANTH6009",
           "ANTH6026",
@@ -51,44 +45,44 @@
           "EMDV8013",
           "EMDV8101",
           "SOCY6045"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "units": 18,
-        "type": "minimum",
         "courses": [
           "ANTH8007",
           "ANTH8009",
           "ANTH8038"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "units": 18,
-        "type": "minimum",
         "courses": [
           "ANTH8019",
           "ANTH8008"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ANTH8019",
           "ANTH8028"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 18,
-        "type": "minimum",
         "courses": [
           "ANTH8006",
           "ANTH8028"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "ANTH8029",
           "ANTH8032",
@@ -98,11 +92,11 @@
           "ANTH8056",
           "ANTH8060",
           "INDG8001"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "ANTH6065",
           "ANTH6066",
@@ -131,8 +125,14 @@
           "POGO8061",
           "POGO8898",
           "STST8032"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "VAAPD",
+  "year": 2015,
+  "name": "Master of Applied Anthropology and Participatory Development (Advanced)",
+  "units": 96
 }

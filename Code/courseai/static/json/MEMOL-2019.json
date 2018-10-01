@@ -1,8 +1,4 @@
 {
-  "code": "MEMOL",
-  "units": 96,
-  "name": "Master of Environmental Management and Development - Online",
-  "year": 2019,
   "required": {
     "compulsory_courses": [
       "EMDV8101",
@@ -11,5 +7,9 @@
       "EMDV8104",
       "EMDV8078"
     ]
-  }
+  },
+  "code": "MEMOL",
+  "year": 2019,
+  "name": "Master of Environmental Management and Development - Online",
+  "units": 96
 }

@@ -1,24 +1,24 @@
 {
-  "code": "6828XGDMDS",
-  "units": 48,
-  "name": "Graduate Diploma of Military and Defence Studies",
-  "year": 2014,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "STST8104"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "STST8100"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "6828XGDMDS",
+  "year": 2014,
+  "name": "Graduate Diploma of Military and Defence Studies",
+  "units": 48
 }

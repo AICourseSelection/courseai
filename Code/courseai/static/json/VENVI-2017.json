@@ -1,23 +1,17 @@
 {
-  "code": "VENVI",
-  "units": 96,
-  "name": "Master of Environment (Advanced)",
-  "year": 2017,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ENVS6025",
           "ENVS6306",
           "ENVS8048",
           "ENVS8049"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ANTH8019",
           "EMDV8002",
@@ -30,11 +24,11 @@
           "ENVS6319",
           "MATH6102",
           "MATH6103"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8026",
           "ENVS6022",
@@ -55,8 +49,14 @@
           "ENVS6555",
           "ENVS8003",
           "ENVS8015"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "VENVI",
+  "year": 2017,
+  "name": "Master of Environment (Advanced)",
+  "units": 96
 }

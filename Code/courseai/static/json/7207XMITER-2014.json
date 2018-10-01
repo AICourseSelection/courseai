@@ -1,7 +1,9 @@
 {
-  "code": "7207XMITER",
-  "units": 48,
   "name": "Master of International Trade and Economic Relations",
+  "code": "7207XMITER",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "required_m/m/s": []
+  }
 }

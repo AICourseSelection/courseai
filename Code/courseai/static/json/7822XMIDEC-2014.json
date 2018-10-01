@@ -1,18 +1,7 @@
 {
-  "code": "7822XMIDEC",
-  "units": 48,
-  "name": "Master of International and Development Economics",
-  "year": 2014,
   "required": {
-    "compulsory_courses": [
-      "CRWF8000",
-      "IDEC8008",
-      "IDEC8064"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ECON8006",
           "ECON8011",
@@ -44,11 +33,11 @@
           "IDEC8081",
           "IDEC8083",
           "IDEC8088"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "CRWF8003",
           "CRWF8004",
@@ -95,19 +84,30 @@
           "POGO8004",
           "POGO8057",
           "POGO8076"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "IDEC8010",
           "IDEC8011",
           "IDEC8020",
           "IDEC8023",
           "IDEC8026"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "CRWF8000",
+      "IDEC8008",
+      "IDEC8064"
     ]
-  }
+  },
+  "code": "7822XMIDEC",
+  "year": 2014,
+  "name": "Master of International and Development Economics",
+  "units": 48
 }

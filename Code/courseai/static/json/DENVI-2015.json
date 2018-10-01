@@ -1,7 +1,7 @@
 {
+  "required": {},
   "code": "DENVI",
-  "units": 48,
-  "name": "Graduate Diploma of Environment",
   "year": 2015,
-  "required": {}
+  "name": "Graduate Diploma of Environment",
+  "units": 48
 }

@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -33,14 +35,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH1014",
-          "MATH1116"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "MATH1013",
           "MATH1115"
         ]
@@ -51,6 +45,14 @@
         "courses": [
           "COMP1100",
           "COMP1730"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "MATH1014",
+          "MATH1116"
         ]
       }
     ],
@@ -63,6 +65,7 @@
         "MTSY-MAJ",
         "PHOT-MAJ"
       ]
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

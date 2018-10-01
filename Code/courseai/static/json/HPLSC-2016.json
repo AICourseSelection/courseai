@@ -1,8 +1,4 @@
 {
-  "units": 48,
-  "code": "HPLSC",
-  "name": "Bachelor of Political Science (Honours)",
-  "year": 2016,
   "required": {
     "compulsory_courses": [
       "POLS4009",
@@ -11,5 +7,9 @@
       "THES4103",
       "HONS4100"
     ]
-  }
+  },
+  "code": "HPLSC",
+  "year": 2016,
+  "name": "Bachelor of Political Science (Honours)",
+  "units": 48
 }

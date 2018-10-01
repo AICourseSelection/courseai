@@ -16,8 +16,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP6240",
-          "COMP7240"
+          "STAT6038",
+          "STAT7001"
         ]
       },
       {
@@ -33,10 +33,11 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT6038",
-          "STAT7001"
+          "COMP6240",
+          "COMP7240"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

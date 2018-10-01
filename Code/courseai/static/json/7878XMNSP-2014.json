@@ -1,18 +1,7 @@
 {
-  "code": "7878XMNSP",
-  "units": 18,
-  "name": "Master of National Security Policy",
-  "year": 2014,
   "required": {
-    "compulsory_courses": [
-      "NSPO8006",
-      "NSPO8007",
-      "POGO8045"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "ANTH8032",
           "ANTH8043",
@@ -37,11 +26,11 @@
           "STST8027",
           "STST8051",
           "STST8052"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "NSPO8004",
           "NSPO8010",
@@ -51,8 +40,19 @@
           "NSPO8017",
           "NSPO8018",
           "NSPO8022"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "NSPO8006",
+      "NSPO8007",
+      "POGO8045"
     ]
-  }
+  },
+  "code": "7878XMNSP",
+  "year": 2014,
+  "name": "Master of National Security Policy",
+  "units": 18
 }

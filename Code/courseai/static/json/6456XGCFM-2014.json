@@ -1,7 +1,9 @@
 {
-  "code": "6456XGCFM",
-  "units": 24,
   "name": "Graduate Certificate in Financial Management",
+  "code": "6456XGCFM",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "required_m/m/s": []
+  }
 }

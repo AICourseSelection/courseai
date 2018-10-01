@@ -1,9 +1,24 @@
 {
-  "code": "BBIOT",
-  "units": 144,
-  "name": "Bachelor of Biotechnology",
-  "year": 2014,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
+    "x_from_category": [
+      {
+        "courses": "Science List",
+        "level": [
+          3000
+        ],
+        "type": "minimum",
+        "units": 24
+      }
+    ],
     "compulsory_courses": [
       "BIOL1003",
       "BIOL1004",
@@ -17,25 +32,10 @@
       "BIOL3161",
       "BIOL3191",
       "LAWS3104"
-    ],
-    "x_from_category": [
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": "Science List",
-        "level": [
-          3000
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
     ]
-  }
+  },
+  "code": "BBIOT",
+  "year": 2014,
+  "name": "Bachelor of Biotechnology",
+  "units": 144
 }

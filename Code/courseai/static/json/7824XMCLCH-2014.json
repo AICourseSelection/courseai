@@ -1,29 +1,23 @@
 {
-  "code": "7824XMCLCH",
-  "units": 48,
-  "name": "Master of Climate Change",
-  "year": 2014,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8102",
           "ENVS6025"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "CRWF8006",
           "CRWF8014"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 30,
         "courses": [
           "BUSN7017",
           "COMP7310",
@@ -59,11 +53,11 @@
           "SCOM8021",
           "SCOM6027",
           "SCOM8501"
-        ]
+        ],
+        "type": "minimum",
+        "units": 30
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BUSN7017",
           "COMP7310",
@@ -99,8 +93,14 @@
           "SCOM8021",
           "SCOM8027",
           "SCOM8501"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "7824XMCLCH",
+  "year": 2014,
+  "name": "Master of Climate Change",
+  "units": 48
 }

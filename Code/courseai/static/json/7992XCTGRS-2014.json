@@ -1,7 +1,7 @@
 {
-  "units": 6,
+  "required": {},
   "code": "7992XCTGRS",
-  "name": "Certificate of Graduate Studies",
   "year": 2014,
-  "required": {}
+  "name": "Certificate of Graduate Studies",
+  "units": 6
 }

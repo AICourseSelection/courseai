@@ -1,19 +1,7 @@
 {
-  "code": "MEMDV",
-  "units": 96,
-  "name": "Master of Environmental Management and Development",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "EMDV8007",
-      "EMDV8013",
-      "EMDV8078",
-      "EMDV8101"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH8028",
           "ANTH8038",
@@ -31,11 +19,11 @@
           "EMDV8103",
           "EMDV8104",
           "EMDV8124"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH8009",
           "ANTH8019",
@@ -60,19 +48,19 @@
           "POGO8115",
           "POGO8210",
           "POGO8212"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8002",
           "EMDV8012"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH8014",
           "ANTH8107",
@@ -81,19 +69,19 @@
           "EMDV8026",
           "EMDV8108",
           "EMDV8124"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "CRWF8000",
           "EMDV8104"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ANTH6009",
           "ANTH8049",
@@ -111,16 +99,28 @@
           "IDEC8001",
           "IDEC8003",
           "PASI6003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "ANTH8028",
           "EMDV8103"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "EMDV8007",
+      "EMDV8013",
+      "EMDV8078",
+      "EMDV8101"
     ]
-  }
+  },
+  "code": "MEMDV",
+  "year": 2015,
+  "name": "Master of Environmental Management and Development",
+  "units": 96
 }

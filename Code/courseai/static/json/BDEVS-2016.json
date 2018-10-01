@@ -1,17 +1,17 @@
 {
-  "units": 144,
-  "code": "BDEVS",
-  "name": "Bachelor of Development Studies",
-  "year": 2016,
   "required": {
     "max_by_level": [
       {
-        "units": 60,
-        "type": "maximum",
         "level": [
           1000
-        ]
+        ],
+        "type": "maximum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "BDEVS",
+  "year": 2016,
+  "name": "Bachelor of Development Studies",
+  "units": 144
 }

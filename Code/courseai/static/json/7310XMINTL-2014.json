@@ -1,12 +1,12 @@
 {
-  "code": "7310XMINTL",
-  "units": 7310,
-  "name": "Master of International Law",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "LAWS8182",
       "LAWS8183"
     ]
-  }
+  },
+  "code": "7310XMINTL",
+  "year": 2014,
+  "name": "Master of International Law",
+  "units": 7310
 }

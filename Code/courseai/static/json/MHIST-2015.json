@@ -1,17 +1,7 @@
 {
-  "units": 96,
-  "code": "MHIST",
-  "name": "Master of History",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "HIST6007",
-      "HIST6110"
-    ],
     "x_from_here": [
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "HIST6022",
           "HIST6107",
@@ -31,8 +21,18 @@
           "HIST6236",
           "HIST6237",
           "HIST6509"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
+    ],
+    "compulsory_courses": [
+      "HIST6007",
+      "HIST6110"
     ]
-  }
+  },
+  "code": "MHIST",
+  "year": 2015,
+  "name": "Master of History",
+  "units": 96
 }

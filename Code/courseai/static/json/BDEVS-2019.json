@@ -1,18 +1,16 @@
 {
-  "units": 144,
-  "code": "BDEVS",
-  "name": "Bachelor of Development Studies",
-  "year": 2019,
   "required": {
-    "compulsory_courses": [
-      "ANTH2009",
-      "POLS2011",
-      "SOCY2030"
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
     ],
     "x_from_here": [
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "ANTH2017",
           "ANTH2026",
@@ -48,11 +46,11 @@
           "SOCY2022",
           "SOCY2055",
           "SOCY2162"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "ANTH1002",
           "ANTH1003",
@@ -63,17 +61,19 @@
           "POLS1006",
           "SOCY1002",
           "SOCY1004"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
     ],
-    "max_by_level": [
-      {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
-        ]
-      }
+    "compulsory_courses": [
+      "ANTH2009",
+      "POLS2011",
+      "SOCY2030"
     ]
-  }
+  },
+  "code": "BDEVS",
+  "year": 2019,
+  "name": "Bachelor of Development Studies",
+  "units": 144
 }

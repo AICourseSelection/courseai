@@ -1,17 +1,41 @@
 {
-  "code": "BINSS",
-  "units": 144,
   "name": "Bachelor of International Security Studies",
+  "code": "BINSS",
   "year": 2016,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
         "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
+        "level": "1000",
+        "units": 60
       }
+    ],
+    "one_from_m/m/s": [
+      [
+        "ARAB-MAJ",
+        "ASPP-MAJ",
+        "CHIN-MAJ",
+        "FREN-MAJ",
+        "GERM-MAJ",
+        "HIND-MAJ",
+        "INDN-MAJ",
+        "IREL-MAJ",
+        "ITAL-MAJ",
+        "JPNS-MAJ",
+        "KORE-MAJ",
+        "LAMS-MAJ",
+        "MECA-MAJ",
+        "PAST-MAJ",
+        "PECO-MAJ",
+        "PERS-MAJ",
+        "SANS-MAJ",
+        "SPAH-MAJ",
+        "THAI-MAJ",
+        "VIET-MAJ"
+      ]
+    ],
+    "required_m/m/s": [ 
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
-  "units": 48,
+  "required": {},
   "code": "7161XMHIST",
-  "name": "Master of History",
   "year": 2014,
-  "required": {}
+  "name": "Master of History",
+  "units": 48
 }

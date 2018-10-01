@@ -1,13 +1,7 @@
 {
-  "code": "DIAFF",
-  "units": 48,
-  "name": "Graduate Diploma of International Affairs",
-  "year": 2016,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 48,
         "courses": [
           "ANTH8043",
           "ANTH8032",
@@ -50,8 +44,14 @@
           "STST8033",
           "STST8051",
           "STST8052"
-        ]
+        ],
+        "type": "minimum",
+        "units": 48
       }
     ]
-  }
+  },
+  "code": "DIAFF",
+  "year": 2016,
+  "name": "Graduate Diploma of International Affairs",
+  "units": 48
 }

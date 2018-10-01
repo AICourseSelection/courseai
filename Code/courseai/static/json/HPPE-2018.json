@@ -1,8 +1,4 @@
 {
-  "units": 48,
-  "code": "HPPE",
-  "name": "Bachelor of Politics, Philosophy and Economics (Honours)",
-  "year": 2018,
   "required": {
     "compulsory_courses": [
       "PPEI4000",
@@ -12,5 +8,9 @@
       "PHIL4010",
       "PHIL4011"
     ]
-  }
+  },
+  "code": "HPPE",
+  "year": 2018,
+  "name": "Bachelor of Politics, Philosophy and Economics (Honours)",
+  "units": 48
 }

@@ -1,7 +1,14 @@
 {
-  "code": "MEINV",
-  "units": 96,
   "name": "Master of Entrepreneurship and Innovation",
+  "code": "MEINV",
   "year": 2018,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "MGMC-SPEC",
+      "MGME-SPEC",
+      "ENIN-SPEC"
+    ]
+  }
 }

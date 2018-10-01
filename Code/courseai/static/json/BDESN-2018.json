@@ -1,17 +1,16 @@
 {
-  "units": 144,
-  "code": "BDESN",
-  "name": "Bachelor of Design",
-  "year": 2018,
   "required": {
-    "compulsory_courses": [
-      "DESN1001",
-      "DESN1002"
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
     ],
     "x_from_here": [
       {
-        "units": 18,
-        "type": "minimum",
         "courses": [
           "ARTV1020",
           "ARTV1021",
@@ -106,29 +105,29 @@
           "DESA1021",
           "DESA2017",
           "DESA2018"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "ARTH1006",
           "ARTH1007"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ARTV1020",
           "ARTV1021",
           "ARTV1033",
           "DESA1021"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "ARTH2043",
           "ARTH2162",
@@ -136,11 +135,11 @@
           "ARTH2165",
           "ARTH2167",
           "ARTH2172"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "DESN2002",
           "DESN2003",
@@ -152,17 +151,18 @@
           "DESN2007",
           "DESN2008",
           "DESN2009"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ],
-    "max_by_level": [
-      {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
-        ]
-      }
+    "compulsory_courses": [
+      "DESN1001",
+      "DESN1002"
     ]
-  }
+  },
+  "code": "BDESN",
+  "year": 2018,
+  "name": "Bachelor of Design",
+  "units": 144
 }

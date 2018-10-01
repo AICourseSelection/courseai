@@ -1,19 +1,7 @@
 {
-  "code": "7815XMIAF",
-  "units": 48,
-  "name": "Master of International Affairs",
-  "year": 2016,
   "required": {
-    "compulsory_courses": [
-      "INTR8011",
-      "INTR8013",
-      "INTR8032",
-      "DIPL8003"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "DIPL8003",
           "DIPL8008",
@@ -44,8 +32,20 @@
           "POGO8045",
           "POLS8032",
           "STST8051"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
+    ],
+    "compulsory_courses": [
+      "INTR8011",
+      "INTR8013",
+      "INTR8032",
+      "DIPL8003"
     ]
-  }
+  },
+  "code": "7815XMIAF",
+  "year": 2016,
+  "name": "Master of International Affairs",
+  "units": 48
 }

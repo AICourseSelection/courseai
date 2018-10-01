@@ -1,20 +1,7 @@
 {
-  "code": "VNSPO",
-  "units": 96,
-  "name": "Master of National Security Policy (Advanced)",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "INTR8032",
-      "INTR8065",
-      "NSPO8006",
-      "NSPO8007",
-      "NSPO8020"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "ANTH8032",
           "ANTH8043",
@@ -47,11 +34,11 @@
           "STST8026",
           "STST8027",
           "STST8051"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "NSPO8010",
           "NSPO8013",
@@ -59,17 +46,30 @@
           "NSPO8016",
           "NSPO8019",
           "NSPO8022"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "NSPO8004",
           "NSPO8017",
           "NSPO8018"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "INTR8032",
+      "INTR8065",
+      "NSPO8006",
+      "NSPO8007",
+      "NSPO8020"
     ]
-  }
+  },
+  "code": "VNSPO",
+  "year": 2015,
+  "name": "Master of National Security Policy (Advanced)",
+  "units": 96
 }

@@ -3,5 +3,7 @@
   "code": "8070XMPHIL",
   "year": 2015,
   "units": 60,
-  "required": {}
+  "required": {
+    "required_m/m/s": []
+  }
 }

@@ -1,18 +1,7 @@
 {
-  "code": "MAPST",
-  "units": 96,
-  "name": "Master of Asia-Pacific Studies",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "ASIA8020",
-      "ASIA8021",
-      "ASIA8512"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 42,
         "courses": [
           "ASIA6001",
           "ASIA6114",
@@ -25,11 +14,11 @@
           "ASIA8610",
           "ASIA8028",
           "ASIA8010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 42
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ASIA2065",
           "ASIA2301",
@@ -42,8 +31,19 @@
           "ASIA2308",
           "INTR2010",
           "STST2001"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "ASIA8020",
+      "ASIA8021",
+      "ASIA8512"
     ]
-  }
+  },
+  "code": "MAPST",
+  "year": 2015,
+  "name": "Master of Asia-Pacific Studies",
+  "units": 96
 }

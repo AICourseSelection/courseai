@@ -1,23 +1,7 @@
 {
-  "units": 96,
-  "code": "VARSC",
-  "name": "Master of Archaeological Science (Advanced)",
-  "year": 2017,
   "required": {
-    "compulsory_courses": [
-      "ARCH8030",
-      "ARCH8032",
-      "ARCH8040",
-      "THES8102",
-      "ARCH6004",
-      "ARCH6005",
-      "ARCH6006",
-      "ARCH6022"
-    ],
     "x_from_here": [
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "ARCH6004",
           "ARCH6005",
@@ -40,11 +24,11 @@
           "EMSC6027",
           "EMSC6107",
           "ENVS6529"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "units": 24,
-        "type": "minimum",
         "courses": [
           "ARCH8002",
           "ARCH8029",
@@ -69,8 +53,24 @@
           "HUMN8010",
           "HUMN8019",
           "HUMN8022"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
+    ],
+    "compulsory_courses": [
+      "ARCH8030",
+      "ARCH8032",
+      "ARCH8040",
+      "THES8102",
+      "ARCH6004",
+      "ARCH6005",
+      "ARCH6006",
+      "ARCH6022"
     ]
-  }
+  },
+  "code": "VARSC",
+  "year": 2017,
+  "name": "Master of Archaeological Science (Advanced)",
+  "units": 96
 }

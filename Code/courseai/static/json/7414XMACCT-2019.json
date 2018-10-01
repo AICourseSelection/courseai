@@ -1,8 +1,8 @@
 {
-  "code": "7414XMACCT",
-  "units": 96,
   "name": "Master of Accounting",
+  "code": "7414XMACCT",
   "year": 2019,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "BUSN7008",
@@ -11,14 +11,6 @@
       "STAT7055"
     ],
     "x_from_here": [
-      {
-        "type": "maximum",
-        "units": 12,
-        "courses": [
-          "BUSN8007",
-          "BUSN8801"
-        ]
-      },
       {
         "type": "minimum",
         "units": 24,
@@ -44,7 +36,16 @@
           "BUSN7052",
           "INFS7004"
         ]
+      },
+      {
+        "type": "maximum",
+        "units": 12,
+        "courses": [
+          "BUSN8007",
+          "BUSN8801"
+        ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

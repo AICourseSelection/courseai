@@ -1,7 +1,7 @@
 {
+  "required": {},
   "code": "HBIOT",
-  "units": 48,
-  "name": "Bachelor of Biotechnology (Honours)",
   "year": 2018,
-  "required": {}
+  "name": "Bachelor of Biotechnology (Honours)",
+  "units": 48
 }

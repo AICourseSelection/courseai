@@ -1,7 +1,7 @@
 {
-  "units": 48,
+  "required": {},
   "code": "7135SAPPL",
-  "name": "Master of Applied Linguistics (Japanese)",
   "year": 2014,
-  "required": {}
+  "name": "Master of Applied Linguistics (Japanese)",
+  "units": 48
 }

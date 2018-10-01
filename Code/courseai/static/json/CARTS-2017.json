@@ -1,7 +1,7 @@
 {
-  "units": 24,
+  "required": {},
   "code": "CARTS",
-  "name": "Graduate Certificate of Arts",
   "year": 2017,
-  "required": {}
+  "name": "Graduate Certificate of Arts",
+  "units": 24
 }

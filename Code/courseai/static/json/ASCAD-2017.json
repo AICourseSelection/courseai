@@ -1,32 +1,32 @@
 {
-  "code": "ASCAD",
-  "units": 192,
-  "name": "Bachelor of Science (Advanced) (Honours)",
-  "year": 2017,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
     "x_from_category": [
       {
+        "courses": "Science List",
         "type": "minimum",
-        "units": "24",
-        "courses": "Science List"
+        "units": "24"
       },
       {
-        "type": "minimum",
-        "units": 36,
         "courses": "Science List",
         "level": [
           3000
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       }
     ]
-  }
+  },
+  "code": "ASCAD",
+  "year": 2017,
+  "name": "Bachelor of Science (Advanced) (Honours)",
+  "units": 192
 }

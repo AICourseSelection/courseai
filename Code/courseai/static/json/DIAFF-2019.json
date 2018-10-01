@@ -1,13 +1,7 @@
 {
-  "code": "DIAFF",
-  "units": 48,
-  "name": "Graduate Diploma of International Affairs",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "INTR8032",
           "INTR8071",
@@ -17,8 +11,14 @@
           "POLS8043",
           "STST8001",
           "STST8004"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "DIAFF",
+  "year": 2019,
+  "name": "Graduate Diploma of International Affairs",
+  "units": 48
 }

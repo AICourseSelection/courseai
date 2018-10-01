@@ -1,13 +1,7 @@
 {
-  "code": "VPUBH",
-  "units": 96,
-  "name": "Master of Public Health (Advanced)",
-  "year": 2019,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "CHMD8004",
           "DEMO8063",
@@ -20,11 +14,11 @@
           "POPH8918",
           "POPM8001",
           "SOCR8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       },
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "BIOL8021",
           "CHMD8001",
@@ -46,16 +40,22 @@
           "MGMT7030",
           "NSPO8013",
           "POGO8029"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POPH8100",
           "POPH8552"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ]
-  }
+  },
+  "code": "VPUBH",
+  "year": 2019,
+  "name": "Master of Public Health (Advanced)",
+  "units": 96
 }

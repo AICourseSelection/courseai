@@ -1,7 +1,7 @@
 {
-  "units": 48,
+  "required": {},
   "code": "7158XCLASR",
-  "name": "Master of Classical Studies (Research)",
   "year": 2014,
-  "required": {}
+  "name": "Master of Classical Studies (Research)",
+  "units": 48
 }

@@ -7,7 +7,9 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": "1000",
+        "level": [
+          1000
+        ],
         "units": 60
       }
     ],
@@ -35,16 +37,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1100",
-          "COMP1730"
+          "MATH1013",
+          "MATH1115"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH1013",
-          "MATH1115"
+          "COMP1100",
+          "COMP1730"
         ]
       },
       {
@@ -65,6 +67,7 @@
         "MTSY-MAJ",
         "PHOT-MAJ"
       ]
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

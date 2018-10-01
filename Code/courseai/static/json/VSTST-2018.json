@@ -1,20 +1,7 @@
 {
-  "code": "VSTST",
-  "units": 96,
-  "name": "Master of Strategic Studies (Advanced)",
-  "year": 2018,
   "required": {
-    "compulsory_courses": [
-      "STST8001",
-      "STST8002",
-      "STST8052",
-      "STST8010",
-      "STST8004"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 36,
         "courses": [
           "INTR8067",
           "INTR8053",
@@ -32,24 +19,37 @@
           "STST8032",
           "STST8033",
           "STST8051"
-        ]
+        ],
+        "type": "minimum",
+        "units": 36
       },
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "STST7001",
           "STST7002"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "STST8004",
           "STST8051"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
+    ],
+    "compulsory_courses": [
+      "STST8001",
+      "STST8002",
+      "STST8052",
+      "STST8010",
+      "STST8004"
     ]
-  }
+  },
+  "code": "VSTST",
+  "year": 2018,
+  "name": "Master of Strategic Studies (Advanced)",
+  "units": 96
 }

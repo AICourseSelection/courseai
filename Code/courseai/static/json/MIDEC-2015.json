@@ -1,40 +1,25 @@
 {
-  "code": "MIDEC",
-  "units": 96,
-  "name": "Master of International and Development Economics",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "IDEC8002",
-      "IDEC8003",
-      "IDEC8015",
-      "IDEC8016",
-      "IDEC8017",
-      "IDEC8029",
-      "IDEC8030"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "IDEC8010",
           "IDEC8011",
           "IDEC8023",
           "IDEC8026"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "EMDV8078",
           "IDEC8001"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ECON8002",
           "ECON8006",
@@ -70,11 +55,11 @@
           "IDEC8081",
           "IDEC8083",
           "IDEC8088"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "maximum",
-        "units": 12,
         "courses": [
           "POGO8210",
           "EMDV8006",
@@ -91,8 +76,23 @@
           "POGO8004",
           "POGO8057",
           "POGO8076"
-        ]
+        ],
+        "type": "maximum",
+        "units": 12
       }
+    ],
+    "compulsory_courses": [
+      "IDEC8002",
+      "IDEC8003",
+      "IDEC8015",
+      "IDEC8016",
+      "IDEC8017",
+      "IDEC8029",
+      "IDEC8030"
     ]
-  }
+  },
+  "code": "MIDEC",
+  "year": 2015,
+  "name": "Master of International and Development Economics",
+  "units": 96
 }

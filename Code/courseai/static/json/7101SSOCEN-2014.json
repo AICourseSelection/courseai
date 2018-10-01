@@ -1,30 +1,30 @@
 {
-  "units": 48,
-  "code": "7101SSOCEN",
-  "name": "Master of Applied Anthropology and Participatory Development (Society and Environment)",
-  "year": 2014,
   "required": {
+    "x_from_here": [
+      {
+        "courses": [
+          "ANTH8007"
+        ],
+        "type": "minimum",
+        "units": 12
+      },
+      {
+        "courses": [
+          "ANTH8006"
+        ],
+        "type": "minimum",
+        "units": 12
+      }
+    ],
     "compulsory_courses": [
       "ANTH8019",
       "ANTH8028",
       "ANTH8044",
       "ANTH8007"
-    ],
-    "x_from_here": [
-      {
-        "units": 12,
-        "type": "minimum",
-        "courses": [
-          "ANTH8007"
-        ]
-      },
-      {
-        "units": 12,
-        "type": "minimum",
-        "courses": [
-          "ANTH8006"
-        ]
-      }
     ]
-  }
+  },
+  "code": "7101SSOCEN",
+  "year": 2014,
+  "name": "Master of Applied Anthropology and Participatory Development (Society and Environment)",
+  "units": 48
 }

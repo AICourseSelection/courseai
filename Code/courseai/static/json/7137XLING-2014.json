@@ -1,7 +1,7 @@
 {
-  "units": 48,
+  "required": {},
   "code": "7137XLING",
-  "name": "Master of Linguistics (Research)",
   "year": 2014,
-  "required": {}
+  "name": "Master of Linguistics (Research)",
+  "units": 48
 }

@@ -1,9 +1,39 @@
 {
-  "code": "APSYC",
-  "units": 192,
-  "name": "Bachelor of Psychology (Honours)",
-  "year": 2017,
   "required": {
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
+    ],
+    "x_from_category": [
+      {
+        "courses": "Science List",
+        "type": "minimum",
+        "units": "6"
+      },
+      {
+        "courses": "Science List",
+        "level": [
+          1000
+        ],
+        "type": "minimum",
+        "units": 12
+      },
+      {
+        "level": [
+          3000
+        ],
+        "type": "minimum",
+        "units": 18,
+        "area": [
+          "PSYC"
+        ]
+      }
+    ],
     "compulsory_courses": [
       "PSYC1003",
       "PSYC1004",
@@ -15,40 +45,10 @@
       "PSYC3018",
       "PSYC3025",
       "PSYC3026"
-    ],
-    "x_from_category": [
-      {
-        "type": "minimum",
-        "units": "6",
-        "courses": "Science List"
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": "Science List",
-        "level": [
-          1000
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "area": [
-          "PSYC"
-        ],
-        "level": [
-          3000
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
     ]
-  }
+  },
+  "code": "APSYC",
+  "year": 2017,
+  "name": "Bachelor of Psychology (Honours)",
+  "units": 192
 }

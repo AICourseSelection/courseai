@@ -1,7 +1,7 @@
 {
-  "units": 24,
+  "required": {},
   "code": "6025XDART",
-  "name": "Graduate Certificate in Digital Arts",
   "year": 2014,
-  "required": {}
+  "name": "Graduate Certificate in Digital Arts",
+  "units": 24
 }

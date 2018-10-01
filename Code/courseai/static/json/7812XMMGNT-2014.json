@@ -1,7 +1,9 @@
 {
-  "code": "7812XMMGNT",
-  "units": 48,
   "name": "Master of Management",
+  "code": "7812XMMGNT",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "required_m/m/s": []
+  }
 }

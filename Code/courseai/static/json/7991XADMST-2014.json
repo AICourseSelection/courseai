@@ -1,7 +1,7 @@
 {
-  "units": 6,
+  "required": {},
   "code": "7991XADMST",
-  "name": "Master of Advanced Studies",
   "year": 2014,
-  "required": {}
+  "name": "Master of Advanced Studies",
+  "units": 6
 }

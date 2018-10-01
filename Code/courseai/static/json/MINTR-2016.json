@@ -1,19 +1,7 @@
 {
-  "code": "MINTR",
-  "units": 96,
-  "name": "Master of International Relations",
-  "year": 2016,
   "required": {
-    "compulsory_courses": [
-      "INTR8069",
-      "INTR8071",
-      "INTR8011",
-      "INTR8013"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 48,
         "courses": [
           "DIPL8003",
           "DIPL8008",
@@ -46,8 +34,20 @@
           "POGO8045",
           "POLS8032",
           "STST8051"
-        ]
+        ],
+        "type": "minimum",
+        "units": 48
       }
+    ],
+    "compulsory_courses": [
+      "INTR8069",
+      "INTR8071",
+      "INTR8011",
+      "INTR8013"
     ]
-  }
+  },
+  "code": "MINTR",
+  "year": 2016,
+  "name": "Master of International Relations",
+  "units": 96
 }

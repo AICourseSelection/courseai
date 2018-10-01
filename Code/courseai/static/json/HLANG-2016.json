@@ -1,13 +1,7 @@
 {
-  "units": 48,
-  "code": "HLANG",
-  "name": "Bachelor of Languages (Honours)",
-  "year": 2016,
   "required": {
     "x_from_here": [
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "CLAS4006",
           "ENGL4020",
@@ -15,11 +9,11 @@
           "LANG4004",
           "LING4009",
           "LING4010"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "LANG4002",
           "LANG4003",
@@ -28,8 +22,14 @@
           "LING4010",
           "LING4011",
           "LING4012"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       }
     ]
-  }
+  },
+  "code": "HLANG",
+  "year": 2016,
+  "name": "Bachelor of Languages (Honours)",
+  "units": 48
 }

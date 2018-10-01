@@ -1,7 +1,17 @@
 {
-  "code": "CFAS",
-  "units": 24,
   "name": "Graduate Certificate of Finance and Actuarial Statistics",
+  "code": "CFAS",
   "year": 2015,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "FINM-SPEC",
+        "ASTA-SPEC",
+        "ACST-SPEC",
+        "STAT-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

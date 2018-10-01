@@ -15,6 +15,7 @@
         "STAT-HSPC",
         "SOCY-HSPC"
       ]
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

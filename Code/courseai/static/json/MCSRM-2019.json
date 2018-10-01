@@ -15,6 +15,7 @@
       "NSPO8021",
       "MGMT7203",
       "MGMT8005"
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

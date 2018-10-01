@@ -1,7 +1,9 @@
 {
-  "code": "7810XMBA",
-  "units": 96,
   "name": "Master of Business Administration",
+  "code": "7810XMBA",
   "year": 2014,
-  "required": {}
+  "units": 96,
+  "required": {
+    "required_m/m/s": []
+  }
 }

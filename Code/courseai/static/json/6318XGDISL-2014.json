@@ -1,8 +1,4 @@
 {
-  "code": "6318XGDISL",
-  "units": 6318,
-  "name": "Graduate Diploma in International Security Law",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "LAWS8023",
@@ -10,5 +6,9 @@
       "LAWS8179",
       "LAWS8182"
     ]
-  }
+  },
+  "code": "6318XGDISL",
+  "year": 2014,
+  "name": "Graduate Diploma in International Security Law",
+  "units": 6318
 }

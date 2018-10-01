@@ -1,13 +1,7 @@
 {
-  "code": "VENVS",
-  "units": 1,
-  "name": "Master of Environmental Science (Advanced)",
-  "year": 2016,
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "BIOL6002",
           "BIOL6003",
@@ -28,11 +22,11 @@
           "BIOL6206",
           "BIOL6631",
           "BIOL8021"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "EMSC6014",
           "EMSC6015",
@@ -50,11 +44,11 @@
           "EMSC8018",
           "EMSC8706",
           "EMSC8707"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "BIOL6002",
           "BIOL6003",
@@ -75,11 +69,11 @@
           "BIOL6206",
           "BIOL6631",
           "BIOL8021"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "ENVS6005",
           "ENVS6015",
@@ -107,11 +101,11 @@
           "ENVS6529",
           "ENVS6555",
           "ENVS8003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       },
       {
-        "type": "minimum",
-        "units": 12,
         "courses": [
           "ENVS6005",
           "ENVS6015",
@@ -141,11 +135,11 @@
           "ENVS8003",
           "ENVS8015",
           "ENVS8048"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "type": "minimum",
-        "units": 24,
         "courses": [
           "EMSC6014",
           "EMSC6015",
@@ -163,8 +157,14 @@
           "EMSC8018",
           "EMSC8706",
           "EMSC8707"
-        ]
+        ],
+        "type": "minimum",
+        "units": 24
       }
     ]
-  }
+  },
+  "code": "VENVS",
+  "year": 2016,
+  "name": "Master of Environmental Science (Advanced)",
+  "units": 1
 }

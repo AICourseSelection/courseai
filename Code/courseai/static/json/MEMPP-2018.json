@@ -1,20 +1,7 @@
 {
-  "code": "MEMPP",
-  "units": 48,
-  "name": "Executive Master of Public Policy",
-  "year": 2018,
   "required": {
-    "compulsory_courses": [
-      "POGO8081",
-      "POGO8500",
-      "POGO8504",
-      "POGO8505",
-      "POGO8506"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 18,
         "courses": [
           "ANIP6503",
           "CRWF7000",
@@ -24,8 +11,21 @@
           "POGO8025",
           "POGO8029",
           "POGO8035"
-        ]
+        ],
+        "type": "minimum",
+        "units": 18
       }
+    ],
+    "compulsory_courses": [
+      "POGO8081",
+      "POGO8500",
+      "POGO8504",
+      "POGO8505",
+      "POGO8506"
     ]
-  }
+  },
+  "code": "MEMPP",
+  "year": 2018,
+  "name": "Executive Master of Public Policy",
+  "units": 48
 }

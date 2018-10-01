@@ -27,6 +27,8 @@
         "IHCC-SPEC",
         "SENG-SPEC"
       ]
+    ],
+    "required_m/m/s": [ 
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
-  "units": 48,
+  "required": {},
   "code": "ELANG",
-  "name": "Diploma of Languages",
   "year": 2016,
-  "required": {}
+  "name": "Diploma of Languages",
+  "units": 48
 }

@@ -1,29 +1,24 @@
 {
-  "units": 144,
-  "code": "BPPOL",
-  "name": "Bachelor of Public Policy",
-  "year": 2019,
   "required": {
-    "compulsory_courses": [
-      "ECON1101",
-      "INDG3001",
-      "POLS2009",
-      "SOCR3001",
-      "SOCY2043",
-      "SOCY2101"
+    "max_by_level": [
+      {
+        "level": [
+          1000
+        ],
+        "type": "maximum",
+        "units": 60
+      }
     ],
     "x_from_here": [
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "PHIL1008",
           "PHIL2020"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "units": 30,
-        "type": "minimum",
         "courses": [
           "CRIM2001",
           "CRIM2003",
@@ -52,47 +47,52 @@
           "STST2003",
           "STST3002",
           "STST3003"
-        ]
+        ],
+        "type": "minimum",
+        "units": 30
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "ANIP3003",
           "ANIP3005",
           "POLS3022",
           "SOCY3001",
           "SOCY3030"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 12,
-        "type": "minimum",
         "courses": [
           "PHIL2115",
           "PHIL2122",
           "POLS2063",
           "POLS2119",
           "POLS2120"
-        ]
+        ],
+        "type": "minimum",
+        "units": 12
       },
       {
-        "units": 6,
-        "type": "minimum",
         "courses": [
           "POLS2044",
           "SOCY2038"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       }
     ],
-    "max_by_level": [
-      {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
-        ]
-      }
+    "compulsory_courses": [
+      "ECON1101",
+      "INDG3001",
+      "POLS2009",
+      "SOCR3001",
+      "SOCY2043",
+      "SOCY2101"
     ]
-  }
+  },
+  "code": "BPPOL",
+  "year": 2019,
+  "name": "Bachelor of Public Policy",
+  "units": 144
 }

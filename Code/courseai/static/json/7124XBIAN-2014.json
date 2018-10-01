@@ -1,7 +1,7 @@
 {
-  "units": 48,
+  "required": {},
   "code": "7124XBIAN",
-  "name": "Master of Biological Anthropology",
   "year": 2014,
-  "required": {}
+  "name": "Master of Biological Anthropology",
+  "units": 48
 }

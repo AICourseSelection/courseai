@@ -1,17 +1,17 @@
 {
-  "code": "BAPYA",
-  "units": 192,
-  "name": "Bachelor of Asia-Pacific Studies (Year in Asia)",
-  "year": 2017,
   "required": {
     "max_by_level": [
       {
-        "type": "maximum",
-        "units": 60,
         "level": [
           1000
-        ]
+        ],
+        "type": "maximum",
+        "units": 60
       }
     ]
-  }
+  },
+  "code": "BAPYA",
+  "year": 2017,
+  "name": "Bachelor of Asia-Pacific Studies (Year in Asia)",
+  "units": 192
 }

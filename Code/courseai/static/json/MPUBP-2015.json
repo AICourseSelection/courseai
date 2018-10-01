@@ -1,29 +1,15 @@
 {
-  "code": "MPUBP",
-  "units": 96,
-  "name": "Master of Public Policy",
-  "year": 2015,
   "required": {
-    "compulsory_courses": [
-      "POGO8012",
-      "POGO8019",
-      "POGO8024",
-      "POGO8062",
-      "POGO8072",
-      "POGO8117"
-    ],
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8016",
           "POGO8081"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8004",
           "POGO8015",
@@ -46,19 +32,19 @@
           "POGO8088",
           "POGO8095",
           "POGO8096"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "minimum",
-        "units": 6,
         "courses": [
           "POGO8082",
           "POGO8090"
-        ]
+        ],
+        "type": "minimum",
+        "units": 6
       },
       {
-        "type": "maximum",
-        "units": 30,
         "courses": [
           "POGO8004",
           "POGO8015",
@@ -99,8 +85,22 @@
           "EURO8003",
           "POPH8103",
           "NSPO8007"
-        ]
+        ],
+        "type": "maximum",
+        "units": 30
       }
+    ],
+    "compulsory_courses": [
+      "POGO8012",
+      "POGO8019",
+      "POGO8024",
+      "POGO8062",
+      "POGO8072",
+      "POGO8117"
     ]
-  }
+  },
+  "code": "MPUBP",
+  "year": 2015,
+  "name": "Master of Public Policy",
+  "units": 96
 }

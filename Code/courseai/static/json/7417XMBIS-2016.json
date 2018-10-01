@@ -1,8 +1,8 @@
 {
-  "code": "7417XMBIS",
-  "units": 96,
   "name": "Master of Business Information Systems",
+  "code": "7417XMBIS",
   "year": 2016,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "BUSN7024",
@@ -41,6 +41,7 @@
           "MKTG7035"
         ]
       }
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

@@ -1,12 +1,12 @@
 {
-  "code": "7300SINTL",
-  "units": 7300,
-  "name": "Master of Laws (International Law)",
-  "year": 2014,
   "required": {
     "compulsory_courses": [
       "LAWS8182",
       "LAWS8183"
     ]
-  }
+  },
+  "code": "7300SINTL",
+  "year": 2014,
+  "name": "Master of Laws (International Law)",
+  "units": 7300
 }
