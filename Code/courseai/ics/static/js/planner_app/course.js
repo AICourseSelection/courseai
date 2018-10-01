@@ -45,6 +45,7 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
     this.checkRequirements = function (plan, session) {
         let incompatible_courses = [];
         let overall_sat = true;
+        let res = {};
 
         let courses_taken = [];
         for (let ses of plan.sessions) {
@@ -53,22 +54,53 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
         }
         let courses_taking = plan.courses[session] || [];
 
-        for (let clause of this.rules) {
-            let clause_sat = false;
-            for (let course of clause) {
-                if (clause_sat || !/^~?[A-Z]{4}[0-9]{4}/.test(course)) continue; // Skip if satisfied or unknown requirement.
-                if (course.charAt(0) === '~') {
-                    let code = course.slice(1);
-                    if (checkCoursePresent(courses_taken.concat(courses_taking), code)) {
-                        incompatible_courses.push(code);
-                    } else clause_sat = true
-                } else {
-                    clause_sat = checkCoursePresent(courses_taken, course)
+        function checkItem(item) {
+            if (/^[A-Z]{4}[0-9]{4}/.test(item)) { // Prerequisite course
+                return checkCoursePresent(courses_taken, item)
+            } else try {
+                const clause = JSON.parse(item);
+                if (clause.type === 'co-requisite') {
+                    return checkCoursePresent(courses_taken.concat(courses_taking), item.course);
+                } else if ('units' in clause) {
+                    const unitsRequired = clause.units;
+                    const unitsCompleted = countCourses(courses_taken, function (code) {
+                        let areaSat = true;
+                        if (clause.areas && clause.areas.length) areaSat = clause.areas.includes(code.slice(0, 4));
+                        let levelSat = true;
+                        if (clause.levels && clause.levels.length) levelSat = clause.levels.includes(parseInt(code.charAt(4)) * 1000);
+                        return areaSat && levelSat;
+                    });
+                    return unitsCompleted >= unitsRequired;
                 }
+            } catch (e) {
+                if (e.name === 'SyntaxError') return true; // Unreadable clause
+                else throw e;
+            }
+        }
+
+        for (let code of this.rules['incompatible'] || []) {
+            if (checkItem(code)) {
+                overall_sat = false;
+                incompatible_courses.push(code);
+            }
+        }
+
+        for (let clause of this.rules['pre-requisite'] || []) {
+            let clause_sat = false;
+            for (let item of clause) {
+                if (checkItem(item)) clause_sat = true;
             }
             overall_sat = overall_sat && clause_sat;
         }
-        return {'sat': overall_sat, 'inc': incompatible_courses};
+
+        if (this.rules['min-units'] !== undefined && countCourses(courses_taken) <= this.rules['min-units']) {
+            overall_sat = false;
+            res['units'] = this.rules['min-units'];
+        }
+
+        res['sat'] = overall_sat;
+        res['inc'] = incompatible_courses;
+        return res;
     }
 }
 
@@ -138,4 +170,21 @@ function checkCoursePresent(courses, code) {
         return true;
     }
     return false;
+}
+
+/**
+ * Count the units or number of courses in a list of courses.
+ * Ignores courses in the list which the user has marked as failed.
+ * @param courses   The courses to look through.
+ * @param units     Count units (true) or just the number of courses (false).
+ * @param filter    A function (code -> boolean) that dictates whether or not a course code should be included in these calculations.
+ * @return {number} The final count of units/courses completed without failure.
+ */
+function countCourses(courses, filter = (() => true), units = true) {
+    let count = 0;
+    for (let c of courses) {
+        if (!filter(c.code) || c.failed) continue;
+        count += units ? c.course.units : 1;
+    }
+    return count;
 }

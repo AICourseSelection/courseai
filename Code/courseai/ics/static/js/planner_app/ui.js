@@ -735,12 +735,15 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     let courses_actions = {};
     let group = curr_popover.find('.related-courses');
     let recCourses = [];
-    for (const clause of offering.rules) {
+    for (const clause of offering.rules['pre-requisite'] || []) {
         for (const item of clause) {
             if (/^[A-Z]{4}[0-9]{4}/.test(item)) recCourses.push({
                 'course': item,
-                'reasoning': 'This is a prerequisite course.'
-            });
+                'reasoning': 'This is a pre-requisite course.'
+            }); else if (clause.type === 'co-requisite') recCourses.push({
+                'course': clause.course,
+                'reasoning': 'This is a co-requisite course.'
+            })
         }
     }
     for (const course of res.response) {
@@ -1391,7 +1394,7 @@ function coursePopoverSetup(i, item) {
             }
             const year = $(entry).find('.course-year').text();
             const reason = $(entry).find('.course-reason').text();
-            if (reason === "This is a prerequisite course." && prereqsSatisfied) {
+            if (reason === "This is a pre-requisite course." && prereqsSatisfied) {
                 $(entry).remove();
             }
             makeCourseDraggable($(entry), code, year);
