@@ -60,7 +60,7 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
             } else try {
                 const clause = JSON.parse(item);
                 if (clause.type === 'co-requisite') {
-                    return checkCoursePresent(courses_taken.concat(courses_taking), item.course);
+                    return checkCoursePresent(courses_taken.concat(courses_taking), clause.course);
                 } else if ('units' in clause) {
                     const unitsRequired = clause.units;
                     const unitsCompleted = countCourses(courses_taken, function (code) {
@@ -93,7 +93,7 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
             overall_sat = overall_sat && clause_sat;
         }
 
-        if (this.rules['min-units'] !== undefined && countCourses(courses_taken) <= this.rules['min-units']) {
+        if (this.rules['min-units'] !== undefined && countCourses(courses_taken) < this.rules['min-units']) {
             overall_sat = false;
             res['units'] = this.rules['min-units'];
         }
