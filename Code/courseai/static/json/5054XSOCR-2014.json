@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Social Research Preparatory Program",
   "code": "5054XSOCR",
   "year": 2014,
-  "name": "Social Research Preparatory Program",
-  "units": 6
+  "units": 6,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

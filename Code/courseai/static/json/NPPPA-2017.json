@@ -49,14 +49,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POGO8082",
-          "POGO8090"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 18,
         "courses": [
           "EMDV8080",
@@ -68,6 +60,14 @@
           "POGO8083",
           "POGO8101",
           "POGO8210"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8082",
+          "POGO8090"
         ]
       }
     ],

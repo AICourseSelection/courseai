@@ -13,6 +13,27 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 30,
+        "courses": [
+          "NSPO8007",
+          "NSPO8008",
+          "NSPO8009",
+          "NSPO8010",
+          "NSPO8012",
+          "NSPO8014",
+          "NSPO8017",
+          "NSPO8018",
+          "NSPO8021",
+          "NSPO8022",
+          "NSPO8024",
+          "NSPO8025",
+          "NSPO8026",
+          "NSPO8027",
+          "NSPO8028"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 36,
         "courses": [
           "CRWF8000",
@@ -35,27 +56,6 @@
           "STST8026",
           "STST8027",
           "STST8051"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 30,
-        "courses": [
-          "NSPO8007",
-          "NSPO8008",
-          "NSPO8009",
-          "NSPO8010",
-          "NSPO8012",
-          "NSPO8014",
-          "NSPO8017",
-          "NSPO8018",
-          "NSPO8021",
-          "NSPO8022",
-          "NSPO8024",
-          "NSPO8025",
-          "NSPO8026",
-          "NSPO8027",
-          "NSPO8028"
         ]
       }
     ],

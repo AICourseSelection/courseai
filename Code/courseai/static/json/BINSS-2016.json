@@ -11,7 +11,33 @@
         "units": 60
       }
     ],
-    "one_from_m/m/s": [],
+    "one_from_m/m/s": [
+      [
+        "PAST-MIN",
+        "GERM-MIN",
+        "VIET-MIN",
+        "RUSS-MIN",
+        "FREN-MIN",
+        "IREL-MIN",
+        "JPNS-MIN",
+        "URDU-MIN",
+        "KORE-MIN",
+        "SANS-MIN",
+        "HIND-MIN",
+        "CHIN-MIN",
+        "LAMS-MIN",
+        "INDN-MIN",
+        "MECA-MIN",
+        "HINS-MIN",
+        "PECO-MIN",
+        "ASPP-MIN",
+        "PERS-MIN",
+        "ARAB-MIN",
+        "SPAH-MIN",
+        "THAI-MIN",
+        "ITAL-MIN"
+      ]
+    ],
     "required_m/m/s": []
   }
 }

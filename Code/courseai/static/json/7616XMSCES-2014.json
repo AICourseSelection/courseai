@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Science (Environmental Science)",
   "code": "7616XMSCES",
   "year": 2014,
-  "name": "Master of Science (Environmental Science)",
-  "units": 48
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

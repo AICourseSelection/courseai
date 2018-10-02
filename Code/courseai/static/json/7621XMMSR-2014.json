@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Mathematical Sciences (Research)",
   "code": "7621XMMSR",
   "year": 2014,
-  "name": "Master of Mathematical Sciences (Research)",
-  "units": 72
+  "units": 72,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

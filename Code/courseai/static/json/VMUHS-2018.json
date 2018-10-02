@@ -1,7 +1,13 @@
 {
+  "name": "Master of Museum and Heritage Studies (Advanced)",
+  "code": "VMUHS",
+  "year": 2018,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "HUMN6001",
           "HUMN8001",
@@ -20,14 +26,16 @@
           "MUSC8008",
           "MUSC8009",
           "MUSC8011"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       }
-    ]
-  },
-  "code": "VMUHS",
-  "year": 2018,
-  "name": "Master of Museum and Heritage Studies (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [
+      [
+        "MUCO-SPEC",
+        "CEHE-SPEC",
+        "MEHI-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

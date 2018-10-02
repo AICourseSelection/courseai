@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Bachelor of Philosophy (Honours) - Science",
   "code": "APHSC",
   "year": 2015,
-  "name": "Bachelor of Philosophy (Honours) - Science",
-  "units": 192
+  "units": 192,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,67 +1,10 @@
 {
-  "required": {
-    "x_from_here": [
-      {
-        "courses": [
-          "SOCR8008",
-          "SOCR8009",
-          "SOCR8201"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "ANTH6009",
-          "ANTH6025",
-          "ANTH8028",
-          "CHMD8001",
-          "CHMD8004",
-          "CHMD8014",
-          "DEMO8091",
-          "HUMN6001",
-          "IDEC8003",
-          "IDEC8026",
-          "POGO8029",
-          "POGO8084",
-          "POPH8100",
-          "SOCY8004",
-          "STAT8002",
-          "SOCR8202",
-          "SOCR8203",
-          "SOCR8204"
-        ],
-        "type": "minimum",
-        "units": 18
-      },
-      {
-        "courses": [
-          "DEMO8008",
-          "DEMO8024",
-          "DEMO8047",
-          "DEMO8048",
-          "DEMO8088",
-          "DEMO8090",
-          "SOCR8002",
-          "SOCR8003",
-          "SOCR8004",
-          "SOCR8006",
-          "SOCR8008",
-          "SOCR8009",
-          "SOCR8201",
-          "SOCY6066"
-        ],
-        "type": "minimum",
-        "units": 12
-      }
-    ],
-    "compulsory_courses": [
-      "DEMO8082",
-      "SOCR8001"
-    ]
-  },
+  "name": "Master of Social Research",
   "code": "MSRES",
   "year": 2019,
-  "name": "Master of Social Research",
-  "units": 96
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

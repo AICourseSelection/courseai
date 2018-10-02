@@ -12,7 +12,12 @@
       "COMP8260",
       "MATH6005"
     ],
-    "one_from_m/m/s": [ 
+    "one_from_m/m/s": [
+      [
+        "DTSC-SPEC",
+        "HCSD-SPEC",
+        "AINT-SPEC"
+      ]
     ],
     "required_m/m/s": []
   }

@@ -1,7 +1,28 @@
 {
+  "name": "Master of Public Health",
+  "code": "MPUBH",
+  "year": 2015,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "POPH8103",
+      "POPH8104",
+      "POPH8100",
+      "POPH8101"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "CHMD8004",
+          "POPH8105",
+          "POPH8315"
+        ]
+      },
+      {
+        "type": "maximum",
+        "units": 66,
         "courses": [
           "CHMD8001",
           "CHMD8004",
@@ -29,29 +50,10 @@
           "POPH8317",
           "POPH8318",
           "POPM8001"
-        ],
-        "type": "maximum",
-        "units": 66
-      },
-      {
-        "courses": [
-          "CHMD8004",
-          "POPH8105",
-          "POPH8315"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       }
     ],
-    "compulsory_courses": [
-      "POPH8103",
-      "POPH8104",
-      "POPH8100",
-      "POPH8101"
-    ]
-  },
-  "code": "MPUBH",
-  "year": 2015,
-  "name": "Master of Public Health",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

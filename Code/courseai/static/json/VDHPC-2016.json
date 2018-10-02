@@ -1,7 +1,13 @@
 {
+  "name": "Master of Digital Humanities and Public Culture (Advanced)",
+  "code": "VDHPC",
+  "year": 2016,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "HUMN8001",
           "LING8010",
@@ -10,11 +16,11 @@
           "SOCR8006",
           "SOCR8008",
           "SOCR8009"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       },
       {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "ANTH6005",
           "ANTH6009",
@@ -26,11 +32,11 @@
           "HIST6121",
           "LING6001",
           "LING6002"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       },
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "HIST8004",
           "HUMN8030",
@@ -41,14 +47,15 @@
           "MUSC8005",
           "MUSC8009",
           "MUSC8011"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       }
-    ]
-  },
-  "code": "VDHPC",
-  "year": 2016,
-  "name": "Master of Digital Humanities and Public Culture (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [
+      [
+        "BIOG-SPEC",
+        "PUHC-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

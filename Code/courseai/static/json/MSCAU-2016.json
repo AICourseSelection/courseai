@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Science in Science Communication",
   "code": "MSCAU",
   "year": 2016,
-  "name": "Master of Science in Science Communication",
-  "units": 20
+  "units": 20,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

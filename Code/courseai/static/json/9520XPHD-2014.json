@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Doctor of Philosophy, Research School of Social Sciences",
   "code": "9520XPHD",
   "year": 2014,
-  "name": "Doctor of Philosophy, Research School of Social Sciences",
-  "units": 100
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

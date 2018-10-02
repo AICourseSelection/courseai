@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Translational Medicine",
   "code": "7651XMTMED",
   "year": 2014,
-  "name": "Master of Translational Medicine",
-  "units": 2
+  "units": 2,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

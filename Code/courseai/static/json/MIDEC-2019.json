@@ -13,58 +13,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "IDEC8010",
-          "IDEC8011",
-          "IDEC8023",
-          "IDEC8026"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON8002",
-          "ECON8006",
-          "ECON8010",
-          "ECON8015",
-          "ECON8034",
-          "ECON8037",
-          "ECON8039",
-          "ECON8041",
-          "ECON8047",
-          "ECON8049",
-          "ECON8053",
-          "EMET8001",
-          "EMET8010",
-          "EMET8012",
-          "EMET8014",
-          "IDEC8007",
-          "IDEC8009",
-          "IDEC8010",
-          "IDEC8011",
-          "IDEC8012",
-          "IDEC8014",
-          "IDEC8017",
-          "IDEC8020",
-          "IDEC8021",
-          "IDEC8022",
-          "IDEC8023",
-          "IDEC8025",
-          "IDEC8026",
-          "IDEC8028",
-          "IDEC8053",
-          "IDEC8089",
-          "IDEC8081",
-          "IDEC8083",
-          "IDEC8088",
-          "IDEC8123",
-          "IDEC8127"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ECON8002",
@@ -133,6 +81,58 @@
           "FINM7045",
           "FINM8007",
           "FINM8016"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "IDEC8010",
+          "IDEC8011",
+          "IDEC8023",
+          "IDEC8026"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON8002",
+          "ECON8006",
+          "ECON8010",
+          "ECON8015",
+          "ECON8034",
+          "ECON8037",
+          "ECON8039",
+          "ECON8041",
+          "ECON8047",
+          "ECON8049",
+          "ECON8053",
+          "EMET8001",
+          "EMET8010",
+          "EMET8012",
+          "EMET8014",
+          "IDEC8007",
+          "IDEC8009",
+          "IDEC8010",
+          "IDEC8011",
+          "IDEC8012",
+          "IDEC8014",
+          "IDEC8017",
+          "IDEC8020",
+          "IDEC8021",
+          "IDEC8022",
+          "IDEC8023",
+          "IDEC8025",
+          "IDEC8026",
+          "IDEC8028",
+          "IDEC8053",
+          "IDEC8089",
+          "IDEC8081",
+          "IDEC8083",
+          "IDEC8088",
+          "IDEC8123",
+          "IDEC8127"
         ]
       }
     ],

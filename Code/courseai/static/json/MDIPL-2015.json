@@ -13,6 +13,15 @@
         "type": "minimum",
         "units": 12,
         "courses": [
+          "DIPL8008",
+          "DIPL8009",
+          "DIPL8010"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
           "DIPL8006",
           "DIPL8008",
           "DIPL8009",
@@ -64,15 +73,6 @@
           "STST8027",
           "STST8051",
           "NSPO8019"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "DIPL8008",
-          "DIPL8009",
-          "DIPL8010"
         ]
       }
     ],

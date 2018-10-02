@@ -1,7 +1,13 @@
 {
+  "name": "Master of General and Applied Linguistics",
+  "code": "MLING",
+  "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "HUMN6001",
           "HUMN6003",
@@ -10,11 +16,11 @@
           "LING6509",
           "LING8026",
           "LING6032"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       },
       {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "LING6001",
           "LING6002",
@@ -26,14 +32,34 @@
           "LING6021",
           "LING6105",
           "LING6311"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       }
-    ]
-  },
-  "code": "MLING",
-  "year": 2017,
-  "name": "Master of General and Applied Linguistics",
-  "units": 96
+    ],
+    "one_from_m/m/s": [
+      [
+        "TURK-SPEC",
+        "THAI-SPEC",
+        "JPNS-SPEC",
+        "PORT-SPEC",
+        "ENGL-SPEC",
+        "FREN-SPEC",
+        "VIET-SPEC",
+        "PERS-SPEC",
+        "CHIN-SPEC",
+        "HIND-SPEC",
+        "ARAB-SPEC",
+        "SPAN-SPEC",
+        "LATN-SPEC",
+        "SKRT-SPEC",
+        "INDN-SPEC",
+        "KORE-SPEC",
+        "GREK-SPEC",
+        "RUSS-SPEC",
+        "INLS-SPEC",
+        "GERM-SPEC",
+        "ITAL-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

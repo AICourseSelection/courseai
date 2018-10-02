@@ -9,6 +9,18 @@
         "type": "minimum",
         "units": 36,
         "courses": [
+          "BUSN7008",
+          "FINM7006",
+          "FINM7007",
+          "FINM7008",
+          "FINM8007",
+          "STAT7055"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 36,
+        "courses": [
           "FINM7041",
           "FINM7044",
           "FINM8004",
@@ -22,27 +34,8 @@
           "STAT7016",
           "STAT7026",
           "STAT7030",
-          "STAT7040"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "STAT6038",
-          "STAT7001"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 36,
-        "courses": [
-          "BUSN7008",
-          "FINM7006",
-          "FINM7007",
-          "FINM7008",
-          "FINM8007",
-          "STAT7055"
+          "STAT7040",
+          "CBEA6070"
         ]
       },
       {
@@ -52,8 +45,17 @@
           "ECON8069",
           "STAT6046"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "STAT6038",
+          "STAT7001"
+        ]
       }
     ],
+    "one_from_m/m/s": [],
     "required_m/m/s": []
   }
 }

@@ -8,11 +8,11 @@
       "MMIB8006",
       "MGMT7250"
     ],
-    "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "MGMC-SPEC",
-      "MGME-SPEC",
-      "LEAD-SPEC"
-    ]
+    "one_from_m/m/s": [
+      [
+        "LEAD-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

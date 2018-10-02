@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Doctor of Philosophy, Science",
   "code": "9060XPHD",
   "year": 2016,
-  "name": "Doctor of Philosophy, Science",
-  "units": 100
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

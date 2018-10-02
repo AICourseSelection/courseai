@@ -1,7 +1,13 @@
 {
+  "name": "Master of General and Applied Linguistics (Advanced)",
+  "code": "VLING",
+  "year": 2016,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "ASIA6001",
           "ASIA6101",
@@ -32,11 +38,11 @@
           "LING8025",
           "PASI6010",
           "PASI6020"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       },
       {
+        "type": "minimum",
+        "units": 18,
         "courses": [
           "HUMN6001",
           "LING6001",
@@ -53,14 +59,34 @@
           "LING8011",
           "LING8012",
           "LING8026"
-        ],
-        "type": "minimum",
-        "units": 18
+        ]
       }
-    ]
-  },
-  "code": "VLING",
-  "year": 2016,
-  "name": "Master of General and Applied Linguistics (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [
+      [
+        "TURK-SPEC",
+        "THAI-SPEC",
+        "JPNS-SPEC",
+        "PORT-SPEC",
+        "ENGL-SPEC",
+        "FREN-SPEC",
+        "VIET-SPEC",
+        "PERS-SPEC",
+        "CHIN-SPEC",
+        "HIND-SPEC",
+        "ARAB-SPEC",
+        "SPAN-SPEC",
+        "LATN-SPEC",
+        "SKRT-SPEC",
+        "INDN-SPEC",
+        "KORE-SPEC",
+        "GREK-SPEC",
+        "RUSS-SPEC",
+        "INLS-SPEC",
+        "GERM-SPEC",
+        "ITAL-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

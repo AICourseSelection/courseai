@@ -18,6 +18,14 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BUSI3024",
+          "MGMT3025"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "BUSI2023",
@@ -41,19 +49,9 @@
           "BUSI2034",
           "BUSI2022"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BUSI3024",
-          "MGMT3025"
-        ]
       }
     ],
     "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "BECE-MIN"
-    ]
+    "required_m/m/s": []
   }
 }

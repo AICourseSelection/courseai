@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Certificate in Environmental Law",
   "code": "6351XGCEL",
   "year": 2014,
-  "name": "Graduate Certificate in Environmental Law",
-  "units": 6351
+  "units": 6351,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

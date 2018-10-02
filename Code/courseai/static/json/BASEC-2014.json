@@ -11,22 +11,7 @@
         "units": 60
       }
     ],
-    "one_from_m/m/s": [
-        "ARAB-MIN",
-        "CHIN-MIN",
-        "FREN-MIN",
-        "HIND-MIN",
-        "INDN-MIN",
-        "JPNS-MAJ",
-        "KORE-MAJ",
-        "SANS-MAJ",
-        "STAT-MIN",
-        "THAI-MIN",
-        "URDU-MIN",
-        "VIET-MIN"
-    ],
-    "required_m/m/s": [
-      "SECU-MAJ"
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

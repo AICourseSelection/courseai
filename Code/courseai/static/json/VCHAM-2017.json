@@ -1,7 +1,21 @@
 {
+  "name": "Master of Culture Health and Medicine (Advanced)",
+  "code": "VCHAM",
+  "year": 2017,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "CHMD8004",
+      "CHMD8014",
+      "THES8103",
+      "CHMD8009",
+      "CHMD8010",
+      "ANTH6004"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "ANTH6004",
           "ANTH6009",
@@ -39,22 +53,10 @@
           "POLS6100",
           "POLS6101",
           "SCOM8014"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       }
     ],
-    "compulsory_courses": [
-      "CHMD8004",
-      "CHMD8014",
-      "THES8103",
-      "CHMD8009",
-      "CHMD8010",
-      "ANTH6004"
-    ]
-  },
-  "code": "VCHAM",
-  "year": 2017,
-  "name": "Master of Culture Health and Medicine (Advanced)",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

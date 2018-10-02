@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Philosophy (MPhil), ANU College of Law",
   "code": "8030XMPHIL",
   "year": 2018,
-  "name": "Master of Philosophy (MPhil), ANU College of Law",
-  "units": 60
+  "units": 60,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

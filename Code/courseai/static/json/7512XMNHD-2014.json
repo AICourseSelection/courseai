@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Natural Hazards and Disasters",
   "code": "7512XMNHD",
   "year": 2014,
-  "name": "Master of Natural Hazards and Disasters",
-  "units": 4
+  "units": 4,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

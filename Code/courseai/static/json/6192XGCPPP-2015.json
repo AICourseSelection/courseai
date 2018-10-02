@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Certificate of Public Policy",
   "code": "6192XGCPPP",
   "year": 2015,
-  "name": "Graduate Certificate of Public Policy",
-  "units": 24
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

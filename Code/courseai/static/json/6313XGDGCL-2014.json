@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Diploma in Government and  Commercial Law",
   "code": "6313XGDGCL",
   "year": 2014,
-  "name": "Graduate Diploma in Government and  Commercial Law",
-  "units": 6313
+  "units": 6313,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

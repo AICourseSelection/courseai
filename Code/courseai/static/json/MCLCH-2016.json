@@ -6,14 +6,6 @@
   "required": {
     "x_from_here": [
       {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8013",
-          "EMDV8101"
-        ]
-      },
-      {
         "type": "maximum",
         "units": 18,
         "courses": [
@@ -53,8 +45,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMDV8102",
-          "ENVS6025"
+          "EMDV8013",
+          "EMDV8101"
         ]
       },
       {
@@ -86,6 +78,14 @@
           "ENVS6204",
           "ENVS6303",
           "ENVS6528"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8102",
+          "ENVS6025"
         ]
       },
       {

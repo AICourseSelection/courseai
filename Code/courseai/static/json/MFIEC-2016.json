@@ -18,17 +18,6 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "FINM7003",
-          "FINM8009",
-          "FINM8014",
-          "FINM8017",
-          "FINM8016"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
           "EMET8010",
           "EMET8012"
         ]
@@ -50,11 +39,23 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "FINM7003",
+          "FINM8009",
+          "FINM8014",
+          "FINM8017",
+          "FINM8016"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "ECON8053",
           "ECON8080"
         ]
       }
     ],
+    "one_from_m/m/s": [],
     "required_m/m/s": []
   }
 }

@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Doctor of Philosophy, National Security College",
   "code": "9850XPHD",
   "year": 2018,
-  "name": "Doctor of Philosophy, National Security College",
-  "units": 2
+  "units": 2,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

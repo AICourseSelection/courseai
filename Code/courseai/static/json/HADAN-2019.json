@@ -6,14 +6,13 @@
   "required": {
     "one_from_m/m/s": [
       [
-        "BIOL-HSPC",
+        "SOCY-HSPC",
         "BISS-HSPC",
         "COMP-HSPC",
-        "DIGH-HSPC",
+        "STAT-HSPC",
         "MATH-HSPC",
         "POPH-HSPC",
-        "STAT-HSPC",
-        "SOCY-HSPC"
+        "BIOL-HSPC"
       ]
     ],
     "required_m/m/s": []

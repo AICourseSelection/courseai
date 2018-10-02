@@ -47,7 +47,32 @@
         ]
       }
     ],
-    "one_from_m/m/s": [],
+    "one_from_m/m/s": [
+      [
+        "BURM-MIN",
+        "GERM-MIN",
+        "VIET-MIN",
+        "RUSS-MIN",
+        "FREN-MIN",
+        "IREL-MIN",
+        "JPNS-MIN",
+        "URDU-MIN",
+        "KORE-MIN",
+        "SANS-MIN",
+        "HIND-MIN",
+        "CHIN-MIN",
+        "INDN-MIN",
+        "TETM-MIN",
+        "HINS-MIN",
+        "PECO-MIN",
+        "PERS-MIN",
+        "MNGL-MIN",
+        "ARAB-MIN",
+        "SPAH-MIN",
+        "THAI-MIN",
+        "ITAL-MIN"
+      ]
+    ],
     "required_m/m/s": []
   }
 }

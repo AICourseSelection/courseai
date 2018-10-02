@@ -1,7 +1,21 @@
 {
+  "name": "Graduate Certificate in Environmental Management and Development",
+  "code": "6904XGCEMD",
+  "year": 2014,
+  "units": 24,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8013",
+          "EMDV8101"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "ANTH6009",
           "ANTH8106",
@@ -17,54 +31,42 @@
           "ENVS6304",
           "ENVS6555",
           "SOCY6045"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       },
       {
-        "courses": [
-          "EMDV8007",
-          "EMDV8078"
-        ],
         "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "EMDV8001",
-          "EMDV8026"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "EMDV8013",
-          "EMDV8101"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "ANTH8106",
-          "ANTH8107"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
+        "units": 6,
         "courses": [
           "ANTH6009",
           "SOCY6045"
-        ],
+        ]
+      },
+      {
         "type": "minimum",
-        "units": 6
+        "units": 6,
+        "courses": [
+          "EMDV8007",
+          "EMDV8078"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8106",
+          "ANTH8107"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8001",
+          "EMDV8026"
+        ]
       }
-    ]
-  },
-  "code": "6904XGCEMD",
-  "year": 2014,
-  "name": "Graduate Certificate in Environmental Management and Development",
-  "units": 24
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

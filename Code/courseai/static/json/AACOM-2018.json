@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -27,15 +25,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENGN3230",
-          "VCUG3001",
-          "VCUG3002"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 6,
         "courses": [
           "MATH1013",
@@ -46,6 +35,15 @@
           "ENGN1211",
           "STAT1008",
           "STAT1003"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENGN3230",
+          "VCUG3001",
+          "VCUG3002"
         ]
       },
       {
@@ -68,21 +66,16 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "level": [
-          3000,
-          4000
-        ],
-        "area": [
-          "COMP"
-        ],
+        "level": "3000, 4000",
+        "area": "COMP",
         "units": 6
       }
     ],
     "one_from_m/m/s": [
       [
+        "THCS-SPEC",
         "INSY-SPEC",
-        "SYAR-SPEC",
-        "THCS-SPEC"
+        "SYAR-SPEC"
       ]
     ],
     "required_m/m/s": []

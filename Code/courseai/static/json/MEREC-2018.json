@@ -12,32 +12,6 @@
     ],
     "x_from_here": [
       {
-        "type": "maximum",
-        "units": 12,
-        "courses": [
-          "CRWF7000",
-          "EMDV8001",
-          "EMDV8002",
-          "EMDV8007",
-          "EMDV8012",
-          "EMDV8080",
-          "EMDV8081",
-          "EMDV8082",
-          "EMDV8104",
-          "POGO8004",
-          "POGO8015",
-          "POGO8048",
-          "POGO8057",
-          "POGO8076",
-          "POGO8082",
-          "POGO8095",
-          "POGO8101",
-          "POGO8210",
-          "POGO8212",
-          "POGO8220"
-        ]
-      },
-      {
         "type": "minimum",
         "units": 6,
         "courses": [
@@ -46,24 +20,6 @@
           "EMDV8026",
           "EMDV8101",
           "EMDV8108"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8078",
-          "IDEC8003",
-          "IDEC8030"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "IDEC8011",
-          "IDEC8023",
-          "IDEC8026"
         ]
       },
       {
@@ -96,6 +52,50 @@
           "IDEC8088",
           "IDEC8089",
           "IDEC8123"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "IDEC8011",
+          "IDEC8023",
+          "IDEC8026"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8078",
+          "IDEC8003",
+          "IDEC8030"
+        ]
+      },
+      {
+        "type": "maximum",
+        "units": 12,
+        "courses": [
+          "CRWF7000",
+          "EMDV8001",
+          "EMDV8002",
+          "EMDV8007",
+          "EMDV8012",
+          "EMDV8080",
+          "EMDV8081",
+          "EMDV8082",
+          "EMDV8104",
+          "POGO8004",
+          "POGO8015",
+          "POGO8048",
+          "POGO8057",
+          "POGO8076",
+          "POGO8082",
+          "POGO8095",
+          "POGO8101",
+          "POGO8210",
+          "POGO8212",
+          "POGO8220"
         ]
       }
     ],

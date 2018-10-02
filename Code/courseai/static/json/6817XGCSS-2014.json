@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Certificate in Strategic Studies",
   "code": "6817XGCSS",
   "year": 2014,
-  "name": "Graduate Certificate in Strategic Studies",
-  "units": 12
+  "units": 12,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

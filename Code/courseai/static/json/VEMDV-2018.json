@@ -15,31 +15,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 24,
-        "courses": [
-          "ANTH8028",
-          "ANTH8038",
-          "ANTH8047",
-          "ANTH8060",
-          "CRWF8000",
-          "EMDV8103",
-          "EMDV8002",
-          "EMDV8012",
-          "EMDV8001",
-          "EMDV8012",
-          "EMDV8009",
-          "EMDV8007",
-          "EMDV8079",
-          "EMDV8080",
-          "EMDV8081",
-          "EMDV8082",
-          "EMDV8103",
-          "EMDV8108",
-          "EMDV8124"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ANTH6009",
@@ -78,6 +53,31 @@
           "POGO8115",
           "POGO8210",
           "POGO8212"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "ANTH8028",
+          "ANTH8038",
+          "ANTH8047",
+          "ANTH8060",
+          "CRWF8000",
+          "EMDV8103",
+          "EMDV8002",
+          "EMDV8012",
+          "EMDV8001",
+          "EMDV8012",
+          "EMDV8009",
+          "EMDV8007",
+          "EMDV8079",
+          "EMDV8080",
+          "EMDV8081",
+          "EMDV8082",
+          "EMDV8103",
+          "EMDV8108",
+          "EMDV8124"
         ]
       }
     ],

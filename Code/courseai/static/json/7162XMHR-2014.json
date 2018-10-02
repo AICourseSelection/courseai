@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of History (Research)",
   "code": "7162XMHR",
   "year": 2014,
-  "name": "Master of History (Research)",
-  "units": 24
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

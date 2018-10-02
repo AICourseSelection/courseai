@@ -4,12 +4,7 @@
   "year": 2019,
   "units": 96,
   "required": {
-    "one_from_m/m/s": [ 
-    ],
-    "required_m/m/s": [
-        "PROM-SPEC",
-        "PMGE-SPEC",
-        "PMGE-SPEC"
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

@@ -1,16 +1,32 @@
 {
+  "name": "Bachelor of Archaeological Practice",
+  "code": "BAPRC",
+  "year": 2019,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "level": [
-          1000
-        ],
         "type": "maximum",
+        "level": "1000",
         "units": 60
       }
     ],
+    "compulsory_courses": [
+      "ARCH1111",
+      "ARCH1112"
+    ],
     "x_from_here": [
       {
+        "type": "maximum",
+        "units": 12,
+        "courses": [
+          "ARCH2055",
+          "ARCH2059"
+        ]
+      },
+      {
+        "type": "maximum",
+        "units": 30,
         "courses": [
           "ARCH2004",
           "ARCH2007",
@@ -20,26 +36,10 @@
           "ARCH2061",
           "BIAN2015",
           "HUMN2051"
-        ],
-        "type": "maximum",
-        "units": 30
-      },
-      {
-        "courses": [
-          "ARCH2055",
-          "ARCH2059"
-        ],
-        "type": "maximum",
-        "units": 12
+        ]
       }
     ],
-    "compulsory_courses": [
-      "ARCH1111",
-      "ARCH1112"
-    ]
-  },
-  "code": "BAPRC",
-  "year": 2019,
-  "name": "Bachelor of Archaeological Practice",
-  "units": 144
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

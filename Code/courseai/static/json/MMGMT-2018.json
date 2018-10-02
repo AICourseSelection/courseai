@@ -6,18 +6,25 @@
   "required": {
     "one_from_m/m/s": [
       [
+        "MGMC-SPEC"
+      ],
+      [
         "BISY-SPEC",
-        "BISY-SPEC",
-        "ENIN-SPEC",
-        "BUSI-SPEC",
-        "LEAD-SPEC",
+        "PROM-SPEC",
         "MKTG-SPEC",
-        "PROM-SPEC"
+        "LEAD-SPEC",
+        "BUSI-SPEC",
+        "ENIN-SPEC"
+      ],
+      [
+        "BISY-SPEC",
+        "PROM-SPEC",
+        "MKTG-SPEC",
+        "LEAD-SPEC",
+        "BUSI-SPEC",
+        "ENIN-SPEC"
       ]
     ],
-    "required_m/m/s": [
-      "MGMC-SPEC",
-      "MGME-SPEC"
-    ]
+    "required_m/m/s": []
   }
 }

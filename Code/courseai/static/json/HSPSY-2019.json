@@ -1,7 +1,12 @@
 {
-  "required": {},
+  "name": "Bachelor of Science (Psychology) (Honours)",
   "code": "HSPSY",
   "year": 2019,
-  "name": "Bachelor of Science (Psychology) (Honours)",
-  "units": 48
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": [
+      "PSYC-HSPC"
+    ]
+  }
 }

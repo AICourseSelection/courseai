@@ -35,19 +35,20 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON8037",
-          "EMET8012"
+          "ECON8053",
+          "ECON8080"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ECON8053",
-          "ECON8080"
+          "ECON8037",
+          "EMET8012"
         ]
       }
     ],
+    "one_from_m/m/s": [],
     "required_m/m/s": []
   }
 }

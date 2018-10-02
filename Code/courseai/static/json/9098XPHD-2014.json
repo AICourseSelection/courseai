@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Doctor of Philosophy, Australian Demographic and Social Research Institute",
   "code": "9098XPHD",
   "year": 2014,
-  "name": "Doctor of Philosophy, Australian Demographic and Social Research Institute",
-  "units": 24
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

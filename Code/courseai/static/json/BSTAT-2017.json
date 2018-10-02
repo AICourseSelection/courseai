@@ -39,25 +39,25 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH2301",
-          "MATH3511"
+          "COMP1040",
+          "COMP1100"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "COMP1040",
-          "COMP1100"
+          "MATH2301",
+          "MATH3511"
         ]
       }
     ],
     "one_from_m/m/s": [
       [
-        "APST-MAJ",
+        "THST-MAJ",
         "PSTO-MAJ",
-        "STDA-MAJ",
-        "THST-MAJ"
+        "APST-MAJ",
+        "STDA-MAJ"
       ]
     ],
     "required_m/m/s": []

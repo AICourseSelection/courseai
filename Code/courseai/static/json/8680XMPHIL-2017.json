@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Philosophy, Research School of Physics and Engineering",
   "code": "8680XMPHIL",
   "year": 2017,
-  "name": "Master of Philosophy, Research School of Physics and Engineering",
-  "units": 60
+  "units": 60,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

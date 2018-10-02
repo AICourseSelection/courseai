@@ -14,6 +14,22 @@
     ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8090",
+          "POGO8082"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8016",
+          "POGO8081"
+        ]
+      },
+      {
         "type": "maximum",
         "units": 18,
         "courses": [
@@ -60,24 +76,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POGO8016",
-          "POGO8081"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POGO8029",
-          "POGO8050",
-          "POGO8115",
-          "POGO8213"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "POGO8015",
@@ -96,8 +94,10 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "POGO8090",
-          "POGO8082"
+          "POGO8029",
+          "POGO8050",
+          "POGO8115",
+          "POGO8213"
         ]
       }
     ],

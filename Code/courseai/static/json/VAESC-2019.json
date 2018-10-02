@@ -1,7 +1,13 @@
 {
+  "name": "Master of Archaeological and Evolutionary Science (Advanced)",
+  "code": "VAESC",
+  "year": 2019,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "ANTH6064",
           "ARCH6004",
@@ -23,11 +29,11 @@
           "BIOL6201",
           "EMSC6107",
           "ENVS6015"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "ARCH8002",
           "ARCH8029",
@@ -38,14 +44,10 @@
           "BIAN8005",
           "BIAN8009",
           "BIOL8021"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       }
-    ]
-  },
-  "code": "VAESC",
-  "year": 2019,
-  "name": "Master of Archaeological and Evolutionary Science (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

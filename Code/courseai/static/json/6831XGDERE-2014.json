@@ -1,27 +1,9 @@
 {
+  "name": "Graduate Diploma of Environmental and Resource Economics",
+  "code": "6831XGDERE",
+  "year": 2014,
+  "units": 48,
   "required": {
-    "x_from_here": [
-      {
-        "courses": [
-          "EMDV8078",
-          "IDEC8003",
-          "IDEC8030"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
-        "courses": [
-          "EMDV8007",
-          "EMDV8013",
-          "EMDV8026",
-          "EMDV8101",
-          "EMDV8108"
-        ],
-        "type": "minimum",
-        "units": 6
-      }
-    ],
     "compulsory_courses": [
       "IDEC8015",
       "IDEC8016",
@@ -29,10 +11,30 @@
       "IDEC8001",
       "IDEC8029",
       "IDEC8002"
-    ]
-  },
-  "code": "6831XGDERE",
-  "year": 2014,
-  "name": "Graduate Diploma of Environmental and Resource Economics",
-  "units": 48
+    ],
+    "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8078",
+          "IDEC8003",
+          "IDEC8030"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8007",
+          "EMDV8013",
+          "EMDV8026",
+          "EMDV8101",
+          "EMDV8108"
+        ]
+      }
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

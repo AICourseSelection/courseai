@@ -1,11 +1,13 @@
 {
+  "name": "Juris Doctor",
+  "code": "7330XJD",
+  "year": 2014,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "level": [
-          1000
-        ],
         "type": "maximum",
+        "level": "1000",
         "units": 60
       }
     ],
@@ -25,10 +27,8 @@
       "LAWS2244",
       "LAWS2249",
       "LAWS2250"
-    ]
-  },
-  "code": "7330XJD",
-  "year": 2014,
-  "name": "Juris Doctor",
-  "units": 144
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

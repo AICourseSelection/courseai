@@ -1,7 +1,13 @@
 {
+  "name": "Master of Liberal Arts (Advanced)",
+  "code": "VLIBA",
+  "year": 2015,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "HUMN8007",
           "HUMN8012",
@@ -18,14 +24,15 @@
           "MUSC8008",
           "MUSC8009",
           "MUSC8011"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       }
-    ]
-  },
-  "code": "VLIBA",
-  "year": 2015,
-  "name": "Master of Liberal Arts (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [
+      [
+        "BIOG-SPEC",
+        "PUHC-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

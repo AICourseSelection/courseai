@@ -37,11 +37,17 @@
         ]
       }
     ],
-    "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "MGMC-SPEC",
-      "MGME-SPEC",
-      "ENIN-SPEC"
-    ]
+    "one_from_m/m/s": [
+      [
+        "MGMC-SPEC"
+      ],
+      [
+        "MGME-SPEC"
+      ],
+      [
+        "ENIN-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

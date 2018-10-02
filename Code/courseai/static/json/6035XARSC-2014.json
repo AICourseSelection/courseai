@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Certificate in Archaeological Science",
   "code": "6035XARSC",
   "year": 2014,
-  "name": "Graduate Certificate in Archaeological Science",
-  "units": 6
+  "units": 6,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

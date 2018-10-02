@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Science (Advanced) in Biological Sciences",
   "code": "VSCBS",
   "year": 2019,
-  "name": "Master of Science (Advanced) in Biological Sciences",
-  "units": 11
+  "units": 11,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Diploma in International Affairs",
   "code": "6815XGDIAF",
   "year": 2014,
-  "name": "Graduate Diploma in International Affairs",
-  "units": 24
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

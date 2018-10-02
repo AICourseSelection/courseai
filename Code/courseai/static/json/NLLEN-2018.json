@@ -1,7 +1,13 @@
 {
+  "name": "Master of Laws in Environmental Law",
+  "code": "NLLEN",
+  "year": 2018,
+  "units": 48,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 30,
         "courses": [
           "LAWS8008",
           "LAWS8010",
@@ -24,14 +30,10 @@
           "LAWS8280",
           "LAWS8291",
           "LAWS8301"
-        ],
-        "type": "minimum",
-        "units": 30
+        ]
       }
-    ]
-  },
-  "code": "NLLEN",
-  "year": 2018,
-  "name": "Master of Laws in Environmental Law",
-  "units": 48
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

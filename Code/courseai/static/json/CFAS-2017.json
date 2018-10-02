@@ -7,9 +7,9 @@
     "one_from_m/m/s": [
       [
         "FINM-SPEC",
-        "ASTA-SPEC",
         "ACST-SPEC",
-        "STAT-SPEC"
+        "STAT-SPEC",
+        "ASTA-SPEC"
       ]
     ],
     "required_m/m/s": []

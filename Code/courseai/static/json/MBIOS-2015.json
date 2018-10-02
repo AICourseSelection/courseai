@@ -1,31 +1,29 @@
 {
+  "name": "Master of Biological Sciences",
+  "code": "MBIOS",
+  "year": 2015,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "BIOL8700",
           "BIOL8702",
           "BIOL8704"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       }
     ],
     "x_from_category": [
       {
-        "level": [
-          6000
-        ],
         "type": "minimum",
-        "units": 72,
-        "area": [
-          "BIOL"
-        ]
+        "level": 6000,
+        "area": "BIOL",
+        "units": 72
       }
-    ]
-  },
-  "code": "MBIOS",
-  "year": 2015,
-  "name": "Master of Biological Sciences",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

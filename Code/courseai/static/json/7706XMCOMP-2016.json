@@ -11,14 +11,18 @@
     ],
     "one_from_m/m/s": [
       [
-        "AINT-SPEC",
-        "AINT-SPEC",
         "COMP-SPEC",
-        "CMSY-SPEC",
-        "IHCC-SPEC"
+        "COMS-SPEC",
+        "IHCC-SPEC",
+        "SENG-SPEC",
+        "ALGD-SPEC",
+        "AINT-SPEC",
+        "CMSY-SPEC"
+      ],
+      [
+        "PCOM-SPEC"
       ]
     ],
-    "required_m/m/s": [ 
-    ]
+    "required_m/m/s": []
   }
 }

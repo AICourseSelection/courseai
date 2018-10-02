@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Mathematical Sciences (Advanced)",
   "code": "VMASC",
   "year": 2015,
-  "name": "Master of Mathematical Sciences (Advanced)",
-  "units": 96
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

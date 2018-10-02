@@ -1,7 +1,25 @@
 {
+  "name": "Master of International Relations (Advanced)",
+  "code": "VINTR",
+  "year": 2018,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "INTR8011",
+      "INTR8013",
+      "INTR8032",
+      "INTR8068",
+      "INTR8069",
+      "INTR8071",
+      "INTR8072",
+      "DIPL8003",
+      "DIPL8008",
+      "DIPL8009"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "DIPL8003",
           "DIPL8008",
@@ -39,26 +57,10 @@
           "POLS8019",
           "STST8051",
           "STST8052"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       }
     ],
-    "compulsory_courses": [
-      "INTR8011",
-      "INTR8013",
-      "INTR8032",
-      "INTR8068",
-      "INTR8069",
-      "INTR8071",
-      "INTR8072",
-      "DIPL8003",
-      "DIPL8008",
-      "DIPL8009"
-    ]
-  },
-  "code": "VINTR",
-  "year": 2018,
-  "name": "Master of International Relations (Advanced)",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }
