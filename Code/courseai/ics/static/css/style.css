@@ -114,8 +114,8 @@ wrapper {
     text-align: center;
 }
 
-.typeahead li {
-    width: 712px;
+#planform ul {
+    width: 100%;
 }
 
 #planform .typeahead .dropdown-item:hover {
@@ -847,8 +847,8 @@ wrapper {
     color: #0051a9;
 }
 
-#code-input {
-    text-transform: uppercase;
+#code-select {
+    max-height: 500px;
 }
 
 .chat_box {
