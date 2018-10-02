@@ -29,9 +29,60 @@ body {
     padding: 0 0 0 5px;
 }
 
+/* USER PAGE */
 .container {
     margin-top: 50px;
+    width: 100%;
+    max-width: 1340px;
+    min-height: 70vh;
 }
+
+.plan-name-input {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    resize: none;
+    text-align: center;
+    border-style: dashed;
+}
+
+.btn-container button {
+    width: 70px;
+    height: 100%;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#saved-plans-table .btn {
+    margin: 2px auto;
+}
+
+.plan-td {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plan-td p {
+    margin: 0;
+    padding: 0;
+}
+
+.text-area-icon {
+    position: absolute;
+    z-index: 999;
+    left: 11px;
+    top: 7px;
+}
+
+.text-area-icon i {
+    color: gray;
+}
+/* END USER PAGE */
 
 .footer {
     bottom: 0;
@@ -40,10 +91,12 @@ body {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     margin-bottom: 0;
+    height: 95px;
 }
 
 wrapper {
-    min-height: 80vh;
+    min-height: 95vh;
+    margin: 0 auto -95px;
 }
 
 #year-descriptor {
@@ -59,6 +112,10 @@ wrapper {
 
 #planform input[name=startyear] {
     text-align: center;
+}
+
+.typeahead li {
+    width: 712px;
 }
 
 #planform .typeahead .dropdown-item:hover {
@@ -149,6 +206,7 @@ wrapper {
 
 #code-wrong {
     text-align: center;
+    margin-top: 0.2rem;
     margin-top: 0.2rem;
     padding: 0.2rem;
     border-radius: 0.2rem;
@@ -418,6 +476,33 @@ wrapper {
     padding: .4rem .6rem;
 }
 
+#color-coding {
+    margin-bottom: 8px;
+    padding: 0;
+}
+
+#color-coding-header {
+    width: 100%;
+    padding: 0;
+    color: #0c5460;
+    background-color: #d1ecf1;
+}
+
+.color-coding-row {
+    padding: 2px;
+    border: 1px solid rgba(0,0,0,.125);
+    display: flex;
+    align-items: center;
+}
+
+.color-coding-box {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin: 0 8px;
+    border: 1px solid black;
+}
+
 .card-header:before {
     font-family: 'Font Awesome\ 5 Free';
     width: 1rem;
@@ -484,7 +569,7 @@ wrapper {
 }
 
 .course-popover .popover-body, .mms-popover .popover-body {
-    /* height: 420px; */
+    height: 420px;
     overflow-y: scroll;
 }
 
@@ -912,15 +997,6 @@ wrapper {
     border: 1px solid #b9b9b9;
 
 }
-
-.btn-container button {
-    width: 70px;
-}
-
-.btn-load {
-    margin-right: 10px;
-}
-
 /* ----- CARD PLANNER COLORS - note: ORDER MATTERS! ----- */
 @keyframes pulse {
     0%, 100% {
@@ -936,27 +1012,27 @@ wrapper {
 }
 
 .compulsory {
-    background-color: #ccebff;
+    background-color: #d2eaff;
 }
 
 .mms-course-list0 {
-    background-color: #C7FFEB;
+    background-color: #dfffe4;
 }
 
 .mms-course-list1 {
-    background-color: #F6EAFF;
+    background-color: #e9dafd;
 }
 
 .mms-course-list2 {
-    background-color: #FEFFDE;
+    background-color: #fcffc8;
 }
 
 .mms-course-list3 {
-    background-color: #C6FFCD;
+    background-color: #e1e1e1;
 }
 
 .mms-course-list4 {
-    background-color: #FFE8CF;
+    background-color: #ffe5ca;
 }
 
 .invalid-cell {

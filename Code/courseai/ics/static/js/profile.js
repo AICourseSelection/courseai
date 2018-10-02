@@ -1,1 +1,195 @@
-var _0xd98a=["\x7C","\x7E","\x3C\x62\x75\x74\x74\x6F\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22\x62\x74\x6E\x20\x62\x74\x6E\x2D\x6F\x75\x74\x6C\x69\x6E\x65\x2D\x64\x61\x6E\x67\x65\x72\x20\x62\x74\x6E\x2D\x64\x65\x66\x61\x75\x6C\x74\x20\x62\x74\x6E\x2D\x64\x65\x6C\x65\x74\x65\x22\x3E\x44\x65\x6C\x65\x74\x65\x3C\x2F\x62\x75\x74\x74\x6F\x6E\x3E","\x63\x6C\x69\x63\x6B","\x2F\x61\x63\x63\x6F\x75\x6E\x74\x73\x2F\x64\x65\x67\x72\x65\x65\x5F\x70\x6C\x61\x6E\x5F\x76\x69\x65\x77","\x44\x45\x4C\x45\x54\x45","\x72\x65\x6D\x6F\x76\x65","\x70\x61\x72\x65\x6E\x74","\x61\x6A\x61\x78","\x6F\x6E","\x3C\x62\x75\x74\x74\x6F\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22\x62\x74\x6E\x20\x62\x74\x6E\x2D\x6F\x75\x74\x6C\x69\x6E\x65\x2D\x73\x75\x63\x63\x65\x73\x73\x20\x62\x74\x6E\x2D\x64\x65\x66\x61\x75\x6C\x74\x20\x62\x74\x6E\x2D\x6C\x6F\x61\x64\x22\x3E\x4C\x6F\x61\x64\x3C\x2F\x62\x75\x74\x74\x6F\x6E\x3E","\x70\x72\x65\x76","\x6C\x65\x6E\x67\x74\x68","\x2F\x70\x6C\x61\x6E\x6E\x65\x72\x3F\x73\x74\x61\x72\x74\x79\x65\x61\x72\x3D","\x26\x73\x65\x6D\x65\x73\x74\x65\x72\x3D","\x26\x73\x61\x76\x65\x43\x6F\x64\x65\x3D","\x26\x64\x65\x67\x72\x65\x65\x4E\x61\x6D\x65\x3D\x26\x64\x65\x67\x72\x65\x65\x43\x6F\x64\x65\x3D\x26\x64\x65\x67\x72\x65\x65\x4E\x61\x6D\x65\x32\x3D\x26\x64\x65\x67\x72\x65\x65\x43\x6F\x64\x65\x32\x3D\x26","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x73\x70\x6C\x69\x74","\x74\x62\x6F\x64\x79","\x66\x69\x6E\x64","\x23\x63\x6F\x64\x65\x73\x2D\x74\x61\x62\x6C\x65","\x70\x61\x72\x73\x65","\x3C\x74\x72\x20\x63\x6C\x61\x73\x73\x3D\x22\x64\x2D\x66\x6C\x65\x78\x22\x3E","\x3C\x74\x64\x20\x63\x6C\x61\x73\x73\x3D\x22\x63\x6F\x6C\x2D\x32\x20\x62\x74\x6E\x2D\x63\x6F\x6E\x74\x61\x69\x6E\x65\x72\x20\x72\x6F\x77\x2D\x66\x6C\x75\x69\x64\x22\x2F\x3E","\x3C\x74\x64\x20\x63\x6C\x61\x73\x73\x3D\x22\x63\x6F\x6C\x2D\x32\x20\x74\x65\x78\x74\x2D\x63\x65\x6E\x74\x65\x72\x22\x3E","\x2C\x20","\x6A\x6F\x69\x6E","\x64\x65\x67\x72\x65\x65\x73","\x3C\x2F\x74\x64\x3E","\x61\x70\x70\x65\x6E\x64","\x3C\x74\x64\x20\x63\x6C\x61\x73\x73\x3D\x22\x63\x6F\x6C\x2D\x34\x20\x74\x65\x78\x74\x2D\x63\x65\x6E\x74\x65\x72\x22\x3E","\x74\x72\x61\x63\x6B\x65\x64\x4D\x4D\x53","\x53\x65\x6D\x65\x73\x74\x65\x72\x20","\x73\x74\x61\x72\x74\x53\x65\x6D","\x20","\x73\x74\x61\x72\x74\x59\x65\x61\x72","\x63\x72\x65\x61\x74\x65\x64"];const PLAN_DELIMITER=_0xd98a[0];const CODE_DELIMITER=_0xd98a[1];function createDeleteBtn(_0x1a5ax4){let _0x1a5ax5=$(_0xd98a[2]);_0x1a5ax5[_0xd98a[9]](_0xd98a[3],function(){$[_0xd98a[8]]({url:_0xd98a[4],method:_0xd98a[5],data:{"\x63\x6F\x64\x65":_0x1a5ax4},success:function(_0x1a5ax6){_0x1a5ax5[_0xd98a[7]]()[_0xd98a[7]]()[_0xd98a[6]]()}})});return _0x1a5ax5}function createLoadBtn(_0x1a5ax4,_0x1a5ax8,_0x1a5ax9){let _0x1a5ax5=$(_0xd98a[10]);_0x1a5ax5[_0xd98a[9]](_0xd98a[3],function(){let _0x1a5axa=$(this)[_0xd98a[7]]()[_0xd98a[11]]();if(_0x1a5axa[_0xd98a[12]]!== 0){var _0x1a5axb=_0xd98a[13]+ _0x1a5ax8+ _0xd98a[14]+ _0x1a5ax9+ _0xd98a[15]+ _0x1a5ax4+ _0xd98a[16];window[_0xd98a[17]]= _0x1a5axb}});return _0x1a5ax5}$[_0xd98a[8]]({url:_0xd98a[4],success:function(_0x1a5ax6){if(_0x1a5ax6[_0xd98a[12]]> 1){let _0x1a5axc=_0x1a5ax6[_0xd98a[18]](PLAN_DELIMITER);for(var _0x1a5axd=0;_0x1a5axd< _0x1a5axc[_0xd98a[12]];_0x1a5axd++){_0x1a5axc[_0x1a5axd]= _0x1a5axc[_0x1a5axd][_0xd98a[18]](CODE_DELIMITER)};let _0x1a5axe=$(_0xd98a[21])[_0xd98a[20]](_0xd98a[19]);for(var _0x1a5axd=0;_0x1a5axd< _0x1a5axc[_0xd98a[12]];_0x1a5axd++){let _0x1a5axf=JSON[_0xd98a[22]](_0x1a5axc[_0x1a5axd][1]);let _0x1a5ax4=_0x1a5axc[_0x1a5axd][0];let _0x1a5ax10=$(_0xd98a[23]);let _0x1a5ax11=$(_0xd98a[24]);_0x1a5ax10[_0xd98a[30]](_0xd98a[25]+ _0x1a5axf[_0xd98a[28]][_0xd98a[27]](_0xd98a[26])+ _0xd98a[29]);_0x1a5ax10[_0xd98a[30]](_0xd98a[31]+ _0x1a5axf[_0xd98a[32]][_0xd98a[27]](_0xd98a[26])+ _0xd98a[29]);_0x1a5ax10[_0xd98a[30]](_0xd98a[25]+ _0xd98a[33]+ _0x1a5axf[_0xd98a[34]]+ _0xd98a[35]+ _0x1a5axf[_0xd98a[36]]+ _0xd98a[29]);_0x1a5ax10[_0xd98a[30]](_0xd98a[25]+ _0x1a5axf[_0xd98a[37]]+ _0xd98a[29]);_0x1a5ax11[_0xd98a[30]](createLoadBtn(_0x1a5ax4,_0x1a5axf[_0xd98a[36]],_0x1a5axf[_0xd98a[34]]));_0x1a5ax11[_0xd98a[30]](createDeleteBtn(_0x1a5ax4));_0x1a5ax10[_0xd98a[30]](_0x1a5ax11);_0x1a5axe[_0xd98a[30]](_0x1a5ax10)}}}})
+const PLAN_DELIMITER = '|';
+const CODE_DELIMITER = '~';
+
+let degreeDict = {}; // mapping of degree codes to titles
+let majorDict = {}; // mapping of major codes to titles
+let minorDict = {}; // mapping of minor codes to titles
+let specDict = {}; // mapping of specialisation codes to titles
+
+function createDeleteBtn(code) {
+    let btn = $('<button class="btn btn-outline-danger btn-sm btn-delete">Delete</button>');
+    btn.on('click', function() {
+        let body = $('#delete-modal').find('.modal-body');
+        body.html('Are you sure you want to delete plan: ' + code +'? </br>This action cannot be undone.');
+        $('#delete-modal').modal('show');
+
+        $('#delete-plan-btn').on('click', function() {
+            // remove the code from the user's profile
+            $.ajax({
+                url: '/accounts/degree_plan_view',
+                method: 'DELETE',
+                data: {
+                    'code': code
+                },
+                success: function(data) {
+                    // remove the row
+                    btn.parent().parent().remove();
+                }
+            })
+        });
+    });
+    return btn;
+}
+
+function createLoadBtn(code, startYear, startSem) {
+    let btn = $('<button class="btn btn-outline-success btn-sm btn-load mb-2">Load</button>');
+    btn.on('click', function() {
+        let codeCell = $(this).parent().prev();
+        if (codeCell.length !== 0) {
+            var url = '/planner?startyear=' + startYear + '&semester=' + startSem + '&saveCode=' + code +
+                '&degreeName=&degreeCode=&degreeName2=&degreeCode2=&';
+            window.location = url;
+        }
+    });
+    return btn;
+}
+
+function stringifyDegreeCodes(degreeCodes) {
+    let str = "";
+    for (let i = 0; i < degreeCodes.length; i++) {
+        if (i !== 0) str += ", </br>";
+        str += degreeDict[degreeCodes[i]];
+    }
+    return str;
+}
+
+function stringifyMMS(mms) {
+    let str = "";
+
+    if (mms.length > 0 && typeof mms[0] === 'string') return mms.join(',</br>');
+    
+    for (let i = 0; i < mms.length; i++) {
+        let code = mms[i].code;
+        let year = mms[i].year;
+        let type = code.substr(code.length - 3);
+        if (i !== 0) str += ", </br>";
+
+        if (type === 'MAJ') str += majorDict[code + year];
+        else if (type === 'MIN') str += minorDict[code + year];
+        else {
+            str += specDict[code + year];
+            type = code.substr(code.length - 4);
+        }
+
+        str +=  ' (' + type + ')';
+    }
+    return str;
+}
+
+// create dictionary of degree codes to titles
+$.ajax({
+    url: '/degree/all',
+    success: function (data) {
+        for (i in data.response) {
+            degreeDict[String(data.response[i].code)] = data.response[i].title;
+        }
+    }
+});
+
+function mapMMSCodeToTitle(queryName, dict) {
+    return $.ajax({
+        url: '/search/' + queryName,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            for (var i = 0; i < data.response.length; i++) {
+                let code = data.response[i]._source.code;
+               let mms = data.response[i]._source.versions; 
+               for (var obj in mms) {
+                   dict[String(code) + String(obj)] = mms[obj].title;
+               }
+            }
+        }
+    });
+}
+
+/* Disallow certain characters in a text area
+   Copied and modified from "rexmac"
+   https://stackoverflow.com/questions/895659/how-do-i-block-or-restrict-special-characters-from-input-fields-with-jquery
+*/
+function restrictInput(textarea) {
+    textarea.on('input', function() {
+        var c = this.selectionStart,
+            r = /[^a-z0-9'.,- ]/gi,
+            v = $(this).val();
+        if(r.test(v)) {
+            $(this).val(v.replace(r, ''));
+            c--;
+        }
+        this.setSelectionRange(c, c);
+    });
+}
+
+function createSavedPlansTable() {
+    $.ajax({
+        url: '/accounts/degree_plan_view',
+        success: function(data) {
+            if (data.length > 1) {
+                let plans = data.split(PLAN_DELIMITER);
+                for (var i = 0; i < plans.length; i++)
+                    plans[i] = plans[i].split(CODE_DELIMITER);     
+
+                // insert degree plans into the table
+                let tableBody = $('#saved-plans-table').find('tbody');
+                for (var i = 0; i < plans.length; i++) {
+                    let obj = JSON.parse(plans[i][1]);
+                    let code = plans[i][0];
+                    let row = $('<tr class="d-flex">');
+                    let btnsCol = $('<td class="col-1 btn-container text-center"/>');
+                    let textarea = $('<textarea class="plan-name-input form-control" maxlength="250" placeholder="edit name"/>');
+
+                    if ('name' in obj && obj['name'].length !== 0) textarea.val(obj['name']);
+                    else textarea.addClass('hidden');
+
+                    restrictInput(textarea); // disallow the delimiter characters
+
+                    // update the plan associated with the user
+                    textarea.on('change', function() {
+                        $.ajax({
+                            url: '/accounts/degree_plan_view',
+                            method: 'PUT',
+                            data: {
+                                "mode": 'NAME',
+                                "code": code,
+                                "name": $(this).val()
+                            },
+                            success: function(data) {
+                                console.log("Degree plan name updated");
+                            }
+                        });
+                    });
+
+                    let nameInput = $('<td class="col-2 plan-td"/>').append(textarea);                                              
+                    let editIcon = $('<div class="text-area-icon"><i class="fas fa-edit"></i></div>');
+
+                    textarea.click(function() {
+                        editIcon.hide();
+                    });
+
+                    textarea.blur(function() {
+                        editIcon.show();
+                    });
+
+                    nameInput.append(editIcon);
+                    row.append(nameInput);
+                    row.append('<td class="col-1 plan-td text-center"><small>' + plans[i][0] + '</small></td>');                        // code
+                    row.append('<td class="col-2 plan-td text-center"><p>' + stringifyDegreeCodes(obj.degrees) + '</p></td>');                  // degrees
+                    row.append('<td class="col-4 plan-td text-center">' + stringifyMMS(obj.trackedMMS) + '</td>');                       // mms
+                    row.append('<td class="col-1 plan-td text-center">' + 'Semester ' + obj.startSem + ' ' + obj.startYear + '</td>');   // start date
+                    row.append('<td class="col-1 plan-td text-center">' + obj.created + '</td>');                                       // created
+
+                    btnsCol.append(createLoadBtn(code, obj.startYear, obj.startSem));
+                    btnsCol.append(createDeleteBtn(code));
+                    row.append(btnsCol);
+                    tableBody.append(row);
+                }
+            }
+        }
+    })
+}
+
+$.when(mapMMSCodeToTitle('majors', majorDict), 
+    mapMMSCodeToTitle('minors', minorDict), 
+    mapMMSCodeToTitle('specs', specDict)).done(function() {
+        createSavedPlansTable();
+    });
