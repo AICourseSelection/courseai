@@ -21,8 +21,9 @@ function Search(plan) {
             if (f.type === 'level') filters.levels.push(f.data);
             else if (f.type === 'code') filters.codes.push(f.data);
             else {
-                let session = {year: f.data.slice(0, 4), semester: SESSION_WORDS[f.data.slice(4)]};
-                if (sem && !filters['semesters'].includes(sem)) filters['semesters'].push(session);
+                filters['sessions'].push({
+                    year: parseInt(f.data.slice(0, 4)),
+                    semester: SESSION_WORDS[f.data.slice(4)]});
             }
         }
         this.requests['course'] = $.ajax({
@@ -47,7 +48,7 @@ function Search(plan) {
                 }
                 let course_action_items = {};   // Get course data so that prerequisites can be checked.
                 for (const course of data.response) {
-                    const code = course.code;
+                    const code = course['course_code'];
                     if (!(code in course_action_items)) course_action_items[code + '-' + THIS_YEAR] = [];
                     course_action_items[code + '-' + THIS_YEAR].push(function (offering) {
                         let matched_filters = !filtered_sessions.length;
