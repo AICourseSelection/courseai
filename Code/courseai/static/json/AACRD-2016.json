@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 48
       }
     ],
@@ -32,9 +30,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MGMT3027",
-          "VCUG2002",
-          "ENGN3230"
+          "STAT1003",
+          "STAT1008"
         ]
       },
       {
@@ -49,11 +46,13 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT1003",
-          "STAT1008"
+          "MGMT3027",
+          "VCUG2002",
+          "ENGN3230"
         ]
       }
     ],
+    "one_from_m/m/s": [],
     "required_m/m/s": [
       "RSCC-MAJ"
     ]

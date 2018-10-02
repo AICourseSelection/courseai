@@ -10,9 +10,24 @@
       "POGO8401",
       "POGO8402"
     ],
-    "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "Not found"
-    ]
+    "one_from_m/m/s": [
+      [
+        "POAN-SPEC",
+        "REGL-SPEC",
+        "POPC-SPEC",
+        "ECPL-SPEC",
+        "INPL-SPEC",
+        "PUFN-SPEC",
+        "HLPL-SPEC",
+        "POCM-SPEC",
+        "ENPP-SPEC",
+        "GLDV-SPEC",
+        "SOPL-SPEC",
+        "FODF-SPEC",
+        "SORM-SPEC",
+        "INPO-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

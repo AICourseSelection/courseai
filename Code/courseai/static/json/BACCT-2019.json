@@ -49,9 +49,11 @@
         ]
       }
     ],
-    "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "BECE-MIN"
-    ]
+    "one_from_m/m/s": [
+      [
+        "BECE-MIN"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

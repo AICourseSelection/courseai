@@ -37,19 +37,19 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
+        "units": 24,
         "courses": [
-          "STAT2032",
-          "STAT3040"
+          "ECON4411",
+          "ECON4422",
+          "ECON4488"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH2320",
-          "MATH2322",
-          "MATH3029"
+          "STAT2032",
+          "STAT3040"
         ]
       },
       {
@@ -87,17 +87,15 @@
       },
       {
         "type": "minimum",
-        "units": 24,
+        "units": 6,
         "courses": [
-          "ECON4411",
-          "ECON4422",
-          "ECON4488"
+          "MATH2320",
+          "MATH2322",
+          "MATH3029"
         ]
       }
     ],
     "one_from_m/m/s": [],
-    "required_m/m/s": [
-      []
-    ]
+    "required_m/m/s": []
   }
 }

@@ -1,14 +1,16 @@
 {
+  "name": "Master of Science Communication",
+  "code": "MSCOM",
+  "year": 2016,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "SCOM7000",
       "SCOM8014",
       "SCOM6003",
       "SCOM6012"
-    ]
-  },
-  "code": "MSCOM",
-  "year": 2016,
-  "name": "Master of Science Communication",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

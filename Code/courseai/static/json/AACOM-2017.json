@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -41,10 +39,11 @@
       },
       {
         "type": "minimum",
-        "units": 6,
+        "units": 12,
         "courses": [
-          "COMP1110",
-          "COMP1140"
+          "ENGN3230",
+          "VCUG3001",
+          "VCUG3002"
         ]
       },
       {
@@ -57,32 +56,26 @@
       },
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
         "courses": [
-          "ENGN3230",
-          "VCUG3001",
-          "VCUG3002"
+          "COMP1110",
+          "COMP1140"
         ]
       }
     ],
     "x_from_category": [
       {
         "type": "minimum",
-        "level": [
-          3000,
-          4000
-        ],
-        "area": [
-          "COMP"
-        ],
+        "level": "3000, 4000",
+        "area": "COMP",
         "units": 6
       }
     ],
     "one_from_m/m/s": [
       [
+        "THCS-SPEC",
         "INSY-SPEC",
-        "SYAR-SPEC",
-        "THCS-SPEC"
+        "SYAR-SPEC"
       ]
     ],
     "required_m/m/s": []

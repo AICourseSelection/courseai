@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Doctor of Philosophy, Medical School",
   "code": "9910XPHD",
   "year": 2016,
-  "name": "Doctor of Philosophy, Medical School",
-  "units": 100
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

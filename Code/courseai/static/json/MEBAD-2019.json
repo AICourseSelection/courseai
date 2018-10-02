@@ -6,12 +6,6 @@
   "required": {
     "compulsory_courses": [],
     "one_from_m/m/s": [],
-    "required_m/m/s": [
-      [
-        "MGMC-SPEC",
-        "MGME-SPEC",
-        "BSNE-SPEC"
-      ]
-    ]
+    "required_m/m/s": []
   }
 }

@@ -17,14 +17,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMET8001",
-          "EMET8010"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 30,
         "courses": [
           "ECON8901",
@@ -33,10 +25,7 @@
           "ECON8002",
           "ECON8003",
           "ECON8006",
-          "ECON8008",
           "ECON8009",
-          "ECON8010",
-          "ECON8013",
           "ECON8014",
           "ECON8015",
           "ECON8018",
@@ -51,15 +40,20 @@
           "ECON8049",
           "ECON8050",
           "ECON8053",
-          "ECON8070",
           "ECON8091",
+          "EMET8008",
           "EMET8010",
           "EMET8012",
           "EMET8014",
-          "ECON8013",
-          "ECON8025",
-          "ECON8026",
-          "EMET8005"
+          "ECON8189"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMET8001",
+          "EMET8010"
         ]
       }
     ],

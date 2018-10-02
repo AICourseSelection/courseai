@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Certificate in Indigenous Policy and Development",
   "code": "6020XINDG",
   "year": 2014,
-  "name": "Graduate Certificate in Indigenous Policy and Development",
-  "units": 8040
+  "units": 8040,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -15,20 +15,13 @@
         "units": 6,
         "courses": [
           "STST8004",
-          "STST8051"
+          "STST8026"
         ]
       },
       {
         "type": "minimum",
         "units": 30,
         "courses": [
-          "INTR8053",
-          "INTR8067",
-          "MEAS8112",
-          "MEAS8113",
-          "NSPO8010",
-          "NSPO8013",
-          "NSPO8014",
           "STST7003",
           "STST8004",
           "STST8013",
@@ -36,9 +29,23 @@
           "STST8021",
           "STST8026",
           "STST8027",
-          "STST8032",
-          "STST8033",
-          "STST8051"
+          "STST8051",
+          "STST8053",
+          "STST8054",
+          "STST8055",
+          "STST8056",
+          "DIPL8004",
+          "INTR8053",
+          "INTR8067",
+          "MEAS8112",
+          "MEAS8113",
+          "NSPO8010",
+          "NSPO8013",
+          "NSPO8014",
+          "NSPO8021",
+          "NSPO8018",
+          "STST8057",
+          "STST8058"
         ]
       }
     ],

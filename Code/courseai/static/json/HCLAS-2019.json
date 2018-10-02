@@ -1,4 +1,8 @@
 {
+  "name": "Bachelor of Classical Studies (Honours)",
+  "code": "HCLAS",
+  "year": 2019,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "CLAS4006",
@@ -6,10 +10,8 @@
       "ENGL4020",
       "THES4105",
       "HONS4100"
-    ]
-  },
-  "code": "HCLAS",
-  "year": 2019,
-  "name": "Bachelor of Classical Studies (Honours)",
-  "units": 48
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

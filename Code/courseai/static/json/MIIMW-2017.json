@@ -1,7 +1,13 @@
 {
+  "name": "Master of Islam in the Modern World",
+  "code": "MIIMW",
+  "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 42,
         "courses": [
           "ASIA6165",
           "INTR8058",
@@ -20,14 +26,10 @@
           "MEAS8123",
           "MEAS8124",
           "MEAS8126"
-        ],
-        "type": "minimum",
-        "units": 42
+        ]
       }
-    ]
-  },
-  "code": "MIIMW",
-  "year": 2017,
-  "name": "Master of Islam in the Modern World",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

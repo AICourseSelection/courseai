@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Flexible Double Masters",
   "code": "7050FDM",
   "year": 2016,
-  "name": "Flexible Double Masters",
-  "units": 24
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 48
       }
     ],
@@ -30,6 +28,7 @@
       "MGMT3027",
       "STAT1003"
     ],
+    "one_from_m/m/s": [],
     "required_m/m/s": [
       "RSCC-MAJ"
     ]

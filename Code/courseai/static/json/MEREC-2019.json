@@ -15,6 +15,15 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8078",
+          "IDEC8003",
+          "IDEC8030"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "EMDV8001",
@@ -39,9 +48,9 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMDV8078",
-          "IDEC8003",
-          "IDEC8030"
+          "IDEC8011",
+          "IDEC8023",
+          "IDEC8026"
         ]
       },
       {
@@ -75,15 +84,6 @@
           "IDEC8088",
           "IDEC8089",
           "IDEC8123"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "IDEC8011",
-          "IDEC8023",
-          "IDEC8026"
         ]
       },
       {

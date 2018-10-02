@@ -28,6 +28,14 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "ECON2101",
+          "ECON2111"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "ECON2102",
           "ECON2112"
         ]
@@ -38,14 +46,6 @@
         "courses": [
           "ECON1100",
           "ECON1102"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON2101",
-          "ECON2111"
         ]
       }
     ],

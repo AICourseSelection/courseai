@@ -6,10 +6,10 @@
   "required": {
     "one_from_m/m/s": [
       [
-        "FINM-SPEC",
-        "ASTA-SPEC",
+        "STAT-SPEC",
         "ACST-SPEC",
-        "STAT-SPEC"
+        "ASTA-SPEC",
+        "FINM-SPEC"
       ]
     ],
     "required_m/m/s": []

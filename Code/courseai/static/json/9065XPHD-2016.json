@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Doctor of Philosophy, Fenner School of Environment and Society",
   "code": "9065XPHD",
   "year": 2016,
-  "name": "Doctor of Philosophy, Fenner School of Environment and Society",
-  "units": 3
+  "units": 3,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

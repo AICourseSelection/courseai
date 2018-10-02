@@ -16,6 +16,25 @@
     ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "POGO8056",
+          "POGO8057",
+          "POGO8048",
+          "POGO8081",
+          "LAWS8034",
+          "POGO8021",
+          "POGO8076",
+          "POGO8082",
+          "POGO8055",
+          "POGO8083",
+          "POGO8001",
+          "POGO8029",
+          "POGO8044"
+        ]
+      },
+      {
         "type": "maximum",
         "units": 6,
         "courses": [
@@ -49,25 +68,6 @@
           "EURO8003",
           "POPH8103",
           "NSPO8007"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 18,
-        "courses": [
-          "POGO8056",
-          "POGO8057",
-          "POGO8048",
-          "POGO8081",
-          "LAWS8034",
-          "POGO8021",
-          "POGO8076",
-          "POGO8082",
-          "POGO8055",
-          "POGO8083",
-          "POGO8001",
-          "POGO8029",
-          "POGO8044"
         ]
       }
     ],

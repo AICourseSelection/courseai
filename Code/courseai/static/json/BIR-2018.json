@@ -1,38 +1,38 @@
 {
+  "name": "Bachelor of International Relations",
+  "code": "BIR",
+  "year": 2018,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "level": [
-          1000
-        ],
         "type": "maximum",
+        "level": "1000",
         "units": 60
       }
     ],
+    "compulsory_courses": [
+      "POLS1005",
+      "POLS1006",
+      "POLS2094",
+      "POLS2133",
+      "POLS3001",
+      "POLS3017"
+    ],
     "x_from_here": [
       {
-        "courses": [
-          "DEMO2003",
-          "DIPL2000",
-          "HIST1209",
-          "HIST2136",
-          "HIST2141",
-          "HIST2240",
-          "INTR3001",
-          "PHIL2113",
-          "POLS2011",
-          "POLS2064",
-          "POLS2100",
-          "POLS2101",
-          "POLS2113",
-          "POLS2135",
-          "POLS3037",
-          "SOCY2030"
-        ],
         "type": "minimum",
-        "units": 6
+        "units": 6,
+        "courses": [
+          "POLS1009",
+          "POLS2125",
+          "POLS2044",
+          "SOCY2043"
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "POLS2063",
           "POLS2102",
@@ -40,11 +40,43 @@
           "POLS2119",
           "POLS2120",
           "POLS2136"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       },
       {
+        "type": "maximum",
+        "units": 12,
+        "courses": [
+          "ANIP3003",
+          "ANIP3005",
+          "VCUG1001",
+          "VCUG2001",
+          "VCUG2002",
+          "VCUG3001",
+          "VCUG3002"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ASIA1035",
+          "ASIA1999",
+          "ASIA2109",
+          "EURO1004",
+          "EURO2012",
+          "INTR2010",
+          "INTR2028",
+          "MEAS1001",
+          "MEAS2001",
+          "MEAS2105",
+          "POLS2055",
+          "POLS2095",
+          "POLS2117"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "ASIA2111",
           "INTR2012",
@@ -62,64 +94,32 @@
           "STST2131",
           "STST2003",
           "STST3002"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       },
       {
-        "courses": [
-          "ASIA1035",
-          "ASIA1999",
-          "ASIA2109",
-          "EURO1004",
-          "EURO2012",
-          "INTR2010",
-          "INTR2028",
-          "MEAS1001",
-          "MEAS2001",
-          "MEAS2105",
-          "POLS2055",
-          "POLS2095",
-          "POLS2117"
-        ],
         "type": "minimum",
-        "units": 12
-      },
-      {
+        "units": 6,
         "courses": [
-          "ANIP3003",
-          "ANIP3005",
-          "VCUG1001",
-          "VCUG2001",
-          "VCUG2002",
-          "VCUG3001",
-          "VCUG3002"
-        ],
-        "type": "maximum",
-        "units": 12
-      },
-      {
-        "courses": [
-          "POLS1009",
-          "POLS2125",
-          "POLS2044",
-          "SOCY2043"
-        ],
-        "type": "minimum",
-        "units": 6
+          "DEMO2003",
+          "DIPL2000",
+          "HIST1209",
+          "HIST2136",
+          "HIST2141",
+          "HIST2240",
+          "INTR3001",
+          "PHIL2113",
+          "POLS2011",
+          "POLS2064",
+          "POLS2100",
+          "POLS2101",
+          "POLS2113",
+          "POLS2135",
+          "POLS3037",
+          "SOCY2030"
+        ]
       }
     ],
-    "compulsory_courses": [
-      "POLS1005",
-      "POLS1006",
-      "POLS2094",
-      "POLS2133",
-      "POLS3001",
-      "POLS3017"
-    ]
-  },
-  "code": "BIR",
-  "year": 2018,
-  "name": "Bachelor of International Relations",
-  "units": 144
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

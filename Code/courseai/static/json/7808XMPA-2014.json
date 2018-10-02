@@ -1,18 +1,30 @@
 {
+  "name": "Master of Public Administration",
+  "code": "7808XMPA",
+  "year": 2014,
+  "units": 48,
   "required": {
+    "compulsory_courses": [
+      "CRWF8000",
+      "POGO8032",
+      "POGO8096",
+      "POGO8111"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "POGO8021",
           "POGO8055",
           "POGO8056",
           "POGO8057",
           "POGO8081"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       },
       {
+        "type": "minimum",
+        "units": 18,
         "courses": [
           "CRWF8003",
           "CRWF8004",
@@ -32,20 +44,10 @@
           "POGO8021",
           "POGO8029",
           "POGO8035"
-        ],
-        "type": "minimum",
-        "units": 18
+        ]
       }
     ],
-    "compulsory_courses": [
-      "CRWF8000",
-      "POGO8032",
-      "POGO8096",
-      "POGO8111"
-    ]
-  },
-  "code": "7808XMPA",
-  "year": 2014,
-  "name": "Master of Public Administration",
-  "units": 48
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

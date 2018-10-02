@@ -1,20 +1,13 @@
 {
+  "name": "Master of Visual Arts (Advanced)",
+  "code": "VVISA",
+  "year": 2015,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "courses": [
-          "ARTV6007",
-          "ARTV6008",
-          "ARTV6103",
-          "ARTV6104",
-          "ARTV8107",
-          "ARTV8207",
-          "ARTV8208"
-        ],
         "type": "minimum",
-        "units": 12
-      },
-      {
+        "units": 42,
         "courses": [
           "ARTV6003",
           "ARTV6006",
@@ -26,23 +19,32 @@
           "ARTV8300",
           "DESA6100",
           "DESA6101"
-        ],
-        "type": "minimum",
-        "units": 42
+        ]
       },
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "ARTV8038",
           "ARTV8039",
           "ARTV8040"
-        ],
+        ]
+      },
+      {
         "type": "minimum",
-        "units": 12
+        "units": 12,
+        "courses": [
+          "ARTV6007",
+          "ARTV6008",
+          "ARTV6103",
+          "ARTV6104",
+          "ARTV8107",
+          "ARTV8207",
+          "ARTV8208"
+        ]
       }
-    ]
-  },
-  "code": "VVISA",
-  "year": 2015,
-  "name": "Master of Visual Arts (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

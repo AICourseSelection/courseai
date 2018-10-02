@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Philosophy, Regulation and Governance",
   "code": "8560XMPHIL",
   "year": 2018,
-  "name": "Master of Philosophy, Regulation and Governance",
-  "units": 60
+  "units": 60,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

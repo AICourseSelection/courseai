@@ -32,7 +32,13 @@
         ]
       }
     ],
-    "one_from_m/m/s": [],
+    "one_from_m/m/s": [
+      [
+        "PROM-SPEC",
+        "LEAD-SPEC",
+        "MKTG-SPEC"
+      ]
+    ],
     "required_m/m/s": []
   }
 }

@@ -7,9 +7,7 @@
     "max_by_level": [
       {
         "type": "maximum",
-        "level": [
-          1000
-        ],
+        "level": "1000",
         "units": 60
       }
     ],
@@ -51,9 +49,9 @@
     ],
     "one_from_m/m/s": [
       [
+        "THCS-SPEC",
         "INSY-SPEC",
-        "SYAR-SPEC",
-        "THCS-SPEC"
+        "SYAR-SPEC"
       ]
     ],
     "required_m/m/s": []

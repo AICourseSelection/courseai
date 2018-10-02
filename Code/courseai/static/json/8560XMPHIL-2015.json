@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Master of Philosophy, Regulation, Justice and Diplomacy",
   "code": "8560XMPHIL",
   "year": 2015,
-  "name": "Master of Philosophy, Regulation, Justice and Diplomacy",
-  "units": 60
+  "units": 60,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -19,17 +19,18 @@
     ],
     "one_from_m/m/s": [
       [
-        "ACCT-MAJ",
-        "BUSN-MAJ",
-        "CORP-MAJ",
         "FINM-MAJ",
+        "MARK-MAJ",
         "INTB-MAJ",
+        "ACCT-MAJ",
         "MGMT-MAJ",
-        "MARK-MAJ"
+        "BUSN-MAJ",
+        "CORP-MAJ"
+      ],
+      [
+        "BECE-MIN"
       ]
     ],
-    "required_m/m/s": [
-      "BECE-MIN"
-    ]
+    "required_m/m/s": []
   }
 }

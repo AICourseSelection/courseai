@@ -17,9 +17,20 @@
         "courses": "CBE List 1"
       }
     ],
-    "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "BECE-MIN"
-    ]
+    "one_from_m/m/s": [
+      [
+        "FINM-MAJ",
+        "MARK-MAJ",
+        "INTB-MAJ",
+        "ACCT-MAJ",
+        "MGMT-MAJ",
+        "BUSN-MAJ",
+        "CORP-MAJ"
+      ],
+      [
+        "BECE-MIN"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

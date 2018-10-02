@@ -18,10 +18,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "IDEC8010",
-          "IDEC8011",
-          "IDEC8023",
-          "IDEC8026"
+          "EMDV8078",
+          "IDEC8001"
         ]
       },
       {
@@ -43,6 +41,16 @@
           "POGO8004",
           "POGO8057",
           "POGO8076"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "IDEC8010",
+          "IDEC8011",
+          "IDEC8023",
+          "IDEC8026"
         ]
       },
       {
@@ -83,14 +91,6 @@
           "IDEC8081",
           "IDEC8083",
           "IDEC8088"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8078",
-          "IDEC8001"
         ]
       }
     ],

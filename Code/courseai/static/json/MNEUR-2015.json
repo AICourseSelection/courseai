@@ -1,26 +1,36 @@
 {
+  "name": "Master of Neuroscience",
+  "code": "MNEUR",
+  "year": 2015,
+  "units": 96,
   "required": {
+    "compulsory_courses": [
+      "NEUR6101",
+      "NEUR6102"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "BIOL8291",
           "NEUR8001",
           "NEUR8700",
           "NEUR8701",
           "NEUR8704"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "BIOL6174",
           "PSYC6010"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "BIOL6001",
           "BIOL6161",
@@ -38,18 +48,10 @@
           "PSYC6030",
           "SCOM8021",
           "VCPG6002"
-        ],
-        "type": "minimum",
-        "units": 6
+        ]
       }
     ],
-    "compulsory_courses": [
-      "NEUR6101",
-      "NEUR6102"
-    ]
-  },
-  "code": "MNEUR",
-  "year": 2015,
-  "name": "Master of Neuroscience",
-  "units": 96
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

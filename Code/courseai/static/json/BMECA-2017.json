@@ -1,16 +1,24 @@
 {
+  "name": "Bachelor of Middle Eastern and Central Asian Studies",
+  "code": "BMECA",
+  "year": 2017,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "level": [
-          1000
-        ],
         "type": "maximum",
+        "level": "1000",
         "units": 60
       }
     ],
+    "compulsory_courses": [
+      "MEAS1001",
+      "MEAS1002"
+    ],
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 36,
         "courses": [
           "BUSI2024",
           "MEAS2000",
@@ -24,18 +32,22 @@
           "POLS2031",
           "POLS2069",
           "POLS2070"
-        ],
-        "type": "minimum",
-        "units": 36
+        ]
       }
     ],
-    "compulsory_courses": [
-      "MEAS1001",
-      "MEAS1002"
-    ]
-  },
-  "code": "BMECA",
-  "year": 2017,
-  "name": "Bachelor of Middle Eastern and Central Asian Studies",
-  "units": 144
+    "one_from_m/m/s": [
+      [
+        "PERS-MAJ",
+        "ARAB-MAJ"
+      ],
+      [
+        "ARAB-MIN",
+        "PERS-MIN"
+      ],
+      [
+        "AARB-MIN"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

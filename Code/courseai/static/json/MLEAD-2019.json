@@ -4,11 +4,15 @@
   "year": 2019,
   "units": 96,
   "required": {
-    "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "MGMC-SPEC",
-      "MGME-SPEC",
-      "LEAD-SPEC"
-    ]
+    "one_from_m/m/s": [
+      [
+        "MGMC-SPEC"
+      ],
+      [
+        "LEAD-SPEC",
+        "MGME-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

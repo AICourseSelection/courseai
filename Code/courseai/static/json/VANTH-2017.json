@@ -1,4 +1,8 @@
 {
+  "name": "Master of Anthropology (Advanced)",
+  "code": "VANTH",
+  "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ANTH8034",
@@ -9,10 +13,8 @@
       "ANTH6009",
       "ANTH6010",
       "ANTH6017"
-    ]
-  },
-  "code": "VANTH",
-  "year": 2017,
-  "name": "Master of Anthropology (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

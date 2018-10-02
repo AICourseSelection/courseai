@@ -38,17 +38,17 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "STAT2032",
-          "STAT3040"
+          "MATH2320",
+          "MATH2322",
+          "MATH3029"
         ]
       },
       {
         "type": "minimum",
         "units": 6,
         "courses": [
-          "MATH2320",
-          "MATH2322",
-          "MATH3029"
+          "STAT2032",
+          "STAT3040"
         ]
       },
       {
@@ -62,9 +62,9 @@
     ],
     "one_from_m/m/s": [
       [
-        "FINM-HSPC",
         "STAT-HSPC",
-        "ECON-HSPC"
+        "ECON-HSPC",
+        "FINM-HSPC"
       ]
     ],
     "required_m/m/s": []

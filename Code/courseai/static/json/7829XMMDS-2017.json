@@ -1,7 +1,13 @@
 {
+  "name": "Master of Military and Defence Studies",
+  "code": "7829XMMDS",
+  "year": 2017,
+  "units": 72,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 72,
         "courses": [
           "STST8100",
           "STST8102",
@@ -11,14 +17,10 @@
           "STST8107",
           "STST8108",
           "STST8117"
-        ],
-        "type": "minimum",
-        "units": 72
+        ]
       }
-    ]
-  },
-  "code": "7829XMMDS",
-  "year": 2017,
-  "name": "Master of Military and Defence Studies",
-  "units": 72
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

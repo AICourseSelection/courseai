@@ -13,6 +13,13 @@
       ],
       [
         "BUSI-SPEC"
+      ],
+      [
+        "BISY-SPEC",
+        "PROM-SPEC",
+        "MKTG-SPEC",
+        "LEAD-SPEC",
+        "ENIN-SPEC"
       ]
     ],
     "required_m/m/s": []

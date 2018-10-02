@@ -5,10 +5,6 @@
   "units": 96,
   "required": {
     "one_from_m/m/s": [],
-    "required_m/m/s": [
-      "MGMC-SPEC",
-      "PROM-SPEC",
-      "PMGE-SPEC"
-    ]
+    "required_m/m/s": []
   }
 }

@@ -17,14 +17,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMET8001",
-          "EMET8010"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 30,
         "courses": [
           "ECON8901",
@@ -60,6 +52,14 @@
           "ECON8025",
           "ECON8026",
           "EMET8005"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMET8001",
+          "EMET8010"
         ]
       }
     ],

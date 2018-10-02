@@ -1,17 +1,9 @@
 {
+  "name": "Juris Doctor - online",
+  "code": "MJDOL",
+  "year": 2016,
+  "units": 144,
   "required": {
-    "x_from_category": [
-      {
-        "level": [
-          4000
-        ],
-        "type": "minimum",
-        "units": 36,
-        "area": [
-          "LAWS"
-        ]
-      }
-    ],
     "compulsory_courses": [
       "LAWS8701",
       "LAWS8702",
@@ -26,10 +18,16 @@
       "LAWS8711",
       "LAWS8712",
       "LAWS8713"
-    ]
-  },
-  "code": "MJDOL",
-  "year": 2016,
-  "name": "Juris Doctor - online",
-  "units": 144
+    ],
+    "x_from_category": [
+      {
+        "type": "minimum",
+        "level": 4000,
+        "area": "LAWS",
+        "units": 36
+      }
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

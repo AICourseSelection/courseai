@@ -1,24 +1,47 @@
 {
+  "name": "Bachelor of Public Policy",
+  "code": "BPPOL",
+  "year": 2019,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "level": [
-          1000
-        ],
         "type": "maximum",
+        "level": "1000",
         "units": 60
       }
     ],
+    "compulsory_courses": [
+      "ECON1101",
+      "INDG3001",
+      "POLS2009",
+      "SOCR3001",
+      "SOCY2043",
+      "SOCY2101"
+    ],
     "x_from_here": [
       {
-        "courses": [
-          "PHIL1008",
-          "PHIL2020"
-        ],
         "type": "minimum",
-        "units": 6
+        "units": 12,
+        "courses": [
+          "ANIP3003",
+          "ANIP3005",
+          "POLS3022",
+          "SOCY3001",
+          "SOCY3030"
+        ]
       },
       {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POLS2044",
+          "SOCY2038"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 30,
         "courses": [
           "CRIM2001",
           "CRIM2003",
@@ -47,52 +70,29 @@
           "STST2003",
           "STST3002",
           "STST3003"
-        ],
-        "type": "minimum",
-        "units": 30
+        ]
       },
       {
-        "courses": [
-          "ANIP3003",
-          "ANIP3005",
-          "POLS3022",
-          "SOCY3001",
-          "SOCY3030"
-        ],
         "type": "minimum",
-        "units": 12
-      },
-      {
+        "units": 12,
         "courses": [
           "PHIL2115",
           "PHIL2122",
           "POLS2063",
           "POLS2119",
           "POLS2120"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       },
       {
-        "courses": [
-          "POLS2044",
-          "SOCY2038"
-        ],
         "type": "minimum",
-        "units": 6
+        "units": 6,
+        "courses": [
+          "PHIL1008",
+          "PHIL2020"
+        ]
       }
     ],
-    "compulsory_courses": [
-      "ECON1101",
-      "INDG3001",
-      "POLS2009",
-      "SOCR3001",
-      "SOCY2043",
-      "SOCY2101"
-    ]
-  },
-  "code": "BPPOL",
-  "year": 2019,
-  "name": "Bachelor of Public Policy",
-  "units": 144
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

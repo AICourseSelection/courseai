@@ -1,7 +1,13 @@
 {
+  "name": "Master of Digital Humanities and Public Culture",
+  "code": "MDHPC",
+  "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
+        "type": "minimum",
+        "units": 24,
         "courses": [
           "ANTH6005",
           "ANTH6009",
@@ -13,11 +19,11 @@
           "HIST6121",
           "LING6001",
           "LING6002"
-        ],
-        "type": "minimum",
-        "units": 24
+        ]
       },
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "ARCH8104",
           "HUMN8001",
@@ -32,11 +38,11 @@
           "SOCR8008",
           "SOCR8009",
           "SOCY6066"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       },
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "HIST8004",
           "HUMN8030",
@@ -47,14 +53,16 @@
           "MUSC8005",
           "MUSC8009",
           "MUSC8011"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       }
-    ]
-  },
-  "code": "MDHPC",
-  "year": 2017,
-  "name": "Master of Digital Humanities and Public Culture",
-  "units": 96
+    ],
+    "one_from_m/m/s": [
+      [
+        "BIOG-SPEC",
+        "DIHU-SPEC",
+        "PUHC-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

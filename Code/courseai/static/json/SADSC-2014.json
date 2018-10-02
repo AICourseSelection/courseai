@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Associate Degree",
   "code": "SADSC",
   "year": 2014,
-  "name": "Associate Degree",
-  "units": 96
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

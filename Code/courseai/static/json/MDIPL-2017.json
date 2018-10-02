@@ -15,19 +15,6 @@
         "type": "minimum",
         "units": 24,
         "courses": [
-          "DIPL8000",
-          "DIPL8003",
-          "DIPL8006",
-          "DIPL8008",
-          "DIPL8009",
-          "DIPL8010",
-          "DIPL8012"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 24,
-        "courses": [
           "ANIP6503",
           "DIPL8000",
           "DIPL8003",
@@ -67,6 +54,19 @@
           "NSPO8019",
           "POGO8115",
           "SOCY8004"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "DIPL8000",
+          "DIPL8003",
+          "DIPL8006",
+          "DIPL8008",
+          "DIPL8009",
+          "DIPL8010",
+          "DIPL8012"
         ]
       }
     ],

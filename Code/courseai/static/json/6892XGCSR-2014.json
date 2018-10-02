@@ -1,7 +1,10 @@
 {
-  "required": {},
+  "name": "Graduate Certificate in Social Research",
   "code": "6892XGCSR",
   "year": 2014,
-  "name": "Graduate Certificate in Social Research",
-  "units": 1
+  "units": 1,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

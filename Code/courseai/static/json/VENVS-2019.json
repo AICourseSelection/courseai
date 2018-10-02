@@ -1,32 +1,13 @@
 {
+  "name": "Master of Environmental Science (Advanced)",
+  "code": "VENVS",
+  "year": 2019,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "courses": [
-          "BIOL6002",
-          "BIOL6003",
-          "BIOL6004",
-          "BIOL6006",
-          "BIOL6010",
-          "BIOL6106",
-          "BIOL6111",
-          "BIOL6113",
-          "BIOL6116",
-          "BIOL6125",
-          "BIOL6161",
-          "BIOL6162",
-          "BIOL6177",
-          "BIOL6191",
-          "BIOL6201",
-          "BIOL6202",
-          "BIOL6206",
-          "BIOL6631",
-          "BIOL8021"
-        ],
         "type": "minimum",
-        "units": 24
-      },
-      {
+        "units": 24,
         "courses": [
           "EMSC6014",
           "EMSC6015",
@@ -44,68 +25,11 @@
           "EMSC8018",
           "EMSC8706",
           "EMSC8707"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       },
       {
-        "courses": [
-          "BIOL6002",
-          "BIOL6003",
-          "BIOL6004",
-          "BIOL6006",
-          "BIOL6010",
-          "BIOL6106",
-          "BIOL6111",
-          "BIOL6113",
-          "BIOL6116",
-          "BIOL6125",
-          "BIOL6161",
-          "BIOL6162",
-          "BIOL6177",
-          "BIOL6191",
-          "BIOL6201",
-          "BIOL6202",
-          "BIOL6206",
-          "BIOL6631",
-          "BIOL8021"
-        ],
         "type": "minimum",
-        "units": 12
-      },
-      {
-        "courses": [
-          "ENVS6005",
-          "ENVS6015",
-          "ENVS6020",
-          "ENVS6022",
-          "ENVS6024",
-          "ENVS6025",
-          "ENVS6026",
-          "ENVS6103",
-          "ENVS6104",
-          "ENVS6201",
-          "ENVS6202",
-          "ENVS6204",
-          "ENVS6218",
-          "ENVS6223",
-          "ENVS6301",
-          "ENVS6303",
-          "ENVS6304",
-          "ENVS6306",
-          "ENVS6307",
-          "ENVS6308",
-          "ENVS6311",
-          "ENVS6319",
-          "ENVS6514",
-          "ENVS6529",
-          "ENVS6555",
-          "ENVS8003"
-        ],
-        "type": "minimum",
-        "units": 24
-      },
-      {
+        "units": 12,
         "courses": [
           "ENVS6005",
           "ENVS6015",
@@ -135,11 +59,11 @@
           "ENVS8003",
           "ENVS8015",
           "ENVS8048"
-        ],
-        "type": "minimum",
-        "units": 12
+        ]
       },
       {
+        "type": "minimum",
+        "units": 12,
         "courses": [
           "EMSC6014",
           "EMSC6015",
@@ -157,14 +81,92 @@
           "EMSC8018",
           "EMSC8706",
           "EMSC8707"
-        ],
+        ]
+      },
+      {
         "type": "minimum",
-        "units": 24
+        "units": 12,
+        "courses": [
+          "BIOL6002",
+          "BIOL6003",
+          "BIOL6004",
+          "BIOL6006",
+          "BIOL6010",
+          "BIOL6106",
+          "BIOL6111",
+          "BIOL6113",
+          "BIOL6116",
+          "BIOL6125",
+          "BIOL6161",
+          "BIOL6162",
+          "BIOL6177",
+          "BIOL6191",
+          "BIOL6201",
+          "BIOL6202",
+          "BIOL6206",
+          "BIOL6631",
+          "BIOL8021"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "BIOL6002",
+          "BIOL6003",
+          "BIOL6004",
+          "BIOL6006",
+          "BIOL6010",
+          "BIOL6106",
+          "BIOL6111",
+          "BIOL6113",
+          "BIOL6116",
+          "BIOL6125",
+          "BIOL6161",
+          "BIOL6162",
+          "BIOL6177",
+          "BIOL6191",
+          "BIOL6201",
+          "BIOL6202",
+          "BIOL6206",
+          "BIOL6631",
+          "BIOL8021"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 24,
+        "courses": [
+          "ENVS6005",
+          "ENVS6015",
+          "ENVS6020",
+          "ENVS6022",
+          "ENVS6024",
+          "ENVS6025",
+          "ENVS6026",
+          "ENVS6103",
+          "ENVS6104",
+          "ENVS6201",
+          "ENVS6202",
+          "ENVS6204",
+          "ENVS6218",
+          "ENVS6223",
+          "ENVS6301",
+          "ENVS6303",
+          "ENVS6304",
+          "ENVS6306",
+          "ENVS6307",
+          "ENVS6308",
+          "ENVS6311",
+          "ENVS6319",
+          "ENVS6514",
+          "ENVS6529",
+          "ENVS6555",
+          "ENVS8003"
+        ]
       }
-    ]
-  },
-  "code": "VENVS",
-  "year": 2019,
-  "name": "Master of Environmental Science (Advanced)",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -6,6 +6,31 @@
   "required": {
     "x_from_here": [
       {
+        "type": "maximum",
+        "units": 18,
+        "courses": [
+          "BUSI7019",
+          "BUSN7024",
+          "ECON8069",
+          "INFS7004",
+          "INFS7007",
+          "FINM7007",
+          "FINM7008",
+          "FINM7041",
+          "FINM7044",
+          "MGMT7030",
+          "MKTG7001",
+          "MKTG7050",
+          "STAT6006",
+          "STAT6046",
+          "STAT6038",
+          "STAT7001",
+          "STAT7026",
+          "STAT7029",
+          "STAT7055"
+        ]
+      },
+      {
         "type": "minimum",
         "units": 30,
         "courses": [
@@ -33,33 +58,9 @@
           "FINM7006",
           "INFS7040"
         ]
-      },
-      {
-        "type": "maximum",
-        "units": 18,
-        "courses": [
-          "BUSI7019",
-          "BUSN7024",
-          "ECON8069",
-          "INFS7004",
-          "INFS7007",
-          "FINM7007",
-          "FINM7008",
-          "FINM7041",
-          "FINM7044",
-          "MGMT7030",
-          "MKTG7001",
-          "MKTG7050",
-          "STAT6006",
-          "STAT6046",
-          "STAT6038",
-          "STAT7001",
-          "STAT7026",
-          "STAT7029",
-          "STAT7055"
-        ]
       }
     ],
+    "one_from_m/m/s": [],
     "required_m/m/s": []
   }
 }

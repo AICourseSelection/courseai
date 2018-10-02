@@ -1,23 +1,13 @@
 {
+  "name": "Master of Classical Studies",
+  "code": "MCLAS",
+  "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "courses": [
-          "CLAS8002",
-          "CLAS8003"
-        ],
-        "type": "minimum",
-        "units": 12
-      },
-      {
-        "courses": [
-          "GREK6112",
-          "LATN6002"
-        ],
-        "type": "minimum",
-        "units": 6
-      },
-      {
+        "type": "maximum",
+        "units": 48,
         "courses": [
           "ANCH6013",
           "ANCH6023",
@@ -32,14 +22,26 @@
           "GREK6125",
           "LATN6101",
           "LATN6125"
-        ],
-        "type": "maximum",
-        "units": 48
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "CLAS8002",
+          "CLAS8003"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "GREK6112",
+          "LATN6002"
+        ]
       }
-    ]
-  },
-  "code": "MCLAS",
-  "year": 2017,
-  "name": "Master of Classical Studies",
-  "units": 96
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

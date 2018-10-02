@@ -15,32 +15,6 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POGO8016",
-          "POGO8081"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "POGO8015",
-          "POGO8048",
-          "POGO8050",
-          "POGO8057",
-          "POGO8080",
-          "POGO8210",
-          "EMDV8080",
-          "POGO8213",
-          "EMDV8081",
-          "IDEC8088",
-          "IDEC8027",
-          "INTR8013"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "POGO8015",
@@ -63,8 +37,26 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "POGO8082",
-          "POGO8090"
+          "POGO8016",
+          "POGO8081"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8015",
+          "POGO8048",
+          "POGO8050",
+          "POGO8057",
+          "POGO8080",
+          "POGO8210",
+          "EMDV8080",
+          "POGO8213",
+          "EMDV8081",
+          "IDEC8088",
+          "IDEC8027",
+          "INTR8013"
         ]
       },
       {
@@ -110,6 +102,14 @@
           "EURO8003",
           "POPH8103",
           "NSPO8007"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8082",
+          "POGO8090"
         ]
       }
     ],

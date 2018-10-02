@@ -13,6 +13,22 @@
     "x_from_here": [
       {
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8002",
+          "EMDV8012"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "CRWF8000",
+          "EMDV8104"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 12,
         "courses": [
           "ANTH8028",
@@ -31,43 +47,6 @@
           "EMDV8103",
           "EMDV8104",
           "EMDV8124"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8009",
-          "ANTH8019",
-          "DEMO8088",
-          "ENVS8003",
-          "IDEC8007",
-          "IDEC8008",
-          "IDEC8018",
-          "IDEC8019",
-          "IDEC8022",
-          "IDEC8025",
-          "IDEC8053",
-          "IDEC8089",
-          "LAWS8123",
-          "LAWS8180",
-          "LAWS8189",
-          "POGO8004",
-          "POGO8032",
-          "POGO8076",
-          "POGO8083",
-          "POGO8095",
-          "POGO8115",
-          "POGO8210",
-          "POGO8212"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8002",
-          "EMDV8012"
         ]
       },
       {
@@ -104,6 +83,35 @@
         "type": "minimum",
         "units": 12,
         "courses": [
+          "ANTH8009",
+          "ANTH8019",
+          "DEMO8088",
+          "ENVS8003",
+          "IDEC8007",
+          "IDEC8008",
+          "IDEC8018",
+          "IDEC8019",
+          "IDEC8022",
+          "IDEC8025",
+          "IDEC8053",
+          "IDEC8089",
+          "LAWS8123",
+          "LAWS8180",
+          "LAWS8189",
+          "POGO8004",
+          "POGO8032",
+          "POGO8076",
+          "POGO8083",
+          "POGO8095",
+          "POGO8115",
+          "POGO8210",
+          "POGO8212"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
           "ANTH8014",
           "ANTH8107",
           "EMDV8001",
@@ -111,14 +119,6 @@
           "EMDV8026",
           "EMDV8108",
           "EMDV8124"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "CRWF8000",
-          "EMDV8104"
         ]
       }
     ],

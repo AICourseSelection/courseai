@@ -20,14 +20,14 @@
     ],
     "one_from_m/m/s": [
       [
-        "APFN-SPEC",
         "BISY-SPEC",
-        "ENIN-SPEC",
-        "BUSI-SPEC",
-        "LEAD-SPEC",
-        "MKTG-SPEC",
         "PROM-SPEC",
-        "REPG-SPEC"
+        "MKTG-SPEC",
+        "REPG-SPEC",
+        "APFN-SPEC",
+        "LEAD-SPEC",
+        "BUSI-SPEC",
+        "ENIN-SPEC"
       ]
     ],
     "required_m/m/s": []
