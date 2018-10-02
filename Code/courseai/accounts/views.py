@@ -9,6 +9,8 @@ from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
+import json
+
 from django.contrib.auth import (
     authenticate,
     get_user_model,
@@ -118,43 +120,82 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
-
-
+    
+def deserialize_plan(degreePlans):
+    if len(degreePlans) == 0:
+        return []
+    plans = degreePlans.split('|')
+    allDegreePlans = []
+    for plan in plans:
+        allDegreePlans.append(plan.split('~'))
+    return allDegreePlans
+    
+def serialize_plan(degreePlans):
+    joinedCodesAndPlans = []
+    for plan in degreePlans:
+        joinedCodesAndPlans.append(plan[0] + '~' + plan[1])
+    return '|'.join([s for s in joinedCodesAndPlans])
+    
 # @csrf_protect
+@csrf_exempt
+@require_AJAX
 def code_view(request):
-    data = request.body.decode('utf-8')
-    proc = QueryDict(data)
-    email = proc['email']
-    a = User.objects.get(username=email)
-    store_code = a.profile.degree_plan_code
-
-    if request.method == "PUT":
+    if request.user.is_authenticated:
+        res_success = JsonResponse({"response": "success"})
+        
+        if request.method == "GET":
+            return HttpResponse(request.user.profile.degree_plan_code)
+        
+        proc = QueryDict(request.body.decode('utf-8'))
         code = proc['code']
-        i = 0
-        while i < len(store_code) - 5:
-            if store_code[i: i + 10] == code:
-                return JsonResponse({"response": "success"})
-            i += 11
-        store_code += "," + code
-        a.profile.save()
-        return JsonResponse({"response": "success"})
-    elif request.method == "DELETE":
-        code = proc['code']
-        i = 0
-        while i < len(store_code) - 5:
-            if store_code[i: i + 10] == code:
-                store_code.strip(store_code[i:i + 10])
-                a.profile.save()
-                return JsonResponse({"response": "success"})
-            i += 11
-        return JsonResponse({"response": "success"})
-    elif request.method == "GET":
-        return (store_code)
+        degreePlans = deserialize_plan(request.user.profile.degree_plan_code)
 
-    return JsonResponse({"response": "fail to require a GET or PUT or DELETE request"})
+        if request.method == "PUT":
+            mode = proc['mode']
+            if mode == 'NAME': # update name property of the plan
+                name = proc['name']
+                # double check length of name input
+                if len(name) > 250:
+                    return HttpResponse(JsonResponse({"response": "error"}));
+                for p in degreePlans:
+                    if p[0] == code:
+                        plan = json.loads(p[1])
+                        plan['name'] = name
+                        p[1] = json.dumps(plan)
+                        request.user.profile.degree_plan_code = serialize_plan(degreePlans)
+                        request.user.profile.save()
+                        return HttpResponse(res_success)
+            else: #  
+                plan = proc['plan']
+                # update the plan
+                for p in degreePlans:
+                    if p[0] == code:
+                        oldPlanName = '' if 'name' not in json.loads(p[1]) else json.loads(p[1])['name']
+                        plan = json.loads(plan)
+                        plan['name'] = oldPlanName
+                        p[1] = json.dumps(plan)
+                        request.user.profile.degree_plan_code = serialize_plan(degreePlans)
+                        request.user.profile.save()
+                        return HttpResponse(res_success)
+         
+                if len(degreePlans) != 0:
+                    request.user.profile.degree_plan_code += "|"
+                
+                serialized = code + '~' + plan
+                request.user.profile.degree_plan_code += serialized
+                request.user.profile.save()
+                return HttpResponse(res_success)
+        elif request.method == "DELETE":
+            for p in degreePlans:
+                if p[0] == code:
+                    degreePlans.remove(p)
+                    request.user.profile.degree_plan_code = serialize_plan(degreePlans)
+                    request.user.profile.save()
+                    return HttpResponse(res_success)
+            return HttpResponse(res_success)
+    return HttpResponse(JsonResponse({"response": "error"}))
 
-
-@csrf_exempt  # TODO: change me later
+@csrf_exempt #TODO: change me later
 @login_required
 def get_user_profile(request):
     user = None
@@ -178,8 +219,6 @@ def account_activate_view(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account on anuics.com')
     else:
         return HttpResponse('Activation link is invalid.')
-
-
 
 # def password_reset__request(request):
 # def password_reset_confirm(request):
