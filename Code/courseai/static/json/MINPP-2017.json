@@ -1,8 +1,8 @@
 {
-  "code": "MINPP",
-  "units": 96,
   "name": "Master of Innovation and Professional Practice",
+  "code": "MINPP",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "MGMT8015",
@@ -10,13 +10,6 @@
       "VCPG6004"
     ],
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "VCPG6200"
-        ]
-      },
       {
         "type": "minimum",
         "units": 6,
@@ -31,7 +24,16 @@
           "SOCY8101",
           "STAT6006"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "VCPG6200"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

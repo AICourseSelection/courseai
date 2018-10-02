@@ -1,7 +1,10 @@
 {
-  "units": 48,
-  "code": "7993XMST",
   "name": "Master of Studies",
+  "code": "7993XMST",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

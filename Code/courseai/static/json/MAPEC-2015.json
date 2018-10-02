@@ -1,8 +1,8 @@
 {
-  "code": "MAPEC",
-  "units": 96,
   "name": "Master of Applied Economics",
+  "code": "MAPEC",
   "year": 2015,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ECON6015",
@@ -62,6 +62,8 @@
           "EMET8005"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

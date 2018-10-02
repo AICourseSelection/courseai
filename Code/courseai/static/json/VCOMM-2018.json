@@ -1,8 +1,8 @@
 {
-  "code": "VCOMM",
-  "units": 96,
   "name": "Master of Commerce (Advanced)",
+  "code": "VCOMM",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "BUSN7005",
@@ -18,14 +18,6 @@
       "BUSN7021"
     ],
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMET6007",
-          "STAT6038"
-        ]
-      },
       {
         "type": "minimum",
         "units": 18,
@@ -46,6 +38,14 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "EMET6007",
+          "STAT6038"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "BUSN8003",
           "BUSN8010",
           "BUSN8016",
@@ -56,6 +56,8 @@
           "BUSN8145"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

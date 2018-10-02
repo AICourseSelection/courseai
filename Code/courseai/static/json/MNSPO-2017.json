@@ -1,8 +1,8 @@
 {
-  "code": "MNSPO",
-  "units": 96,
   "name": "Master of National Security Policy",
+  "code": "MNSPO",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "INTR8065",
@@ -77,6 +77,8 @@
           "STST8051"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

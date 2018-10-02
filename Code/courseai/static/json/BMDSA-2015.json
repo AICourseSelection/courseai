@@ -1,9 +1,18 @@
 {
-  "code": "BMDSA",
-  "units": 144,
   "name": "Bachelor of Medical Science",
+  "code": "BMDSA",
   "year": 2015,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "BIOL1003",
       "BIOL1004",
@@ -24,18 +33,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIAN3014",
-          "BIOL2202",
-          "ENVS1003",
-          "PSYC2009",
-          "STAT1003",
-          "STAT1008"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 24,
         "courses": [
           "BIOL3107",
@@ -50,16 +47,21 @@
           "NEUR3101",
           "NEUR3112"
         ]
-      }
-    ],
-    "max_by_level": [
+      },
       {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIAN3014",
+          "BIOL2202",
+          "ENVS1003",
+          "PSYC2009",
+          "STAT1003",
+          "STAT1008"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

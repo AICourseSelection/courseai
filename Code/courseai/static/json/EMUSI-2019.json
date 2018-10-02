@@ -1,8 +1,8 @@
 {
-  "units": 48,
-  "code": "EMUSI",
   "name": "Diploma of Music",
+  "code": "EMUSI",
   "year": 2019,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "ANUC1101",
@@ -15,14 +15,16 @@
     ],
     "x_from_here": [
       {
-        "units": 6,
         "type": "minimum",
+        "units": 6,
         "courses": [
           "ANUC1135",
           "ANUC1136",
           "ANUC1137"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

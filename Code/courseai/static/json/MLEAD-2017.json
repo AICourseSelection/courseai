@@ -1,8 +1,8 @@
 {
-  "code": "MLEAD",
-  "units": 96,
   "name": "Master of Leadership",
+  "code": "MLEAD",
   "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -36,6 +36,18 @@
           "MKTG7050"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "MGMC-SPEC"
+      ],
+      [
+        "MGME-SPEC"
+      ],
+      [
+        "LEAD-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

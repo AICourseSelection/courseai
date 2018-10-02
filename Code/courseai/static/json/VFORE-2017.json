@@ -1,28 +1,10 @@
 {
-  "code": "VFORE",
-  "units": 96,
   "name": "Master of Forestry (Advanced)",
+  "code": "VFORE",
   "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6024",
-          "ENVS6026",
-          "ENVS6201",
-          "ENVS6308"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS6026",
-          "ENVS6528"
-        ]
-      },
       {
         "type": "maximum",
         "units": 6,
@@ -72,10 +54,30 @@
         "type": "minimum",
         "units": 12,
         "courses": [
+          "ENVS6026",
+          "ENVS6528"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
           "ENVS6202",
           "ENVS6514"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS6024",
+          "ENVS6026",
+          "ENVS6201",
+          "ENVS6308"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

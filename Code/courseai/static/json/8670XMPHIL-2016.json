@@ -1,7 +1,10 @@
 {
-  "code": "8670XMPHIL",
-  "units": 60,
   "name": "Master of Philosophy, Research School of Astronomy and Astrophysics",
+  "code": "8670XMPHIL",
   "year": 2016,
-  "required": {}
+  "units": 60,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

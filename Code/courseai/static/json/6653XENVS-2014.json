@@ -1,7 +1,10 @@
 {
-  "code": "6653XENVS",
-  "units": 4,
   "name": "Graduate Certificate in Environmental Science",
+  "code": "6653XENVS",
   "year": 2014,
-  "required": {}
+  "units": 4,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

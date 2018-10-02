@@ -1,8 +1,8 @@
 {
-  "code": "NLLEN",
-  "units": 48,
   "name": "Master of Laws in Environmental Law",
+  "code": "NLLEN",
   "year": 2015,
+  "units": 48,
   "required": {
     "x_from_here": [
       {
@@ -33,6 +33,8 @@
           "LAWS8303"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

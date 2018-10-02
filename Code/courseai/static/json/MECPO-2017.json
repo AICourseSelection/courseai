@@ -1,8 +1,8 @@
 {
-  "code": "MECPO",
-  "units": 96,
   "name": "Master of Economic Policy",
+  "code": "MECPO",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ECON7073",
@@ -15,16 +15,6 @@
       "EMET8005"
     ],
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON8010",
-          "ECON8034",
-          "ECON8091",
-          "ECON8070"
-        ]
-      },
       {
         "type": "minimum",
         "units": 30,
@@ -59,7 +49,19 @@
           "EMET8012",
           "EMET8014"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON8010",
+          "ECON8034",
+          "ECON8091",
+          "ECON8070"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

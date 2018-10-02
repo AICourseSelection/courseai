@@ -1,7 +1,10 @@
 {
-  "code": "7416XMISS",
-  "units": 70,
   "name": "Master of Information Systems Studies",
+  "code": "7416XMISS",
   "year": 2014,
-  "required": {}
+  "units": 70,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "code": "APNSC",
-  "units": 3,
   "name": "Bachelor of Philosophy (Honours) / Bachelor of Science (Honours)",
+  "code": "APNSC",
   "year": 2014,
-  "required": {}
+  "units": 3,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

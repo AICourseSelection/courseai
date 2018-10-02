@@ -1,7 +1,16 @@
 {
-  "units": 144,
-  "code": "BMUSI",
   "name": "Bachelor of Music",
+  "code": "BMUSI",
   "year": 2017,
-  "required": {}
+  "units": 144,
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "MTEC-MAJ",
+        "MUSY-MAJ",
+        "PERF-MAJ"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "code": "7705XMCOMP",
-  "units": 48,
   "name": "Master of Computing",
+  "code": "7705XMCOMP",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

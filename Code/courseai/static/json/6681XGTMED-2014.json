@@ -1,7 +1,10 @@
 {
-  "code": "6681XGTMED",
-  "units": 2,
   "name": "Graduate Certificate in Translational Medicine",
+  "code": "6681XGTMED",
   "year": 2014,
-  "required": {}
+  "units": 2,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

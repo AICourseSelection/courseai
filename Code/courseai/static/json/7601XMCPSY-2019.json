@@ -1,7 +1,10 @@
 {
-  "code": "7601XMCPSY",
-  "units": 12,
   "name": "Master of Clinical Psychology",
+  "code": "7601XMCPSY",
   "year": 2019,
-  "required": {}
+  "units": 12,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

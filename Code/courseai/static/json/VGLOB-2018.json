@@ -1,7 +1,10 @@
 {
-  "units": 96,
-  "code": "VGLOB",
   "name": "Master of Globalisation (Advanced)",
+  "code": "VGLOB",
   "year": 2018,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

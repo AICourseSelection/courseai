@@ -1,7 +1,10 @@
 {
-  "code": "6353XGCMGL",
-  "units": 6,
   "name": "Graduate Certificate of Australian Migration Law and Practice",
+  "code": "6353XGCMGL",
   "year": 2015,
-  "required": {}
+  "units": 6,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

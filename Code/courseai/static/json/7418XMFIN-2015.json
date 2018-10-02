@@ -1,18 +1,10 @@
 {
-  "code": "7418XMFIN",
-  "units": 96,
   "name": "Master of Finance",
+  "code": "7418XMFIN",
   "year": 2015,
+  "units": 96,
   "required": {
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON8069",
-          "STAT6046"
-        ]
-      },
       {
         "type": "minimum",
         "units": 42,
@@ -24,6 +16,14 @@
           "FINM7041",
           "FINM7044",
           "STAT7055"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON8069",
+          "STAT6046"
         ]
       },
       {
@@ -40,6 +40,8 @@
           "FINM8100"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }
