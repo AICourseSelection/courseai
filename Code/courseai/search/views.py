@@ -37,7 +37,6 @@ def index(request):
 
 
 def mms_request(request):
-    print("In MMS_Request")
     try:
         code = request.GET['query']
         return mms.get_mms_data(es_conn, code)

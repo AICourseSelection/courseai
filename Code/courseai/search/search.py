@@ -63,7 +63,7 @@ def raw_search(search_object, phrase, areas, levels, sem_queried, level):
         fields.append('versions.' + str(field) + '.convener')
 
     for word in phrase.split():
-        should.append(MultiMatch(query=word, type="phrase_prefix", fields=fields))
+        should.append(MultiMatch(query=word, fields=fields))
 
     q = Q('bool', should=should, minimum_should_match=1)
     response = search_object.query(q)
