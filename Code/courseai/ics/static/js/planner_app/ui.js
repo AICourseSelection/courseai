@@ -13,7 +13,7 @@ for (const abb in SESSION_WORDS) SESSION_ABBREVS[SESSION_WORDS[abb]] = abb;
 
 const THIS_YEAR = (new Date()).getFullYear().toString();
 const ELECTIVE_TEXT = "Elective Course";
-
+const CODES = ['ACCT', 'ACST', 'ANCH', 'ANIP', 'ANTH', 'ANUC', 'ARAB', 'ARCH', 'ARTH', 'ARTS', 'ARTV', 'ASGS', 'ASIA', 'ASTR', 'AUST', 'BAPA', 'BIAN', 'BIOL', 'BURM', 'BUSI', 'BUSN', 'CBEA', 'CECS', 'CHEM', 'CHIN', 'CHMD', 'CHST', 'CLAS', 'COMM', 'COMP', 'CRIM', 'CRWF', 'DART', 'DEMO', 'DESA', 'DESN', 'DEST', 'DIPL', 'EAST', 'ECCO', 'ECHI', 'ECON', 'EDUC', 'EMDV', 'EMET', 'EMSC', 'ENGL', 'ENGN', 'ENVS', 'ESEN', 'EURO', 'EXTN', 'FILM', 'FINM', 'FORA', 'FREN', 'GEND', 'GERM', 'GRAD', 'GREK', 'HGEO', 'HIND', 'HIST', 'HLTH', 'HONS', 'HUMN', 'IDEC', 'INDG', 'INDN', 'INFS', 'INFT', 'INTR', 'ITAL', 'JAVA', 'JPNS', 'KORE', 'LANG', 'LATN', 'LAWS', 'LEGL', 'LEGW', 'LING', 'MATH', 'MEAS', 'MEDI', 'MEDN', 'MGMT', 'MICR', 'MKTG', 'MMIB', 'MNGL', 'MUSC', 'MUSI', 'MUSM', 'NEUR', 'NEWM', 'NSPO', 'PASI', 'PERS', 'PHIL', 'PHYS', 'PLST', 'POGO', 'POLS', 'POPH', 'POPM', 'POPS', 'PORT', 'PPEI', 'PREP', 'PSYC', 'REGN', 'RUSS', 'SCNC', 'SCOM', 'SCRN', 'SEAS', 'SKRT', 'SOCR', 'SOCY', 'SPAN', 'STAT', 'STST', 'TETM', 'THAI', 'THES', 'TIBN', 'TOKP', 'TURK', 'URDU', 'VCPG', 'VCUG', 'VIET', 'VISC', 'WARS'];
 const MMS_CLASS_NAME = 'mms-course-list';
 let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
@@ -107,29 +107,6 @@ function addLinearGradient(colorClasses, box) {
     }
 }
 
-// TODO: remove if not used later
-function addRepeatingLinearGradient(colorClasses, box) {
-    const cssBrowserGradients = ['-webkit-', '-moz-', '-o-', '-ms-'];
-    for (var j = 0; j < cssBrowserGradients.length; j++) {
-        let cssBackgroundStr = cssBrowserGradients[j] + 'repeating-linear-gradient(135deg';
-
-        const percent = 2;
-        cssBackgroundStr += ',' + colorMappings[colorClasses[0]];
-        for (var i = 0; i < colorClasses.length; i++) {
-            // add additional color stop to create hard lines between colors
-            if (i > 0 && i < colorClasses.length - 1) {
-                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * i) + "%";
-            }
-
-            if (i !== colorClasses.length - 1) {
-                cssBackgroundStr += "," + colorMappings[colorClasses[i]] + ' ' + (percent * (i + 1)) + "%";
-            }
-        }
-        cssBackgroundStr += ')';
-        box.css('background', cssBackgroundStr);
-    }
-}
-
 function addColor(box, code) {
     box.css('background', ''); // clear existing gradients if they exist
 
@@ -182,7 +159,7 @@ function addCourse(code, title, session, position) {
         const first_cell = $(this.children[0]);
         return (first_cell.find('.row-ses').text() === session);
     });
-    removeCourseInPlanner(code);
+    // removeCourseInPlanner(code);
     const box = $(row.children()[position + 1]);
     box.droppable('destroy');
     box.find('.course-code').text(code);
@@ -639,12 +616,12 @@ $('#show-filters').popover({
     title: 'Add Filters <a class="popover-close" onclick="closePopover(this)">×</a>',
     placement: 'right',
     html: true,
-    content: '<form onsubmit="return filterSubmit(this)">\n' +
+    content: '<div>\n' +
     '<div class="form-row" style="padding: 0 5px">' +
-    '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
+    '<label for="code-select">Filter by code (e.g. MATH): </label></div>\n' +
     '<div class="form-row" style="padding: 0 5px">\n' +
-    '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
-    '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
+    '    <div style="width: 100%; float:left; padding-right: 61px;"><select id="code-select" class="form-control"></select></div>\n' +
+    '    <button id="filter-submit-btn" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
     '</div>\n' +
     '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
     '<div id="filter-buttons" class="form-row">\n' +
@@ -654,7 +631,7 @@ $('#show-filters').popover({
     '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
     '</div>\n' +
     '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
-    '</form>' +
+    '</div>' +
     '',
     template: '<div class="popover filters-panel" role="tooltip">\n' +
     '    <div class="arrow"></div>\n' +
@@ -665,6 +642,8 @@ $('#show-filters').popover({
 }).on('shown.bs.popover', function () {
     const popover = $(this).data('bs.popover');
     const buttons = $(popover.tip).find('#filter-buttons button');
+
+    populateCodeFilterDropdown();
     for (const b of buttons) {
         $(b).on('click', function () {
             $(b).toggleClass('active');
@@ -672,6 +651,11 @@ $('#show-filters').popover({
         });
         if (SEARCH.getFilter('level', $(b).text())) $(b).toggleClass('active');
     }
+
+    $('#filter-submit-btn').click(function() {
+        let code = $('#code-select').val();
+        if (!SEARCH.getFilter('code', code)) addFilter('code', code);
+    });
 });
 
 $('#mms-active-list').sortable({containment: $('body')});
@@ -680,6 +664,16 @@ $('#left-panel').find('a[data-toggle="tab"]').on('hide.bs.tab', function () {
     $('#left-panel').find('.result-course').popover('hide');
     $('#show-filters').popover('hide');
 });
+
+function populateCodeFilterDropdown() {
+    let select = $('#code-select');
+    for (var i = 0; i < CODES.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = CODES[i];
+        opt.innerHTML = CODES[i];
+        select.append(opt);
+    }
+}
 
 // Event Handlers
 function cycleDegrees() {
@@ -910,25 +904,6 @@ function dropOnSlot(event, ui) {
         return
     }
     addCourse(code, title, session, position);
-}
-
-function filterSubmit(form) {
-    const input = $(form).find('input[type=text]');
-    const code = input.val().toUpperCase();
-    if (code && /^[A-Z]{4}$/.test(code) && !SEARCH.getFilter('code', code)) {
-        addFilter('code', code);
-        input.val('');
-        input.css('background-color', '');
-        input.css('color', '');
-    } else {
-        input.css('background-color', '#f8d7da');
-        input.css('color', '#721c24');
-        input.keydown(function () {
-            $(this).css('background-color', '');
-            $(this).css('color', '');
-        })
-    }
-    return false;
 }
 
 async function mms_click_add() {
