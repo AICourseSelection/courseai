@@ -136,7 +136,7 @@ function makeElective(box, session, code) {
     box.find('.course-title').text('');
     box.removeClass(COLOR_CLASSES_STR);
     makeSlotDroppable(box);
-    PLAN.removeWarning('CourseForceAdded', code);
+    if (PLAN.getCourses(code).length === 1) PLAN.removeWarning('CourseForceAdded', code);
     PLAN.removeCourse(session, code);
 }
 
@@ -878,6 +878,12 @@ function dropOnSlot(event, ui) {
     const position = $(event.target).index() - 1;
     if ($(row).hasClass('unavailable')) {
 
+        if (first_cell.hasClass('delete')) {
+            $(this).removeClass('invalid-cell');
+            addCourse(code, title, session, position);
+            return;
+        }
+
         let modal = null;
         if (reason === "Prerequisites not met") {
             $('#prereq-modal-course').text(ui.draggable.find('.course-code').text());
@@ -890,7 +896,7 @@ function dropOnSlot(event, ui) {
             $('#unavail-modal-course').text(ui.draggable.find('.course-code').text());
             modal = $('#unavail-modal');
         } else {
-            return
+            return;
         }
 
         let override_button = modal.find('#course-add-override');
