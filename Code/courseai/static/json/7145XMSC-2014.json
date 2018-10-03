@@ -1,7 +1,10 @@
 {
-  "units": 12,
-  "code": "7145XMSC",
   "name": "Master of Liberal Arts (Museums and Collections)",
+  "code": "7145XMSC",
   "year": 2014,
-  "required": {}
+  "units": 12,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

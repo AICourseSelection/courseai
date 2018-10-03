@@ -1,10 +1,27 @@
 {
-  "code": "BSREM",
-  "units": 144,
   "name": "Bachelor of Science (Resource and Environmental Management)",
+  "code": "BSREM",
   "year": 2014,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS2014",
+          "ENVS2015"
+        ]
+      },
       {
         "type": "minimum",
         "units": 18,
@@ -19,8 +36,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "EMSC1006",
-          "ENVS1008"
+          "ENVS3007",
+          "ENVS3028"
         ]
       },
       {
@@ -37,16 +54,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENVS3007",
-          "ENVS3028"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS2014",
-          "ENVS2015"
+          "EMSC1006",
+          "ENVS1008"
         ]
       }
     ],
@@ -57,14 +66,7 @@
         "courses": "Science List"
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

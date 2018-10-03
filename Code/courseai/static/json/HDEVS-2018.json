@@ -1,13 +1,13 @@
 {
-  "units": 48,
-  "code": "HDEVS",
   "name": "Bachelor of Development Studies (Honours)",
+  "code": "HDEVS",
   "year": 2018,
+  "units": 48,
   "required": {
     "x_from_here": [
       {
-        "units": 12,
         "type": "minimum",
+        "units": 12,
         "courses": [
           "ANTH4011",
           "ANTH4012",
@@ -17,13 +17,15 @@
         ]
       },
       {
-        "units": 12,
         "type": "minimum",
+        "units": 12,
         "courses": [
           "POLS4009",
           "POLS4010"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

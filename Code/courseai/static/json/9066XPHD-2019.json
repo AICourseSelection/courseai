@@ -1,7 +1,10 @@
 {
-  "code": "9066XPHD",
-  "units": 100,
   "name": "Doctor of Philosophy, Research School of Biology",
+  "code": "9066XPHD",
   "year": 2019,
-  "required": {}
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

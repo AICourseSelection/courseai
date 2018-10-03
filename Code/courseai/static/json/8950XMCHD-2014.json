@@ -1,8 +1,8 @@
 {
-  "code": "8950XMCHD",
-  "units": 192,
   "name": "Doctor of Medicine and Surgery",
+  "code": "8950XMCHD",
   "year": 2014,
+  "units": 192,
   "required": {
     "compulsory_courses": [
       "MEDI8011",
@@ -15,6 +15,8 @@
       "MEDI8030",
       "MEDI8040",
       "MEDI8040"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

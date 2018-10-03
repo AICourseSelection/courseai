@@ -1,7 +1,10 @@
 {
-  "units": 8002,
-  "code": "7150HWWHL",
   "name": "Master of Liberal Arts (Writing, World Histories and Lives) (Research)",
+  "code": "7150HWWHL",
   "year": 2014,
-  "required": {}
+  "units": 8002,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

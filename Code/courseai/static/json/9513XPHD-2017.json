@@ -1,7 +1,10 @@
 {
-  "code": "9513XPHD",
-  "units": 100,
   "name": "Doctor of Philosophy, Australian Centre on China in the World",
+  "code": "9513XPHD",
   "year": 2017,
-  "required": {}
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

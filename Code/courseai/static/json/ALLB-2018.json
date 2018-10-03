@@ -1,9 +1,18 @@
 {
-  "code": "ALLB",
-  "units": 192,
   "name": "Bachelor of Laws (Honours)",
+  "code": "ALLB",
   "year": 2018,
+  "units": 192,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "LAWS1201",
       "LAWS1202",
@@ -24,23 +33,16 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "units": 48,
+        "level": [
+          4000
+        ],
         "area": [
           "LAWS"
         ],
-        "level": [
-          4000
-        ]
+        "units": 48
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

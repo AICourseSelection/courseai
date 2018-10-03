@@ -1,7 +1,18 @@
 {
-  "code": "6829XGCMDS",
-  "units": 24,
   "name": "Graduate Certificate of Military and Defence Studies",
+  "code": "6829XGCMDS",
   "year": 2016,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "AFOR-SPEC",
+        "STOP-SPEC",
+        "ADEF-SPEC",
+        "ADHS-MIN",
+        "MOLC-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

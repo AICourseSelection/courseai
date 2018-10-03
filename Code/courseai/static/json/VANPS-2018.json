@@ -1,8 +1,8 @@
 {
-  "code": "VANPS",
-  "units": 96,
   "name": "Master of Asian and Pacific Studies (Advanced)",
+  "code": "VANPS",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ASIA8020",
@@ -26,6 +26,23 @@
           "PASI8002"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "KORE-SPEC",
+        "BURM-SPEC",
+        "SKRT-SPEC",
+        "TETM-SPEC",
+        "MNGL-SPEC",
+        "INDN-SPEC",
+        "LCHN-SPEC",
+        "VIET-SPEC",
+        "THAI-SPEC",
+        "HIND-SPEC",
+        "JPNS-SPEC",
+        "CHIN-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

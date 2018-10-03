@@ -1,7 +1,10 @@
 {
-  "code": "7414XMACCT",
-  "units": 96,
   "name": "Master of Accounting",
+  "code": "7414XMACCT",
   "year": 2014,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

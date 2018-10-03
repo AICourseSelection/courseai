@@ -1,8 +1,8 @@
 {
-  "code": "BAPAF",
-  "units": 192,
   "name": "Bachelor of Asia-Pacific Affairs",
+  "code": "BAPAF",
   "year": 2019,
+  "units": 192,
   "required": {
     "compulsory_courses": [
       "ASIA1999",
@@ -29,6 +29,8 @@
           "POLS2055"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

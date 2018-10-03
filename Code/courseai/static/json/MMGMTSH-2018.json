@@ -1,7 +1,10 @@
 {
-  "code": "MMGMTSH",
-  "units": 72,
   "name": "Master of Management ANU/Tsinghua",
+  "code": "MMGMTSH",
   "year": 2018,
-  "required": {}
+  "units": 72,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

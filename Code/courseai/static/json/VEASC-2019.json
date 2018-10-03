@@ -1,8 +1,8 @@
 {
-  "code": "VEASC",
-  "units": 96,
   "name": "Master of Earth Sciences (Advanced)",
+  "code": "VEASC",
   "year": 2019,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -23,6 +23,8 @@
           "EMSC8021"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

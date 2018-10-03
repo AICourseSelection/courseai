@@ -1,7 +1,10 @@
 {
-  "code": "6457XGCACS",
-  "units": 24,
   "name": "Graduate Certificate in Actuarial Studies",
+  "code": "6457XGCACS",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

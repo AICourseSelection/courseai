@@ -1,7 +1,10 @@
 {
-  "code": "6450XCGCIE",
-  "units": 24,
   "name": "Graduate Certificate in Innovation and Entrepreneurship",
+  "code": "6450XCGCIE",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

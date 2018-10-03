@@ -1,7 +1,10 @@
 {
-  "code": "8710XMPHIL",
-  "units": 60,
   "name": "Master of Philosophy, John Curtin School of Medical Research",
+  "code": "8710XMPHIL",
   "year": 2016,
-  "required": {}
+  "units": 60,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

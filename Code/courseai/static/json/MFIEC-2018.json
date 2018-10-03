@@ -1,8 +1,8 @@
 {
-  "code": "MFIEC",
-  "units": 96,
   "name": "Master of Financial Economics",
+  "code": "MFIEC",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ECON8011",
@@ -40,6 +40,8 @@
           "EMET8012"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

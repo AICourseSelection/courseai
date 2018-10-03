@@ -1,17 +1,25 @@
 {
-  "units": 144,
-  "code": "BAPRC",
   "name": "Bachelor of Archaeological Practice",
+  "code": "BAPRC",
   "year": 2015,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "units": 60,
         "type": "maximum",
         "level": [
           1000
-        ]
+        ],
+        "units": 60
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "EARC-SPEC",
+        "REGA-SPEC",
+        "FEAR-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

@@ -1,8 +1,8 @@
 {
-  "code": "CECON",
-  "units": 24,
   "name": "Graduate Certificate of Economics",
+  "code": "CECON",
   "year": 2017,
+  "units": 24,
   "required": {
     "compulsory_courses": [
       "ECON7073",
@@ -18,6 +18,8 @@
           "EMET7001"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

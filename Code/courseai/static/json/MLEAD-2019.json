@@ -1,7 +1,18 @@
 {
-  "code": "MLEAD",
-  "units": 96,
   "name": "Master of Leadership",
+  "code": "MLEAD",
   "year": 2019,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "MGMC-SPEC"
+      ],
+      [
+        "LEAD-SPEC",
+        "MGME-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

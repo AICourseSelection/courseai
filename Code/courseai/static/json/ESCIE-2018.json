@@ -1,8 +1,8 @@
 {
-  "code": "ESCIE",
-  "units": 48,
   "name": "Diploma of Science",
+  "code": "ESCIE",
   "year": 2018,
+  "units": 48,
   "required": {
     "x_from_here": [
       {
@@ -18,6 +18,8 @@
           "ANUC1710"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

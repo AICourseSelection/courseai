@@ -1,7 +1,10 @@
 {
-  "units": 6,
-  "code": "7132XLING",
   "name": "Master of Linguistics",
+  "code": "7132XLING",
   "year": 2014,
-  "required": {}
+  "units": 6,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

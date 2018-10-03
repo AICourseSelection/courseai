@@ -1,8 +1,8 @@
 {
-  "code": "MPUAD",
-  "units": 96,
   "name": "Master of Public Administration",
+  "code": "MPUAD",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "POGO8012",
@@ -15,6 +15,25 @@
       "POGO8117"
     ],
     "x_from_here": [
+      {
+        "type": "maximum",
+        "units": 6,
+        "courses": [
+          "ANTH8009",
+          "ANTH8028",
+          "EMDV8104",
+          "EURO8003",
+          "IDEC8007",
+          "LAWS8123",
+          "LAWS8180",
+          "LAWS8189",
+          "NSPO8007",
+          "POGO8004",
+          "POGO8015",
+          "POGO8025",
+          "POGO8035"
+        ]
+      },
       {
         "type": "minimum",
         "units": 18,
@@ -43,26 +62,9 @@
           "POGO8210",
           "POGO8213"
         ]
-      },
-      {
-        "type": "maximum",
-        "units": 6,
-        "courses": [
-          "ANTH8009",
-          "ANTH8028",
-          "EMDV8104",
-          "EURO8003",
-          "IDEC8007",
-          "LAWS8123",
-          "LAWS8180",
-          "LAWS8189",
-          "NSPO8007",
-          "POGO8004",
-          "POGO8015",
-          "POGO8025",
-          "POGO8035"
-        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

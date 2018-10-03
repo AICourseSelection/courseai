@@ -1,7 +1,10 @@
 {
-  "code": "9561XPHD",
-  "units": 3,
   "name": "Doctor of Philosophy, Diplomacy",
+  "code": "9561XPHD",
   "year": 2018,
-  "required": {}
+  "units": 3,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

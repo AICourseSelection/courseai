@@ -1,7 +1,10 @@
 {
-  "code": "8723XMPHIL",
-  "units": 60,
   "name": "Master of Philosophy, Psychology",
+  "code": "8723XMPHIL",
   "year": 2017,
-  "required": {}
+  "units": 60,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

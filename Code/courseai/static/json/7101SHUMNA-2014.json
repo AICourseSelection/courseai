@@ -1,8 +1,8 @@
 {
-  "units": 48,
-  "code": "7101SHUMNA",
   "name": "Master of Applied Anthropology and Participatory Development (Humanitarian Action)",
+  "code": "7101SHUMNA",
   "year": 2014,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "ANTH8019",
@@ -13,19 +13,21 @@
     ],
     "x_from_here": [
       {
-        "units": 6,
         "type": "minimum",
-        "courses": [
-          "ANTH8042"
-        ]
-      },
-      {
         "units": 12,
-        "type": "minimum",
         "courses": [
           "ANTH8006"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8042"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }
