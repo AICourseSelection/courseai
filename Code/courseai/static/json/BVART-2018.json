@@ -1,13 +1,22 @@
 {
-  "units": 144,
-  "code": "BVART",
   "name": "Bachelor of Visual Arts",
+  "code": "BVART",
   "year": 2018,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "x_from_here": [
       {
-        "units": 12,
         "type": "minimum",
+        "units": 12,
         "courses": [
           "ARTV1020",
           "ARTV1021",
@@ -19,28 +28,8 @@
         ]
       },
       {
-        "units": 6,
         "type": "minimum",
-        "courses": [
-          "ARTH1006",
-          "ARTH1007"
-        ]
-      },
-      {
-        "units": 6,
-        "type": "minimum",
-        "courses": [
-          "ARTV2027",
-          "ARTV2038",
-          "ARTV2909",
-          "ARTV2921",
-          "ARTV3601",
-          "DESA2017"
-        ]
-      },
-      {
         "units": 18,
-        "type": "minimum",
         "courses": [
           "ARTH2043",
           "ARTH2044",
@@ -71,16 +60,29 @@
           "ARTH2171",
           "ARTH2172"
         ]
-      }
-    ],
-    "max_by_level": [
+      },
       {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ARTV2027",
+          "ARTV2038",
+          "ARTV2909",
+          "ARTV2921",
+          "ARTV3601",
+          "DESA2017"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ARTH1006",
+          "ARTH1007"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

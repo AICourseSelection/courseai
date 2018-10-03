@@ -1,7 +1,10 @@
 {
-  "code": "6617XCRA",
-  "units": 24,
   "name": "Graduate Certificate in Climate Risk and Adaptation",
+  "code": "6617XCRA",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

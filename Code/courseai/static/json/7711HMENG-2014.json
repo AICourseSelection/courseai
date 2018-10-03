@@ -1,7 +1,10 @@
 {
-  "code": "7711HMENG",
-  "units": 96,
   "name": "Master of Engineering (Honours)",
+  "code": "7711HMENG",
   "year": 2014,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

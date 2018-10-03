@@ -1,8 +1,8 @@
 {
-  "units": 96,
-  "code": "VARTS",
   "name": "Master of Arts (Advanced)",
+  "code": "VARTS",
   "year": 2016,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "MUSI7003",
@@ -11,8 +11,24 @@
     ],
     "x_from_here": [
       {
-        "units": 24,
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "CLAS8002",
+          "CLAS8003"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENGL8020",
+          "ENGL8021"
+        ]
+      },
+      {
         "type": "maximum",
+        "units": 24,
         "courses": [
           "ANCH6013",
           "ANCH6023",
@@ -30,16 +46,16 @@
         ]
       },
       {
-        "units": 12,
         "type": "minimum",
+        "units": 6,
         "courses": [
-          "ENGL8020",
-          "ENGL8021"
+          "GREK6112",
+          "LATN6002"
         ]
       },
       {
-        "units": 18,
         "type": "minimum",
+        "units": 18,
         "courses": [
           "MUSI7001",
           "MUSI7002",
@@ -50,16 +66,8 @@
         ]
       },
       {
-        "units": 12,
         "type": "minimum",
-        "courses": [
-          "CLAS8002",
-          "CLAS8003"
-        ]
-      },
-      {
         "units": 24,
-        "type": "minimum",
         "courses": [
           "ENGL6020",
           "ENGL6021",
@@ -81,15 +89,16 @@
           "ENGL6037",
           "ENGL6086"
         ]
-      },
-      {
-        "units": 6,
-        "type": "minimum",
-        "courses": [
-          "GREK6112",
-          "LATN6002"
-        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "CLAS-SPEC"
+      ],
+      [
+        "ENGH-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

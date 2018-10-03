@@ -1,7 +1,10 @@
 {
-  "code": "7300SLGD",
-  "units": 7300,
   "name": "Master of Laws (Law, Governance and Development)",
+  "code": "7300SLGD",
   "year": 2014,
-  "required": {}
+  "units": 7300,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

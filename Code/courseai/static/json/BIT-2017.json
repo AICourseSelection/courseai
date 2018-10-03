@@ -1,9 +1,18 @@
 {
-  "code": "BIT",
-  "units": 144,
   "name": "Bachelor of Information Technology",
+  "code": "BIT",
   "year": 2017,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "COMP1600",
       "COMP2100",
@@ -13,7 +22,23 @@
     ],
     "x_from_here": [
       {
-        "type": "maximum",
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENGN1211",
+          "VCUG3001"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "COMP1100",
+          "COMP1130"
+        ]
+      },
+      {
+        "type": "minimum",
         "units": 6,
         "courses": [
           "MATH1013",
@@ -32,74 +57,9 @@
           "COMP1110",
           "COMP1140"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "COMP1100",
-          "COMP1130"
-        ]
-      },
-      {
-        "type": "maximum",
-        "units": 12,
-        "courses": [
-          "ENGN1211",
-          "VCUG3001"
-        ]
       }
     ],
-    "x_from_category": [
-      {
-        "units": 30,
-        "area": [
-          "COMP",
-          {
-            "name": "INFS",
-            "constraint": {
-              "one_from_m/m/s": [
-                [
-                  "INFS-MAJ"
-                ]
-              ]
-            }
-          }
-        ],
-        "level": [
-          3000,
-          4000
-        ]
-      },
-      {
-        "type": "min_max",
-        "units": {
-          "minimum": 6,
-          "maximum": 24
-        },
-        "area": [
-          "COMP",
-          {
-            "name": "INFS",
-            "constraint": {
-              "one_from_m/m/s": [
-                [
-                  "INFS-MAJ"
-                ]
-              ]
-            }
-          }
-        ]
-      }
-    ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

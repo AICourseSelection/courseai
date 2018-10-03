@@ -1,8 +1,8 @@
 {
-  "code": "ASSAE",
-  "units": 192,
   "name": "Bachelor of Social Sciences (Honours in Actuarial Studies and Economics)",
+  "code": "ASSAE",
   "year": 2016,
+  "units": 192,
   "required": {
     "compulsory_courses": [
       "FINM2002",
@@ -19,6 +19,8 @@
       "ACST4031",
       "ACST4032",
       "ACST4033"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

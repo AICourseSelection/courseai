@@ -1,9 +1,18 @@
 {
-  "units": 144,
-  "code": "BIR",
   "name": "Bachelor of International Relations",
+  "code": "BIR",
   "year": 2019,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "POLS1005",
       "POLS1006",
@@ -14,8 +23,18 @@
     ],
     "x_from_here": [
       {
-        "units": 6,
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POLS1009",
+          "POLS2125",
+          "POLS2044",
+          "SOCY2043"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "POLS2063",
           "POLS2102",
@@ -26,30 +45,21 @@
         ]
       },
       {
+        "type": "maximum",
         "units": 12,
-        "type": "minimum",
         "courses": [
-          "ASIA1035",
-          "ASIA1999",
-          "ASIA2109",
-          "EURO1004",
-          "EURO2012",
-          "INTR2010",
-          "INTR2028",
-          "MEAS1001",
-          "MEAS2001",
-          "MEAS2105",
-          "POLS2031",
-          "POLS2055",
-          "POLS2095",
-          "POLS2117",
-          "EURO3002",
-          "POLS3040"
+          "ANIP3003",
+          "ANIP3005",
+          "VCUG1001",
+          "VCUG2001",
+          "VCUG2002",
+          "VCUG3001",
+          "VCUG3002"
         ]
       },
       {
-        "units": 6,
         "type": "minimum",
+        "units": 6,
         "courses": [
           "ASIA2111",
           "INTR2012",
@@ -70,8 +80,30 @@
         ]
       },
       {
-        "units": 6,
         "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ASIA1035",
+          "ASIA1999",
+          "ASIA2109",
+          "EURO1004",
+          "EURO2012",
+          "INTR2010",
+          "INTR2028",
+          "MEAS1001",
+          "MEAS2001",
+          "MEAS2105",
+          "POLS2031",
+          "POLS2055",
+          "POLS2095",
+          "POLS2117",
+          "EURO3002",
+          "POLS3040"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "DEMO2003",
           "DIPL2000",
@@ -91,39 +123,9 @@
           "POLS3037",
           "SOCY2030"
         ]
-      },
-      {
-        "units": 12,
-        "type": "maximum",
-        "courses": [
-          "ANIP3003",
-          "ANIP3005",
-          "VCUG1001",
-          "VCUG2001",
-          "VCUG2002",
-          "VCUG3001",
-          "VCUG3002"
-        ]
-      },
-      {
-        "units": 6,
-        "type": "minimum",
-        "courses": [
-          "POLS1009",
-          "POLS2125",
-          "POLS2044",
-          "SOCY2043"
-        ]
       }
     ],
-    "max_by_level": [
-      {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
-        ]
-      }
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

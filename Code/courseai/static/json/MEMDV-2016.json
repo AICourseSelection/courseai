@@ -1,8 +1,8 @@
 {
-  "code": "MEMDV",
-  "units": 96,
   "name": "Master of Environmental Management and Development",
+  "code": "MEMDV",
   "year": 2016,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "EMDV8007",
@@ -11,6 +11,22 @@
       "EMDV8101"
     ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8002",
+          "EMDV8012"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "CRWF8000",
+          "EMDV8104"
+        ]
+      },
       {
         "type": "minimum",
         "units": 12,
@@ -31,6 +47,36 @@
           "EMDV8103",
           "EMDV8104",
           "EMDV8124"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8028",
+          "EMDV8103"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANTH6009",
+          "ANTH8049",
+          "BUSN7017",
+          "CHMD8020",
+          "EMSC8706",
+          "ENVS6013",
+          "ENVS6015",
+          "ENVS6021",
+          "ENVS6024",
+          "ENVS6033",
+          "ENVS6307",
+          "ENVS6528",
+          "ENVS6555",
+          "IDEC8001",
+          "IDEC8003",
+          "PASI6003"
         ]
       },
       {
@@ -64,14 +110,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8002",
-          "EMDV8012"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ANTH8014",
@@ -82,45 +120,9 @@
           "EMDV8108",
           "EMDV8124"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "CRWF8000",
-          "EMDV8104"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH6009",
-          "ANTH8049",
-          "BUSN7017",
-          "CHMD8020",
-          "EMSC8706",
-          "ENVS6013",
-          "ENVS6015",
-          "ENVS6021",
-          "ENVS6024",
-          "ENVS6033",
-          "ENVS6307",
-          "ENVS6528",
-          "ENVS6555",
-          "IDEC8001",
-          "IDEC8003",
-          "PASI6003"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ANTH8028",
-          "EMDV8103"
-        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

@@ -1,8 +1,8 @@
 {
-  "code": "CLAW",
-  "units": 24,
   "name": "Graduate Certificate of Law",
+  "code": "CLAW",
   "year": 2019,
+  "units": 24,
   "required": {
     "x_from_here": [
       {
@@ -128,6 +128,8 @@
           "LAWS8652"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

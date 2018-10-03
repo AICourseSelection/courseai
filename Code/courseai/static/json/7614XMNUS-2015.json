@@ -1,7 +1,10 @@
 {
-  "code": "7614XMNUS",
-  "units": 30,
   "name": "Master of Science Communication",
+  "code": "7614XMNUS",
   "year": 2015,
-  "required": {}
+  "units": 30,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

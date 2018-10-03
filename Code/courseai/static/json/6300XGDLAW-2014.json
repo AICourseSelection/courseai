@@ -1,7 +1,10 @@
 {
-  "code": "6300XGDLAW",
-  "units": 6300,
   "name": "Graduate Diploma in Law",
+  "code": "6300XGDLAW",
   "year": 2014,
-  "required": {}
+  "units": 6300,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "code": "6317XLGD",
-  "units": 6317,
   "name": "Graduate Diploma in Law (Law, Governance and Development)",
+  "code": "6317XLGD",
   "year": 2014,
-  "required": {}
+  "units": 6317,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "code": "7506XMAAPS",
-  "units": 2,
   "name": "Master of Arts (Asia-Pacific Studies)",
+  "code": "7506XMAAPS",
   "year": 2014,
-  "required": {}
+  "units": 2,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "code": "6659XGCENV",
-  "units": 24,
   "name": "Graduate Certificate of Environment",
+  "code": "6659XGCENV",
   "year": 2016,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,8 +1,8 @@
 {
-  "code": "MPPAU",
-  "units": 24,
   "name": "Master of Public Policy/Master of Public Policy ANU - U Tokyo",
+  "code": "MPPAU",
   "year": 2018,
+  "units": 24,
   "required": {
     "compulsory_courses": [
       "POGO8012",
@@ -13,6 +13,8 @@
       "POGO8072",
       "POGO8090",
       "POGO8117"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

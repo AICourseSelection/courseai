@@ -1,7 +1,10 @@
 {
-  "units": 24,
-  "code": "CSTUD",
   "name": "Graduate Certificate of Studies",
+  "code": "CSTUD",
   "year": 2015,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

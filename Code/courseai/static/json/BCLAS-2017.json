@@ -1,17 +1,30 @@
 {
-  "units": 144,
-  "code": "BCLAS",
   "name": "Bachelor of Classical Studies",
+  "code": "BCLAS",
   "year": 2017,
+  "units": 144,
   "required": {
     "max_by_level": [
       {
-        "units": 60,
         "type": "maximum",
         "level": [
           1000
-        ]
+        ],
+        "units": 60
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "ANCH-MAJ",
+        "AGRK-MAJ",
+        "LATN-MAJ"
+      ],
+      [
+        "ANCH-MIN",
+        "AGRK-MIN",
+        "LATN-MIN"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

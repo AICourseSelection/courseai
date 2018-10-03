@@ -1,8 +1,8 @@
 {
-  "code": "MLEGP",
-  "units": 72,
   "name": "Master of Legal Practice",
+  "code": "MLEGP",
   "year": 2017,
+  "units": 72,
   "required": {
     "compulsory_courses": [
       "LEGW8141",
@@ -54,6 +54,8 @@
           "LAWS8324"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

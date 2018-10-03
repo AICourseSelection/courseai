@@ -1,8 +1,8 @@
 {
-  "code": "MSCHK",
-  "units": 96,
   "name": "Master of Science Communication",
+  "code": "MSCHK",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "SCOM8700",
@@ -25,6 +25,8 @@
           "SCOM8729"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

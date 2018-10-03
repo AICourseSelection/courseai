@@ -1,8 +1,8 @@
 {
-  "code": "MBIOS",
-  "units": 96,
   "name": "Master of Biological Sciences",
+  "code": "MBIOS",
   "year": 2015,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -18,14 +18,16 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "units": 72,
+        "level": [
+          6000
+        ],
         "area": [
           "BIOL"
         ],
-        "level": [
-          6000
-        ]
+        "units": 72
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

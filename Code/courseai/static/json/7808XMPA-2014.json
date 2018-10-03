@@ -1,8 +1,8 @@
 {
-  "code": "7808XMPA",
-  "units": 48,
   "name": "Master of Public Administration",
+  "code": "7808XMPA",
   "year": 2014,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "CRWF8000",
@@ -46,6 +46,8 @@
           "POGO8035"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

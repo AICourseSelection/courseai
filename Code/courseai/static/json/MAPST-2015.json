@@ -1,8 +1,8 @@
 {
-  "code": "MAPST",
-  "units": 96,
   "name": "Master of Asia-Pacific Studies",
+  "code": "MAPST",
   "year": 2015,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ASIA8020",
@@ -44,6 +44,8 @@
           "STST2001"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

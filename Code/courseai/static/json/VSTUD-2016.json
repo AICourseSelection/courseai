@@ -1,7 +1,10 @@
 {
-  "units": 96,
-  "code": "VSTUD",
   "name": "Master of Studies (Advanced)",
+  "code": "VSTUD",
   "year": 2016,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

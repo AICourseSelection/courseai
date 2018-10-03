@@ -1,10 +1,20 @@
 {
-  "code": "MFORE",
-  "units": 96,
   "name": "Master of Forestry",
+  "code": "MFORE",
   "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ENVS6021",
+          "ENVS6315",
+          "ENVS6528",
+          "ENVS8003"
+        ]
+      },
       {
         "type": "minimum",
         "units": 6,
@@ -13,16 +23,6 @@
           "ENVS6304",
           "ENVS6514",
           "ENVS6555"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6024",
-          "ENVS6026",
-          "ENVS6201",
-          "ENVS6308"
         ]
       },
       {
@@ -37,34 +37,10 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "ENVS6021",
-          "ENVS6315",
-          "ENVS6528",
-          "ENVS8003"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ANTH8047",
-          "EMDV8002",
-          "EMDV8009",
-          "EMDV8078",
-          "ENVS6013",
-          "ENVS6020",
-          "ENVS6021",
-          "ENVS6033",
-          "ENVS6108",
-          "ENVS6223",
-          "ENVS6307",
-          "ENVS6315",
-          "ENVS6555",
-          "ENVS8016",
-          "ENVS8048",
-          "LAWS8185",
-          "LAWS8189",
-          "LAWS8280"
+          "ENVS6024",
+          "ENVS6201",
+          "ENVS6218",
+          "ENVS6308"
         ]
       },
       {
@@ -93,8 +69,8 @@
         "units": 6,
         "courses": [
           "ENVS6024",
+          "ENVS6026",
           "ENVS6201",
-          "ENVS6218",
           "ENVS6308"
         ]
       },
@@ -102,8 +78,24 @@
         "type": "minimum",
         "units": 12,
         "courses": [
-          "ENVS6202",
-          "ENVS6514"
+          "ANTH8047",
+          "EMDV8002",
+          "EMDV8009",
+          "EMDV8078",
+          "ENVS6013",
+          "ENVS6020",
+          "ENVS6021",
+          "ENVS6033",
+          "ENVS6108",
+          "ENVS6223",
+          "ENVS6307",
+          "ENVS6315",
+          "ENVS6555",
+          "ENVS8016",
+          "ENVS8048",
+          "LAWS8185",
+          "LAWS8189",
+          "LAWS8280"
         ]
       },
       {
@@ -115,7 +107,17 @@
           "ENVS6103",
           "ENVS6202"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6202",
+          "ENVS6514"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

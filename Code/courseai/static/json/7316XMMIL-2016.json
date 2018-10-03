@@ -1,8 +1,8 @@
 {
-  "code": "7316XMMIL",
-  "units": 48,
   "name": "Master of Military Law",
+  "code": "7316XMMIL",
   "year": 2016,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "LAWS8164",
@@ -189,6 +189,8 @@
           "STST8119"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }
