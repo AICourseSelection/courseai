@@ -1035,15 +1035,16 @@ wrapper {
     background-color: #ffe5ca;
 }
 
+.highlight-elective {
+    background-color: #ccffcc;
+    border-color: #37e131;
+    /* animation: pulse 3s infinite; */
+}
+
 .invalid-cell {
     background-color: #ffe6e6;
 }
 
-.highlight-elective {
-    background-color: #ccffcc;
-    border-color: #37e131;
-    animation: pulse 3s infinite;
-}
 
 .plan-cell:hover, .list-group-item:hover {
     background: #80DEEA !important; /* make sure to override js styling */

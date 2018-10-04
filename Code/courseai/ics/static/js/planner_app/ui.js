@@ -333,7 +333,7 @@ async function mms_add(code, year) {
                 makeCourseDraggable(item, code, offering.year);
             });
             let item = $(
-                '<div class="list-group-item list-group-item-action compulsory draggable-course result-course">' +
+                '<div class="list-group-item list-group-item-action draggable-course result-course">' +
                 '    <span class="course-code">' + code + '</span> ' +
                 '</div>'
             );
@@ -474,6 +474,12 @@ async function mms_add(code, year) {
                 collapsible.append(card);
                 section_count++;
             }
+        }
+        if (type === 'max_by_level') {
+            let section = $('<div/>');
+            section.append($('<div id="mms-internal-' + identifier + '-section' + section_count + '"/>'));
+            collapsible.append(section);
+            section_count++;
         }
     }
     mmsCourseCodes.concat.apply([], mmsCourseCodes);
@@ -888,31 +894,32 @@ function dropOnSlot(event, ui) {
 
     const row = event.target.parentElement;
     const first_cell = $(row.firstElementChild);
-    const code = ui.draggable.find('.course-code').text();
-    const title = ui.draggable.find('.course-title').text();
+    const code = ui.helper.find('.course-code').text();
+    const title = ui.helper.find('.course-title').text();
     const session = first_cell.find('.row-ses').text();
     const reason = $(first_cell[0].lastElementChild).text();
-    makePlanCellDraggable($(event.target), code, session.slice(0, 4), false);
-
     const position = $(event.target).index() - 1;
+    makePlanCellDraggable($(event.target), code, session, title);
+
     if ($(row).hasClass('unavailable')) {
 
         if (first_cell.hasClass('delete')) {
             $(this).removeClass('invalid-cell');
             addCourse(code, title, session, position, updateAllWarnings=true);
+            ui.helper.addClass('dropped-in-slot'); // set flag for course being moved in planner
             return;
         }
 
         let modal = null;
         if (reason === "Prerequisites not met") {
-            $('#prereq-modal-course').text(ui.draggable.find('.course-code').text());
+            $('#prereq-modal-course').text(code);
             modal = $('#prereq-modal');
         } else if (reason.includes('Incompatible')) {
-            $('#incompat-course1').text(ui.draggable.find('.course-code').text());
+            $('#incompat-course1').text(code);
             $('#incompat-course2').text(reason.split(' ').pop());
             modal = $('#incompat-modal');
         } else if (reason === "Not available in this semester/ session" || reason === "Not available in this year") {
-            $('#unavail-modal-course').text(ui.draggable.find('.course-code').text());
+            $('#unavail-modal-course').text(code);
             modal = $('#unavail-modal');
         } else {
             return;
@@ -925,20 +932,14 @@ function dropOnSlot(event, ui) {
                 let warning = PLAN.addWarning("CourseForceAdded", code, [makeScrollAndGlow($(event.target))], session + position);
                 semesterOverrides[session + position] = warning;
             }
-
-            if (ui.draggable.hasClass('plan-cell')) {
-                removeCourseInPlanner(code);
-            }
             addCourse(code, title, session, position, updateAllWarnings=true);
+            removeCourse(ui.draggable.parent().find('.row-ses').text(), ui.draggable.index()); // remove the course from its old position
         });
         modal.modal();
         return
     }
-
-    if (ui.draggable.hasClass('plan-cell')) {
-        removeCourseInPlanner(code);
-    }
     addCourse(code, title, session, position, updateAllWarnings=true);
+    ui.helper.addClass('dropped-in-slot'); // set flag for course being moved in planner
 }
 
 async function mms_click_add() {
@@ -1360,7 +1361,7 @@ function loadCourseGrid(plan) {
             courses_actions[code + '-' + year].push(function (offering) {
                 cell.find('.course-title').text(offering.title);
                 PLAN.addCourse(session, code);
-                makePlanCellDraggable(cell, code, year, false);
+                makePlanCellDraggable(cell, code, session, offering.title);
 
             });
             cell.each(coursePopoverSetup);
@@ -1597,16 +1598,19 @@ function makeSlotDroppable(item) {
     });
 }
 
-function makePlanCellDraggable(item, code, year, elective) {
+function makePlanCellDraggable(item, code, session, title) {
+    const year = session.slice(0, 4);
     item.addClass('draggable-course');
     if (code === null) code = item.find('.course-code').text();
     if (year === null) code = item.find('.course-year').text();
     item.draggable({
         zIndex: 800,
-        revert: true,
         helper: 'clone',
         containment: 'document',
         start: function (event, ui) {
+            makeElective(item, session, code); // make the original an elective slot
+            delete semesterOverrides[session + (item.index() - 1)]; // delete obj used for semester override warnings if found
+
             ui.helper.addClass('dragged-course');
             $(this).draggable('instance').offset.click = {
                 left: Math.floor(ui.helper.width() / 2),
@@ -1614,13 +1618,20 @@ function makePlanCellDraggable(item, code, year, elective) {
             };
             $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
             const first_cell = $(event.target.parentElement).find('.first-cell');
-            if (!elective) {
-                highlightInvalidSessions(getCourseOffering(code, year), ui, first_cell);
-                highlightElectives();
-            }
+            highlightInvalidSessions(getCourseOffering(code, year), ui, first_cell);
+            highlightElectives();
         },
         stop: function (event, ui) {
             const first_cell = $(event.target.parentElement).find('.first-cell');
+
+            if (!ui.helper.hasClass('dropped-in-slot')) { // re-add the course
+                $(this).removeClass('invalid-cell');
+                addCourse(code, title, session, item.index() - 1, updateAllWarnings = false);
+            } else {
+                item.draggable('destroy');
+                item.removeClass('draggable-course');
+            }
+
             $(event.toElement).one('click', function (e) {
                 e.stopImmediatePropagation();
             });
@@ -1656,7 +1667,6 @@ function makeCourseDraggable(item, code, year) {
             });
             removeSessionHighlights();
             clearElectiveHighlights();
-            item.draggable("option", "revert", true);
         }
     });
 }
@@ -1735,12 +1745,12 @@ async function highlightInvalidSessions(course, ui, first_cell) {
                 ui2.draggable.draggable("option", "revert", false);
                 const session = first_cell.find('.row-ses').text();
                 const position = ui2.draggable.index();
+                ui2.helper.addClass('dropped-in-slot');
                 removeCourse(session, position);
 
                 updateWarnings();
                 displayWarnings();
 
-                $(ui.helper.prevObject).draggable('destroy');
                 first_cell.droppable('destroy');
                 first_cell.find('.course-delete').remove();
                 first_cell.removeClass('delete').removeClass('alert-danger');
