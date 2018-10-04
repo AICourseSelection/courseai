@@ -1611,6 +1611,7 @@ function makePlanCellDraggable(item, code, session, title) {
             makeElective(item, session, code); // make the original an elective slot
             delete semesterOverrides[session + (item.index() - 1)]; // delete obj used for semester override warnings if found
 
+            if ($(this).hasClass('plan-cell')) ui.helper.css({width: item.width(), height: item.height()}); // make the helper same size as original
             ui.helper.addClass('dragged-course');
             $(this).draggable('instance').offset.click = {
                 left: Math.floor(ui.helper.width() / 2),
@@ -1627,7 +1628,7 @@ function makePlanCellDraggable(item, code, session, title) {
             if (!ui.helper.hasClass('dropped-in-slot')) { // re-add the course
                 $(this).removeClass('invalid-cell');
                 addCourse(code, title, session, item.index() - 1, updateAllWarnings = false);
-            } else {
+            } else { // ensure the old slot is no longer draggable
                 item.draggable('destroy');
                 item.removeClass('draggable-course');
             }
