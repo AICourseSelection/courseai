@@ -28,7 +28,7 @@ let legendMappings = {'compulsory': 'Degree Program Courses', 'elective': 'Elect
 
 const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
-let semesterOverrides = {}; // contains {code, session, plan-cell target} objects, used for creating semester override warnings
+let semesterOverrides = {}; // contains mapping of <session + position> of courses to warnings for semester/year overrides
 
 // UI Functions
 async function addDegree(code, year) {
@@ -150,10 +150,11 @@ function removeCourseInPlanner(code) {
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row).find('.first-cell');
         const session = first_cell.find('.row-ses').text();
-        $(row).children(".plan-cell").each(function () {
+        $(row).children(".plan-cell").each(function (index) {
             const cellCode = $(this).find('.course-code').text();
             if (cellCode === code) {
                 makeElective($(this), session, code);
+                delete semesterOverrides[session + index];
             }
         });
     }
@@ -166,7 +167,6 @@ function addCourse(code, title, session, position, updateAllWarnings=false) {
         const first_cell = $(this.children[0]);
         return (first_cell.find('.row-ses').text() === session);
     });
-    // removeCourseInPlanner(code);
     const box = $(row.children()[position + 1]);
     box.droppable('destroy');
     box.find('.course-code').text(code);
@@ -922,12 +922,21 @@ function dropOnSlot(event, ui) {
         override_button.off('click');
         override_button.click(function () {
             if (reason === "Not available in this semester/ session" || reason === "Not available in this year") {
-                semesterOverrides[session + position] = {code: code, session: session, target: $(event.target)};
+                let warning = PLAN.addWarning("CourseForceAdded", code, [makeScrollAndGlow($(event.target))], session + position);
+                semesterOverrides[session + position] = warning;
+            }
+
+            if (ui.draggable.hasClass('plan-cell')) {
+                removeCourseInPlanner(code);
             }
             addCourse(code, title, session, position, updateAllWarnings=true);
         });
         modal.modal();
         return
+    }
+
+    if (ui.draggable.hasClass('plan-cell')) {
+        removeCourseInPlanner(code);
     }
     addCourse(code, title, session, position, updateAllWarnings=true);
 }
@@ -1030,10 +1039,12 @@ async function setupPlanner(ignoreSaveCode = false) {
                     actions.push(makeScrollAndGlow($(target)));
                 }
             }
-            PLAN.addWarning(warning.type, warning.text, actions);
+            if (warning.hasOwnProperty('code')) { // semester override warning
+                let newWarning = PLAN.addWarning(warning.type, warning.text, actions, warning.positionCode);
+                semesterOverrides[warning.positionCode] = newWarning;
+            } else PLAN.addWarning(warning.type, warning.text, actions);
         }
     }
-    updateWarnings();
     displayWarnings();
 }
 
@@ -1530,10 +1541,9 @@ function updateMMSSearchResults(data, type) {
 // Add warnings for all unsatisfied courses in planner
 function updateWarnings() {
     PLAN.clearWarnings();
-    
+
     for (var key in semesterOverrides) {
-        let obj = semesterOverrides[key];
-        PLAN.addWarning("CourseForceAdded", obj.code, [makeScrollAndGlow(obj.target)]);
+        PLAN.warnings.push(semesterOverrides[key]);
     }
 
     let unsatCourses = PLAN.unsatisfiedCourses();
@@ -1548,16 +1558,17 @@ function displayWarnings() {
     let notice = $('#courses-forced-notice');
     let list = $('#courses-forced-list');
 
-    let forceAdded = [];
+    let existingCourseCodes = [];
     let first = true;
 
     if (PLAN.warnings.length > 0) notice.css({'display': 'block'});
     else notice.css({'display': ''});
     list.empty();
     let count = 0;
+    // TODO: handle different warning types
     for (let warning of PLAN.warnings) {
-        if (warning.type === "CourseForceAdded") {
-            if (forceAdded.includes(warning.text)) continue;
+        if (warning.type === 'CourseForceAdded') {
+            if (existingCourseCodes.includes(warning.text)) continue;
 
             if (first) first = false;
             else list.append(', ');
@@ -1567,8 +1578,8 @@ function displayWarnings() {
                 warning.runActions();
             });
             list.append(link);
-            forceAdded.push(warning.text);
-        }
+            existingCourseCodes.push(warning.text);
+        } 
         count++;
     }
 }
