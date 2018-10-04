@@ -1,13 +1,13 @@
 {
-  "units": 96,
-  "code": "MVISA",
   "name": "Master of Visual Arts",
+  "code": "MVISA",
   "year": 2019,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "units": 6,
         "type": "minimum",
+        "units": 6,
         "courses": [
           "ARTH6004",
           "ARTH6043",
@@ -37,24 +37,8 @@
         ]
       },
       {
-        "units": 12,
         "type": "minimum",
-        "courses": [
-          "ARTV8038",
-          "ARTV8039"
-        ]
-      },
-      {
-        "units": 6,
-        "type": "minimum",
-        "courses": [
-          "ARTH8020",
-          "ARTH8021"
-        ]
-      },
-      {
         "units": 18,
-        "type": "minimum",
         "courses": [
           "ARTV6000",
           "ARTV6003",
@@ -64,7 +48,25 @@
           "ARTV6801",
           "ARTV8039"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ARTV8038",
+          "ARTV8039"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ARTH8020",
+          "ARTH8021"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

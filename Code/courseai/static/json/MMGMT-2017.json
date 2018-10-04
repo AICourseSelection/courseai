@@ -1,8 +1,8 @@
 {
-  "code": "MMGMT",
-  "units": 96,
   "name": "Master of Management",
+  "code": "MMGMT",
   "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -36,6 +36,24 @@
           "MKTG7050"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "MGMC-SPEC"
+      ],
+      [
+        "MGME-SPEC"
+      ],
+      [
+        "BISY-SPEC",
+        "PROM-SPEC",
+        "MKTG-SPEC",
+        "LEAD-SPEC",
+        "HRMG-SPEC",
+        "BUSI-SPEC",
+        "ENIN-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

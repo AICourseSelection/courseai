@@ -1,8 +1,8 @@
 {
-  "code": "CPUBH",
-  "units": 24,
   "name": "Graduate Certificate of Public Health",
+  "code": "CPUBH",
   "year": 2016,
+  "units": 24,
   "required": {
     "x_from_here": [
       {
@@ -29,6 +29,8 @@
           "POPH8315"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

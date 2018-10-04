@@ -1,8 +1,8 @@
 {
-  "code": "VBIOT",
-  "units": 10,
   "name": "Master of Biotechnology (Advanced)",
+  "code": "VBIOT",
   "year": 2018,
+  "units": 10,
   "required": {
     "compulsory_courses": [
       "BIOL6162",
@@ -46,6 +46,8 @@
           "VCPG6001"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

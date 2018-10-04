@@ -1,7 +1,10 @@
 {
-  "code": "7208XMHLTE",
-  "units": 36,
   "name": "Master of Health Economics",
+  "code": "7208XMHLTE",
   "year": 2014,
-  "required": {}
+  "units": 36,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

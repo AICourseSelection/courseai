@@ -1,8 +1,8 @@
 {
-  "code": "NMECH",
-  "units": 96,
   "name": "Master of Engineering in Mechatronics",
+  "code": "NMECH",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ENGN6213",
@@ -18,6 +18,8 @@
       "ENGN8536",
       "ENGN8537",
       "ENGN8538"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

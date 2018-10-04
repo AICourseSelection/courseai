@@ -1,8 +1,8 @@
 {
-  "code": "6303XGDLP",
-  "units": 48,
   "name": "Graduate Diploma of Legal Practice",
+  "code": "6303XGDLP",
   "year": 2017,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "LEGW8141",
@@ -11,6 +11,8 @@
       "LEGW8152",
       "LEGW8010",
       "LEGW8106"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

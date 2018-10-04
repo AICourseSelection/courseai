@@ -1,9 +1,18 @@
 {
-  "code": "BFINN",
-  "units": 144,
   "name": "Bachelor of Finance",
+  "code": "BFINN",
   "year": 2016,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "BUSN1001",
       "ECON1101",
@@ -14,14 +23,6 @@
       {
         "units": "6",
         "courses": "CBE List 1"
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ECON1100",
-          "ECON1102"
-        ]
       },
       {
         "type": "minimum",
@@ -39,23 +40,23 @@
           "ECON2101",
           "ECON2111"
         ]
-      }
-    ],
-    "max_by_level": [
+      },
       {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ECON1100",
+          "ECON1102"
         ]
       }
     ],
     "one_from_m/m/s": [
       [
         "CPMK-MAJ",
-        "QFIN-MAJ",
-        "ACMK-MAJ"
+        "ACMK-MAJ",
+        "QFIN-MAJ"
       ]
-    ]
+    ],
+    "required_m/m/s": []
   }
 }

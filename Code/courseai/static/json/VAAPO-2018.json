@@ -1,8 +1,8 @@
 {
-  "units": 72,
-  "code": "VAAPO",
   "name": "Master of Applied Anthropology and Participatory Development (Advanced) - Online",
+  "code": "VAAPO",
   "year": 2018,
+  "units": 72,
   "required": {
     "compulsory_courses": [
       "ANTH8019",
@@ -10,8 +10,8 @@
     ],
     "x_from_here": [
       {
-        "units": 12,
         "type": "minimum",
+        "units": 12,
         "courses": [
           "ANTH8007",
           "ANTH8009",
@@ -22,6 +22,8 @@
           "ANTH8107"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

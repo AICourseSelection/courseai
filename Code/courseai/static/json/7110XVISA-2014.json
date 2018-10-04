@@ -1,7 +1,10 @@
 {
-  "units": 48,
-  "code": "7110XVISA",
   "name": "Master of Visual Arts",
+  "code": "7110XVISA",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

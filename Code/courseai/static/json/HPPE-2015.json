@@ -1,8 +1,8 @@
 {
-  "units": 48,
-  "code": "HPPE",
   "name": "Bachelor of Politics, Philosophy and Economics (Honours)",
+  "code": "HPPE",
   "year": 2015,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "PHIL4009",
@@ -15,24 +15,26 @@
     ],
     "x_from_here": [
       {
-        "units": 6,
         "type": "minimum",
+        "units": 24,
+        "courses": [
+          "POLS4009",
+          "POLS4010",
+          "POLS4011"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "PHIL4010",
           "PHIL4011",
           "PHIL4012",
           "HONS4100"
         ]
-      },
-      {
-        "units": 24,
-        "type": "minimum",
-        "courses": [
-          "POLS4009",
-          "POLS4010",
-          "POLS4011"
-        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

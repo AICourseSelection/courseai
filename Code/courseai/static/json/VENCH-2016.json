@@ -1,23 +1,14 @@
 {
-  "code": "VENCH",
-  "units": 96,
   "name": "Master of Energy Change (Advanced)",
+  "code": "VENCH",
   "year": 2016,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ENGN6516",
       "PHYS8013"
     ],
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8080",
-          "EMDV8081",
-          "IDEC8089"
-        ]
-      },
       {
         "type": "minimum",
         "units": 6,
@@ -30,8 +21,9 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "POGO8212",
-          "LAWS8189"
+          "EMDV8080",
+          "EMDV8081",
+          "IDEC8089"
         ]
       },
       {
@@ -59,7 +51,17 @@
           "PHYS8202",
           "PHYS8205"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POGO8212",
+          "LAWS8189"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

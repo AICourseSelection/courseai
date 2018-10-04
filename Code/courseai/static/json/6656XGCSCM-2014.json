@@ -1,7 +1,10 @@
 {
-  "code": "6656XGCSCM",
-  "units": 24,
   "name": "Graduate Certificate in Science Communication",
+  "code": "6656XGCSCM",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

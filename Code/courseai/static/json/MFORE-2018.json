@@ -1,48 +1,10 @@
 {
-  "code": "MFORE",
-  "units": 96,
   "name": "Master of Forestry",
+  "code": "MFORE",
   "year": 2018,
+  "units": 96,
   "required": {
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6026",
-          "ENVS6304",
-          "ENVS6514",
-          "ENVS6555"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6024",
-          "ENVS6026",
-          "ENVS6201",
-          "ENVS6308"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ENVS6026",
-          "ENVS6528"
-        ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ENVS6021",
-          "ENVS6315",
-          "ENVS6528",
-          "ENVS8003"
-        ]
-      },
       {
         "type": "minimum",
         "units": 12,
@@ -70,6 +32,16 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "ENVS6021",
+          "ENVS6315",
+          "ENVS6528",
+          "ENVS8003"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "BIOL6003",
           "BIOL6206",
           "ENVS6014",
@@ -91,6 +63,24 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "ENVS6026",
+          "ENVS6304",
+          "ENVS6514",
+          "ENVS6555"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6026",
+          "ENVS6528"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "ENVS6024",
           "ENVS6201",
           "ENVS6218",
@@ -99,10 +89,12 @@
       },
       {
         "type": "minimum",
-        "units": 12,
+        "units": 6,
         "courses": [
-          "ENVS6202",
-          "ENVS6514"
+          "ENVS6024",
+          "ENVS6026",
+          "ENVS6201",
+          "ENVS6308"
         ]
       },
       {
@@ -114,7 +106,17 @@
           "ENVS6103",
           "ENVS6202"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ENVS6202",
+          "ENVS6514"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

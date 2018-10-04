@@ -1,8 +1,8 @@
 {
-  "code": "MENVI",
-  "units": 96,
   "name": "Master of Environment",
+  "code": "MENVI",
   "year": 2017,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -15,6 +15,19 @@
           "ENVS8049"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "GEOG-SPEC",
+        "WSMG-SPEC",
+        "ESHE-SPEC",
+        "BICM-SPEC",
+        "NRMG-SPEC",
+        "ENVP-SPEC",
+        "SUSC-SPEC",
+        "CLSP-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

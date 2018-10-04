@@ -1,7 +1,10 @@
 {
-  "code": "7818XMAIR",
-  "units": 72,
   "name": "Master of Arts (International Relations)",
+  "code": "7818XMAIR",
   "year": 2014,
-  "required": {}
+  "units": 72,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

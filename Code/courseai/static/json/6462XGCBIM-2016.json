@@ -1,8 +1,8 @@
 {
-  "code": "6462XGCBIM",
-  "units": 24,
   "name": "Graduate Certificate of Business Information Management",
+  "code": "6462XGCBIM",
   "year": 2016,
+  "units": 24,
   "required": {
     "compulsory_courses": [
       "BUSN7024",
@@ -23,6 +23,8 @@
           "MGMT7030"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

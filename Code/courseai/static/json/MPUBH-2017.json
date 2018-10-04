@@ -1,8 +1,8 @@
 {
-  "code": "MPUBH",
-  "units": 96,
   "name": "Master of Public Health",
+  "code": "MPUBH",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "POPH8101",
@@ -66,6 +66,8 @@
           "POPH8552"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

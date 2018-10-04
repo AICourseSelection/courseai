@@ -1,7 +1,10 @@
 {
-  "code": "9650XPHD",
-  "units": 100,
   "name": "Doctor of Philosophy, Mathematical Sciences Institute",
+  "code": "9650XPHD",
   "year": 2016,
-  "required": {}
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

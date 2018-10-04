@@ -1,9 +1,18 @@
 {
-  "code": "BGENE",
-  "units": 144,
   "name": "Bachelor of Genetics",
+  "code": "BGENE",
   "year": 2016,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "BIOL1003",
       "BIOL1004",
@@ -17,6 +26,14 @@
       "BIOL3204"
     ],
     "x_from_here": [
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "BIOL1009",
+          "COMP1100"
+        ]
+      },
       {
         "type": "minimum",
         "units": 6,
@@ -47,14 +64,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "BIOL1009",
-          "COMP1100"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "BIOL3125",
@@ -75,21 +84,14 @@
     "x_from_category": [
       {
         "type": "minimum",
-        "units": 36,
-        "courses": "Science List",
         "level": [
           3000
-        ]
+        ],
+        "units": 36,
+        "courses": "Science List"
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

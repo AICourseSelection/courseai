@@ -1,8 +1,8 @@
 {
-  "code": "7812XMMGNT",
-  "units": 48,
   "name": "Master of Management",
+  "code": "7812XMMGNT",
   "year": 2015,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "BUSI7033",
@@ -20,6 +20,8 @@
           "MGMT7161"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

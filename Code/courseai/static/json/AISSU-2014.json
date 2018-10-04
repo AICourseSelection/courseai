@@ -1,7 +1,10 @@
 {
-  "code": "AISSU",
-  "units": 192,
   "name": "Bachelor of Interdisciplinary Studies (Sustainability) Advanced (Honours)",
+  "code": "AISSU",
   "year": 2014,
-  "required": {}
+  "units": 192,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

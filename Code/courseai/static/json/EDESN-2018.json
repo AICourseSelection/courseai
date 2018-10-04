@@ -1,8 +1,8 @@
 {
-  "units": 48,
-  "code": "EDESN",
   "name": "Diploma of Creative Design",
+  "code": "EDESN",
   "year": 2018,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "ANUC1101",
@@ -14,21 +14,23 @@
     ],
     "x_from_here": [
       {
-        "units": 6,
         "type": "minimum",
-        "courses": [
-          "ANUC1100",
-          "ANUC1104"
-        ]
-      },
-      {
         "units": 6,
-        "type": "minimum",
         "courses": [
           "ANUC1123",
           "ANUC1124"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANUC1100",
+          "ANUC1104"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

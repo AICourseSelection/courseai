@@ -1,7 +1,10 @@
 {
-  "code": "9070XPHD",
-  "units": 100,
   "name": "Doctor of Philosophy, ANU College of Engineering and Computer Science",
+  "code": "9070XPHD",
   "year": 2016,
-  "required": {}
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }
