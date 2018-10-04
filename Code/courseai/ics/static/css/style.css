@@ -29,6 +29,10 @@ body {
     padding: 0 0 0 5px;
 }
 
+.dropdown-menu-right {
+    min-width: 300px;
+}
+
 /* USER PAGE */
 .container {
     margin-top: 50px;
