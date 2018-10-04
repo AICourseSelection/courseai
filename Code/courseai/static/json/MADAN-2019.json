@@ -1,8 +1,8 @@
 {
-  "code": "MADAN",
-  "units": 72,
   "name": "Master of Applied Data Analytics",
+  "code": "MADAN",
   "year": 2019,
+  "units": 72,
   "required": {
     "compulsory_courses": [
       "COMP8410",
@@ -18,6 +18,15 @@
         "type": "minimum",
         "units": 6,
         "courses": [
+          "COMP1040",
+          "COMP6730",
+          "COMP7230"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
           "STAT6038",
           "STAT7001"
         ]
@@ -29,16 +38,9 @@
           "COMP6240",
           "COMP7240"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "COMP1040",
-          "COMP6730",
-          "COMP7230"
-        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

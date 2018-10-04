@@ -1,7 +1,10 @@
 {
-  "code": "9560XPHD",
-  "units": 100,
   "name": "Doctor of Philosophy, Regulation and Governance",
+  "code": "9560XPHD",
   "year": 2018,
-  "required": {}
+  "units": 100,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

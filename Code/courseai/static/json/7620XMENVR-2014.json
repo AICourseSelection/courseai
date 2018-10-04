@@ -1,7 +1,10 @@
 {
-  "code": "7620XMENVR",
-  "units": 72,
   "name": "Master of Environment (Research)",
+  "code": "7620XMENVR",
   "year": 2014,
-  "required": {}
+  "units": 72,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -1,7 +1,10 @@
 {
-  "code": "6658XBIOTE",
-  "units": 24,
   "name": "Graduate Certificate in Biotechnology",
+  "code": "6658XBIOTE",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

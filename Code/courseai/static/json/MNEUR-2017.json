@@ -1,8 +1,8 @@
 {
-  "code": "MNEUR",
-  "units": 96,
   "name": "Master of Neuroscience",
+  "code": "MNEUR",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "NEUR6101",
@@ -15,6 +15,17 @@
         "courses": [
           "BIOL6174",
           "PSYC6010"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "BIOL8291",
+          "NEUR8001",
+          "NEUR8700",
+          "NEUR8701",
+          "NEUR8704"
         ]
       },
       {
@@ -33,18 +44,9 @@
           "SCOM6031",
           "VCPG6002"
         ]
-      },
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "BIOL8291",
-          "NEUR8001",
-          "NEUR8700",
-          "NEUR8701",
-          "NEUR8704"
-        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

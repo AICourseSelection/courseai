@@ -1,7 +1,20 @@
 {
-  "code": "CMGMT",
-  "units": 24,
   "name": "Graduate Certificate of Management",
+  "code": "CMGMT",
   "year": 2017,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [
+      [
+        "BISY-SPEC",
+        "PROM-SPEC",
+        "MKTG-SPEC",
+        "LEAD-SPEC",
+        "HRMG-SPEC",
+        "BUSI-SPEC",
+        "ENIN-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
+  }
 }

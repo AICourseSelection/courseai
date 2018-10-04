@@ -1,8 +1,8 @@
 {
-  "code": "NDSTE",
-  "units": 96,
   "name": "Master of Engineering in Digital Systems and Telecommunications",
+  "code": "NDSTE",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ENGN6213",
@@ -28,6 +28,8 @@
           "ENGN6625"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

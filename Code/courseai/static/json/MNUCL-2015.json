@@ -1,8 +1,8 @@
 {
-  "code": "MNUCL",
-  "units": 96,
   "name": "Master of Nuclear Science",
+  "code": "MNUCL",
   "year": 2015,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
@@ -20,6 +20,8 @@
           "SCOM8027"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

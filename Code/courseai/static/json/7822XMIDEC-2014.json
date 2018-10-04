@@ -1,8 +1,8 @@
 {
-  "code": "7822XMIDEC",
-  "units": 48,
   "name": "Master of International and Development Economics",
+  "code": "7822XMIDEC",
   "year": 2014,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "CRWF8000",
@@ -10,42 +10,6 @@
       "IDEC8064"
     ],
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 12,
-        "courses": [
-          "ECON8006",
-          "ECON8011",
-          "ECON8014",
-          "ECON8015",
-          "ECON8034",
-          "ECON8041",
-          "ECON8047",
-          "ECON8049",
-          "ECON8053",
-          "EMET8010",
-          "EMET8012",
-          "EMET8014",
-          "IDEC8009",
-          "IDEC8010",
-          "IDEC8011",
-          "IDEC8012",
-          "IDEC8014",
-          "IDEC8018",
-          "IDEC8020",
-          "IDEC8021",
-          "IDEC8022",
-          "IDEC8023",
-          "IDEC8026",
-          "IDEC8027",
-          "IDEC8028",
-          "IDEC8053",
-          "IDEC8068",
-          "IDEC8081",
-          "IDEC8083",
-          "IDEC8088"
-        ]
-      },
       {
         "type": "minimum",
         "units": 12,
@@ -107,7 +71,45 @@
           "IDEC8023",
           "IDEC8026"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ECON8006",
+          "ECON8011",
+          "ECON8014",
+          "ECON8015",
+          "ECON8034",
+          "ECON8041",
+          "ECON8047",
+          "ECON8049",
+          "ECON8053",
+          "EMET8010",
+          "EMET8012",
+          "EMET8014",
+          "IDEC8009",
+          "IDEC8010",
+          "IDEC8011",
+          "IDEC8012",
+          "IDEC8014",
+          "IDEC8018",
+          "IDEC8020",
+          "IDEC8021",
+          "IDEC8022",
+          "IDEC8023",
+          "IDEC8026",
+          "IDEC8027",
+          "IDEC8028",
+          "IDEC8053",
+          "IDEC8068",
+          "IDEC8081",
+          "IDEC8083",
+          "IDEC8088"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

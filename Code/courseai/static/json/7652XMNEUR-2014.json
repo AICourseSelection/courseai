@@ -1,7 +1,10 @@
 {
-  "code": "7652XMNEUR",
-  "units": 18,
   "name": "Master of Neuroscience (Research)",
+  "code": "7652XMNEUR",
   "year": 2014,
-  "required": {}
+  "units": 18,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

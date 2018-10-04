@@ -1,7 +1,10 @@
 {
-  "code": "7912XMPHR",
-  "units": 96,
   "name": "Master of Public Health (Research)",
+  "code": "7912XMPHR",
   "year": 2014,
-  "required": {}
+  "units": 96,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

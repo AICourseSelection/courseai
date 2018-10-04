@@ -1,8 +1,8 @@
 {
-  "code": "MAPEC",
-  "units": 96,
   "name": "Master of Applied Economics",
+  "code": "MAPEC",
   "year": 2016,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ECON8013",
@@ -15,14 +15,6 @@
       "STAT7055"
     ],
     "x_from_here": [
-      {
-        "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMET8001",
-          "EMET8010"
-        ]
-      },
       {
         "type": "minimum",
         "units": 30,
@@ -61,7 +53,17 @@
           "ECON8026",
           "EMET8005"
         ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMET8001",
+          "EMET8010"
+        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

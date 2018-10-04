@@ -1,7 +1,10 @@
 {
-  "code": "7206XMECPO",
-  "units": 24,
   "name": "Master of Economic Policy",
+  "code": "7206XMECPO",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

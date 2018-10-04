@@ -1,7 +1,10 @@
 {
-  "code": "7614XMSCOM",
-  "units": 8014,
   "name": "Master of Science Communication",
+  "code": "7614XMSCOM",
   "year": 2014,
-  "required": {}
+  "units": 8014,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

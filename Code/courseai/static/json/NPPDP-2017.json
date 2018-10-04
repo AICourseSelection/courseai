@@ -1,8 +1,8 @@
 {
-  "code": "NPPDP",
-  "units": 96,
   "name": "Master of Public Policy in Development Policy",
+  "code": "NPPDP",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "CRWF8000",
@@ -19,8 +19,8 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "POGO8016",
-          "POGO8081"
+          "POGO8082",
+          "POGO8090"
         ]
       },
       {
@@ -51,10 +51,12 @@
         "type": "minimum",
         "units": 6,
         "courses": [
-          "POGO8082",
-          "POGO8090"
+          "POGO8016",
+          "POGO8081"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

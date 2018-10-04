@@ -1,8 +1,8 @@
 {
-  "code": "MADAN",
-  "units": 72,
   "name": "Master of Applied Data Analytics",
+  "code": "MADAN",
   "year": 2016,
+  "units": 72,
   "required": {
     "compulsory_courses": [
       "COMP7230",
@@ -15,6 +15,8 @@
       "STAT7001",
       "STAT6039",
       "STAT7026"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

@@ -1,9 +1,18 @@
 {
-  "units": 144,
-  "code": "BIR",
   "name": "Bachelor of International Relations",
+  "code": "BIR",
   "year": 2017,
+  "units": 144,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "compulsory_courses": [
       "POLS1005",
       "POLS1006",
@@ -14,8 +23,8 @@
     ],
     "x_from_here": [
       {
-        "units": 12,
         "type": "minimum",
+        "units": 12,
         "courses": [
           "ASIA2109",
           "EURO1004",
@@ -31,8 +40,25 @@
         ]
       },
       {
-        "units": 6,
         "type": "minimum",
+        "units": 6,
+        "courses": [
+          "HIST2136",
+          "HIST2141",
+          "HIST2240",
+          "PHIL2113",
+          "POLS2011",
+          "POLS2064",
+          "POLS2096",
+          "POLS2100",
+          "POLS2101",
+          "POLS2113",
+          "SOCY2030"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
         "courses": [
           "INTR2012",
           "INTR2014",
@@ -54,36 +80,8 @@
         ]
       },
       {
-        "units": 6,
-        "type": "minimum",
-        "courses": [
-          "HIST2136",
-          "HIST2141",
-          "HIST2240",
-          "PHIL2113",
-          "POLS2011",
-          "POLS2064",
-          "POLS2096",
-          "POLS2100",
-          "POLS2101",
-          "POLS2113",
-          "SOCY2030"
-        ]
-      },
-      {
-        "units": 6,
-        "type": "minimum",
-        "courses": [
-          "POLS2125",
-          "POLS3025",
-          "POLS3028",
-          "SOCY2038",
-          "SOCY2043"
-        ]
-      },
-      {
-        "units": 12,
         "type": "maximum",
+        "units": 12,
         "courses": [
           "ANIP3003",
           "ANIP3005",
@@ -95,8 +93,8 @@
         ]
       },
       {
-        "units": 6,
         "type": "minimum",
+        "units": 6,
         "courses": [
           "POLS2063",
           "POLS2102",
@@ -104,16 +102,20 @@
           "POLS2119",
           "POLS2120"
         ]
-      }
-    ],
-    "max_by_level": [
+      },
       {
-        "units": 60,
-        "type": "maximum",
-        "level": [
-          1000
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "POLS2125",
+          "POLS3025",
+          "POLS3028",
+          "SOCY2038",
+          "SOCY2043"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

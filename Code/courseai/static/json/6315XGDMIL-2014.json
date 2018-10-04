@@ -1,7 +1,10 @@
 {
-  "code": "6315XGDMIL",
-  "units": 24,
   "name": "Graduate Diploma in Military Law",
+  "code": "6315XGDMIL",
   "year": 2014,
-  "required": {}
+  "units": 24,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }
