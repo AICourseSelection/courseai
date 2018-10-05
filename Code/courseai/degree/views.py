@@ -11,6 +11,7 @@ from recommendations import jsonhelper
 from . import course_data_helper
 from . import degree_plan_helper
 from .models import Degree, PreviousStudentDegree, DegreePlanStore
+from .models import DegreeRequirement
 
 def all_degrees(request):
     degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
@@ -67,13 +68,14 @@ def course_data(request):
 
 
 def degree_reqs(request):
-    try:
-        code = request.GET['query']
-        response = degree_plan_helper.get_degree_requirements(code)
-        return HttpResponse(response, content_type="application/json")
-    except Exception:
-        res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
-        return HttpResponseBadRequest(res)
+    #try:
+    code = request.GET['query']
+    response = degree_plan_helper.get_degree_requirements(code)
+    print(response)
+    return HttpResponse(response, content_type="application/json")
+    #except Exception:
+    #    res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
+    #    return HttpResponseBadRequest(res)
 
 
 @csrf_exempt

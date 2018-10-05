@@ -100,7 +100,7 @@ def initial_network_training(degrees_to_train):
         joblib.dump(network, "network/" + degree.code + ".pkl")
 
 
-initial_network_training(SUBJECTS_TO_TRAIN_INIT)
+#initial_network_training(SUBJECTS_TO_TRAIN_INIT)
 
 
 def train_sample(degree):
