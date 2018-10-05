@@ -1,7 +1,10 @@
 {
-  "units": 8002,
-  "code": "7151HCEH",
   "name": "Master of Liberal Arts (Cultural and Environmental Heritage)(Research)",
+  "code": "7151HCEH",
   "year": 2014,
-  "required": {}
+  "units": 8002,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

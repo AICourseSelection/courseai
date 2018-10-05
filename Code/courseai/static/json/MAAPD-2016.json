@@ -1,13 +1,13 @@
 {
-  "units": 96,
-  "code": "MAAPD",
   "name": "Master of Applied Anthropology and Participatory Development",
+  "code": "MAAPD",
   "year": 2016,
+  "units": 96,
   "required": {
     "x_from_here": [
       {
-        "units": 18,
         "type": "minimum",
+        "units": 18,
         "courses": [
           "ANTH8007",
           "ANTH8009",
@@ -15,8 +15,32 @@
         ]
       },
       {
-        "units": 36,
         "type": "minimum",
+        "units": 18,
+        "courses": [
+          "ANTH8006",
+          "ANTH8028"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 18,
+        "courses": [
+          "ANTH8008",
+          "ANTH8019"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 12,
+        "courses": [
+          "ANTH8019",
+          "ANTH8028"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 36,
         "courses": [
           "ANTH6009",
           "ANTH6026",
@@ -54,31 +78,17 @@
           "SOCY6045",
           "STST8032"
         ]
-      },
-      {
-        "units": 12,
-        "type": "minimum",
-        "courses": [
-          "ANTH8019",
-          "ANTH8028"
-        ]
-      },
-      {
-        "units": 18,
-        "type": "minimum",
-        "courses": [
-          "ANTH8006",
-          "ANTH8028"
-        ]
-      },
-      {
-        "units": 18,
-        "type": "minimum",
-        "courses": [
-          "ANTH8008",
-          "ANTH8019"
-        ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [
+      [
+        "HUAC-SPEC",
+        "SOEN-SPEC",
+        "INPO-SPEC",
+        "CODE-SPEC",
+        "GEDE-SPEC"
+      ]
+    ],
+    "required_m/m/s": []
   }
 }

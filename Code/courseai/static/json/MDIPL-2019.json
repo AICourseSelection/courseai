@@ -1,8 +1,8 @@
 {
-  "code": "MDIPL",
-  "units": 96,
   "name": "Master of Diplomacy",
+  "code": "MDIPL",
   "year": 2019,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "DIPL8002",
@@ -73,6 +73,8 @@
           "DIPL8013"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

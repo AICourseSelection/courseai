@@ -24,6 +24,7 @@ function AutoSave(plan, code) {
                 url: 'accounts/degree_plan_view',
                 method: 'PUT',
                 data: {
+                    "mode": "PLAN",
                     "code": this.code,
                     "plan": this.plan.serializeSimple()
                 },

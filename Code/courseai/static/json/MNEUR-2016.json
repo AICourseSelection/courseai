@@ -1,8 +1,8 @@
 {
-  "code": "MNEUR",
-  "units": 96,
   "name": "Master of Neuroscience",
+  "code": "MNEUR",
   "year": 2016,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "NEUR6101",
@@ -50,6 +50,8 @@
           "VCPG6002"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

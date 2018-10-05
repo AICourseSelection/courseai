@@ -1,8 +1,8 @@
 {
-  "code": "MEMOL",
-  "units": 96,
   "name": "Master of Environmental Management and Development - Online",
+  "code": "MEMOL",
   "year": 2017,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "EMDV8007",
@@ -13,17 +13,24 @@
     "x_from_here": [
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "EMDV8012"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ANTH8009",
           "ANTH8019"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "ANTH8028"
+        ]
+      },
+      {
+        "type": "minimum",
+        "units": 6,
+        "courses": [
+          "EMDV8012"
         ]
       },
       {
@@ -53,13 +60,6 @@
       },
       {
         "type": "minimum",
-        "units": 6,
-        "courses": [
-          "ANTH8028"
-        ]
-      },
-      {
-        "type": "minimum",
         "units": 12,
         "courses": [
           "ANTH8028",
@@ -72,6 +72,8 @@
           "EMDV8124"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

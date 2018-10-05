@@ -1,8 +1,8 @@
 {
-  "code": "6828XGDMDS",
-  "units": 48,
   "name": "Graduate Diploma of Military and Defence Studies",
+  "code": "6828XGDMDS",
   "year": 2014,
+  "units": 48,
   "required": {
     "x_from_here": [
       {
@@ -19,6 +19,8 @@
           "STST8100"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

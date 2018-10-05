@@ -1,7 +1,10 @@
 {
-  "code": "DBUSI",
-  "units": 48,
   "name": "Graduate Diploma of Business",
+  "code": "DBUSI",
   "year": 2017,
-  "required": {}
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

@@ -222,7 +222,9 @@ function recordCourseOfferings(code, offerings) {
 
         if (Object.keys(data)[0] === "sessions" && Object.keys(data).length === 1) {
             data = offerings[year - 1];
-            data.sessions = offerings[year].sessions;
+            if (year > LATEST_YEAR && Object.keys(data).length > 1) {
+                data.sessions = offerings[year].sessions;
+            } else continue;
         }
 
         if (!(code in KNOWN_COURSES)) KNOWN_COURSES[code] = {};

@@ -1,8 +1,8 @@
 {
-  "code": "NSCBS",
-  "units": 24,
   "name": "Master of Science in Biological Sciences",
+  "code": "NSCBS",
   "year": 2019,
+  "units": 24,
   "required": {
     "x_from_here": [
       {
@@ -13,6 +13,8 @@
           "BIOL8700"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

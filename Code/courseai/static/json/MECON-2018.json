@@ -1,8 +1,8 @@
 {
-  "code": "MECON",
-  "units": 96,
   "name": "Master of Economics",
+  "code": "MECON",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "ECON7073",
@@ -13,6 +13,8 @@
       "ECON8026",
       "ECON8013",
       "EMET8005"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

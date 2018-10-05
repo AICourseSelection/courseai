@@ -1,7 +1,10 @@
 {
-  "code": "7611XMNSCI",
-  "units": 8,
   "name": "Master of Nuclear Science",
+  "code": "7611XMNSCI",
   "year": 2014,
-  "required": {}
+  "units": 8,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

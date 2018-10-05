@@ -1,8 +1,8 @@
 {
-  "code": "VDIPL",
-  "units": 96,
   "name": "Master of Diplomacy (Advanced)",
+  "code": "VDIPL",
   "year": 2018,
+  "units": 96,
   "required": {
     "compulsory_courses": [
       "DIPL8001",
@@ -14,6 +14,8 @@
       "DIPL8003",
       "DIPL8006",
       "DIPL8008"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

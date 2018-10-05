@@ -1,7 +1,10 @@
 {
-  "code": "9712XTMED",
-  "units": 3,
   "name": "Doctor of Philosophy, Translational Medicine",
+  "code": "9712XTMED",
   "year": 2014,
-  "required": {}
+  "units": 3,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

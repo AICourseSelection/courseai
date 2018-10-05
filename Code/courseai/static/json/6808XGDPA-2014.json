@@ -1,7 +1,10 @@
 {
-  "code": "6808XGDPA",
-  "units": 48,
   "name": "Graduate Diploma in Public Administration",
+  "code": "6808XGDPA",
   "year": 2014,
-  "required": {}
+  "units": 48,
+  "required": {
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
+  }
 }

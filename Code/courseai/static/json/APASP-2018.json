@@ -1,9 +1,18 @@
 {
-  "code": "APASP",
-  "units": 10,
   "name": "Bachelor of Philosophy (Honours) - Asia and the Pacific",
+  "code": "APASP",
   "year": 2018,
+  "units": 10,
   "required": {
+    "max_by_level": [
+      {
+        "type": "maximum",
+        "level": [
+          1000
+        ],
+        "units": 60
+      }
+    ],
     "x_from_here": [
       {
         "type": "minimum",
@@ -22,14 +31,7 @@
         ]
       }
     ],
-    "max_by_level": [
-      {
-        "type": "maximum",
-        "units": 60,
-        "level": [
-          1000
-        ]
-      }
-    ]
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

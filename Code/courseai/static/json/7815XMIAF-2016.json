@@ -1,8 +1,8 @@
 {
-  "code": "7815XMIAF",
-  "units": 48,
   "name": "Master of International Affairs",
+  "code": "7815XMIAF",
   "year": 2016,
+  "units": 48,
   "required": {
     "compulsory_courses": [
       "INTR8011",
@@ -46,6 +46,8 @@
           "STST8051"
         ]
       }
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }

@@ -1,8 +1,8 @@
 {
-  "code": "7413XMPACC",
-  "units": 72,
   "name": "Master of Professional Accounting",
+  "code": "7413XMPACC",
   "year": 2015,
+  "units": 72,
   "required": {
     "compulsory_courses": [
       "BUSN7005",
@@ -15,6 +15,8 @@
       "FINM7006",
       "INFS7040",
       "STAT7055"
-    ]
+    ],
+    "one_from_m/m/s": [],
+    "required_m/m/s": []
   }
 }
