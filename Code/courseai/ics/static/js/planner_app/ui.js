@@ -1490,6 +1490,7 @@ function updateCourseSearchResults(response) {
         for (let r of response.slice(0, 10)) {
             const code = r.course_code;
             recordCourseOfferings(code, r.versions);
+            if (!Object.keys(r.versions).length) continue;
             const year = closestYear(THIS_YEAR, Object.keys(KNOWN_COURSES[code]));
             const title = KNOWN_COURSES[code][year].title;
             let item = $(
