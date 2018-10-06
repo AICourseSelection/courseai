@@ -1,4 +1,3 @@
-{% load static %}
 {% load pipeline %}
 
 <!DOCTYPE html>
@@ -75,25 +74,22 @@
 {% javascript 'main' %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-	<script>
-		function submitFeedback() {
-            const sendButton = $('#submitFeedbackButton');
-			sendButton.text("Thanks for your feedback!");
-            sendButton.attr({'disabled': 'true'});
-			$.ajax({
-            url: 'feedback/give_feedback?email=none&feedback='+document.getElementById("feedbackForm").value,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json'
-			});
-            document.getElementById("feedbackForm").readOnly = true;
-
-
-
-	}
-	</script>
 <script>
-
+	function submitFeedback() {
+        const sendButton = $('#submitFeedbackButton');
+		sendButton.text("Thanks for your feedback!");
+        sendButton.attr({'disabled': 'true'});
+		$.ajax({
+        url: 'feedback/give_feedback?email=none&feedback='+document.getElementById("feedbackForm").value,
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json'
+		});
+        document.getElementById("feedbackForm").readOnly = true;
+    }
+</script>
+	
+<script>
     $('#form-login').submit(function (e) {
         e.preventDefault();
         var email = $.trim($('#login-email').val());
@@ -114,22 +110,8 @@
                 $('#error-modal').modal('show');
             }
         })
-    });
+    })
 
-    function errorPopoverSetup(source) {
-        popover = $(source.data('bs.popover').tip);
-        popover.addClass('popover-error');
-        popover.click(function () {
-            source.popover('hide')
-        });
-        popover.css('cursor', 'pointer');
-        source.keydown(function () {
-            source.popover('hide')
-        });
-    }
-</script>
-
-<script>
     $('#form-register').submit(function (e) {
         e.preventDefault();
         var username = $.trim($('#register-username').val());

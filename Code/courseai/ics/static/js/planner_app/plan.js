@@ -11,7 +11,6 @@ function Plan() {
         let unsat = [];
         for (const session of this.sessions) {
             for (const enrolment of this.courses[session]) {
-                if (!(enrolment.failed)) continue;
                 let res = enrolment.course.checkRequirements(this, enrolment.session);
                 if (!(res.sat)) unsat.push({'course': enrolment, 'inc': res.inc});
             }
@@ -237,9 +236,11 @@ function Plan() {
         return false;
     };
 
-    this.addWarning = function (type, text, actions) {
+    this.addWarning = function (type, text, actions, positionCode="") {
         this.changesMade = true;
-        this.warnings.push(new Warning(type, text, actions));
+        let warning = new Warning(type, text, actions, positionCode);
+        this.warnings.push(warning);
+        return warning
     };
 
     this.removeWarning = function (type, text) {
@@ -416,10 +417,11 @@ function NonExistentMMS(message) {
 NonExistentMMS.prototype = Error.prototype;
 
 
-function Warning(type, text, actions = []) {
+function Warning(type, text, actions = [], positionCode) {
     this.type = type;   // e.g. "CourseForceAdded"
     this.text = text;
     this.actions = actions;
+    this.positionCode= positionCode; // encoding of the associated card's position on the planner (semester code + plan cell index)
 
     this.runActions = function () {
         for (const action of this.actions) {
