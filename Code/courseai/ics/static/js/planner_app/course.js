@@ -41,8 +41,11 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
      * Check if the requirements for this course have been met.
      * @param plan  The degree plan to check requirements against.
      * @param session   The prospective session for this course.
+     * @param adding    Default to true, assume that requirements are being checked for the
+     *                  adding of a new instance of this course to the session.
+     *                  Set to false for evaluating courses that already exist in the plan.
      */
-    this.checkRequirements = function (plan, session) {
+    this.checkRequirements = function (plan, session, adding = true) {
         let incompatible_courses = [];
         let overall_sat = true;
         let res = {};
@@ -96,6 +99,13 @@ function CourseOffering(code, year, title, units, rules, extras, repeatable = fa
         if (this.rules['min-units'] !== undefined && countCourses(courses_taken) < this.rules['min-units']) {
             overall_sat = false;
             res['units'] = this.rules['min-units'];
+        }
+
+        const existingUnits = countCourses(courses_taken.concat(courses_taking), x => x===this.code);
+        const unitDifference = existingUnits - (this.maxUnits || this.units);
+        if (adding && unitDifference >=0 || !adding && unitDifference > 0) {
+            overall_sat = false;
+            res['duplicate'] = existingUnits;
         }
 
         res['sat'] = overall_sat;

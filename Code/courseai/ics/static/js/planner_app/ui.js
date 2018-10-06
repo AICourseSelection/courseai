@@ -911,7 +911,7 @@ function dropOnSlot(event, ui) {
         }
 
         let modal = null;
-        if (reason === "Prerequisites not met") {
+        if (reason.includes("Prerequisites not met")) {
             $('#prereq-modal-course').text(code);
             modal = $('#prereq-modal');
         } else if (reason.includes('Incompatible')) {
@@ -921,6 +921,10 @@ function dropOnSlot(event, ui) {
         } else if (reason === "Not available in this semester/ session" || reason === "Not available in this year") {
             $('#unavail-modal-course').text(code);
             modal = $('#unavail-modal');
+        } else if (reason.includes("Can't repeat this course for more than")) {
+            $('#dupe-modal-course').text(code);
+            $('#dupe-modal-extra').text("It can be taken to a maximum of " + reason.match(/[0-9]{1,3}/)[0] + " units. ");
+            modal = $('#dupe-modal');
         } else {
             return;
         }
@@ -1544,13 +1548,12 @@ function updateMMSSearchResults(data, type) {
 function updateWarnings() {
     PLAN.clearWarnings();
 
-    for (var key in semesterOverrides) {
-        PLAN.warnings.push(semesterOverrides[key]);
+    for (const key in semesterOverrides) {
+        PLAN.addWarning(semesterOverrides[key]);
     }
 
-    let unsatCourses = PLAN.unsatisfiedCourses();
-    for (var i = 0; i < unsatCourses.length; i++) {
-        const code = unsatCourses[i].course.code;
+    for (const course of PLAN.unsatisfiedCourses()) {
+        const code = course.course.code;
         const target = $('#plan-grid').find('.plan-cell:contains("' + code + '")');
         PLAN.addWarning("CourseForceAdded", code, [makeScrollAndGlow(target)]);
     }
@@ -1717,6 +1720,8 @@ async function highlightInvalidSessions(course, ui, first_cell) {
         const checked = offering.checkRequirements(PLAN, session);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
+            else if (checked.units) invalid_sessions[session] = "Prerequisites not met: Need to have previously completed at least " + checked.units + " units.";
+            else if (checked.duplicate) invalid_sessions[session] = "Can't repeat this course for more than " + (offering.maxUnits || offering.units) + " units";
             else invalid_sessions[session] = "Prerequisites not met"
         }
     }

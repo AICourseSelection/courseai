@@ -11,7 +11,7 @@ function Plan() {
         let unsat = [];
         for (const session of this.sessions) {
             for (const enrolment of this.courses[session]) {
-                let res = enrolment.course.checkRequirements(this, enrolment.session);
+                let res = enrolment.course.checkRequirements(this, enrolment.session, false);
                 if (!(res.sat)) unsat.push({'course': enrolment, 'inc': res.inc});
             }
         }
