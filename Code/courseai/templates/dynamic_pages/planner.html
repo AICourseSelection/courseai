@@ -57,7 +57,7 @@
             <strong>Congratulations!</strong> You have completed your degree plan!
         </div>
         <div id="courses-forced-notice" class="col-12 h6 text-center alert alert-warning">
-            Warning: the following courses were added despite not meeting their requirements or availability:
+            Warning: the following courses do not meet their requirements or availability:
             <span id="courses-forced-list"></span>
         </div>
         <div id="load-failed-notice" class="col-12 h6 text-center d-none alert alert-danger alert-dismissible" role="alert">
@@ -76,12 +76,12 @@
     <div class="row">
         <div class="col-3" id="left-panel">
             <ul class="nav nav-tabs" id="input-tabs" role="tablist">
-                <li class="nav-item text-center" style="width: 40%">
+                <li class="nav-item text-center" style="width: 50%">
                     <a class="nav-link active show" id="tab-search" data-toggle="tab" href="#content-search" role="tab"
                        aria-controls="search"
                        aria-selected="true">Search</a>
                 </li>
-                <li class="nav-item text-center" style="width: 60%">
+                <li class="nav-item text-center" style="width: 50%">
                     <a class="nav-link" id="tab-recommend" data-toggle="tab" href="#content-recommend" role="tab"
                        aria-controls="recommendations" aria-selected="true">Recommendations</a>
                 </li>
@@ -368,6 +368,7 @@
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
 {% javascript 'main' %}
+
 <script>
     $('#form-login').submit(function (e) {
         e.preventDefault();
@@ -390,8 +391,7 @@
             }
         })
     })
-</script>
-<script>
+
     $('#form-register').submit(function (e) {
         e.preventDefault();
         var username = $.trim($('#register-username').val());
@@ -418,6 +418,7 @@
         })
     })
 </script>
+
 <script>
     let degree_name = "{{ degree_name }}";
     let degree_code = "{{ degree_code }}";

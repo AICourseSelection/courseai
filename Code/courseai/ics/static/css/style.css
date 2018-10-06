@@ -29,6 +29,10 @@ body {
     padding: 0 0 0 5px;
 }
 
+.dropdown-menu-right {
+    min-width: 300px;
+}
+
 /* USER PAGE */
 .container {
     margin-top: 50px;
@@ -114,8 +118,8 @@ wrapper {
     text-align: center;
 }
 
-.typeahead li {
-    width: 712px;
+#planform ul {
+    width: 100%;
 }
 
 #planform .typeahead .dropdown-item:hover {
@@ -451,7 +455,7 @@ wrapper {
 .dragged-course {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     border-radius: .25rem !important;
-    max-width: 150px;
+    max-width: 140px;
 }
 
 .dragged-course .course-reason {
@@ -847,8 +851,8 @@ wrapper {
     color: #0051a9;
 }
 
-#code-input {
-    text-transform: uppercase;
+#code-select {
+    max-height: 500px;
 }
 
 .chat_box {
@@ -1035,15 +1039,16 @@ wrapper {
     background-color: #ffe5ca;
 }
 
-.invalid-cell {
-    background-color: #ffe6e6;
-}
-
 .highlight-elective {
     background-color: #ccffcc;
     border-color: #37e131;
     animation: pulse 3s infinite;
 }
+
+.invalid-cell {
+    background-color: #ffe6e6;
+}
+
 
 .plan-cell:hover, .list-group-item:hover {
     background: #80DEEA !important; /* make sure to override js styling */
