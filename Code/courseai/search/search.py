@@ -30,7 +30,7 @@ def level_filter(levels):
         raise AssertionError("Argument to areas must not be None")
 
     if len(levels) == 1:       # Add an extra level filter to avoid a bug which comes up
-        levels.append("9000")  # when there is exactly 1 level filter and 1 code filter
+        levels.append("10000")  # when there is exactly 1 level filter and 1 code filter
 
     level_filters = []
 
@@ -44,19 +44,19 @@ def get_levels(level):
     if level is None:
         return [str(i) for i in range(1000, 10000, 1000)]
     if level.lower() == 'undergraduate':
-        return [str(i) for i in range(1000, 5000, 1000)]
+        return [str(i) for i in range(1000, 6000, 1000)]
     if level.lower() == 'postgraduate':
-        return [str(i) for i in range(5000, 10000, 1000)]
+        return [str(i) for i in range(6000, 10000, 1000)]
     return []
 
 
 def raw_search(search_object, phrase, areas, levels, sem_queried, level):
     should = []
 
-    fields = ['course_code^4']
+    fields = []
 
     for field in range(2014, 2020):
-        fields.append('versions.' + str(field) + '.title^3')
+        # fields.append('versions.' + str(field) + '.title^3')
         fields.append('versions.' + str(field) + '.prescribed_texts^2')
         fields.append('versions.' + str(field) + '.description^1.5')
         fields.append('versions.' + str(field) + '.learning_outcomes')
@@ -64,6 +64,14 @@ def raw_search(search_object, phrase, areas, levels, sem_queried, level):
 
     for word in phrase.split():
         should.append(MultiMatch(query=word, fields=fields))
+
+    fields2 = ['course_code^4']
+
+    for field in range(2014, 2020):
+        fields2.append('versions.' + str(field) + '.title^3')
+
+    for word in phrase.split():
+        should.append(MultiMatch(type='phrase_prefix', query=word, fields=fields2))
 
     q = Q('bool', should=should, minimum_should_match=1)
     response = search_object.query(q)
