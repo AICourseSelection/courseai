@@ -15,6 +15,7 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
     this.rules = rules;
     this.suggestedPlan = suggestedPlan;
 
+    this.postgrad = !this.title.match(/[Bb]achelor/);
     this.identifier = code + '-' + year;
 
     this.incorporateCourseLists = async function () {
