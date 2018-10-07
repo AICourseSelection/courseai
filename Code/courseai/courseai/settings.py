@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'accounts',
-    'feedback'
+    'feedback',
+    'django_json_widget',
 ]
 
 MIDDLEWARE = [

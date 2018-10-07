@@ -1,4 +1,7 @@
 // Reference Constants
+const EARLIEST_YEAR = 2014; // Oldest year (of any course/degree/etc.) with data available.
+const LATEST_YEAR = 2019; // Most recent year (of any course/degree/etc.) with data available.
+
 const SESSION_WORDS = {
     'Su': 'Summer Session',
     'S1': 'First Semester',
@@ -17,9 +20,11 @@ const ELECTIVE_TEXT = "Elective Course";
 const MMS_CLASS_NAME = 'mms-course-list';
 let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
-const COLOR_CLASSES = ['invalid-cell', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'mms-course-list0', 'added-elective', 'compulsory']; // list of classes used for colouring cells - used when clearing plans
+const COLOR_CLASSES = ['compulsory', 'elective', 'mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'invalid-cell']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
+const MMS_TYPES_MAPPING = { 'MAJ': 'Major', 'MIN': 'Minor', 'SPEC': 'Specialisation', 'HSPC': 'Honours Specialisation' };
 let colorMappings = {};
+let legendMappings = {'compulsory': 'Degree Program Courses', 'elective': 'Elective Courses'};
 
 const NUM_ADD_SESSIONS_END = 5; // number of add-able sessions at the end of the plan at any time
 
@@ -58,6 +63,32 @@ function resetPlan() {
     SAVER.disableSaving();
     clearPlanner();
     setupPlanner(true);
+}
+
+function updateColorLegend() {
+    let section = $('#color-coding-section');
+    section.empty(); // remove existing legend items
+    let mmsClasses = ['mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4'];
+
+    for (var i = 0; i < COLOR_CLASSES.length; i++) {
+        let classKey = COLOR_CLASSES[i];
+        if (classKey in legendMappings) {
+            let row = $('<div class="color-coding-row"/>');
+            let color = $('<div class="color-coding-box"/>');
+            let title = $('<span class="color-coding-text"/>');
+
+            color.css('background-color', colorMappings[classKey]);
+            if (mmsClasses.includes(classKey)) {
+                title.text(MMS_TYPES_MAPPING[legendMappings[classKey]['type']] + ': ' + legendMappings[classKey]['title']);
+            } else {
+                title.text(legendMappings[classKey]);
+            }
+
+            row.append(color);
+            row.append(title);
+            section.append(row);
+        }
+    }
 }
 
 function addLinearGradient(colorClasses, box) {
@@ -254,6 +285,7 @@ function getColorClassIndex(mmsCode) {
 
 async function mms_add(code, year) {
     const mms = await getMMSOffering(code, year);
+    year = mms.year;
     PLAN.addMMS(code, year);
     let mms_active_list = $('#mms-active-list');
     let mms_card = $('<div class="mms card"/>');
@@ -279,6 +311,8 @@ async function mms_add(code, year) {
 
     let mmsCourseCodes = [];
     let colorIndex = getColorClassIndex(code);
+    legendMappings[MMS_CLASS_NAME + colorIndex] = {'title': mms.title, 'type': mms.type}; // add mapping of MMS class color to its title and type
+    updateColorLegend();
 
     let courses_actions = {};
     let section_count = 0;
@@ -482,6 +516,8 @@ async function deleteMMS(button) {
     let colorIndex = getColorClassIndex(code);
     delete allMMSCourseCodes[code];
     let mmsClassName = MMS_CLASS_NAME + colorIndex;
+    delete legendMappings[mmsClassName]; // remove the specified class to title mapping for the color coding legend
+    updateColorLegend();
     $("." + mmsClassName).removeClass(mmsClassName); // remove the class from all elements
     PLAN.removeMMS(code, year); // Delete from the plan.
     $(button).parents('.mms').find('.result-course').popover('dispose');
@@ -525,6 +561,7 @@ let SAVER = new AutoSave(PLAN, save_code);
 setupPlanner();
 
 updateColorMappings();
+updateColorLegend();
 
 $('#rc-button').click(function () {
     $('#rc-modal').modal();
@@ -607,28 +644,28 @@ $('#show-filters').popover({
     placement: 'right',
     html: true,
     content: '<form onsubmit="return filterSubmit(this)">\n' +
-    '<div class="form-row" style="padding: 0 5px">' +
-    '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
-    '<div class="form-row" style="padding: 0 5px">\n' +
-    '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
-    '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
-    '</div>\n' +
-    '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
-    '<div id="filter-buttons" class="form-row">\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
-    '</div>\n' +
-    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
-    '</form>' +
-    '',
+        '<div class="form-row" style="padding: 0 5px">' +
+        '<label for="code-input">Filter by code (e.g. MATH): </label></div>\n' +
+        '<div class="form-row" style="padding: 0 5px">\n' +
+        '    <div style="width: 100%; float:left; padding-right: 61px;"><input id="code-input" type="text" maxlength="4" class="form-control"></div>\n' +
+        '    <button type="submit" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
+        '</div>\n' +
+        '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
+        '<div id="filter-buttons" class="form-row">\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
+        '</div>\n' +
+        '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
+        '</form>' +
+        '',
     template: '<div class="popover filters-panel" role="tooltip">\n' +
-    '    <div class="arrow"></div>\n' +
-    '    <div class="h3 popover-header"></div>\n' +
-    '    <div class="popover-body"></div>\n' +
-    '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
-    '</div>'
+        '    <div class="arrow"></div>\n' +
+        '    <div class="h3 popover-header"></div>\n' +
+        '    <div class="popover-body"></div>\n' +
+        '    <a href="javascript:void(0)" class="popover-footer btn-outline-secondary text-center" onclick="$(\'#show-filters\').popover(\'hide\')">Close</a>\n' +
+        '</div>'
 }).on('shown.bs.popover', function () {
     const popover = $(this).data('bs.popover');
     const buttons = $(popover.tip).find('#filter-buttons button');
@@ -735,12 +772,15 @@ async function coursePopoverData(cell, descriptionOnly = false) {
     let courses_actions = {};
     let group = curr_popover.find('.related-courses');
     let recCourses = [];
-    for (const clause of offering.rules) {
+    for (const clause of offering.rules['pre-requisite'] || []) {
         for (const item of clause) {
             if (/^[A-Z]{4}[0-9]{4}/.test(item)) recCourses.push({
                 'course': item,
-                'reasoning': 'This is a prerequisite course.'
-            });
+                'reasoning': 'This is a pre-requisite course.'
+            }); else if (clause.type === 'co-requisite') recCourses.push({
+                'course': clause.course,
+                'reasoning': 'This is a co-requisite course.'
+            })
         }
     }
     for (const course of res.response) {
@@ -824,6 +864,7 @@ async function mmsPopoverData() {
 function search(coursesOnly = false) {
     const query = $('#add-course').val();
     const lists = $('#search-results-list').find('.card-body');
+    lists.find('.result-course').popover('dispose');
     lists.find('.result-mms').popover('dispose');
     lists.empty();
     if (!(query.trim())) return;
@@ -846,7 +887,7 @@ function dropOnSlot(event, ui) {
     const title = ui.draggable.find('.course-title').text();
     const session = first_cell.find('.row-ses').text();
     const reason = $(first_cell[0].lastElementChild).text();
-    makePlanCellDraggable($(event.target), code, session.year, false);
+    makePlanCellDraggable($(event.target), code, session.slice(0, 4), false);
 
     const position = $(event.target).index() - 1;
     if ($(row).hasClass('unavailable')) {
@@ -859,7 +900,7 @@ function dropOnSlot(event, ui) {
             $('#incompat-course1').text(ui.draggable.find('.course-code').text());
             $('#incompat-course2').text(reason.split(' ').pop());
             modal = $('#incompat-modal');
-        } else if (reason === "Not available in this semester/ session") {
+        } else if (reason === "Not available in this semester/ session" || reason === "Not available in this year") {
             $('#unavail-modal-course').text(ui.draggable.find('.course-code').text());
             modal = $('#unavail-modal');
         } else {
@@ -1162,10 +1203,10 @@ function createNextSessionsPopover(addBtn, addRow, availableSessions, last) {
             return html;
         },
         template: '<div class="popover session-popover" data-container=".popover-body">\n' +
-        '    <div class="arrow"></div>\n' +
-        '    <div class="h2 popover-header"></div>\n' +
-        '    <div class="popover-body session-popover-body"></div>\n' +
-        '    <button class="btn session-popover-submit btn-success">Add</button>'
+            '    <div class="arrow"></div>\n' +
+            '    <div class="h2 popover-header"></div>\n' +
+            '    <div class="popover-body session-popover-body"></div>\n' +
+            '    <button class="btn session-popover-submit btn-success">Add</button>'
     }).on('shown.bs.popover', function (e) {
         $('.add-row-btn').not(this).popover('hide');
         let buttons = $('.session-popover').find('.session-popover-btn');
@@ -1314,18 +1355,18 @@ function loadCourseGrid(plan) {
             courses_actions[code + '-' + year].push(function (offering) {
                 cell.find('.course-title').text(offering.title);
                 PLAN.addCourse(session, code);
-                makePlanCellDraggable(cell, code, session.year, false);
+                makePlanCellDraggable(cell, code, year, false);
 
             });
             cell.each(coursePopoverSetup);
             cell.droppable('destroy');
-            makePlanCellDraggable(cell, null, null, true);
+            // makePlanCellDraggable(cell, null, null, true);
         }
     }
     batchCourseOfferingActions(courses_actions).then(function () {
         window.setTimeout(function () {
             updateProgress();
-        }, 250);
+        }, 750);
         updateRecommendations();
         SAVER.enableSaving();
     });
@@ -1347,15 +1388,15 @@ function coursePopoverSetup(i, item) {
         placement: placement,
         html: true,
         content: '<div class="d-flex">\n' +
-        '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
-        '</div>',
+            '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
+            '</div>',
         template: '<div class="popover course-popover" role="tooltip">\n' +
-        '    <div class="arrow"></div>\n' +
-        '    <div class="h3 popover-header"></div>\n' +
-        '    <div class="popover-body"></div>\n' +
-        '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
-        '     " class="h6 popover-footer mb-0 text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
-        '</div>'
+            '    <div class="arrow"></div>\n' +
+            '    <div class="h3 popover-header"></div>\n' +
+            '    <div class="popover-body"></div>\n' +
+            '    <a href="https://programsandcourses.anu.edu.au/course/' + code +
+            '     " class="h6 popover-footer mb-0 text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+            '</div>'
     });
 
     $(this).on('show.bs.popover', function () {
@@ -1365,9 +1406,13 @@ function coursePopoverSetup(i, item) {
         });
     });
 
+    let firstOpen = true;
     // reposition on click event trigger, which fires after the show.bs.popover event
     $(this).on('click', function (e) {
-        forcePopoverReposition();
+        if (firstOpen) {
+            firstOpen = false;
+            forcePopoverReposition();
+        }
     });
 
     $(this).on('shown.bs.popover', function () {
@@ -1391,7 +1436,7 @@ function coursePopoverSetup(i, item) {
             }
             const year = $(entry).find('.course-year').text();
             const reason = $(entry).find('.course-reason').text();
-            if (reason === "This is a prerequisite course." && prereqsSatisfied) {
+            if (reason === "This is a pre-requisite course." && prereqsSatisfied) {
                 $(entry).remove();
             }
             makeCourseDraggable($(entry), code, year);
@@ -1408,20 +1453,27 @@ function mmsPopoverSetup() {
         placement: 'left',
         html: true,
         content: '<div class="d-flex">\n' +
-        '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
-        '</div>',
+            '    <div class="fa fa-sync-alt fa-spin mx-auto my-auto py-2" style="font-size: 2rem;"></div>\n' +
+            '</div>',
         template: '<div class="popover mms-popover" role="tooltip" data-code="' + code + '">\n' +
-        '    <div class="arrow"></div>\n' +
-        '    <div class="h3 popover-header"></div>\n' +
-        '    <div class="mms-add"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
-        '    <div class="popover-body"></div>\n' +
-        '    <a href="https://programsandcourses.anu.edu.au/' + MMS_TYPE_PRINT[code.split('-')[1]].toLowerCase() + '/' + code +
-        '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
-        '</div>'
+            '    <div class="arrow"></div>\n' +
+            '    <div class="h3 popover-header"></div>\n' +
+            '    <div class="mms-add"><button class="btn btn-info btn-sm btn-mms-add">Add to Plan</button></div>\n' +
+            '    <div class="popover-body"></div>\n' +
+            '    <a href="https://programsandcourses.anu.edu.au/' + MMS_TYPE_PRINT[code.split('-')[1]].toLowerCase() + '/' + code +
+            '     " class="h6 popover-footer text-center d-block" target="_blank">See More on Programs and Courses</a>\n' +
+            '</div>'
     });
     $(this).on('show.bs.popover', mmsPopoverData);
 
-    $(this).on('click', forcePopoverReposition());
+    let firstOpen = true;
+    // reposition on click event trigger, which fires after the show.bs.popover event
+    $(this).on('click', function (e) {
+        if (firstOpen) {
+            firstOpen = false;
+            forcePopoverReposition();
+        }
+    });
 }
 
 function updateCourseSearchResults(response) {
@@ -1431,8 +1483,9 @@ function updateCourseSearchResults(response) {
     if (response.length > 0) {
         for (let r of response.slice(0, 10)) {
             const code = r.course_code;
-            const year = closestYear(THIS_YEAR, Object.keys(r.versions)); // TODO: Fix for course years. Need the most recent year with data available.
-            const title = r.versions[year].title;
+            recordCourseOfferings(code, r.versions);
+            const year = closestYear(THIS_YEAR, Object.keys(KNOWN_COURSES[code]));
+            const title = KNOWN_COURSES[code][year].title;
             let item = $(
                 '<div class="draggable-course result-course list-group-item list-group-item-action">\n    ' +
                 '<span class="course-code">' + code + '</span>\n    ' +
@@ -1515,6 +1568,8 @@ function makeSlotDroppable(item) {
 
 function makePlanCellDraggable(item, code, year, elective) {
     item.addClass('draggable-course');
+    if (code === null) code = item.find('.course-code').text();
+    if (year === null) code = item.find('.course-year').text();
     item.draggable({
         zIndex: 800,
         revert: true,
@@ -1528,8 +1583,8 @@ function makePlanCellDraggable(item, code, year, elective) {
             };
             $(this).draggable('instance').containment = [0, 0, $(window).width() - 160, $('footer').offset().top - 100];
             const first_cell = $(event.target.parentElement).find('.first-cell');
-            if(!elective) {
-                highlightInvalidSessions(getCourseOffering(code, year),ui,first_cell);
+            if (!elective) {
+                highlightInvalidSessions(getCourseOffering(code, year), ui, first_cell);
                 highlightElectives();
             }
         },
@@ -1563,7 +1618,7 @@ function makeCourseDraggable(item, code, year) {
                 left: Math.floor(ui.helper.width() / 2),
                 top: Math.floor(ui.helper.height() / 2)
             };
-            highlightInvalidSessions(getCourseOffering(code, year),ui,null);
+            highlightInvalidSessions(getCourseOffering(code, year), ui, null);
             highlightElectives();
         },
         stop: function (event, ui) {
@@ -1589,18 +1644,39 @@ function removeRowCellsClass(row, css_class_name) {
     });
 }
 
-async function highlightInvalidSessions(offering, ui, first_cell) {
-    offering = await offering;
+async function highlightInvalidSessions(course, ui, first_cell) {
+    course = await course; // The course parameter is a getCourseOffering call.
     let invalid_sessions = {};
-    let offering_sessions = offering.extras.sessions;
     for (const session of PLAN.sessions) {
+        const year = session.slice(0, 4);
+        const offeredYears = Object.keys(KNOWN_COURSES[course.code]);
+
+        function offeredInYear(year) { // Check to see if the course is available in the year.
+            const y = parseInt(year);
+            // If it looks like it was offered in a time before our available data
+            if (y < EARLIEST_YEAR) return offeredYears.includes(EARLIEST_YEAR.toString());
+            // If it looks like it will be offered in a time after our available data
+            else if (y > LATEST_YEAR) return offeredYears.includes(LATEST_YEAR.toString());
+            else return offeredYears.includes(year);
+        }
+
+        if (!offeredInYear(year)) {
+            invalid_sessions[session] = "Not available in this year";
+            continue;
+        }
+
+        const offering = await getCourseOffering( // Course data will be downloaded by this point because of the await.
+            course.code, closestYear(year, Object.keys(KNOWN_COURSES[course.code])));
+        if (!offering.extras.sessions.includes(SESSION_WORDS[session.slice(4)])) {
+            invalid_sessions[session] = "Not available in this semester/ session";
+            continue;
+        }
+
         const checked = offering.checkRequirements(PLAN, session);
-        const offered = offering_sessions.includes(SESSION_WORDS[session.slice(4)]);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
             else invalid_sessions[session] = "Prerequisites not met"
         }
-        if (!offered) invalid_sessions[session] = "Not available in this semester/ session"
     }
     for (let row of $('#plan-grid').find('.plan-row')) {
         const first_cell = $(row.children[0]);
@@ -1615,7 +1691,7 @@ async function highlightInvalidSessions(offering, ui, first_cell) {
 
         addRowCellsClass(row, 'invalid-cell');
     }
-    if(first_cell !== null) {
+    if (first_cell !== null) {
 
         first_cell.children().css({'display': 'none'});
         first_cell.addClass('delete').addClass('alert-danger');
@@ -2034,16 +2110,14 @@ function setChecked(node, checked, useCrosses) {
 }
 
 function setPanelStatus(panel, status) {
+    panel.removeClass('alert-success alert-warning alert-danger');
     if (status === 'done') {                // Done
         panel.addClass('alert-success');
-        panel.removeClass('alert-warning alert-danger');
     } else if (status === 'incomplete') {   // Incomplete
         panel.addClass('alert-warning');
-        panel.removeClass('alert-success alert-danger');
     } else if (status === 'problem') {      // Problem
         panel.addClass('alert-danger');
-        panel.removeClass('alert-success alert-warning');
-    } else panel.removeClass('alert-success alert-warning alert-danger');
+    } 
 }
 
 function updateProgress() {
