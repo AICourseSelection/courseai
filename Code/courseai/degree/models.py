@@ -1,7 +1,7 @@
 from django.db import models
 import json
 from degree.course_data_helper import es_conn
-from django.core.exceptions import ValidationError
+from django.forms import ValidationError
 from django.contrib.postgres.fields import JSONField
 
 
@@ -28,11 +28,146 @@ class DegreePlanStore(models.Model):
     code = models.CharField(max_length=10)
     plan = models.TextField()
 
+class Major(models.Model):
+
+    es_id = models.CharField(max_length=10, editable=False, default="")
+    name = models.TextField(default="", blank=True)
+    code = models.CharField(max_length=9, default="", blank=True)
+    year = models.CharField(max_length=4, default="", blank=True, editable=False)
+    description = models.TextField(default="", blank=True)
+    graduation_stage = models.CharField(max_length=60, default="undergraduate",
+                                    choices=(("undergraduate", "undergraduate"), ("postgraduate", "postgraduate")))
+    requirements = JSONField(default=list)
+    learning_outcomes = models.TextField(default="", blank=True)
+
+
+    def _es_body(self):
+        data = Major.objects.filter(code=self.code)
+
+        initial = data[0]
+        source = {}
+        source['level'] = initial.graduation_stage
+        source['code'] = initial.code
+
+        versions = {}
+        for major_model in data:
+            version = {}
+
+            version['requirements'] = major_model.requirements
+            version['description'] = major_model.description
+            version['title'] = major_model.name
+            version['learning_outcomes'] = major_model.learning_outcomes
+            versions[major_model.year] = version
+
+        source['versions'] = versions
+        return source
+
+    def save(self,no_es=False):
+        #self.validate_plan()
+        super().save()
+        if(no_es):
+            return
+        r = es_conn.update(index='majors', doc_type='_doc', id=self.es_id, refresh=True, body={"doc":self._es_body()})
+        print(r)
+
+    def __str__(self):
+        return self.code + " - " + self.name + " " + self.year
+
+class Minor(models.Model):
+
+    es_id = models.CharField(max_length=10, editable=False, default="")
+    name = models.TextField(default="", blank=True)
+    code = models.CharField(max_length=9, default="", blank=True)
+    year = models.CharField(max_length=4, default="", blank=True, editable=False)
+    description = models.TextField(default="", blank=True)
+    graduation_stage = models.CharField(max_length=60, default="undergraduate",
+                                    choices=(("undergraduate", "undergraduate"), ("postgraduate", "postgraduate")))
+    requirements = JSONField(default=list)
+    learning_outcomes = models.TextField(default="", blank=True)
+
+
+    def _es_body(self):
+        data = Minor.objects.filter(code=self.code)
+
+        initial = data[0]
+        source = {}
+        source['level'] = initial.graduation_stage
+        source['code'] = initial.code
+
+        versions = {}
+        for minor_model in data:
+            version = {}
+
+            version['requirements'] = minor_model.requirements
+            version['description'] = minor_model.description
+            version['title'] = minor_model.name
+            version['learning_outcomes'] = minor_model.learning_outcomes
+            versions[minor_model.year] = version
+
+        source['versions'] = versions
+        return source
+
+    def save(self,no_es=False):
+        #self.validate_plan()
+        super().save()
+        if(no_es):
+            return
+        r = es_conn.update(index='minors', doc_type='_doc', id=self.es_id, refresh=True, body={"doc":self._es_body()})
+        print(r)
+
+    def __str__(self):
+        return self.code + " - " + self.name + " " + self.year
+
+
+class Specialisation(models.Model):
+
+    es_id = models.CharField(max_length=10, editable=False, default="")
+    name = models.TextField(default="", blank=True)
+    code = models.CharField(max_length=9, default="", blank=True)
+    year = models.CharField(max_length=4, default="", blank=True, editable=False)
+    description = models.TextField(default="", blank=True)
+    graduation_stage = models.CharField(max_length=60, default="undergraduate",
+                                    choices=(("undergraduate", "undergraduate"), ("postgraduate", "postgraduate")))
+    requirements = JSONField(default=list)
+    learning_outcomes = models.TextField(default="", blank=True)
+
+
+    def _es_body(self):
+        data = Specialisation.objects.filter(code=self.code)
+
+        initial = data[0]
+        source = {}
+        source['level'] = initial.graduation_stage
+        source['code'] = initial.code
+
+        versions = {}
+        for spec_model in data:
+            version = {}
+
+            version['requirements'] = spec_model.requirements
+            version['description'] = spec_model.description
+            version['title'] = spec_model.name
+            version['learning_outcomes'] = spec_model.learning_outcomes
+            versions[spec_model.year] = version
+
+        source['versions'] = versions
+        return source
+
+    def save(self,no_es=False):
+        #self.validate_plan()
+        super().save()
+        if(no_es):
+            return
+        r = es_conn.update(index='minors', doc_type='_doc', id=self.es_id, refresh=True, body={"doc":self._es_body()})
+        print(r)
+
+    def __str__(self):
+        return self.code + " - " + self.name + " " + self.year
 
 class Course(models.Model):
 
     es_id = models.CharField(max_length=10, editable=False, default="")
-    name = models.CharField(max_length=60,default="",blank=True, editable=False)
+    name = models.TextField(default="",blank=True)
     code = models.CharField(max_length=9,default="",blank=True)
     semesters = models.TextField(default="",blank=True)
     prerequisite_text=models.TextField(default="",blank=True)
@@ -43,13 +178,12 @@ class Course(models.Model):
     area = models.CharField(max_length=4,default="",blank=True)
     description=models.TextField(default="",blank=True)
     graduation_stage = models.CharField(max_length=60,default="Undergraduate", choices=(("Undergraduate","Undergraduate"),("Postgraduate","Postgraduate")))
-    convenor = models.CharField(max_length=60,default="",blank=True)
+    convenor = models.TextField(default="",blank=True)
     units = models.CharField(max_length=60, default="",blank=True)
-    year = models.CharField(max_length=4,default="",blank=True, editable=False)
+    year = models.CharField(max_length=4,default="",blank=True)
     minors = models.TextField(default="",blank=True)
     majors = models.TextField(default="",blank=True)
     learning_outcomes = models.TextField(default="",blank=True)
-    #data = JSONField(default={})
 
     # generate the es body including version, will develop this outside pycharm
     def _es_body(self):
@@ -91,7 +225,6 @@ class Course(models.Model):
         return self.code+" - "+self.name+" "+self.year
 
     def save(self,no_es=False):
-        #self.validate_plan()
         super().save()
         if(no_es):
             return
@@ -99,30 +232,17 @@ class Course(models.Model):
         print(r)
 
     def delete(self):
-        try:
-            to_update = self._es_body()
-            to_update["versions"].pop(self.year)
-            r = es_conn.update(index='courseupdated', doc_type='_doc', id=self.es_id, refresh = True,body={"doc":to_update})
-            print("Elastic returns:")
-            print(r)
-        except Exception as e:
-            print("failed to delete course from elastic search")
-            print(e)
+        to_update = self._es_body()
+        to_update["versions"].pop(self.year)
+        es_conn.update(index='courseupdated', doc_type='_doc', id=self.es_id, refresh = True,body={"doc":to_update})
         super().delete()
-
-    def validate_plan(self):
-        if(int(self.level)>4000 and self.graduation_stage=="Undergraduate"):
-            raise ValidationError("Cannot set a 5000-8000 level course to undergraduate")
-
-
 
 class DegreeRequirement(models.Model):
     year = models.CharField(max_length=4, default="")
-    code = models.CharField(max_length=6,default="")
-    name = models.CharField(max_length=60)
-    units = models.CharField(max_length=3,default="")
-    required=models.TextField(default="")
-
+    code = models.CharField(max_length=10,default="")
+    name = models.TextField(default="",blank=True, editable=False)
+    units = models.CharField(max_length=10,default="")
+    required=JSONField(default=list)
 
     def __str__(self):
         return self.name+" - "+self.year
@@ -133,7 +253,7 @@ class DegreeRequirement(models.Model):
         to_return["code"] = self.code
         to_return["name"] = self.name
         to_return["units"] = self.units
-        to_return["required"] = json.loads(self.required.replace("'","\""))
+        to_return["required"] = self.required
         return json.dumps(to_return)
 
 
