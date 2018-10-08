@@ -4,10 +4,32 @@
 
 * [Product Backlog](product-backlog.md) (also see [Trello](https://trello.com/b/lNhn5e9R/))
 * [API Documentation and mocking (Apiary)](https://courseai.docs.apiary.io/)
+* [Deployment Documentation](Sprint_2/deployment-documentation.md)
+
+## Sprint 3: Weeks 8 - 10
+
+#### Week 9
+
+* Meeting Minutes: Full Team
+* Meeting Minutes: Accenture
+
+#### Week 8
+
+* [Meeting Minutes: Full Team](Sprint_2/team-week-8-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-8-minutes.md)
 
 ## Sprint 2: Weeks 6 - 7
 
+#### Week 7
+
+* [Meeting Minutes: Full Team](Sprint_2/team-week-7-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-7-minutes.md)
+
 #### Teaching Break
+
+* [Meeting Minutes: Full Team (1st week)](Sprint_2/team-break-week-1-minutes.md)
+* [Meeting Minutes: Full Team (2nd week)](Sprint_2/team-break-week-1-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-6-minutes.md)
 * [Deployment Documentation](Sprint_2/deployment-documentation.md)
 
 
