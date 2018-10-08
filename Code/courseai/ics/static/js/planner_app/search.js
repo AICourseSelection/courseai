@@ -17,6 +17,11 @@ function Search(plan) {
             'levels': [],
             'sessions': [],
         };
+
+        if (this.plan.ugpg() === 1) filters['level'] = 'Undergraduate';
+        if (this.plan.ugpg() === 2) filters['level'] = 'Postgraduate';
+        // No 'level' key returns both UG and PG courses.
+
         for (let f of activeFilters) {
             if (f.type === 'level') filters.levels.push(f.data);
             else if (f.type === 'code') filters.codes.push(f.data);
@@ -74,9 +79,15 @@ function Search(plan) {
             if (type !== 'course' && this.requests[type] !== null) this.requests[type].abort();
         }
         before();
+        let body = {'query': query};
+        if (this.plan.ugpg() === 1) body['level'] = 'undergraduate';
+        if (this.plan.ugpg() === 2) body['level'] = 'postgraduate';
+        // No 'level' key returns both UG and PG courses.
+
         this.requests['major'] = $.ajax({
-            url: 'search/majors?query=' + query,
+            url: 'search/majors',
             type: 'GET',
+            data: body,
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -86,8 +97,9 @@ function Search(plan) {
             complete: console.log('Major search initiated. ')
         });
         this.requests['minor'] = $.ajax({
-            url: 'search/minors?query=' + query,
+            url: 'search/minors',
             type: 'GET',
+            data: body,
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -97,8 +109,9 @@ function Search(plan) {
             complete: console.log('Minor search initiated. ')
         });
         this.requests['spec'] = $.ajax({
-            url: 'search/specs?query=' + query,
+            url: 'search/specs',
             type: 'GET',
+            data: body,
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
