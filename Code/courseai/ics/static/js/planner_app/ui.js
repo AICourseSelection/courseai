@@ -1016,6 +1016,11 @@ async function setupPlanner(ignoreSaveCode = false) {
         }
         setupGrid();
         loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+        if (loggedIn) {
+            PLAN.changesMade = true;
+            SAVER.save();
+            console.log("Saved plan to user account on startup");
+        }
     }
     else { // Loading from save
         console.log('Loading found save code (' + save_code + ').');

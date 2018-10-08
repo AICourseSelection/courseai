@@ -396,6 +396,11 @@
 {% javascript 'main' %}
 
 <script>
+    function saveToProfile() {
+        PLAN.changesMade = True;
+        SAVER.save();
+    }
+
     $('#form-login').submit(function (e) {
         e.preventDefault();
         var email = $.trim($('#login-email').val());
@@ -410,6 +415,7 @@
         }).done(function (data) {
             if (data == 'OK') {
                 window.location = window.location;
+                saveToProfile();
             } else {
                 $('#modal-title').html('Login failed');
                 $('#modal-body').html(data);
@@ -436,6 +442,7 @@
         }).done(function (data) {
             if (data == 'OK') {
                 window.location = window.location;
+                saveToProfile();
             } else {
                 $('#modal-title').html('Registration failed');
                 $('#modal-body').html(data);
