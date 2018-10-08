@@ -10,8 +10,8 @@
 
 
 #### TODO:
-* The Q&A is currently very basic and does not add much value to the website. Remove it before the mass testing (TODO: Tom)
-* The degree planner does not load on Microsoft Edge. Look into this (TODO: Joseph, Thien)
-* Run SQL injection tests to the login system (TODO: Scarlett)
-* Obfuscate the front-end JS code (TODO: Joseph)
-* Update the backend of the search module to include courses from all years (TODO: Manal)
+* The Q&A is currently very basic and does not add much value to the website. Remove it before the mass testing (TODO: Tom) **[Done]**
+* The degree planner does not load on Microsoft Edge. Look into this (TODO: Joseph, Thien) **[Backlog]**
+* Run SQL injection tests to the login system (TODO: Scarlett) **[Done]**
+* Obfuscate the front-end JS code (TODO: Joseph) **[Done]**
+* Update the backend of the search module to include courses from all years (TODO: Manal) **[Done]**

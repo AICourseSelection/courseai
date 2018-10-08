@@ -57,10 +57,11 @@
             <strong>Congratulations!</strong> You have completed your degree plan!
         </div>
         <div id="courses-forced-notice" class="col-12 h6 text-center alert alert-warning">
-            Warning: the following courses were added despite not meeting their requirements or availability:
+            Warning: the following courses do not meet their requirements or availability:
             <span id="courses-forced-list"></span>
         </div>
-        <div id="load-failed-notice" class="col-12 h6 text-center d-none alert alert-danger alert-dismissible" role="alert">
+        <div id="load-failed-notice" class="col-12 h6 text-center d-none alert alert-danger alert-dismissible"
+             role="alert">
             Sorry, we were unable to retrieve your degree plan. A blank one has been generated for you.
             <button type="button" class="close" aria-label="Close" style="padding: .6rem 1rem;">
                 <span aria-hidden="true">&times;</span>
@@ -76,12 +77,12 @@
     <div class="row">
         <div class="col-3" id="left-panel">
             <ul class="nav nav-tabs" id="input-tabs" role="tablist">
-                <li class="nav-item text-center" style="width: 40%">
+                <li class="nav-item text-center" style="width: 50%">
                     <a class="nav-link active show" id="tab-search" data-toggle="tab" href="#content-search" role="tab"
                        aria-controls="search"
                        aria-selected="true">Search</a>
                 </li>
-                <li class="nav-item text-center" style="width: 60%">
+                <li class="nav-item text-center" style="width: 50%">
                     <a class="nav-link" id="tab-recommend" data-toggle="tab" href="#content-recommend" role="tab"
                        aria-controls="recommendations" aria-selected="true">Recommendations</a>
                 </li>
@@ -164,7 +165,8 @@
         </div>
         <div class="col-3 popover-region" id="right-panel">
             <div id='color-coding'>
-                <div id='color-coding-header' class='card-header btn text-left pl-2' data-toggle="collapse" data-target="#color-coding-section">
+                <div id='color-coding-header' class='card-header btn text-left pl-2' data-toggle="collapse"
+                     data-target="#color-coding-section">
                     Color Legend
                 </div>
                 <div id='color-coding-section' class='collapse show'></div>
@@ -260,6 +262,30 @@
                 <p>You are missing some prerequisites for the course you are attempting to add (<span
                         id="prereq-modal-course"></span>). Check its prerequisites and try again, or you can add the
                     course anyway but will need to obtain a permission code from the course convenor in order to enrol.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="course-add-override" type="button" class="btn btn-primary" data-dismiss="modal">Add Course
+                    Anyway
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="dupe-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-warning">
+                <h5 class="modal-title">Duplicate Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>You are already taking the course you are attempting to add (<span
+                        id="dupe-modal-course"></span>). <span id="dupe-modal-extra"></span>You may add the course anyway but may need to obtain a
+                    permission code from the course convenor in order to enrol.
                 </p>
             </div>
             <div class="modal-footer">
@@ -368,7 +394,13 @@
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
 {% javascript 'main' %}
+
 <script>
+    function saveToProfile() {
+        PLAN.changesMade = True;
+        SAVER.save();
+    }
+
     $('#form-login').submit(function (e) {
         e.preventDefault();
         var email = $.trim($('#login-email').val());
@@ -383,6 +415,7 @@
         }).done(function (data) {
             if (data == 'OK') {
                 window.location = window.location;
+                saveToProfile();
             } else {
                 $('#modal-title').html('Login failed');
                 $('#modal-body').html(data);
@@ -390,8 +423,7 @@
             }
         })
     })
-</script>
-<script>
+
     $('#form-register').submit(function (e) {
         e.preventDefault();
         var username = $.trim($('#register-username').val());
@@ -410,6 +442,7 @@
         }).done(function (data) {
             if (data == 'OK') {
                 window.location = window.location;
+                saveToProfile();
             } else {
                 $('#modal-title').html('Registration failed');
                 $('#modal-body').html(data);
@@ -418,6 +451,7 @@
         })
     })
 </script>
+
 <script>
     let degree_name = "{{ degree_name }}";
     let degree_code = "{{ degree_code }}";

@@ -11,8 +11,7 @@ function Plan() {
         let unsat = [];
         for (const session of this.sessions) {
             for (const enrolment of this.courses[session]) {
-                if (!(enrolment.failed)) continue;
-                let res = enrolment.course.checkRequirements(this, enrolment.session);
+                let res = enrolment.course.checkRequirements(this, enrolment.session, false);
                 if (!(res.sat)) unsat.push({'course': enrolment, 'inc': res.inc});
             }
         }
@@ -237,9 +236,11 @@ function Plan() {
         return false;
     };
 
-    this.addWarning = function (type, text, actions) {
+    this.addWarning = function (type, text, actions, positionCode = "") {
         this.changesMade = true;
-        this.warnings.push(new Warning(type, text, actions));
+        let warning = new Warning(type, text, actions, positionCode);
+        this.warnings.push(warning);
+        return warning
     };
 
     this.removeWarning = function (type, text) {
@@ -267,7 +268,7 @@ function Plan() {
         this.warnings = [];
     };
 
-    this.serializeSimple = function() {
+    this.serializeSimple = function () {
         var d = new Date();
 
         let saved = {
@@ -276,7 +277,7 @@ function Plan() {
             created: d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear(),
             startYear: Infinity,
             name: ""
-        }
+        };
 
         for (const degree of this.degrees) {
             if (degree.year < saved.startYear) saved.startYear = degree.year;
@@ -292,7 +293,7 @@ function Plan() {
 
         if (this.startSem) saved.startSem = this.startSem;
         return JSON.stringify(saved);
-    }
+    };
 
     this.serialize = function () {
         let saved = {
@@ -347,6 +348,18 @@ function Plan() {
         if (this.startSem) saved.startSem = this.startSem;
         return JSON.stringify(saved);
 
+    };
+
+    /**
+     * Determine if the current plan is undergrad, postgrad, or both.
+     * @return {number}   1 for undergrad, 2 for postgrad, 3 for both.
+     */
+    this.ugpg = function () {
+        let individuals = this.degrees.map(x => x.postgrad);
+        if (individuals.includes(false) && individuals.includes(true)) return 3;
+        else if (individuals.includes(true)) return 2;
+        else if (individuals.includes(false)) return 1;
+        else return 0;
     }
 }
 
@@ -416,10 +429,11 @@ function NonExistentMMS(message) {
 NonExistentMMS.prototype = Error.prototype;
 
 
-function Warning(type, text, actions = []) {
+function Warning(type, text, actions = [], positionCode) {
     this.type = type;   // e.g. "CourseForceAdded"
     this.text = text;
     this.actions = actions;
+    this.positionCode = positionCode; // encoding of the associated card's position on the planner (semester code + plan cell index)
 
     this.runActions = function () {
         for (const action of this.actions) {
