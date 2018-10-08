@@ -1,26 +1,26 @@
 ## Week 8 Client Meeting Minutes
 
 ### Attendance
-Clients: Bradley, Safeer, Cieran
+Clients: Bradley, Safeer, Ciaran
 
 Team: Joseph, Manal, Thien, Yong Wei, Tom, Scarlett
 
-Other Accenture Team (Package Manager): Sean, Crystal, Harrison
+Other Accenture Team (Postal Improvement): Sean, Crystal, Harrison
 
 ### Meeting Demo
 * Joseph gave a quick demo of the web-app, showcasing the degree planner and its major features.
 * The other Accenture team gave a demo of their package manager prototype.
 
 ### Suggestions
-* Include information about courses that have further study options
-* Consider displaying degree information somewhere
-* Consider limiting the number of saved plans available on user pages
-* Clear passwords on incorrect password by convention
+* Include information about courses that have further study options **[Backlog]**
+* Consider displaying degree information somewhere **[Backlog]**
+* Consider limiting the number of saved plans available on user pages **[Backlog]**
+* Clear passwords on incorrect password by convention **[Backlog]**
 
 ### Other
-* Look into internal server error bug related to the filter function
+* Look into internal server error bug related to the filter function **[Investigated, not reproducible]**
 * Consider adding loading animation on user page (saved plans take a while to load after the server migration)
-* Fix the filtering available courses feature when clicking on an elective slot in the planner.
+* Fix the filtering available courses feature when clicking on an elective slot in the planner. **[Done]**
 
 ### Future plans
 * Joseph highlighted that the team is working on fixing all the bugs listed on GitHub.

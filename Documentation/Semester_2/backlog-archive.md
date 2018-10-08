@@ -11,6 +11,11 @@ Create a dropdown for the years |  | Client | Joseph | https://trello.com/c/7mxa
 Remove the close button and replace it with arrow signs | | Client | | https://trello.com/c/7mxap6j7 | 
 The card zooming back to its originial place after dragging it into the degree plan confuses users. Fix that. | | Shadows | Joseph | https://trello.com/c/7mxap6j7 |
 Fix the overflow that occurs in the chat bubble when the word is too long | | Yong Wei | | | 
-
+Support Multiple plans for each user | | | Scarlett | |
+The ability to move courses across semesters | | | | https://trello.com/c/fqa2rD1L | 
+Support Postgraduate Degrees | | | | |  
+Colour code the courses in the degree plan depending on whether they are compulsory, elctives etc. | | | Thien | https://trello.com/c/PuxYMCZL |
+Scrape the study plan for all courses for all years | | |  | https://trello.com/c/roe3hxBs |
+Scrape courses for different years and extract the number of units and their availabilities | High |  | Manal | https://trello.com/c/a0ERF25f |  
 
 
