@@ -22,7 +22,7 @@ let allMMSCourseCodes = {}; // mapping of MMS codes to an array of course codes
 let compulsoryCourseCodes = [];
 const COLOR_CLASSES = ['compulsory', 'elective', 'mms-course-list0', 'mms-course-list1', 'mms-course-list2', 'mms-course-list3', 'mms-course-list4', 'invalid-cell']; // list of classes used for colouring cells - used when clearing plans
 const COLOR_CLASSES_STR = COLOR_CLASSES.join(' ');
-const MMS_TYPES_MAPPING = { 'MAJ': 'Major', 'MIN': 'Minor', 'SPEC': 'Specialisation', 'HSPC': 'Honours Specialisation' };
+const MMS_TYPES_MAPPING = {'MAJ': 'Major', 'MIN': 'Minor', 'SPEC': 'Specialisation', 'HSPC': 'Honours Specialisation'};
 let colorMappings = {};
 let legendMappings = {'compulsory': 'Degree Program Courses', 'elective': 'Elective Courses'};
 
@@ -162,7 +162,7 @@ function removeCourseInPlanner(code) {
     displayWarnings();
 }
 
-function addCourse(code, title, session, position, updateAllWarnings=false) {
+function addCourse(code, title, session, position, updateAllWarnings = false) {
     const row = $('#plan-grid').find('.plan-row').filter(function () {
         const first_cell = $(this.children[0]);
         return (first_cell.find('.row-ses').text() === session);
@@ -638,28 +638,28 @@ $('#show-filters').popover({
     placement: 'right',
     html: true,
     content: '<div>\n' +
-    '<div class="form-row" style="padding: 0 5px">' +
-    '<label for="code-select">Filter by code (e.g. MATH): </label></div>\n' +
-    '<div class="form-row" style="padding: 0 5px">\n' +
-    '    <div style="width: 100%; float:left; padding-right: 61px;"><select id="code-select" class="form-control"></select></div>\n' +
-    '    <button id="filter-submit-btn" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
-    '</div>\n' +
-    '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
-    '<div id="filter-ug" class="d-none filter-buttons form-row">\n\n' +
-    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
-    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
-    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
-    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n\n    \n' +
-    '</div>\n' +
-    '<div id="filter-pg" class="d-none filter-buttons form-row">\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">6000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">7000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">8000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">9000</button></div>\n' +
-    '</div>\n' +
-    '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
-    '</div>' +
-    '',
+        '<div class="form-row" style="padding: 0 5px">' +
+        '<label for="code-select">Filter by code (e.g. MATH): </label></div>\n' +
+        '<div class="form-row" style="padding: 0 5px">\n' +
+        '    <div style="width: 100%; float:left; padding-right: 61px;"><select id="code-select" class="form-control"></select></div>\n' +
+        '    <button id="filter-submit-btn" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
+        '</div>\n' +
+        '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
+        '<div id="filter-ug" class="d-none filter-buttons form-row">\n\n' +
+        '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
+        '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
+        '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
+        '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n\n    \n' +
+        '</div>\n' +
+        '<div id="filter-pg" class="d-none filter-buttons form-row">\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">6000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">7000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">8000</button></div>\n' +
+        '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">9000</button></div>\n' +
+        '</div>\n' +
+        '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
+        '</div>' +
+        '',
     template: '<div class="popover filters-panel" role="tooltip">\n' +
         '    <div class="arrow"></div>\n' +
         '    <div class="h3 popover-header"></div>\n' +
@@ -683,7 +683,7 @@ $('#show-filters').popover({
         if (SEARCH.getFilter('level', $(b).text())) $(b).toggleClass('active');
     }
 
-    $('#filter-submit-btn').click(function() {
+    $('#filter-submit-btn').click(function () {
         let code = $('#code-select').val();
         if (!SEARCH.getFilter('code', code)) addFilter('code', code);
     });
@@ -933,7 +933,7 @@ function dropOnSlot(event, ui) {
 
         if (first_cell.hasClass('delete')) {
             $(this).removeClass('invalid-cell');
-            addCourse(code, title, session, position, updateAllWarnings=true);
+            addCourse(code, title, session, position, updateAllWarnings = true);
             ui.helper.addClass('dropped-in-slot'); // set flag for course being moved in planner
             return;
         }
@@ -964,13 +964,13 @@ function dropOnSlot(event, ui) {
                 let warning = PLAN.addWarning("CourseForceAdded", code, [makeScrollAndGlow($(event.target))], session + position);
                 semesterOverrides[session + position] = warning;
             }
-            addCourse(code, title, session, position, updateAllWarnings=true);
+            addCourse(code, title, session, position, updateAllWarnings = true);
             removeCourse(ui.draggable.parent().find('.row-ses').text(), ui.draggable.index()); // remove the course from its old position
         });
         modal.modal();
         return
     }
-    addCourse(code, title, session, position, updateAllWarnings=true);
+    addCourse(code, title, session, position, updateAllWarnings = true);
     ui.helper.addClass('dropped-in-slot'); // set flag for course being moved in planner
 }
 
@@ -1016,6 +1016,12 @@ async function setupPlanner(ignoreSaveCode = false) {
         }
         setupGrid();
         loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+
+        if (loggedIn) {
+            PLAN.changesMade = true;
+            SAVER.save();
+            console.log("Saved plan to user account on startup");
+        }
     }
     else { // Loading from save
         console.log('Loading found save code (' + save_code + ').');
@@ -1079,6 +1085,13 @@ async function setupPlanner(ignoreSaveCode = false) {
         }
     }
     displayWarnings();
+    if (PLAN.ugpg() === 2) {
+        $('#results-majors').parent().hide();
+        $('#results-minors').parent().hide();
+    } else {
+        $('#results-majors').parent().show();
+        $('#results-minors').parent().show();
+    }
 }
 
 function reorganiseDegreeTracker(double) {
@@ -1612,7 +1625,7 @@ function displayWarnings() {
             });
             list.append(link);
             existingCourseCodes.push(warning.text);
-        } 
+        }
         count++;
     }
 }
@@ -1643,7 +1656,7 @@ function makePlanCellDraggable(item, code, session, title) {
             makeElective(item, session, code); // make the original an elective slot
             delete semesterOverrides[session + (item.index() - 1)]; // delete obj used for semester override warnings if found
 
-            if ($(this).hasClass('plan-cell')) 
+            if ($(this).hasClass('plan-cell'))
                 ui.helper.css({'min-width': item.width(), 'min-height': item.height()}); // make the helper same size as original
             ui.helper.addClass('dragged-course');
             $(this).draggable('instance').offset.click = {
@@ -2196,7 +2209,7 @@ function setPanelStatus(panel, status) {
         panel.addClass('alert-warning');
     } else if (status === 'problem') {      // Problem
         panel.addClass('alert-danger');
-    } 
+    }
 }
 
 function updateProgress() {
