@@ -83,31 +83,32 @@ function Search(plan) {
         if (this.plan.ugpg() === 1) body['level'] = 'undergraduate';
         if (this.plan.ugpg() === 2) body['level'] = 'postgraduate';
         // No 'level' key returns both UG and PG courses.
-
-        this.requests['major'] = $.ajax({
-            url: 'search/majors',
-            type: 'GET',
-            data: body,
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                after(data, 'major')
-            },
-            error: console.log('Major search aborted or failed. '),
-            complete: console.log('Major search initiated. ')
-        });
-        this.requests['minor'] = $.ajax({
-            url: 'search/minors',
-            type: 'GET',
-            data: body,
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                after(data, 'minor')
-            },
-            error: console.log('Minor search aborted or failed. '),
-            complete: console.log('Minor search initiated. ')
-        });
+        if (this.plan.ugpg() !== 2) {
+            this.requests['major'] = $.ajax({
+                url: 'search/majors',
+                type: 'GET',
+                data: body,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    after(data, 'major')
+                },
+                error: console.log('Major search aborted or failed. '),
+                complete: console.log('Major search initiated. ')
+            });
+            this.requests['minor'] = $.ajax({
+                url: 'search/minors',
+                type: 'GET',
+                data: body,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    after(data, 'minor')
+                },
+                error: console.log('Minor search aborted or failed. '),
+                complete: console.log('Minor search initiated. ')
+            });
+        }
         this.requests['spec'] = $.ajax({
             url: 'search/specs',
             type: 'GET',
