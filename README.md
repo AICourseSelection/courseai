@@ -3,6 +3,8 @@
 # AI Course Selection
 A personalised course discovery experience that employs AI. Students can interact with a digital persona for personalised course information and selection support, completing transactions including enrolling in a course, selecting subjects and scheduling classes.
 
+The Intelligent Course Scheduler is live! Try it out at https://www.anuics.com
+
 ### [Semester 2 Project Progress](Documentation/Semester_2/overview.md)
 
 #### [Semester 1 Project Progress](Documentation/Semester_1/overview.md)

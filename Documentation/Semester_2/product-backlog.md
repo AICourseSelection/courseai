@@ -1,5 +1,7 @@
 ## Product Backlog
 
+Completed items from this backlog can be found in the [archive](backlog-archive.md). 
+
 ### Homepage
 
 Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
