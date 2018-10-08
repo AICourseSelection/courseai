@@ -1069,22 +1069,21 @@ async function setupPlanner(ignoreSaveCode = false) {
         for (const mms of plan.trackedMMS) mms_add(mms.code, mms.year);
         setupGrid();
         loadCourseGrid(plan.courses);
-        for (const warning of plan.warnings) {
-            const actions = [];
-            for (const action of warning.actions) { // Reconstruct the action functions
-                if (action.type === "scroll-and-glow") {
-                    const row = $('.plan-row').filter((_, x) => $(x).find('.row-ses').text() === action.session);
-                    const target = row.children().filter((_, x) => $(x).find('.course-code').text() === action.code);
-                    actions.push(makeScrollAndGlow($(target)));
-                }
-            }
-            if (warning.hasOwnProperty('code')) { // semester override warning
-                let newWarning = PLAN.addWarning(warning.type, warning.text, actions, warning.positionCode);
-                semesterOverrides[warning.positionCode] = newWarning;
-            } else PLAN.addWarning(warning.type, warning.text, actions);
-        }
+        // for (const warning of plan.warnings) {
+        //     const actions = [];
+        //     for (const action of warning.actions) { // Reconstruct the action functions
+        //         if (action.type === "scroll-and-glow") {
+        //             const row = $('.plan-row').filter((_, x) => $(x).find('.row-ses').text() === action.session);
+        //             const target = row.children().filter((_, x) => $(x).find('.course-code').text() === action.code);
+        //             actions.push(makeScrollAndGlow($(target)));
+        //         }
+        //     }
+        //     if (warning.hasOwnProperty('code')) { // semester override warning
+        //         let newWarning = PLAN.addWarning(warning.type, warning.text, actions, warning.positionCode);
+        //         semesterOverrides[warning.positionCode] = newWarning;
+        //     } else PLAN.addWarning(warning.type, warning.text, actions);
+        // }
     }
-    displayWarnings();
     if (PLAN.ugpg() === 2) {
         $('#results-majors').parent().hide();
         $('#results-minors').parent().hide();
@@ -1418,6 +1417,8 @@ function loadCourseGrid(plan) {
         window.setTimeout(function () {
             updateProgress();
         }, 750);
+        updateWarnings();
+        displayWarnings();
         updateRecommendations();
         SAVER.enableSaving();
     });
