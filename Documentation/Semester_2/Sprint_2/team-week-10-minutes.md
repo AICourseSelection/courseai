@@ -11,7 +11,6 @@
 
 #### Repository
 * Backlog archive, Audit 2 and audit 3 slides need to be linked to the repo
-* Feedback log for audit 2?
 * Feedback on the live site should be copied into the repo to make it accessible to Peter and the shadow team. Should also probably add a column for 
 * Decide on which degrees to demo.
 	* Decision: BGENE/BADAN (2017-2019) initially and a Master's Degree for the recommendations. Manal and Thien would use a common account during the demo. The recommendations for the postgrad degree would be pre-calculated by Manal.
