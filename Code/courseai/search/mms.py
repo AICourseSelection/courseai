@@ -62,6 +62,8 @@ def mms_by_name(es_conn, name, index_name, level=None):
         response = Search(using=es_conn, index=index_name).query(q).execute().to_dict()
 
     else:
+        if len(level) > 2:
+            level = level.lower()
         if level not in ['undergraduate', 'postgraduate']:
             return JsonResponse({'response': 'Level' + level + 'not recognised'})
         response = Search(using=es_conn, index=index_name).query(q).query(

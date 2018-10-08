@@ -212,7 +212,7 @@ function deleteFilter(type, data) {
     $('#filter-icons').find('.badge').filter(function (_, badge) {
         return $(badge).text().slice(0, -1) === SEARCH.getFilter(type, data).toString();
     }).remove();
-    $($('#show-filters').data('bs.popover').tip).find('#filter-buttons button').filter(function (_, badge) {
+    $($('#show-filters').data('bs.popover').tip).find('.filter-buttons button').filter(function (_, badge) {
         return $(badge).text() === data;
     }).removeClass('active');
     SEARCH.deleteFilter(type, data);
@@ -645,11 +645,17 @@ $('#show-filters').popover({
     '    <button id="filter-submit-btn" class="btn btn-primary" style="float: left; margin-left: -56px;">Add</button>\n' +
     '</div>\n' +
     '<div class="form-row" style="padding: 0 5px"><label>Filter by level: </label></div>\n' +
-    '<div id="filter-buttons" class="form-row">\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
-    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n' +
+    '<div id="filter-ug" class="d-none filter-buttons form-row">\n\n' +
+    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">1000</button></div>\n' +
+    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">2000</button></div>\n' +
+    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">3000</button></div>\n' +
+    '        <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">4000</button></div>\n\n    \n' +
+    '</div>\n' +
+    '<div id="filter-pg" class="d-none filter-buttons form-row">\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">6000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">7000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">8000</button></div>\n' +
+    '    <div class="col-3"><button type="button" class="btn btn-outline-primary btn-sm">9000</button></div>\n' +
     '</div>\n' +
     '<div class="form-row mt-2" style="padding: 0 5px">Filter per semester by clicking any elective course in your plan. </div>\n' +
     '</div>' +
@@ -662,7 +668,11 @@ $('#show-filters').popover({
         '</div>'
 }).on('shown.bs.popover', function () {
     const popover = $(this).data('bs.popover');
-    const buttons = $(popover.tip).find('#filter-buttons button');
+    const buttons = $(popover.tip).find('.filter-buttons button');
+
+    if (PLAN.ugpg() % 2) $('#filter-ug').removeClass('d-none');
+    if (PLAN.ugpg() >= 2) $('#filter-pg').removeClass('d-none');
+    if (PLAN.ugpg() === 3) $('#filter-pg').addClass('mt-2');
 
     populateCodeFilterDropdown();
     for (const b of buttons) {
@@ -828,7 +838,7 @@ async function coursePopoverData(cell, descriptionOnly = false) {
 
 async function mmsPopoverData() {
     const code = $(this).find('.mms-code').text();
-    let offering = await getMMSOffering(code, start_year);
+    let offering = await getMMSOffering(code, closestYear(start_year, Object.keys(KNOWN_MMS[code])));
     const year = offering.year;
     $(this).parents('.popover-region').find('.result-course, .result-mms').each(function () {
         if ($(this).find('.mms-code').text() !== code) {
@@ -850,21 +860,39 @@ async function mmsPopoverData() {
 
     let html = '';
 
-    if (offering.extras['description']) {
-        const description = offering.extras['description'];
-        let targetLength = offering.extras['learning_outcomes'] ? 350 : 700;
-        let truncated_description = (description.length > targetLength) ? description.slice(0, targetLength) + '...' : description;
-        truncated_description = truncated_description.replace(/\n/g, '<br />');
-        html += '<h6 class="mt-2">Description</h6>\n' +
-            '<div class="result-description">' + truncated_description + '</div>\n';
+    function fillDetails(desc, lo) {
+        if (desc) {
+            let targetLength = lo ? 350 : 700;
+            let truncated_description = (desc.length > targetLength) ? desc.slice(0, targetLength) + '...' : desc;
+            truncated_description = truncated_description.replace(/\n/g, '<br />');
+            html += '<h6 class="mt-2">Description</h6>\n' +
+                '<div class="result-description">' + truncated_description + '</div>\n';
+        }
+        if (lo) {
+            let truncated_los = (lo.length > 350) ? lo.slice(0, 350) + '...' : lo;
+            truncated_los = truncated_los.replace(/\n/g, '<br />');
+            html += '<h6 class="mt-2">Learning Outcomes</h6>\n' +
+                '<div class="result-learning-outcomes">' + truncated_los + '</div>\n';
+        }
     }
-    if (offering.extras['learning_outcomes']) {
-        const lo = offering.extras['learning_outcomes'];
-        let truncated_los = (lo.length > 350) ? lo.slice(0, 350) + '...' : lo;
-        truncated_los = truncated_los.replace(/\n/g, '<br />');
-        html += '<h6 class="mt-2">Learning Outcomes</h6>\n' +
-            '<div class="result-learning-outcomes">' + truncated_los + '</div>\n';
+
+    fillDetails(offering.extras['description'], offering.extras['learning_outcomes']);
+
+    if (!offering.extras['description'] && !offering.extras['learning_outcomes']) {
+        let filled = false;
+        for (let yr of Object.keys(KNOWN_MMS[code]).reverse()) {
+            const alt = KNOWN_MMS[code][yr];
+            const desc = alt.extras['description'];
+            const lo = alt.extras['learning_outcomes'];
+            if (desc || lo) {
+                fillDetails(desc, lo);
+                filled = true;
+                break;
+            }
+        }
+        if (!filled) html += "<h6>We couldn't retrieve any description about this " + MMS_TYPES_MAPPING[offering.type] + ".</h6>"
     }
+
     popover.config.content = html;
     curr_popover.find('.fa-sync-alt').css({'display': 'none'});
     curr_popover.find('.popover-body').append(html);
@@ -911,7 +939,7 @@ function dropOnSlot(event, ui) {
         }
 
         let modal = null;
-        if (reason === "Prerequisites not met") {
+        if (reason.includes("Prerequisites not met")) {
             $('#prereq-modal-course').text(code);
             modal = $('#prereq-modal');
         } else if (reason.includes('Incompatible')) {
@@ -921,6 +949,10 @@ function dropOnSlot(event, ui) {
         } else if (reason === "Not available in this semester/ session" || reason === "Not available in this year") {
             $('#unavail-modal-course').text(code);
             modal = $('#unavail-modal');
+        } else if (reason.includes("Can't repeat this course for more than")) {
+            $('#dupe-modal-course').text(code);
+            $('#dupe-modal-extra').text("It can be taken to a maximum of " + reason.match(/[0-9]{1,3}/)[0] + " units. ");
+            modal = $('#dupe-modal');
         } else {
             return;
         }
@@ -1521,15 +1553,15 @@ function updateMMSSearchResults(data, type) {
     if (responses.length > 0) {
         for (let r of responses) {
             const code = r.code;
-            let name;
-            for (const year in r.versions) { // TODO: Fix for MMS Years.
-                name = r.versions[year].title;
-                if (year == THIS_YEAR) break;
-            }
+            recordMMSOfferings(code, r.versions);
+            if (!Object.keys(r.versions).length) continue;
+            const year = closestYear(start_year, Object.keys(KNOWN_MMS[code]));
+            const title = KNOWN_MMS[code][year].title;
+
             let item = $(
                 '<div class="draggable-course result-mms list-group-item list-group-item-action">\n    ' +
                 '<span class="mms-code">' + code + '</span>' +
-                '<span class="mms-name">' + name + '</span>\n' +
+                '<span class="mms-name">' + title + '</span>\n' +
                 '</div>');
             item.each(mmsPopoverSetup);
             body.append(item);
@@ -1544,13 +1576,12 @@ function updateMMSSearchResults(data, type) {
 function updateWarnings() {
     PLAN.clearWarnings();
 
-    for (var key in semesterOverrides) {
-        PLAN.warnings.push(semesterOverrides[key]);
+    for (const key in semesterOverrides) {
+        PLAN.addWarning(semesterOverrides[key]);
     }
 
-    let unsatCourses = PLAN.unsatisfiedCourses();
-    for (var i = 0; i < unsatCourses.length; i++) {
-        const code = unsatCourses[i].course.code;
+    for (const course of PLAN.unsatisfiedCourses()) {
+        const code = course.course.code;
         const target = $('#plan-grid').find('.plan-cell:contains("' + code + '")');
         PLAN.addWarning("CourseForceAdded", code, [makeScrollAndGlow(target)]);
     }
@@ -1717,6 +1748,8 @@ async function highlightInvalidSessions(course, ui, first_cell) {
         const checked = offering.checkRequirements(PLAN, session);
         if (!checked.sat) {
             if (checked.inc.length) invalid_sessions[session] = "Incompatible courses: " + checked.inc;
+            else if (checked.units) invalid_sessions[session] = "Prerequisites not met: Need to have previously completed at least " + checked.units + " units.";
+            else if (checked.duplicate) invalid_sessions[session] = "Can't repeat this course for more than " + (offering.maxUnits || offering.units) + " units";
             else invalid_sessions[session] = "Prerequisites not met"
         }
     }

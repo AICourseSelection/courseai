@@ -92,7 +92,8 @@ def raw_search(search_object, phrase, areas, levels, sem_queried, level):
         response = response.query(q2)
 
     if level is not None:
-        level = level[0].upper() + level[1:].lower()
+        if len(level) > 2:
+            level = level[0].upper() + level[1:].lower()
         if level not in ['Undergraduate', 'Postgraduate']:
             print('Level not recognised: ' + level)
         q2 = Q('match', ugpg=level)
