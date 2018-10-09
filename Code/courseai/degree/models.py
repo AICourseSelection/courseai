@@ -165,8 +165,7 @@ class Specialisation(models.Model):
         return self.code + " - " + self.name + " " + self.year
 
 class Course(models.Model):
-
-    es_id = models.CharField(max_length=10, editable=False, default="")
+    es_id = models.CharField(max_length=10, editable=False, default=0)
     name = models.TextField(default="",blank=True)
     code = models.CharField(max_length=9,default="",blank=True)
     semesters = models.TextField(default="",blank=True)
@@ -174,13 +173,13 @@ class Course(models.Model):
     prerequisites = models.TextField(default="",blank=True)
     incompatible = models.TextField(default="",blank=True)
     min_units = models.CharField(max_length=5,blank=True)
-    level = models.CharField(max_length=4,default="",blank=True)
+    level = models.CharField(max_length=4,default=1000,blank=True)
     area = models.CharField(max_length=4,default="",blank=True)
     description=models.TextField(default="",blank=True)
     graduation_stage = models.CharField(max_length=60,default="Undergraduate", choices=(("Undergraduate","Undergraduate"),("Postgraduate","Postgraduate")))
     convenor = models.TextField(default="",blank=True)
     units = models.CharField(max_length=60, default="",blank=True)
-    year = models.CharField(max_length=4,default="",blank=True)
+    year = models.CharField(max_length=4,default=2018,blank=True)
     minors = models.TextField(default="",blank=True)
     majors = models.TextField(default="",blank=True)
     learning_outcomes = models.TextField(default="",blank=True)
@@ -226,7 +225,12 @@ class Course(models.Model):
 
     def save(self,no_es=False):
         super().save()
+        self.es_id+=1
         if(no_es):
+            return
+        if(self.es_id == ""):
+            es_conn.create(index='courseupdated', doc_type='_doc',id = self.es_id,
+                               body={"doc": self._es_body()})
             return
         r = es_conn.update(index='courseupdated', doc_type='_doc', id=self.es_id, refresh=True, body={"doc":self._es_body()})
         print(r)
