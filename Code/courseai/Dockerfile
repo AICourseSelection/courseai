@@ -16,6 +16,9 @@ EXPOSE 8000
 # Collect static files from apps and then minify and obfuscate them.
 RUN SECRET_KEY=dummy ES_IP=localhost python3 manage.py collectstatic --noinput
 
+#sync db
+RUN python3 manage.py syncdb --noinput
+
 # CMD specifcies the command to execute to start the server running.
 CMD ["/start.sh"]
 # done
