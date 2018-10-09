@@ -1,11 +1,11 @@
 ## Week 10 Client Meeting Minutes - Presentation Review
 
 #### Attendance
-**Clients:** Bradley, Safeer, Cieran, Emily, ...
+**Clients:** Bradley, Safeer, Cieran, Emily, Rory, Jayden
 
 **Team:** Joseph, Manal, Thien, Yong Wei, Tom, Scarlett
 
-**Other Accenture Team (Postal Delivery):** Sean, Crystal, Harrison, ...
+**Other Accenture Team (Postal Delivery):** ...
 
 
 ### ICS presentation
