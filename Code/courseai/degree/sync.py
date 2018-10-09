@@ -55,6 +55,7 @@ def sync_course_db():
         graduation_stage=res_dict['ugpg']
         course_code = res_dict['course_code']
         area = res_dict['area']
+        print(course_code)
         for year,version in res_dict['versions'].items():
             KEYS = ['units','title','sessions','prerequisite_text','prerequisites','description',
                     'convener','learning_outcomes','majors','minors']
