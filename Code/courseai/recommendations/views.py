@@ -19,7 +19,7 @@ def recommend_course(request):
         les_recommendations = ['ENGN6626', 'ENGN6516', 'ENGN6223', 'COMP6780', 'ENGN6627', 'COMP6240', 'ENGN8180', 'ENGN6334', 'ENGN6410', 'ENGN8535', 'COMP6730', 'ENGN6613', 'ENGN6520', 'ENGN6420', 'ENGN8602', 'SCOM8015', 'BUSI7019', 'COMP8400', 'ENGN6521', 'MGMT7030', 'EMET6007', 'ENGN6601', 'ENGN6512', 'COMP7240', 'ENVS6202', 'EMET7001', 'COMP6340', 'COMP8620', 'ENGN2228', 'SCOM6501']
 
         return_stuff = []
-        for course in les_recommendations:
+        for course in les_recommendations[:10]:
             if course in course_list:
                 continue
             return_stuff.append({'course': course, 'reasoning': 'Other students with your electives also chose this course'})
