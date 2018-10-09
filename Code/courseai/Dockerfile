@@ -17,7 +17,7 @@ EXPOSE 8000
 RUN SECRET_KEY=dummy ES_IP=35.197.168.65 python3 manage.py collectstatic --noinput
 
 #sync db
-# RUN SECRET_KEY=dummy ES_IP=35.197.168.65 python3 manage.py syncdb --noinput
+RUN SECRET_KEY=dummy ES_IP=35.197.168.65 python3 manage.py syncdb --noinput
 
 # CMD specifcies the command to execute to start the server running.
 CMD ["/start.sh"]
