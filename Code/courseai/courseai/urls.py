@@ -21,6 +21,7 @@ from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from .admin import site
 
+
 urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + [
     path(r'', include('ics.urls')),
     path(r'search/', include('search.urls')),

@@ -257,4 +257,3 @@ class DegreeRequirement(models.Model):
         return json.dumps(to_return)
 
 
-

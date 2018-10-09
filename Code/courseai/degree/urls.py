@@ -10,6 +10,7 @@ urlpatterns = [
     path('stored_plans', views.stored_plans)
 ]
 
+
 #to be moved eventually
 from .models import DegreeRequirement, Major, Course, Minor, Specialisation
 from .sync import set_up_degree_requirements_db, sync_major_db, sync_course_db, sync_minor_db,sync_spec_db
