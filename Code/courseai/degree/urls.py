@@ -14,7 +14,7 @@ urlpatterns = [
 #to be moved eventually
 from .models import DegreeRequirement, Major, Course, Minor, Specialisation
 from .sync import set_up_degree_requirements_db, sync_major_db, sync_course_db, sync_minor_db,sync_spec_db
-
+"""
 #clean db
 print("Cleaning db...")
 DegreeRequirement.objects.all().delete()
@@ -34,3 +34,4 @@ print("Syncing minors with Elastic Search...")
 sync_minor_db()
 print("Syncing specialisations with Elastic Search...")
 sync_spec_db()
+"""

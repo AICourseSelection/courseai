@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Degree
-<<<<<<< HEAD
 from .models import DegreeRequirement
 from .models import Course
 from django.contrib import admin
@@ -86,4 +85,3 @@ admin.site.register(Minor, MinorAdmin)
 admin.site.register(Specialisation,SpecialisationAdmin)
 # Register your models here.
 
-admin.site.register(Degree)
