@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 import django
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'accounts',
-    'feedback'
+    'feedback',
+    'jsoneditor',
 ]
 
 MIDDLEWARE = [
@@ -79,10 +81,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'courseai.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-databaseConfig = {};
+databaseConfig = {}
 if os.environ.get('DATABASE') == 'MYSQL':
     databaseConfig = {
         'default': {
@@ -93,32 +94,47 @@ if os.environ.get('DATABASE') == 'MYSQL':
             'HOST': '35.197.170.146',
         }
     }
+elif os.environ.get('DATABASE') == 'POSTGRES':
+    databaseConfig = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'GjK2Fqi5sxlvq5j2',
+            'HOST': '35.197.162.92',
+        }
+    }
 else:
     databaseConfig = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'courseai_postgres',
+        'USER': 'tomhamer',
+        'PASSWORD': 'courseai312',
+        'HOST': 'localhost',
+        'PORT': '5432',
+            }
         }
-    }
+
 DATABASES = databaseConfig
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-        {
-            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-            },
-        {
-            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-            },
-        {
-            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-            },
-        {
-            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-            },
-        ]
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
 # Local email server - prints to console
 # https://wsvincent.com/django-contact-form/
@@ -153,60 +169,60 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-        #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-        'pipeline.finders.PipelineFinder',
-        )
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'pipeline.finders.PipelineFinder',
+)
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE = {
-        # 'PIPELINE_ENABLED': True,
-        'CSS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
-        'JS_COMPRESSOR': 'pipeline.compressors.closure.ClosureCompressor',
-        'CLOSURE_BINARY': os.environ.get("CC_PATH", 'closure-compiler/run-compiler.sh'),
-        'DISABLE_WRAPPER': True,
-        'STYLESHEETS': {
-            'main': {
-                'source_filenames': (
-                    'css/style.css',
-                    ),
-                'output_filename': 'css/main.min.css',
-                },
-            },
-        'JAVASCRIPT': {
-            'main': {
-                'source_filenames': (
-                    'js/ajax_csrf.js',
-                    'js/cookie.js',
-                    ),
-                'output_filename': 'js/main.min.js'
-                },
-            'index': {
-                'source_filenames': (
-                    'js/index.js',
-                    ),
-                'output_filename': 'js/index.min.js'
-                },
-            'planner': {
-                'source_filenames': (
-                    'js/planner_app/autosave.js',
-                    'js/planner_app/course.js',
-                    'js/planner_app/data.js',
-                    'js/planner_app/degree.js',
-                    'js/planner_app/mms.js',
-                    'js/planner_app/plan.js',
-                    'js/planner_app/search.js',
-                    'js/planner_app/ui.js',
-                    ),
-                'output_filename': 'js/planner.min.js',
-                },
-            'profile': {
-                'source_filenames': (
-                    'js/profile.js',
-                    ),
-                'output_filename': 'js/profile.min.js'
-                }
-            }
+    # 'PIPELINE_ENABLED': True,
+    'CSS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
+    'JS_COMPRESSOR': 'pipeline.compressors.closure.ClosureCompressor',
+    'CLOSURE_BINARY': os.environ.get("CC_PATH", 'closure-compiler/run-compiler.sh'),
+    'DISABLE_WRAPPER': True,
+    'STYLESHEETS': {
+        'main': {
+            'source_filenames': (
+                'css/style.css',
+            ),
+            'output_filename': 'css/main.min.css',
+        },
+    },
+    'JAVASCRIPT': {
+        'main': {
+            'source_filenames': (
+                'js/ajax_csrf.js',
+                'js/cookie.js',
+            ),
+            'output_filename': 'js/main.min.js'
+        },
+        'index': {
+            'source_filenames': (
+                'js/index.js',
+            ),
+            'output_filename': 'js/index.min.js'
+        },
+        'planner': {
+            'source_filenames': (
+                'js/planner_app/autosave.js',
+                'js/planner_app/course.js',
+                'js/planner_app/data.js',
+                'js/planner_app/degree.js',
+                'js/planner_app/mms.js',
+                'js/planner_app/plan.js',
+                'js/planner_app/search.js',
+                'js/planner_app/ui.js',
+            ),
+            'output_filename': 'js/planner.min.js',
+        },
+        'profile': {
+            'source_filenames': (
+                'js/profile.js',
+            ),
+            'output_filename': 'js/profile.min.js'
         }
+    }
+}

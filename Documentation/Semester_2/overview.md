@@ -2,13 +2,56 @@
 
 ### Important Links
 
+* [Intelligent Course Scheduler](https://www.anuics.com) live site, www.anuics.com
+* [User Testing, public feedback](Sprint_2/public-testing-feedback.md)
+* User Testing, closed rounds: 
+  - [Tester and task distribution](Sprint_1/test-distribution.md)
+  - [User stories for tasks](Sprint_1/user-story.md)
+  - [**Results**](Sprint_1/user-testing.md)
 * [Product Backlog](product-backlog.md) (also see [Trello](https://trello.com/b/lNhn5e9R/))
+* [Deployment Documentation](Sprint_2/deployment-documentation.md)
 * [API Documentation and mocking (Apiary)](https://courseai.docs.apiary.io/)
+
+## Sprint 3: Weeks 8 - 10
+
+#### Audit 3
+
+* **Presentation Slides**
+
+#### Week 10
+
+* [Project Poster](Sprint_2/PDF/project-poster-2.pdf)
+* [Meeting Minutes: Full Team](Sprint_2/team-week-10-minutes.md)
+* Meeting Minutes: Accenture
+
+#### Week 9
+
+* [Meeting Minutes: Full Team](Sprint_2/team-week-9-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-9-minutes.md)
+
+#### Week 8
+
+* [Public testing feedback](Sprint_2/public-testing-feedback.md)
+* Meeting Minutes: Full Team
+* Meeting Minutes: Accenture
 
 ## Sprint 2: Weeks 6 - 7
 
+#### Week 7
+
+* [Meeting Minutes: Full Team](Sprint_2/team-week-7-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-7-minutes.md)
+
 #### Teaching Break
+
+* [Meeting Minutes: Full Team (1st week)](Sprint_2/team-break-week-1-minutes.md)
+* [Meeting Minutes: Full Team (2nd week)](Sprint_2/team-break-week-1-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-6-minutes.md)
 * [Deployment Documentation](Sprint_2/deployment-documentation.md)
+
+#### Audit 2
+
+* **[Presentation slides](https://docs.google.com/presentation/d/1ifcSjrgrL0wdElroLccQmKwoidtlPBroV2QmwyU74cI/edit?usp=sharing)**
 
 
 #### Week 6
@@ -17,13 +60,10 @@
 
 ## Sprint 1: Weeks 3 - 5
 
-* [User Testing (First Round)](Sprint_1/user-testing.md)
-* [User Stories, for use in testing](Sprint_1/user-story.md)
-
 #### Week 5
 
 * [Course Enrolment Dataset Constraints](course-enrolment-dataset-constraints.md)
-* [User Testing: (First Round)](Sprint_1/user-testing.md)
+* [User Testing Results](Sprint_1/user-testing.md)
 * [Meeting Minutes: Full Team](Sprint_1/team-week-5-minutes.md)
 * [Meeting Minutes: Accenture](Sprint_1/accenture-week-5-minutes.md)
 * [Meeting Minutes: Tutorial](Sprint_1/tutorial-week-5-minutes.md)

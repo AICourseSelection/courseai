@@ -15,6 +15,7 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
     this.rules = rules;
     this.suggestedPlan = suggestedPlan;
 
+    this.postgrad = !this.title.match(/[Bb]achelor/);
     this.identifier = code + '-' + year;
 
     this.incorporateCourseLists = async function () {
@@ -94,7 +95,7 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
             }
             else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
                 let lists = req[type];
-                if (type === "required_m/m/s") lists = [req[type]];
+                if (type === "required_m/m/s" && req[type].length) lists = [req[type]];
                 for (const section of lists) {
                     let matched_codes = [];
                     let completed_codes = [];

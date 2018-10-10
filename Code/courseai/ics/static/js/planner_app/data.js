@@ -263,14 +263,18 @@ function recordMMSOfferings(code, offerings) {
 }
 
 function closestYear(year, list = []) {
+    list = list.map(x => typeof(x)==='string' ? parseInt(x) : x);
+    if (!year) year = THIS_YEAR;
+    if (typeof(year)==='string') year = parseInt(year);
+
     if (list.includes(year)) return year;
     const maxYear = Math.max(...list);
     const minYear = Math.min(...list);
     if (year >= maxYear) return maxYear;
     if (year <= minYear) return minYear;
     for (let i = 1; i <= Math.max(maxYear - year, year - minYear); i++) {
-        if ((year + i) in list) return year + i;
-        if ((year - i) in list) return year - i;
+        if (list.includes(year + i)) return year + i;
+        if (list.includes(year - i)) return year - i;
     }
-    return THIS_YEAR; // Fallback, but code should never reach here.
+    throw Error("Closest year not found");
 }

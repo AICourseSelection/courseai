@@ -58,9 +58,11 @@
                 <div class="h3 text-center" style="font-weight: lighter;">Start planning your degree</div>
                 <form id="planform" action="planner" method="get">
                     <div class="form-row" style="margin-top: 15px; flex-wrap: nowrap">
+                        <div style="width: 90%">
                         <input type="text" name="degreeName" class="typeahead form-control" required
                                placeholder="What degree do you study?" autocomplete="off" data-toggle="popover">
                         <input class="degree-code" type="hidden" name="degreeCode">
+                        </div>
                         <button id="fdd-button" class="btn btn-outline-success">Double Degree</button>
 
                     </div>
@@ -139,9 +141,7 @@
             }
         })
     })
-</script>
 
-<script>
     $('#form-register').submit(function (e) {
         e.preventDefault();
         var username = $.trim($('#register-username').val());
@@ -168,5 +168,6 @@
         })
     })
 </script>
+
 </body>
 </html>
