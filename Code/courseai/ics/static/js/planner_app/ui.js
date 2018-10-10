@@ -413,24 +413,19 @@ async function mms_add(code, year) {
                     const original_section_count = section_count;
                     section_count++;
                     if (name in KNOWN_COURSE_LISTS) {
-                        let card = createCourseListSection(type, title, KNOWN_COURSE_LISTS[name], original_section_count);
+                        let card = createCourseListSection(type, title, KNOWN_COURSE_LISTS[name].courses, original_section_count);
                         placeholder.replaceWith(card);
                     } else {
-                        async_operations.push($.ajax({
-                            url: 'search/courselists',
-                            data: {'query': name},
-                            success: function (data) {
-                                let courses = data.response.courses;
-                                courses = courses.map(function (value, index, array) {
-                                    if (typeof(value) !== "string") return value[0];
-                                    else return value;
-                                });
-                                KNOWN_COURSE_LISTS[name] = courses;
-                                if (data.response.type !== name) return;
-                                let card = createCourseListSection(type, title, courses, original_section_count);
-                                placeholder.replaceWith(card);
-                            }
-                        }));
+                        let courselist = getCourseList(name);
+                        async_operations.push(courselist);
+                        courselist.then(function (data) {
+                            let courses = data.courses.map(function (value, index, array) {
+                                if (typeof(value) !== "string") return value[0];
+                                else return value;
+                            });
+                            let card = createCourseListSection(type, title, courses, original_section_count);
+                            placeholder.replaceWith(card);
+                        });
                     }
                 } else {
                     let card = createCourseListSection(type, title, section['courses']);
@@ -1875,15 +1870,15 @@ function setupDegreeRequirements(container, degree) {
         return section;
     }
 
-    function createCourseCategorySection(type, title, codes, levels) {
+    function createCourseCategorySection(type, title, codes, levels, counter = section_count) {
         let section = $('<div class="deg card"/>');
         let card_header = $(
-            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + section_count + '">\n' +
+            '<div class="card-header btn text-left pl-2" data-toggle="collapse" data-target="#deg-' + identifier + '-section' + counter + '">\n' +
             '    <span class="requirement-type">' + type + '</span>\n' + title +
             '</div>'
         );
         let collapsible = $(
-            '<div id="deg-' + identifier + '-section' + section_count + '" class="collapse show"/>'
+            '<div id="deg-' + identifier + '-section' + counter + '" class="collapse show"/>'
         );
         collapsible.on('hide.bs.collapse', function () {
             $(this).find('.result-course').popover('hide');
@@ -1973,25 +1968,19 @@ function setupDegreeRequirements(container, degree) {
                     const original_section_count = section_count;
                     section_count++;
                     if (name in KNOWN_COURSE_LISTS) {
-                        let card = createCourseListSection(type, title, KNOWN_COURSE_LISTS[name], original_section_count);
+                        let card = createCourseListSection(type, title, KNOWN_COURSE_LISTS[name].courses, original_section_count);
                         placeholder.replaceWith(card);
                     } else {
-                        async_operations.push($.ajax({
-                            url: 'search/courselists',
-                            data: {'query': name},
-                            success: function (data) {
-                                let courses = data.response.courses;
-
-                                courses = courses.map(function (value, index, array) {
-                                    if (typeof(value) !== "string") return value[0];
-                                    else return value;
-                                });
-                                KNOWN_COURSE_LISTS[name] = courses;
-                                if (data.response.type !== name) return;
-                                let card = createCourseListSection(type, title, courses, original_section_count);
-                                placeholder.replaceWith(card);
-                            }
-                        }));
+                        let courselist = getCourseList(name);
+                        async_operations.push(courselist);
+                        courselist.then(function (data) {
+                            let courses = data.courses.map(function (value, index, array) {
+                                if (typeof(value) !== "string") return value[0];
+                                else return value;
+                            });
+                            let card = createCourseListSection(type, title, courses, original_section_count);
+                            placeholder.replaceWith(card);
+                        });
                     }
                 } else {
                     let card = createCourseListSection(type, title, section['courses']);
@@ -2008,9 +1997,35 @@ function setupDegreeRequirements(container, degree) {
                     title = 'Choose between ' + section.units.minimum + ' and ' + section.units.maximum + ' units' +
                         '<span class="unit-count mr-2">0/' + section.units.minimum + '</span>\n';
                 }
-                let card = createCourseCategorySection(type, title, section['area'], section.level);
-                container.append(card);
-                section_count++;
+                let areaCodes = section.area || [];
+                if (section.courses) {
+                    const name = section.courses;
+                    let placeholder = $('<div/>');
+                    container.append(placeholder);
+                    const original_section_count = section_count;
+                    section_count++;
+                    if (name in KNOWN_COURSE_LISTS) {
+                        areaCodes = areaCodes.concat(KNOWN_COURSE_LISTS[name].categories);
+                        let card = createCourseCategorySection(type, title, areaCodes, section.level, original_section_count);
+                        placeholder.replaceWith(card);
+                    } else {
+                        async_operations.push($.ajax({
+                            url: 'search/courselists',
+                            data: {'query': name},
+                            success: function (data) {
+                                areaCodes = areaCodes.concat(data.response.categories);
+                                KNOWN_COURSE_LISTS[name] = data.response;
+                                let card = createCourseCategorySection(type, title, areaCodes, section.level, original_section_count);
+                                placeholder.replaceWith(card);
+                            }
+                        }));
+                    }
+                }
+                else {
+                    let card = createCourseCategorySection(type, title, section['area'], section.level);
+                    container.append(card);
+                    section_count++;
+                }
             }
         }
         if (type === "required_m/m/s") {

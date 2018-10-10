@@ -196,7 +196,7 @@ async function getCourseList(name) {
         url: 'search/courselists',
         data: {'query': name},
         success: function (data) {
-            KNOWN_COURSE_LISTS[name] = data.response.courses;
+            KNOWN_COURSE_LISTS[name] = data.response;
         }
     });
     return KNOWN_COURSE_LISTS[name]
