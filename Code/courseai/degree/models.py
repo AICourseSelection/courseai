@@ -166,6 +166,7 @@ class Specialisation(models.Model):
 
 class Course(models.Model):
     es_id = models.CharField(max_length=10, editable=False, default=0)
+    creation_id = models.CharField(max_length=10, editable=False, default=0)
     name = models.TextField(default="",blank=True)
     code = models.CharField(max_length=9,default="",blank=True)
     semesters = models.TextField(default="",blank=True)
@@ -225,11 +226,11 @@ class Course(models.Model):
 
     def save(self,no_es=False):
         super().save()
-        self.es_id+=1
+        self.creation_id+=1
         if(no_es):
             return
         if(self.es_id == ""):
-            es_conn.create(index='courseupdated', doc_type='_doc',id = self.es_id,
+            es_conn.create(index='courseupdated', doc_type='_doc',id = self.creation_id,
                                body={"doc": self._es_body()})
             return
         r = es_conn.update(index='courseupdated', doc_type='_doc', id=self.es_id, refresh=True, body={"doc":self._es_body()})
