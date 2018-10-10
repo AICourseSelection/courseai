@@ -34,7 +34,8 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                     if (section.courses) {
                         const listName = section.courses;
                         // Include the area codes from the courselist.
-                        section.area = (section.area || []).concat((await getCourseList(listName)).categories);
+                        const courselist = await getCourseList(listName);
+                        section.area = (section.area || []).concat(courselist.categories);
                         section['listName'] = listName;   // Save the list name
                     }
                 }
