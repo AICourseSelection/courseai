@@ -140,26 +140,10 @@ function makeElective(box, session, code) {
     box.popover('dispose');
     box.find('.course-code').text(ELECTIVE_TEXT);
     box.find('.course-title').text('');
+    box.css('background', '');
     box.removeClass(COLOR_CLASSES_STR);
     makeSlotDroppable(box);
     PLAN.removeCourse(session, code);
-}
-
-// Make all cards in planner with matching code an elective
-function removeCourseInPlanner(code) {
-    for (let row of $('#plan-grid').find('.plan-row')) {
-        const first_cell = $(row).find('.first-cell');
-        const session = first_cell.find('.row-ses').text();
-        $(row).children(".plan-cell").each(function (index) {
-            const cellCode = $(this).find('.course-code').text();
-            if (cellCode === code) {
-                makeElective($(this), session, code);
-                delete semesterOverrides[session + index];
-            }
-        });
-    }
-    updateWarnings();
-    displayWarnings();
 }
 
 function addCourse(code, title, session, position, updateAllWarnings = false) {

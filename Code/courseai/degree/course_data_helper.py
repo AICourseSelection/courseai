@@ -5,6 +5,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import MultiMatch
 
+
 es_conn = Elasticsearch([os.environ.get("ES_IP")])
 
 

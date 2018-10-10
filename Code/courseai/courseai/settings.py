@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'accounts',
-    'feedback'
+    'feedback',
+    'jsoneditor',
 ]
 
 MIDDLEWARE = [
@@ -106,10 +107,15 @@ elif os.environ.get('DATABASE') == 'POSTGRES':
 else:
     databaseConfig = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'courseai_postgres',
+        'USER': 'tomhamer',
+        'PASSWORD': 'courseai312',
+        'HOST': 'localhost',
+        'PORT': '5432',
+            }
         }
-    }
+
 DATABASES = databaseConfig
 
 # Password validation
