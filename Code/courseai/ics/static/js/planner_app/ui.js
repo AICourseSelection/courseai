@@ -1000,7 +1000,7 @@ async function setupPlanner(ignoreSaveCode = false) {
         }
         setupGrid();
         if (degree_code2) {
-            const doublePlan = await $.ajax({
+            const data = await $.ajax({
                 url: 'degree/degreeplan',
                 metod: 'GET',
                 data: {

@@ -184,11 +184,6 @@
         "units": "6 units"
       },
       {
-        "code": "STAT1003",
-        "level": "Statistical Techniques",
-        "units": "6 units"
-      },
-      {
         "code": "CHEM1101",
         "level": "Chemistry 1",
         "units": "6 units"
@@ -197,6 +192,9 @@
         "code": "BIOL1003",
         "level": "Biology 1: Evolution, Ecology and Genetics",
         "units": "6 units"
+      },
+      {
+        "code": "Elective Course"
       }
     ],
     [
@@ -228,8 +226,8 @@
         "units": "6 units"
       },
       {
-        "code": "COMP3425",
-        "level": "Data Mining",
+        "code": "STAT2008",
+        "level": "Regression Modelling",
         "units": "6 units"
       },
       {
@@ -308,14 +306,10 @@
     ],
     [
       {
-        "code": "STAT2008",
-        "level": "Regression Modelling",
-        "units": "6 units"
+        "code": "Elective Course"
       },
       {
-        "code": "STAT3040",
-        "level": "Statistical Learning",
-        "units": "6 units"
+        "code": "Elective Course"
       },
       {
         "code": "BIOL3161",
