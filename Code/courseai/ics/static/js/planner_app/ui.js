@@ -994,7 +994,25 @@ async function setupPlanner(ignoreSaveCode = false) {
             PLAN.addSession(nextSession(start_year + 'S' + start_sem, i * 3));
         }
         setupGrid();
-        loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+        if (degree_code2) {
+            const data = await $.ajax({
+                url: 'degree/degreeplan',
+                metod: 'GET',
+                data: {
+                    'degree_code': PLAN.degrees[0].code + '-' + PLAN.degrees[1].code,
+                    'year': start_year
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+            });
+            const suggestedPlan = {};
+            let session = start_year + "S1"; // Starting value
+            for (const ses of data.response) {
+                suggestedPlan[session] = ses;
+                session = nextSession(session, 3);
+            }
+            loadCourseGrid(suggestedPlan)
+        } else loadCourseGrid(PLAN.degrees[0].suggestedPlan);
 
         if (loggedIn) {
             PLAN.changesMade = true;
@@ -1047,7 +1065,26 @@ async function setupPlanner(ignoreSaveCode = false) {
         for (const session of plan.sessions) PLAN.addSession(session);
         for (const mms of plan.trackedMMS) mms_add(mms.code, mms.year);
         setupGrid();
-        loadCourseGrid(plan.courses);
+        if (degree_code2) {
+            const data = await $.ajax({
+                url: 'degree/degreeplan',
+                metod: 'GET',
+                data: {
+                    'degree_code': PLAN.degrees[0].code + '-' + PLAN.degrees[1].code,
+                    'year': start_year
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+            });
+            const suggestedPlan = {};
+            let session = start_year + "S1"; // Starting value
+            for (const ses of data.response) {
+                suggestedPlan[session] = ses;
+                session = nextSession(session, 3);
+            }
+            loadCourseGrid(suggestedPlan)
+        } else loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+
         // for (const warning of plan.warnings) {
         //     const actions = [];
         //     for (const action of warning.actions) { // Reconstruct the action functions
