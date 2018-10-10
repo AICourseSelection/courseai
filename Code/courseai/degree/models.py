@@ -166,7 +166,7 @@ class Specialisation(models.Model):
 
 class Course(models.Model):
     es_id = models.CharField(max_length=10, editable=False, default=0)
-    creation_id = models.CharField(max_length=10, editable=False, default=0)
+    creation_id = 0
     name = models.TextField(default="",blank=True)
     code = models.CharField(max_length=9,default="",blank=True)
     semesters = models.TextField(default="",blank=True)
