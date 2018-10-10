@@ -16,7 +16,7 @@
 
 #### Audit 3
 
-* **Presentation Slides**
+* [**Presentation Slides**](https://docs.google.com/presentation/d/1DNmyca-7YUOlFmNhRQ0d_GEcVf9OkiGWGtCdjapopEg/edit?usp=sharing)
 
 #### Week 10
 
