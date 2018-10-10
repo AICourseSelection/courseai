@@ -22,10 +22,19 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
         for (const type in this.rules) {
             if (type === "x_from_here") {
                 for (const section of this.rules[type]) {
-                    console.log();
                     if (typeof(section.courses) === "string") {
                         const listName = section.courses;
-                        section.courses = await getCourseList(listName);  // Replace the list name with the course codes.
+                        section.courses = (await getCourseList(listName)).courses;  // Replace the list name with the course codes.
+                        section['listName'] = listName;   // Save the list name
+                    }
+                }
+            }
+            if (type === "x_from_category") {
+                for (const section of this.rules[type]) {
+                    if (section.courses) {
+                        const listName = section.courses;
+                        // Include the area codes from the courselist.
+                        section.area = (section.area || []).concat((await getCourseList(listName)).categories);
                         section['listName'] = listName;   // Save the list name
                     }
                 }
@@ -68,7 +77,12 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                     if (type === "one_from_here") section_sat = matches.length >= 1;
                     if (type === "x_from_here") section_sat = section_units >= (section.num || section.units);
                     overall_sat = overall_sat && section_sat;
-                    rule_details.push({'type': type, 'sat': section_sat, 'units': section_units, 'codes': section_codes});
+                    rule_details.push({
+                        'type': type,
+                        'sat': section_sat,
+                        'units': section_units,
+                        'codes': section_codes
+                    });
                 }
             }
             else if (["x_from_category", "max_by_level"].includes(type)) {
@@ -90,7 +104,12 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                         section_sat = section_units >= unitThreshold.minimum && section_units <= unitThreshold.maximum;
                     }
                     overall_sat = overall_sat && section_sat;
-                    rule_details.push({'type': type, 'sat': section_sat, 'units': section_units, 'codes': section_codes});
+                    rule_details.push({
+                        'type': type,
+                        'sat': section_sat,
+                        'units': section_units,
+                        'codes': section_codes
+                    });
                 }
             }
             else if (["required_m/m/s", "one_from_m/m/s"].includes(type)) {
@@ -113,7 +132,13 @@ function Degree(code, year, title, units, rules, suggestedPlan = {}) {
                     }
                     let section_sat = completed_codes.length > 0;
                     overall_sat = overall_sat && section_sat;
-                    rule_details.push({'type': type, 'sat': section_sat, 'units': units_completed, 'codes': matched_codes, 'completed': completed_codes});
+                    rule_details.push({
+                        'type': type,
+                        'sat': section_sat,
+                        'units': units_completed,
+                        'codes': matched_codes,
+                        'completed': completed_codes
+                    });
                 }
             }
         }
@@ -148,7 +173,7 @@ function matchCategoryInDegree(plan, codes, levels) {
                 match = match && codes.includes(c.code.slice(0, 4));
             }
             if (levels && levels.length > 0) {
-                const level = c.code.charAt(4)+'000';
+                const level = c.code.charAt(4) + '000';
                 match = match && (levels.includes(level) || levels.includes(parseInt(level)));
             }
             if (match && !c.failed) matches.push(c)
