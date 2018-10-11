@@ -17,5 +17,7 @@ Support Postgraduate Degrees | | | | |
 Colour code the courses in the degree plan depending on whether they are compulsory, elctives etc. | | | Thien | https://trello.com/c/PuxYMCZL |
 Scrape the study plan for all courses for all years | | |  | https://trello.com/c/roe3hxBs |
 Scrape courses for different years and extract the number of units and their availabilities | High |  | Manal | https://trello.com/c/a0ERF25f |  
+Pre-compute recommendations for CECS students using course enrolment dataset | | | Manal | https://trello.com/c/uFH4mRqy | 
+
 
 
