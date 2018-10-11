@@ -62,4 +62,3 @@ Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 
 Feature | Importance | Requested by | Assignee | Link to Trello Card | Comments
 --- | --- | --- | --- | --- | ---
-Pre-compute recommendations for CECS students using course enrolment dataset | | | Manal | https://trello.com/c/uFH4mRqy | 
