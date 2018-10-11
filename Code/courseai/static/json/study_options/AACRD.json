@@ -139,22 +139,12 @@
         "units": "24 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "24 units"
-      },
-      {
         "code": "COMP Course",
         "level": "3000/4000",
         "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "24 units"
-      },
       {
         "code": "COMP4550",
         "level": "Advanced Computing Research Project",
@@ -311,22 +301,12 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
         "code": "COMP Course",
         "level": "3000/4000",
         "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
       {
         "code": "COMP4550",
         "level": "Advanced Computing Research Project",
@@ -483,22 +463,12 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
         "code": "COMP Course",
         "level": "3000/4000",
         "units": "6 units"
       }
     ],
     [
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
       {
         "code": "COMP4550",
         "level": "Advanced Computing Research Project",
@@ -652,11 +622,6 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
         "code": "Elective Course",
         "units": "6 units"
       }
@@ -665,11 +630,6 @@
       {
         "code": "Computing Research Specialisation",
         "units": "6 units"
-      },
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
       },
       {
         "code": "COMP4550",
@@ -818,11 +778,6 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
         "code": "Elective Course",
         "units": "6 units"
       }
@@ -831,11 +786,6 @@
       {
         "code": "Computing Research Specialisation",
         "units": "6 units"
-      },
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
       },
       {
         "code": "COMP4550",
@@ -984,11 +934,6 @@
         "units": "12 units"
       },
       {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
-      },
-      {
         "code": "Elective Course",
         "units": "6 units"
       }
@@ -997,11 +942,6 @@
       {
         "code": "Computing Research Specialisation",
         "units": "6 units"
-      },
-      {
-        "code": "COMP4550",
-        "level": "Advanced Computing Research Project",
-        "units": "12 units"
       },
       {
         "code": "COMP4550",
