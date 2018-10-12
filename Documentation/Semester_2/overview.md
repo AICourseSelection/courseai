@@ -8,6 +8,8 @@
   - [Tester and task distribution](Sprint_1/test-distribution.md)
   - [User stories for tasks](Sprint_1/user-story.md)
   - [**Results**](Sprint_1/user-testing.md)
+* [GitHub Issues log](https://github.com/AICourseSelection/courseai/issues?utf8=%E2%9C%93&q=is%3Aissue)
+* [GitHub Pull Requests (for gated check-in procedures)](https://github.com/AICourseSelection/courseai/pulls?utf8=%E2%9C%93&q=is%3Apr)
 * [Product Backlog](product-backlog.md) (also see [Trello](https://trello.com/b/lNhn5e9R/))
 * [Deployment Documentation](Sprint_2/deployment-documentation.md)
 * [API Documentation and mocking (Apiary)](https://courseai.docs.apiary.io/)
@@ -22,7 +24,7 @@
 
 * [Project Poster](Sprint_2/PDF/project-poster-2.pdf)
 * [Meeting Minutes: Full Team](Sprint_2/team-week-10-minutes.md)
-* Meeting Minutes: Accenture
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-10-minutes.md)
 
 #### Week 9
 
@@ -32,8 +34,8 @@
 #### Week 8
 
 * [Public testing feedback](Sprint_2/public-testing-feedback.md)
-* Meeting Minutes: Full Team
-* Meeting Minutes: Accenture
+* [Meeting Minutes: Full Team](Sprint_2/team-week-8-minutes.md)
+* [Meeting Minutes: Accenture](Sprint_2/accenture-week-8-minutes.md)
 
 ## Sprint 2: Weeks 6 - 7
 

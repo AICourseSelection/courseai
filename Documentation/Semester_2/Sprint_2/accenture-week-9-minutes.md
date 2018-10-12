@@ -28,7 +28,7 @@ Other Accenture Team (Postal Improvement): Sean, Crystal, Harrison
 * Tom showed the prototype for customisation, in which Bradley said it was good progress.
 * Bradley suggested thinking about how to run the project after TechLauncher ends: it will be a lot of work. Look into Canberra Innovation. Also think about roles and structure (startup, TechLauncher continuing project etc.).
 * Bradley said Accenture would provide support for the project (in terms of project management etc.).
-* Need to share vision of the project (more detailed than just "we want to continue").
+* Need to share vision of the project (more detailed than just "we want to continue"). **[Formal letter written]**
 * Bradley said there are no guarantees for interest in the project from higher up in Accenture. However, he said he was happy with the project and excited about its future.
 
 ### Audit and Showcase

@@ -5,20 +5,20 @@
 
 **Team:** Joseph, Manal, Thien, Yong Wei, Tom, Scarlett
 
-**Other Accenture Team (Postal Delivery):** ...
+**Other Accenture Team (Postal Improvement):** ...
 
 
 ### ICS presentation
-* Bradley recommended having separate people during the demos for smoother transitions
-* Should mention more about the feedback, especially with changes made thereafter
+* [x] Bradley recommended having separate people during the demos for smoother transitions
+* [x] Should mention more about the feedback, especially with changes made thereafter
 * Consider including a video clip of positive comments ("I wish I had this when I started...")
 * Think about if too much is being shown in case something goes wrong
 * Get back-up videos, screenshots if possible
-* Think about getting a script if needed and practice together
+* [x] Think about getting a script if needed and practice together
 * Bradley doesn't think a sprint burndown is necessary, but says it does show progress
 * Saf: focus on testing and prototyping if you want to show agile process
-* Anticipate questions about agile artefacts (talk about the substitutes used instead)
-* Think about shortening the presentation (felt like overtime)
+* [x] Anticipate questions about agile artefacts (talk about the substitutes used instead)
+* [x] Think about shortening the presentation (felt like overtime)
 * Bradley and Saf able to attend audit
 * Bradley, Saf and Emily able to attend showcase
 * Accenture showcase date undetermined
