@@ -48,6 +48,8 @@ def generate_degree_plan(code, start_year_sem):
     return JsonResponse({"response": to_return})
 
 def get_degree_requirements(_code):
-    code, year = _code.split("-")[0], _code.split("-")[1]
-    degree_requirement = DegreeRequirement.objects.filter(code=code, year=year)[0]
-    return degree_requirement._json()
+    # code, year = _code.split("-")[0], _code.split("-")[1]
+    # degree_requirement = DegreeRequirement.objects.filter(code=code, year=year)[0]
+    # return degree_requirement._json()
+    with open('static/json/{}.json'.format(_code)) as file:
+        return file.read()

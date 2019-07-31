@@ -1083,7 +1083,7 @@ async function setupPlanner(ignoreSaveCode = false) {
                 session = nextSession(session, 3);
             }
             loadCourseGrid(suggestedPlan)
-        } else loadCourseGrid(PLAN.degrees[0].suggestedPlan);
+        } else loadCourseGrid(plan.courses);
 
         // for (const warning of plan.warnings) {
         //     const actions = [];

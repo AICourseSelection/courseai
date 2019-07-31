@@ -89,9 +89,9 @@ if os.environ.get('DATABASE') == 'MYSQL':
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'main_database',
-            'USER': 'courseai-user',
+            'USER': 'root',
             'PASSWORD': 'B^ksX7&(kl',
-            'HOST': '35.197.170.146',
+            'HOST': '35.197.189.177',
         }
     }
 elif os.environ.get('DATABASE') == 'POSTGRES':
@@ -107,14 +107,21 @@ elif os.environ.get('DATABASE') == 'POSTGRES':
 else:
     databaseConfig = {
         'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'courseai_postgres',
-        'USER': 'tomhamer',
-        'PASSWORD': 'courseai312',
-        'HOST': 'localhost',
-        'PORT': '5432',
-            }
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
         }
+    }
+
+    # databaseConfig = {
+    #     'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'courseai_postgres',
+    #     'USER': 'tomhamer',
+    #     'PASSWORD': 'courseai312',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    #         }
+    #     }
 
 DATABASES = databaseConfig
 
