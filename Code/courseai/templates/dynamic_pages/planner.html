@@ -400,6 +400,7 @@
         PLAN.changesMade = True;
         SAVER.save();
     }
+
     $('#form-login').submit(function (e) {
         e.preventDefault();
         var email = $.trim($('#login-email').val());
@@ -422,6 +423,7 @@
             }
         })
     })
+
     $('#form-register').submit(function (e) {
         e.preventDefault();
         var username = $.trim($('#register-username').val());

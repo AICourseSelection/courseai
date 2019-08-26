@@ -34,22 +34,30 @@
             <div class="col-md-8 offset-md-2">
                 <div class="h3 text-center" style="font-weight: lighter;">Programs and Course</div>
             </div>
-               <div class="form-row mt-4 mb-2">
-                    <button onclick="showDegree()" class="btn btn-primary btn-lg">Show Degree</button>
-                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                    <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
-                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                    <button onclick="showMinors()" class="btn btn-primary btn-lg">Show Minors</button>
-                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                    <button onclick="showSpecs()" class="btn btn-primary btn-lg">Show Spec</button>
-            <input type="text" id=courses name="courses" class="typeahead form-control"
-                               placeholder="Add a course" autocomplete="off" data-toggle="popover">
-             <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
-             </div>
-            <table>
-                <tbody id="Table">
-                </tbody>
-            </table>
+            <div class="form-row mt-4 mb-2">
+                <button onclick="showDegree()" class="btn btn-primary btn-lg">Show Degree</button>
+                <input type="text" id=degrees name="degrees" class="typeahead form-control"
+                       placeholder="Add a degree" autocomplete="off" data-toggle="popover">
+                <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
+                <input type="text" id=majors name="majors" class="typeahead form-control"
+                       placeholder="Add a major" autocomplete="off" data-toggle="popover">
+                <button onclick="showMinors()" class="btn btn-primary btn-lg">Show Minors</button>
+                <input type="text" id=minors name="minors" class="typeahead form-control"
+                       placeholder="Add a minor" autocomplete="off" data-toggle="popover">
+                <button onclick="showSpecs()" class="btn btn-primary btn-lg">Show Spec</button>
+                <input type="text" id=specs name="specs" class="typeahead form-control"
+                       placeholder="Add a specs" autocomplete="off" data-toggle="popover">
+                <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
+                <input type="text" id=courses name="courses" class="typeahead form-control"
+                       placeholder="Add a course" autocomplete="off" data-toggle="popover">
+            </div>
+            <br/>
+            <br/>
+                <table width="100%" border="1" cellspacing="10" align="center">
+                        <tbody id="Table">
+                        </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </wrapper>
@@ -70,57 +78,73 @@
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
 <script>
-      var courses= {"codes":document.getElementById("courses")
-      }
-      function showCourse() {
-        courseCodes=[]
-        courseVersions=[]
+    var courses = {
+        "codes": document.getElementById("courses")
+    }
+
+    function showCourse() {
+        courseCodes = []
+        courseVersions = []
         $.ajax({
-            type : 'POST',
-            dataType : "json",
-            data : courses,
+            type: 'POST',
+            dataType: "json",
+            data: courses,
             url: 'search/courselists',
-            error : function() {
+            error: function () {
                 alert('fail');
             },
             success: function (data) {
                 alert("success")
-                 for (i in data.response) {
+                for (i in data.response) {
                     courseCodes.push(data.response[i]._source.code);
                     courseVersions.push(JSON.stringify(data.response[i]._source.versions));
                 }
                 let table = document.createElement('table');
-                for (var i = 0; i <  courseCodes.length; i++) {
+                for (var i = 0; i < courseCodes.length; i++) {
                     var row = table.insertRow();
                     for (var j = 0; j < 2; j++) {
-                        var cell = row.insertCell();
-                        if (j == 0) {
-                            cell.innerHTML =  courseCodes[i];
-                        } else {
-                            cell.innerHTML =  courseVersions[i];
-                        }
+
+                            var cell = row.insertCell();
+                            if (j == 0) {
+                                cell.innerHTML = courseCodes[i];
+                            } else {
+                                cell.innerHTML = courseVersions[i];
+                            }
+
                     }
                 }
                 $("#Table").html(table);
             }
         });
     }
+
     function showDegree() {
+        let degree = document.getElementById("degrees").value;
+        console.log(typeof (degree));
         const degreeCodes = [];
         const degreeDicts = [];
         $.ajax({
             url: 'degree/all',
             success: function (data) {
                 for (i in data.response) {
-                    degreeDicts.push(data.response[i].title);
-                    degreeCodes.push(data.response[i].code);
+                    if (data.response[i].title.toString().toLowerCase().indexOf(degree.toLowerCase()) != -1) {
+                        degreeDicts.push(data.response[i].title);
+                        degreeCodes.push(data.response[i].code);
+                    }
                 }
                 let table = document.createElement('table');
+                let head=document.createElement('table');
+                if (degreeDicts.length == 0) {
+                    var row = table.insertRow();
+                    var cell = row.insertCell();
+                    cell.innerHTML = "No such degree."
+                }
                 for (var i = 0; i < degreeDicts.length; i++) {
                     var row = table.insertRow();
                     for (var j = 0; j < 2; j++) {
                         var cell = row.insertCell();
                         if (j == 0) {
+
                             cell.innerHTML = degreeDicts[i];
                         } else {
                             cell.innerHTML = degreeCodes[i];
@@ -128,26 +152,39 @@
                     }
                 }
                 $("#Table").html(table);
+                $("#Tablehead").html(table);
             }
         });
     }
+
     function showMajors() {
-        majorsCodes=[]
-        majorVersions=[]
+        let majors = document.getElementById("majors").value;
+        console.log(majors)
+        const majorsCodes = [];
+        const majorsTitles = [];
+        const majorVersions = [];
         $.ajax({
             url: 'search/majors',
+            data: {"query": majors, "level": "undergraduate"},
             success: function (data) {
-                 for (i in data.response) {
-                    majorsCodes.push(data.response[i]._source.code);
-                    majorVersions.push(JSON.stringify(data.response[i]._source.versions));
+                console.log("success");
+                console.log(data.responses);
+                console.log(data.responses[0].versions);
+                console.log(data.responses[0].versions["2019"].title);
+                for (i in data.responses) {
+                    majorsCodes.push(data.responses[i].code);
+                    majorsTitles.push(JSON.stringify(data.responses[i].versions["2019"].title));
+                    majorVersions.push(JSON.stringify(data.responses[i].versions["2019"].description));
                 }
                 let table = document.createElement('table');
                 for (var i = 0; i < majorsCodes.length; i++) {
                     var row = table.insertRow();
-                    for (var j = 0; j < 2; j++) {
+                    for (var j = 0; j < 3; j++) {
                         var cell = row.insertCell();
                         if (j == 0) {
                             cell.innerHTML = majorsCodes[i];
+                        } else if (j == 1) {
+                            cell.innerHTML = majorsTitles[i];
                         } else {
                             cell.innerHTML = majorVersions[i];
                         }
@@ -157,13 +194,14 @@
             }
         });
     }
+
     function showMinors() {
-        minorCodes=[]
-        minorVersions=[]
+        minorCodes = []
+        minorVersions = []
         $.ajax({
             url: 'search/minors',
             success: function (data) {
-                 for (i in data.response) {
+                for (i in data.response) {
                     minorCodes.push(data.response[i]._source.code);
                     minorVersions.push(JSON.stringify(data.response[i]._source.versions));
                 }
@@ -183,13 +221,14 @@
             }
         });
     }
+
     function showSpecs() {
-        specsCodes=[]
-        specsVersions=[]
+        specsCodes = []
+        specsVersions = []
         $.ajax({
             url: 'search/specs',
             success: function (data) {
-                 for (i in data.response) {
+                for (i in data.response) {
                     specsCodes.push(data.response[i]._source.code);
                     specsVersions.push(JSON.stringify(data.response[i]._source.versions));
                 }

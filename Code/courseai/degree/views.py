@@ -20,7 +20,6 @@ def all_degrees(request):
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
-        print(results)
     #return render(request, 'dynamic_pages/staff_staff.html', {'degree': results})
     return JsonResponse({"response": results})
 
