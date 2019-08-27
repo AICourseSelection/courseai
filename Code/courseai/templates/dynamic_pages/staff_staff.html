@@ -17,6 +17,19 @@
     <style>table {
         margin: auto
     }</style>
+    <style type="text/css">
+        .border-table {
+            border-collapse: collapse;
+            border: none;
+        }
+
+        .border-table td {
+            border: solid #000 1px;
+        }
+        .border-table th {
+            border: solid #000 1px;
+        }
+    </style>
     {% stylesheet 'main' %}
     <title>staffSearch</title>
 </head>
@@ -28,12 +41,15 @@
 
 <wrapper class="d-flex flex-column">
     <div class="container" style="margin-bottom: 135px">
-
-
         <div class="row mt-4">
             <div class="col-md-8 offset-md-2">
                 <div class="h3 text-center" style="font-weight: lighter;">Programs and Course</div>
             </div>
+            <select id="level">
+                <option>undergraduate</option>
+                <option>postgraduate</option>
+            </select>
+
             <div class="form-row mt-4 mb-2">
                 <button onclick="showDegree()" class="btn btn-primary btn-lg">Show Degree</button>
                 <input type="text" id=degrees name="degrees" class="typeahead form-control"
@@ -51,14 +67,15 @@
                 <input type="text" id=courses name="courses" class="typeahead form-control"
                        placeholder="Add a course" autocomplete="off" data-toggle="popover">
             </div>
-            <br/>
-            <br/>
-                <table width="100%" border="1" cellspacing="10" align="center">
-                        <tbody id="Table">
-                        </tbody>
+            <div>
+                <table class="border-table" style="table-layout:fixed;">
+                    <tbody id="Table">
+                    </tbody>
                 </table>
             </div>
         </div>
+    </div>
+
     </div>
 </wrapper>
 
@@ -83,44 +100,49 @@
     }
 
     function showCourse() {
-        courseCodes = []
-        courseVersions = []
+        let course = document.getElementById("courses").value;
+        let tableData = "<tr>";
+        const courseCodes = [];
+        const courseDicts = [];
         $.ajax({
-            type: 'POST',
-            dataType: "json",
-            data: courses,
             url: 'search/courselists',
-            error: function () {
-                alert('fail');
-            },
             success: function (data) {
-                alert("success")
                 for (i in data.response) {
-                    courseCodes.push(data.response[i]._source.code);
-                    courseVersions.push(JSON.stringify(data.response[i]._source.versions));
-                }
-                let table = document.createElement('table');
-                for (var i = 0; i < courseCodes.length; i++) {
-                    var row = table.insertRow();
-                    for (var j = 0; j < 2; j++) {
-
-                            var cell = row.insertCell();
-                            if (j == 0) {
-                                cell.innerHTML = courseCodes[i];
-                            } else {
-                                cell.innerHTML = courseVersions[i];
-                            }
-
+                    if (data.response[i].title.toString().toLowerCase().indexOf(courselists.toLowerCase()) != -1) {
+                        courseDicts.push(data.response[i].title);
+                        courseCodes.push(data.response[i].code);
                     }
                 }
-                $("#Table").html(table);
+                if (courseDicts.length == 0) {
+                    tableData += "<th>" + "No such course" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < courseDicts.length + 1; i++) {
+                        for (var j = 0; j < 2; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "course Title" + "</th>";
+                                } else {
+                                    tableData += "<th>" + "course Code" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + courseDicts[i - 1] + "</td>";
+                                } else {
+                                    tableData += "<td>" + courseCodes[i - 1] + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
             }
         });
     }
 
     function showDegree() {
         let degree = document.getElementById("degrees").value;
-        console.log(typeof (degree));
+        let tableData = "<tr>";
         const degreeCodes = [];
         const degreeDicts = [];
         $.ajax({
@@ -132,123 +154,221 @@
                         degreeCodes.push(data.response[i].code);
                     }
                 }
-                let table = document.createElement('table');
-                let head=document.createElement('table');
                 if (degreeDicts.length == 0) {
-                    var row = table.insertRow();
-                    var cell = row.insertCell();
-                    cell.innerHTML = "No such degree."
-                }
-                for (var i = 0; i < degreeDicts.length; i++) {
-                    var row = table.insertRow();
-                    for (var j = 0; j < 2; j++) {
-                        var cell = row.insertCell();
-                        if (j == 0) {
-
-                            cell.innerHTML = degreeDicts[i];
-                        } else {
-                            cell.innerHTML = degreeCodes[i];
+                    tableData += "<th>" + "No such degree" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < degreeDicts.length + 1; i++) {
+                        for (var j = 0; j < 2; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "Degree Title" + "</th>";
+                                } else {
+                                    tableData += "<th>" + "Degree Code" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + degreeDicts[i - 1] + "</td>";
+                                } else {
+                                    tableData += "<td>" + degreeCodes[i - 1] + "</td>";
+                                }
+                            }
                         }
+                        tableData += "</tr>" + "<tr>";
                     }
                 }
-                $("#Table").html(table);
-                $("#Tablehead").html(table);
+                $("#Table").html(tableData);
             }
         });
     }
 
     function showMajors() {
         let majors = document.getElementById("majors").value;
-        console.log(majors)
+        let level=document.getElementById("level").value;
+        let tableData = "<tr>";
+        let tempRequirement="";
         const majorsCodes = [];
-        const majorsTitles = [];
-        const majorVersions = [];
+        const majorDescription = [];
+        const majorsRequirements = [];
+        const majorsTitle=[];
         $.ajax({
             url: 'search/majors',
-            data: {"query": majors, "level": "undergraduate"},
+            data: {"query": majors, "level": level},
             success: function (data) {
-                console.log("success");
-                console.log(data.responses);
-                console.log(data.responses[0].versions);
-                console.log(data.responses[0].versions["2019"].title);
                 for (i in data.responses) {
                     majorsCodes.push(data.responses[i].code);
-                    majorsTitles.push(JSON.stringify(data.responses[i].versions["2019"].title));
-                    majorVersions.push(JSON.stringify(data.responses[i].versions["2019"].description));
+                    majorDescription.push(JSON.stringify(data.responses[i].versions["2019"].description));
+                    tempRequirement=JSON.stringify(data.responses[i].versions["2019"].requirements);
+                    tempRequirement=replaceString(tempRequirement);
+                    majorsRequirements.push(tempRequirement);
+                    majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title));
                 }
-                let table = document.createElement('table');
-                for (var i = 0; i < majorsCodes.length; i++) {
-                    var row = table.insertRow();
-                    for (var j = 0; j < 3; j++) {
-                        var cell = row.insertCell();
-                        if (j == 0) {
-                            cell.innerHTML = majorsCodes[i];
-                        } else if (j == 1) {
-                            cell.innerHTML = majorsTitles[i];
-                        } else {
-                            cell.innerHTML = majorVersions[i];
+                if (majorsCodes.length == 0) {
+                    tableData += "<th>" + "No such major" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < majorsCodes.length; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "Major Code" + "</th>";
+                                } else if(j==1){
+                                    tableData += "<th>" + "Major Title" + "</th>";
+                                }
+                                else if(j==2){
+                                    tableData += "<th>" + "Major Requrirement" + "</th>";
+                                }
+                                else if(j==3){
+                                    tableData += "<th>" + "Major Description" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + majorsCodes[i] + "</td>";
+                                } else if(j==3){
+                                    tableData += "<td>" + majorDescription[i] + "</td>";
+                                }
+                                else if(j==2){
+                                    tableData += "<td>" +  majorsRequirements[i] + "</td>";
+                                }
+                                else if(j==1){
+                                    tableData += "<td>" + majorsTitle[i] + "</td>";
+                                }
+                            }
                         }
+                        tableData += "</tr>" + "<tr>";
                     }
                 }
-                $("#Table").html(table);
+                $("#Table").html(tableData);
             }
         });
     }
-
     function showMinors() {
-        minorCodes = []
-        minorVersions = []
+        let minors = document.getElementById("minors").value;
+        let level=document.getElementById("level").value;
+        let tableData = "<tr>";
+        let tempRequirement="";
+        const minorsCodes = [];
+        const minorDescription = [];
+        const minorsRequirements = [];
+        const minorsTitle=[];
         $.ajax({
             url: 'search/minors',
+            data: {"query": minors, "level": level},
             success: function (data) {
-                for (i in data.response) {
-                    minorCodes.push(data.response[i]._source.code);
-                    minorVersions.push(JSON.stringify(data.response[i]._source.versions));
+                for (i in data.responses) {
+                    minorsCodes.push(data.responses[i].code);
+                    console.log(JSON.stringify(data.responses[i].versions));
+                    minorDescription.push(JSON.stringify(data.responses[i].versions["2019"].description));
+                    tempRequirement=JSON.stringify(data.responses[i].versions["2019"].requirements);
+                    tempRequirement=replaceString(tempRequirement);
+                    minorsRequirements.push(tempRequirement);
+                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title));
                 }
-                let table = document.createElement('table');
-                for (var i = 0; i < minorCodes.length; i++) {
-                    var row = table.insertRow();
-                    for (var j = 0; j < 2; j++) {
-                        var cell = row.insertCell();
-                        if (j == 0) {
-                            cell.innerHTML = minorCodes[i];
-                        } else {
-                            cell.innerHTML = minorVersions[i];
+                if (minorsCodes.length == 0) {
+                    tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < minorsCodes.length; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "minor Code" + "</th>";
+                                } else if(j==1){
+                                    tableData += "<th>" + "minor Title" + "</th>";
+                                }
+                                else if(j==2){
+                                    tableData += "<th>" + "minor Requrirement" + "</th>";
+                                }
+                                else if(j==3){
+                                    tableData += "<th>" + "minor Description" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + minorsCodes[i] + "</td>";
+                                } else if(j==3){
+                                    tableData += "<td>" + minorDescription[i] + "</td>";
+                                }
+                                else if(j==2){
+                                    tableData += "<td>" +  minorsRequirements[i] + "</td>";
+                                }
+                                else if(j==1){
+                                    tableData += "<td>" + minorsTitle[i] + "</td>";
+                                }
+                            }
                         }
+                        tableData += "</tr>" + "<tr>";
                     }
                 }
-                $("#Table").html(table);
+                $("#Table").html(tableData);
             }
         });
     }
 
     function showSpecs() {
-        specsCodes = []
-        specsVersions = []
+        let specs = document.getElementById("specs").value;
+        let level=document.getElementById("level").value;
+        let tableData = "<tr>";
+        let tempRequirement="";
+        const specsCodes = [];
+        const specDescription = [];
+        const specsRequirements = [];
+        const specsTitle=[];
         $.ajax({
             url: 'search/specs',
+            data: {"query": specs, "level": level},
             success: function (data) {
-                for (i in data.response) {
-                    specsCodes.push(data.response[i]._source.code);
-                    specsVersions.push(JSON.stringify(data.response[i]._source.versions));
+                for (i in data.responses) {
+                    specsCodes.push(data.responses[i].code);
+                    console.log(JSON.stringify(data.responses[i].versions));
+                    specDescription.push(JSON.stringify(data.responses[i].versions["2016"].description));
+                    tempRequirement=JSON.stringify(data.responses[i].versions["2016"].requirements);
+                    tempRequirement=replaceString(tempRequirement);
+                    specsRequirements.push(tempRequirement);
+                    specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title));
                 }
-                let table = document.createElement('table');
-                for (var i = 0; i < specsCodes.length; i++) {
-                    var row = table.insertRow();
-                    for (var j = 0; j < 2; j++) {
-                        var cell = row.insertCell();
-                        if (j == 0) {
-                            cell.innerHTML = specsCodes[i];
-                        } else {
-                            cell.innerHTML = specsVersions[i];
+                if (specsCodes.length == 0) {
+                    tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < specsCodes.length; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "spec Code" + "</th>";
+                                } else if(j==1){
+                                    tableData += "<th>" + "spec Title" + "</th>";
+                                }
+                                else if(j==2){
+                                    tableData += "<th>" + "spec Requrirement" + "</th>";
+                                }
+                                else if(j==3){
+                                    tableData += "<th>" + "spec Description" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + specsCodes[i] + "</td>";
+                                } else if(j==3){
+                                    tableData += "<td>" + specDescription[i] + "</td>";
+                                }
+                                else if(j==2){
+                                    tableData += "<td>" +  specsRequirements[i] + "</td>";
+                                }
+                                else if(j==1){
+                                    tableData += "<td>" + specsTitle[i] + "</td>";
+                                }
+                            }
                         }
+                        tableData += "</tr>" + "<tr>";
                     }
                 }
-                $("#Table").html(table);
+                $("#Table").html(tableData);
             }
         });
     }
-
+  function replaceString(string){
+        if(string==undefined){return string;}
+        string=string.replace(/{|}|\"x_from_here\":|/g,"");
+        string=string.replace(/\],\[/g,"<br>");
+        string=string.replace(/\]\],/g,"]],<br>");
+        //string=string.replace(/,"units":/g,"<br>\"units\":");
+        return string;
+    }
 
 </script>
 </body>

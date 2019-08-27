@@ -10,8 +10,8 @@ def index(request):
     if 'query' not in request.GET:
         template = loader.get_template('static_pages/search.html')
         return HttpResponse(template.render({}, request))
-
     original_query = request.GET['query']
+    print("index:", original_query)
     filters = request.GET.get('filters', None)
     codes = None
     levels = None
@@ -39,6 +39,7 @@ def index(request):
 def mms_request(request):
     try:
         code = request.GET['query']
+        print("course_mms:", code)
         return mms.get_mms_data(es_conn, code)
     except KeyError:
         raise Exception("Malformed JSON as input. Expects a field called query.")
@@ -48,7 +49,6 @@ def all_majors(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        print("majorsname:", name, "level", level);
         return mms.mms_by_name(es_conn, name, 'majors', level=level)
     except KeyError:
         return mms.search_all(es_conn, "MAJ")
@@ -58,7 +58,7 @@ def all_minors(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        print("minorsname:", name, "level", level);
+
         return mms.mms_by_name(es_conn, name, 'minors', level=level)
     except KeyError:
         return mms.search_all(es_conn, "MIN")
@@ -68,7 +68,6 @@ def all_specs(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        print("majorsname:",name,"level",level);
         return mms.mms_by_name(es_conn, name, 'specialisations', level=level)
     except KeyError:
         return mms.search_all(es_conn, "SPEC")
@@ -76,4 +75,5 @@ def all_specs(request):
 
 def course_lists(request):
     query = request.GET['query']
+    print("course1:",query)
     return mms.course_lists(es_conn, query)
