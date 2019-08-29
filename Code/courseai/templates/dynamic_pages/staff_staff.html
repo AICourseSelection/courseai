@@ -130,7 +130,7 @@
                         courseCodes.push(data.response[i].course_code);
                         versions = JSON.stringify(data.response[i].versions);
                         courseUnits.push(str_substr("units\":\"","\"",versions));
-                        courseTitles.push(str_substr("title\":",",",versions))
+                        courseTitles.push(str_substr("title\":",",",versions).replace(/\"/g,""));
                         courseDescription.push(str_substr("description\":\"",".",versions)+".......")
                     }
                 }
@@ -242,7 +242,7 @@
                     tempRequirement =replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     majorsRequirements.push(tempRequirement);
-                    majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title));
+                    majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
                 }
                 if (majorsCodes.length == 0) {
                     tableData += "<th>" + "No such major" + "</th>" + "</tr>";
@@ -301,7 +301,7 @@
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     minorsRequirements.push(tempRequirement);
-                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title));
+                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
                 }
                 if (minorsCodes.length == 0) {
                     tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
@@ -360,7 +360,7 @@
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     specsRequirements.push(tempRequirement);
-                    specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title));
+                    specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title).replace(/\"/g,""));
                 }
                 if (specsCodes.length == 0) {
                     tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
