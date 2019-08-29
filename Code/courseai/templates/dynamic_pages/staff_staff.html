@@ -240,6 +240,7 @@
                     majorDescription.push(description+"......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements.x_from_here[0]);
                     tempRequirement =replaceString(tempRequirement);
+                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     majorsRequirements.push(tempRequirement);
                     majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title));
                 }
@@ -298,6 +299,7 @@
                     minorDescription.push(description+"......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements);
                     tempRequirement = replaceString(tempRequirement);
+                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     minorsRequirements.push(tempRequirement);
                     minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title));
                 }
@@ -356,6 +358,7 @@
                     specDescription.push(description+".......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2016"].requirements);
                     tempRequirement = replaceString(tempRequirement);
+                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     specsRequirements.push(tempRequirement);
                     specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title));
                 }
@@ -401,7 +404,6 @@
         string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
         string = string.replace(/\"courses\"/g, "");
         string = string.replace(/\[:|\[|\]|\"/g, "");
-        string = string.replace(/,title/g, "<br>title");
         //string=string.replace(/,"units":/g,"<br>\"units\":");
         return string;
     }
