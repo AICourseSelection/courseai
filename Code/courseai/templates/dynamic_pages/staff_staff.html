@@ -44,32 +44,24 @@
     <div class="container" style="margin-bottom: 135px">
         <div class="row mt-4">
             <div class="col-md-8 offset-md-2">
-                <div class="h3 text-center" style="font-weight: lighter;">Programs and Course</div>
+                <div class="h3 text-center" style="font-weight: lighter;">Read function demo</div>
             </div>
-            <select id="level">
+            {% comment %}<select id="level">
                 <option>undergraduate</option>
                 <option>postgraduate</option>
-            </select>
+            </select>{% endcomment %}
 
-            <div class="form-row mt-4 mb-2">
+            <div class="container">
+                <input type="text" id="search" name="search" class="typeahead form-control"
+                       placeholder="Search bar" autocomplete="off" data-toggle="popover">
+                <div>&nbsp</div>
                 <button onclick="showDegree()" class="btn btn-primary btn-lg">Show Degree</button>
-                <input type="text" id=degrees name="degrees" class="typeahead form-control"
-                       placeholder="Add a degree" autocomplete="off" data-toggle="popover">
                 <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
-                <input type="text" id=majors name="majors" class="typeahead form-control"
-                       placeholder="Add a major" autocomplete="off" data-toggle="popover">
                 <button onclick="showMinors()" class="btn btn-primary btn-lg">Show Minors</button>
-                <input type="text" id=minors name="minors" class="typeahead form-control"
-                       placeholder="Add a minor" autocomplete="off" data-toggle="popover">
                 <button onclick="showSpecs()" class="btn btn-primary btn-lg">Show Spec</button>
-                <input type="text" id=specs name="specs" class="typeahead form-control"
-                       placeholder="Add a specs" autocomplete="off" data-toggle="popover">
                 <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
-                <input type="text" id=courses name="courses" class="typeahead form-control"
-                       placeholder="Add a course" autocomplete="off" data-toggle="popover">
-            </div>
-            <div>
-                <table class="border-table" style="table-layout:fixed;">
+                <div>&nbsp</div>
+                 <table class="border-table" style="table-layout:fixed;">
                     <tbody id="Table">
                     </tbody>
                 </table>
@@ -96,7 +88,8 @@
         integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
 <script>
-
+    var level="undergraduate";
+    var description="";
     function str_substr(start, end, str) {
        try{
             temp = str.split(start, 2);
@@ -107,10 +100,19 @@
         }
         return content[0];
     }
-
+    function get10words(str) {
+       try{
+            temp = str.split(start, 2);
+            content = temp[1].split(end, 2);
+        }
+        catch (e) {
+            console.log(e.name + ":" + e.message);
+        }
+        return content[0];
+    }
     function showCourse() {
-        let courses = document.getElementById("courses").value;
-        let level = document.getElementById("level").value;
+        let courses = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
         let tableData = "<tr>";
         const courseCodes = [];
         const courseVersions = [];
@@ -122,13 +124,14 @@
             url: 'search/coursesearch/',
             data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
             success: function (data) {
+                console.log(data);
                 for (var i = 0; i < data.response.length; i++) {
                     if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
                         courseCodes.push(data.response[i].course_code);
                         versions = JSON.stringify(data.response[i].versions);
                         courseUnits.push(str_substr("units\":\"","\"",versions));
                         courseTitles.push(str_substr("title\":",",",versions))
-                        courseDescription.push(str_substr("description\":","\",\"",versions))
+                        courseDescription.push(str_substr("description\":\"",".",versions)+".......")
                     }
                 }
                 if (courseCodes.length == 0) {
@@ -171,7 +174,7 @@
     }
 
     function showDegree() {
-        let degree = document.getElementById("degrees").value;
+        let degree = document.getElementById("search").value;
         let tableData = "<tr>";
         const degreeCodes = [];
         const degreeDicts = [];
@@ -192,14 +195,20 @@
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "Degree Title" + "</th>";
-                                } else {
+                                } else if(j==1){
                                     tableData += "<th>" + "Degree Code" + "</th>";
+                                }
+                                else if(j==2){
+                                    tableData += "<th>" + "Degree Button" + "</th>";
                                 }
                             } else {
                                 if (j == 0) {
                                     tableData += "<td>" + degreeDicts[i - 1] + "</td>";
-                                } else {
+                                } else if (j==1){
                                     tableData += "<td>" + degreeCodes[i - 1] + "</td>";
+                                }
+                                else if (j==2){
+                                    tableData += "<td>"+"<input type=\"button\" id=\"btn\" value=\"read more information\"/>" + "</td>";
                                 }
                             }
                         }
@@ -212,8 +221,8 @@
     }
 
     function showMajors() {
-        let majors = document.getElementById("majors").value;
-        let level = document.getElementById("level").value;
+        let majors = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         const majorsCodes = [];
@@ -225,10 +234,12 @@
             data: {"query": majors, "level": level},
             success: function (data) {
                 for (i in data.responses) {
+                    description=JSON.stringify(data.responses[i].versions["2019"].description);
+                    description=str_substr("\"",".",description);
                     majorsCodes.push(data.responses[i].code);
-                    majorDescription.push(JSON.stringify(data.responses[i].versions["2019"].description));
-                    tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements);
-                    tempRequirement = replaceString(tempRequirement);
+                    majorDescription.push(description+"......");
+                    tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements.x_from_here[0]);
+                    tempRequirement =replaceString(tempRequirement);
                     majorsRequirements.push(tempRequirement);
                     majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title));
                 }
@@ -268,8 +279,8 @@
     }
 
     function showMinors() {
-        let minors = document.getElementById("minors").value;
-        let level = document.getElementById("level").value;
+        let minors = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         const minorsCodes = [];
@@ -282,8 +293,9 @@
             success: function (data) {
                 for (i in data.responses) {
                     minorsCodes.push(data.responses[i].code);
-                    console.log(JSON.stringify(data.responses[i].versions));
-                    minorDescription.push(JSON.stringify(data.responses[i].versions["2019"].description));
+                    description=JSON.stringify(data.responses[i].versions["2019"].description);
+                    description=str_substr("\"",".",description);
+                    minorDescription.push(description+"......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements);
                     tempRequirement = replaceString(tempRequirement);
                     minorsRequirements.push(tempRequirement);
@@ -325,8 +337,8 @@
     }
 
     function showSpecs() {
-        let specs = document.getElementById("specs").value;
-        let level = document.getElementById("level").value;
+        let specs = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         const specsCodes = [];
@@ -339,8 +351,9 @@
             success: function (data) {
                 for (i in data.responses) {
                     specsCodes.push(data.responses[i].code);
-                    console.log(JSON.stringify(data.responses[i].versions));
-                    specDescription.push(JSON.stringify(data.responses[i].versions["2016"].description));
+                    description=JSON.stringify(data.responses[i].versions["2016"].description);
+                    description=str_substr("\"",".",description);
+                    specDescription.push(description+".......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2016"].requirements);
                     tempRequirement = replaceString(tempRequirement);
                     specsRequirements.push(tempRequirement);
@@ -383,11 +396,12 @@
 
     function replaceString(string) {
         if (string == undefined) {
-            return string;
+            return "";
         }
-        string = string.replace(/{|}|\"x_from_here\":|/g, "");
-        string = string.replace(/\],\[/g, "<br>");
-        string = string.replace(/\]\],/g, "]],<br>");
+        string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
+        string = string.replace(/\"courses\"/g, "");
+        string = string.replace(/\[:|\[|\]|\"/g, "");
+        string = string.replace(/,title/g, "<br>title");
         //string=string.replace(/,"units":/g,"<br>\"units\":");
         return string;
     }

@@ -173,7 +173,7 @@ function createSavedPlansTable() {
                     nameInput.append(editIcon);
                     row.append(nameInput);
                     row.append('<td class="col-1 plan-td text-center"><small>' + plans[i][0] + '</small></td>');                        // code
-                    row.append('<td class="col-2 plan-td text-center"><p>' + stringifyDegreeCodes(obj.degrees) + '</p></td>');                  // degrees
+                    row.append('<td class="col-2 plan-td text-center"><p>' + stringifyDegreeCodes(obj.search) + '</p></td>');                  // degrees
                     row.append('<td class="col-4 plan-td text-center">' + stringifyMMS(obj.trackedMMS) + '</td>');                       // mms
                     row.append('<td class="col-1 plan-td text-center">' + 'Semester ' + obj.startSem + ' ' + obj.startYear + '</td>');   // start date
                     row.append('<td class="col-1 plan-td text-center">' + obj.created + '</td>');                                       // created
