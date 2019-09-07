@@ -4,6 +4,7 @@ from builtins import Exception, eval, str
 import pandas as pd
 
 from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest, QueryDict
+from django.shortcuts import render
 from django.utils.crypto import get_random_string
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,7 +13,6 @@ from . import course_data_helper
 from . import degree_plan_helper
 from .models import Degree, PreviousStudentDegree, DegreePlanStore
 
-from .models import DegreeRequirement
 
 def all_degrees(request):
     degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
@@ -20,7 +20,7 @@ def all_degrees(request):
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
-
+    #return render(request, 'dynamic_pages/staff_staff.html', {'degree': results})
     return JsonResponse({"response": results})
 
 

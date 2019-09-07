@@ -1040,11 +1040,11 @@ async function setupPlanner(ignoreSaveCode = false) {
             SAVER.code = save_code;
             return setupPlanner();
         }
-        start_year = plan.degrees[0].year;
+        start_year = plan.search[0].year;
         start_sem = plan.startSem;
 
         PLAN.startSem = plan.startSem;
-        const degree = await addDegree(plan.degrees[0].code, plan.degrees[0].year);
+        const degree = await addDegree(plan.search[0].code, plan.search[0].year);
         degree_code = degree.code;
         degree_name = degree.title;
         const singleReqsList = $('#degree-reqs-list');
@@ -1052,9 +1052,9 @@ async function setupPlanner(ignoreSaveCode = false) {
         singleReqsList.hide();
         multiReqsList.hide();
         setupDegreeRequirements(singleReqsList.find('.degree-body'), degree);
-        if (plan.degrees[1]) {
+        if (plan.search[1]) {
             multiReqsList.show();
-            const degree2 = await addDegree(plan.degrees[1].code, plan.degrees[1].year);
+            const degree2 = await addDegree(plan.search[1].code, plan.search[1].year);
             degree_code2 = degree2.code;
             degree_name2 = degree2.title;
         }

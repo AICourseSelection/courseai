@@ -1,0 +1,430 @@
+{% load static %}
+{% load pipeline %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/solid.css"
+          integrity="sha384-VxweGom9fDoUf7YfLTHgO0r70LVNHP5+Oi8dcR4hbEjS8UnpRtrwTx7LpHq/MWLI" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
+          integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+          integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous"/>
+    <style>table {
+        margin: auto
+    }</style>
+    <style type="text/css">
+        .border-table {
+            border-collapse: collapse;
+            border: none;
+        }
+
+        .border-table td {
+            border: solid #000 1px;
+        }
+
+        .border-table th {
+            border: solid #000 1px;
+        }
+    </style>
+    {% stylesheet 'main' %}
+    <title>staffSearch</title>
+</head>
+
+<body style="background: linear-gradient(azure, white 40%); background-repeat: no-repeat">
+
+
+{% include "dynamic_pages/navbar.html" %}
+
+<wrapper class="d-flex flex-column">
+    <div class="container" style="margin-bottom: 135px">
+        <div class="row mt-4">
+            <div class="col-md-8 offset-md-2">
+                <div class="h3 text-center" style="font-weight: lighter;">Read function demo</div>
+            </div>
+            {% comment %}<select id="level">
+                <option>undergraduate</option>
+                <option>postgraduate</option>
+            </select>{% endcomment %}
+
+            <div class="container">
+                <input type="text" id="search" name="search" class="typeahead form-control"
+                       placeholder="Search bar" autocomplete="off" data-toggle="popover">
+                <div>&nbsp</div>
+                <button onclick="showDegree()" class="btn btn-primary btn-lg">Show Degree</button>
+                <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
+                <button onclick="showMinors()" class="btn btn-primary btn-lg">Show Minors</button>
+                <button onclick="showSpecs()" class="btn btn-primary btn-lg">Show Spec</button>
+                <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
+                <div>&nbsp</div>
+                 <table class="border-table" style="table-layout:fixed;">
+                    <tbody id="Table">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</wrapper>
+
+{% include "dynamic_pages/footer.html" %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha256-5+02zu5UULQkO7w1GIr6vftCgMfFdZcAHeDtFnKZsBs=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.213.1/aws-sdk.min.js"
+        integrity="sha256-UNhE4C4G2iNK4bS34CMHS8oywLzSKwFc0aj7RWmKQJU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"
+        integrity="sha256-LOnFraxKlOhESwdU/dX+K0GArwymUDups0czPWLEg4E=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"
+        integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
+
+<script>
+    var level="undergraduate";
+    var description="";
+    function str_substr(start, end, str) {
+       try{
+            temp = str.split(start, 2);
+            content = temp[1].split(end, 2);
+        }
+        catch (e) {
+            console.log(e.name + ":" + e.message);
+        }
+        return content[0];
+    }
+    function get10words(str) {
+       try{
+            temp = str.split(start, 2);
+            content = temp[1].split(end, 2);
+        }
+        catch (e) {
+            console.log(e.name + ":" + e.message);
+        }
+        return content[0];
+    }
+    function showCourse() {
+        let courses = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
+        let tableData = "<tr>";
+        const courseCodes = [];
+        const courseVersions = [];
+        const courseUnits = [];
+        const courseTitles = [];
+        const courseDescription = [];
+        var versions = "";
+        $.ajax({
+            url: 'search/coursesearch/',
+            data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
+            success: function (data) {
+                console.log(data);
+                for (let i = 0; i < data.response.length; i++) {
+                    if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
+                        courseCodes.push(data.response[i].course_code);
+                        versions = JSON.stringify(data.response[i].versions);
+                        courseVersions.push(versions.toString());
+                        courseUnits.push(str_substr("units\":\"","\"",versions));
+                        courseTitles.push(str_substr("title\":",",",versions).replace(/\"/g,""));
+                        courseDescription.push(str_substr("description\":\"",".",versions)+".......")
+                    }
+                }
+                if (courseCodes.length == 0) {
+                    tableData += "<th>" + "No such course" + "</th>" + "</tr>";
+                } else {
+                    for (i = 0; i < courseCodes.length + 1; i++) {
+                        for (let j = 0; j < 5; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "course code" + "</th>";
+                                } else if (j==1) {
+                                    tableData += "<th>" + "course units" + "</th>";
+                                }
+                                else if(j==2){
+                                    tableData += "<th>" + "course title" + "</th>";
+                                }
+                                else if(j==3){
+                                    tableData += "<th>" + "course description" + "</th>";
+                                }
+                                else if (j==4){
+                                    tableData += "<th>" + "Course Button" + "</th>";}
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + courseCodes[i - 1] + "</td>";
+                                } else if(j==1){
+                                    tableData += "<td>" + courseUnits[i - 1] + "</td>";
+                                }
+                                else if(j==2){
+                                    tableData += "<td>" + courseTitles[i-1] + "</td>";
+                                }
+                                else if(j==3){
+                                    tableData += "<td>" + courseDescription[i-1] + "</td>";
+                                }
+                                else if (j==4){
+                                    tableData += "<td>"+"<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"location.href='courseEdit'\">" + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
+            }
+        });
+    }
+    function saveCourseData(courseCode,courseVersion){
+        sessionStorage.setItem("courseCode",courseCode);
+        sessionStorage.setItem("courseVersion", courseVersion);
+        window.location.href = 'courseEdit';
+    }
+    function showDegree() {
+        let degree = document.getElementById("search").value;
+        let tableData = "<tr>";
+        const degreeCodes = [];
+        const degreeTitles = [];
+        $.ajax({
+            url: 'degree/all',
+            success: function (data) {
+                for (i in data.response) {
+                    if (data.response[i].title.toString().toLowerCase().indexOf(degree.toLowerCase()) != -1) {
+                        degreeTitles.push(data.response[i].title);
+                        degreeCodes.push(data.response[i].code);
+                    }
+                }
+                var degreecode;
+                var degreetitle;
+                if (degreeTitles.length == 0) {
+                    tableData += "<th>" + "No such degree" + "</th>" + "</tr>";
+                } else {
+                    for (let i = 0; i < degreeTitles.length + 1; i++) {
+                        for (let j = 0; j < 3; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "Degree Title" + "</th>";
+                                } else if (j == 1) {
+                                    tableData += "<th>" + "Degree Code" + "</th>";
+                                } else if (j == 2) {
+                                    tableData += "<th>" + "Degree Button" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + degreeTitles[i - 1] + "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td>" + degreeCodes[i - 1] + "</td>";
+                                } else if (j == 2) {
+                                    degreecode = degreeCodes[i - 1];
+                                    degreetitle = degreeTitles[i - 1];
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('"+degreecode+"','"+degreetitle+"')\",\"location.href='degreeEdit'\">" + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
+            }
+        });
+    }
+    function saveData(code, title){
+        sessionStorage.setItem("code",code);
+        sessionStorage.setItem("title",title);
+
+    }
+    function showMajors() {
+        let majors = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
+        let tableData = "<tr>";
+        let tempRequirement = "";
+        const majorsCodes = [];
+        const majorDescription = [];
+        const majorsRequirements = [];
+        const majorsTitle = [];
+        $.ajax({
+            url: 'search/majors',
+            data: {"query": majors, "level": level},
+            success: function (data) {
+                for (i in data.responses) {
+                    description=JSON.stringify(data.responses[i].versions["2019"].description);
+                    description=str_substr("\"",".",description);
+                    majorsCodes.push(data.responses[i].code);
+                    majorDescription.push(description+"......");
+                    tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements.x_from_here[0]);
+                    tempRequirement =replaceString(tempRequirement);
+                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
+                    majorsRequirements.push(tempRequirement);
+                    majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
+                }
+                if (majorsCodes.length == 0) {
+                    tableData += "<th>" + "No such major" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < majorsCodes.length + 1; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "Major Code" + "</th>";
+                                } else if (j == 1) {
+                                    tableData += "<th>" + "Major Title" + "</th>";
+                                } else if (j == 2) {
+                                    tableData += "<th>" + "Major Requrirement" + "</th>";
+                                } else if (j == 3) {
+                                    tableData += "<th>" + "Major Description" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + majorsCodes[i - 1] + "</td>";
+                                } else if (j == 3) {
+                                    tableData += "<td>" + majorDescription[i - 1] + "</td>";
+                                } else if (j == 2) {
+                                    tableData += "<td>" + majorsRequirements[i - 1] + "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td>" + majorsTitle[i - 1] + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
+            }
+        });
+    }
+
+    function showMinors() {
+        let minors = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
+        let tableData = "<tr>";
+        let tempRequirement = "";
+        const minorsCodes = [];
+        const minorDescription = [];
+        const minorsRequirements = [];
+        const minorsTitle = [];
+        $.ajax({
+            url: 'search/minors',
+            data: {"query": minors, "level": level},
+            success: function (data) {
+                for (i in data.responses) {
+                    minorsCodes.push(data.responses[i].code);
+                    description=JSON.stringify(data.responses[i].versions["2019"].description);
+                    description=str_substr("\"",".",description);
+                    minorDescription.push(description+"......");
+                    tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements);
+                    tempRequirement = replaceString(tempRequirement);
+                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
+                    minorsRequirements.push(tempRequirement);
+                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
+                }
+                if (minorsCodes.length == 0) {
+                    tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < minorsCodes.length + 1; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "minor Code" + "</th>";
+                                } else if (j == 1) {
+                                    tableData += "<th>" + "minor Title" + "</th>";
+                                } else if (j == 2) {
+                                    tableData += "<th>" + "minor Requrirement" + "</th>";
+                                } else if (j == 3) {
+                                    tableData += "<th>" + "minor Description" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + minorsCodes[i - 1] + "</td>";
+                                } else if (j == 3) {
+                                    tableData += "<td>" + minorDescription[i - 1] + "</td>";
+                                } else if (j == 2) {
+                                    tableData += "<td>" + minorsRequirements[i - 1] + "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td>" + minorsTitle[i - 1] + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
+            }
+        });
+    }
+
+    function showSpecs() {
+        let specs = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
+        let tableData = "<tr>";
+        let tempRequirement = "";
+        const specsCodes = [];
+        const specDescription = [];
+        const specsRequirements = [];
+        const specsTitle = [];
+        $.ajax({
+            url: 'search/specs',
+            data: {"query": specs, "level": level},
+            success: function (data) {
+                for (i in data.responses) {
+                    specsCodes.push(data.responses[i].code);
+                    description=JSON.stringify(data.responses[i].versions["2016"].description);
+                    description=str_substr("\"",".",description);
+                    specDescription.push(description+".......");
+                    tempRequirement = JSON.stringify(data.responses[i].versions["2016"].requirements);
+                    tempRequirement = replaceString(tempRequirement);
+                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
+                    specsRequirements.push(tempRequirement);
+                    specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title).replace(/\"/g,""));
+                }
+                if (specsCodes.length == 0) {
+                    tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < specsCodes.length + 1; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "spec Code" + "</th>";
+                                } else if (j == 1) {
+                                    tableData += "<th>" + "spec Title" + "</th>";
+                                } else if (j == 2) {
+                                    tableData += "<th>" + "spec Requrirement" + "</th>";
+                                } else if (j == 3) {
+                                    tableData += "<th>" + "spec Description" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + specsCodes[i - 1] + "</td>";
+                                } else if (j == 3) {
+                                    tableData += "<td>" + specDescription[i - 1] + "</td>";
+                                } else if (j == 2) {
+                                    tableData += "<td>" + specsRequirements[i - 1] + "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td>" + specsTitle[i - 1] + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
+            }
+        });
+    }
+
+    function replaceString(string) {
+        if (string == undefined) {
+            return "";
+        }
+        string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
+        string = string.replace(/\"courses\"/g, "");
+        string = string.replace(/\[:|\[|\]|\"/g, "");
+        string = string.replace(/,code/g, "<br>code");
+        //string=string.replace(/,"units":/g,"<br>\"units\":");
+        return string;
+    }
+
+</script>
+</body>
+</html>
