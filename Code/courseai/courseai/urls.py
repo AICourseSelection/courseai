@@ -31,10 +31,13 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'admin/', site.urls),
     path(r'feedback/', include('feedback.urls')),
     path(r'feedbackform', TemplateView.as_view(template_name='dynamic_pages/feedback.html'), name='feedbackform'),
-    path(r'staff_search', TemplateView.as_view(template_name='dynamic_pages/staff_search.html'), name='staff_search'),
-    path(r'test', TemplateView.as_view(template_name='dynamic_pages/test.html'), name='test'),
     path(r'staff_read', TemplateView.as_view(template_name='dynamic_pages/staff_read.html'), name='staff_read'),
     path(r'staffSearch', TemplateView.as_view(template_name='dynamic_pages/staffSearch.html'), name='staffSearch'),
     path(r'searchResult', TemplateView.as_view(template_name='dynamic_pages/searchResult.html'), name='searchResult'),
-    path(r'staff_staff', TemplateView.as_view(template_name='dynamic_pages/staff_staff.html'), name='staff_staff')
+    path(r'staff_staff', TemplateView.as_view(template_name='dynamic_pages/staff_staff.html'), name='staff_staff'),
+    path(r'degreeEdit', TemplateView.as_view(template_name='dynamic_pages/degreeEdit.html'), name='degreeEdit'),
+path(r'courseEdit', TemplateView.as_view(template_name='dynamic_pages/courseEdit.html'), name='courseEdit'),
+path(r'majorEdit', TemplateView.as_view(template_name='dynamic_pages/majorEdit.html'), name='majorEdit'),
+path(r'minorEdit', TemplateView.as_view(template_name='dynamic_pages/minorEdit.html'), name='minorEdit'),
+path(r'specEdit', TemplateView.as_view(template_name='dynamic_pages/specEdit.html'), name='specEdit')
     ]
