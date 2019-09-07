@@ -23,30 +23,24 @@
 {% include "dynamic_pages/navbar.html" %}
 <body>
 <br>
-Code:<input type="text" name="code" id="majorCode">
+Code:<input type="text" name="code" id="degreeCode">
 <br>
 <br>
-Title:<input type="text" name="title" id="majorTitle" >
+Title:<input type="text" name="title" id="degreeTitle" >
 <br>
-Year:<input type="text" name="year" id="majorYear" >
+Year:<input type="text" name="year" id="year" >
 <br>
-description:<input type="text" name="description" id="majorDescription" >
+description:<input type="text" name="description" id="description" >
 <br>
-requirements:<input type="text" name="requirement" id="majorRequirements" >
+requirements:<input type="text" name="requirement" id="requirements" >
 
 
 </body>
 <script>
-    function getParams(key) {
-            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) {
-                return unescape(r[2]);
-            }
-            return null;
-        };
-    document.getElementById("degreeCode").value=getParams("code");
-    document.getElementById("degreeTitle").value=getParams("title");
+   let code=sessionStorage.getItem("data1");
+    let version = sessionStorage.getItem("data2");
+    document.getElementById("majorCode").value=code;
+    document.getElementById("majorVersion").value=version;
 </script>
 
 {% include "dynamic_pages/footer.html" %}

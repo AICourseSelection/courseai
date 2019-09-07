@@ -55,7 +55,7 @@ def degree_plan(request):
         # no training
         # train_sample(Degree(code=code, requirements=courses))
         # for degree in degree_list:
-        #     print({"code": degree.code, "courses_taken": degree.courses_taken})
+        #print({"code": degree.code, "courses_taken": degree.courses_taken})
         return JsonResponse({"response": "Success"})
 
 
