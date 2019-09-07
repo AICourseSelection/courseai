@@ -125,10 +125,11 @@
             data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
             success: function (data) {
                 console.log(data);
-                for (var i = 0; i < data.response.length; i++) {
+                for (let i = 0; i < data.response.length; i++) {
                     if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
                         courseCodes.push(data.response[i].course_code);
                         versions = JSON.stringify(data.response[i].versions);
+                        courseVersions.push(versions.toString());
                         courseUnits.push(str_substr("units\":\"","\"",versions));
                         courseTitles.push(str_substr("title\":",",",versions).replace(/\"/g,""));
                         courseDescription.push(str_substr("description\":\"",".",versions)+".......")
@@ -137,8 +138,8 @@
                 if (courseCodes.length == 0) {
                     tableData += "<th>" + "No such course" + "</th>" + "</tr>";
                 } else {
-                    for (var i = 0; i < courseCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
+                    for (i = 0; i < courseCodes.length + 1; i++) {
+                        for (let j = 0; j < 5; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "course code" + "</th>";
@@ -151,6 +152,8 @@
                                 else if(j==3){
                                     tableData += "<th>" + "course description" + "</th>";
                                 }
+                                else if (j==4){
+                                    tableData += "<th>" + "Course Button" + "</th>";}
                             } else {
                                 if (j == 0) {
                                     tableData += "<td>" + courseCodes[i - 1] + "</td>";
@@ -163,6 +166,9 @@
                                 else if(j==3){
                                     tableData += "<td>" + courseDescription[i-1] + "</td>";
                                 }
+                                else if (j==4){
+                                    tableData += "<td>"+"<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"location.href='courseEdit'\">" + "</td>";
+                                }
                             }
                         }
                         tableData += "</tr>" + "<tr>";
@@ -172,43 +178,49 @@
             }
         });
     }
-
+    function saveCourseData(courseCode,courseVersion){
+        sessionStorage.setItem("courseCode",courseCode);
+        sessionStorage.setItem("courseVersion", courseVersion);
+        window.location.href = 'courseEdit';
+    }
     function showDegree() {
         let degree = document.getElementById("search").value;
         let tableData = "<tr>";
         const degreeCodes = [];
-        const degreeDicts = [];
+        const degreeTitles = [];
         $.ajax({
             url: 'degree/all',
             success: function (data) {
                 for (i in data.response) {
                     if (data.response[i].title.toString().toLowerCase().indexOf(degree.toLowerCase()) != -1) {
-                        degreeDicts.push(data.response[i].title);
+                        degreeTitles.push(data.response[i].title);
                         degreeCodes.push(data.response[i].code);
                     }
                 }
-                if (degreeDicts.length == 0) {
+                var degreecode;
+                var degreetitle;
+                if (degreeTitles.length == 0) {
                     tableData += "<th>" + "No such degree" + "</th>" + "</tr>";
                 } else {
-                    for (var i = 0; i < degreeDicts.length + 1; i++) {
-                        for (var j = 0; j < 2; j++) {
+                    for (let i = 0; i < degreeTitles.length + 1; i++) {
+                        for (let j = 0; j < 3; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "Degree Title" + "</th>";
-                                } else if(j==1){
+                                } else if (j == 1) {
                                     tableData += "<th>" + "Degree Code" + "</th>";
-                                }
-                                else if(j==2){
+                                } else if (j == 2) {
                                     tableData += "<th>" + "Degree Button" + "</th>";
                                 }
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + degreeDicts[i - 1] + "</td>";
-                                } else if (j==1){
+                                    tableData += "<td>" + degreeTitles[i - 1] + "</td>";
+                                } else if (j == 1) {
                                     tableData += "<td>" + degreeCodes[i - 1] + "</td>";
-                                }
-                                else if (j==2){
-                                    tableData += "<td>"+"<input type=\"button\" id=\"btn\" value=\"read more information\"/>" + "</td>";
+                                } else if (j == 2) {
+                                    degreecode = degreeCodes[i - 1];
+                                    degreetitle = degreeTitles[i - 1];
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('"+degreecode+"','"+degreetitle+"')\",\"location.href='degreeEdit'\">" + "</td>";
                                 }
                             }
                         }
@@ -219,7 +231,11 @@
             }
         });
     }
+    function saveData(code, title){
+        sessionStorage.setItem("code",code);
+        sessionStorage.setItem("title",title);
 
+    }
     function showMajors() {
         let majors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
