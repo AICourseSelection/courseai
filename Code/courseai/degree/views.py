@@ -33,6 +33,7 @@ def degree_plan(request):
             with open('static/json/study_options/{}.json'.format(code)) as f:
                 study_options_str = f.read()
                 study_options_dict = ast.literal_eval(study_options_str)
+                print(study_options_str)
             return JsonResponse({"response": study_options_dict[year]})
         except Exception:
             res = JsonResponse({"response": "Default options of the requested degree-year combination could not be found. "})

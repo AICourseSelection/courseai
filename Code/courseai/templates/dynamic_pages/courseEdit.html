@@ -29,7 +29,7 @@ Code:<input type="text" name="code" id="courseCode">
 Version:<input type="text" name="version" id="courseVersion" >
 <br>
 <br>
-Tittle:<input type="text" name="tittle" id="courseTittle">
+Tittle:<input type="text" name="tittle" id="courseTitle">
 <br>
 <br>
 Session:<input type="text" name="session" id="courseSession">
@@ -65,8 +65,11 @@ Areas of interest:<input type="text" name="areas_of_interest" id="areas_of_inter
 <script>
     let code=sessionStorage.getItem("data1");
     let version = sessionStorage.getItem("data2");
+    let jsonObject=JSON.parse(version);
+    console.log(jsonObject);
     document.getElementById("courseCode").value=code;
     document.getElementById("courseVersion").value=version;
+    document.getElementById("courseTitle").value=jsonObject["2014"].title;
 </script>
 
 {% include "dynamic_pages/footer.html" %}
