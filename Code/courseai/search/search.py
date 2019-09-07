@@ -216,4 +216,5 @@ def execute_search(es_conn, phrase, request, codes, levels, semesters_offered=No
     response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered, level=level)
 
     resp = {'query': phrase, 'response': response}
+    print("yes")
     return JsonResponse(resp)
