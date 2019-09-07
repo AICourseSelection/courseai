@@ -1,6 +1,6 @@
 import os
 import json
-rootpath = "D:\pycharm project\Code\courseai\static\json" #文件夹目录
+rootpath = "D:\pycharm project\Code\courseai\static\json" 
 
 def readJsonDir(rootpath):
     list = os.listdir(rootpath)
