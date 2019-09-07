@@ -29,10 +29,12 @@ Code:<input type="text" name="code" id="courseCode">
 Version:<input type="text" name="title" id="courseVersion" >
 </body>
 <script>
-    let code=sessionStorage.getItem("courseCode");
-    let version = sessionStorage.getItem("courseVersion");
-    document.getElementById("courseCode1").value=code;
-    document.getElementById("courseVersion1").value=version;
+    let code=sessionStorage.getItem("data1");
+    let version = sessionStorage.getItem("data2");
+    console.log(code);
+    console.log(version);
+    document.getElementById("courseCode").value=code;
+    document.getElementById("courseVersion").value=version;
 </script>
 
 {% include "dynamic_pages/footer.html" %}
