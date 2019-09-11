@@ -52,8 +52,24 @@
             </select>{% endcomment %}
 
             <div class="container">
-                <input type="text" id="search" name="search" class="typeahead form-control"
-                       placeholder="Search bar" autocomplete="off" data-toggle="popover">
+
+                <div class="form-inline row">
+                    <input type="text" id="search" name="search" class="typeahead form-control"
+                       placeholder="Search bar" autocomplete="off" data-toggle="popover" style="height: 40px; width:100px; flex-grow: 2">
+
+                    <!-- add a select label for year -->
+                    <label>Year is: </label>
+                     <select name="selectYear" id="selectYear"  data-size="5" style="height: 40px; width:50px; flex-grow: 1">
+						 <option value="2019">2019</option>
+                         <option value="2020">2020</option>
+                         <option value="2018">2018</option>
+						 <option value="2017">2017</option>
+						 <option value="2016">2016</option>
+						 <option value="2015">2015</option>
+						 <option value="2014">2014</option>
+					</select>
+                 </div>
+
                 <div>&nbsp</div>
                 <button onclick="showDegree()" class="btn btn-primary btn-lg">Show Degree</button>
                 <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
@@ -236,6 +252,7 @@
     function showMajors() {
         let majors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+        //let year= document.getElementById("selectedYear").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         majorCodes = [];
@@ -301,8 +318,10 @@
     }
 
     function showMinors() {
+
         let minors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+        //let year= document.getElementById("selectedYear").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         minorCodes = [];
@@ -316,6 +335,7 @@
             success: function (data) {
                 let i;
                 for (i in data.responses) {
+
                     minorVersions.push(JSON.stringify(data.responses[i].versions));
                     minorCodes.push(data.responses[i].code);
                     description=JSON.stringify(data.responses[i].versions["2019"].description);
@@ -371,6 +391,7 @@
     function showSpecs() {
         let specs = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+        //let year= document.getElementById("selectedYear").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         specCodes = [];
@@ -385,14 +406,14 @@
                 for (i in data.responses) {
                     specVersions.push(data.responses[i].version);
                     specCodes.push(data.responses[i].code);
-                    description=JSON.stringify(data.responses[i].versions["2019"].description);
+                    description=JSON.stringify(data.responses[i].versions["2016"].description);
                     description=str_substr("\"",".",description);
                     specDescription.push(description+".......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements);
+                    tempRequirement = JSON.stringify(data.responses[i].versions["2016"].requirements);
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     specRequirements.push(tempRequirement);
-                    specsTitle.push(JSON.stringify(data.responses[i].versions["2015"].title).replace(/\"/g,""));
+                    specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title).replace(/\"/g,""));
                 }
                 if (specCodes.length == 0) {
                     tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
@@ -468,6 +489,10 @@
         string = string.replace(/,code/g, "<br>code");
         //string=string.replace(/,"units":/g,"<br>\"units\":");
         return string;
+    }
+    function readSelectYear() {
+        let year = document.getElementById("selectedYear").value;
+        return year;
     }
 
 </script>
