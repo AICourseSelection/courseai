@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/staffcss.css' %}">
+</head>
+<body>
+<!-- Top Bar -->
+{#{% include 'partials/_topbar_staff.html' %}#}
+<!-- Nav Bar -->
+{% include 'staff_pages/partials/_navbar_staff.html' %}
+<!-- Side Bar -->
+
+<!-- Bootstrap row -->
+{#https://www.codeply.com/go/7XYosZ7VH5#}
+<div class="row" id="body-row">
+    <!-- Sidebar -->
+    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block col-2">
+        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+        <!-- Bootstrap List Group -->
+        <ul class="list-group sticky-top sticky-offset">
+            <!-- Separator with title -->
+            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed text-center">
+                <medium>MAIN MENU</medium>
+            </li>
+            <!-- /END Separator -->
+            <!-- Menu with submenu -->
+            <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Degree</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id="submenu1" class="collapse sidebar-submenu">
+                <a href="degree" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Query/Edit</span>
+                </a>
+                <a href="degree_add" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Add</span>
+                </a>
+            </div>
+            <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Course</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id="submenu2" class="collapse sidebar-submenu">
+                <a href="course" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Query/Edit</span>
+                </a>
+                <a href="course_add" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Add</span>
+                </a>
+            </div>
+            <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Major, Minor, Specialisation</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id="submenu3" class="collapse sidebar-submenu">
+                <a href="mms" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Query/Edit</span>
+                </a>
+                <a href="mms_add" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Add</span>
+                </a>
+            </div>
+            <!-- Logo -->
+            <li class="list-group-item logo-separator d-flex justify-content-center">
+                <img src="{% static 'img/logo.png' %}" width="75" height="75">
+            </li>
+        </ul>
+        <!-- List Group END-->
+    </div>
+    <!-- sidebar-container END -->
+
+    <!-- MAIN -->
+    <div class="col py-3">
+
+       {% block content %} {% endblock %}
+
+    </div>
+    <!-- Main Col END -->
+
+</div>
+<!-- body-row END -->
+
+
+
+<!-- Footer -->
+{% include 'staff_pages/partials/_footer_staff.html' %}
+
+{#<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="{% static 'js/staffjs.js' %}"></script>
+</body>
+</html>

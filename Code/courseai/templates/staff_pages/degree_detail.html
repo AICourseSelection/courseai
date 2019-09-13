@@ -1,0 +1,136 @@
+
+{% extends 'staff_pages/staff_base.html' %}
+{% block content %}
+    <script type="javascript">
+        $("textarea#spec").val().replace("<br>", "&#10;");
+    </script>
+<form id="forms"></form>
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 90%"><h1 class="text-center">{{ d_name }} ({{ d_year }})</h1></td>
+                <td><button id="btnEdit">Edit</button> <button>Delete</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="container h-100">
+    <table class="table table-striped">
+        <tr>
+            <td style="text-align: right; width: 20%">Code:</td>
+            <td style="text-align: left">{{ d_code }}</td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Year:</td>
+            <td style="text-align: left">{{ d_year }}</td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Name:</td>
+           <td style="text-align: left">
+               <textarea class="form-control" rows="1" id="name" disabled="disabled">{{ d_name }}</textarea>
+           </td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Compulsory Courses:</td>
+            <td style="text-align: left">
+                <textarea class="form-control" rows="{{ comp_row }}" id="comp" disabled="disabled">{{ d_comp | join:"&#10;"}}</textarea>
+            </td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Specialisation:</td>
+            <td style="text-align: left">
+                <textarea class="form-control" rows="{{ spec_row }}" id="spec" disabled="disabled">{{d_spec | join:"&#10;"}}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Study Plan:</td>
+            <td style="text-align: left">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 10%">Year 1</td>
+                        <td><textarea class="form-control" rows="1" id="a1" disabled="disabled">{{ plan1.course1 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="b1" disabled="disabled">{{ plan1.course2 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="c1" disabled="disabled">{{ plan1.course3 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="d1" disabled="disabled">{{ plan1.course4 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><textarea class="form-control" rows="1" id="e1" disabled="disabled">{{ plan1.course5 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="f1" disabled="disabled">{{ plan1.course6 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="g1" disabled="disabled">{{ plan1.course7 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="h1" disabled="disabled">{{ plan1.course8 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Year 2</td>
+                        <td><textarea class="form-control" rows="1" id="i1" disabled="disabled">{{ plan1.course9 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="j1" disabled="disabled">{{ plan1.course10 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="k1" disabled="disabled">{{ plan1.course11 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="l1" disabled="disabled">{{ plan1.course12 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><textarea class="form-control" rows="1" id="m1" disabled="disabled">{{ plan1.course13 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="n1" disabled="disabled">{{ plan1.course14 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="o1" disabled="disabled">{{ plan1.course15 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="p1" disabled="disabled">{{ plan1.course16 }}</textarea></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!--<tr>
+            <td style="text-align: right; width: 20%">Study Plan (Start Sem. 2):</td>
+            <td style="text-align: left">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 10%">Year 1</td>
+                        <td><textarea class="form-control" rows="1" id="a2" disabled="disabled">{{ plan2.course1 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="b2" disabled="disabled">{{ plan2.course2 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="c2" disabled="disabled">{{ plan2.course3 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="d2" disabled="disabled">{{ plan2.course4 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><textarea class="form-control" rows="1" id="e2" disabled="disabled">{{ plan2.course5 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="f2" disabled="disabled">{{ plan2.course6 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="g2" disabled="disabled">{{ plan2.course7 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="h2" disabled="disabled">{{ plan2.course8 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Year 2</td>
+                        <td><textarea class="form-control" rows="1" id="i2" disabled="disabled">{{ plan2.course9 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="j2" disabled="disabled">{{ plan2.course10 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="k2" disabled="disabled">{{ plan2.course11 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="l2" disabled="disabled">{{ plan2.course12 }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><textarea class="form-control" rows="1" id="m2" disabled="disabled">{{ plan2.course13 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="n2" disabled="disabled">{{ plan2.course14 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="o2" disabled="disabled">{{ plan2.course15 }}</textarea></td>
+                        <td><textarea class="form-control" rows="1" id="p2" disabled="disabled">{{ plan2.course16 }}</textarea></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>-->
+    </table>
+
+    </div>
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnEdit').click(function () {
+                if ($("#btnEdit").html() == 'Edit') {
+                    $("#name").prop("disabled", false);
+                    $("#btnEdit").html('Save');
+                }
+                else {
+                    $("#name").prop("disabled", true);
+                    $("#btnEdit").html('Edit');
+                }
+            });
+        });
+
+    </script>
+
+{% endblock %}

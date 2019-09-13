@@ -23,8 +23,15 @@
     .topcorner {
         position: absolute;
         top: 70px;
+
         right: 0;
     }
+    .title_box{
+width: 60%;
+overflow: hidden;
+        left:50px;
+display: flex;
+}
 </style>
 {% include "dynamic_pages/navbar.html" %}
 <body>
@@ -49,10 +56,10 @@ Year:<input type="text" name="year" id="majorYear">
 Title:<input type="text" name="title" id="majorTitle">
 <br>
 <br>
-description:<input type="text" name="description" id="majorDescription">
+Description:<textarea rows="10" cols="30" name="description" id="majorDescription" class="title_box"></textarea>
 <br>
 <br>
-requirements:<input type="text" name="requirement" id="majorRequirements">
+Requirements:<textarea rows="10" cols="30" type="text" name="requirement" id="majorRequirements" class="title_box"></textarea>
 </body>
 <script>
     let year = document.getElementById("year").value;
