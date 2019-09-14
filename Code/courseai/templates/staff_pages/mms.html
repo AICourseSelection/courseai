@@ -143,14 +143,14 @@
                     }
                     else{
                     minorsCodes.push(data.responses[i].code);
-                    description=JSON.stringify(data.responses[i].versions["2019"].description);
+                    description=JSON.stringify(data.responses[i].versions[year].description);
                     description=str_substr("\"",".",description);
                     minorDescription.push(description+"......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements);
+                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements);
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     minorsRequirements.push(tempRequirement);
-                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));}
+                    minorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));}
                 }
                 if (minorsCodes.length == 0) {
                     tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
@@ -210,14 +210,14 @@
                     }
                     else{
                     specsCodes.push(data.responses[i].code);
-                    description=JSON.stringify(data.responses[i].versions["2016"].description);
+                    description=JSON.stringify(data.responses[i].versions[year].description);
                     description=str_substr("\"",".",description);
                     specDescription.push(description+".......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions["2016"].requirements);
+                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements);
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     specsRequirements.push(tempRequirement);
-                    specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title).replace(/\"/g,""));
+                    specsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
                     }
                 }
                 if (specsCodes.length == 0) {
