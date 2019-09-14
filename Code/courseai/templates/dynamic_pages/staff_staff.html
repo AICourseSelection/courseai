@@ -52,8 +52,24 @@
             </select>{% endcomment %}
 
             <div class="container">
-                <input type="text" id="search" name="search" class="typeahead form-control"
-                       placeholder="Search bar" autocomplete="off" data-toggle="popover">
+
+                <div class="form-inline row">
+                    <input type="text" id="search" name="search" class="typeahead form-control"
+                       placeholder="Search bar" autocomplete="off" data-toggle="popover" style="height: 40px; width:100px; flex-grow: 2">
+
+                    <!-- add a select label for year -->
+                    <label>Year is: </label>
+                     <select name="selectYear" id="selectYear"  data-size="5" style="height: 40px; width:50px; flex-grow: 1">
+						 <option value="2019">2019</option>
+                         <option value="2020">2020</option>
+                         <option value="2018">2018</option>
+						 <option value="2017">2017</option>
+						 <option value="2016">2016</option>
+						 <option value="2015">2015</option>
+						 <option value="2014">2014</option>
+					</select>
+                 </div>
+
                 <div>&nbsp</div>
                 <button onclick="showDegree()" class="btn btn-primary btn-lg">Show Degree</button>
                 <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
@@ -90,6 +106,16 @@
 <script>
     var level="undergraduate";
     var description="";
+    var courseCodes;
+    var courseVersions;
+    var degreeCodes;
+    var degreeTitles;
+    var majorCodes;
+    var majorVersions;
+    var minorCodes;
+    var minorVersions;
+    var specCodes;
+    var specVersions;
     function str_substr(start, end, str) {
        try{
             temp = str.split(start, 2);
@@ -114,8 +140,8 @@
         let courses = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
         let tableData = "<tr>";
-        const courseCodes = [];
-        const courseVersions = [];
+        courseCodes = [];
+        courseVersions = [];
         const courseUnits = [];
         const courseTitles = [];
         const courseDescription = [];
@@ -124,7 +150,6 @@
             url: 'search/coursesearch/',
             data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
             success: function (data) {
-                console.log(data);
                 for (let i = 0; i < data.response.length; i++) {
                     if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
                         courseCodes.push(data.response[i].course_code);
@@ -153,7 +178,7 @@
                                     tableData += "<th>" + "course description" + "</th>";
                                 }
                                 else if (j==4){
-                                    tableData += "<th>" + "Course Button" + "</th>";}
+                                    tableData += "<th>" + "Edit Button" + "</th>";}
                             } else {
                                 if (j == 0) {
                                     tableData += "<td>" + courseCodes[i - 1] + "</td>";
@@ -167,7 +192,7 @@
                                     tableData += "<td>" + courseDescription[i-1] + "</td>";
                                 }
                                 else if (j==4){
-                                    tableData += "<td>"+"<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"location.href='courseEdit'\">" + "</td>";
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('course','"+(i-1)+"');location.href='courseEdit'\">" + "</td>";
                                 }
                             }
                         }
@@ -178,16 +203,12 @@
             }
         });
     }
-    function saveCourseData(courseCode,courseVersion){
-        sessionStorage.setItem("courseCode",courseCode);
-        sessionStorage.setItem("courseVersion", courseVersion);
-        window.location.href = 'courseEdit';
-    }
+
     function showDegree() {
         let degree = document.getElementById("search").value;
         let tableData = "<tr>";
-        const degreeCodes = [];
-        const degreeTitles = [];
+        degreeCodes = [];
+        degreeTitles = [];
         $.ajax({
             url: 'degree/all',
             success: function (data) {
@@ -197,8 +218,6 @@
                         degreeCodes.push(data.response[i].code);
                     }
                 }
-                var degreecode;
-                var degreetitle;
                 if (degreeTitles.length == 0) {
                     tableData += "<th>" + "No such degree" + "</th>" + "</tr>";
                 } else {
@@ -210,7 +229,7 @@
                                 } else if (j == 1) {
                                     tableData += "<th>" + "Degree Code" + "</th>";
                                 } else if (j == 2) {
-                                    tableData += "<th>" + "Degree Button" + "</th>";
+                                    tableData += "<th>" + "Edit Button" + "</th>";
                                 }
                             } else {
                                 if (j == 0) {
@@ -218,9 +237,7 @@
                                 } else if (j == 1) {
                                     tableData += "<td>" + degreeCodes[i - 1] + "</td>";
                                 } else if (j == 2) {
-                                    degreecode = degreeCodes[i - 1];
-                                    degreetitle = degreeTitles[i - 1];
-                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('"+degreecode+"','"+degreetitle+"')\",\"location.href='degreeEdit'\">" + "</td>";
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('degree','"+(i-1)+"');location.href='degreeEdit'\">" + "</td>";
                                 }
                             }
                         }
@@ -231,40 +248,39 @@
             }
         });
     }
-    function saveData(code, title){
-        sessionStorage.setItem("code",code);
-        sessionStorage.setItem("title",title);
 
-    }
     function showMajors() {
         let majors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+        //let year= document.getElementById("selectedYear").value;
         let tableData = "<tr>";
         let tempRequirement = "";
-        const majorsCodes = [];
+        majorCodes = [];
+        majorVersions=[];
         const majorDescription = [];
-        const majorsRequirements = [];
-        const majorsTitle = [];
+        const majorRequirements = [];
+        const majorTitle = [];
         $.ajax({
             url: 'search/majors',
             data: {"query": majors, "level": level},
             success: function (data) {
                 for (i in data.responses) {
+                    majorVersions.push(JSON.stringify(data.responses[i].versions));
                     description=JSON.stringify(data.responses[i].versions["2019"].description);
                     description=str_substr("\"",".",description);
-                    majorsCodes.push(data.responses[i].code);
+                    majorCodes.push(data.responses[i].code);
                     majorDescription.push(description+"......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements.x_from_here[0]);
                     tempRequirement =replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
-                    majorsRequirements.push(tempRequirement);
-                    majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
+                    majorRequirements.push(tempRequirement);
+                    majorTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
                 }
-                if (majorsCodes.length == 0) {
+                if (majorCodes.length == 0) {
                     tableData += "<th>" + "No such major" + "</th>" + "</tr>";
                 } else {
-                    for (var i = 0; i < majorsCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
+                    for (var i = 0; i < majorCodes.length + 1; i++) {
+                        for (var j = 0; j < 5; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "Major Code" + "</th>";
@@ -275,15 +291,21 @@
                                 } else if (j == 3) {
                                     tableData += "<th>" + "Major Description" + "</th>";
                                 }
+                                else if(j==4){
+                                    tableData += "<th>" + "Edit button" + "</th>";
+                                }
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + majorsCodes[i - 1] + "</td>";
+                                    tableData += "<td>" + majorCodes[i - 1] + "</td>";
                                 } else if (j == 3) {
                                     tableData += "<td>" + majorDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + majorsRequirements[i - 1] + "</td>";
+                                    tableData += "<td>" + majorRequirements[i - 1] + "</td>";
                                 } else if (j == 1) {
-                                    tableData += "<td>" + majorsTitle[i - 1] + "</td>";
+                                    tableData += "<td>" + majorTitle[i - 1] + "</td>";
+                                }
+                                else if (j==4){
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('major','"+(i-1)+"');location.href='majorEdit'\">" + "</td>";
                                 }
                             }
                         }
@@ -296,34 +318,40 @@
     }
 
     function showMinors() {
+
         let minors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+        //let year= document.getElementById("selectedYear").value;
         let tableData = "<tr>";
         let tempRequirement = "";
-        const minorsCodes = [];
+        minorCodes = [];
+        minorVersions=[];
         const minorDescription = [];
-        const minorsRequirements = [];
-        const minorsTitle = [];
+        const minorRequirements = [];
+        const minorTitle = [];
         $.ajax({
             url: 'search/minors',
             data: {"query": minors, "level": level},
             success: function (data) {
+                let i;
                 for (i in data.responses) {
-                    minorsCodes.push(data.responses[i].code);
+
+                    minorVersions.push(JSON.stringify(data.responses[i].versions));
+                    minorCodes.push(data.responses[i].code);
                     description=JSON.stringify(data.responses[i].versions["2019"].description);
                     description=str_substr("\"",".",description);
                     minorDescription.push(description+"......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements);
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
-                    minorsRequirements.push(tempRequirement);
-                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
+                    minorRequirements.push(tempRequirement);
+                    minorTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
                 }
-                if (minorsCodes.length == 0) {
+                if (minorCodes.length == 0) {
                     tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
                 } else {
-                    for (var i = 0; i < minorsCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
+                    for (i = 0; i < minorCodes.length + 1; i++) {
+                        for (let j = 0; j < 5; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "minor Code" + "</th>";
@@ -334,15 +362,21 @@
                                 } else if (j == 3) {
                                     tableData += "<th>" + "minor Description" + "</th>";
                                 }
+                                else if (j == 4) {
+                                    tableData += "<th>" + "Edit button" + "</th>";
+                                }
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + minorsCodes[i - 1] + "</td>";
+                                    tableData += "<td>" + minorCodes[i - 1] + "</td>";
                                 } else if (j == 3) {
                                     tableData += "<td>" + minorDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + minorsRequirements[i - 1] + "</td>";
+                                    tableData += "<td>" + minorRequirements[i - 1] + "</td>";
                                 } else if (j == 1) {
-                                    tableData += "<td>" + minorsTitle[i - 1] + "</td>";
+                                    tableData += "<td>" + minorTitle[i - 1] + "</td>";
+                                }
+                                 else if (j==4){
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('minor','"+(i-1)+"');location.href='majorEdit'\">" + "</td>";
                                 }
                             }
                         }
@@ -357,32 +391,35 @@
     function showSpecs() {
         let specs = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+        //let year= document.getElementById("selectedYear").value;
         let tableData = "<tr>";
         let tempRequirement = "";
-        const specsCodes = [];
+        specCodes = [];
+        specVersions=[];
         const specDescription = [];
-        const specsRequirements = [];
+        const specRequirements = [];
         const specsTitle = [];
         $.ajax({
             url: 'search/specs',
             data: {"query": specs, "level": level},
             success: function (data) {
                 for (i in data.responses) {
-                    specsCodes.push(data.responses[i].code);
+                    specVersions.push(data.responses[i].version);
+                    specCodes.push(data.responses[i].code);
                     description=JSON.stringify(data.responses[i].versions["2016"].description);
                     description=str_substr("\"",".",description);
                     specDescription.push(description+".......");
                     tempRequirement = JSON.stringify(data.responses[i].versions["2016"].requirements);
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
-                    specsRequirements.push(tempRequirement);
+                    specRequirements.push(tempRequirement);
                     specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title).replace(/\"/g,""));
                 }
-                if (specsCodes.length == 0) {
+                if (specCodes.length == 0) {
                     tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
                 } else {
-                    for (var i = 0; i < specsCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
+                    for (var i = 0; i < specCodes.length + 1; i++) {
+                        for (var j = 0; j < 5; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "spec Code" + "</th>";
@@ -393,15 +430,21 @@
                                 } else if (j == 3) {
                                     tableData += "<th>" + "spec Description" + "</th>";
                                 }
+                                else if (j == 4) {
+                                    tableData += "<th>" + "Edit button" + "</th>";
+                                }
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + specsCodes[i - 1] + "</td>";
+                                    tableData += "<td>" + specCodes[i - 1] + "</td>";
                                 } else if (j == 3) {
                                     tableData += "<td>" + specDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + specsRequirements[i - 1] + "</td>";
+                                    tableData += "<td>" + specRequirements[i - 1] + "</td>";
                                 } else if (j == 1) {
                                     tableData += "<td>" + specsTitle[i - 1] + "</td>";
+                                }
+                                 else if (j==4){
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('spec','"+(i-1)+"');location.href='majorEdit'\">" + "</td>";
                                 }
                             }
                         }
@@ -413,6 +456,29 @@
         });
     }
 
+    function saveData(str, i){
+        console.log(str);
+        if (str=="course"){
+            sessionStorage.setItem("data1",courseCodes[i]);
+            sessionStorage.setItem("data2",courseVersions[i]);
+        }
+        else if (str=="degree"){
+            sessionStorage.setItem("data1",degreeCodes[i]);
+            sessionStorage.setItem("data2",degreeTitles[i]);
+        }
+        else if(str=="major"){
+             sessionStorage.setItem("data1",majorCodes[i]);
+            sessionStorage.setItem("data2",majorVersions[i]);
+        }
+        else if(str=="minor"){
+            sessionStorage.setItem("data1",minorCodes[i]);
+            sessionStorage.setItem("data2",minorVersions[i]);
+        }
+        else if(str=="spec"){
+            sessionStorage.setItem("data1",specCodes[i]);
+            sessionStorage.setItem("data2",specVersions[i]);
+        }
+    }
     function replaceString(string) {
         if (string == undefined) {
             return "";
@@ -423,6 +489,10 @@
         string = string.replace(/,code/g, "<br>code");
         //string=string.replace(/,"units":/g,"<br>\"units\":");
         return string;
+    }
+    function readSelectYear() {
+        let year = document.getElementById("selectedYear").value;
+        return year;
     }
 
 </script>

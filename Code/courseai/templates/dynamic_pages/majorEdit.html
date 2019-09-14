@@ -13,32 +13,97 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/fontawesome.css"
           integrity="sha384-rnr8fdrJ6oj4zli02To2U/e6t1qG8dvJ8yNZZPsKHcU7wFK3MGilejY5R/cUc5kf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
-          integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous"/
+          integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous"
+    /
     {% stylesheet 'main' %}
     <title>staffSearch</title>
 </head>
 
+<style type="text/css">
+    .topcorner {
+        position: absolute;
+        top: 70px;
 
-
+        right: 0;
+    }
+    .title_box{
+width: 60%;
+overflow: hidden;
+        left:50px;
+display: flex;
+}
+</style>
 {% include "dynamic_pages/navbar.html" %}
 <body>
+<select id="year" class="topcorner" onchange="resetAll()">
+    <option value="2014" selected="selected">2014</option>
+    <option value="2015">2015</option>
+    <option value="2016">2016</option>
+    <option value="2017">2017</option>
+    <option value="2018">2018</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+</select>
 <br>
-Code:<input type="text" name="code" id="degreeCode">
+<br>
+Code:<input type="text" class="type-active" name="code" id="majorCode">
+<span id="dis"></span>
 <br>
 <br>
-Title:<input type="text" name="title" id="degreeTitle" >
+Year:<input type="text" name="year" id="majorYear">
+<br>
+<br>
+Title:<input type="text" name="title" id="majorTitle">
+<br>
+<br>
+Description:<textarea rows="10" cols="30" name="description" id="majorDescription" class="title_box"></textarea>
+<br>
+<br>
+Requirements:<textarea rows="10" cols="30" type="text" name="requirement" id="majorRequirements" class="title_box"></textarea>
 </body>
 <script>
-    function getParams(key) {
-            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) {
-                return unescape(r[2]);
+    let year = document.getElementById("year").value;
+    let code = sessionStorage.getItem("data1");
+    let version = sessionStorage.getItem("data2");
+    let jsonObject = JSON.parse(version);
+    var majorRequ = "";
+    console.log(year);
+    console.log(jsonObject);
+    document.getElementById("majorCode").value = code;
+    document.getElementById("majorYear").value = year;
+    document.getElementById("majorDescription").value = jsonObject[year].description;
+    document.getElementById("majorTitle").value = jsonObject[year].title;
+    for (let i in jsonObject[year].requirements.x_from_here) {
+        majorRequ = majorRequ + "Units:" + jsonObject[year].requirements.x_from_here[i].units + "\n" + "  Courses:";
+        for (let j in jsonObject[year].requirements.x_from_here[i].courses) {
+            majorRequ = majorRequ + jsonObject[year].requirements.x_from_here[i].courses[j][0].code + ",";
+        }
+        majorRequ = majorRequ + "\n";
+    }
+    document.getElementById("majorRequirements").value = majorRequ;
+    function resetAll() {
+        year = document.getElementById("year").value;
+        document.getElementById("majorYear").value = year;
+        if (jsonObject[year] == undefined) {
+            document.getElementById("majorDescription").value = "";
+            document.getElementById("majorTitle").value = "";
+            document.getElementById("majorRequirements").value = "";
+        } else {
+            majorRequ="";
+            document.getElementById("majorDescription").value = jsonObject[year].description;
+            document.getElementById("majorTitle").value = jsonObject[year].title;
+            for (let i in jsonObject[year].requirements.x_from_here) {
+                majorRequ = majorRequ + "Units:" + jsonObject[year].requirements.x_from_here[i].units + "\n" + "  Courses:";
+                for (let j in jsonObject[year].requirements.x_from_here[i].courses) {
+                    majorRequ = majorRequ + jsonObject[year].requirements.x_from_here[i].courses[j][0].code + ",";
+                }
+                majorRequ = majorRequ + "\n";
             }
-            return null;
-        };
-    document.getElementById("degreeCode").value=getParams("code");
-    document.getElementById("degreeTitle").value=getParams("title");
+            console.log(majorRequ);
+            document.getElementById("majorRequirements").value = majorRequ;
+        }
+    }
+
 </script>
 
 {% include "dynamic_pages/footer.html" %}

@@ -1,7 +1,10 @@
 from django.shortcuts import render
+import json
 from django.http import HttpResponse, JsonResponse
+import sys
+import degree.views as degree
+from degree import degree_plan_helper
 import pandas as pd
-
 
 # Create your views here.
 def index(request):
@@ -31,16 +34,14 @@ def degree(request):
 def degree_detail(request):
     code = request.GET.get('code')
     year = request.GET.get('year')
-    d_name = get_degree(code, year)
+    d_name = request.GET.get('title')
     d_year = year
-    d_comp = "comp"
     plan1 = get_plan1()
-    plan2 = get_plan2()
 
-    specs = get_spec()
+    specs = get_spec(request)
     spec_row = len(specs)
 
-    comps = get_comp()
+    comps = get_comp(request)
     comp_row = len(comps)
 
     context = {
@@ -50,22 +51,25 @@ def degree_detail(request):
         'comps': comps,
         'specs': specs,
         'plan1': plan1,
-        'plan2': plan2,
         'spec_row': spec_row,
         'comp_row': comp_row,
     }
     return render(request, 'staff_pages/degree_detail.html', context=context)
 
 
-def get_comp():
-    comps = ["COMP6710 - Structured Programming", "COMP6250 - Prof Prac 1",
-             "COMP6442 - Software Construction", "COMP8110 - Sftwre Proj in Systems Context", "COMP8260 - Prof Prac 2"]
+def get_comp(request):
+    code = request.GET.get('code')
+    response = degree_plan_helper.get_degree_requirements(code)
+    complusoryCourse=json.loads(response)
+    comps =complusoryCourse['required']['compulsory_courses']
     return comps
 
 
-def get_spec():
-    specs = ["ARTIF-SPEC - Artificial Intelligence", "MCHL-SPEC - Machine Learning",
-             "DTSC-SPEC - Data Science", "HCSD-SPEC - Human Centred Design and Software Development"]
+def get_spec(request):
+    code = request.GET.get('code')
+    response = degree_plan_helper.get_degree_requirements(code)
+    complusoryCourse = json.loads(response)
+    specs = complusoryCourse['required']['required_m/m/s']
     return specs
 
 
@@ -94,34 +98,9 @@ class Plan1:
         self.course16 = "COMP-P"
 
 
-def get_plan2():
-    return Plan2()
 
 
-class Plan2:
-    def __init__(self):
-        self.str = "Plan2"
-        self.course1 = "COMP-A"
-        self.course2 = "COMP-B"
-        self.course3 = "COMP-C"
-        self.course4 = "COMP-D"
-        self.course5 = "COMP-E"
-        self.course6 = "COMP-F"
-        self.course7 = "COMP-G"
-        self.course8 = "COMP-H"
-        self.course9 = "COMP-I"
-        self.course10 = "COMP-J"
-        self.course11 = "COMP-K"
-        self.course12 = "COMP-L"
-        self.course13 = "COMP-M"
-        self.course14 = "COMP-N"
-        self.course15 = "COMP-O"
-        self.course16 = "COMP-P"
 
-
-def get_degree(code, year):
-    name = "Master Of Computing"
-    return name
 
 
 def degree_add(request):
