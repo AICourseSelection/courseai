@@ -37,18 +37,18 @@ def degree_detail(request):
     plan1 = get_plan1()
     plan2 = get_plan2()
 
-    d_spec = get_spec()
-    spec_row = len(d_spec)
+    specs = get_spec()
+    spec_row = len(specs)
 
-    d_comp = get_comp()
-    comp_row = len(d_comp)
+    comps = get_comp(code)
+    comp_row = len(comps)
 
     context = {
         'd_code': code,
         'd_name': d_name,
         'd_year': d_year,
-        'd_comp': d_comp,
-        'd_spec': d_spec,
+        'comps': comps,
+        'specs': specs,
         'plan1': plan1,
         'plan2': plan2,
         'spec_row': spec_row,
@@ -57,7 +57,8 @@ def degree_detail(request):
     return render(request, 'staff_pages/degree_detail.html', context=context)
 
 
-def get_comp():
+def get_comp(code):
+
     comps = ["COMP6710 - Structured Programming", "COMP6250 - Prof Prac 1",
              "COMP6442 - Software Construction", "COMP8110 - Sftwre Proj in Systems Context", "COMP8260 - Prof Prac 2"]
     return comps
