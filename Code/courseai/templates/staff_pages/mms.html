@@ -54,6 +54,7 @@
      function showMajors() {
         let majors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+         let year =document.getElementById("year").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         const majorsCodes = [];
@@ -65,15 +66,23 @@
             data: {"query": majors, "level": level},
             success: function (data) {
                 for (i in data.responses) {
-                    description=JSON.stringify(data.responses[i].versions["2019"].description);
+                    if (data.responses[i].versions[year]==undefined){
+                        majorsCodes.push("");
+                        majorDescription.push("");
+                        majorsTitle.push("");
+                        majorsRequirements.push("");
+                    }
+                    else{
+                    description=JSON.stringify(data.responses[i].versions[year].description);
                     description=str_substr("\"",".",description);
                     majorsCodes.push(data.responses[i].code);
                     majorDescription.push(description+"......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions["2019"].requirements.x_from_here[0]);
+                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements.x_from_here[0]);
                     tempRequirement =replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     majorsRequirements.push(tempRequirement);
-                    majorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
+                    majorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
+                    }
                 }
                 if (majorsCodes.length == 0) {
                     tableData += "<th>" + "No such major" + "</th>" + "</tr>";
