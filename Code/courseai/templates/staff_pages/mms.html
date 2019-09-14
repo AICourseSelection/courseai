@@ -122,6 +122,7 @@
     function showMinors() {
         let minors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
+        let year= document.getElementById("year").value;
         let tableData = "<tr>";
         let tempRequirement = "";
         const minorsCodes = [];
@@ -133,6 +134,14 @@
             data: {"query": minors, "level": level},
             success: function (data) {
                 for (i in data.responses) {
+
+                    if (data.responses[i].versions[year]==undefined){
+                        minorDescription.push("");
+                        minorsCodes.push("");
+                        minorsRequirements.push("");
+                        minorsTitle.push("");
+                    }
+                    else{
                     minorsCodes.push(data.responses[i].code);
                     description=JSON.stringify(data.responses[i].versions["2019"].description);
                     description=str_substr("\"",".",description);
@@ -141,7 +150,7 @@
                     tempRequirement = replaceString(tempRequirement);
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     minorsRequirements.push(tempRequirement);
-                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));
+                    minorsTitle.push(JSON.stringify(data.responses[i].versions["2019"].title).replace(/\"/g,""));}
                 }
                 if (minorsCodes.length == 0) {
                     tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
@@ -180,6 +189,7 @@
 
     function showSpecs() {
         let specs = document.getElementById("search").value;
+          let year= document.getElementById("year").value;
         //let level = document.getElementById("level").value;
         let tableData = "<tr>";
         let tempRequirement = "";
@@ -192,6 +202,13 @@
             data: {"query": specs, "level": level},
             success: function (data) {
                 for (i in data.responses) {
+                     if (data.responses[i].versions[year]==undefined){
+                        specDescription.push("");
+                        specsCodes.push("");
+                        specsRequirements.push("");
+                        specsTitle.push("");
+                    }
+                    else{
                     specsCodes.push(data.responses[i].code);
                     description=JSON.stringify(data.responses[i].versions["2016"].description);
                     description=str_substr("\"",".",description);
@@ -201,6 +218,7 @@
                     tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
                     specsRequirements.push(tempRequirement);
                     specsTitle.push(JSON.stringify(data.responses[i].versions["2016"].title).replace(/\"/g,""));
+                    }
                 }
                 if (specsCodes.length == 0) {
                     tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
