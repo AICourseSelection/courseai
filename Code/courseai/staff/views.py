@@ -37,18 +37,18 @@ def degree_detail(request):
     plan1 = get_plan1()
     plan2 = get_plan2()
 
-    d_spec = get_spec()
-    spec_row = len(d_spec)
+    specs = get_spec()
+    spec_row = len(specs)
 
-    d_comp = get_comp()
-    comp_row = len(d_comp)
+    comps = get_comp()
+    comp_row = len(comps)
 
     context = {
         'd_code': code,
         'd_name': d_name,
         'd_year': d_year,
-        'd_comp': d_comp,
-        'd_spec': d_spec,
+        'comps': comps,
+        'specs': specs,
         'plan1': plan1,
         'plan2': plan2,
         'spec_row': spec_row,
