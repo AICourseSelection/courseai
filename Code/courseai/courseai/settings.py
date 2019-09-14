@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 INSTALLED_APPS = [
+    'staff.apps.StaffConfig',
     'pipeline',
     'ics',
     'degree.apps.DegreeConfig',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'accounts',
     'feedback',
     'jsoneditor',
+
     ]
 
 MIDDLEWARE = [
