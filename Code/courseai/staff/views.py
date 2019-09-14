@@ -64,10 +64,7 @@ def get_comp(request):
     response = degree_plan_helper.get_degree_requirements(code)
     complusoryCourse=json.loads(response)
     comps =complusoryCourse['required']['compulsory_courses']
-    s = Search(using=es_conn, index='courseupdated')
-    response = code_search(s, phrase)
 
-    resp = {'query': phrase, 'response': response}
     return comps
 
 

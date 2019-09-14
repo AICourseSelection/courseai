@@ -77,9 +77,3 @@ def course_lists(request):
     query = request.GET['query']
     print("course1:",query)
     return mms.course_lists(es_conn, query)
-
-
-def degree_course_list(request):
-    name = request.GET['query']
-
-    return search.execute_code_search(es_conn, name)
