@@ -10,6 +10,7 @@ from degree.models import Specialisation
 from degree.models import Minor
 from degree.models import Major
 
+
 def set_up_degree_requirements_db():
     # adds json object to db
     def add_to_db(data):
@@ -21,8 +22,6 @@ def set_up_degree_requirements_db():
         dr = DegreeRequirement(year=year, code=code, name=name, required=required, units=units)
         dr.save()
 
-
-
     for filename in os.listdir("static/json/"):
         try:
             with open('static/json/{}'.format(filename)) as file:
@@ -30,14 +29,14 @@ def set_up_degree_requirements_db():
         except:
             pass
 
+
 def sync_course_db():
     es_conn = Elasticsearch([os.environ.get("ES_IP")])
 
-    res = es_conn.search(index='courseupdated',size=10000)
+    res = es_conn.search(index='courseupdated', size=10000)
 
     results = []
     scroll_size = res['hits']['total']
-
 
     while (scroll_size > 0):
         try:
@@ -96,6 +95,7 @@ def sync_course_db():
                             learning_outcomes=version['learning_outcomes'])
             course.save(no_es=True)
 
+
 def sync_minor_db():
     es_conn = Elasticsearch([os.environ.get("ES_IP")])
 
@@ -103,7 +103,6 @@ def sync_minor_db():
 
     results = []
     scroll_size = res['hits']['total']
-
 
     while (scroll_size > 0):
         try:
@@ -140,6 +139,7 @@ def sync_minor_db():
                         learning_outcomes = version['learning_outcomes'])
             minor.save(no_es=True)
 
+
 def sync_spec_db():
     es_conn = Elasticsearch([os.environ.get("ES_IP")])
 
@@ -147,7 +147,6 @@ def sync_spec_db():
 
     results = []
     scroll_size = res['hits']['total']
-
 
     while (scroll_size > 0):
         try:
@@ -184,6 +183,7 @@ def sync_spec_db():
                           learning_outcomes=version['learning_outcomes'])
             specialisation.save(no_es=True)
 
+
 def sync_major_db():
     es_conn = Elasticsearch([os.environ.get("ES_IP")])
 
@@ -191,7 +191,6 @@ def sync_major_db():
 
     results = []
     scroll_size = res['hits']['total']
-
 
     while (scroll_size > 0):
         try:

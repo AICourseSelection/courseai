@@ -36,8 +36,8 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'searchResult', TemplateView.as_view(template_name='dynamic_pages/searchResult.html'), name='searchResult'),
     path(r'staff_staff', TemplateView.as_view(template_name='dynamic_pages/staff_staff.html'), name='staff_staff'),
     path(r'degreeEdit', TemplateView.as_view(template_name='dynamic_pages/degreeEdit.html'), name='degreeEdit'),
-path(r'courseEdit', TemplateView.as_view(template_name='dynamic_pages/courseEdit.html'), name='courseEdit'),
-path(r'majorEdit', TemplateView.as_view(template_name='dynamic_pages/majorEdit.html'), name='majorEdit'),
-path(r'minorEdit', TemplateView.as_view(template_name='dynamic_pages/minorEdit.html'), name='minorEdit'),
-path(r'specEdit', TemplateView.as_view(template_name='dynamic_pages/specEdit.html'), name='specEdit')
+    path(r'courseEdit', TemplateView.as_view(template_name='dynamic_pages/courseEdit.html'), name='courseEdit'),
+    path(r'majorEdit', TemplateView.as_view(template_name='dynamic_pages/majorEdit.html'), name='majorEdit'),
+    path(r'minorEdit', TemplateView.as_view(template_name='dynamic_pages/minorEdit.html'), name='minorEdit'),
+    path(r'specEdit', TemplateView.as_view(template_name='dynamic_pages/specEdit.html'), name='specEdit')
     ]

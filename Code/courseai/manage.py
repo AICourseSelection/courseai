@@ -30,6 +30,7 @@ def sync_db():
     print("Syncing specialisations with Elastic Search...")
     sync_spec_db()
 
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "courseai.settings")
     try:

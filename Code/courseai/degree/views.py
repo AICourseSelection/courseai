@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from recommendations import jsonhelper
 from . import course_data_helper
 from . import degree_plan_helper
-from .models import Degree, PreviousStudentDegree, DegreePlanStore
+from .models import Degree, PreviousStudentDegree, DegreePlanStore, DegreeRequirement
 
 
 def all_degrees(request):
@@ -26,6 +26,7 @@ def all_degrees(request):
 
 @csrf_exempt
 def degree_plan(request):
+
     if request.method == "GET":
         try:
             code = request.GET['degree_code']
@@ -96,7 +97,7 @@ def store_plan(request):
     proc = QueryDict(data)
     # generate a random code
     code = get_random_string(length=10)
-    code = code.replace(" ","c")
+    code = code.replace(" ", "c")
     plan = DegreePlanStore(code=code, plan=proc['plan'])
     plan.save()
     res = JsonResponse({"response": code})
