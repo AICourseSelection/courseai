@@ -8,6 +8,7 @@ urlpatterns = [
     path('majors', views.all_majors),
     path('minors', views.all_minors),
     path('specs', views.all_specs),
-    path('courselists', views.course_lists)
+    path('courselists', views.course_lists),
+    path('degreecoursesearch', views.degree_course_list)
 ]
 
