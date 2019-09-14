@@ -13,7 +13,7 @@
     <tr>
         <td>
         <label>Academic year: </label>
-              <select id="year" class="btn-group">
+              <select id="year" >
     <option value="2014" selected="selected">2014</option>
     <option value="2015">2015</option>
     <option value="2016">2016</option>
@@ -35,21 +35,11 @@
     </div>
 </div>
     <script>
-    function str_substr(start, end, str) {
-       try{
-            temp = str.split(start, 2);
-            content = temp[1].split(end, 2);
-        }
-        catch (e) {
-            console.log(e.name + ":" + e.message);
-        }
-        return content[0];
-    }
-        let level="undergraduate";
-        let description="";
+        var year=document.getElementById("year").value;
+        var courseCodes;
+        var courseVersions;
         function showCourse() {
         let courses = document.getElementById("search").value;
-        //let level = document.getElementById("level").value;
         let tableData = "<tr>";
         courseCodes = [];
         courseVersions = [];
@@ -75,7 +65,7 @@
                     tableData += "<th>" + "No such course" + "</th>" + "</tr>";
                 } else {
                     for (i = 0; i < courseCodes.length + 1; i++) {
-                        for (let j = 0; j < 5; j++) {
+                        for (let j = 0; j < 4; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "course code" + "</th>";
@@ -88,11 +78,13 @@
                                 else if(j==3){
                                     tableData += "<th>" + "course description" + "</th>";
                                 }
-                                else if (j==4){
-                                    tableData += "<th>" + "Edit Button" + "</th>";}
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + courseCodes[i - 1] + "</td>";
+                                       tableData += "<td>" +
+                                           "<a href=\"course_detail?code=" + courseCodes[i - 1]+"&year="+year+"&title="+courseTitles[i-1]+"\" onClick=\"saveData('"+(i-1)+"')\">" +
+                                            courseCodes[i - 1] +
+                                            "</a>" +
+                                            "</td>";
                                 } else if(j==1){
                                     tableData += "<td>" + courseUnits[i - 1] + "</td>";
                                 }
@@ -102,9 +94,7 @@
                                 else if(j==3){
                                     tableData += "<td>" + courseDescription[i-1] + "</td>";
                                 }
-                                else if (j==4){
-                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('course','"+(i-1)+"');location.href='courseEdit'\">" + "</td>";
-                                }
+
                             }
                         }
                         tableData += "</tr>" + "<tr>";
@@ -113,6 +103,21 @@
                 $("#Table").html(tableData);
             }
         });
+    }
+     function saveData(i){
+         //alert("success");
+        sessionStorage.setItem("version",courseVersions[i]);
+        sessionStorage.setItem("code",courseCodes[i]);
+    }
+     function str_substr(start, end, str) {
+       try{
+            temp = str.split(start, 2);
+            content = temp[1].split(end, 2);
+        }
+        catch (e) {
+            console.log(e.name + ":" + e.message);
+        }
+        return content[0];
     }
     </script>
 {% endblock %}
