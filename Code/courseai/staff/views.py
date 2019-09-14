@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 import json
 from elasticsearch_dsl import Search, Q
@@ -57,7 +58,6 @@ def degree_detail(request):
         'comp_row': comp_row,
     }
     return render(request, 'staff_pages/degree_detail.html', context=context)
-
 
 def get_comp(request):
     code = request.GET.get('code')
@@ -136,8 +136,18 @@ def course(request):
     return render(request, 'staff_pages/course.html')
 
 
+
 def course_detail(request):
-    return render(request, 'staff_pages/course_detail.html')
+    code = request.GET.get('code')
+    c_name = request.GET.get('title')
+    c_year = request.GET.get('year')
+    context = {
+        'c_code': code,
+        'c_year':c_year,
+        'c_name': c_name,
+    }
+    return render(request, 'staff_pages/course_detail.html', context=context)
+
 
 
 def course_add(request):
