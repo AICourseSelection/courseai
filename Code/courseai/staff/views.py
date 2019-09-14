@@ -9,7 +9,7 @@ def index(request):
     staff_name = get_name()
     context = {
         'notification': notification,
-        'staffName': staff_name,
+        'staff_name': staff_name,
     }
     return render(request, 'staff_pages/index.html', context=context)
 
