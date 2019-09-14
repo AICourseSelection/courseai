@@ -1,4 +1,82 @@
+
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
-    <h1>course detail</h1>
+    <script type="javascript">
+        $("textarea#spec").val().replace("<br>", "&#10;");
+    </script>
+<form id="forms"></form>
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 90%"><h1 class="text-center">{{ c_name }} ({{ c_year }})</h1></td>
+                <td><button id="btnEdit">Edit</button> <button>Delete</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="container h-100">
+    <table class="table table-striped">
+        <tr>
+            <td style="text-align: right; width: 20%">Code:</td>
+            <td style="text-align: left">{{ c_code }}</td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Year:</td>
+            <td style="text-align: left">{{ c_year }}</td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Name:</td>
+           <td style="text-align: left">
+               <input type="text" id = "name" disabled="disabled" value="{{ c_name }}" style="width: 100%">
+           </td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Sessions:</td>
+            <td style="text-align: left">
+                <input type="text" id="sessions" disabled="disabled"  style="width: 100%"><br>
+            </td>
+        </tr>
+    <br>
+<br>
+        <tr>
+             <td style="text-align: right; width: 20%">Specialisation:</td>
+            <td style="text-align: left">
+                {% if specs %}
+                    {% for spec in specs %}
+                        <input type="text" disabled="disabled" value="{{ spec }}" style="width: 100%"><br>
+                    {% endfor %}
+                {% else %}
+                    <input type="text" disabled="disabled" value="-" style="width: 100%">
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    </div>
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+    <script>
+    let code = sessionStorage.getItem("code");
+    let version = sessionStorage.getItem("version");
+    let jsonObject = JSON.parse(version);
+    var year={{ c_year }};
+    console.log(year);
+    console.log(jsonObject);
+    console.log(jsonObject[year].sessions);
+    document.getElementById("sessions").value=jsonObject[year].sessions;
+        $(document).ready(function () {
+            $('#btnEdit').click(function () {
+                if ($("#btnEdit").html() == 'Edit') {
+                    $("#name").prop("disabled", false);
+                    $("#btnEdit").html('Save');
+                }
+                else {
+                    $("#name").prop("disabled", true);
+                    $("#btnEdit").html('Edit');
+                }
+            });
+        });
+
+    </script>
+
 {% endblock %}

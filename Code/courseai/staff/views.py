@@ -1,7 +1,13 @@
+from django.http import JsonResponse
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+import json
+from elasticsearch_dsl import Search, Q
+from elasticsearch_dsl.query import MultiMatch
+import ast
+import sys
+import degree.views as degree
+from degree import degree_plan_helper
 import pandas as pd
-
 
 # Create your views here.
 def index(request):
@@ -31,16 +37,14 @@ def degree(request):
 def degree_detail(request):
     code = request.GET.get('code')
     year = request.GET.get('year')
-    d_name = get_degree(code, year)
+    d_name = request.GET.get('title')
     d_year = year
-    d_comp = "comp"
-    plan1 = get_plan1()
-    plan2 = get_plan2()
+    plan1 = get_plan1(code,year)
 
-    specs = get_spec()
+    specs = get_spec(request)
     spec_row = len(specs)
 
-    comps = get_comp()
+    comps = get_comp(request)
     comp_row = len(comps)
 
     context = {
@@ -50,27 +54,52 @@ def degree_detail(request):
         'comps': comps,
         'specs': specs,
         'plan1': plan1,
-        'plan2': plan2,
         'spec_row': spec_row,
         'comp_row': comp_row,
     }
     return render(request, 'staff_pages/degree_detail.html', context=context)
 
+def get_comp(request):
+    code = request.GET.get('code')
+    response = degree_plan_helper.get_degree_requirements(code)
+    complusoryCourse=json.loads(response)
+    comps =complusoryCourse['required']['compulsory_courses']
 
-def get_comp():
-    comps = ["COMP6710 - Structured Programming", "COMP6250 - Prof Prac 1",
-             "COMP6442 - Software Construction", "COMP8110 - Sftwre Proj in Systems Context", "COMP8260 - Prof Prac 2"]
     return comps
 
 
-def get_spec():
-    specs = ["ARTIF-SPEC - Artificial Intelligence", "MCHL-SPEC - Machine Learning",
-             "DTSC-SPEC - Data Science", "HCSD-SPEC - Human Centred Design and Software Development"]
+def get_spec(request):
+    code = request.GET.get('code')
+    response = degree_plan_helper.get_degree_requirements(code)
+    complusoryCourse = json.loads(response)
+    specs = complusoryCourse['required']['required_m/m/s']
     return specs
 
 
-def get_plan1():
-    return Plan1()
+def get_plan1(code,year):
+    with open('static/json/study_options/{}.json'.format(code)) as f:
+        study_options_str = f.read()
+        study_options_dict = ast.literal_eval(study_options_str)
+        print(study_options_dict[year])
+        plan=Plan1()
+        plan.str="Plan1"
+        plan.course1 = study_options_dict[year][0][0]['code']
+        plan.course2 = study_options_dict[year][0][1]['code']
+        plan.course3 = study_options_dict[year][0][2]['code']
+        plan.course4 = study_options_dict[year][0][3]['code']
+        plan.course5 = study_options_dict[year][1][0]['code']
+        plan.course6 = study_options_dict[year][1][1]['code']
+        plan.course7 = study_options_dict[year][1][2]['code']
+        plan.course8 = study_options_dict[year][1][3]['code']
+        plan.course9 = study_options_dict[year][2][0]['code']
+        plan.course10 = study_options_dict[year][2][1]['code']
+        plan.course11 = study_options_dict[year][2][2]['code']
+        plan.course12 = study_options_dict[year][2][3]['code']
+        plan.course13 = study_options_dict[year][3][0]['code']
+        plan.course14 = study_options_dict[year][3][1]['code']
+        plan.course15 = study_options_dict[year][3][2]['code']
+        plan.course16 = study_options_dict[year][3][3]['code']
+    return plan
 
 
 class Plan1:
@@ -94,34 +123,9 @@ class Plan1:
         self.course16 = "COMP-P"
 
 
-def get_plan2():
-    return Plan2()
 
 
-class Plan2:
-    def __init__(self):
-        self.str = "Plan2"
-        self.course1 = "COMP-A"
-        self.course2 = "COMP-B"
-        self.course3 = "COMP-C"
-        self.course4 = "COMP-D"
-        self.course5 = "COMP-E"
-        self.course6 = "COMP-F"
-        self.course7 = "COMP-G"
-        self.course8 = "COMP-H"
-        self.course9 = "COMP-I"
-        self.course10 = "COMP-J"
-        self.course11 = "COMP-K"
-        self.course12 = "COMP-L"
-        self.course13 = "COMP-M"
-        self.course14 = "COMP-N"
-        self.course15 = "COMP-O"
-        self.course16 = "COMP-P"
 
-
-def get_degree(code, year):
-    name = "Master Of Computing"
-    return name
 
 
 def degree_add(request):
@@ -132,8 +136,18 @@ def course(request):
     return render(request, 'staff_pages/course.html')
 
 
+
 def course_detail(request):
-    return render(request, 'staff_pages/course_detail.html')
+    code = request.GET.get('code')
+    c_name = request.GET.get('title')
+    c_year = request.GET.get('year')
+    context = {
+        'c_code': code,
+        'c_year':c_year,
+        'c_name': c_name,
+    }
+    return render(request, 'staff_pages/course_detail.html', context=context)
+
 
 
 def course_add(request):
