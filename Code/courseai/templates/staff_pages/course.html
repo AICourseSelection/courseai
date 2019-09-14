@@ -1,4 +1,108 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
-    <h1>course</h1>
+     <div style="margin-top: 15px; flex-wrap: nowrap" >
+    <div style="width: 100%; text-align: center">
+<table class="table">
+    <tr>
+        <td>
+        <input type="text" id = "search" name="courseName" required placeholder="Search Course"
+               autocomplete="off" data-toggle="popover" style="width:30%">
+        <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
+        </td>
+        </tr>
+    <tr>
+        <td>
+        <label>Academic year: </label>
+              <select id="year" class="btn-group">
+    <option value="2014" selected="selected">2014</option>
+    <option value="2015">2015</option>
+    <option value="2016">2016</option>
+    <option value="2017">2017</option>
+    <option value="2018">2018</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+</select>
+        </td>
+    </tr>
+    </table>
+        <div>&nbsp</div>
+        <div class="table-responsive">
+            <table class="table" style="width: 50%; margin: auto">
+                    <tbody id="Table">
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+    <script>
+        let level="undergraduate";
+        let description="";
+        function showCourse() {
+        let courses = document.getElementById("search").value;
+        //let level = document.getElementById("level").value;
+        let tableData = "<tr>";
+        courseCodes = [];
+        courseVersions = [];
+        const courseUnits = [];
+        const courseTitles = [];
+        const courseDescription = [];
+        var versions = "";
+        $.ajax({
+            url: 'search/coursesearch/',
+            data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
+            success: function (data) {
+                for (let i = 0; i < data.response.length; i++) {
+                    if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
+                        courseCodes.push(data.response[i].course_code);
+                        versions = JSON.stringify(data.response[i].versions);
+                        courseVersions.push(versions.toString());
+                        courseUnits.push(str_substr("units\":\"","\"",versions));
+                        courseTitles.push(str_substr("title\":",",",versions).replace(/\"/g,""));
+                        courseDescription.push(str_substr("description\":\"",".",versions)+".......")
+                    }
+                }
+                if (courseCodes.length == 0) {
+                    tableData += "<th>" + "No such course" + "</th>" + "</tr>";
+                } else {
+                    for (i = 0; i < courseCodes.length + 1; i++) {
+                        for (let j = 0; j < 5; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "course code" + "</th>";
+                                } else if (j==1) {
+                                    tableData += "<th>" + "course units" + "</th>";
+                                }
+                                else if(j==2){
+                                    tableData += "<th>" + "course title" + "</th>";
+                                }
+                                else if(j==3){
+                                    tableData += "<th>" + "course description" + "</th>";
+                                }
+                                else if (j==4){
+                                    tableData += "<th>" + "Edit Button" + "</th>";}
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" + courseCodes[i - 1] + "</td>";
+                                } else if(j==1){
+                                    tableData += "<td>" + courseUnits[i - 1] + "</td>";
+                                }
+                                else if(j==2){
+                                    tableData += "<td>" + courseTitles[i-1] + "</td>";
+                                }
+                                else if(j==3){
+                                    tableData += "<td>" + courseDescription[i-1] + "</td>";
+                                }
+                                else if (j==4){
+                                    tableData += "<td>" + "<input type=\"button\" class=\"btn btn-primary btn-lg\" id=\"btn\" value=\"edit\" onClick=\"saveData('course','"+(i-1)+"');location.href='courseEdit'\">" + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
+            }
+        });
+    }
+    </script>
 {% endblock %}
