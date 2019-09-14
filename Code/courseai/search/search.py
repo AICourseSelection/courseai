@@ -216,5 +216,41 @@ def execute_search(es_conn, phrase, request, codes, levels, semesters_offered=No
     response = raw_search(s, phrase, codes, levels, sem_queried=semesters_offered, level=level)
 
     resp = {'query': phrase, 'response': response}
-    print("yes")
+    return JsonResponse(resp)
+
+
+def code_search(search_object, phrase):
+    should = []
+    course_list = []
+    fields = []
+
+    for field in range(2014, 2020):
+        # fields.append('versions.' + str(field) + '.title^3')
+        fields.append('versions.' + str(field) + '.title^3')
+
+    for word in phrase.split():
+        should.append(MultiMatch(query=word, fields=fields))
+
+    fields2 = ['course_code^4']
+
+    should.append(MultiMatch(type='phrase_prefix', query=phrase, fields=fields2))
+    q = Q('bool', should=should, minimum_should_match=1)
+    response = search_object.query(q)
+
+    count = response.count()
+    response = response[0:count].execute()
+
+    for hit in response['hits']['hits']:
+
+        hit = hit.to_dict()
+        course_list.append(hit['_source'])
+
+    return course_list
+
+
+def execute_code_search(es_conn, phrase):
+    s = Search(using=es_conn, index='courseupdated')
+    response = code_search(s, phrase)
+
+    resp = {'query': phrase, 'response': response}
     return JsonResponse(resp)

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import json
-from django.http import HttpResponse, JsonResponse
+from elasticsearch_dsl import Search, Q
+from elasticsearch_dsl.query import MultiMatch
+import ast
 import sys
 import degree.views as degree
 from degree import degree_plan_helper
@@ -36,7 +38,7 @@ def degree_detail(request):
     year = request.GET.get('year')
     d_name = request.GET.get('title')
     d_year = year
-    plan1 = get_plan1()
+    plan1 = get_plan1(code,year)
 
     specs = get_spec(request)
     spec_row = len(specs)
@@ -62,6 +64,10 @@ def get_comp(request):
     response = degree_plan_helper.get_degree_requirements(code)
     complusoryCourse=json.loads(response)
     comps =complusoryCourse['required']['compulsory_courses']
+    s = Search(using=es_conn, index='courseupdated')
+    response = code_search(s, phrase)
+
+    resp = {'query': phrase, 'response': response}
     return comps
 
 
@@ -73,8 +79,30 @@ def get_spec(request):
     return specs
 
 
-def get_plan1():
-    return Plan1()
+def get_plan1(code,year):
+    with open('static/json/study_options/{}.json'.format(code)) as f:
+        study_options_str = f.read()
+        study_options_dict = ast.literal_eval(study_options_str)
+        print(study_options_dict[year])
+        plan=Plan1()
+        plan.str="Plan1"
+        plan.course1 = study_options_dict[year][0][0]['code']
+        plan.course2 = study_options_dict[year][0][1]['code']
+        plan.course3 = study_options_dict[year][0][2]['code']
+        plan.course4 = study_options_dict[year][0][3]['code']
+        plan.course5 = study_options_dict[year][1][0]['code']
+        plan.course6 = study_options_dict[year][1][1]['code']
+        plan.course7 = study_options_dict[year][1][2]['code']
+        plan.course8 = study_options_dict[year][1][3]['code']
+        plan.course9 = study_options_dict[year][2][0]['code']
+        plan.course10 = study_options_dict[year][2][1]['code']
+        plan.course11 = study_options_dict[year][2][2]['code']
+        plan.course12 = study_options_dict[year][2][3]['code']
+        plan.course13 = study_options_dict[year][3][0]['code']
+        plan.course14 = study_options_dict[year][3][1]['code']
+        plan.course15 = study_options_dict[year][3][2]['code']
+        plan.course16 = study_options_dict[year][3][3]['code']
+    return plan
 
 
 class Plan1:
