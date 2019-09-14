@@ -45,6 +45,7 @@
             const degreeDicts = [];
             $.ajax({
                 url: '../degree/all',
+
                 success: function (data) {
                     for (i in data.response) {
                         if (data.response[i].title.toString().toLowerCase().indexOf(degree.toLowerCase()) != -1) {
