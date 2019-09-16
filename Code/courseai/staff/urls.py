@@ -13,9 +13,19 @@ urlpatterns = [
     path('course_detail', views.course_detail, name='course_detail'),
     path('course_add', views.course_add, name='course_add'),
 
-    path('mms', views.mms, name='mms'),
-    path('mms_detail', views.mms_detail, name='mms_detail'),
-    path('mms_add', views.mms_add, name='mms_add'),
+    path('major', views.major, name='major'),
+    path('major_detail', views.major_detail, name='major_detail'),
+    path('major_add', views.major_add, name='major_add'),
+
+    path('minor', views.minor, name='minor'),
+    path('minor_detail', views.minor_detail, name='minor_detail'),
+    path('minor_add', views.minor_add, name='minor_add'),
+
+    path('specialisation', views.specialisation, name='specialisation'),
+    path('specialisation_detail', views.specialisation_detail, name='specialisation_detail'),
+    path('specialisation_add', views.specialisation_add, name='specialisation_add'),
+
+    path('about', views.about, name='about'),
 
     path('all_degrees', views.all_degrees),
 ]
