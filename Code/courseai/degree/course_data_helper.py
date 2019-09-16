@@ -8,7 +8,6 @@ from elasticsearch_dsl.query import MultiMatch
 
 es_conn = Elasticsearch([os.environ.get("ES_IP")])
 
-
 def get_course_data(codes):
     global es_conn
     course_data = {}
