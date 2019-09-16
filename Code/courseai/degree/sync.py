@@ -19,6 +19,7 @@ def set_up_degree_requirements_db():
         name = data["name"]
         required = data["required"]
         units = data["units"]
+        print(code)
         dr = DegreeRequirement(year=year, code=code, name=name, required=required, units=units)
         dr.save()
 

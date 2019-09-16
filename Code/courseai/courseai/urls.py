@@ -39,5 +39,10 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'courseEdit', TemplateView.as_view(template_name='dynamic_pages/courseEdit.html'), name='courseEdit'),
     path(r'majorEdit', TemplateView.as_view(template_name='dynamic_pages/majorEdit.html'), name='majorEdit'),
     path(r'minorEdit', TemplateView.as_view(template_name='dynamic_pages/minorEdit.html'), name='minorEdit'),
+<<<<<<< HEAD
     path(r'specEdit', TemplateView.as_view(template_name='dynamic_pages/specEdit.html'), name='specEdit')
+=======
+    path(r'specEdit', TemplateView.as_view(template_name='dynamic_pages/specEdit.html'), name='specEdit'),
+    path('staff/', include('staff.urls')),
+>>>>>>> f285b0e3d6765c51f35b94bdc6a5c03e5dee99f4
     ]

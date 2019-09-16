@@ -1,0 +1,85 @@
+
+{% extends 'staff_pages/staff_base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 90%"></td>
+                <td><button id="btnSave">Save</button>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="container h-100">
+    <table class="table table-striped">
+        <tr>
+            <td style="text-align: right; width: 20%">Code:</td>
+            <td style="text-align: left">
+               <input type="text" id = "code" value="" style="width: 100%">
+           </td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Year:</td>
+            <td style="text-align: left">
+               <input type="text" id = "year" value="" style="width: 100%">
+           </td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Name:</td>
+           <td style="text-align: left">
+               <input type="text" id = "name" value="" style="width: 100%">
+           </td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Compulsory Courses:</td>
+            <td style="text-align: left">
+               <input type="text" value="" style="width: 100%"><br>
+            </td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Specialisation:</td>
+            <td style="text-align: left">
+                <input type="text" value="" style="width: 100%">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Study Plan:</td>
+            <td style="text-align: left">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 10%">Year 1</td>
+                        <td><input type="text" id="a1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="b1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="c1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="d1" value="" style="width: 100%"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><input type="text" id="f1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="g1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="h1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="e1" value="" style="width: 100%"></td>
+                    </tr>
+                    <tr>
+                        <td>Year 2</td>
+                        <td><input type="text" id="i1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="j1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="k1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="l1" value="" style="width: 100%"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><input type="text" id="m1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="n1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="o1" value="" style="width: 100%"></td>
+                        <td><input type="text" id="p1" value="" style="width: 100%"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    </div>
+
+{% endblock %}

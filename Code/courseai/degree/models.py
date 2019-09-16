@@ -247,8 +247,13 @@ class Course(models.Model):
 class DegreeRequirement(models.Model):
     year = models.CharField(max_length=4, default="")
     code = models.CharField(max_length=10, default="")
+<<<<<<< HEAD
     name = models.TextField(default="", blank=True, editable=False)
     units = models.CharField(max_length=10, default="")
+=======
+    name = models.TextField(default="",blank=True, editable=False)
+    units = models.CharField(max_length=10,default="")
+>>>>>>> f285b0e3d6765c51f35b94bdc6a5c03e5dee99f4
     required = JSONField(default=list)
 
     def __str__(self):
@@ -262,5 +267,6 @@ class DegreeRequirement(models.Model):
         to_return["units"] = self.units
         to_return["required"] = self.required
         return json.dumps(to_return)
+
 
 

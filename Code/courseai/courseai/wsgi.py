@@ -12,5 +12,6 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "courseai.settings")
+#os.environ.setdefault("SECRET_KEY", "A")
 
 application = get_wsgi_application()

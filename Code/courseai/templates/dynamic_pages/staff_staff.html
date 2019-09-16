@@ -413,17 +413,17 @@
         });
     }
 
-    function replaceString(string) {
-        if (string == undefined) {
-            return "";
+        function replaceString(string) {
+            if (string == undefined) {
+                return "";
+            }
+            string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
+            string = string.replace(/\"courses\"/g, "");
+            string = string.replace(/\[:|\[|\]|\"/g, "");
+            string = string.replace(/,code/g, "<br>code");
+            //string=string.replace(/,"units":/g,"<br>\"units\":");
+            return string;
         }
-        string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
-        string = string.replace(/\"courses\"/g, "");
-        string = string.replace(/\[:|\[|\]|\"/g, "");
-        string = string.replace(/,code/g, "<br>code");
-        //string=string.replace(/,"units":/g,"<br>\"units\":");
-        return string;
-    }
 
 </script>
 </body>
