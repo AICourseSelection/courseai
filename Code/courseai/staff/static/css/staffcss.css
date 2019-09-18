@@ -1,45 +1,71 @@
-nav > .nav.nav-tabs{
-
-  border: none;
-    color:#fff;
-    background:#272e38;
-    border-radius:0;
-
-}
-nav > div a.nav-item.nav-link,
-nav > div a.nav-item.nav-link.active
-{
-  border: none;
-    padding: 18px 25px;
-    color:#fff;
-    background:#272e38;
-    border-radius:0;
+body {
+    padding-top: 0px;
 }
 
-nav > div a.nav-item.nav-link.active:after
- {
-  content: "";
-  position: relative;
-  bottom: -60px;
-  left: -10%;
-  border: 15px solid transparent;
-  border-top-color: #e74c3c ;
-}
-.tab-content{
-  background: #fdfdfd;
-    line-height: 25px;
-    border: 1px solid #ddd;
-    border-top:5px solid #e74c3c;
-    border-bottom:5px solid #e74c3c;
-    padding:30px 25px;
+.sticky-offset {
+    top: 56px;
 }
 
-nav > div a.nav-item.nav-link:hover,
-nav > div a.nav-item.nav-link:focus
-{
-  border: none;
-    background: #e74c3c;
-    color:#fff;
-    border-radius:0;
-    transition:background 0.20s linear;
+#body-row {
+    margin-left:0;
+    margin-right:0;
+}
+#sidebar-container {
+    min-height: 90vh;
+    background-color: #333;
+    padding: 0;
+}
+
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+    width: 230px;
+}
+.sidebar-collapsed {
+    width: 60px;
+}
+
+/* Menu item*/
+#sidebar-container .list-group a {
+    height: 50px;
+    color: white;
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+    height: 45px;
+    padding-left: 30px;
+}
+.sidebar-submenu {
+    font-size: 0.9rem;
+}
+
+/* Separators */
+.sidebar-separator-title {
+    background-color: #333;
+    height: 35px;
+}
+.sidebar-separator {
+    background-color: #333;
+    height: 25px;
+}
+.logo-separator {
+    background-color: #333;
+    height: 100px;
+}
+
+/* Closed submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+  content: " \f0d7";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+}
+/* Opened submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+  content: " \f0da";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
 }

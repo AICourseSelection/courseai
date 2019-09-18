@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/staffcss.css' %}">
+
 </head>
 <body>
-<!-- Top Bar -->
-{#{% include 'partials/_topbar_staff.html' %}#}
+
 <!-- Nav Bar -->
 {% include 'staff_pages/partials/_navbar_staff.html' %}
 <!-- Side Bar -->
@@ -29,15 +29,27 @@
             </li>
             <!-- /END Separator -->
             <!-- Menu with submenu -->
-            <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            <a href="#submenu1" data-toggle="collapse"
+               {% if 'degree' in request.path  or 'degree_add' in request.path%}
+                   aria-expanded="true"
+               {% else %}
+                    aria-expanded="false"
+               {% endif %}
+               class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"></span>
+                    <span class="fa fa-graduation-cap fa-fw mr-3"></span>
                     <span class="menu-collapsed">Degree</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
             </a>
             <!-- Submenu content -->
-            <div id="submenu1" class="collapse sidebar-submenu">
+            <div id="submenu1"
+                    {% if 'degree' in request.path  or 'degree_add' in request.path%}
+                       class="collapse show sidebar-submenu"
+                   {% else %}
+                        class="collapse sidebar-submenu"
+                   {% endif %}
+            >
                 <a href="degree" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
                 </a>
@@ -45,15 +57,28 @@
                     <span class="menu-collapsed">Add</span>
                 </a>
             </div>
-            <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+
+            <a href="#submenu2" data-toggle="collapse"
+               {% if 'course' in request.path  or 'course_add' in request.path%}
+                   aria-expanded="true"
+               {% else %}
+                    aria-expanded="false"
+               {% endif %}
+               class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"></span>
+                    <span class="fa fa-book fa-fw mr-3"></span>
                     <span class="menu-collapsed">Course</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
             </a>
             <!-- Submenu content -->
-            <div id="submenu2" class="collapse sidebar-submenu">
+            <div id="submenu2"
+                 {% if 'course' in request.path  or 'course_add' in request.path%}
+                       class="collapse show sidebar-submenu"
+                   {% else %}
+                        class="collapse sidebar-submenu"
+                   {% endif %}
+            >
                 <a href="course" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
                 </a>
@@ -61,22 +86,94 @@
                     <span class="menu-collapsed">Add</span>
                 </a>
             </div>
-            <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            <a href="#submenu3" data-toggle="collapse"
+               {% if 'major' in request.path  or 'major_add' in request.path%}
+                   aria-expanded="true"
+               {% else %}
+                    aria-expanded="false"
+               {% endif %}
+               class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Major, Minor, Specialisation</span>
+                    <span class="fa fa-user-circle-o fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Major</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
             </a>
             <!-- Submenu content -->
-            <div id="submenu3" class="collapse sidebar-submenu">
-                <a href="mms" class="list-group-item list-group-item-action bg-dark text-white-50">
+            <div id="submenu3"
+                    {% if 'major' in request.path  or 'major_add' in request.path%}
+                       class="collapse show sidebar-submenu"
+                   {% else %}
+                        class="collapse sidebar-submenu"
+                   {% endif %}
+            >
+                <a href="major" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
                 </a>
-                <a href="mms_add" class="list-group-item list-group-item-action bg-dark text-white-50">
+                <a href="major_add" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Add</span>
                 </a>
             </div>
+
+
+            <a href="#submenu4" data-toggle="collapse"
+               {% if 'minor' in request.path  or 'minor_add' in request.path%}
+                   aria-expanded="true"
+               {% else %}
+                    aria-expanded="false"
+               {% endif %}
+               class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user-circle fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Minor</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id="submenu4"
+                {% if 'minor' in request.path  or 'minor_add' in request.path%}
+                       class="collapse show sidebar-submenu"
+                   {% else %}
+                        class="collapse sidebar-submenu"
+                   {% endif %}
+            >
+                <a href="minor" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Query/Edit</span>
+                </a>
+                <a href="minor_add" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Add</span>
+                </a>
+            </div>
+
+            <a href="#submenu5" data-toggle="collapse"
+               {% if 'specialisation' in request.path  or 'specialisation_add' in request.path%}
+                   aria-expanded="true"
+               {% else %}
+                    aria-expanded="false"
+               {% endif %}
+               class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user-o fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Specialisation</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id="submenu5"
+                {% if 'specialisation' in request.path  or 'specialisation_add' in request.path%}
+                       class="collapse show sidebar-submenu"
+                   {% else %}
+                        class="collapse sidebar-submenu"
+                   {% endif %}
+            >
+                <a href="specialisation" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Query/Edit</span>
+                </a>
+                <a href="specialisation_add" class="list-group-item list-group-item-action bg-dark text-white-50">
+                    <span class="menu-collapsed">Add</span>
+                </a>
+            </div>
+
             <!-- Logo -->
             <li class="list-group-item logo-separator d-flex justify-content-center">
                 <img src="{% static 'img/logo.png' %}" width="75" height="75">
