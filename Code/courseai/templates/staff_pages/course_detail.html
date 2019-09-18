@@ -85,10 +85,20 @@
             $('#btnEdit').click(function () {
                 if ($("#btnEdit").html() == 'Edit') {
                     $("#name").prop("disabled", false);
+                    $("#units").prop("disabled", false);
+                    $("#sessions").prop("disabled", false);
+                    $("#description").prop("disabled", false);
+                    $("#learningOutcome").prop("disabled", false);
+                    $("#prerequisites").prop("disabled", false);
                     $("#btnEdit").html('Save');
                 }
                 else {
                     $("#name").prop("disabled", true);
+                    $("#units").prop("disabled", true);
+                    $("#sessions").prop("disabled", true);
+                    $("#description").prop("disabled", true);
+                    $("#learningOutcome").prop("disabled", true);
+                    $("#prerequisites").prop("disabled", true);
                     $("#btnEdit").html('Edit');
                 }
             });

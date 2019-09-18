@@ -51,13 +51,16 @@
     }
         let level="undergraduate";
         let description="";
+    var majorsCodes = [];
+    var majorsVersions = [];
+    var majorsResponse = [];
+
      function showMajors() {
         let majors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
          let year =document.getElementById("year").value;
         let tableData = "<tr>";
         let tempRequirement = "";
-        const majorsCodes = [];
         const majorDescription = [];
         const majorsRequirements = [];
         const majorsTitle = [];
@@ -67,6 +70,7 @@
             success: function (data) {
                 for (i in data.responses) {
                     majorsCodes.push(data.responses[i].code);
+                    majorsVersions.push(JSON.stringify(data.responses[i].versions));
                     if (data.responses[i].versions[year]==undefined){
                         majorDescription.push("No "+year+" information.");
                         majorsTitle.push("");
@@ -100,7 +104,11 @@
                                 }
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + majorsCodes[i - 1] + "</td>";
+                                    tableData += "<td>" +
+                                        "<a href=\"major_detail?code=" + majorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        majorsCodes[i - 1] +
+                                        "</a>" +
+                                        "</td>";
                                 } else if (j == 3) {
                                     tableData += "<td>" + majorDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
@@ -116,6 +124,12 @@
                 $("#Table").html(tableData);
             }
         });
+    }
+
+    function saveData(i) {
+        //alert("success");
+        sessionStorage.setItem("majorVersion", majorsVersions[i]);
+        sessionStorage.setItem("majorCode", majorsCodes[i]);
     }
         function replaceString(string) {
         if (string == undefined) {

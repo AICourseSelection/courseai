@@ -57,31 +57,47 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="width: 10%">Year 1</td>
-                        <td><input type="text" disabled="disabled" id="a1" value="{{ plan1.course1 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="b1" value="{{ plan1.course2 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="c1" value="{{ plan1.course3 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="d1" value="{{ plan1.course4 }}" style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="1" value="{{ plan1.course1 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="2" value="{{ plan1.course2 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="3" value="{{ plan1.course3 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="4" value="{{ plan1.course4 }}"
+                                   style="width: 100%"></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td><input type="text" disabled="disabled" id="e1" value="{{ plan1.course5 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="f1" value="{{ plan1.course6 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="g1" value="{{ plan1.course7 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="h1" value="{{ plan1.course8 }}" style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="5" value="{{ plan1.course5 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="6" value="{{ plan1.course6 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="7" value="{{ plan1.course7 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="8" value="{{ plan1.course8 }}"
+                                   style="width: 100%"></td>
                     </tr>
                     <tr>
                         <td>Year 2</td>
-                        <td><input type="text" disabled="disabled" id="i1" value="{{ plan1.course9 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="j1" value="{{ plan1.course10 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="k1" value="{{ plan1.course11 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="l1" value="{{ plan1.course12 }}" style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="9" value="{{ plan1.course9 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="10" value="{{ plan1.course10 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="11" value="{{ plan1.course11 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="12" value="{{ plan1.course12 }}"
+                                   style="width: 100%"></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td><input type="text" disabled="disabled" id="m1" value="{{ plan1.course13 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="n1" value="{{ plan1.course14 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="o1" value="{{ plan1.course15 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="p1" value="{{ plan1.course16 }}" style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="13" value="{{ plan1.course13 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="14" value="{{ plan1.course14 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="15" value="{{ plan1.course15 }}"
+                                   style="width: 100%"></td>
+                        <td><input type="text" disabled="disabled" id="16" value="{{ plan1.course16 }}"
+                                   style="width: 100%"></td>
                     </tr>
                 </table>
             </td>
@@ -95,10 +111,16 @@
             $('#btnEdit').click(function () {
                 if ($("#btnEdit").html() == 'Edit') {
                     $("#name").prop("disabled", false);
+                    for (let i = 1; i < 17; i++) {
+                        $("#" + i).prop("disabled", false);
+                    }
                     $("#btnEdit").html('Save');
                 }
                 else {
                     $("#name").prop("disabled", true);
+                    for (let i = 1; i < 17; i++) {
+                        $("#" + i).prop("disabled", true);
+                    }
                     $("#btnEdit").html('Edit');
                 }
             });

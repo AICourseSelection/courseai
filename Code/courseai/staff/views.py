@@ -143,7 +143,7 @@ def course_detail(request):
     c_year = request.GET.get('year')
     context = {
         'c_code': code,
-        'c_year':c_year,
+        'c_year': c_year,
         'c_name': c_name,
     }
     return render(request, 'staff_pages/course_detail.html', context=context)
@@ -158,7 +158,13 @@ def major(request):
 
 
 def major_detail(request):
-    return render(request, 'staff_pages/major_detail.html')
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    context = {
+        'major_code': code,
+        'major_year': year,
+    }
+    return render(request, 'staff_pages/major_detail.html', context=context)
 
 
 def major_add(request):
@@ -170,7 +176,13 @@ def minor(request):
 
 
 def minor_detail(request):
-    return render(request, 'staff_pages/minor_detail.html')
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    context = {
+        'minor_code': code,
+        'minor_year': year,
+    }
+    return render(request, 'staff_pages/minor_detail.html', context=context)
 
 
 def minor_add(request):
@@ -182,7 +194,13 @@ def specialisation(request):
 
 
 def specialisation_detail(request):
-    return render(request, 'staff_pages/specialisation_detail.html')
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    context = {
+        'spec_code': code,
+        'spec_year': year,
+    }
+    return render(request, 'staff_pages/specialisation_detail.html', context=context)
 
 
 def specialisation_add(request):

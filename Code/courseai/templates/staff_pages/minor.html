@@ -51,13 +51,14 @@
     }
         let level="undergraduate";
         let description="";
+    var minorsVersion = [];
+    var minorsCodes = [];
     function showMinors() {
         let minors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
         let year= document.getElementById("year").value;
         let tableData = "<tr>";
         let tempRequirement = "";
-        const minorsCodes = [];
         const minorDescription = [];
         const minorsRequirements = [];
         const minorsTitle = [];
@@ -67,6 +68,7 @@
             success: function (data) {
                 for (i in data.responses) {
                     minorsCodes.push(data.responses[i].code);
+                    minorsVersion.push(JSON.stringify(data.responses[i].versions));
                     if (data.responses[i].versions[year]==undefined){
                         minorDescription.push("No "+year+" information.");
                         minorsRequirements.push("");
@@ -99,7 +101,11 @@
                                 }
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + minorsCodes[i - 1] + "</td>";
+                                    tableData += "<td>" +
+                                        "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        minorsCodes[i - 1] +
+                                        "</a>" +
+                                        "</td>";
                                 } else if (j == 3) {
                                     tableData += "<td>" + minorDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
@@ -126,6 +132,12 @@
         string = string.replace(/,code/g, "<br>code");
         //string=string.replace(/,"units":/g,"<br>\"units\":");
         return string;
+    }
+
+    function saveData(i) {
+        //alert("success");
+        sessionStorage.setItem("minorVersion", minorsVersion[i]);
+        sessionStorage.setItem("minorCode", minorsCodes[i]);
     }
     </script>
 {% endblock %}

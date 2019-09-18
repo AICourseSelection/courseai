@@ -49,14 +49,14 @@
     }
         let level="undergraduate";
         let description="";
-
+    var specCodes = [];
+    var specVersion = [];
     function showSpecs() {
         let specs = document.getElementById("search").value;
           let year= document.getElementById("year").value;
         //let level = document.getElementById("level").value;
         let tableData = "<tr>";
         let tempRequirement = "";
-        const specsCodes = [];
         const specDescription = [];
         const specsRequirements = [];
         const specsTitle = [];
@@ -65,14 +65,14 @@
             data: {"query": specs, "level": level},
             success: function (data) {
                 for (i in data.responses) {
+                    specCodes.push(data.responses[i].code);
+                    specVersion.push(JSON.stringify(data.responses[i].versions));
                      if (data.responses[i].versions[year]==undefined){
-                         specsCodes.push(data.responses[i].code);
                         specDescription.push("No "+year+" information.");
                         specsRequirements.push("");
                         specsTitle.push("");
                     }
                     else{
-                        specsCodes.push(data.responses[i].code);
                         description=JSON.stringify(data.responses[i].versions[year].description);
                         if (description!=undefined){
                              description=str_substr("\"",".",description);
@@ -86,10 +86,10 @@
                     specsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
                     }
                 }
-                if (specsCodes.length == 0) {
+                if (specCodes.length == 0) {
                     tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
                 } else {
-                    for (var i = 0; i < specsCodes.length + 1; i++) {
+                    for (var i = 0; i < specCodes.length + 1; i++) {
                         for (var j = 0; j < 4; j++) {
                             if (i == 0) {
                                 if (j == 0) {
@@ -103,7 +103,11 @@
                                 }
                             } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + specsCodes[i - 1] + "</td>";
+                                    tableData += "<td>" +
+                                        "<a href=\"specialisation_detail?code=" + specCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        specCodes[i - 1] +
+                                        "</a>" +
+                                        "</td>";
                                 } else if (j == 3) {
                                     tableData += "<td>" + specDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
@@ -117,6 +121,7 @@
                     }
                 }
                 $("#Table").html(tableData);
+                console.log(specCodes)
             }
         });
     }
@@ -128,8 +133,13 @@
         string = string.replace(/\"courses\"/g, "");
         string = string.replace(/\[:|\[|\]|\"/g, "");
         string = string.replace(/,code/g, "<br>code");
-        //string=string.replace(/,"units":/g,"<br>\"units\":");
         return string;
+    }
+
+    function saveData(i) {
+        //alert("success");
+        sessionStorage.setItem("specVersion", specVersion[i]);
+        sessionStorage.setItem("specCode", specCodes[i]);
     }
     </script>
 {% endblock %}
