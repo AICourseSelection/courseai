@@ -35,7 +35,7 @@
     </div>
 </div>
     <script>
-        var year=document.getElementById("year").value;
+    var year;
         var courseCodes;
         var courseVersions;
         function showCourse() {
@@ -51,6 +51,7 @@
             url: '../search/coursesearch/',
             data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
             success: function (data) {
+                year=document.getElementById("year").value;
                 for (let i = 0; i < data.response.length; i++) {
                     if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
                         courseCodes.push(data.response[i].course_code);

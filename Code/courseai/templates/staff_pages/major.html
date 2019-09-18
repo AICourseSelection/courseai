@@ -5,12 +5,9 @@
 <table class="table">
     <tr>
         <td>
-        <input type="text" id = "search" name="MmsName" required placeholder="Search Mms"
+        <input type="text" id = "search" name="majorName" required placeholder="Search Mms"
                autocomplete="off" data-toggle="popover" style="width:30%">
-                 <div>&nbsp</div>
                 <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
-                <button onclick="showMinors()" class="btn btn-primary btn-lg">Show Minors</button>
-                <button onclick="showSpecs()" class="btn btn-primary btn-lg">Show Spec</button>
             <div>&nbsp</div>
         </td>
         </tr>
@@ -47,6 +44,9 @@
         catch (e) {
             console.log(e.name + ":" + e.message);
         }
+        if(content==undefined){
+            return null;
+        }
         return content[0];
     }
         let level="undergraduate";
@@ -66,16 +66,15 @@
             data: {"query": majors, "level": level},
             success: function (data) {
                 for (i in data.responses) {
+                    majorsCodes.push(data.responses[i].code);
                     if (data.responses[i].versions[year]==undefined){
-                        majorsCodes.push("");
-                        majorDescription.push("");
+                        majorDescription.push("No "+year+" information.");
                         majorsTitle.push("");
                         majorsRequirements.push("");
                     }
                     else{
                     description=JSON.stringify(data.responses[i].versions[year].description);
                     description=str_substr("\"",".",description);
-                    majorsCodes.push(data.responses[i].code);
                     majorDescription.push(description+"......");
                     tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements.x_from_here[0]);
                     tempRequirement =replaceString(tempRequirement);
@@ -108,139 +107,6 @@
                                     tableData += "<td>" + majorsRequirements[i - 1] + "</td>";
                                 } else if (j == 1) {
                                     tableData += "<td>" + majorsTitle[i - 1] + "</td>";
-                                }
-                            }
-                        }
-                        tableData += "</tr>" + "<tr>";
-                    }
-                }
-                $("#Table").html(tableData);
-            }
-        });
-    }
-    function showMinors() {
-        let minors = document.getElementById("search").value;
-        //let level = document.getElementById("level").value;
-        let year= document.getElementById("year").value;
-        let tableData = "<tr>";
-        let tempRequirement = "";
-        const minorsCodes = [];
-        const minorDescription = [];
-        const minorsRequirements = [];
-        const minorsTitle = [];
-        $.ajax({
-            url: '../search/minors',
-            data: {"query": minors, "level": level},
-            success: function (data) {
-                for (i in data.responses) {
-                    if (data.responses[i].versions[year]==undefined){
-                        minorDescription.push("");
-                        minorsCodes.push("");
-                        minorsRequirements.push("");
-                        minorsTitle.push("");
-                    }
-                    else{
-                    minorsCodes.push(data.responses[i].code);
-                    description=JSON.stringify(data.responses[i].versions[year].description);
-                    description=str_substr("\"",".",description);
-                    minorDescription.push(description+"......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements);
-                    tempRequirement = replaceString(tempRequirement);
-                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
-                    minorsRequirements.push(tempRequirement);
-                    minorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));}
-                }
-                if (minorsCodes.length == 0) {
-                    tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
-                } else {
-                    for (var i = 0; i < minorsCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
-                            if (i == 0) {
-                                if (j == 0) {
-                                    tableData += "<th>" + "minor Code" + "</th>";
-                                } else if (j == 1) {
-                                    tableData += "<th>" + "minor Title" + "</th>";
-                                } else if (j == 2) {
-                                    tableData += "<th>" + "minor Requrirement" + "</th>";
-                                } else if (j == 3) {
-                                    tableData += "<th>" + "minor Description" + "</th>";
-                                }
-                            } else {
-                                if (j == 0) {
-                                    tableData += "<td>" + minorsCodes[i - 1] + "</td>";
-                                } else if (j == 3) {
-                                    tableData += "<td>" + minorDescription[i - 1] + "</td>";
-                                } else if (j == 2) {
-                                    tableData += "<td>" + minorsRequirements[i - 1] + "</td>";
-                                } else if (j == 1) {
-                                    tableData += "<td>" + minorsTitle[i - 1] + "</td>";
-                                }
-                            }
-                        }
-                        tableData += "</tr>" + "<tr>";
-                    }
-                }
-                $("#Table").html(tableData);
-            }
-        });
-    }
-    function showSpecs() {
-        let specs = document.getElementById("search").value;
-          let year= document.getElementById("year").value;
-        //let level = document.getElementById("level").value;
-        let tableData = "<tr>";
-        let tempRequirement = "";
-        const specsCodes = [];
-        const specDescription = [];
-        const specsRequirements = [];
-        const specsTitle = [];
-        $.ajax({
-            url: '../search/specs',
-            data: {"query": specs, "level": level},
-            success: function (data) {
-                for (i in data.responses) {
-                     if (data.responses[i].versions[year]==undefined){
-                        specDescription.push("");
-                        specsCodes.push("");
-                        specsRequirements.push("");
-                        specsTitle.push("");
-                    }
-                    else{
-                    specsCodes.push(data.responses[i].code);
-                    description=JSON.stringify(data.responses[i].versions[year].description);
-                    description=str_substr("\"",".",description);
-                    specDescription.push(description+".......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements);
-                    tempRequirement = replaceString(tempRequirement);
-                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
-                    specsRequirements.push(tempRequirement);
-                    specsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
-                    }
-                }
-                if (specsCodes.length == 0) {
-                    tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
-                } else {
-                    for (var i = 0; i < specsCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
-                            if (i == 0) {
-                                if (j == 0) {
-                                    tableData += "<th>" + "spec Code" + "</th>";
-                                } else if (j == 1) {
-                                    tableData += "<th>" + "spec Title" + "</th>";
-                                } else if (j == 2) {
-                                    tableData += "<th>" + "spec Requrirement" + "</th>";
-                                } else if (j == 3) {
-                                    tableData += "<th>" + "spec Description" + "</th>";
-                                }
-                            } else {
-                                if (j == 0) {
-                                    tableData += "<td>" + specsCodes[i - 1] + "</td>";
-                                } else if (j == 3) {
-                                    tableData += "<td>" + specDescription[i - 1] + "</td>";
-                                } else if (j == 2) {
-                                    tableData += "<td>" + specsRequirements[i - 1] + "</td>";
-                                } else if (j == 1) {
-                                    tableData += "<td>" + specsTitle[i - 1] + "</td>";
                                 }
                             }
                         }

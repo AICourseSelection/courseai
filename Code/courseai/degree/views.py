@@ -16,16 +16,12 @@ from .models import Degree, PreviousStudentDegree, DegreePlanStore, DegreeRequir
 
 
 def all_degrees(request):
-
     degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
     results = []
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
-    print("in all degree")
-    readJsonDir(root_path)
-    print(DegreeRequirement.objects.all())
-
+    #return render(request, 'dynamic_pages/staff_staff.html', {'degree': results})
     return JsonResponse({"response": results})
 
 
