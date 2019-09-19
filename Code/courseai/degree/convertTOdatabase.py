@@ -1,6 +1,7 @@
 import os
 import json
-rootpath = "D:\pycharm project\Code\courseai\static\json" 
+
+rootpath = "/Users/please/PycharmProjects/courseai/Code/courseai/static/json"
 
 def readJsonDir(rootpath):
     list = os.listdir(rootpath)
@@ -11,6 +12,7 @@ def readJsonDir(rootpath):
         else:
             readfile(path)
 
+
 def readfile(filepath):
     list = os.listdir(filepath)
     for i in range(0, len(list)):
@@ -18,15 +20,18 @@ def readfile(filepath):
         if os.path.isfile(path):
             readJsonInsideside(path)
 
+
 def readJsonInsideside(filePath):
     if filePath.find(".json") == -1:
         return
     with open(filePath, "r+", encoding='utf-8') as one_file:
         try:
             f=json.load(one_file)
+            #add_to_db(f)
             print("inside",f)
         finally:
             return
+
 
 def readJsonOutside(filePath):
     if filePath.find(".json") == -1:
@@ -42,6 +47,7 @@ def readJsonOutside(filePath):
 def main():
     print("main begin...")
     readJsonDir(rootpath)
+
 
 if __name__ == '__main__':
     main()

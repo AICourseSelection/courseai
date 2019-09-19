@@ -1,0 +1,169 @@
+{% load static %}
+{% load pipeline %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Intelligent Course Scheduler - About</title>
+</head>
+<body>
+
+{% include 'staff_pages/partials/_navbar_staff.html' %}
+<div class="wrapper">
+
+<div class="col-10 mx-auto mt-4">
+    <div class="mission-statement-title">
+        <h2> Mission Statement </h2>
+    </div>
+    <div class="mission-statement-body">
+        <p>ICS is a personalised course discovery experience for university students that employs Artificial Intelligence and Human Centric Computing.
+        Using this system, we hope to make course selection quicker and easier for students.</p>
+    </div>
+</div>
+
+<div id="team-members" class="col-10 mx-auto my-3">
+    <h2>The Team</h2>
+    <div class="row mt-5">
+        <div class="col-4">
+            <img class="img-responsive center-block" src="{% static "img/Joseph.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Joseph Meltzer</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Frontend Developer (Team Lead)</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:joseph.meltzer@anu.edu.au" class="text-center">joseph.meltzer@anu.edu.au</a>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="{% static "img/Tom.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Tom Hamer</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">AI Developer</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:u6081614@anu.edu.au">u6081614@anu.edu.au</a>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="{% static "img/Manal.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Manal Mohania</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">AI Developer</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:manal.mohania@anu.edu.au">manal.mohania@anu.edu.au</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-4">
+            <img src="{% static "img/Lim.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Yong Wei Lim</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Deployment and Testing Specialist</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:u6033740@anu.edu.au">u6033740@anu.edu.au</a>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="{% static "img/Thien.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Thien Bui-Nguyen</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Frontend Developer</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:u6050672@anu.edu.au">u6050672@anu.edu.au</a>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="{% static "img/Scarlett.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Scarlett Qin</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Backend Developer</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:sijia.qin@anu.edu.au">sijia.qin@anu.edu.au</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6">
+            <img src="{% static "img/Chris.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Christopher Kim</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Project Management</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:u5797725@anu.edu.au">u5797725@anu.edu.au</a>
+            </div>
+        </div>
+        <div class="col-6">
+            <img src="{% static "img/Jack.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">YiLong (Jack) Wang</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Marketing</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:u5794538@anu.edu.au">u5794538@anu.edu.au</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6">
+            <img src="{% static "img/Bradley.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Bradley Kim</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Advisor</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:bradley.kim@accenture.com">bradley.kim@accenture.com</a>
+            </div>
+        </div>
+        <div class="col-6">
+            <img src="{% static "img/Derrick.png" %}"/>
+            <div class="member-name">
+                <p class="text-center font-weight-bold">Derrick Leong</p>
+            </div>
+            <div class="member-role">
+                <p class="text-center font-weight-light">Advisor</p>
+            </div>
+            <div class="member-email">
+                <a href="mailto:derrick.leong@accenture.com">derrick.leong@accenture.com</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% include 'staff_pages/partials/_footer_staff.html' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

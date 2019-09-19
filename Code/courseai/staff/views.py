@@ -143,27 +143,68 @@ def course_detail(request):
     c_year = request.GET.get('year')
     context = {
         'c_code': code,
-        'c_year':c_year,
+        'c_year': c_year,
         'c_name': c_name,
     }
     return render(request, 'staff_pages/course_detail.html', context=context)
-
 
 
 def course_add(request):
     return render(request, 'staff_pages/course_add.html')
 
 
-def mms(request):
-    return render(request, 'staff_pages/mms.html')
+def major(request):
+    return render(request, 'staff_pages/major.html')
 
 
-def mms_detail(request):
-    return render(request, 'staff_pages/mms_detail.html')
+def major_detail(request):
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    context = {
+        'major_code': code,
+        'major_year': year,
+    }
+    return render(request, 'staff_pages/major_detail.html', context=context)
 
 
-def mms_add(request):
-    return render(request, 'staff_pages/mms_add.html')
+def major_add(request):
+    return render(request, 'staff_pages/major_add.html')
+
+
+def minor(request):
+    return render(request, 'staff_pages/minor.html')
+
+
+def minor_detail(request):
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    context = {
+        'minor_code': code,
+        'minor_year': year,
+    }
+    return render(request, 'staff_pages/minor_detail.html', context=context)
+
+
+def minor_add(request):
+    return render(request, 'staff_pages/minor_add.html')
+
+
+def specialisation(request):
+    return render(request, 'staff_pages/specialisation.html')
+
+
+def specialisation_detail(request):
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    context = {
+        'spec_code': code,
+        'spec_year': year,
+    }
+    return render(request, 'staff_pages/specialisation_detail.html', context=context)
+
+
+def specialisation_add(request):
+    return render(request, 'staff_pages/specialisation_add.html')
 
 
 def all_degrees(request):
@@ -173,3 +214,7 @@ def all_degrees(request):
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
     return JsonResponse({"response": results})
+
+
+def about(request):
+    return render(request, 'staff_pages/about.html')

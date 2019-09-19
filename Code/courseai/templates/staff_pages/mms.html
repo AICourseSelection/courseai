@@ -118,7 +118,6 @@
             }
         });
     }
-
     function showMinors() {
         let minors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
@@ -134,7 +133,6 @@
             data: {"query": minors, "level": level},
             success: function (data) {
                 for (i in data.responses) {
-
                     if (data.responses[i].versions[year]==undefined){
                         minorDescription.push("");
                         minorsCodes.push("");
@@ -186,7 +184,6 @@
             }
         });
     }
-
     function showSpecs() {
         let specs = document.getElementById("search").value;
           let year= document.getElementById("year").value;
@@ -265,8 +262,5 @@
         //string=string.replace(/,"units":/g,"<br>\"units\":");
         return string;
     }
-
-
-
     </script>
 {% endblock %}

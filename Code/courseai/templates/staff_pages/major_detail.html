@@ -1,0 +1,88 @@
+{% extends 'staff_pages/staff_base.html' %}
+{% block content %}
+    <script type="javascript">
+        $("textarea#spec").val().replace("<br>", "&#10;");
+    </script>
+
+    <form id="forms"></form>
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td id=pageTitle style="width: 90%"><h1 class="text-center">{{ major_code }} ({{ major_year }})</h1>
+                </td>
+                <td>
+                    <button id="btnEdit">Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="container h-100">
+        <table class="table table-striped">
+            <tr>
+                <td style="text-align: right; width: 20%">Code:</td>
+                <td style="text-align: left">{{ major_code }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Year:</td>
+                <td style="text-align: left">{{ major_year }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Title:</td>
+                <td style="text-align: left">
+                    <input type="text" id="title" disabled="disabled" style="width: 100%">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Description:</td>
+                <td style="text-align: left">
+                    <textarea rows="5" type="text" id="description" disabled="disabled"
+                              style="width: 100%">    </textarea><br>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Requirement:</td>
+                <td id="requirements" style="text-align: left">
+
+                </td>
+            </tr>
+            <tbody id="majorTable">
+        </table>
+
+    </div>
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+    <script>
+        var year ={{ major_year }};
+        let requirementTable = document.getElementById("requirements");
+        let code = sessionStorage.getItem("majorCode");
+        let version = sessionStorage.getItem("majorVersion");
+        let jsonObject = JSON.parse(version);
+        var requirement = "";
+        //console.log(jsonObject[year]);
+        document.getElementById("title").value = jsonObject[year].title;
+        document.getElementById("description").value = jsonObject[year].description;
+        //console.log(jsonObject[year].requirements.x_from_here);
+        for (let i = 0; i < jsonObject[year].requirements.x_from_here.length; i++) {
+            for (j in jsonObject[year].requirements.x_from_here[i].courses) {
+                let string = jsonObject[year].requirements.x_from_here[i].courses[j][0].code + "-" + jsonObject[year].requirements.x_from_here[i].courses[j][0].title;
+                requirement += "<input type=\"text\" disabled=\"disabled\" style=\"width: 100%\" value=\"" + string + "\">" + "<br>";
+            }
+        }
+        requirementTable.innerHTML = requirement;
+        $(document).ready(function () {
+            $('#btnEdit').click(function () {
+                if ($("#btnEdit").html() == 'Edit') {
+                    $("#name").prop("disabled", false);
+                    $("#btnEdit").html('Save');
+                } else {
+                    $("#name").prop("disabled", true);
+                    $("#btnEdit").html('Edit');
+                }
+            });
+        });
+
+    </script>
+
+{% endblock %}

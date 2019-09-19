@@ -249,6 +249,7 @@ def code_search(search_object, phrase):
 
 
 def execute_code_search(es_conn, phrase):
+
     s = Search(using=es_conn, index='courseupdated')
     response = code_search(s, phrase)
 

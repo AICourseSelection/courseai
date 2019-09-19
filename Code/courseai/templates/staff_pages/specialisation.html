@@ -1,0 +1,145 @@
+{% extends 'staff_pages/staff_base.html' %}
+{% block content %}
+     <div style="margin-top: 15px; flex-wrap: nowrap" >
+    <div style="width: 100%; text-align: center">
+<table class="table">
+    <tr>
+        <td>
+        <input type="text" id = "search" name="specName" required placeholder="Search Mms"
+               autocomplete="off" data-toggle="popover" style="width:30%">
+                <button onclick="showSpecs()" class="btn btn-primary btn-lg">Show Spec</button>
+            <div>&nbsp</div>
+        </td>
+        </tr>
+    <tr>
+        <td>
+        <label>Academic year: </label>
+              <select id="year" class="btn-group">
+    <option value="2014" selected="selected">2014</option>
+    <option value="2015">2015</option>
+    <option value="2016">2016</option>
+    <option value="2017">2017</option>
+    <option value="2018">2018</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+</select>
+        </td>
+    </tr>
+    </table>
+        <div>&nbsp</div>
+        <div class="table-responsive">
+            <table class="table" style="width: 50%; margin: auto">
+                    <tbody id="Table">
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+    <script>
+    function str_substr(start, end, str) {
+        content="";
+       try{
+            temp = str.split(start, 2);
+            content = temp[1].split(end, 2);
+        }
+        catch (e) {
+            console.log(e.name + ":" + e.message);
+        }
+        return content[0];
+    }
+        let level="undergraduate";
+        let description="";
+    var specCodes = [];
+    var specVersion = [];
+    function showSpecs() {
+        let specs = document.getElementById("search").value;
+          let year= document.getElementById("year").value;
+        //let level = document.getElementById("level").value;
+        let tableData = "<tr>";
+        let tempRequirement = "";
+        const specDescription = [];
+        const specsRequirements = [];
+        const specsTitle = [];
+        $.ajax({
+            url: '../search/specs',
+            data: {"query": specs, "level": level},
+            success: function (data) {
+                for (i in data.responses) {
+                    specCodes.push(data.responses[i].code);
+                    specVersion.push(JSON.stringify(data.responses[i].versions));
+                     if (data.responses[i].versions[year]==undefined){
+                        specDescription.push("No "+year+" information.");
+                        specsRequirements.push("");
+                        specsTitle.push("");
+                    }
+                    else{
+                        description=JSON.stringify(data.responses[i].versions[year].description);
+                        if (description!=undefined){
+                             description=str_substr("\"",".",description);
+                    specDescription.push(description+".......");
+                        }
+                        else{specDescription.push("No "+year+" information.")}
+                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements);
+                    tempRequirement = replaceString(tempRequirement);
+                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
+                    specsRequirements.push(tempRequirement);
+                    specsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
+                    }
+                }
+                if (specCodes.length == 0) {
+                    tableData += "<th>" + "No such spec" + "</th>" + "</tr>";
+                } else {
+                    for (var i = 0; i < specCodes.length + 1; i++) {
+                        for (var j = 0; j < 4; j++) {
+                            if (i == 0) {
+                                if (j == 0) {
+                                    tableData += "<th>" + "spec Code" + "</th>";
+                                } else if (j == 1) {
+                                    tableData += "<th>" + "spec Title" + "</th>";
+                                } else if (j == 2) {
+                                    tableData += "<th>" + "spec Requrirement" + "</th>";
+                                } else if (j == 3) {
+                                    tableData += "<th>" + "spec Description" + "</th>";
+                                }
+                            } else {
+                                if (j == 0) {
+                                    tableData += "<td>" +
+                                        "<a href=\"specialisation_detail?code=" + specCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        specCodes[i - 1] +
+                                        "</a>" +
+                                        "</td>";
+                                } else if (j == 3) {
+                                    tableData += "<td>" + specDescription[i - 1] + "</td>";
+                                } else if (j == 2) {
+                                    tableData += "<td>" + specsRequirements[i - 1] + "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td>" + specsTitle[i - 1] + "</td>";
+                                }
+                            }
+                        }
+                        tableData += "</tr>" + "<tr>";
+                    }
+                }
+                $("#Table").html(tableData);
+                console.log(specCodes)
+            }
+        });
+    }
+        function replaceString(string) {
+        if (string == undefined) {
+            return "";
+        }
+        string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
+        string = string.replace(/\"courses\"/g, "");
+        string = string.replace(/\[:|\[|\]|\"/g, "");
+        string = string.replace(/,code/g, "<br>code");
+        return string;
+    }
+
+    function saveData(i) {
+        //alert("success");
+        sessionStorage.setItem("specVersion", specVersion[i]);
+        sessionStorage.setItem("specCode", specCodes[i]);
+    }
+    </script>
+{% endblock %}

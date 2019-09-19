@@ -30,8 +30,10 @@ def sync_db():
     print("Syncing specialisations with Elastic Search...")
     sync_spec_db()
 
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "courseai.settings")
+    #os.environ.setdefault("SECRET_KEY", "A")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -43,5 +45,6 @@ if __name__ == "__main__":
     if(sys.argv[1] == 'syncdb'):
         sync_db()
     else:
+        print(sys.argv)
         execute_from_command_line(sys.argv)
 

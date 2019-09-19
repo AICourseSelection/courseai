@@ -21,6 +21,7 @@ class PreviousStudentDegree(models.Model):
     code = models.CharField(max_length=10)
     courses_taken = models.TextField()
 
+
 class DegreePlanStore(models.Model):
     """
         Stores plaintext for plan
@@ -242,12 +243,13 @@ class Course(models.Model):
         es_conn.update(index='courseupdated', doc_type='_doc', id=self.es_id, refresh = True,body={"doc":to_update})
         super().delete()
 
+
 class DegreeRequirement(models.Model):
     year = models.CharField(max_length=4, default="")
-    code = models.CharField(max_length=10,default="")
+    code = models.CharField(max_length=10, default="")
     name = models.TextField(default="",blank=True, editable=False)
     units = models.CharField(max_length=10,default="")
-    required=JSONField(default=list)
+    required = JSONField(default=list)
 
     def __str__(self):
         return self.name+" - "+self.year
@@ -260,5 +262,6 @@ class DegreeRequirement(models.Model):
         to_return["units"] = self.units
         to_return["required"] = self.required
         return json.dumps(to_return)
+
 
 
