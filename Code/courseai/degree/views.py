@@ -22,9 +22,6 @@ def all_degrees(request):
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
-    print("in all degree")
-    readJsonDir(root_path)
-    print(DegreeRequirement.objects.all())
 
     return JsonResponse({"response": results})
 
