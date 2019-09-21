@@ -23,13 +23,12 @@ def all_degrees(request):
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
 
-    readJsonDir(root_path)
-
     return JsonResponse({"response": results})
 
 
 @csrf_exempt
 def degree_plan(request):
+
     if request.method == "GET":
         try:
             code = request.GET['degree_code']
@@ -100,7 +99,7 @@ def store_plan(request):
     proc = QueryDict(data)
     # generate a random code
     code = get_random_string(length=10)
-    code = code.replace(" ","c")
+    code = code.replace(" ", "c")
     plan = DegreePlanStore(code=code, plan=proc['plan'])
     plan.save()
     res = JsonResponse({"response": code})
