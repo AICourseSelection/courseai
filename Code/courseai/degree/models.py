@@ -264,4 +264,6 @@ class DegreeRequirement(models.Model):
         return json.dumps(to_return)
 
 
-
+class studyoption(models.Model):
+    code_year = models.CharField(max_length=40, default="", editable=True)
+    option = models.TextField(default="",blank=True, editable=True)

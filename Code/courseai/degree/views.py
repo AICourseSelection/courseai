@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from recommendations import jsonhelper
 from . import course_data_helper
 from . import degree_plan_helper
-from .models import Degree, PreviousStudentDegree, DegreePlanStore, DegreeRequirement
+from .models import Degree, PreviousStudentDegree, DegreePlanStore, DegreeRequirement, studyoption
 
 
 def all_degrees(request):
@@ -22,9 +22,8 @@ def all_degrees(request):
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
-    print("in all degree")
+
     readJsonDir(root_path)
-    print(DegreeRequirement.objects.all())
 
     return JsonResponse({"response": results})
 
@@ -147,13 +146,12 @@ def add_to_db(data):
     name = data["name"]
     required = data["required"]
     units = data["units"]
-    print(year)
-    DegreeRequirement.objects.create(code=code, name=name, units=units, required=required, year=year)
+    obj = DegreeRequirement(code=code, name=name, units=units, required=required, year=year)
+    obj.save()
 
 
 def readJsonDir(rootpath):
     list = os.listdir(rootpath)
-    print(len(list))
     for i in range(0, len(list)):
         path = os.path.join(rootpath, list[i])
         if os.path.isfile(path):
@@ -176,6 +174,10 @@ def readJsonInsideside(filePath):
     with open(filePath, "r+", encoding='utf-8') as one_file:
         try:
             f=json.load(one_file)
+            for key in f.keys():
+                code_year = f['code'] + key
+                obj = studyoption(code_year=code_year, option=f[key])
+                obj.save()
         finally:
             return
 
