@@ -6,12 +6,11 @@
             <tr>
                 <td style="width: 90%"></td>
                 <td>
-                    <button id="btnSave">Save</button>
+                    <button id="btnSave" onclick="save()" class="btn btn-primary btn-lg">Save</button>
             </tr>
         </table>
 
     </div>
-
     <div class="container h-100">
         <table class="table table-striped">
             <tr>
@@ -23,9 +22,9 @@
                 <td style="text-align: left"><input type="text" id="year" value="" style="width: 100%"></td>
             </tr>
             <tr>
-                <td style="text-align: right; width: 20%">Name:</td>
+                <td style="text-align: right; width: 20%">Title:</td>
                 <td style="text-align: left">
-                    <input type="text" id="name" value="" style="width: 100%">
+                    <input type="text" id="title" value="" style="width: 100%">
                 </td>
             </tr>
             <tr>
@@ -64,6 +63,31 @@
         </table>
 
     </div>
-
+    <script>
+        function save() {
+            let code = document.getElementById("code").value;
+            let year = document.getElementById("year").value;
+            let session = document.getElementById("sessions").value;
+            let units = document.getElementById("units").value;
+            let description = document.getElementById("description").value;
+            let title = document.getElementById("title").value;
+            let learningOutcomes = document.getElementById("learningOutcome").value;
+            let prerequisiteText = document.getElementById("prerequisites").value;
+            console.log(code);
+            console.log(description);
+            $.ajax({
+                url: '../staff/save_courses',
+                data: {
+                    "course_code": code, "year": year, "sessions": session, "units": units,
+                    "title": title, "description": description, "learning_outcomes": learningOutcomes,
+                    "prerequisite_text": prerequisiteText
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("Save success")
+                }
+            });
+        }
+    </script>
 
 {% endblock %}

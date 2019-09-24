@@ -218,3 +218,11 @@ def all_degrees(request):
 
 def about(request):
     return render(request, 'staff_pages/about.html')
+
+
+def saveCourses(request):
+    print(request)
+    print(request.GET.get("course_code"));
+    print(request.GET.get("year"));
+    print(request.GET.get("description"));
+    return JsonResponse({"response": "Success"})

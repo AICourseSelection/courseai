@@ -28,4 +28,5 @@ urlpatterns = [
     path('about', views.about, name='about'),
 
     path('all_degrees', views.all_degrees),
+    path('save_courses', views.saveCourses),
 ]
