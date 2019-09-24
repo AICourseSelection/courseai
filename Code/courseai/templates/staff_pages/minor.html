@@ -5,8 +5,8 @@
 <table class="table">
     <tr>
         <td>
-        <input type="text" id = "search" name="minorName" required placeholder="Search Mms"
-               autocomplete="off" data-toggle="popover" style="width:30%">
+            <input type="text" id="search" name="minorName" required placeholder="Search minor"
+                   autocomplete="off" data-toggle="popover" style="width:30%">
                 <button onclick="showMinors()" class="btn btn-primary btn-lg">Show Minors</button>
             <div>&nbsp</div>
         </td>
@@ -54,49 +54,38 @@
     var minorsVersion = [];
     var minorsCodes = [];
     function showMinors() {
+        minorsVersion = [];
+        minorsCodes = [];
         let minors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
         let year= document.getElementById("year").value;
         let tableData = "<tr>";
-        let tempRequirement = "";
         const minorDescription = [];
-        const minorsRequirements = [];
         const minorsTitle = [];
         $.ajax({
             url: '../search/minors',
             data: {"query": minors, "level": level},
             success: function (data) {
                 for (i in data.responses) {
-                    minorsCodes.push(data.responses[i].code);
+                    if (data.responses[i].versions[year] != undefined) {
+                        minorsCodes.push(data.responses[i].code);
                     minorsVersion.push(JSON.stringify(data.responses[i].versions));
-                    if (data.responses[i].versions[year]==undefined){
-                        minorDescription.push("No "+year+" information.");
-                        minorsRequirements.push("");
-                        minorsTitle.push("");
-                    }
-                    else{
                     description=JSON.stringify(data.responses[i].versions[year].description);
                     description=str_substr("\"",".",description);
                     minorDescription.push(description+"......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements);
-                    tempRequirement = replaceString(tempRequirement);
-                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
-                    minorsRequirements.push(tempRequirement);
                     minorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));}
                 }
                 if (minorsCodes.length == 0) {
                     tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
                 } else {
                     for (var i = 0; i < minorsCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
+                        for (var j = 0; j < 3; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "minor Code" + "</th>";
                                 } else if (j == 1) {
                                     tableData += "<th>" + "minor Title" + "</th>";
                                 } else if (j == 2) {
-                                    tableData += "<th>" + "minor Requrirement" + "</th>";
-                                } else if (j == 3) {
                                     tableData += "<th>" + "minor Description" + "</th>";
                                 }
                             } else {
@@ -106,12 +95,18 @@
                                         minorsCodes[i - 1] +
                                         "</a>" +
                                         "</td>";
-                                } else if (j == 3) {
-                                    tableData += "<td>" + minorDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + minorsRequirements[i - 1] + "</td>";
+                                    tableData += "<td>" +
+                                        "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        minorDescription[i - 1] +
+                                        "</a>" +
+                                        "</td>";
                                 } else if (j == 1) {
-                                    tableData += "<td>" + minorsTitle[i - 1] + "</td>";
+                                    tableData += "<td>" +
+                                        "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        minorsTitle[i - 1] +
+                                        "</a>" +
+                                        "</td>";
                                 }
                             }
                         }
@@ -122,17 +117,7 @@
             }
         });
     }
-        function replaceString(string) {
-        if (string == undefined) {
-            return "";
-        }
-        string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
-        string = string.replace(/\"courses\"/g, "");
-        string = string.replace(/\[:|\[|\]|\"/g, "");
-        string = string.replace(/,code/g, "<br>code");
-        //string=string.replace(/,"units":/g,"<br>\"units\":");
-        return string;
-    }
+
 
     function saveData(i) {
         //alert("success");

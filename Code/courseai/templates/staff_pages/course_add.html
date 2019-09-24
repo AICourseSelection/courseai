@@ -1,4 +1,69 @@
+
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
-    <h1>course add</h1>
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 90%"></td>
+                <td>
+                    <button id="btnSave">Save</button>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="container h-100">
+        <table class="table table-striped">
+            <tr>
+                <td style="text-align: right; width: 20%">Code:</td>
+                <td style="text-align: left"><input type="text" id="code" value="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Year:</td>
+                <td style="text-align: left"><input type="text" id="year" value="" style="width: 100%"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Name:</td>
+                <td style="text-align: left">
+                    <input type="text" id="name" value="" style="width: 100%">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Units:</td>
+                <td style="text-align: left">
+                    <input type="text" id="units" value="" style="width: 100%">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Sessions:</td>
+                <td style="text-align: left">
+                    <input type="text" id="sessions" value="" style="width: 100%">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Description:</td>
+                <td style="text-align: left">
+                    <textarea rows="5" type="text" id="description" style="width: 100%">    </textarea><br>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Learning outcome:</td>
+                <td style="text-align: left">
+                    <textarea rows="6" type="text" id="learningOutcome" style="width: 100%"></textarea><br>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Prerequisites:</td>
+                <td style="text-align: left">
+                    <textarea rows="2" type="text" id="prerequisites" style="width: 100%"></textarea><br>
+                </td>
+            </tr>
+            <br>
+            <br>
+
+        </table>
+
+    </div>
+
+
 {% endblock %}
