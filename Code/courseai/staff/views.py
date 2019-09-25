@@ -304,3 +304,11 @@ def create_book_normal(request):
         'formset': formset,
         'heading': heading_message,
     })
+
+
+def saveCourses(request):
+    print(request)
+    print(request.GET.get("course_code"));
+    print(request.GET.get("year"));
+    print(request.GET.get("description"));
+    return JsonResponse({"response": "Success"})

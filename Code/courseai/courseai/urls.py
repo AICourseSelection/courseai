@@ -31,5 +31,5 @@ urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + 
     path(r'admin/', site.urls),
     path(r'feedback/', include('feedback.urls')),
     path(r'feedbackform', TemplateView.as_view(template_name='dynamic_pages/feedback.html'), name='feedbackform'),
-    path('staff/', include('staff.urls')),
+    path(r'staff/', include('staff.urls')),
     ]

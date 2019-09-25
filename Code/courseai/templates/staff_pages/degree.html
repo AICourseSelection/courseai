@@ -86,7 +86,8 @@
                                             "</a>" +
                                             "</td>";
                                     } else if (j==1){
-                                        tableData += "<td style=\"text-align:left\">" + degreeDicts[i - 1] + "</td>";
+                                        tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code=" + degreeCodes[i - 1] + "&title=" + degreeDicts[i - 1] + "&year=" + year + "\">" +
+                                            degreeDicts[i - 1] + "</a>" + "</td>";
                                     }
 
                                 }

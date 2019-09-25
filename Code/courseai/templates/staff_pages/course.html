@@ -58,7 +58,6 @@
         courseVersions = [];
         const courseUnits = [];
         const courseTitles = [];
-        const courseDescription = [];
         var versions = "";
         $.ajax({
             url: '../search/coursesearch/',
@@ -67,19 +66,21 @@
                 year=document.getElementById("year").value;
                 for (let i = 0; i < data.response.length; i++) {
                     if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
-                        courseCodes.push(data.response[i].course_code);
                         versions = JSON.stringify(data.response[i].versions);
-                        courseVersions.push(versions.toString());
-                        courseUnits.push(str_substr("units\":\"","\"",versions));
-                        courseTitles.push(str_substr("title\":",",",versions).replace(/\"/g,""));
-                        courseDescription.push(str_substr("description\":\"",".",versions)+".......")
+                        if (versions != undefined) {
+                            courseCodes.push(data.response[i].course_code);
+                            versions = JSON.stringify(data.response[i].versions);
+                            courseVersions.push(versions.toString());
+                            courseUnits.push(str_substr("units\":\"", "\"", versions));
+                            courseTitles.push(str_substr("title\":", ",", versions).replace(/\"/g, ""));
+                        }
                     }
                 }
                 if (courseCodes.length == 0) {
                     tableData += "<th>" + "No such course" + "</th>" + "</tr>";
                 } else {
-                    for (i = 0; i < courseCodes.length + 1; i++) {
-                        for (let j = 0; j < 4; j++) {
+                    for (let i = 0; i < courseCodes.length + 1; i++) {
+                        for (let j = 0; j < 3; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "course code" + "</th>";
@@ -89,26 +90,21 @@
                                 else if(j==2){
                                     tableData += "<th>" + "course title" + "</th>";
                                 }
-                                else if(j==3){
-                                    tableData += "<th>" + "course description" + "</th>";
-                                }
+
                             } else {
                                 if (j == 0) {
-                                       tableData += "<td>" +
-                                           "<a href=\"course_detail?code=" + courseCodes[i - 1]+"&year="+year+"&title="+courseTitles[i-1]+"\" onClick=\"saveData('"+(i-1)+"')\">" +
-                                            courseCodes[i - 1] +
+                                    tableData += "<td>" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">"
+                                        + courseCodes[i - 1] +
                                             "</a>" +
                                             "</td>";
                                 } else if(j==1){
-                                    tableData += "<td>" + courseUnits[i - 1] + "</td>";
+                                    tableData += "<td>" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">"
+                                        + courseUnits[i - 1] + "</a>" + "</td>";
                                 }
                                 else if(j==2){
-                                    tableData += "<td>" + courseTitles[i-1] + "</td>";
+                                    tableData += "<td>" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        courseTitles[i - 1] + "</a>" + "</td>";
                                 }
-                                else if(j==3){
-                                    tableData += "<td>" + courseDescription[i-1] + "</td>";
-                                }
-
                             }
                         }
                         tableData += "</tr>" + "<tr>";
@@ -118,7 +114,9 @@
             }
         });
     }
-     function saveData(i){
+
+
+    function saveData(i) {
          //alert("success");
         sessionStorage.setItem("version",courseVersions[i]);
         sessionStorage.setItem("code",courseCodes[i]);
