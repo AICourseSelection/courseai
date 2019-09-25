@@ -18,8 +18,8 @@
 <table class="table">
     <tr>
         <td>
-        <input type="text" id = "search" name="majorName" required placeholder="Search Mms"
-               autocomplete="off" data-toggle="popover" style="width:30%">
+            <input type="text" id="search" name="majorName" required placeholder="Search major"
+                   autocomplete="off" data-toggle="popover" style="width:30%">
                 <button onclick="showMajors()" class="btn btn-primary btn-lg">Show Majors</button>
             <div>&nbsp</div>
         </td>
@@ -66,53 +66,43 @@
         let description="";
     var majorsCodes = [];
     var majorsVersions = [];
-    var majorsResponse = [];
+
 
      function showMajors() {
+         majorsCodes = [];
+         majorsVersions = [];
         let majors = document.getElementById("search").value;
         //let level = document.getElementById("level").value;
          let year =document.getElementById("year").value;
         let tableData = "<tr>";
-        let tempRequirement = "";
         const majorDescription = [];
-        const majorsRequirements = [];
         const majorsTitle = [];
         $.ajax({
             url: '../search/majors',
             data: {"query": majors, "level": level},
             success: function (data) {
+                let i;
                 for (i in data.responses) {
-                    majorsCodes.push(data.responses[i].code);
+                    if (data.responses[i].versions[year] != undefined) {
+                        majorsCodes.push(data.responses[i].code);
                     majorsVersions.push(JSON.stringify(data.responses[i].versions));
-                    if (data.responses[i].versions[year]==undefined){
-                        majorDescription.push("No "+year+" information.");
-                        majorsTitle.push("");
-                        majorsRequirements.push("");
-                    }
-                    else{
                     description=JSON.stringify(data.responses[i].versions[year].description);
                     description=str_substr("\"",".",description);
                     majorDescription.push(description+"......");
-                    tempRequirement = JSON.stringify(data.responses[i].versions[year].requirements.x_from_here[0]);
-                    tempRequirement =replaceString(tempRequirement);
-                    tempRequirement="title"+str_substr("title","title",tempRequirement)+"...";
-                    majorsRequirements.push(tempRequirement);
                     majorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
                     }
                 }
                 if (majorsCodes.length == 0) {
                     tableData += "<th>" + "No such major" + "</th>" + "</tr>";
                 } else {
-                    for (var i = 0; i < majorsCodes.length + 1; i++) {
-                        for (var j = 0; j < 4; j++) {
+                    for (i = 0; i < majorsCodes.length + 1; i++) {
+                        for (let j = 0; j < 3; j++) {
                             if (i == 0) {
                                 if (j == 0) {
                                     tableData += "<th>" + "Major Code" + "</th>";
                                 } else if (j == 1) {
                                     tableData += "<th>" + "Major Title" + "</th>";
                                 } else if (j == 2) {
-                                    tableData += "<th>" + "Major Requrirement" + "</th>";
-                                } else if (j == 3) {
                                     tableData += "<th>" + "Major Description" + "</th>";
                                 }
                             } else {
@@ -122,12 +112,18 @@
                                         majorsCodes[i - 1] +
                                         "</a>" +
                                         "</td>";
-                                } else if (j == 3) {
-                                    tableData += "<td>" + majorDescription[i - 1] + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + majorsRequirements[i - 1] + "</td>";
+                                    tableData += "<td>" +
+                                        "<a href=\"major_detail?code=" + majorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        majorDescription[i - 1] +
+                                        "</a>" +
+                                        "</td>";
                                 } else if (j == 1) {
-                                    tableData += "<td>" + majorsTitle[i - 1] + "</td>";
+                                    tableData += "<td>" +
+                                        "<a href=\"major_detail?code=" + majorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                        majorsTitle[i - 1] +
+                                        "</a>" +
+                                        "</td>";
                                 }
                             }
                         }
@@ -144,16 +140,6 @@
         sessionStorage.setItem("majorVersion", majorsVersions[i]);
         sessionStorage.setItem("majorCode", majorsCodes[i]);
     }
-        function replaceString(string) {
-        if (string == undefined) {
-            return "";
-        }
-        string = string.replace(/{|}|\"x_from_here\":|type:minimum:/g, "");
-        string = string.replace(/\"courses\"/g, "");
-        string = string.replace(/\[:|\[|\]|\"/g, "");
-        string = string.replace(/,code/g, "<br>code");
-        //string=string.replace(/,"units":/g,"<br>\"units\":");
-        return string;
-    }
+
     </script>
 {% endblock %}
