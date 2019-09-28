@@ -1,5 +1,6 @@
 import json
 import ast
+import os
 from builtins import Exception, eval, str
 import pandas as pd
 
@@ -11,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from recommendations import jsonhelper
 from . import course_data_helper
 from . import degree_plan_helper
-from .models import Degree, PreviousStudentDegree, DegreePlanStore
+from .models import Degree, PreviousStudentDegree, DegreePlanStore, DegreeRequirement
 
 
 def all_degrees(request):
@@ -130,3 +131,58 @@ def update_plan(request):
     retrieved.save()
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
+
+
+root_path = "/Users/please/PycharmProjects/courseai/Code/courseai/static/json"
+
+
+def add_to_db(data):
+
+    year = data["year"]
+    code = data["code"]
+    name = data["name"]
+    required = data["required"]
+    units = data["units"]
+    print(year)
+    DegreeRequirement.objects.create(code=code, name=name, units=units, required=required, year=year)
+
+
+def readJsonDir(rootpath):
+    list = os.listdir(rootpath)
+    print(len(list))
+    for i in range(0, len(list)):
+        path = os.path.join(rootpath, list[i])
+        if os.path.isfile(path):
+            readJsonOutside(path)
+        else:
+            readfile(path)
+
+
+def readfile(filepath):
+    list = os.listdir(filepath)
+    for i in range(0, len(list)):
+        path = os.path.join(filepath, list[i])
+        if os.path.isfile(path):
+            readJsonInsideside(path)
+
+
+def readJsonInsideside(filePath):
+    if filePath.find(".json") == -1:
+        return
+    with open(filePath, "r+", encoding='utf-8') as one_file:
+        try:
+            f=json.load(one_file)
+        finally:
+            return
+
+
+def readJsonOutside(filePath):
+    if filePath.find(".json") == -1:
+        return
+    if filePath.find(".study_options"):
+        with open(filePath, "r+", encoding='utf-8') as one_file:
+            try:
+                f = json.load(one_file)
+                add_to_db(f)
+            finally:
+                return

@@ -1,14 +1,23 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
+    <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">
+            <i class="fa fa-home"></i> Home
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </section>
 
   <div class="container">
-      <h1 class="text-center">Welcome {{ staffName }}</h1>
+      <h1 class="text-center">Welcome {{ staff_name }}</h1>
   </div>
 
     <div class="container">
     <p>{{ notification }}</p>
     </div>
-
-
 
 {% endblock %}

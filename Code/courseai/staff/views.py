@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import json
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
@@ -8,6 +8,13 @@ import sys
 import degree.views as degree
 from degree import degree_plan_helper
 import pandas as pd
+from datetime import date
+from django.contrib import messages
+from .forms import BookFormset
+
+from django import forms;
+from django.forms.formsets import formset_factory;
+from django.shortcuts import render_to_response
 
 # Create your views here.
 def index(request):
@@ -15,7 +22,7 @@ def index(request):
     staff_name = get_name()
     context = {
         'notification': notification,
-        'staffName': staff_name,
+        'staff_name': staff_name,
     }
     return render(request, 'staff_pages/index.html', context=context)
 
@@ -31,7 +38,11 @@ def get_name():
 
 
 def degree(request):
-    return render(request, 'staff_pages/degree.html')
+    bc_param = 'Degree'
+    context = {
+        'bc_param': bc_param
+    }
+    return render(request, 'staff_pages/degree.html', context=context)
 
 
 def degree_detail(request):
@@ -39,7 +50,7 @@ def degree_detail(request):
     year = request.GET.get('year')
     d_name = request.GET.get('title')
     d_year = year
-    plan1 = get_plan1(code,year)
+    plan1 = get_plan1(code, year)
 
     specs = get_spec(request)
     spec_row = len(specs)
@@ -47,6 +58,10 @@ def degree_detail(request):
     comps = get_comp(request)
     comp_row = len(comps)
 
+    bc_param = d_name + ' (' + year + ')'
+    delete = request.GET.get('delete')
+    mode = request.GET.get('mode')
+    safe = request.GET.get('safe')
     context = {
         'd_code': code,
         'd_name': d_name,
@@ -56,8 +71,17 @@ def degree_detail(request):
         'plan1': plan1,
         'spec_row': spec_row,
         'comp_row': comp_row,
+        'bc_param': bc_param,
+        'delete': delete,
+        'mode': mode
     }
+    if delete == 'false':
+        messages.success(request, 'You have successfully restore ' + bc_param + '!')
+    elif safe == 'true':
+        messages.success(request, 'You have successfully update ' + bc_param + '!')
+
     return render(request, 'staff_pages/degree_detail.html', context=context)
+
 
 def get_comp(request):
     code = request.GET.get('code')
@@ -123,17 +147,33 @@ class Plan1:
         self.course16 = "COMP-P"
 
 
-
-
-
-
-
 def degree_add(request):
-    return render(request, 'staff_pages/degree_add.html')
+    if request.method == 'POST':
+        # params
+        code = request.POST['code']
+        # Validation goes here
+        # sample
+        if len(code) > 5:
+            messages.error(request, 'Code can\'t be more than 5 char!')
+        return redirect('degree_add')
+    else:
+        bc_param = 'Course'
+        year_now = date.today().year
+        years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+        context = {
+            'bc_param': bc_param,
+            'year_now': year_now,
+            'years': years,
+        }
+        return render(request, 'staff_pages/degree_add.html', context=context)
 
 
 def course(request):
-    return render(request, 'staff_pages/course.html')
+    bc_param = 'Course'
+    context = {
+        'bc_param': bc_param,
+    }
+    return render(request, 'staff_pages/course.html', context=context)
 
 
 
@@ -141,29 +181,90 @@ def course_detail(request):
     code = request.GET.get('code')
     c_name = request.GET.get('title')
     c_year = request.GET.get('year')
+    bc_param = code + ' (' + c_year + ')'
     context = {
         'c_code': code,
-        'c_year':c_year,
+        'c_year': c_year,
         'c_name': c_name,
+        'bc_param': bc_param,
     }
     return render(request, 'staff_pages/course_detail.html', context=context)
-
 
 
 def course_add(request):
     return render(request, 'staff_pages/course_add.html')
 
 
-def mms(request):
-    return render(request, 'staff_pages/mms.html')
+def major(request):
+    bc_param = 'Major'
+    context = {
+        'bc_param': bc_param,
+    }
+    return render(request, 'staff_pages/major.html', context=context)
 
 
-def mms_detail(request):
-    return render(request, 'staff_pages/mms_detail.html')
+def major_detail(request):
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    bc_param = code + ' (' + year + ')'
+    context = {
+        'major_code': code,
+        'major_year': year,
+        'bc_param': bc_param,
+    }
+    return render(request, 'staff_pages/major_detail.html', context=context)
 
 
-def mms_add(request):
-    return render(request, 'staff_pages/mms_add.html')
+def major_add(request):
+    return render(request, 'staff_pages/major_add.html')
+
+
+def minor(request):
+    bc_param = 'Minor'
+    context = {
+        'bc_param': bc_param,
+    }
+    return render(request, 'staff_pages/minor.html', context=context)
+
+
+def minor_detail(request):
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    bc_param = code + ' (' + year + ')'
+    context = {
+        'minor_code': code,
+        'minor_year': year,
+        'bc_param': bc_param
+    }
+    return render(request, 'staff_pages/minor_detail.html', context=context)
+
+
+def minor_add(request):
+    return render(request, 'staff_pages/minor_add.html')
+
+
+def specialisation(request):
+    bc_param = 'Specialisation'
+    context = {
+        'bc_param': bc_param,
+    }
+    return render(request, 'staff_pages/specialisation.html', context=context)
+
+
+def specialisation_detail(request):
+    code = request.GET.get('code')
+    year = request.GET.get('year')
+    bc_param = code + ' (' + year + ')'
+    context = {
+        'spec_code': code,
+        'spec_year': year,
+        'bc_param': bc_param,
+    }
+    return render(request, 'staff_pages/specialisation_detail.html', context=context)
+
+
+def specialisation_add(request):
+    return render(request, 'staff_pages/specialisation_add.html')
 
 
 def all_degrees(request):
@@ -173,3 +274,41 @@ def all_degrees(request):
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
     return JsonResponse({"response": results})
+
+
+def about(request):
+    return render(request, 'staff_pages/about.html')
+
+
+def save_degree(request):
+    return render(request, 'staff_pages/about.html')
+
+
+def create_book_normal(request):
+    template_name = 'store/create_normal.html'
+    heading_message = 'Formset Demo'
+    if request.method == 'GET':
+        formset = BookFormset(request.GET or None)
+    elif request.method == 'POST':
+        formset = BookFormset(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                # extract name from each form and save
+                name = form.cleaned_data.get('name')
+                # save book instance
+                # if name:
+                #     Book(name=name).save()
+            # once all books are saved, redirect to book list view
+            return redirect('book_list')
+    return render(request, template_name, {
+        'formset': formset,
+        'heading': heading_message,
+    })
+
+
+def saveCourses(request):
+    print(request)
+    print(request.GET.get("course_code"));
+    print(request.GET.get("year"));
+    print(request.GET.get("description"));
+    return JsonResponse({"response": "Success"})

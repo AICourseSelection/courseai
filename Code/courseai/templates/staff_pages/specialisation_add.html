@@ -1,0 +1,52 @@
+{% extends 'staff_pages/staff_base.html' %}
+{% block content %}
+    <script type="javascript">
+        $("textarea#spec").val().replace("<br>", "&#10;");
+    </script>
+
+    <form id="forms"></form>
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 90%"></td>
+                <td>
+                    <button id="btnSave">Save</button>
+            </tr>
+        </table>
+
+        <div class="container h-100">
+            <table class="table table-striped">
+                <tr>
+                    <td style="text-align: right; width: 20%">Code:</td>
+                    <td style="text-align: left"><input type="text" id="code" value="" style="width: 100%"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Year:</td>
+                    <td style="text-align: left"><input type="text" id="year" value="" style="width: 100%"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Title:</td>
+                    <td style="text-align: left">
+                        <input type="text" id="title" value="" style="width: 100%"></td>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Description:</td>
+                    <td style="text-align: left">
+                    <textarea rows="5" type="text" id="description"
+                              style="width: 100%">    </textarea><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Requirement:</td>
+                    <td id="requirements" style="text-align: left">
+
+                    </td>
+                </tr>
+                <tbody id="specTable">
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}
