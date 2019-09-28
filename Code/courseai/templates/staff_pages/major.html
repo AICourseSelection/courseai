@@ -85,12 +85,14 @@
                 let i;
                 for (i in data.responses) {
                     if (data.responses[i].versions[year] != undefined) {
-                        majorsCodes.push(data.responses[i].code);
-                    majorsVersions.push(JSON.stringify(data.responses[i].versions));
-                    description=JSON.stringify(data.responses[i].versions[year].description);
-                    description=str_substr("\"",".",description);
-                    majorDescription.push(description+"......");
-                    majorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
+                        if (data.responses[i].versions[year].description != undefined) {
+                            majorsCodes.push(data.responses[i].code);
+                            majorsVersions.push(JSON.stringify(data.responses[i].versions));
+                            description=JSON.stringify(data.responses[i].versions[year].description);
+                            description=str_substr("\"",".",description);
+                            majorDescription.push(description+"......");
+                            majorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));
+                        }
                     }
                 }
                 if (majorsCodes.length == 0) {
