@@ -1,6 +1,21 @@
 
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
+    <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+              <a href="{% url 'index' %}">
+            <i class="fa fa-home"></i> Home </a>
+          </li>
+            <li class="breadcrumb-item">
+              <a href="{% url 'course' %}"> Course </a>
+          </li>
+            <li class="breadcrumb-item active">{{ bc_param }}</li>
+        </ol>
+      </nav>
+    </div>
     <script type="javascript">
         $("textarea#spec").val().replace("<br>", "&#10;");
     </script>
@@ -32,25 +47,38 @@
            </td>
         </tr>
         <tr>
+            <td style="text-align: right; width: 20%">Units:</td>
+           <td style="text-align: left">
+               <input type="text" id = "units" disabled="disabled"  style="width: 100%">
+           </td>
+        </tr>
+        <tr>
              <td style="text-align: right; width: 20%">Sessions:</td>
             <td style="text-align: left">
                 <input type="text" id="sessions" disabled="disabled"  style="width: 100%"><br>
             </td>
         </tr>
-    <br>
-<br>
         <tr>
-             <td style="text-align: right; width: 20%">Specialisation:</td>
+             <td style="text-align: right; width: 20%">Description:</td>
             <td style="text-align: left">
-                {% if specs %}
-                    {% for spec in specs %}
-                        <input type="text" disabled="disabled" value="{{ spec }}" style="width: 100%"><br>
-                    {% endfor %}
-                {% else %}
-                    <input type="text" disabled="disabled" value="-" style="width: 100%">
-                {% endif %}
+                <textarea rows="5" type="text" id="description" disabled="disabled"  style="width: 100%">    </textarea><br>
             </td>
         </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Learning outcome:</td>
+            <td style="text-align: left">
+                <textarea rows="6" type="text" id="learningOutcome" disabled="disabled"  style="width: 100%"></textarea><br>
+            </td>
+        </tr>
+        <tr>
+             <td style="text-align: right; width: 20%">Prerequisites:</td>
+            <td style="text-align: left">
+                <textarea rows="2"  type="text" id="prerequisites" disabled="disabled"  style="width: 100%"></textarea><br>
+            </td>
+        </tr>
+    <br>
+<br>
+
     </table>
 
     </div>
@@ -64,14 +92,28 @@
     console.log(jsonObject);
     console.log(jsonObject[year].sessions);
     document.getElementById("sessions").value=jsonObject[year].sessions;
+    document.getElementById("units").value=jsonObject[year].units;
+    document.getElementById("description").value=jsonObject[year].description;
+    document.getElementById("learningOutcome").value=jsonObject[year].learning_outcomes;
+    document.getElementById("prerequisites").value=jsonObject[year].prerequisite_text;
         $(document).ready(function () {
             $('#btnEdit').click(function () {
                 if ($("#btnEdit").html() == 'Edit') {
                     $("#name").prop("disabled", false);
+                    $("#units").prop("disabled", false);
+                    $("#sessions").prop("disabled", false);
+                    $("#description").prop("disabled", false);
+                    $("#learningOutcome").prop("disabled", false);
+                    $("#prerequisites").prop("disabled", false);
                     $("#btnEdit").html('Save');
                 }
                 else {
                     $("#name").prop("disabled", true);
+                    $("#units").prop("disabled", true);
+                    $("#sessions").prop("disabled", true);
+                    $("#description").prop("disabled", true);
+                    $("#learningOutcome").prop("disabled", true);
+                    $("#prerequisites").prop("disabled", true);
                     $("#btnEdit").html('Edit');
                 }
             });

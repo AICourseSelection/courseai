@@ -16,11 +16,8 @@ from .models import Degree, PreviousStudentDegree, DegreePlanStore, degree_requi
 
 
 def all_degrees(request):
-
     degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
     results = []
-
-    readJsonDir(root_path)
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
@@ -137,58 +134,3 @@ def update_plan(request):
     return HttpResponse(res)
 
 
-root_path = "/Users/please/PycharmProjects/courseai/Code/courseai/static/json"
-
-
-def add_to_db(data):
-
-    year = data["year"]
-    code = data["code"]
-    name = data["name"]
-    required = data["required"]
-    units = data["units"]
-    obj = degree_requirement(code=code, name=name, units=units, required=required, year=year)
-    obj.save()
-
-
-def readJsonDir(rootpath):
-    list = os.listdir(rootpath)
-    for i in range(0, len(list)):
-        path = os.path.join(rootpath, list[i])
-        if os.path.isfile(path):
-            readJsonOutside(path)
-        else:
-            break
-
-
-def readfile(filepath):
-    list = os.listdir(filepath)
-    for i in range(0, len(list)):
-        path = os.path.join(filepath, list[i])
-        if os.path.isfile(path):
-            readJsonInsideside(path)
-
-
-def readJsonInsideside(filePath):
-    if filePath.find(".json") == -1:
-        return
-    with open(filePath, "r+", encoding='utf-8') as one_file:
-        try:
-            f=json.load(one_file)
-            for key in f.keys():
-                code_year = f['code'] + key
-
-        finally:
-            return
-
-
-def readJsonOutside(filePath):
-    if filePath.find(".json") == -1:
-        return
-    if filePath.find(".study_options"):
-        with open(filePath, "r+", encoding='utf-8') as one_file:
-            try:
-                f = json.load(one_file)
-                add_to_db(f)
-            finally:
-                return

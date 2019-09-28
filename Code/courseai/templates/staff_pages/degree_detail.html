@@ -1,109 +1,284 @@
 
 {% extends 'staff_pages/staff_base.html' %}
+
 {% block content %}
-    <div class="container-fluid">
-        <table style="width: 100%">
+
+    <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+              <a href="{% url 'index' %}">
+            <i class="fa fa-home"></i> Home </a>
+          </li>
+            <li class="breadcrumb-item">
+              <a href="{% url 'degree' %}"> Degree </a>
+          </li>
+            <li class="breadcrumb-item active">{{ bc_param }}</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+    {% include 'staff_pages/partials/_alerts.html' %}
+    {% if delete == 'true' %}
+    <div class="jumbotron jumbotron-fluid alert-success">
+      <div class="container text-center">
+        <h1 class="display-4">You Have Successfully <strong>Delete</strong></h1>
+          <h1 class="display-3 alert-primary">{{ bc_param }}</h1>
+        <p class="lead">To undo, please click <strong><a href="#" id="backtoquery">HERE</a></strong></p>
+      </div>
+    </div>
+    {% elif mode == 'edit' %}
+        <div class="container-fluid">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 90%"><h1 class="text-center">{{ d_name }} ({{ d_year }})</h1></td>
+                    <td>
+                        <button id="btnCancel" class="btn btn-outline-secondary">Cancel</button>
+                        <button id="btnSave" class="btn btn-outline-success">Save</button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="container h-100">
+        <table class="table table-striped">
             <tr>
-                <td style="width: 90%"><h1 class="text-center">{{ d_name }} ({{ d_year }})</h1></td>
-                <td><button id="btnEdit">Edit</button> <button>Delete</button></td>
+                <td style="text-align: right; width: 20%">Code:</td>
+                <td style="text-align: left">{{ d_code }}</td>
+            </tr>
+            <tr>
+                 <td style="text-align: right; width: 20%">Year:</td>
+                <td style="text-align: left">{{ d_year }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Name:</td>
+               <td style="text-align: left">
+                   <input type="text" id = "name" value="{{ d_name }}" style="width: 100%">
+               </td>
+            </tr>
+            <tr>
+                 <td style="text-align: right; width: 20%">Compulsory Courses:</td>
+                <td style="text-align: left">
+                   {% if comps %}
+                        {% for comp in comps %}
+                            <input type="text" value="{{ comp }}" style="width: 100%"><br>
+                        {% endfor %}
+                    {% else %}
+                       <input type="text" value="-" style="width: 100%">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                 <td style="text-align: right; width: 20%">Specialisation:</td>
+                <td style="text-align: left">
+                    {% if specs %}
+                        {% for spec in specs %}
+                            <input type="text" value="{{ spec }}" style="width: 100%"><br>
+                        {% endfor %}
+                    {% else %}
+                        <input type="text" value="-" style="width: 100%">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Study Plan:</td>
+                <td style="text-align: left">
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 10%">Year 1</td>
+                            <td><input type="text" id="1" value="{{ plan1.course1 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="2" value="{{ plan1.course2 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="3" value="{{ plan1.course3 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="4" value="{{ plan1.course4 }}"
+                                       style="width: 100%"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><input type="text" id="5" value="{{ plan1.course5 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="6" value="{{ plan1.course6 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="7" value="{{ plan1.course7 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="8" value="{{ plan1.course8 }}"
+                                       style="width: 100%"></td>
+                        </tr>
+                        <tr>
+                            <td>Year 2</td>
+                            <td><input type="text" id="9" value="{{ plan1.course9 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="10" value="{{ plan1.course10 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="11" value="{{ plan1.course11 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="12" value="{{ plan1.course12 }}"
+                                       style="width: 100%"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><input type="text" id="13" value="{{ plan1.course13 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="14" value="{{ plan1.course14 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="15" value="{{ plan1.course15 }}"
+                                       style="width: 100%"></td>
+                            <td><input type="text" id="16" value="{{ plan1.course16 }}"
+                                       style="width: 100%"></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         </table>
 
-    </div>
+        </div>
+    {% else %}
+        <div class="container-fluid">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 90%"><h1 class="text-center">{{ d_name }} ({{ d_year }})</h1></td>
+                    <td>
+                        <button id="btnEdit" class="btn btn-outline-info">Edit</button>
+                        <button id="btnDelete" class="btn btn-outline-danger">Delete</button>
+                    </td>
+                </tr>
+            </table>
 
-    <div class="container h-100">
-    <table class="table table-striped">
-        <tr>
-            <td style="text-align: right; width: 20%">Code:</td>
-            <td style="text-align: left">{{ d_code }}</td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Year:</td>
-            <td style="text-align: left">{{ d_year }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 20%">Name:</td>
-           <td style="text-align: left">
-               <input type="text" id = "name" disabled="disabled" value="{{ d_name }}" style="width: 100%">
-           </td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Compulsory Courses:</td>
-            <td style="text-align: left">
-               {% if comps %}
-                    {% for comp in comps %}
-                        <input type="text" disabled="disabled" value="{{ comp }}" style="width: 100%"><br>
-                    {% endfor %}
-                {% else %}
-                   <input type="text" disabled="disabled" value="-" style="width: 100%">
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Specialisation:</td>
-            <td style="text-align: left">
-                {% if specs %}
-                    {% for spec in specs %}
-                        <input type="text" disabled="disabled" value="{{ spec }}" style="width: 100%"><br>
-                    {% endfor %}
-                {% else %}
-                    <input type="text" disabled="disabled" value="-" style="width: 100%">
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 20%">Study Plan:</td>
-            <td style="text-align: left">
-                <table style="width: 100%">
-                    <tr>
-                        <td style="width: 10%">Year 1</td>
-                        <td><input type="text" disabled="disabled" id="a1" value="{{ plan1.course1 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="b1" value="{{ plan1.course2 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="c1" value="{{ plan1.course3 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="d1" value="{{ plan1.course4 }}" style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><input type="text" disabled="disabled" id="e1" value="{{ plan1.course5 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="f1" value="{{ plan1.course6 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="g1" value="{{ plan1.course7 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="h1" value="{{ plan1.course8 }}" style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>Year 2</td>
-                        <td><input type="text" disabled="disabled" id="i1" value="{{ plan1.course9 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="j1" value="{{ plan1.course10 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="k1" value="{{ plan1.course11 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="l1" value="{{ plan1.course12 }}" style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><input type="text" disabled="disabled" id="m1" value="{{ plan1.course13 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="n1" value="{{ plan1.course14 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="o1" value="{{ plan1.course15 }}" style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="p1" value="{{ plan1.course16 }}" style="width: 100%"></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+        </div>
 
-    </div>
+        <div class="container h-100">
+        <table class="table table-striped">
+            <tr>
+                <td style="text-align: right; width: 20%">Code:</td>
+                <td style="text-align: left">{{ d_code }}</td>
+            </tr>
+            <tr>
+                 <td style="text-align: right; width: 20%">Year:</td>
+                <td style="text-align: left">{{ d_year }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Name:</td>
+               <td style="text-align: left">
+                   {{ d_name }}
+               </td>
+            </tr>
+            <tr>
+                 <td style="text-align: right; width: 20%">Compulsory Courses:</td>
+                <td style="text-align: left">
+                   {% if comps %}
+                        {% for comp in comps %}
+                            {{ comp }}<br>
+                        {% endfor %}
+                    {% else %}
+                      -
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                 <td style="text-align: right; width: 20%">Specialisation:</td>
+                <td style="text-align: left">
+                    {% if specs %}
+                        {% for spec in specs %}
+                            {{ spec }}<br>
+                        {% endfor %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Study Plan:</td>
+                <td style="text-align: left">
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 10%">Year 1</td>
+                            <td>{{ plan1.course1 }}</td>
+                            <td>{{ plan1.course2 }}</td>
+                            <td>{{ plan1.course3 }}</td>
+                            <td>{{ plan1.course4 }}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>{{ plan1.course5 }}</td>
+                            <td>{{ plan1.course6 }}</td>
+                            <td>{{ plan1.course7 }}</td>
+                            <td>{{ plan1.course8 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Year 2</td>
+
+                            <td>{{ plan1.course9 }}</td>
+                            <td>{{ plan1.course10 }}</td>
+                            <td>{{ plan1.course11 }}</td>
+                            <td>{{ plan1.course12 }}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+
+                            <td>{{ plan1.course13 }}</td>
+                            <td>{{ plan1.course14 }}</td>
+                            <td>{{ plan1.course15 }}</td>
+                            <td>{{ plan1.course16 }}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        </div>
+    {% endif %}
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#btnEdit').click(function () {
-                if ($("#btnEdit").html() == 'Edit') {
-                    $("#name").prop("disabled", false);
-                    $("#btnEdit").html('Save');
-                }
-                else {
-                    $("#name").prop("disabled", true);
-                    $("#btnEdit").html('Edit');
-                }
+                window.location.search += '&mode=edit';
             });
+
+            $("#btnDelete").click(function (){
+             boot4.confirm({
+            msg: "Are you sure you want to delete {{ bc_param }} ?",
+            callback: function(result) {
+              if(result){
+                window.location.search += '&delete=true';
+              }
+              else{
+                console.log("cancel");
+              }
+            }
+              });
+              });
+
+            $("#backtoquery").click(function () {
+                window.location.href = window.location.href.replace('delete=true', 'delete=false');
+            });
+
+            $('#btnCancel').click(function () {
+                window.location.href = window.location.href.replace('mode=edit', 'mode=query');
+            });
+
+            $("#btnSave").click(function (){
+             boot4.confirm({
+            msg: "Are you sure you want to update {{ bc_param }} ?",
+            callback: function(result) {
+              if(result){
+                  var url = window.location.href.replace('mode=edit', 'mode=query');
+                  url += '&safe=true';
+                window.location.href = url;
+              }
+              else{
+                console.log("cancel");
+              }
+            }
+              });
+              });
+
         });
 
-    </script>
+</script>
 
 {% endblock %}
+
