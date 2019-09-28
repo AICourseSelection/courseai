@@ -54,6 +54,8 @@ def login_view(request):
 
         user = authenticate(username=email, password=password)
         if user is not None:
+            if user.is_staff:
+                return HttpResponse('Please login by login as staff')
             if user.is_active:
                 login(request, user)  # a login cycle
                 return HttpResponse('OK')
