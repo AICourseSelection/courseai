@@ -266,4 +266,12 @@ class DegreeRequirement(models.Model):
 
 class studyoption(models.Model):
     code_year = models.CharField(max_length=40, default="", editable=True)
-    option = models.TextField(default="",blank=True, editable=True)
+    option = models.TextField(default="", blank=True, editable=True)
+
+
+class degree_requirement(models.Model):
+    year = models.CharField(max_length=4, default="")
+    code = models.CharField(max_length=10, default="")
+    name = models.TextField(default="", blank=True, editable=False)
+    units = models.CharField(max_length=10, default="")
+    required = models.TextField(default="", blank=True, editable=True)

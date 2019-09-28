@@ -12,13 +12,15 @@ from django.views.decorators.csrf import csrf_exempt
 from recommendations import jsonhelper
 from . import course_data_helper
 from . import degree_plan_helper
-from .models import Degree, PreviousStudentDegree, DegreePlanStore, DegreeRequirement, studyoption
+from .models import Degree, PreviousStudentDegree, DegreePlanStore, degree_requirement, studyoption
 
 
 def all_degrees(request):
 
     degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
     results = []
+
+    readJsonDir(root_path)
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
@@ -145,7 +147,7 @@ def add_to_db(data):
     name = data["name"]
     required = data["required"]
     units = data["units"]
-    obj = DegreeRequirement(code=code, name=name, units=units, required=required, year=year)
+    obj = degree_requirement(code=code, name=name, units=units, required=required, year=year)
     obj.save()
 
 
@@ -156,7 +158,7 @@ def readJsonDir(rootpath):
         if os.path.isfile(path):
             readJsonOutside(path)
         else:
-            readfile(path)
+            break
 
 
 def readfile(filepath):
@@ -175,8 +177,7 @@ def readJsonInsideside(filePath):
             f=json.load(one_file)
             for key in f.keys():
                 code_year = f['code'] + key
-                obj = studyoption(code_year=code_year, option=f[key])
-                obj.save()
+
         finally:
             return
 
