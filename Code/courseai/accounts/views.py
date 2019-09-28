@@ -78,7 +78,7 @@ def staff_login_view(request):
                     login(request, user)  # a login cycle
                     return HttpResponse('OK')
             else:
-                return HttpResponse('InactiveAccountError')
+                return HttpResponse('You are not staff')
 
     errMsg = {(v[0]) for _, v in form.errors.items()}
     errStr = '<br>'.join(msg for msg in errMsg)
