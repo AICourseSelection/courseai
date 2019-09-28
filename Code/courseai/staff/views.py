@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import json
+import random
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 import ast
@@ -33,7 +34,9 @@ def get_notification():
 
 
 def get_name():
-    staffName = "Sayed Staff"
+    staffname = ["Doctor Sayed Staff", "Doctor Yichen Staff", "Professor Donny Staff", "Ken Staff",
+                 "Doctor Zifeng Staff", "Rui Staff"]
+    staffName = staffname[random.randint(0,len(staffname)-1)]
     return staffName
 
 
