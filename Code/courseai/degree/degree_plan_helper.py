@@ -4,7 +4,7 @@ from builtins import eval
 from django.http import JsonResponse
 
 from .models import Degree
-from .models import DegreeRequirement
+from .models import degree_requirement
 
 
 def advance_sem(year, sem):
@@ -47,9 +47,11 @@ def generate_degree_plan(code, start_year_sem):
         year, sem = advance_sem(year, sem)
     return JsonResponse({"response": to_return})
 
+
 def get_degree_requirements(_code):
-    # code, year = _code.split("-")[0], _code.split("-")[1]
-    # degree_requirement = DegreeRequirement.objects.filter(code=code, year=year)[0]
-    # return degree_requirement._json()
-    with open('static/json/{}.json'.format(_code)) as file:
-        return file.read()
+    code, year = _code.split("-")[0], _code.split("-")[1]
+    dg_req = degree_requirement.objects.filter(code=code, year=year)[0]
+
+    return dg_req._json()
+
+

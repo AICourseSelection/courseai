@@ -275,3 +275,13 @@ class degree_requirement(models.Model):
     name = models.TextField(default="", blank=True, editable=False)
     units = models.CharField(max_length=10, default="")
     required = models.TextField(default="", blank=True, editable=True)
+
+    def _json(self):
+        to_return = {}
+        to_return["year"] =self.year
+        to_return["code"] = self.code
+        to_return["name"] = self.name
+        to_return["units"] = self.units
+        to_return["required"] = self.required
+
+        return json.dumps(to_return)

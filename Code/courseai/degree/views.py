@@ -134,3 +134,36 @@ def update_plan(request):
     return HttpResponse(res)
 
 
+def update_degree_requirement(request):
+
+    # Find the matching data
+    year = request.GET['year']
+    code = request.GET['code']
+
+    dg_req = degree_requirement.objects.filter(code=code, year=year)[0]
+
+    # Get the modified data and update the relative field
+    dg_req.name = request.GET['name']
+    dg_req.units = request.GET['units']
+    compulsory_courses = request.GET['compulsory_courses']
+    x_from_here = request.GET['x_from_here']
+
+    # convert the string into json structure and assign new values
+    dg_r = json.loads(dg_req.required.replace("'", "\""))
+    dg_r["compulsory_courses"] = compulsory_courses
+    dg_r["x_from_here"] = x_from_here
+    # convert the json into string and assign it to the field we are going to update
+    dg_req.required = json.dumps(dg_r)
+
+    dg_req.save()
+
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
+
+
+
+
+
+
+
+
