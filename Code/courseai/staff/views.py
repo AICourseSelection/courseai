@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import json
+
+from django.views.decorators.csrf import csrf_exempt
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 import ast
@@ -170,8 +172,12 @@ def degree_add(request):
 
 def course(request):
     bc_param = 'Course'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'year_now': year_now,
+        'years': years,
     }
     return render(request, 'staff_pages/course.html', context=context)
 
@@ -192,7 +198,15 @@ def course_detail(request):
 
 
 def course_add(request):
-    return render(request, 'staff_pages/course_add.html')
+    bc_param = 'Course (Add)'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/course_add.html', context=context)
 
 
 def major(request):
@@ -284,31 +298,29 @@ def save_degree(request):
     return render(request, 'staff_pages/about.html')
 
 
-def create_book_normal(request):
-    template_name = 'store/create_normal.html'
-    heading_message = 'Formset Demo'
-    if request.method == 'GET':
-        formset = BookFormset(request.GET or None)
-    elif request.method == 'POST':
-        formset = BookFormset(request.POST)
-        if formset.is_valid():
-            for form in formset:
-                # extract name from each form and save
-                name = form.cleaned_data.get('name')
-                # save book instance
-                # if name:
-                #     Book(name=name).save()
-            # once all books are saved, redirect to book list view
-            return redirect('book_list')
-    return render(request, template_name, {
-        'formset': formset,
-        'heading': heading_message,
-    })
+@csrf_exempt
+def save_course(request):
+    # initiation
+    response = 'success'
+    msg = ''
+    element = ''
+    outcomes = request.POST.get('outcome').splitlines()
+    code = request.POST.get('code')
+
+    # validation goes here
+    # all validation error must have response = 'validation' and msg = actual error message
+    if len(code) > 5:
+        response = 'validation'
+        msg = 'Course Code Must be Less Than 6 Char!'
+        element = 'code'
+
+    # insert database goes here
+    if not insert_db():
+        response = 'database'
+
+    return JsonResponse({'response': response, 'msg': msg, 'element': element})
 
 
-def saveCourses(request):
-    print(request)
-    print(request.GET.get("course_code"));
-    print(request.GET.get("year"));
-    print(request.GET.get("description"));
-    return JsonResponse({"response": "Success"})
+def insert_db():
+    # insert db function goes here
+    return True
