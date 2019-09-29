@@ -244,8 +244,14 @@ def save_course(request):
     response = 'success'
     msg = ''
     element = ''
-    outcomes = request.POST.get('outcome').splitlines()
     code = request.POST.get('code')
+    year = request.POST.get('year')
+    name = request.POST.get('name')
+    session = request.POST.get('session')
+    units = request.POST.get('units')
+    descriptions = request.POST.get('description').splitlines()
+    prerequisites = request.POST.get('prerequisite').splitlines()
+    outcomes = request.POST.get('outcome').splitlines()
 
     # validation goes here
     # all validation error must have response = 'validation' and msg = actual error message

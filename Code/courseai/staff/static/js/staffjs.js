@@ -16,10 +16,10 @@ $('#course_form').submit(function(event) {
             event.preventDefault();
 			let code = document.getElementById("code").value;
             let year = document.getElementById("year").value;
+            let name = document.getElementById("name").value;
             let session = document.getElementById("session").value;
             let units = document.getElementById("units").value;
             let description = document.getElementById("description").value;
-            let name = document.getElementById("name").value;
             let outcome = document.getElementById("outcome").value;
             let prerequisite = document.getElementById("prerequisite").value;
 			$.ajax({
@@ -42,9 +42,8 @@ $('#course_form').submit(function(event) {
                     $('#prerequisite').removeClass().addClass('form-control');
                 	if(data.response == 'success'){
                         $('#modal-title').html('Success!');
-                        // course_detail?code=ACST4600&year=2019&title=Actuarial%20Research%20Essay
                         var mesej = 'Create a new course has been successful,' +
-                            'click <a href="../staff/course_detail?code=' + code + '&year=' + year +'&title=Actuarial%20Research%20Essay" class="tooltip-test" title="Tooltip">here</a>' +
+                            'click <strong><a href="../staff/course_detail?code=' + code + '&year=' + year +'&title=' + name + '" class="tooltip-test" title="Tooltip">here</a></strong>' +
                             ' to see the course';
                         $('#modal-body').html(mesej);
                         $('#modal-title').html('Success!');
