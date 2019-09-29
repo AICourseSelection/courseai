@@ -1,6 +1,9 @@
 {% load static %}
 
-{% if user.is_authenticated %}
+
+
+
+{% if user.is_authenticated and not user.is_staff%}
 <script>var loggedIn = true</script>
 
 <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
@@ -36,6 +39,43 @@
 		</div>
 	</div>
 </nav>
+
+{% elif user.is_authenticated and user.is_staff%}
+    <nav class="navbar navbar-expand-sm navbar-fixed-top bg-dark navbar-dark" role="navigation">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{% url 'index' %}">ICS</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="collapsibleNavbar" class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'feedbackform' %}">Feedback</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+            <li class="nav-item order-2 order-md-1"><a href="{% url 'profile' %}" class="nav-link">{{user.username}}</a>
+                <li class="dropdown order-1">
+                    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">My Account <span class="caret"></span></button>
+                    <div class="dropdown-menu dropdown-menu-right mt-2">
+                        <a class="dropdown-item" href="staff">Staff </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </li>
+            </ul>
+		</div>
+	</div>
+</nav>
+
+
 
 {% else %}
 <script>var loggedIn = false</script>
@@ -115,15 +155,15 @@
                     <button type="button" id="login-dropdown-btn" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Staff <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right mt-2">
                        <li class="px-3 py-2">
-                           <form id="form-login" class="form" role="form"><input type="hidden" name="csrfmiddlewaretoken" value="eYD26MGBKEteBPGT4mXQshYF3xpjQGlQbZCjq0O2L61FFMem4igB5vmhSvWY6SXd">
+                           <form id="staff-form-login" class="form" role="form"><input type="hidden" name="csrfmiddlewaretoken" value="eYD26MGBKEteBPGT4mXQshYF3xpjQGlQbZCjq0O2L61FFMem4igB5vmhSvWY6SXd">
                                 <div class="form-group">
-                                    <input id="login-email" placeholder="Email" class="form-control form-control-sm" type="text" required>
+                                    <input id="staff-login-email" placeholder="Email" class="form-control form-control-sm" type="text" required>
                                 </div>
                                 <div class="form-group">
-                                    <input id="login-password" placeholder="Password" class="form-control form-control-sm" type="password" required>
+                                    <input id="staff-login-password" placeholder="Password" class="form-control form-control-sm" type="password" required>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                    <button type="submit" class="btn btn-primary btn-block" >Login</button>
                                 </div>
                                 <div class="form-group text-center">
                                     <small><a href="staff">Next</a></small>
