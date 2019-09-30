@@ -54,4 +54,7 @@ def get_degree_requirements(_code):
 
     return dg_req._json()
 
+   # with open('static/json/{}.json'.format(_code)) as file:
+   #     return file.read()
+
 

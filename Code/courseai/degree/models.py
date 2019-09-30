@@ -282,6 +282,6 @@ class degree_requirement(models.Model):
         to_return["code"] = self.code
         to_return["name"] = self.name
         to_return["units"] = self.units
-        to_return["required"] = self.required
+        to_return["required"] = json.loads(self.required)
 
         return json.dumps(to_return)

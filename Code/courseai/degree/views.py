@@ -74,6 +74,7 @@ def degree_reqs(request):
     try:
         code = request.GET['query']
         response = degree_plan_helper.get_degree_requirements(code)
+        print(response)
         return HttpResponse(response, content_type="application/json")
     except Exception:
         res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
@@ -149,11 +150,11 @@ def update_degree_requirement(request):
     x_from_here = request.GET['x_from_here']
 
     # convert the string into json structure and assign new values
-    dg_r = json.loads(dg_req.required.replace("'", "\""))
+    dg_r = dg_req.required.replace("'", "\"")
     dg_r["compulsory_courses"] = compulsory_courses
     dg_r["x_from_here"] = x_from_here
     # convert the json into string and assign it to the field we are going to update
-    dg_req.required = json.dumps(dg_r)
+    dg_req.required = dg_r
 
     dg_req.save()
 
