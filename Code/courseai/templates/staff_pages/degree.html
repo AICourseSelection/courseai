@@ -80,13 +80,12 @@
                                     }
                                 } else {
                                     if (j == 0) {
-                                        tableData += "<td>" +
-                                           "<a href=\"degree_detail?code=" + degreeCodes[i - 1] + "&title="+degreeDicts[i-1]+"&year="+year+"\">" +
-                                            degreeCodes[i - 1] +
-                                            "</a>" +
-                                            "</td>";
+                                        tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
+                                            + degreeCodes[i - 1] + "&title=" + degreeDicts[i - 1] + "&year=" + year + "\">" +
+                                            degreeCodes[i - 1] + "</a>" + "</td>";
                                     } else if (j==1){
-                                        tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code=" + degreeCodes[i - 1] + "&title=" + degreeDicts[i - 1] + "&year=" + year + "\">" +
+                                        tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
+                                            + degreeCodes[i - 1] + "&title=" + degreeDicts[i - 1] + "&year=" + year + "\">" +
                                             degreeDicts[i - 1] + "</a>" + "</td>";
                                     }
 

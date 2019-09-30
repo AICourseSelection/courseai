@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import json
+
+from django.views.decorators.csrf import csrf_exempt
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 import ast
@@ -50,30 +52,17 @@ def degree_detail(request):
     year = request.GET.get('year')
     d_name = request.GET.get('title')
     d_year = year
-    plan1 = get_plan1(code, year)
 
-    specs = get_spec(request)
-    spec_row = len(specs)
-
-    comps = get_comp(request)
-    comp_row = len(comps)
 
     bc_param = d_name + ' (' + year + ')'
     delete = request.GET.get('delete')
-    mode = request.GET.get('mode')
     safe = request.GET.get('safe')
     context = {
         'd_code': code,
         'd_name': d_name,
         'd_year': d_year,
-        'comps': comps,
-        'specs': specs,
-        'plan1': plan1,
-        'spec_row': spec_row,
-        'comp_row': comp_row,
         'bc_param': bc_param,
         'delete': delete,
-        'mode': mode
     }
     if delete == 'false':
         messages.success(request, 'You have successfully restore ' + bc_param + '!')
@@ -100,53 +89,6 @@ def get_spec(request):
     return specs
 
 
-def get_plan1(code,year):
-    with open('static/json/study_options/{}.json'.format(code)) as f:
-        study_options_str = f.read()
-        study_options_dict = ast.literal_eval(study_options_str)
-        print(study_options_dict[year])
-        plan=Plan1()
-        plan.str="Plan1"
-        plan.course1 = study_options_dict[year][0][0]['code']
-        plan.course2 = study_options_dict[year][0][1]['code']
-        plan.course3 = study_options_dict[year][0][2]['code']
-        plan.course4 = study_options_dict[year][0][3]['code']
-        plan.course5 = study_options_dict[year][1][0]['code']
-        plan.course6 = study_options_dict[year][1][1]['code']
-        plan.course7 = study_options_dict[year][1][2]['code']
-        plan.course8 = study_options_dict[year][1][3]['code']
-        plan.course9 = study_options_dict[year][2][0]['code']
-        plan.course10 = study_options_dict[year][2][1]['code']
-        plan.course11 = study_options_dict[year][2][2]['code']
-        plan.course12 = study_options_dict[year][2][3]['code']
-        plan.course13 = study_options_dict[year][3][0]['code']
-        plan.course14 = study_options_dict[year][3][1]['code']
-        plan.course15 = study_options_dict[year][3][2]['code']
-        plan.course16 = study_options_dict[year][3][3]['code']
-    return plan
-
-
-class Plan1:
-    def __init__(self):
-        self.str = "Plan1"
-        self.course1 = "COMP-A"
-        self.course2 = "COMP-B"
-        self.course3 = "COMP-C"
-        self.course4 = "COMP-D"
-        self.course5 = "COMP-E"
-        self.course6 = "COMP-F"
-        self.course7 = "COMP-G"
-        self.course8 = "COMP-H"
-        self.course9 = "COMP-I"
-        self.course10 = "COMP-J"
-        self.course11 = "COMP-K"
-        self.course12 = "COMP-L"
-        self.course13 = "COMP-M"
-        self.course14 = "COMP-N"
-        self.course15 = "COMP-O"
-        self.course16 = "COMP-P"
-
-
 def degree_add(request):
     if request.method == 'POST':
         # params
@@ -170,8 +112,12 @@ def degree_add(request):
 
 def course(request):
     bc_param = 'Course'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'year_now': year_now,
+        'years': years,
     }
     return render(request, 'staff_pages/course.html', context=context)
 
@@ -192,7 +138,15 @@ def course_detail(request):
 
 
 def course_add(request):
-    return render(request, 'staff_pages/course_add.html')
+    bc_param = 'Course (Add)'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/course_add.html', context=context)
 
 
 def major(request):
@@ -284,31 +238,35 @@ def save_degree(request):
     return render(request, 'staff_pages/about.html')
 
 
-def create_book_normal(request):
-    template_name = 'store/create_normal.html'
-    heading_message = 'Formset Demo'
-    if request.method == 'GET':
-        formset = BookFormset(request.GET or None)
-    elif request.method == 'POST':
-        formset = BookFormset(request.POST)
-        if formset.is_valid():
-            for form in formset:
-                # extract name from each form and save
-                name = form.cleaned_data.get('name')
-                # save book instance
-                # if name:
-                #     Book(name=name).save()
-            # once all books are saved, redirect to book list view
-            return redirect('book_list')
-    return render(request, template_name, {
-        'formset': formset,
-        'heading': heading_message,
-    })
+@csrf_exempt
+def save_course(request):
+    # initiation
+    response = 'success'
+    msg = ''
+    element = ''
+    code = request.POST.get('code')
+    year = request.POST.get('year')
+    name = request.POST.get('name')
+    session = request.POST.get('session')
+    units = request.POST.get('units')
+    descriptions = request.POST.get('description').splitlines()
+    prerequisites = request.POST.get('prerequisite').splitlines()
+    outcomes = request.POST.get('outcome').splitlines()
+
+    # validation goes here
+    # all validation error must have response = 'validation' and msg = actual error message
+    if len(code) > 5:
+        response = 'validation'
+        msg = 'Course Code Must be Less Than 6 Char!'
+        element = 'code'
+
+    # insert database goes here
+    if not insert_db():
+        response = 'database'
+
+    return JsonResponse({'response': response, 'msg': msg, 'element': element})
 
 
-def saveCourses(request):
-    print(request)
-    print(request.GET.get("course_code"));
-    print(request.GET.get("year"));
-    print(request.GET.get("description"));
-    return JsonResponse({"response": "Success"})
+def insert_db():
+    # insert db function goes here
+    return True
