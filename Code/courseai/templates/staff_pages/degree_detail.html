@@ -103,8 +103,8 @@
         var compulsoryTable = document.getElementById("compulsory");
         var spec = "";
         let specTable = document.getElementById("specialisation");
+        var plan = "";
         var planList = [];
-        var planString = "";
         let planTable = document.getElementById("plan");
         $.ajax({
             url: '../degree/degreeplan',
@@ -114,13 +114,12 @@
                 console.log("degreeplan success");
                 for (let i = 0; i < data.response.length; i++) {
                     for (let j = 0; j < data.response[j].length; j++) {
-
                         planList.push(data.response[i][j].code)
                     }
                 }
                 for (let i = 0; i < planList.length; i++) {
                     if (i % 4 == 0) {
-                        plan += "<input type=\"text\" disabled=\"true\" style=\"width: 100%\" value=\"semester" + (i / 4 + 1) + "\">" + "<br>";
+                        plan += "<strong>Semester " + (i / 4 + 1) + "<strong><br>";
                     }
                     plan += "<input type=\"text\" id=\"plan" + i + "\"disabled=\"true\" style=\"width: 100%\" value=\"" + planList[i] + "\">" + "<br>";
                 }

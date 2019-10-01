@@ -13,7 +13,6 @@ import pandas as pd
 from datetime import date
 from django.contrib import messages
 from .forms import BookFormset
-
 from django import forms;
 from django.forms.formsets import formset_factory;
 from django.shortcuts import render_to_response
@@ -266,6 +265,17 @@ def save_course(request):
 
     return JsonResponse({'response': response, 'msg': msg, 'element': element})
 
+
+def get_all_url(urlparrentens, prev, is_first=False, result=[]):
+    if is_first:
+        result.clear()
+    for item in urlparrentens:
+        v = item._regex.strip('^$')  # 去掉url中的^和$
+        if isinstance(item, RegexURLPattern):
+            result.append(prev + v)
+        else:
+            get_all_url(item.urlconf_name, prev + v)
+    return result
 
 def insert_db():
     # insert db function goes here

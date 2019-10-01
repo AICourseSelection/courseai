@@ -55,7 +55,14 @@
         function showDegree() {
             let year=document.getElementById("year").value;
             let degree = document.getElementById("search").value;
-            let tableData = "<tr>";
+            let tableData = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"30%\">Degree Code</th>\n" +
+                "                      <th scope=\"col\" width=\"70%\">Degree Title</th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            tableData += "<tbody>\n" +
+                "    <tr>";
             const degreeCodes = [];
             const degreeDicts = [];
             $.ajax({
@@ -70,26 +77,20 @@
                     if (degreeDicts.length == 0) {
                         tableData += "<th>" + "No such degree" + "</th>" + "</tr>";
                     } else {
-                        for (var i = 0; i < degreeDicts.length + 1; i++) {
+                        for (var i = 0; i < degreeDicts.length; i++) {
                             for (var j = 0; j < 2; j++) {
-                                if (i == 0) {
-                                    if (j == 0) {
-                                        tableData += "<th>" + "Degree Code" + "</th>";
-                                    } else if(j==1){
-                                        tableData += "<th>" + "Degree Title" + "</th>";
-                                    }
-                                } else {
+
                                     if (j == 0) {
                                         tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
-                                            + degreeCodes[i - 1] + "&title=" + degreeDicts[i - 1] + "&year=" + year + "\">" +
-                                            degreeCodes[i - 1] + "</a>" + "</td>";
+                                            + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
+                                            degreeCodes[i] + "</a>" + "</td>";
                                     } else if (j==1){
                                         tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
-                                            + degreeCodes[i - 1] + "&title=" + degreeDicts[i - 1] + "&year=" + year + "\">" +
-                                            degreeDicts[i - 1] + "</a>" + "</td>";
+                                            + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
+                                            degreeDicts[i] + "</a>" + "</td>";
                                     }
 
-                                }
+
                             }
                             tableData += "</tr>" + "<tr>";
                         }

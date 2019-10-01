@@ -23,8 +23,11 @@
     <div class="container-fluid">
         <table style="width: 100%">
             <tr>
-                <td style="width: 90%"><h1 class="text-center">{{ c_name }} ({{ c_year }})</h1></td>
-                <td><button id="btnEdit">Edit</button> <button>Delete</button></td>
+                <td style="width: 90%"><h1 class="text-center" id="pageTitle"></h1></td>
+                <td>
+                    <button id="btnSave">Save</button>
+                    <button>Delete</button>
+                </td>
             </tr>
         </table>
 
@@ -34,46 +37,49 @@
     <table class="table table-striped">
         <tr>
             <td style="text-align: right; width: 20%">Code:</td>
-            <td style="text-align: left">{{ c_code }}</td>
+            <td style="text-align: left;width: 80%" id="code"></td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Year:</td>
-            <td style="text-align: left">{{ c_year }}</td>
+            <td style="text-align: left;width: 80%" id="year"></td>
         </tr>
         <tr>
-            <td style="text-align: right; width: 20%">Name:</td>
-           <td style="text-align: left">
-               <input type="text" id = "name" disabled="disabled" value="{{ c_name }}" style="width: 100%">
+            <td style="text-align: right; width: 20%">Title:</td>
+            <td style="text-align: left;width: 80%" id="title">
            </td>
         </tr>
         <tr>
             <td style="text-align: right; width: 20%">Units:</td>
            <td style="text-align: left">
-               <input type="text" id = "units" disabled="disabled"  style="width: 100%">
+               <input type="text" id="units" style="width: 100%">
            </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Sessions:</td>
             <td style="text-align: left">
-                <input type="text" id="sessions" disabled="disabled"  style="width: 100%"><br>
+                <input type="text" id="sessions" style="width: 100%"><br>
             </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Description:</td>
             <td style="text-align: left">
-                <textarea rows="5" type="text" id="description" disabled="disabled"  style="width: 100%">    </textarea><br>
+                <textarea rows="5" type="text" id="description" style="width: 100%">    </textarea><br>
             </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Learning outcome:</td>
             <td style="text-align: left">
-                <textarea rows="6" type="text" id="learningOutcome" disabled="disabled"  style="width: 100%"></textarea><br>
+                <textarea rows="6" type="text" id="learningOutcome" style="width: 100%"></textarea><br>
             </td>
         </tr>
         <tr>
-             <td style="text-align: right; width: 20%">Prerequisites:</td>
-            <td style="text-align: left">
-                <textarea rows="2"  type="text" id="prerequisites" disabled="disabled"  style="width: 100%"></textarea><br>
+            <td style="text-align: right; width: 20%">Incompatible Course:</td>
+            <td style=" text-align: left" id="incompatible">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Pre-requisite Course:</td>
+            <td style=" text-align: left" id="prerequisite">
             </td>
         </tr>
     <br>
@@ -84,38 +90,74 @@
     </div>
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
-    let code = sessionStorage.getItem("code");
-    let version = sessionStorage.getItem("version");
-    let jsonObject = JSON.parse(version);
-    var year={{ c_year }};
-    console.log(year);
-    console.log(jsonObject);
-    console.log(jsonObject[year].sessions);
-    document.getElementById("sessions").value=jsonObject[year].sessions;
-    document.getElementById("units").value=jsonObject[year].units;
-    document.getElementById("description").value=jsonObject[year].description;
-    document.getElementById("learningOutcome").value=jsonObject[year].learning_outcomes;
-    document.getElementById("prerequisites").value=jsonObject[year].prerequisite_text;
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return (r[2]);
+            return null;
+        }
+
+        var codeS = getQueryString("code");
+        var yearS = getQueryString("year");
+        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
+        document.getElementById("code").innerText = codeS;
+        document.getElementById("year").innerText = yearS;
+        var incompatible = "";
+        var incompatibleList = [];
+        let incompatibleTable = document.getElementById("incompatible");
+        var prerequisite = "";
+        var prerequisiteList = [];
+        let prerequisiteTable = document.getElementById("prerequisite");
+        $.ajax({
+            url: '../search/coursesearch/',
+            data: {"query": codeS, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+            success: function (data) {
+                data = data.response[0].versions[yearS];
+                console.log(data);
+                document.getElementById("units").value = data.units;
+                titleS = data.title;
+                document.getElementById("pageTitle").innerText = titleS + " (" + yearS + ")";
+                document.getElementById("title").innerText = titleS;
+                if (data.session != undefined) {
+                    document.getElementById("sessions").value = data.session;
+                } else {
+                    document.getElementById("sessions").value = "Empty"
+                }
+                document.getElementById("description").value = data.description;
+                document.getElementById("learningOutcome").value = data.learning_outcomes;
+                for (let j = 0; j < data.prerequisites.incompatible.length; j++) {
+                    incompatibleList.push(data.prerequisites.incompatible[j]);
+                }
+                for (let j = 0; j < data.prerequisites["pre-requisite"].length; j++) {
+                    prerequisiteList.push(data.prerequisites["pre-requisite"][j].toString());
+                }
+                for (let i = 0; i < incompatibleList.length; i++) {
+                    let link = courseUrl + "code=" + incompatibleList[i] + "&year=" + yearS;
+                    incompatible += "<input type=\"text\" id=\"incompatibleList" + i + " style=\"width: 100%\"   onclick=\"window.open('" + link + "');\" value=\"" + incompatibleList[i] + "\">" + "<br>";
+                }
+                for (let i = 0; i < prerequisiteList.length; i++) {
+                    let link = courseUrl + "code=" + prerequisiteList[i] + "&year=" + yearS;
+                    prerequisite += "<input type=\"text\"  id=\"prerequisiteList" + i + "style=\"width: 100%\" onclick=\"window.open('" + link + "');\" value=\"" + prerequisiteList[i] + "\">" + "<br>";
+                }
+                incompatibleTable.innerHTML = incompatible;
+                prerequisiteTable.innerHTML = prerequisite;
+            }
+
+        });
+
         $(document).ready(function () {
-            $('#btnEdit').click(function () {
-                if ($("#btnEdit").html() == 'Edit') {
-                    $("#name").prop("disabled", false);
-                    $("#units").prop("disabled", false);
-                    $("#sessions").prop("disabled", false);
-                    $("#description").prop("disabled", false);
-                    $("#learningOutcome").prop("disabled", false);
-                    $("#prerequisites").prop("disabled", false);
-                    $("#btnEdit").html('Save');
-                }
-                else {
-                    $("#name").prop("disabled", true);
-                    $("#units").prop("disabled", true);
-                    $("#sessions").prop("disabled", true);
-                    $("#description").prop("disabled", true);
-                    $("#learningOutcome").prop("disabled", true);
-                    $("#prerequisites").prop("disabled", true);
-                    $("#btnEdit").html('Edit');
-                }
+            $('#btnSave').click(function () {
+                boot4.confirm({
+                    msg: "Are you sure you want to save " + titleS + " (" + yearS + ")" + " ?",
+                    callback: function (result) {
+                        if (result) {
+                            console.log("save success");
+                        } else {
+                            console.log("cancel");
+                        }
+                    }
+                });
+
             });
         });
 
