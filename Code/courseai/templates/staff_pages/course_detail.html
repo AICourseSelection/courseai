@@ -118,18 +118,18 @@
                 titleS = data.title;
                 document.getElementById("pageTitle").innerText = titleS + " (" + yearS + ")";
                 document.getElementById("title").innerText = titleS;
-                if (data.session != undefined) {
-                    document.getElementById("sessions").value = data.session;
+                if (data.sessions == undefined) {
+                    document.getElementById("sessions").value = "Empty";
                 } else {
-                    document.getElementById("sessions").value = "Empty"
+                    document.getElementById("sessions").value = data.sessions;
                 }
                 document.getElementById("description").value = data.description;
                 document.getElementById("learningOutcome").value = data.learning_outcomes;
                 for (let j = 0; j < data.prerequisites.incompatible.length; j++) {
                     incompatibleList.push(data.prerequisites.incompatible[j]);
                 }
-                for (let j = 0; j < data.prerequisites["pre-requisite"].length; j++) {
-                    prerequisiteList.push(data.prerequisites["pre-requisite"][j].toString());
+                for (let j = 0; j < data.prerequisites["pre-requisite"][0].length; j++) {
+                    prerequisiteList.push(data.prerequisites["pre-requisite"][0][j].toString());
                 }
                 for (let i = 0; i < incompatibleList.length; i++) {
                     let link = courseUrl + "code=" + incompatibleList[i] + "&year=" + yearS;
