@@ -30,4 +30,5 @@ urlpatterns = [
     path(r'course_delete', views.course_delete, name='course_delete'),
     path('all_degrees', views.all_degrees),
     path(r'save_degree', views.save_degree, name='save_degree'),
+
 ]

@@ -13,7 +13,6 @@ import pandas as pd
 from datetime import date
 from django.contrib import messages
 from .forms import BookFormset
-
 from django import forms;
 from django.forms.formsets import formset_factory;
 from django.shortcuts import render_to_response
@@ -30,19 +29,23 @@ def index(request):
 
 
 def get_notification():
-    notification = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    return notification
+    notifiction = "This is a dummy notification"
+    return notifiction
 
 
 def get_name():
-    staffName = "CECS Staff"
+    staffName = "Sayed Staff"
     return staffName
 
 
 def degree(request):
     bc_param = 'Degree'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
-        'bc_param': bc_param
+        'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/degree.html', context=context)
 
@@ -62,7 +65,7 @@ def degree_detail(request):
         'd_name': d_name,
         'd_year': d_year,
         'bc_param': bc_param,
-        'delete': delete,
+
     }
     if delete == 'false':
         messages.success(request, 'You have successfully restore ' + bc_param + '!')
@@ -72,21 +75,7 @@ def degree_detail(request):
     return render(request, 'staff_pages/degree_detail.html', context=context)
 
 
-def get_comp(request):
-    code = request.GET.get('code')
-    response = degree_plan_helper.get_degree_requirements(code)
-    complusoryCourse=json.loads(response)
-    comps =complusoryCourse['required']['compulsory_courses']
 
-    return comps
-
-
-def get_spec(request):
-    code = request.GET.get('code')
-    response = degree_plan_helper.get_degree_requirements(code)
-    complusoryCourse = json.loads(response)
-    specs = complusoryCourse['required']['required_m/m/s']
-    return specs
 
 
 def degree_add(request):
@@ -114,21 +103,13 @@ def course(request):
     bc_param = 'Course'
     year_now = date.today().year
     years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
-
-    if request.method == 'GET' and 'code' in request.GET:
-        code = request.GET['code']
-        if code:
-            code = request.GET.get('code')
-            name = request.GET.get('name')
-            year = request.GET.get('year')
-            messages.success(request, 'You have successfully delete '
-                             + str(code) + ' / ' + str(name) + ' (' + str(year) + ')')
     context = {
         'bc_param': bc_param,
         'year_now': year_now,
         'years': years,
     }
     return render(request, 'staff_pages/course.html', context=context)
+
 
 
 def course_detail(request):
@@ -159,8 +140,12 @@ def course_add(request):
 
 def major(request):
     bc_param = 'Major'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/major.html', context=context)
 
@@ -183,8 +168,12 @@ def major_add(request):
 
 def minor(request):
     bc_param = 'Minor'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/minor.html', context=context)
 
@@ -207,8 +196,12 @@ def minor_add(request):
 
 def specialisation(request):
     bc_param = 'Specialisation'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/specialisation.html', context=context)
 
@@ -247,7 +240,7 @@ def save_degree(request):
 
 
 @csrf_exempt
-def course_save(request):
+def save_course(request):
     # initiation
     response = 'success'
     msg = ''
@@ -262,39 +255,30 @@ def course_save(request):
     outcomes = request.POST.get('outcome').splitlines()
 
     # validation goes here
-    response, msg, element = course_validation(code, year, name, session, units, descriptions, prerequisites, outcomes)
-    if response != 'success':
-        return JsonResponse({'response': response, 'msg': msg, 'element': element})
+    # all validation error must have response = 'validation' and msg = actual error message
+    if len(code) > 5:
+        response = 'validation'
+        msg = 'Course Code Must be Less Than 6 Char!'
+        element = 'code'
 
     # insert database goes here
-    if not course_insert(code, year, name, session, units, descriptions, prerequisites, outcomes):
+    if not insert_db():
         response = 'database'
 
     return JsonResponse({'response': response, 'msg': msg, 'element': element})
 
 
-def course_validation(code, year, name, session, units, descriptions, prerequisites, outcomes):
-    # all validation error must have response = 'validation' and msg = actual error message
-    response = 'success'
-    msg = ''
-    element = ''
+def get_all_url(urlparrentens, prev, is_first=False, result=[]):
+    if is_first:
+        result.clear()
+    for item in urlparrentens:
+        v = item._regex.strip('^$')  # 去掉url中的^和$
+        if isinstance(item, RegexURLPattern):
+            result.append(prev + v)
+        else:
+            get_all_url(item.urlconf_name, prev + v)
+    return result
 
-    if len(code) > 5:
-        response = 'validation'
-        msg = 'Course Code Must be Less Than 6 Char!'
-        element = 'code'
-    return response, msg, element
-
-
-def course_insert(code, year, name, session, units, descriptions, prerequisites, outcomes):
-    # insert course to db function goes here
+def insert_db():
+    # insert db function goes here
     return True
-
-
-def course_delete(request):
-    # delete course from db function goes here
-    # response = redirect('/redirect-success/')
-    # return response
-    response = 'success'
-    msg =''
-    return JsonResponse({'response': response, 'msg': msg})

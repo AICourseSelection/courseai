@@ -19,97 +19,67 @@
     <script type="javascript">
         $("textarea#spec").val().replace("<br>", "&#10;");
     </script>
-
-<!-- Modal -->
-        {% include 'staff_pages/partials/_modal.html' %}
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-body alert-danger text-center">
-          <h4><strong>Warning! Delete action is permanent!</strong></h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-{#          <form action="{% url 'course_delete' %}" method="post">#}
-        <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmDeleteButtonModal">Delete</button>
-{#              </form>#}
-      </div>
-    </div>
-  </div>
-</div>
-
-        {{ c_code|json_script:"code" }}
-        {{ c_name|json_script:"name" }}
-        {{ c_year|json_script:"year" }}
-    <div class="container text-center">
-        <h1>{{ c_name }} ({{ c_year }})</h1>
+<form id="forms"></form>
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 90%"><h1 class="text-center" id="pageTitle"></h1></td>
+                <td>
+                    <button id="btnSave">Save</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+        </table>
 
     </div>
-        <div class="container">
-            <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
-            <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
-        </div>
 
-        <div class="container">
-            <table class="table table-striped">
-                <tbody>
-                <tr>
-                    <td><label class="text-right" for="code">Code:</label></td>
-                    <td><label class="text-left" for="code">{{ c_code }}</label></td>
-                </tr>
-                </tbody>
-
-            </table>
-        </div>
-
-    <div class="container">
+    <div class="container h-100">
     <table class="table table-striped">
         <tr>
             <td style="text-align: right; width: 20%">Code:</td>
-            <td style="text-align: left">
-                <label>{{ c_code }}</label>
-            </td>
+            <td style="text-align: left;width: 80%" id="code"></td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Year:</td>
-            <td style="text-align: left">
-                <label>{{ c_year }}</label>
-            </td>
+            <td style="text-align: left;width: 80%" id="year"></td>
         </tr>
         <tr>
-            <td style="text-align: right; width: 20%">Name:</td>
-           <td style="text-align: left">
-               <label>{{ c_name }}</label>
+            <td style="text-align: right; width: 20%">Title:</td>
+            <td style="text-align: left;width: 80%" id="title">
            </td>
         </tr>
         <tr>
             <td style="text-align: right; width: 20%">Units:</td>
            <td style="text-align: left">
-               <input type="text" id = "units" disabled="disabled"  style="width: 100%">
+               <input type="text" id="units" style="width: 100%">
            </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Sessions:</td>
             <td style="text-align: left">
-                <input type="text" id="sessions" disabled="disabled"  style="width: 100%"><br>
+                <input type="text" id="sessions" style="width: 100%"><br>
             </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Description:</td>
             <td style="text-align: left">
-                <textarea rows="5" type="text" id="description" disabled="disabled"  style="width: 100%">    </textarea><br>
+                <textarea rows="5" type="text" id="description" style="width: 100%">    </textarea><br>
             </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Learning outcome:</td>
             <td style="text-align: left">
-                <textarea rows="6" type="text" id="learningOutcome" disabled="disabled"  style="width: 100%"></textarea><br>
+                <textarea rows="6" type="text" id="learningOutcome" style="width: 100%"></textarea><br>
             </td>
         </tr>
         <tr>
-             <td style="text-align: right; width: 20%">Prerequisites:</td>
-            <td style="text-align: left">
-                <textarea rows="2"  type="text" id="prerequisites" disabled="disabled"  style="width: 100%"></textarea><br>
+            <td style="text-align: right; width: 20%">Incompatible Course:</td>
+            <td style=" text-align: left" id="incompatible">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Pre-requisite Course:</td>
+            <td style=" text-align: left" id="prerequisite">
             </td>
         </tr>
     <br>
@@ -120,65 +90,86 @@
     </div>
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
-    let code = sessionStorage.getItem("code");
-    let version = sessionStorage.getItem("version");
-    let jsonObject = JSON.parse(version);
-    var year={{ c_year }};
-    console.log(year);
-    console.log(jsonObject);
-    console.log(jsonObject[year].sessions);
-    document.getElementById("sessions").value=jsonObject[year].sessions;
-    document.getElementById("units").value=jsonObject[year].units;
-    document.getElementById("description").value=jsonObject[year].description;
-    document.getElementById("learningOutcome").value=jsonObject[year].learning_outcomes;
-    document.getElementById("prerequisites").value=jsonObject[year].prerequisite_text;
-        $(document).ready(function () {
-            $('#btnEdit').click(function () {
-                if ($("#btnEdit").html() == 'Edit') {
-                    $("#name").prop("disabled", false);
-                    $("#units").prop("disabled", false);
-                    $("#sessions").prop("disabled", false);
-                    $("#description").prop("disabled", false);
-                    $("#learningOutcome").prop("disabled", false);
-                    $("#prerequisites").prop("disabled", false);
-                    $("#btnEdit").html('Save');
-                }
-                else {
-                    $("#name").prop("disabled", true);
-                    $("#units").prop("disabled", true);
-                    $("#sessions").prop("disabled", true);
-                    $("#description").prop("disabled", true);
-                    $("#learningOutcome").prop("disabled", true);
-                    $("#prerequisites").prop("disabled", true);
-                    $("#btnEdit").html('Edit');
-                }
-            });
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return (r[2]);
+            return null;
+        }
 
-            $("#confirmDeleteButtonModal").click(function () {
-                let code = JSON.parse(document.getElementById('code').textContent);
-                let year = JSON.parse(document.getElementById('year').textContent);
-                let name = JSON.parse(document.getElementById('name').textContent);
-                $.ajax({
-                    headers: { "X-CSRFToken": '{{csrf_token}}' },
-                    type:"POST",
-                    url: "{% url 'course_delete' %}",
-                    data: {
-                       "code": code, "year": year, "name": name
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        if(data.response == 'success'){
-                            window.location = '{% url 'course' %}' + '?code=' + code + '&year=' + year + '&name=' + name;
-                        }
-                        else {
-                            let m = 'Oops, something wrong, please try again in a few moments!';
-                            $('#modal-body').html(m);
-                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
-                            $('#modal-title').html('Error!');
-                            $('#error-modal').modal('show');
+        var codeS = getQueryString("code");
+        var yearS = getQueryString("year");
+        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
+        document.getElementById("code").innerText = codeS;
+        document.getElementById("year").innerText = yearS;
+        var incompatible = "";
+        var incompatibleList = [];
+        let incompatibleTable = document.getElementById("incompatible");
+        var prerequisite = "";
+        var prerequisiteList = [];
+        let prerequisiteTable = document.getElementById("prerequisite");
+        $.ajax({
+            url: '../search/coursesearch/',
+            data: {"query": codeS, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+            success: function (data) {
+                data = data.response[0].versions[yearS];
+                console.log(data);
+                document.getElementById("units").value = data.units;
+                titleS = data.title;
+                document.getElementById("pageTitle").innerText = titleS + " (" + yearS + ")";
+                document.getElementById("title").innerText = titleS;
+                if (data.sessions == undefined) {
+                    document.getElementById("sessions").value = "Empty";
+                } else {
+                    document.getElementById("sessions").value = data.sessions;
+                }
+                document.getElementById("description").value = data.description;
+                document.getElementById("learningOutcome").value = data.learning_outcomes;
+                if (data.prerequisites.incompatible != undefined) {
+                    for (let j = 0; j < data.prerequisites.incompatible.length; j++) {
+                        incompatibleList.push(data.prerequisites.incompatible[j]);
+                    }
+                }
+                if (data.prerequisites["pre-requisite"] != undefined) {
+                    for (let i = 0; i < data.prerequisites["pre-requisite"].length; i++) {
+                        prerequisiteList.push("or");
+                        for (let j = 0; j < data.prerequisites["pre-requisite"][i].length; j++) {
+                            prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString());
                         }
                     }
-                })
+                }
+                for (let i = 0; i < incompatibleList.length; i++) {
+                    let link = courseUrl + "code=" + incompatibleList[i] + "&year=" + yearS;
+                    incompatible += "<input type=\"text\" id=\"incompatibleList" + i + " style=\"width: 100%\"    value=\"" + incompatibleList[i] + "\">"
+                        + "<a href =" + link + ">  Course deatil<a>" + "<br>";
+                }
+                for (let i = 0; i < prerequisiteList.length; i++) {
+                    if (data.prerequisites["pre-requisite"].length > 1 && prerequisiteList[i] == "or") {
+                        prerequisite += "<strong>Or</strong><br>";
+                    } else if (prerequisiteList[i] != "or") {
+                        let link = courseUrl + "code=" + prerequisiteList[i] + "&year=" + yearS;
+                        prerequisite += "<input type=\"text\"  id=\"prerequisiteList" + i + "style=\"width: 100%\"  value=\"" + prerequisiteList[i] + "\">" + "<a href =" + link + ">  Course deatil<a>" + "<br>";
+                    }
+                }
+                incompatibleTable.innerHTML = incompatible;
+                prerequisiteTable.innerHTML = prerequisite;
+            }
+
+        });
+
+        $(document).ready(function () {
+            $('#btnSave').click(function () {
+                boot4.confirm({
+                    msg: "Are you sure you want to save " + titleS + " (" + yearS + ")" + " ?",
+                    callback: function (result) {
+                        if (result) {
+                            console.log("save success");
+                        } else {
+                            console.log("cancel");
+                        }
+                    }
+                });
+
             });
         });
 
