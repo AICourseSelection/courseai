@@ -30,12 +30,12 @@ def index(request):
 
 
 def get_notification():
-    notifiction = "This is a dummy notification"
-    return notifiction
+    notification = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    return notification
 
 
 def get_name():
-    staffName = "Sayed Staff"
+    staffName = "CECS Staff"
     return staffName
 
 
@@ -114,13 +114,21 @@ def course(request):
     bc_param = 'Course'
     year_now = date.today().year
     years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+
+    if request.method == 'GET' and 'code' in request.GET:
+        code = request.GET['code']
+        if code:
+            code = request.GET.get('code')
+            name = request.GET.get('name')
+            year = request.GET.get('year')
+            messages.success(request, 'You have successfully delete '
+                             + str(code) + ' / ' + str(name) + ' (' + str(year) + ')')
     context = {
         'bc_param': bc_param,
         'year_now': year_now,
         'years': years,
     }
     return render(request, 'staff_pages/course.html', context=context)
-
 
 
 def course_detail(request):
@@ -239,7 +247,7 @@ def save_degree(request):
 
 
 @csrf_exempt
-def save_course(request):
+def course_save(request):
     # initiation
     response = 'success'
     msg = ''
@@ -254,19 +262,39 @@ def save_course(request):
     outcomes = request.POST.get('outcome').splitlines()
 
     # validation goes here
-    # all validation error must have response = 'validation' and msg = actual error message
-    if len(code) > 5:
-        response = 'validation'
-        msg = 'Course Code Must be Less Than 6 Char!'
-        element = 'code'
+    response, msg, element = course_validation(code, year, name, session, units, descriptions, prerequisites, outcomes)
+    if response != 'success':
+        return JsonResponse({'response': response, 'msg': msg, 'element': element})
 
     # insert database goes here
-    if not insert_db():
+    if not course_insert(code, year, name, session, units, descriptions, prerequisites, outcomes):
         response = 'database'
 
     return JsonResponse({'response': response, 'msg': msg, 'element': element})
 
 
-def insert_db():
-    # insert db function goes here
+def course_validation(code, year, name, session, units, descriptions, prerequisites, outcomes):
+    # all validation error must have response = 'validation' and msg = actual error message
+    response = 'success'
+    msg = ''
+    element = ''
+
+    if len(code) > 5:
+        response = 'validation'
+        msg = 'Course Code Must be Less Than 6 Char!'
+        element = 'code'
+    return response, msg, element
+
+
+def course_insert(code, year, name, session, units, descriptions, prerequisites, outcomes):
+    # insert course to db function goes here
     return True
+
+
+def course_delete(request):
+    # delete course from db function goes here
+    # response = redirect('/redirect-success/')
+    # return response
+    response = 'success'
+    msg =''
+    return JsonResponse({'response': response, 'msg': msg})

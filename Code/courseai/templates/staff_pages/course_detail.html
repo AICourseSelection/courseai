@@ -19,31 +19,67 @@
     <script type="javascript">
         $("textarea#spec").val().replace("<br>", "&#10;");
     </script>
-<form id="forms"></form>
-    <div class="container-fluid">
-        <table style="width: 100%">
-            <tr>
-                <td style="width: 90%"><h1 class="text-center">{{ c_name }} ({{ c_year }})</h1></td>
-                <td><button id="btnEdit">Edit</button> <button>Delete</button></td>
-            </tr>
-        </table>
+
+<!-- Modal -->
+        {% include 'staff_pages/partials/_modal.html' %}
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body alert-danger text-center">
+          <h4><strong>Warning! Delete action is permanent!</strong></h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+{#          <form action="{% url 'course_delete' %}" method="post">#}
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmDeleteButtonModal">Delete</button>
+{#              </form>#}
+      </div>
+    </div>
+  </div>
+</div>
+
+        {{ c_code|json_script:"code" }}
+        {{ c_name|json_script:"name" }}
+        {{ c_year|json_script:"year" }}
+    <div class="container text-center">
+        <h1>{{ c_name }} ({{ c_year }})</h1>
 
     </div>
+        <div class="container">
+            <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
+            <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+        </div>
 
-    <div class="container h-100">
+        <div class="container">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td><label class="text-right" for="code">Code:</label></td>
+                    <td><label class="text-left" for="code">{{ c_code }}</label></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    <div class="container">
     <table class="table table-striped">
         <tr>
             <td style="text-align: right; width: 20%">Code:</td>
-            <td style="text-align: left">{{ c_code }}</td>
+            <td style="text-align: left">
+                <label>{{ c_code }}</label>
+            </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Year:</td>
-            <td style="text-align: left">{{ c_year }}</td>
+            <td style="text-align: left">
+                <label>{{ c_year }}</label>
+            </td>
         </tr>
         <tr>
             <td style="text-align: right; width: 20%">Name:</td>
            <td style="text-align: left">
-               <input type="text" id = "name" disabled="disabled" value="{{ c_name }}" style="width: 100%">
+               <label>{{ c_name }}</label>
            </td>
         </tr>
         <tr>
@@ -116,6 +152,33 @@
                     $("#prerequisites").prop("disabled", true);
                     $("#btnEdit").html('Edit');
                 }
+            });
+
+            $("#confirmDeleteButtonModal").click(function () {
+                let code = JSON.parse(document.getElementById('code').textContent);
+                let year = JSON.parse(document.getElementById('year').textContent);
+                let name = JSON.parse(document.getElementById('name').textContent);
+                $.ajax({
+                    headers: { "X-CSRFToken": '{{csrf_token}}' },
+                    type:"POST",
+                    url: "{% url 'course_delete' %}",
+                    data: {
+                       "code": code, "year": year, "name": name
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.response == 'success'){
+                            window.location = '{% url 'course' %}' + '?code=' + code + '&year=' + year + '&name=' + name;
+                        }
+                        else {
+                            let m = 'Oops, something wrong, please try again in a few moments!';
+                            $('#modal-body').html(m);
+                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                            $('#modal-title').html('Error!');
+                            $('#error-modal').modal('show');
+                        }
+                    }
+                })
             });
         });
 

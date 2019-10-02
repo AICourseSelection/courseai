@@ -24,7 +24,7 @@ $('#course_form').submit(function(event) {
             let prerequisite = document.getElementById("prerequisite").value;
 			$.ajax({
                 type:"POST",
-                url: "../staff/save_course",
+                url: "../staff/course_save",
                 data: {
                    "code": code, "year": year, "session": session, "units": units,
                     "name": name, "description": description, "outcome": outcome,
