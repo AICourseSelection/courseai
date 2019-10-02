@@ -20,8 +20,11 @@
     <h1 class="display-6 text-center">Add A New Course</h1>
 
 
-  <form id="course_form" method="post">
-  {% csrf_token %}
+    <div class="col-sm-11">
+        <button type="submit" class="btn btn-outline-info pull-right" onclick="saveCourse()" id="btnSave">Save</button>
+    </div>
+    <div>&nbsp</div>
+    <div>&nbsp</div>
     <div class="form-group row">
       <label class="control-label col-sm-2 text-right" for="code">Code:</label>
       <div class="col-sm-2">
@@ -103,13 +106,8 @@
               </table>
           </div>
     </div>
-    <div class="form-group text-center">
-      <div class="col-sm-14">
-          <button type="submit" class="btn btn-outline-primary" onclick="saveCourse()" id="btnSave">Save</button>
+
       </div>
-    </div>
-      </div>
-  </form>
     <script>
         function showCourse() {
             var year = document.getElementById("year").value;
@@ -135,12 +133,12 @@
                 success: function (data) {
                     year = document.getElementById("year").value;
                     for (let i = 0; i < data.response.length; i++) {
-                        if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase()) == true) {
-                            versions = data.response[i].versions[year];
-                            if (versions != undefined) {
-                                courseCodes.push(data.response[i].course_code);
-                                courseTitles.push(versions.title);
-                            }
+
+                        versions = data.response[i].versions[year];
+                        if (versions != undefined) {
+                            courseCodes.push(data.response[i].course_code);
+                            courseTitles.push(versions.title);
+
                         }
                     }
                     if (courseCodes.length == 0) {
@@ -171,7 +169,7 @@
             });
         }
 
-        function saveCourse() {
+        function saveDegree() {
             boot4.confirm({
                 msg: "Are you sure to save ?",
                 callback: function (result) {
