@@ -19,8 +19,6 @@
 
     <h1 class="display-6 text-center">Add A New Course</h1>
 
-  {% include 'staff_pages/partials/_modal.html' %}
-    {% include 'staff_pages/partials/_message.html' %}
 
   <form id="course_form" method="post">
   {% csrf_token %}
@@ -107,7 +105,7 @@
     </div>
     <div class="form-group text-center">
       <div class="col-sm-14">
-        <button type="submit" class="btn btn-outline-primary" id="btnSave">Save</button>
+          <button type="submit" class="btn btn-outline-primary" onclick="saveCourse()" id="btnSave">Save</button>
       </div>
     </div>
       </div>
@@ -159,7 +157,7 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\">Add incompatiible course</button>" + "</td>";
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\">Add incompatible course</button>" + "</td>";
                                 } else if (j == 3) {
                                     tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\">Add prerequsite course</button>" + "</td>";
                                 }
@@ -172,5 +170,23 @@
                 }
             });
         }
+
+        function saveCourse() {
+            boot4.confirm({
+                msg: "Are you sure to save ?",
+                callback: function (result) {
+                    if (result) {
+                        console.log("save success");
+                    } else {
+                        console.log("cancel");
+                    }
+                }
+            });
+        }
+
+        function addIncompatibal() {
+
+        }
     </script>
+
 {% endblock %}
