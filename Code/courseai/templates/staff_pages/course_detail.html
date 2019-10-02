@@ -19,19 +19,31 @@
     <script type="javascript">
         $("textarea#spec").val().replace("<br>", "&#10;");
     </script>
-<form id="forms"></form>
-    <div class="container-fluid">
-        <table style="width: 100%">
-            <tr>
-                <td style="width: 90%"><h1 class="text-center" id="pageTitle"></h1></td>
-                <td>
-                    <button id="btnSave">Save</button>
-                    <button>Delete</button>
-                </td>
-            </tr>
-        </table>
+
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body alert-danger text-center">
+          <h4><strong>Warning! Delete action is permanent!</strong></h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+{#          <form action="{% url 'course_delete' %}" method="post">#}
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmDeleteButtonModal">Delete</button>
+{#              </form>#}
+      </div>
+    </div>
+  </div>
+</div>
+         <div class="container text-center">
+        <h1 id="pageTitle"></h1>
 
     </div>
+        <div class="container">
+            <button id="btnSave" class="btn btn-outline-success float-left">Save</button>
+            <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+        </div>
+<form id="forms"></form>
 
     <div class="container h-100">
     <table class="table table-striped">
@@ -170,6 +182,10 @@
                     }
                 });
 
+            });
+
+            $("#confirmDeleteButtonModal").click(function () {
+            {#redirect to query page#}
             });
         });
 

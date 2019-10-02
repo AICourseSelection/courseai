@@ -26,8 +26,6 @@ urlpatterns = [
     path('specialisation_add', views.specialisation_add, name='specialisation_add'),
 
     path('about', views.about, name='about'),
-    path(r'course_save', views.course_save, name='course_save'),
-    path(r'course_delete', views.course_delete, name='course_delete'),
     path('all_degrees', views.all_degrees),
     path(r'save_degree', views.save_degree, name='save_degree'),
 
