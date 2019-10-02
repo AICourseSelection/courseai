@@ -97,6 +97,7 @@
         document.getElementById('code').innerText = codeS;
         document.getElementById('year').innerText = yearS;
         document.getElementById('title').innerText = titleS;
+        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
         var compulsory = "";
         var compulsoryList = [];
         var specList = [];
@@ -121,7 +122,8 @@
                     if (i % 4 == 0) {
                         plan += "<strong>Semester " + (i / 4 + 1) + "<strong><br>";
                     }
-                    plan += "<input type=\"text\" id=\"plan" + i + "\"disabled=\"true\" style=\"width: 100%\" value=\"" + planList[i] + "\">" + "<br>";
+
+                    plan += "<input type=\"text\" id=\"plan" + i + "\"disabled=\"true\"  value=\"" + planList[i] + "\">" + "<br>";
                 }
                 planTable.innerHTML = plan;
             }
@@ -145,10 +147,11 @@
                     }
                 }
                 for (let i = 0; i < compulsoryList.length; i++) {
-                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"disabled=\"true\" style=\"width: 100%\" value=\"" + compulsoryList[i] + "\">" + "<br>";
+                    let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
+                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"disabled=\"true\"  value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course deatil<a>" + "<br>";
                 }
                 for (let i = 0; i < specList.length; i++) {
-                    spec += "<input type=\"text\" id=\"spec" + i + "\"disabled=\"true\" style=\"width: 100%\" value=\"" + specList[i] + "\">" + "<br>";
+                    spec += "<input type=\"text\" id=\"spec" + i + "\"disabled=\"true\"  value=\"" + specList[i] + "\">" + "<br>";
                 }
                 specTable.innerHTML = spec;
                 compulsoryTable.innerHTML = compulsory;

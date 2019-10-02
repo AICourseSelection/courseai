@@ -40,8 +40,12 @@ def get_name():
 
 def degree(request):
     bc_param = 'Degree'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
-        'bc_param': bc_param
+        'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/degree.html', context=context)
 
@@ -61,7 +65,7 @@ def degree_detail(request):
         'd_name': d_name,
         'd_year': d_year,
         'bc_param': bc_param,
-        'delete': delete,
+
     }
     if delete == 'false':
         messages.success(request, 'You have successfully restore ' + bc_param + '!')
@@ -71,21 +75,7 @@ def degree_detail(request):
     return render(request, 'staff_pages/degree_detail.html', context=context)
 
 
-def get_comp(request):
-    code = request.GET.get('code')
-    response = degree_plan_helper.get_degree_requirements(code)
-    complusoryCourse=json.loads(response)
-    comps =complusoryCourse['required']['compulsory_courses']
 
-    return comps
-
-
-def get_spec(request):
-    code = request.GET.get('code')
-    response = degree_plan_helper.get_degree_requirements(code)
-    complusoryCourse = json.loads(response)
-    specs = complusoryCourse['required']['required_m/m/s']
-    return specs
 
 
 def degree_add(request):
@@ -150,8 +140,12 @@ def course_add(request):
 
 def major(request):
     bc_param = 'Major'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/major.html', context=context)
 
@@ -174,8 +168,12 @@ def major_add(request):
 
 def minor(request):
     bc_param = 'Minor'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/minor.html', context=context)
 
@@ -198,8 +196,12 @@ def minor_add(request):
 
 def specialisation(request):
     bc_param = 'Specialisation'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
     context = {
         'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
     }
     return render(request, 'staff_pages/specialisation.html', context=context)
 
