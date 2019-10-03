@@ -28,9 +28,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-{#          <form action="{% url 'course_delete' %}" method="post">#}
+
         <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmDeleteButtonModal">Delete</button>
-{#              </form>#}
       </div>
     </div>
   </div>
@@ -43,7 +42,7 @@
             <button id="btnSave" class="btn btn-outline-success float-left">Save</button>
             <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
         </div>
-<form id="forms"></form>
+
 
     <div class="container h-100">
     <table class="table table-striped">
@@ -137,30 +136,37 @@
                 }
                 document.getElementById("description").value = data.description;
                 document.getElementById("learningOutcome").value = data.learning_outcomes;
-                if (data.prerequisites.incompatible != undefined) {
-                    for (let j = 0; j < data.prerequisites.incompatible.length; j++) {
-                        incompatibleList.push(data.prerequisites.incompatible[j]);
+                if (data.hasOwnProperty("prerequisites")) {
+                    if (data.prerequisites.incompatible != undefined) {
+                        for (let j = 0; j < data.prerequisites.incompatible.length; j++) {
+                            incompatibleList.push(data.prerequisites.incompatible[j]);
+                        }
                     }
-                }
-                if (data.prerequisites["pre-requisite"] != undefined) {
-                    for (let i = 0; i < data.prerequisites["pre-requisite"].length; i++) {
-                        prerequisiteList.push("or");
-                        for (let j = 0; j < data.prerequisites["pre-requisite"][i].length; j++) {
-                            prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString());
+                    if (data.prerequisites["pre-requisite"] != undefined) {
+                        for (let i = 0; i < data.prerequisites["pre-requisite"].length; i++) {
+                            prerequisiteList.push("or");
+                            for (let j = 0; j < data.prerequisites["pre-requisite"][i].length; j++) {
+                                console.log(data.prerequisites["pre-requisite"][i][j].toString().substring(0, 1) == "{")
+                                if (data.prerequisites["pre-requisite"][i][j].toString().substring(0, 1) == "{") {
+                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString().substring(12, 20));
+                                } else {
+                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j]);
+                                }
+                            }
                         }
                     }
                 }
                 for (let i = 0; i < incompatibleList.length; i++) {
                     let link = courseUrl + "code=" + incompatibleList[i] + "&year=" + yearS;
                     incompatible += "<input type=\"text\" id=\"incompatibleList" + i + " style=\"width: 100%\"    value=\"" + incompatibleList[i] + "\">"
-                        + "<a href =" + link + ">  Course deatil<a>" + "<br>";
+                        + "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>";
                 }
                 for (let i = 0; i < prerequisiteList.length; i++) {
                     if (data.prerequisites["pre-requisite"].length > 1 && prerequisiteList[i] == "or") {
                         prerequisite += "<strong>Or</strong><br>";
                     } else if (prerequisiteList[i] != "or") {
                         let link = courseUrl + "code=" + prerequisiteList[i] + "&year=" + yearS;
-                        prerequisite += "<input type=\"text\"  id=\"prerequisiteList" + i + "style=\"width: 100%\"  value=\"" + prerequisiteList[i] + "\">" + "<a href =" + link + ">  Course deatil<a>" + "<br>";
+                        prerequisite += "<input type=\"text\"  id=\"prerequisiteList" + i + "style=\"width: 100%\"  value=\"" + prerequisiteList[i] + "\">" + "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>";
                     }
                 }
                 incompatibleTable.innerHTML = incompatible;
