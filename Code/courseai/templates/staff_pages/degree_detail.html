@@ -17,68 +17,79 @@
             </nav>
         </div>
     </section>
-    {% include 'staff_pages/partials/_alerts.html' %}
-    {% if delete == 'true' %}
-        <div class="jumbotron jumbotron-fluid alert-success">
-            <div class="container text-center">
-                <h1 class="display-4">You Have Successfully <strong>Delete</strong></h1>
-                <h1 class="display-3 alert-primary">{{ bc_param }}</h1>
-                <p class="lead">To undo, please click <strong><a href="#" id="backtoquery">HERE</a></strong></p>
+
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog"
+         aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body alert-danger text-center">
+                    <h4><strong>Warning! Delete action is permanent!</strong></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
+                            id="confirmDeleteButtonModal" onclick="javascript:window.location.href='degree'"/>
+                    Delete
+                    </button>
+                </div>
             </div>
         </div>
-    {% else %}
-        <div class="container-fluid">
-            <table style="width: 100%">
-                <tr>
-                    <td style="width: 90%"><h1 class="text-center" id="pageTitle"></h1></td>
-                    <td>
-                        <button id="btnEdit" class="btn btn-outline-info">Edit</button>
-                        <button id="btnDelete" class="btn btn-outline-danger">Delete</button>
-                    </td>
-                </tr>
-            </table>
+    </div>
+    <div class="container text-center">
+        <h1 id="pageTitle"></h1>
 
-        </div>
+    </div>
+    <div class="container">
+        <button id="btnSave" class="btn btn-outline-success float-left">Save</button>
+        <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal"
+                data-target="#confirmDeleteModal">Delete
+        </button>
+    </div>
 
-        <div class="container h-100">
-            <table class="table table-striped">
-                <tr>
-                    <td style="text-align: right; width: 20%">Code:</td>
-                    <td style="text-align: left" id="code"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Year:</td>
-                    <td style="text-align: left" id="year"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Name:</td>
-                    <td style="text-align: left" id="title">
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Units:</td>
-                    <td id="Units" style="text-align: left">
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Compulsory Course:</td>
-                    <td id="compulsory" style="text-align: left">
-                    </td>
-                </tr>
-                <tr>
+
+    <div class="container h-100">
+        <table class="table table-striped">
+            <tr>
+                <td style="text-align: right; width: 20%">Code:</td>
+                <td style="text-align: left" id="code"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Year:</td>
+                <td style="text-align: left" id="year"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Name:</td>
+                <td style="text-align: left" id="title">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Units:</td>
+                <td id="Units" style="text-align: left">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Compulsory Course:</td>
+                <td id="compulsory" style="text-align: left">
+                </td>
+            </tr>
+            {% comment %}   <tr>
                     <td style="text-align: right; width: 20%">Specialisation:</td>
                     <td id="specialisation" style="text-align: left">
                     </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Study Plan:</td>
-                    <td id="plan" style="text-align: left">
-                    </td>
-                </tr>
-            </table>
+                </tr>{% endcomment %}
+            <tr>
+                <td style="text-align: right; width: 20%">Study Plan:</td>
+                <td id="plan" style="text-align: left">
+                    <table id="planTable" class="table table-hover" style="width: 100%; margin: auto">
 
-        </div>
-    {% endif %}
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
         function getQueryString(name) {
@@ -97,6 +108,7 @@
         document.getElementById('code').innerText = codeS;
         document.getElementById('year').innerText = yearS;
         document.getElementById('title').innerText = titleS;
+        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
         var compulsory = "";
         var compulsoryList = [];
         var specList = [];
@@ -104,8 +116,18 @@
         var spec = "";
         let specTable = document.getElementById("specialisation");
         var planList = [];
-        var planString = "";
-        let planTable = document.getElementById("plan");
+        let planTable = document.getElementById("planTable");
+        let planString = "<thead class = \"thead-light\">\n" +
+            "                    <tr>\n" +
+            "                      <th scope=\"col\" width=\"20%\">Year</th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                    </tr>\n" +
+            "                  </thead>";
+        planString += "<tbody>\n" +
+            "    <tr>";
         $.ajax({
             url: '../degree/degreeplan',
             data: {"degree_code": codeS, "year": yearS},
@@ -114,17 +136,40 @@
                 console.log("degreeplan success");
                 for (let i = 0; i < data.response.length; i++) {
                     for (let j = 0; j < data.response[j].length; j++) {
-
                         planList.push(data.response[i][j].code)
                     }
                 }
-                for (let i = 0; i < planList.length; i++) {
-                    if (i % 4 == 0) {
-                        plan += "<input type=\"text\" disabled=\"true\" style=\"width: 100%\" value=\"semester" + (i / 4 + 1) + "\">" + "<br>";
+                let yearLength = planList.length / 8;
+                let length = 0;
+                console.log(yearLength);
+                for (let i = 0; i < yearLength; i++) {
+                    planString += "<td>" + "Year" + (i + 1) + "</td>";
+                    for (let j = 0; j < 4; j++) {
+                        if (planList[length].length == 8) {
+                            let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>" + "</td>";
+                        } else {
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<br>" + "</td>";
+
+                        }
+                        length++;
                     }
-                    plan += "<input type=\"text\" id=\"plan" + i + "\"disabled=\"true\" style=\"width: 100%\" value=\"" + planList[i] + "\">" + "<br>";
+                    planString += "</tr>" + "<tr>";
+                    planString += "<td>" + "" + "</td>";
+                    for (let j = 0; j < 4; j++) {
+                        if (planList[length].length == 8) {
+                            let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>" + "</td>";
+                        } else {
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<br>" + "</td>";
+
+                        }
+                        length++;
+                    }
+                    planString += "</tr>" + "<tr>";
                 }
-                planTable.innerHTML = plan;
+                planString += "</tbody>";
+                planTable.innerHTML = planString;
             }
         });
         $.ajax({
@@ -134,7 +179,6 @@
                 console.log("degreereqs success");
                 document.getElementById('Units').innerText = data.units;
                 if (data.required.compulsory_courses != undefined) {
-
                     for (let i = 0; i < data.required.compulsory_courses.length; i++) {
                         compulsoryList.push(data.required.compulsory_courses[i])
                     }
@@ -146,69 +190,31 @@
                     }
                 }
                 for (let i = 0; i < compulsoryList.length; i++) {
-                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"disabled=\"true\" style=\"width: 100%\" value=\"" + compulsoryList[i] + "\">" + "<br>";
+                    let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
+                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course deatil<a>" + "<br>";
                 }
                 for (let i = 0; i < specList.length; i++) {
-                    spec += "<input type=\"text\" id=\"spec" + i + "\"disabled=\"true\" style=\"width: 100%\" value=\"" + specList[i] + "\">" + "<br>";
+                    console.log(specList[i])
+                    spec += "<input type=\"text\" id=\"spec" + i + "\"value=\"" + specList[i] + "\">" + "<br>";
                 }
-                specTable.innerHTML = spec;
+                {% comment %} specTable.innerHTML = spec;{% endcomment %}
                 compulsoryTable.innerHTML = compulsory;
 
                 $(document).ready(function () {
-                    $('#btnEdit').click(function () {
-                        if ($("#btnEdit").html() == 'Edit') {
-                            $("#btnEdit").html('Save');
-                            for (let i = 0; i < compulsoryList.length; i++) {
-                                document.getElementById("compulsory" + i).disabled = false;
-                            }
-                            for (let i = 0; i < specList.length; i++) {
-                                document.getElementById("spec" + i).disabled = false;
-                            }
-                            for (let i = 0; i < planList.length; i++) {
-                                document.getElementById("plan" + i).disabled = false;
-                            }
-                        } else {
-                            $("#btnEdit").html('Edit');
-                            for (let i = 0; i < compulsoryList.length; i++) {
-                                document.getElementById("compulsory" + i).disabled = true;
-                            }
-                            for (let i = 0; i < specList.length; i++) {
-                                document.getElementById("spec" + i).disabled = true;
-                            }
-                            for (let i = 0; i < planList.length; i++) {
-                                document.getElementById("plan" + i).disabled = false;
-                            }
-                            boot4.confirm({
-                                msg: "Are you sure you want to update {{ bc_param }} ?",
-                                callback: function (result) {
-                                    if (result) {
-                                        var url = window.location.href.replace('mode=edit', 'mode=query');
-                                        url += '&safe=true';
-                                        window.location.href = url;
-                                    } else {
-                                        console.log("cancel");
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    $("#btnDelete").click(function () {
+                    $('#btnSave').click(function () {
                         boot4.confirm({
-                            msg: "Are you sure you want to delete {{ bc_param }} ?",
+                            msg: "Are you sure you want to update {{ bc_param }} ?",
                             callback: function (result) {
                                 if (result) {
-                                    window.location.search += '&delete=true';
+                                    var url = window.location.href.replace('mode=edit', 'mode=query');
+                                    url += '&safe=true';
+                                    window.location.href = url;
                                 } else {
                                     console.log("cancel");
                                 }
                             }
                         });
                     });
-                    $("#backtoquery").click(function () {
-                        window.location.href = window.location.href.replace('delete=true', 'delete=false');
-                    });
-
-
                 });
             }
         });

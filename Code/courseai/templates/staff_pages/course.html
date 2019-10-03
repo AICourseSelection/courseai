@@ -17,6 +17,7 @@
         <h1 class="display-4 mb-4">
             Search Course
           </h1>
+        {% include 'staff_pages/partials/_alerts.html' %}
 
     <div class="form-row">
                 <div class="col-md-4 mb-3">
@@ -36,7 +37,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
         <div class="col col-lg-4">
-          <input type="text" id="search" name="search" class="form-control" placeholder="Course Code or Name">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
         </div>
         <div class="col-md-auto">
           <select id="year" name = 'year' class="form-control">
@@ -65,10 +66,11 @@
     </div>
 </div>
     <script>
-    var year;
+
         var courseCodes;
         var courseVersions;
         function showCourse() {
+            var year = document.getElementById("year").value;
         let courses = document.getElementById("search").value;
         let tableData = "<thead class = \"thead-light\">\n" +
             "                    <tr>\n" +
@@ -86,44 +88,37 @@
         var versions = "";
         $.ajax({
             url: '../search/coursesearch/',
-            data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
+            data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
             success: function (data) {
                 year=document.getElementById("year").value;
                 for (let i = 0; i < data.response.length; i++) {
                     if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
-                        versions = JSON.stringify(data.response[i].versions);
+                        versions = data.response[i].versions[year];
                         if (versions != undefined) {
+                            console.log(versions);
                             courseCodes.push(data.response[i].course_code);
-                            versions = JSON.stringify(data.response[i].versions);
-                            courseVersions.push(versions.toString());
-                            courseUnits.push(str_substr("units\":\"", "\"", versions));
-                            courseTitles.push(str_substr("title\":", ",", versions).replace(/\"/g, ""));
+                            courseUnits.push(versions.units);
+                            courseTitles.push(versions.title);
                         }
                     }
                 }
                 if (courseCodes.length == 0) {
                     tableData += "<td colspan=\"3\">No Such Course</td></tr>";
                 } else {
-                    for (let i = 0; i < courseCodes.length + 1; i++) {
+                    for (let i = 0; i < courseCodes.length; i++) {
                         for (let j = 0; j < 3; j++) {
-                            if (i == 0) {
-
-
-                            } else {
                                 if (j == 0) {
-                                    tableData += "<td>" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">"
-                                        + courseCodes[i - 1] +
+                                    tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
+                                        + courseCodes[i] +
                                             "</a>" +
                                             "</td>";
                                 } else if(j==1){
-                                    tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                        courseTitles[i - 1] + "</a>" + "</td>";
+                                    tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
+                                        courseTitles[i] + "</a>" + "</td>";
                                 }
                                 else if(j==2){
-                                    tableData += "<td>" + courseUnits[i - 1] + "</td>";
+                                    tableData += "<td>" + courseUnits[i] + "</td>";
                                 }
-
-                            }
                         }
                         tableData += "</tr>" + "<tr>";
                     }
@@ -135,12 +130,7 @@
     }
 
 
-    function saveData(i) {
-         //alert("success");
-        sessionStorage.setItem("version",courseVersions[i]);
-        sessionStorage.setItem("code",courseCodes[i]);
-    }
-     function str_substr(start, end, str) {
+        function str_substr(start, end, str) {
        try{
             temp = str.split(start, 2);
             content = temp[1].split(end, 2);
