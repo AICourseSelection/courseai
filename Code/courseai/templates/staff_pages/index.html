@@ -13,11 +13,16 @@
   </section>
 
   <div class="container">
-      <h1 class="text-center">Welcome {{ staff_name }}</h1>
+      <h1 class="text-center">Welcome {{ staff_name }}!</h1>
   </div>
-
-    <div class="container">
-    <p>{{ notification }}</p>
+<br>
+<div class="container">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Notification</h5>
+        <p class="card-text">{{ notification }}</p>
+      </div>
     </div>
+</div>
 
 {% endblock %}
