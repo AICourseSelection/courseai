@@ -166,7 +166,7 @@
                 for (let i = 0; i < incompatibleList.length; i++) {
                     let link = courseUrl + "code=" + incompatibleList[i] + "&year=" + yearS;
                     incompatible += "<input type=\"text\" id=\"incompatibleList" + i + " style=\"width: 100%\"    value=\"" + incompatibleList[i] + "\">"
-                        + "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>";
+                        + "<a href=\"" + link + "\" target=\"_Blank\">Course detail</a>" + "<br>";
                 }
                 for (let i = 0; i < prerequisiteList.length; i++) {
                     if (data.prerequisites["pre-requisite"].length > 1 && prerequisiteList[i] == "and") {
@@ -175,7 +175,7 @@
                         prerequisite += "<strong>Or</strong><br>";
                     } else if (prerequisiteList[i] != "and") {
                         let link = courseUrl + "code=" + prerequisiteList[i] + "&year=" + yearS;
-                        prerequisite += "<input type=\"text\"  id=\"prerequisiteList" + i + "style=\"width: 100%\"  value=\"" + prerequisiteList[i] + "\">" + "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>";
+                        prerequisite += "<input type=\"text\"  id=\"prerequisiteList" + i + "style=\"width: 100%\"  value=\"" + prerequisiteList[i] + "\">" + "<a href=\"" + link + "\" target=\"_Blank\">Course detail</a>" + "<br>";
                     }
                 }
                 incompatibleTable.innerHTML = incompatible;

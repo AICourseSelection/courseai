@@ -112,7 +112,7 @@
                 let link = courseUrl + "code=" + jsonObject[year].requirements.x_from_here[i].courses[j][0].code + "&year=" + yearS;
                 let string = jsonObject[year].requirements.x_from_here[i].courses[j][0].code + "-" + jsonObject[year].requirements.x_from_here[i].courses[j][0].title;
                 requirement += "<input type=\"text\"  style=\"width: 60%\" value=\"" + string + "\">" +
-                    "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>";
+                    "<a href=\"" + link + "\" target=\"_Blank\">Course detail</a>" + "<br>";
             }
         }
         requirementTable.innerHTML = requirement;
