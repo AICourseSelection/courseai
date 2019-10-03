@@ -36,7 +36,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Degree Code ">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Minor Code ">
             </div>
             <div class="col-md-auto">
                 <select id="year" name='year' class="form-control">
@@ -51,7 +51,15 @@
             </div>
             <div class="col col-lg-2">
                 <button onclick="showMinors()" class="btn btn-outline-primary">Search</button>
+            </div>
         </div>
+        <div style="width: 100%; text-align: center">
+            <div>&nbsp</div>
+            <div class="table-responsive">
+                <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+
+                </table>
+            </div>
         </div>
     </div>
     <script>

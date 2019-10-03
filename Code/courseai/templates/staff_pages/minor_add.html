@@ -1,54 +1,137 @@
-{% load static %}
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>boot4alert Plugin Demos</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.2.1/minty/bootstrap.min.css">
-<style>
-.container { margin: 150px auto; text-align: center; }
-</style>
-</head>
+{% extends 'staff_pages/staff_base.html' %}
+{% block content %}
+    <script type="javascript">
+        $("textarea#spec").val().replace("<br>", "&#10;");
+    </script>
 
-<body>
-  <div class="container">
-    <h1>boot4alert Plugin Demos</h1>
+    <form id="forms"></form>
+    <div class="container-fluid">
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 90%"></td>
+                <td>
+                    <button id="btnSave">Save</button>
+            </tr>
+        </table>
 
-    <button id="alert" class="btn btn-danger">Alert Popup</button>
-    <button id="confirm" class="btn btn-danger">Confirm Popup</button>
-  </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-<script src="{% static 'js/boot4alert.js' %}"></script>
-<script>
-  $("#alert").on('click',function(){
-     boot4.alert(
-    {
-      msg: "Call Back",
-      title: "Test Callback",
-      callback: function() {
-        console.log("callback");
-      }
-    },"OK");
-  })
-  $("#confirm").on('click',function(){
-     boot4.confirm({
-    msg: "Yet another jQuery/Bootstrap dialog box plugin used to replace the native alert and confirmation popup boxes using Bootstrap 4 modal component.",
-    title: "Confirm Message",
-    callback: function(result) {
-      if(result){
-        alert('Confirmed')
-      }
-      else{
-        console.log("cancel");
-      }
-    }
-  });
-  })
-</script>
+        <div class="container h-100">
+            <table class="table table-striped">
+                <tr>
+                    <td style="text-align: right; width: 20%">Code:</td>
+                    <td style="text-align: left"><input type="text" id="code" value="" style="width: 100%"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Year:</td>
+                    <td style="text-align: left"><input type="text" id="year" value="" style="width: 100%"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Title:</td>
+                    <td style="text-align: left">
+                        <input type="text" id="title" value="" style="width: 100%"></td>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Description:</td>
+                    <td style="text-align: left">
+                    <textarea rows="5" type="text" id="description"
+                              style="width: 100%">    </textarea><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Requirement:</td>
+                    <td id="requirements" style="text-align: left">
+                        <input type="text" id="search" name="courseName" required placeholder="Search Course"
+                               autocomplete="off" data-toggle="popover" style="width:30%">
+                        <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
+                    </td>
+                </tr>
+                <tbody id="majorTable">
+            </table>
 
-</body>
-</html>
+        </div>
+    </div>
+    <script>
+        function showCourse() {
+            let courses = document.getElementById("search").value;
+            let tableData = "<tr>";
+            courseCodes = [];
+            courseVersions = [];
+            const courseUnits = [];
+            const courseTitles = [];
+            const courseDescription = [];
+            var versions = "";
+            $.ajax({
+                url: '../search/coursesearch/',
+                data: {
+                    "query": courses,
+                    "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}
+                },
+                success: function (data) {
+                    year = document.getElementById("year").value;
+                    for (let i = 0; i < data.response.length; i++) {
+                        if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase()) == true) {
+                            courseCodes.push(data.response[i].course_code);
+                            versions = JSON.stringify(data.response[i].versions);
+                            courseVersions.push(versions.toString());
+                            courseUnits.push(str_substr("units\":\"", "\"", versions));
+                            courseTitles.push(str_substr("title\":", ",", versions).replace(/\"/g, ""));
+                            courseDescription.push(str_substr("description\":\"", ".", versions) + ".......")
+                        }
+                    }
+                    if (courseCodes.length == 0) {
+                        tableData += "<th>" + "No such course" + "</th>" + "</tr>";
+                    } else {
+                        for (i = 0; i < courseCodes.length + 1; i++) {
+                            for (let j = 0; j < 4; j++) {
+                                if (i == 0) {
+                                    if (j == 0) {
+                                        tableData += "<th>" + "course code" + "</th>";
+                                    } else if (j == 1) {
+                                        tableData += "<th>" + "course units" + "</th>";
+                                    } else if (j == 2) {
+                                        tableData += "<th>" + "course title" + "</th>";
+                                    } else if (j == 3) {
+                                        tableData += "<th>" + "course description" + "</th>";
+                                    }
+                                } else {
+                                    if (j == 0) {
+                                        tableData += "<td>" +
+                                            "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                            courseCodes[i - 1] +
+                                            "</a>" +
+                                            "</td>";
+                                    } else if (j == 1) {
+                                        tableData += "<td>" + courseUnits[i - 1] + "</td>";
+                                    } else if (j == 2) {
+                                        tableData += "<td>" + courseTitles[i - 1] + "</td>";
+                                    } else if (j == 3) {
+                                        tableData += "<td>" + courseDescription[i - 1] + "</td>";
+                                    }
+
+                                }
+                            }
+                            tableData += "</tr>" + "<tr>";
+                        }
+                    }
+                    $("#majorTable").html(tableData);
+                }
+            });
+        }
+
+        function saveData(i) {
+            //alert("success");
+            sessionStorage.setItem("version", courseVersions[i]);
+            sessionStorage.setItem("code", courseCodes[i]);
+        }
+
+        function str_substr(start, end, str) {
+            try {
+                temp = str.split(start, 2);
+                content = temp[1].split(end, 2);
+            } catch (e) {
+                console.log(e.name + ":" + e.message);
+            }
+            return content[0];
+        }
+    </script>
+{% endblock %}
