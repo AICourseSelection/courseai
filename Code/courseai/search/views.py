@@ -89,7 +89,7 @@ def mms_by_code(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        index_name = request.GET['index_name']
+        index_name = request.GET['index_name']  # majors or minors
 
         return mms.mms_by_name(es_conn, name, index_name, level=level)
     except KeyError:
