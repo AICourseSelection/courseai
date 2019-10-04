@@ -1,59 +1,60 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
     <section id="bc" class="mt-3">
-    <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-              <a href="{% url 'index' %}">
-            <i class="fa fa-home"></i> Home </a>
-          </li>
-            <li class="breadcrumb-item active">{{ bc_param }}</li>
-        </ol>
-      </nav>
-    </div>
-  </section>
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fa fa-home"></i> Home </a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ bc_param }}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
     <div class="container text-center">
         <h1 class="display-4 mb-4">
             Search Course
-          </h1>
+        </h1>
         {% include 'staff_pages/partials/_alerts.html' %}
 
-    <div class="form-row">
-                <div class="col-md-4 mb-3">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
 
-                </div>
+            </div>
 
             <div class="col-md-4 mb-3">
-                  <label class="sr-only">Year</label>
+                <label class="sr-only">Year</label>
 
-                </div>
-    <div class="col-md-4 mb-3">
+            </div>
+            <div class="col-md-4 mb-3">
 
-                </div>
+            </div>
 
-    </div>
+        </div>
     </div>
     <div class="container">
         <div class="row justify-content-md-center">
-        <div class="col col-lg-4">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
+            <div class="col col-lg-4">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Course Code"
+                       onkeydown="if(event.keyCode==13) {showCourse()}">
+            </div>
+            <div class="col-md-auto">
+                <select id="year" name='year' class="form-control">
+                    {% for year in years %}
+                        {% if year == year_now %}
+                            <option selected value="{{ year }}">{{ year }}</option>
+                        {% else %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col col-lg-2">
+                <button onclick="showCourse()" class="btn btn-outline-primary">Search</button>
+            </div>
         </div>
-        <div class="col-md-auto">
-          <select id="year" name = 'year' class="form-control">
-                {% for year in years %}
-                            {% if year == year_now %}
-                                <option selected value="{{ year }}">{{ year }}</option>
-                            {% else %}
-                                <option value="{{ year }}">{{ year }}</option>
-                            {% endif %}
-                        {% endfor %}
-            </select>
-        </div>
-        <div class="col col-lg-2">
-          <button onclick="showCourse()" class="btn btn-outline-primary">Search</button>
-        </div>
-      </div>
     </div>
 
     <div style="width: 100%; text-align: center">
@@ -61,84 +62,91 @@
         <div class="table-responsive">
             <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
 
-                </table>
+            </table>
         </div>
     </div>
-</div>
+    </div>
     <script>
 
         var courseCodes;
         var courseVersions;
+
         function showCourse() {
             var year = document.getElementById("year").value;
-        let courses = document.getElementById("search").value;
-        let tableData = "<thead class = \"thead-light\">\n" +
-            "                    <tr>\n" +
-            "                      <th scope=\"col\" width=\"20%\">Course Code</th>\n" +
-            "                      <th scope=\"col\" width=\"70%\">Course Name</th>\n" +
-            "                      <th scope=\"col\" width=\"10%\">Unit</th>\n" +
-            "                    </tr>\n" +
-            "                  </thead>";
-        tableData += "<tbody>\n" +
-            "    <tr>";
-        courseCodes = [];
-        courseVersions = [];
-        const courseUnits = [];
-        const courseTitles = [];
-        var versions = "";
-        $.ajax({
-            url: '../search/coursesearch/',
-            data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
-            success: function (data) {
-                year=document.getElementById("year").value;
-                for (let i = 0; i < data.response.length; i++) {
-                    if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
-                        versions = data.response[i].versions[year];
-                        if (versions != undefined) {
-                            console.log(versions);
-                            courseCodes.push(data.response[i].course_code);
-                            courseUnits.push(versions.units);
-                            courseTitles.push(versions.title);
+            let courses = document.getElementById("search").value;
+            let tableData = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"20%\">Course Code</th>\n" +
+                "                      <th scope=\"col\" width=\"70%\">Course Name</th>\n" +
+                "                      <th scope=\"col\" width=\"10%\">Unit</th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            tableData += "<tbody>\n" +
+                "    <tr>";
+            courseCodes = [];
+            courseVersions = [];
+            const courseUnits = [];
+            const courseTitles = [];
+            var versions = "";
+            if(courses!=""){
+            $.ajax({
+                url: '../search/coursesearch/',
+                data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+                success: function (data) {
+                    year = document.getElementById("year").value;
+                    for (let i = 0; i < data.response.length; i++) {
+                        if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase()) == true) {
+                            versions = data.response[i].versions[year];
+                            if (versions != undefined) {
+                                console.log(versions);
+                                courseCodes.push(data.response[i].course_code);
+                                courseUnits.push(versions.units);
+                                courseTitles.push(versions.title);
+                            }
                         }
                     }
-                }
-                if (courseCodes.length == 0) {
-                    tableData += "<td colspan=\"3\">No Such Course</td></tr>";
-                } else {
-                    for (let i = 0; i < courseCodes.length; i++) {
-                        for (let j = 0; j < 3; j++) {
+                    if (courseCodes.length == 0) {
+                        tableData="<strong>No such Course</strong><br /> "
+                         $("#Table").html(tableData);
+                        return;
+                    } else {
+                        for (let i = 0; i < courseCodes.length; i++) {
+                            for (let j = 0; j < 3; j++) {
                                 if (j == 0) {
                                     tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
                                         + courseCodes[i] +
-                                            "</a>" +
-                                            "</td>";
-                                } else if(j==1){
+                                        "</a>" +
+                                        "</td>";
+                                } else if (j == 1) {
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
-                                }
-                                else if(j==2){
+                                } else if (j == 2) {
                                     tableData += "<td>" + courseUnits[i] + "</td>";
                                 }
+                            }
+                            tableData += "</tr>" + "<tr>";
                         }
-                        tableData += "</tr>" + "<tr>";
+                        tableData += "</tbody>";
                     }
-                    tableData += "</tbody>";
+                    $("#Table").html(tableData);
                 }
-                $("#Table").html(tableData);
+            });
             }
-        });
-    }
+            else{
+                tableData="<strong>No such Course</strong><br /> "
+                         $("#Table").html(tableData);
+            }
+        }
 
 
         function str_substr(start, end, str) {
-       try{
-            temp = str.split(start, 2);
-            content = temp[1].split(end, 2);
+            try {
+                temp = str.split(start, 2);
+                content = temp[1].split(end, 2);
+            } catch (e) {
+                console.log(e.name + ":" + e.message);
+            }
+            return content[0];
         }
-        catch (e) {
-            console.log(e.name + ":" + e.message);
-        }
-        return content[0];
-    }
     </script>
 {% endblock %}

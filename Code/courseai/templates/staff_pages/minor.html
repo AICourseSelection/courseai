@@ -1,18 +1,18 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
     <section id="bc" class="mt-3">
-    <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-              <a href="{% url 'index' %}">
-            <i class="fa fa-home"></i> Home </a>
-          </li>
-            <li class="breadcrumb-item active">{{ bc_param }}</li>
-        </ol>
-      </nav>
-    </div>
-  </section>
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fa fa-home"></i> Home </a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ bc_param }}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
     <div class="container text-center">
         <h1 class="display-4 mb-4">
             Search Minor
@@ -36,7 +36,8 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Minor Code ">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Minor Code"
+                       onkeydown="if(event.keyCode==13) {showMinors()}">
             </div>
             <div class="col-md-auto">
                 <select id="year" name='year' class="form-control">
@@ -63,96 +64,100 @@
         </div>
     </div>
     <script>
-    function str_substr(start, end, str) {
-        content = [];
-       try{
-            temp = str.split(start, 2);
-            content = temp[1].split(end, 2);
+        function str_substr(start, end, str) {
+            content = [];
+            try {
+                temp = str.split(start, 2);
+                content = temp[1].split(end, 2);
+            } catch (e) {
+                console.log(e.name + ":" + e.message);
+            }
+            if (content == undefined) {
+                return null;
+            }
+            return content[0];
         }
-        catch (e) {
-            console.log(e.name + ":" + e.message);
-        }
-        if(content==undefined){
-            return null;
-        }
-        return content[0];
-    }
-        let level="undergraduate";
-        let description="";
-    var minorsVersion = [];
-    var minorsCodes = [];
-    function showMinors() {
-        minorsVersion = [];
-        minorsCodes = [];
-        let minors = document.getElementById("search").value;
-        //let level = document.getElementById("level").value;
-        let year= document.getElementById("year").value;
-        let tableData = "<tr>";
-        const minorDescription = [];
-        const minorsTitle = [];
-        $.ajax({
-            url: '../search/minors',
-            data: {"query": minors, "level": level},
-            success: function (data) {
-                for (i in data.responses) {
-                    if (data.responses[i].versions[year] != undefined) {
-                        if (data.responses[i].versions[year].description != undefined) {
-                            minorsCodes.push(data.responses[i].code);
-                            minorsVersion.push(JSON.stringify(data.responses[i].versions));
-                            description=JSON.stringify(data.responses[i].versions[year].description);
-                            description=str_substr("\"",".",description);
-                            minorDescription.push(description+"......");
-                            minorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g,""));}
-                }
-                }
-                if (minorsCodes.length == 0) {
-                    tableData += "<th>" + "No such minor" + "</th>" + "</tr>";
-                } else {
-                    for (var i = 0; i < minorsCodes.length + 1; i++) {
-                        for (var j = 0; j < 3; j++) {
-                            if (i == 0) {
-                                if (j == 0) {
-                                    tableData += "<th>" + "minor Code" + "</th>";
-                                } else if (j == 1) {
-                                    tableData += "<th>" + "minor Title" + "</th>";
-                                } else if (j == 2) {
-                                    tableData += "<th>" + "minor Description" + "</th>";
-                                }
-                            } else {
-                                if (j == 0) {
-                                    tableData += "<td>" +
-                                        "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                        minorsCodes[i - 1] +
-                                        "</a>" +
-                                        "</td>";
-                                } else if (j == 2) {
-                                    tableData += "<td>" +
-                                        "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                        minorDescription[i - 1] +
-                                        "</a>" +
-                                        "</td>";
-                                } else if (j == 1) {
-                                    tableData += "<td>" +
-                                        "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                        minorsTitle[i - 1] +
-                                        "</a>" +
-                                        "</td>";
-                                }
+
+        let level = "undergraduate";
+        let description = "";
+        var minorsVersion = [];
+        var minorsCodes = [];
+
+        function showMinors() {
+            minorsVersion = [];
+            minorsCodes = [];
+            let minors = document.getElementById("search").value;
+            //let level = document.getElementById("level").value;
+            let year = document.getElementById("year").value;
+            let tableData = "<tr>";
+            const minorDescription = [];
+            const minorsTitle = [];
+            $.ajax({
+                url: '../search/minors',
+                data: {"query": minors, "level": level},
+                success: function (data) {
+                    for (i in data.responses) {
+                        if (data.responses[i].versions[year] != undefined) {
+                            if (data.responses[i].versions[year].description != undefined) {
+                                minorsCodes.push(data.responses[i].code);
+                                minorsVersion.push(JSON.stringify(data.responses[i].versions));
+                                description = JSON.stringify(data.responses[i].versions[year].description);
+                                description = str_substr("\"", ".", description);
+                                minorDescription.push(description + "......");
+                                minorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g, ""));
                             }
                         }
-                        tableData += "</tr>" + "<tr>";
                     }
+                    if (minorsCodes.length == 0) {
+                        tableData="<strong>No such Minor</strong><br /> "
+                         $("#Table").html(tableData);
+                        return;
+                    } else {
+                        for (var i = 0; i < minorsCodes.length + 1; i++) {
+                            for (var j = 0; j < 3; j++) {
+                                if (i == 0) {
+                                    if (j == 0) {
+                                        tableData += "<th>" + "minor Code" + "</th>";
+                                    } else if (j == 1) {
+                                        tableData += "<th>" + "minor Title" + "</th>";
+                                    } else if (j == 2) {
+                                        tableData += "<th>" + "minor Description" + "</th>";
+                                    }
+                                } else {
+                                    if (j == 0) {
+                                        tableData += "<td>" +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                            minorsCodes[i - 1] +
+                                            "</a>" +
+                                            "</td>";
+                                    } else if (j == 2) {
+                                        tableData += "<td>" +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                            minorDescription[i - 1] +
+                                            "</a>" +
+                                            "</td>";
+                                    } else if (j == 1) {
+                                        tableData += "<td>" +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
+                                            minorsTitle[i - 1] +
+                                            "</a>" +
+                                            "</td>";
+                                    }
+                                }
+                            }
+                            tableData += "</tr>" + "<tr>";
+                        }
+                    }
+                    $("#Table").html(tableData);
                 }
-                $("#Table").html(tableData);
-            }
-        });
-    }
+            });
+        }
 
 
-    function saveData(i) {
-        //alert("success");
-        sessionStorage.setItem("minorVersion", minorsVersion[i]);
-        sessionStorage.setItem("minorCode", minorsCodes[i]);
-    }
+        function saveData(i) {
+            //alert("success");
+            sessionStorage.setItem("minorVersion", minorsVersion[i]);
+            sessionStorage.setItem("minorCode", minorsCodes[i]);
+        }
     </script>
 {% endblock %}

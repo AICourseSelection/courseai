@@ -2,18 +2,18 @@
 
 {% block content %}
     <section id="bc" class="mt-3">
-    <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-              <a href="{% url 'index' %}">
-            <i class="fa fa-home"></i> Home </a>
-          </li>
-            <li class="breadcrumb-item active">{{ bc_param }}</li>
-        </ol>
-      </nav>
-    </div>
-  </section>
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fa fa-home"></i> Home </a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ bc_param }}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
     <div class="container text-center">
         <h1 class="display-4 mb-4">
             Search Degree
@@ -37,7 +37,8 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Degree Code ">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Degree Code"
+                       onkeydown="if(event.keyCode==13) {showDegree()}">
             </div>
             <div class="col-md-auto">
                 <select id="year" name='year' class="form-control">
@@ -59,28 +60,31 @@
     <div style="width: 100%; text-align: center">
         <div>&nbsp</div>
         <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+            <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
 
             </table>
         </div>
     </div>
-</div>
+    </div>
     <script>
-        let level="undergraduate";
-        let description="";
+        let level = "undergraduate";
+        let description = "";
+
         function showDegree() {
-            let year=document.getElementById("year").value;
+            let year = document.getElementById("year").value;
             let degree = document.getElementById("search").value;
             let tableData = "<thead class = \"thead-light\">\n" +
                 "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"30%\">Degree Code</th>\n" +
-                "                      <th scope=\"col\" width=\"70%\">Degree Title</th>\n" +
+                "                      <th scope=\"col\" width=\"20%\">Degree Code</th>\n" +
+                "                      <th scope=\"col\" width=\"80%\">Degree Title</th>\n" +
                 "                    </tr>\n" +
                 "                  </thead>";
             tableData += "<tbody>\n" +
                 "    <tr>";
             const degreeCodes = [];
             const degreeDicts = [];
+            console.log(degree)
+            if(degree!=""){
             $.ajax({
                 url: '../degree/all',
                 success: function (data) {
@@ -91,20 +95,22 @@
                         }
                     }
                     if (degreeDicts.length == 0) {
-                        tableData += "<th>" + "No such degree" + "</th>" + "</tr>";
+                        tableData="<strong>No such Degree</strong><br /> "
+                         $("#Table").html(tableData);
+                        return;
                     } else {
                         for (var i = 0; i < degreeDicts.length; i++) {
                             for (var j = 0; j < 2; j++) {
 
-                                    if (j == 0) {
-                                        tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
-                                            + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
-                                            degreeCodes[i] + "</a>" + "</td>";
-                                    } else if (j==1){
-                                        tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
-                                            + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
-                                            degreeDicts[i] + "</a>" + "</td>";
-                                    }
+                                if (j == 0) {
+                                    tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
+                                        + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
+                                        degreeCodes[i] + "</a>" + "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
+                                        + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
+                                        degreeDicts[i] + "</a>" + "</td>";
+                                }
 
 
                             }
@@ -114,8 +120,13 @@
                     $("#Table").html(tableData);
                 }
             });
+            }
+            else{
+                tableData="<strong>No such Degree</strong><br /> "
+                $("#Table").html(tableData);
+            }
         }
     </script>
-{#<h1>Degree</h1>#}
+    {#<h1>Degree</h1>#}
 
 {% endblock %}
