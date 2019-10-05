@@ -47,7 +47,8 @@
         </button>
     </div>
 
-
+    <div>&nbsp</div>
+     <div>&nbsp</div>
     <div class="container h-100">
         <table class="table table-striped">
             <tr>
@@ -73,11 +74,11 @@
                 <td id="compulsory" style="text-align: left">
                 </td>
             </tr>
-            {% comment %}   <tr>
+              <tr>
                     <td style="text-align: right; width: 20%">Specialisation:</td>
                     <td id="specialisation" style="text-align: left">
                     </td>
-                </tr>{% endcomment %}
+                </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Study Plan:</td>
                 <td id="plan" style="text-align: left">
@@ -135,8 +136,9 @@
             success: function (data) {
                 console.log("degreeplan success");
                 for (let i = 0; i < data.response.length; i++) {
-                    for (let j = 0; j < data.response[j].length; j++) {
-                        planList.push(data.response[i][j].code)
+                    console.log(data.response)
+                    for (let j = 0; j < data.response[i].length; j++) {
+                        planList.push(data.response[i][j].code.toString().replace(/\s*/g,""));
                     }
                 }
                 let yearLength = planList.length / 8;
@@ -180,24 +182,24 @@
                 document.getElementById('Units').innerText = data.units;
                 if (data.required.compulsory_courses != undefined) {
                     for (let i = 0; i < data.required.compulsory_courses.length; i++) {
-                        compulsoryList.push(data.required.compulsory_courses[i])
+                        compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g,""))
                     }
                 }
                 for (let i = 0; i < data.required["one_from_m/m/s"].length; i++) {
                     let specArray = data.required["one_from_m/m/s"][i].toString().split(",");
                     for (let j = 0; j < specArray.length; j++) {
-                        specList.push(specArray[j]);
+                        specList.push(specArray[j].toString().replace(/\s*/g,""));
                     }
                 }
                 for (let i = 0; i < compulsoryList.length; i++) {
                     let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
-                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course deatil<a>" + "<br>";
+                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";
                 }
                 for (let i = 0; i < specList.length; i++) {
                     console.log(specList[i])
                     spec += "<input type=\"text\" id=\"spec" + i + "\"value=\"" + specList[i] + "\">" + "<br>";
                 }
-                {% comment %} specTable.innerHTML = spec;{% endcomment %}
+                specTable.innerHTML = spec;
                 compulsoryTable.innerHTML = compulsory;
 
                 $(document).ready(function () {
@@ -218,8 +220,15 @@
                 });
             }
         });
+        let mms="INSY-SPEC";
+        $.ajax({
+                url: '../search/mms_by_code',
+                data: {"query": mms, "type":"specialisations","year":yearS},
+                 success: function (data) {
+                    console.log(data)
+                 }
 
-
+            });
     </script>
 
 {% endblock %}

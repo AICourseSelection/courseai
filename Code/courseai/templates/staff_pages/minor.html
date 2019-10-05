@@ -15,7 +15,7 @@
     </section>
     <div class="container text-center">
         <h1 class="display-4 mb-4">
-            Search Minor
+            <strong>Search Minor</strong>
         </h1>
 
         <div class="form-row">
@@ -57,7 +57,7 @@
         <div style="width: 100%; text-align: center">
             <div>&nbsp</div>
             <div class="table-responsive">
-                <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+                <table id="Table" class="table table-hover" style="width: 80%; margin: auto">
 
                 </table>
             </div>
@@ -66,16 +66,22 @@
     <script>
         function str_substr(start, end, str) {
             content = [];
+            string="";
             try {
                 temp = str.split(start, 2);
                 content = temp[1].split(end, 2);
+
             } catch (e) {
                 console.log(e.name + ":" + e.message);
             }
             if (content == undefined) {
                 return null;
             }
-            return content[0];
+            description=content[0].split(" ");
+            for (let i=0;i<7;i++){
+                string=string+" "+description[i];
+            }
+            return string;
         }
 
         let level = "undergraduate";
@@ -89,7 +95,15 @@
             let minors = document.getElementById("search").value;
             //let level = document.getElementById("level").value;
             let year = document.getElementById("year").value;
-            let tableData = "<tr>";
+            let tableData = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"15%\">Minor Code</th>\n" +
+                "                      <th scope=\"col\" width=\"30%\">Minor Title</th>\n" +
+                   "                      <th scope=\"col\" width=\"55%\">Minor Description</th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            tableData += "<tbody>\n" +
+                "    <tr>";
             const minorDescription = [];
             const minorsTitle = [];
             $.ajax({
@@ -113,37 +127,28 @@
                          $("#Table").html(tableData);
                         return;
                     } else {
-                        for (var i = 0; i < minorsCodes.length + 1; i++) {
+                        for (var i = 0; i < minorsCodes.length; i++) {
                             for (var j = 0; j < 3; j++) {
-                                if (i == 0) {
-                                    if (j == 0) {
-                                        tableData += "<th>" + "minor Code" + "</th>";
-                                    } else if (j == 1) {
-                                        tableData += "<th>" + "minor Title" + "</th>";
-                                    } else if (j == 2) {
-                                        tableData += "<th>" + "minor Description" + "</th>";
-                                    }
-                                } else {
                                     if (j == 0) {
                                         tableData += "<td>" +
-                                            "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                            minorsCodes[i - 1] +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            minorsCodes[i ] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 2) {
                                         tableData += "<td>" +
-                                            "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                            minorDescription[i - 1] +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            minorDescription[i ] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 1) {
                                         tableData += "<td>" +
-                                            "<a href=\"minor_detail?code=" + minorsCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                            minorsTitle[i - 1] +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i ] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            minorsTitle[i ] +
                                             "</a>" +
                                             "</td>";
                                     }
-                                }
+
                             }
                             tableData += "</tr>" + "<tr>";
                         }

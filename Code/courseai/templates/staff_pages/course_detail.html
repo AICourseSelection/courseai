@@ -141,7 +141,7 @@
                 if (data.hasOwnProperty("prerequisites")) {
                     if (data.prerequisites.incompatible != undefined) {
                         for (let j = 0; j < data.prerequisites.incompatible.length; j++) {
-                            incompatibleList.push(data.prerequisites.incompatible[j]);
+                            incompatibleList.push(data.prerequisites.incompatible[j].toString().replace(/\s*/g,""));
                         }
                     }
                     if (data.prerequisites["pre-requisite"] != undefined) {
@@ -155,9 +155,9 @@
                                 }
                                 console.log(data.prerequisites["pre-requisite"][i][j].toString().substring(0, 1) == "{")
                                 if (data.prerequisites["pre-requisite"][i][j].toString().substring(0, 1) == "{") {
-                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString().substring(12, 20));
+                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString().replace(/\s*/g,"").substring(12, 20));
                                 } else {
-                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j]);
+                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString().replace(/\s*/g,""));
                                 }
                             }
                         }

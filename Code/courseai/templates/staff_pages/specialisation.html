@@ -15,7 +15,7 @@
     </section>
     <div class="container text-center">
         <h1 class="display-4 mb-4">
-            Search Specialisation
+            <strong>Search Specialisation</strong>
         </h1>
 
         <div class="form-row">
@@ -59,7 +59,7 @@
         <div style="width: 100%; text-align: center">
             <div>&nbsp</div>
             <div class="table-responsive">
-                <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+                <table id="Table" class="table table-hover" style="width: 90%; margin: auto">
 
                 </table>
             </div>
@@ -68,13 +68,22 @@
     <script>
         function str_substr(start, end, str) {
             content = [];
+            string="";
             try {
                 temp = str.split(start, 2);
                 content = temp[1].split(end, 2);
+
             } catch (e) {
                 console.log(e.name + ":" + e.message);
             }
-            return content[0];
+            if (content == undefined) {
+                return null;
+            }
+            description=content[0].split(" ");
+            for (let i=0;i<7;i++){
+                string=string+" "+description[i];
+            }
+            return string;
         }
 
         let level = "undergraduate";
@@ -88,7 +97,15 @@
             let specs = document.getElementById("search").value;
             let year = document.getElementById("year").value;
             //let level = document.getElementById("level").value;
-            let tableData = "<tr>";
+            let tableData = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"25%\">Specialisataion Code</th>\n" +
+                "                      <th scope=\"col\" width=\"25%\">Specialisataion Title</th>\n" +
+                   "                      <th scope=\"col\" width=\"50%\">Specialisataion Description</th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            tableData += "<tbody>\n" +
+                "    <tr>";
             const specDescription = [];
             const specsTitle = [];
             $.ajax({
@@ -115,37 +132,28 @@
                          $("#Table").html(tableData);
                         return;
                     } else {
-                        for (var i = 0; i < specCodes.length + 1; i++) {
+                        for (var i = 0; i < specCodes.length; i++) {
                             for (var j = 0; j < 3; j++) {
-                                if (i == 0) {
-                                    if (j == 0) {
-                                        tableData += "<th>" + "spec Code" + "</th>";
-                                    } else if (j == 1) {
-                                        tableData += "<th>" + "spec Title" + "</th>";
-                                    } else if (j == 2) {
-                                        tableData += "<th>" + "spec Description" + "</th>";
-                                    }
-                                } else {
                                     if (j == 0) {
                                         tableData += "<td>" +
-                                            "<a href=\"specialisation_detail?code=" + specCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                            specCodes[i - 1] +
+                                            "<a href=\"specialisation_detail?code=" + specCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i) + "')\">" +
+                                            specCodes[i] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 2) {
                                         tableData += "<td>" +
-                                            "<a href=\"specialisation_detail?code=" + specCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                            specDescription[i - 1] +
+                                            "<a href=\"specialisation_detail?code=" + specCodes[i ] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            specDescription[i] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 1) {
                                         tableData += "<td>" +
-                                            "<a href=\"specialisation_detail?code=" + specCodes[i - 1] + "&year=" + year + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                            specsTitle[i - 1] +
+                                            "<a href=\"specialisation_detail?code=" + specCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            specsTitle[i] +
                                             "</a>" +
                                             "</td>";
                                     }
-                                }
+
                             }
                             tableData += "</tr>" + "<tr>";
                         }
