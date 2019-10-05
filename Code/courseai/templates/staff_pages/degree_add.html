@@ -15,6 +15,8 @@
             </nav>
         </div>
     </section>
+    <div class="container text-center" id="alert">
+        </div>
     <h1 class="display-6 text-center">Add A New Degree</h1>
     <br>
     <div class="col-sm-11">
@@ -24,35 +26,40 @@
     <div>&nbsp</div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Code:</label>
-      <div class="col-sm-2">
-          <input type="text" class="form-control" id="code" placeholder="Degree Code" name="code">
-      </div>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="code" placeholder="Degree Code" name="code">
+        </div>
     </div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Year:</label>
-      <div class="col-sm-2">
-          <select class="custom-select" id="year">
-            {% for year in years %}
-                        {% if year == year_now %}
-                            <option selected value="{{ year }}">{{ year }}</option>
-                        {% else %}
-                            <option value="{{ year }}">{{ year }}</option>
-                        {% endif %}
-                    {% endfor %}
-        </select>
-      </div>
+        <div class="col-sm-2">
+            <select class="custom-select" id="year">
+                {% for year in years %}
+                    {% if year == year_now %}
+                        <option selected value="{{ year }}">{{ year }}</option>
+                    {% else %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
     </div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Title:</label>
         <div class="col-sm-2">
             <input type="text" class="form-control" id="title" placeholder="Title" name=>
-      </div>
+        </div>
     </div>
-    {% comment %}<div class="form-group row">
+    <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Compulsory Courses:</label>
-        <div class="col-sm-8" id="compulsory">
-      </div>
-    </div>{% endcomment %}
+        <div class="col-sm-2" id="compulsory">
+            <div class="form-group row">
+                <table id="compulsoryTable" class="table table-hover" style="width: 70%; margin: auto">
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Study Plan:</label>
         <div class="col-sm-2">
@@ -63,7 +70,7 @@
                 <option value="4">4 Years</option>
                 <option value="5">5 Years</option>
             </select>
-      </div>
+        </div>
     </div>
     <div class="form-group row">
         <table id="planTable" class="table table-hover" style="width: 70%; margin: auto">
@@ -87,7 +94,7 @@
         </div>
     </div>
     </div>
-  </form>
+    </form>
     <script>
         var length = 0;
         let planString = "<thead class = \"thead-light\">\n" +
@@ -149,8 +156,8 @@
                 planString += "</tr>" + "<tr>";
             }
             planString += "</tbody>";
-            $("#planTable").html(planString);
             console.log(length);
+            $("#planTable").html(planString);
         }
 
         function showCourse() {
@@ -198,7 +205,7 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\">Add complulsory course</button>" + "</td>";
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addComplulsory(courseCodes[" + i + "])\">Add complulsory course</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
@@ -210,16 +217,48 @@
             });
         }
 
+        var compulsoryList = [];
+
+        function addCompulsory(course) {
+            compulsoryList.push(course);
+            console.log(compulsoryList);
+            let complulsoryString = "<tbody>\n";
+            for (let i = 0; i < compulsoryList.length; i++) {
+                complulsoryString = complulsoryString + "<tr>" + compulsoryList[i] + "</tr><br>";
+            }
+            complulsoryString += "</tbody>";
+            document.getElementById("compulsoryTable").innerHTML = complulsoryString;
+        }
+
         function saveCourse() {
-            if (document.getElementById("code").value == "") {
+            if (document.getElementById("code").value == ""||document.getElementById("title").value =="") {
                 boot4.confirm({
-                    msg: "Please input available data."
+                    msg: "Please input available code and title."
                 });
             } else {
                 boot4.confirm({
                     msg: "Are you sure to save ?",
                     callback: function (result) {
                         if (result) {
+                            let plan = [];
+                            let code = document.getElementById("code").value;
+                            let year = document.getElementById("year").value;
+                            let title = document.getElementById("title").value;
+                            for (let i = 0; i < length; i++) {
+                                plan.push(document.getElementById("plan" + i).value);
+                            }
+                            let postPlan= JSON.stringify(plan);
+                            let postCompulsory= JSON.stringify(compulsoryList);
+                            console.log(code, year, title, plan, compulsoryList);
+                            $.ajax({
+                                url: '../degree/addDegree',
+                                data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
+                                dataType: "json",
+                                success: function (data) {
+                                     $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                }
+
+                            });
                             console.log("save success");
                         } else {
                             console.log("cancel");
@@ -229,9 +268,6 @@
             }
         }
 
-        function addIncompatibal() {
-
-        }
     </script>
 
 {% endblock %}

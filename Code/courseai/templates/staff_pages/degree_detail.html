@@ -23,20 +23,24 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body alert-danger text-center">
-                    <h4><strong>Warning! Delete action is permanent!</strong></h4>
+                    <h4><strong>Warning! Delete action is permanent! You will back to the search page after clicking the
+                        delete button.</strong></h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
                     <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
-                            id="confirmDeleteButtonModal" onclick="javascript:window.location.href='degree'"/>
-                    Delete
+                            id="confirmDeleteButtonModal" onclick=deleteData()>
+                        Delete
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container text-center">
+        <div id="alert">
+        </div>
         <h1 id="pageTitle"></h1>
 
     </div>
@@ -48,7 +52,7 @@
     </div>
 
     <div>&nbsp</div>
-     <div>&nbsp</div>
+    <div>&nbsp</div>
     <div class="container h-100">
         <table class="table table-striped">
             <tr>
@@ -60,7 +64,7 @@
                 <td style="text-align: left" id="year"></td>
             </tr>
             <tr>
-                <td style="text-align: right; width: 20%">Name:</td>
+                <td style="text-align: right; width: 20%">Title:</td>
                 <td style="text-align: left" id="title">
                 </td>
             </tr>
@@ -74,11 +78,11 @@
                 <td id="compulsory" style="text-align: left">
                 </td>
             </tr>
-              <tr>
-                    <td style="text-align: right; width: 20%">Specialisation:</td>
-                    <td id="specialisation" style="text-align: left">
-                    </td>
-                </tr>
+            {#            <tr>#}
+            {#                <td style="text-align: right; width: 20%">Specialisation:</td>#}
+            {#                <td id="specialisation" style="text-align: left">#}
+            {#                </td>#}
+            {#            </tr>#}
             <tr>
                 <td style="text-align: right; width: 20%">Study Plan:</td>
                 <td id="plan" style="text-align: left">
@@ -100,6 +104,7 @@
             return null;
         }
 
+        var versions;
         var codeS = getQueryString("code");
         var yearS = getQueryString("year");
         var titleS = getQueryString("title");
@@ -109,7 +114,7 @@
         document.getElementById('code').innerText = codeS;
         document.getElementById('year').innerText = yearS;
         document.getElementById('title').innerText = titleS;
-        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
+        var courseUrl = window.location.origin + "/staff" + "/course_detail?"
         var compulsory = "";
         var compulsoryList = [];
         var specList = [];
@@ -136,14 +141,19 @@
             success: function (data) {
                 console.log("degreeplan success");
                 for (let i = 0; i < data.response.length; i++) {
-                    console.log(data.response)
+                    //console.log(data.response)
                     for (let j = 0; j < data.response[i].length; j++) {
-                        planList.push(data.response[i][j].code.toString().replace(/\s*/g,""));
+                        if(data.response[i][j].code.toString().length==9){
+                            planList.push(data.response[i][j].code.toString().replace(/\s*/g, ""));
+                        }
+                        else{
+                        planList.push(data.response[i][j].code.toString());
+                        }
                     }
                 }
                 let yearLength = planList.length / 8;
                 let length = 0;
-                console.log(yearLength);
+                //console.log(yearLength);
                 for (let i = 0; i < yearLength; i++) {
                     planString += "<td>" + "Year" + (i + 1) + "</td>";
                     for (let j = 0; j < 4; j++) {
@@ -178,28 +188,28 @@
             url: '../degree/degreereqs',
             data: {"query": codeS + "-" + yearS},
             success: function (data) {
+                versions = data;
                 console.log("degreereqs success");
                 document.getElementById('Units').innerText = data.units;
                 if (data.required.compulsory_courses != undefined) {
                     for (let i = 0; i < data.required.compulsory_courses.length; i++) {
-                        compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g,""))
+                        compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g, ""))
                     }
                 }
-                for (let i = 0; i < data.required["one_from_m/m/s"].length; i++) {
+                {% comment %}for (let i = 0; i < data.required["one_from_m/m/s"].length; i++) {
                     let specArray = data.required["one_from_m/m/s"][i].toString().split(",");
                     for (let j = 0; j < specArray.length; j++) {
-                        specList.push(specArray[j].toString().replace(/\s*/g,""));
+                        specList.push(specArray[j].toString().replace(/\s*/g, ""));
                     }
-                }
+                }{% endcomment %}
                 for (let i = 0; i < compulsoryList.length; i++) {
                     let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
                     compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";
                 }
-                for (let i = 0; i < specList.length; i++) {
-                    console.log(specList[i])
+                {% comment %}for (let i = 0; i < specList.length; i++) {
                     spec += "<input type=\"text\" id=\"spec" + i + "\"value=\"" + specList[i] + "\">" + "<br>";
                 }
-                specTable.innerHTML = spec;
+                specTable.innerHTML = spec;{% endcomment %}
                 compulsoryTable.innerHTML = compulsory;
 
                 $(document).ready(function () {
@@ -208,27 +218,47 @@
                             msg: "Are you sure you want to update {{ bc_param }} ?",
                             callback: function (result) {
                                 if (result) {
-                                    var url = window.location.href.replace('mode=edit', 'mode=query');
-                                    url += '&safe=true';
-                                    window.location.href = url;
+                                    for (let i = 0; i < compulsoryList.length; i++) {
+                                        compulsoryList[i]=document.getElementById("compulsory" + i).value.toString();
+                                    }
+                                     for (let i = 0; i < planList.length; i++) {
+                                        planList[i]=document.getElementById("plan" + i).value.toString();
+                                    }
+                                    let postPlan= JSON.stringify(planList);
+                                    let postCompulsory= JSON.stringify(compulsoryList);
+                                    $.ajax({
+                                        url: '../degree/saveDegree',
+                                        data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
+                                        dataType:"json",
+                                        success: function (data) {
+                                            console.log(data)
+                                        }
+
+                                    });
+                                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
                                 } else {
                                     console.log("cancel");
                                 }
                             }
                         });
                     });
+
                 });
             }
         });
-        let mms="INSY-SPEC";
-        $.ajax({
-                url: '../search/mms_by_code',
-                data: {"query": mms, "type":"specialisations","year":yearS},
-                 success: function (data) {
+
+        function deleteData() {
+            console.log(codeS + yearS);
+            $.ajax({
+                url: '../degree/delete',
+                data: {"code": codeS, "type": "degree", "year": yearS},
+                success: function (data) {
                     console.log(data)
-                 }
+                }
 
             });
+            window.location.href='degree';
+        }
     </script>
 
 {% endblock %}

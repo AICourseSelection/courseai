@@ -10,6 +10,8 @@ urlpatterns = [
     path('specs', views.all_specs),
     path('courselists', views.course_lists),
     path('degreecoursesearch', views.degree_course_list),
-    path('mms_by_code', views.mms_by_code)
+    path('mms_by_code', views.mms_by_code),
+
+
 ]
 

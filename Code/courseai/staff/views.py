@@ -163,7 +163,13 @@ def major_detail(request):
 
 
 def major_add(request):
-    return render(request, 'staff_pages/major_add.html')
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/major_add.html',context=context)
 
 
 def minor(request):
@@ -191,7 +197,13 @@ def minor_detail(request):
 
 
 def minor_add(request):
-    return render(request, 'staff_pages/minor_add.html')
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/minor_add.html',context=context)
 
 
 def specialisation(request):
@@ -219,7 +231,13 @@ def specialisation_detail(request):
 
 
 def specialisation_add(request):
-    return render(request, 'staff_pages/specialisation_add.html')
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/specialisation_add.html',context=context)
 
 
 def all_degrees(request):

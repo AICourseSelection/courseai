@@ -27,7 +27,6 @@ def all_degrees(request):
 
 @csrf_exempt
 def degree_plan(request):
-
     if request.method == "GET":
         try:
             code = request.GET['degree_code']
@@ -37,7 +36,8 @@ def degree_plan(request):
                 study_options_dict = ast.literal_eval(study_options_str)
             return JsonResponse({"response": study_options_dict[year]})
         except Exception:
-            res = JsonResponse({"response": "Default options of the requested degree-year combination could not be found. "})
+            res = JsonResponse(
+                {"response": "Default options of the requested degree-year combination could not be found. "})
             return HttpResponseBadRequest(res)
     elif request.method == "PUT":
         data = request.body.decode('utf-8')
@@ -136,7 +136,6 @@ def update_plan(request):
 
 
 def update_degree_requirement(request):
-
     # Find the matching data
     year = request.GET['year']
     code = request.GET['code']
@@ -162,9 +161,64 @@ def update_degree_requirement(request):
     return HttpResponse(res)
 
 
+def delete(request):
+    code = request.GET['code']
+    type = request.GET['type']
+    year = request.GET['year']
+    print(code, type, year)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def saveDegree(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    planList=request.GET['planList']
+    compulsoryList = request.GET['compulsoryList']
+    print(planList)
+    list_data = json.loads(planList)
+    for i in list_data:
+        print(i)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def saveCourse(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def saveMajor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def saveMinor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def saveSpec(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def addDegree(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    title = request.GET['title']
+    planList = request.GET['planList']
+    compulsoryList = request.GET['compulsoryList']
+    print(code,year,planList,compulsoryList,title)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
+
+def addCourse(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
+
+def addMajor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
+
+def addMinor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
+
+def addSpec(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)

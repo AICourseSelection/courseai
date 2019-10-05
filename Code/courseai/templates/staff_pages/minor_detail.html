@@ -96,7 +96,7 @@
         let jsonObject = JSON.parse(version);
         var requirement = "";
         let yearS = year;
-        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
+        var courseUrl = window.location.origin+"/staff"+"/course_detail?"
         //console.log(jsonObject[year]);
         document.getElementById("title").value = jsonObject[year].title;
         document.getElementById("description").value = jsonObject[year].description;

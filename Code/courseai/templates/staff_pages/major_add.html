@@ -1,137 +1,161 @@
+
+
 {% extends 'staff_pages/staff_base.html' %}
+
 {% block content %}
-    <script type="javascript">
-        $("textarea#spec").val().replace("<br>", "&#10;");
-    </script>
-
-    <form id="forms"></form>
-    <div class="container-fluid">
-        <table style="width: 100%">
-            <tr>
-                <td style="width: 90%"></td>
-                <td>
-                    <button id="btnSave">Save</button>
-            </tr>
-        </table>
-
-        <div class="container h-100">
-            <table class="table table-striped">
-                <tr>
-                    <td style="text-align: right; width: 20%">Code:</td>
-                    <td style="text-align: left"><input type="text" id="code" value="" style="width: 100%"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Year:</td>
-                    <td style="text-align: left"><input type="text" id="year" value="" style="width: 100%"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Title:</td>
-                    <td style="text-align: left">
-                        <input type="text" id="title" value="" style="width: 100%"></td>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Description:</td>
-                    <td style="text-align: left">
-                    <textarea rows="5" type="text" id="description"
-                              style="width: 100%">    </textarea><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right; width: 20%">Requirement:</td>
-                    <td id="requirements" style="text-align: left">
-                        <input type="text" id="search" name="courseName" required placeholder="Search Course"
-                               autocomplete="off" data-toggle="popover" style="width:30%">
-                        <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
-                    </td>
-                </tr>
-                <tbody id="majorTable">
-            </table>
-
-        </div>
+    <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+              <a href="{% url 'index' %}">
+            <i class="fa fa-home"></i> Home </a>
+          </li>
+            <li class="breadcrumb-item active">Major(Add)</li>
+        </ol>
+      </nav>
     </div>
+  </section>
+
+    <h1 class="display-6 text-center">Add A New Major</h1>
+
+
+    <div class="col-sm-11">
+        <button type="submit" class="btn btn-outline-info pull-right" onclick="save" id="btnSave">Save</button>
+    </div>
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+    <div class="form-group row">
+      <label class="control-label col-sm-2 text-right" for="code">Code:</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="code" placeholder="Major Code" name="code" >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="control-label col-sm-2 text-right" >Academic Year:</label>
+      <div class="col-sm-2">
+        <select id = "year" class="custom-select">
+            {% for year in years %}
+                        {% if year == year_now %}
+                            <option selected value="{{ year }}">{{ year }}</option>
+                        {% else %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endif %}
+                    {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Title:</label>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" id="title" placeholder="Title">
+      </div>
+    </div>
+  <div class="form-group row">
+      <label class="control-label col-sm-2 text-right" for="description">Description:</label>
+      <div class="col-sm-9">
+        <textarea rows="3" class="form-control" id="description" placeholder="Description" name="description" ></textarea>
+      </div>
+    </div>
+      <div class="form-group row">
+          <label class="control-label col-sm-2 text-right" for="prerequisite">Requirements:</label>
+          <div class="col-sm-9">
+             <strong>Use search to add requirements.</strong>
+          </div>
+      </div>
+      <div class="form-group row">
+          <label class="control-label col-sm-2 text-right" for="prerequisite">Search:</label>
+          <div class="col col-lg-4">
+              <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
+          </div>
+          <div class="col col-lg-2">
+              <button onclick="showCourse()" class="btn btn-outline-primary" id="search">Search</button>
+          </div>
+      </div>
+      <div style="width: 100%; text-align: center">
+          <div>&nbsp</div>
+          <div class="table-responsive">
+              <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+
+              </table>
+          </div>
+    </div>
+
+      </div>
     <script>
         function showCourse() {
+            var year = document.getElementById("year").value;
             let courses = document.getElementById("search").value;
-            let tableData = "<tr>";
+            let tableData = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"25%\">Course Code</th>\n" +
+                "                      <th scope=\"col\" width=\"50%\">Course Title</th>\n" +
+                "                      <th scope=\"col\" width=\"25%\"></th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            tableData += "<tbody>\n" +
+                "    <tr>";
             courseCodes = [];
             courseVersions = [];
             const courseUnits = [];
             const courseTitles = [];
-            const courseDescription = [];
             var versions = "";
             $.ajax({
                 url: '../search/coursesearch/',
-                data: {
-                    "query": courses,
-                    "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}
-                },
+                data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
                 success: function (data) {
                     year = document.getElementById("year").value;
                     for (let i = 0; i < data.response.length; i++) {
-                        if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase()) == true) {
+
+                        versions = data.response[i].versions[year];
+                        if (versions != undefined) {
                             courseCodes.push(data.response[i].course_code);
-                            versions = JSON.stringify(data.response[i].versions);
-                            courseVersions.push(versions.toString());
-                            courseUnits.push(str_substr("units\":\"", "\"", versions));
-                            courseTitles.push(str_substr("title\":", ",", versions).replace(/\"/g, ""));
-                            courseDescription.push(str_substr("description\":\"", ".", versions) + ".......")
+                            courseTitles.push(versions.title);
+
                         }
                     }
                     if (courseCodes.length == 0) {
-                        tableData += "<th>" + "No such course" + "</th>" + "</tr>";
+                        tableData += "<td colspan=\"3\">No Such Course</td></tr>";
                     } else {
-                        for (i = 0; i < courseCodes.length + 1; i++) {
-                            for (let j = 0; j < 4; j++) {
-                                if (i == 0) {
-                                    if (j == 0) {
-                                        tableData += "<th>" + "course code" + "</th>";
-                                    } else if (j == 1) {
-                                        tableData += "<th>" + "course units" + "</th>";
-                                    } else if (j == 2) {
-                                        tableData += "<th>" + "course title" + "</th>";
-                                    } else if (j == 3) {
-                                        tableData += "<th>" + "course description" + "</th>";
-                                    }
-                                } else {
-                                    if (j == 0) {
-                                        tableData += "<td>" +
-                                            "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                            courseCodes[i - 1] +
-                                            "</a>" +
-                                            "</td>";
-                                    } else if (j == 1) {
-                                        tableData += "<td>" + courseUnits[i - 1] + "</td>";
-                                    } else if (j == 2) {
-                                        tableData += "<td>" + courseTitles[i - 1] + "</td>";
-                                    } else if (j == 3) {
-                                        tableData += "<td>" + courseDescription[i - 1] + "</td>";
-                                    }
-
+                        for (let i = 0; i < courseCodes.length; i++) {
+                            for (let j = 0; j < 3; j++) {
+                                if (j == 0) {
+                                    tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
+                                        + courseCodes[i] +
+                                        "</a>" +
+                                        "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
+                                        courseTitles[i] + "</a>" + "</td>";
+                                } else if (j == 2) {
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\">Add requirentments</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
                         }
+                        tableData += "</tbody>";
                     }
-                    $("#majorTable").html(tableData);
+                    $("#Table").html(tableData);
                 }
             });
         }
 
-        function saveData(i) {
-            //alert("success");
-            sessionStorage.setItem("version", courseVersions[i]);
-            sessionStorage.setItem("code", courseCodes[i]);
+        function saveDegree() {
+            boot4.confirm({
+                msg: "Are you sure to save ?",
+                callback: function (result) {
+                    if (result) {
+                        console.log("save success");
+                    } else {
+                        console.log("cancel");
+                    }
+                }
+            });
         }
 
-        function str_substr(start, end, str) {
-            try {
-                temp = str.split(start, 2);
-                content = temp[1].split(end, 2);
-            } catch (e) {
-                console.log(e.name + ":" + e.message);
-            }
-            return content[0];
+        function addIncompatibal() {
+
         }
     </script>
+
 {% endblock %}

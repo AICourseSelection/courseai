@@ -112,7 +112,7 @@
 
         var codeS = getQueryString("code");
         var yearS = getQueryString("year");
-        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
+        var courseUrl = window.location.origin+"/staff"+"/course_detail?"
         document.getElementById("code").innerText = codeS;
         document.getElementById("year").innerText = yearS;
         var incompatible = "";
