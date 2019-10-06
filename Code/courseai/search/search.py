@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 
-from elasticsearch_dsl import Search, Q
+from elasticsearch_dsl import Search
+from elasticsearch_dsl import Q
 from elasticsearch_dsl.query import MultiMatch
 
 
@@ -81,23 +82,23 @@ def raw_search(search_object, phrase, areas, levels, sem_queried, level):
         response = response.query(q2)
 
     if levels is not None:
-        q2 = level_filter(levels)
-        response = response.query(q2)
+        q3 = level_filter(levels)
+        response = response.query(q3)
 
     elif levels is None and areas is not None:
         #  Not sure why this clause is required. I'll get back to it when I have more time
 
         # if levels is None, create a "fake" levels query
-        q2 = level_filter(get_levels(level))
-        response = response.query(q2)
+        q4 = level_filter(get_levels(level))
+        response = response.query(q4)
 
     if level is not None:
         if len(level) > 2:
             level = level[0].upper() + level[1:].lower()
         if level not in ['Undergraduate', 'Postgraduate']:
             print('Level not recognised: ' + level)
-        q2 = Q('match', ugpg=level)
-        response = response.query(q2)
+        q5 = Q('match', ugpg=level)
+        response = response.query(q5)
 
     count = response.count()
     response = response[0:count].execute()
@@ -255,3 +256,4 @@ def execute_code_search(es_conn, phrase):
 
     resp = {'query': phrase, 'response': response}
     return JsonResponse(resp)
+

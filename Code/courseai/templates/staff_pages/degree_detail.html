@@ -1,131 +1,264 @@
-
 {% extends 'staff_pages/staff_base.html' %}
+
 {% block content %}
-    <div class="container-fluid">
-        <table style="width: 100%">
+    <section id="bc" class="mt-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fa fa-home"></i> Home </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'degree' %}"> Degree </a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ bc_param }}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog"
+         aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body alert-danger text-center">
+                    <h4><strong>Warning! Delete action is permanent! You will back to the search page after clicking the
+                        delete button.</strong></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
+                            id="confirmDeleteButtonModal" onclick=deleteData()>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <div id="alert">
+        </div>
+        <h1 id="pageTitle"></h1>
+
+    </div>
+    <div class="container">
+        <button id="btnSave" class="btn btn-outline-success float-left">Save</button>
+        <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal"
+                data-target="#confirmDeleteModal">Delete
+        </button>
+    </div>
+
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+    <div class="container h-100">
+        <table class="table table-striped">
             <tr>
-                <td style="width: 90%"><h1 class="text-center">{{ d_name }} ({{ d_year }})</h1></td>
-                <td><button id="btnEdit">Edit</button> <button>Delete</button></td>
+                <td style="text-align: right; width: 20%">Code:</td>
+                <td style="text-align: left" id="code"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Year:</td>
+                <td style="text-align: left" id="year"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Title:</td>
+                <td style="text-align: left" id="title">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Units:</td>
+                <td id="Units" style="text-align: left">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Compulsory Course:</td>
+                <td id="compulsory" style="text-align: left">
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td style="text-align: right; width: 20%">Specialisation:</td>#}
+            {#                <td id="specialisation" style="text-align: left">#}
+            {#                </td>#}
+            {#            </tr>#}
+            <tr>
+                <td style="text-align: right; width: 20%">Study Plan:</td>
+                <td id="plan" style="text-align: left">
+                    <table id="planTable" class="table table-hover" style="width: 100%; margin: auto">
+
+                    </table>
+                </td>
             </tr>
         </table>
 
     </div>
 
-    <div class="container h-100">
-    <table class="table table-striped">
-        <tr>
-            <td style="text-align: right; width: 20%">Code:</td>
-            <td style="text-align: left">{{ d_code }}</td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Year:</td>
-            <td style="text-align: left">{{ d_year }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 20%">Name:</td>
-           <td style="text-align: left">
-               <input type="text" id = "name" disabled="disabled" value="{{ d_name }}" style="width: 100%">
-           </td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Compulsory Courses:</td>
-            <td style="text-align: left">
-               {% if comps %}
-                    {% for comp in comps %}
-                        <input type="text" disabled="disabled" value="{{ comp }}" style="width: 100%"><br>
-                    {% endfor %}
-                {% else %}
-                   <input type="text" disabled="disabled" value="-" style="width: 100%">
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Specialisation:</td>
-            <td style="text-align: left">
-                {% if specs %}
-                    {% for spec in specs %}
-                        <input type="text" disabled="disabled" value="{{ spec }}" style="width: 100%"><br>
-                    {% endfor %}
-                {% else %}
-                    <input type="text" disabled="disabled" value="-" style="width: 100%">
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 20%">Study Plan:</td>
-            <td style="text-align: left">
-                <table style="width: 100%">
-                    <tr>
-                        <td style="width: 10%">Year 1</td>
-                        <td><input type="text" disabled="disabled" id="1" value="{{ plan1.course1 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="2" value="{{ plan1.course2 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="3" value="{{ plan1.course3 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="4" value="{{ plan1.course4 }}"
-                                   style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><input type="text" disabled="disabled" id="5" value="{{ plan1.course5 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="6" value="{{ plan1.course6 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="7" value="{{ plan1.course7 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="8" value="{{ plan1.course8 }}"
-                                   style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>Year 2</td>
-                        <td><input type="text" disabled="disabled" id="9" value="{{ plan1.course9 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="10" value="{{ plan1.course10 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="11" value="{{ plan1.course11 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="12" value="{{ plan1.course12 }}"
-                                   style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><input type="text" disabled="disabled" id="13" value="{{ plan1.course13 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="14" value="{{ plan1.course14 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="15" value="{{ plan1.course15 }}"
-                                   style="width: 100%"></td>
-                        <td><input type="text" disabled="disabled" id="16" value="{{ plan1.course16 }}"
-                                   style="width: 100%"></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    </div>
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#btnEdit').click(function () {
-                if ($("#btnEdit").html() == 'Edit') {
-                    $("#name").prop("disabled", false);
-                    for (let i = 1; i < 17; i++) {
-                        $("#" + i).prop("disabled", false);
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return (r[2]);
+            return null;
+        }
+
+        var versions;
+        var codeS = getQueryString("code");
+        var yearS = getQueryString("year");
+        var titleS = getQueryString("title");
+        titleS = titleS.replace(/%20/g, " ");
+        pageTitleS = titleS + " (" + yearS + ")";
+        pageTitle.innerHTML = pageTitleS;
+        document.getElementById('code').innerText = codeS;
+        document.getElementById('year').innerText = yearS;
+        document.getElementById('title').innerText = titleS;
+        var courseUrl = window.location.origin + "/staff" + "/course_detail?"
+        var compulsory = "";
+        var compulsoryList = [];
+        var specList = [];
+        var compulsoryTable = document.getElementById("compulsory");
+        var spec = "";
+        let specTable = document.getElementById("specialisation");
+        var planList = [];
+        let planTable = document.getElementById("planTable");
+        let planString = "<thead class = \"thead-light\">\n" +
+            "                    <tr>\n" +
+            "                      <th scope=\"col\" width=\"20%\">Year</th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                    </tr>\n" +
+            "                  </thead>";
+        planString += "<tbody>\n" +
+            "    <tr>";
+        $.ajax({
+            url: '../degree/degreeplan',
+            data: {"degree_code": codeS, "year": yearS},
+            method: 'GET',
+            success: function (data) {
+                console.log("degreeplan success");
+                for (let i = 0; i < data.response.length; i++) {
+                    //console.log(data.response)
+                    for (let j = 0; j < data.response[i].length; j++) {
+                        if(data.response[i][j].code.toString().length==9){
+                            planList.push(data.response[i][j].code.toString().replace(/\s*/g, ""));
+                        }
+                        else{
+                        planList.push(data.response[i][j].code.toString());
+                        }
                     }
-                    $("#btnEdit").html('Save');
                 }
-                else {
-                    $("#name").prop("disabled", true);
-                    for (let i = 1; i < 17; i++) {
-                        $("#" + i).prop("disabled", true);
+                let yearLength = planList.length / 8;
+                let length = 0;
+                //console.log(yearLength);
+                for (let i = 0; i < yearLength; i++) {
+                    planString += "<td>" + "Year" + (i + 1) + "</td>";
+                    for (let j = 0; j < 4; j++) {
+                        if (planList[length].length == 8) {
+                            let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<a href=\"" + link + "\" target=\"_Blank\">Course detail</a>" + "<br>" + "</td>";
+                        } else {
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<br>" + "</td>";
+
+                        }
+                        length++;
                     }
-                    $("#btnEdit").html('Edit');
+                    planString += "</tr>" + "<tr>";
+                    planString += "<td>" + "" + "</td>";
+                    for (let j = 0; j < 4; j++) {
+                        if (planList[length].length == 8) {
+                            let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<a href=\"" + link + "\" target=\"_Blank\">Course detail</a>" + "<br>" + "</td>";
+                        } else {
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<br>" + "</td>";
+
+                        }
+                        length++;
+                    }
+                    planString += "</tr>" + "<tr>";
                 }
-            });
+                planString += "</tbody>";
+                planTable.innerHTML = planString;
+            }
+        });
+        $.ajax({
+            url: '../degree/degreereqs',
+            data: {"query": codeS + "-" + yearS},
+            success: function (data) {
+                versions = data;
+                console.log("degreereqs success");
+                document.getElementById('Units').innerText = data.units;
+                if (data.required.compulsory_courses != undefined) {
+                    for (let i = 0; i < data.required.compulsory_courses.length; i++) {
+                        compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g, ""))
+                    }
+                }
+                {% comment %}for (let i = 0; i < data.required["one_from_m/m/s"].length; i++) {
+                    let specArray = data.required["one_from_m/m/s"][i].toString().split(",");
+                    for (let j = 0; j < specArray.length; j++) {
+                        specList.push(specArray[j].toString().replace(/\s*/g, ""));
+                    }
+                }{% endcomment %}
+                for (let i = 0; i < compulsoryList.length; i++) {
+                    let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
+                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";
+                }
+                {% comment %}for (let i = 0; i < specList.length; i++) {
+                    spec += "<input type=\"text\" id=\"spec" + i + "\"value=\"" + specList[i] + "\">" + "<br>";
+                }
+                specTable.innerHTML = spec;{% endcomment %}
+                compulsoryTable.innerHTML = compulsory;
+
+                $(document).ready(function () {
+                    $('#btnSave').click(function () {
+                        boot4.confirm({
+                            msg: "Are you sure you want to update {{ bc_param }} ?",
+                            callback: function (result) {
+                                if (result) {
+                                    for (let i = 0; i < compulsoryList.length; i++) {
+                                        compulsoryList[i]=document.getElementById("compulsory" + i).value.toString();
+                                    }
+                                     for (let i = 0; i < planList.length; i++) {
+                                        planList[i]=document.getElementById("plan" + i).value.toString();
+                                    }
+                                    let postPlan= JSON.stringify(planList);
+                                    let postCompulsory= JSON.stringify(compulsoryList);
+                                    $.ajax({
+                                        url: '../degree/saveDegree',
+                                        data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
+                                        dataType:"json",
+                                        success: function (data) {
+                                            console.log(data)
+                                        }
+
+                                    });
+                                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                } else {
+                                    console.log("cancel");
+                                }
+                            }
+                        });
+                    });
+
+                });
+            }
         });
 
+        function deleteData() {
+            console.log(codeS + yearS);
+            $.ajax({
+                url: '../degree/delete',
+                data: {"code": codeS, "type": "degree", "year": yearS},
+                success: function (data) {
+                    console.log(data)
+                }
+
+            });
+            window.location.href='degree';
+        }
     </script>
 
 {% endblock %}

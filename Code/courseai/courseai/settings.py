@@ -235,3 +235,9 @@ PIPELINE = {
         }
     }
 }
+
+# Messages - Sayed 20190924
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}

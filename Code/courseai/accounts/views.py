@@ -54,6 +54,8 @@ def login_view(request):
 
         user = authenticate(username=email, password=password)
         if user is not None:
+            if user.is_staff:
+                return HttpResponse('Please login by login as staff')
             if user.is_active:
                 login(request, user)  # a login cycle
                 return HttpResponse('OK')
@@ -64,6 +66,25 @@ def login_view(request):
     errStr = '<br>'.join(msg for msg in errMsg)
     return HttpResponse(errStr);
 
+def staff_login_view(request):
+    form = UserLoginForm(request.POST or None)  # translating any false value (e.g. an empty list, empty dict) into None
+
+    if form.is_valid():
+        email = form.cleaned_data.get('email')  # get the email from form
+        password = form.cleaned_data.get('password')
+
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            if user.is_staff:
+                if user.is_active:
+                    login(request, user)  # a login cycle
+                    return HttpResponse('OK')
+            else:
+                return HttpResponse('You are not staff')
+
+    errMsg = {(v[0]) for _, v in form.errors.items()}
+    errStr = '<br>'.join(msg for msg in errMsg)
+    return HttpResponse(errStr);
 
 # @csrf_protect
 @csrf_exempt  # TODO: change me later

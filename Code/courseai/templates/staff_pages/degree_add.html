@@ -1,85 +1,273 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js" type="text/javascript"></script>
 
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
-    <div class="container-fluid">
-        <table style="width: 100%">
-            <tr>
-                <td style="width: 90%"></td>
-                <td><button id="btnSave">Save</button>
-            </tr>
-        </table>
-
+    <section id="bc" class="mt-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fa fa-home"></i> Home </a>
+                    </li>
+                    <li class="breadcrumb-item active">Degree(add)</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <div class="container text-center" id="alert">
+        </div>
+    <h1 class="display-6 text-center">Add A New Degree</h1>
+    <br>
+    <div class="col-sm-11">
+        <button type="submit" class="btn btn-outline-info pull-right" onclick="saveDegree()" id="btnSave">Save</button>
     </div>
-
-    <div class="container h-100">
-    <table class="table table-striped">
-        <tr>
-            <td style="text-align: right; width: 20%">Code:</td>
-            <td style="text-align: left">
-               <input type="text" id = "code" value="" style="width: 100%">
-           </td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Year:</td>
-            <td style="text-align: left">
-               <input type="text" id = "year" value="" style="width: 100%">
-           </td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 20%">Name:</td>
-           <td style="text-align: left">
-               <input type="text" id = "name" value="" style="width: 100%">
-           </td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Compulsory Courses:</td>
-            <td style="text-align: left">
-               <input type="text" value="" style="width: 100%"><br>
-            </td>
-        </tr>
-        <tr>
-             <td style="text-align: right; width: 20%">Specialisation:</td>
-            <td style="text-align: left">
-                <input type="text" value="" style="width: 100%">
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 20%">Study Plan:</td>
-            <td style="text-align: left">
-                <table style="width: 100%">
-                    <tr>
-                        <td style="width: 10%">Year 1</td>
-                        <td><input type="text" id="a1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="b1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="c1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="d1" value="" style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><input type="text" id="f1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="g1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="h1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="e1" value="" style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>Year 2</td>
-                        <td><input type="text" id="i1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="j1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="k1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="l1" value="" style="width: 100%"></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><input type="text" id="m1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="n1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="o1" value="" style="width: 100%"></td>
-                        <td><input type="text" id="p1" value="" style="width: 100%"></td>
-                    </tr>
+    <div>&nbsp</div>
+    <div>&nbsp</div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Code:</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="code" placeholder="Degree Code" name="code">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Year:</label>
+        <div class="col-sm-2">
+            <select class="custom-select" id="year">
+                {% for year in years %}
+                    {% if year == year_now %}
+                        <option selected value="{{ year }}">{{ year }}</option>
+                    {% else %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Title:</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="title" placeholder="Title" name=>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Compulsory Courses:</label>
+        <div class="col-sm-2" id="compulsory">
+            <div class="form-group row">
+                <table id="compulsoryTable" class="table table-hover" style="width: 70%; margin: auto">
                 </table>
-            </td>
-        </tr>
-    </table>
-
+            </div>
+        </div>
     </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Study Plan:</label>
+        <div class="col-sm-2">
+            <select class="custom-select" id="planYear" onchange="drawTable()">
+                <option value="1" selected>1 Year</option>
+                <option value="2">2 Years</option>
+                <option value="3">3 Years</option>
+                <option value="4">4 Years</option>
+                <option value="5">5 Years</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <table id="planTable" class="table table-hover" style="width: 70%; margin: auto">
+        </table>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right" >Search:</label>
+        <div class="col col-lg-4">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
+        </div>
+        <div class="col col-lg-2">
+            <button onclick="showCourse()" class="btn btn-outline-primary" id="search">Search</button>
+        </div>
+    </div>
+    <div style="width: 100%; text-align: center">
+        <div>&nbsp</div>
+        <div class="table-responsive">
+            <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+
+            </table>
+        </div>
+    </div>
+    </div>
+    </form>
+    <script>
+        var length = 0;
+        let planString = "<thead class = \"thead-light\">\n" +
+            "                    <tr>\n" +
+            "                      <th scope=\"col\" width=\"20%\">Year</th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+            "                    </tr>\n" +
+            "                  </thead>";
+        planString += "<tbody>\n" +
+            "    <tr>";
+        let planYear = document.getElementById("planYear").value;
+        for (let i = 0; i < planYear; i++) {
+            planString += "<td>" + "Year " + (i + 1) + "</td>";
+            for (let j = 0; j < 4; j++) {
+                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
+                length++;
+            }
+            planString += "</tr>" + "<tr>";
+            planString += "<td>" + "" + "</td>";
+            for (let j = 0; j < 4; j++) {
+                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
+                length++;
+            }
+            planString += "</tr>" + "<tr>";
+        }
+        planString += "</tbody>";
+        $("#planTable").html(planString);
+
+        function drawTable() {
+            length = 0;
+            let planString = "";
+            planString = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"20%\">Year</th>\n" +
+                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            planString += "<tbody>\n" +
+                "    <tr>";
+            let planYear = document.getElementById("planYear").value;
+            for (let i = 0; i < planYear; i++) {
+                planString += "<td>" + "Year " + (i + 1) + "</td>";
+                for (let j = 0; j < 4; j++) {
+                    planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
+                    length++;
+                }
+                planString += "</tr>" + "<tr>";
+                planString += "<td>" + "" + "</td>";
+                for (let j = 0; j < 4; j++) {
+                    planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
+                    length++;
+                }
+                planString += "</tr>" + "<tr>";
+            }
+            planString += "</tbody>";
+            console.log(length);
+            $("#planTable").html(planString);
+        }
+
+        function showCourse() {
+            var year = document.getElementById("year").value;
+            let courses = document.getElementById("search").value;
+            let tableData = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"25%\">Course Code</th>\n" +
+                "                      <th scope=\"col\" width=\"60%\">Course Title</th>\n" +
+                "                      <th scope=\"col\" width=\"15%\"></th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            tableData += "<tbody>\n" +
+                "    <tr>";
+            courseCodes = [];
+            courseVersions = [];
+            const courseUnits = [];
+            const courseTitles = [];
+            var versions = "";
+            $.ajax({
+                url: '../search/coursesearch/',
+                data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+                success: function (data) {
+
+                    year = document.getElementById("year").value;
+                    console.log(year);
+                    for (let i = 0; i < data.response.length; i++) {
+                        versions = data.response[i].versions[year];
+                        if (versions != undefined) {
+                            courseCodes.push(data.response[i].course_code);
+                            courseTitles.push(versions.title);
+                        }
+                    }
+                    if (courseCodes.length == 0) {
+                        tableData += "<td colspan=\"3\">No Such Course</td></tr>";
+                    } else {
+                        for (let i = 0; i < courseCodes.length; i++) {
+                            for (let j = 0; j < 3; j++) {
+                                if (j == 0) {
+                                    tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
+                                        + courseCodes[i] +
+                                        "</a>" +
+                                        "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
+                                        courseTitles[i] + "</a>" + "</td>";
+                                } else if (j == 2) {
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addComplulsory(courseCodes[" + i + "])\">Add complulsory course</button>" + "</td>";
+                                }
+                            }
+                            tableData += "</tr>" + "<tr>";
+                        }
+                        tableData += "</tbody>";
+                    }
+                    $("#Table").html(tableData);
+                }
+            });
+        }
+
+        var compulsoryList = [];
+
+        function addCompulsory(course) {
+            compulsoryList.push(course);
+            console.log(compulsoryList);
+            let complulsoryString = "<tbody>\n";
+            for (let i = 0; i < compulsoryList.length; i++) {
+                complulsoryString = complulsoryString + "<tr>" + compulsoryList[i] + "</tr><br>";
+            }
+            complulsoryString += "</tbody>";
+            document.getElementById("compulsoryTable").innerHTML = complulsoryString;
+        }
+
+        function saveDegree() {
+            if (document.getElementById("code").value == ""||document.getElementById("title").value =="") {
+                boot4.confirm({
+                    msg: "Please input available code and title."
+                });
+            } else {
+                boot4.confirm({
+                    msg: "Are you sure to save ?",
+                    callback: function (result) {
+                        if (result) {
+                            let plan = [];
+                            let code = document.getElementById("code").value;
+                            let year = document.getElementById("year").value;
+                            let title = document.getElementById("title").value;
+                            for (let i = 0; i < length; i++) {
+                                plan.push(document.getElementById("plan" + i).value);
+                            }
+                            let postPlan= JSON.stringify(plan);
+                            let postCompulsory= JSON.stringify(compulsoryList);
+                            console.log(code, year, title, plan, compulsoryList);
+                            $.ajax({
+                                url: '../degree/addDegree',
+                                data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
+                                dataType: "json",
+                                success: function (data) {
+                                     $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                }
+
+                            });
+                            console.log("save success");
+                        } else {
+                            console.log("cancel");
+                        }
+                    }
+                });
+            }
+        }
+
+    </script>
 
 {% endblock %}

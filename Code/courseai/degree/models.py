@@ -29,6 +29,7 @@ class DegreePlanStore(models.Model):
     code = models.CharField(max_length=10)
     plan = models.TextField()
 
+
 class Major(models.Model):
 
     es_id = models.CharField(max_length=10, editable=False, default="")
@@ -40,7 +41,6 @@ class Major(models.Model):
                                     choices=(("undergraduate", "undergraduate"), ("postgraduate", "postgraduate")))
     requirements = JSONField(default=list)
     learning_outcomes = models.TextField(default="", blank=True)
-
 
     def _es_body(self):
         data = Major.objects.filter(code=self.code)
@@ -74,6 +74,7 @@ class Major(models.Model):
     def __str__(self):
         return self.code + " - " + self.name + " " + self.year
 
+
 class Minor(models.Model):
 
     es_id = models.CharField(max_length=10, editable=False, default="")
@@ -85,7 +86,6 @@ class Minor(models.Model):
                                     choices=(("undergraduate", "undergraduate"), ("postgraduate", "postgraduate")))
     requirements = JSONField(default=list)
     learning_outcomes = models.TextField(default="", blank=True)
-
 
     def _es_body(self):
         data = Minor.objects.filter(code=self.code)
@@ -132,7 +132,6 @@ class Specialisation(models.Model):
     requirements = JSONField(default=list)
     learning_outcomes = models.TextField(default="", blank=True)
 
-
     def _es_body(self):
         data = Specialisation.objects.filter(code=self.code)
 
@@ -164,6 +163,7 @@ class Specialisation(models.Model):
 
     def __str__(self):
         return self.code + " - " + self.name + " " + self.year
+
 
 class Course(models.Model):
     es_id = models.CharField(max_length=10, editable=False, default=0)
@@ -247,8 +247,8 @@ class Course(models.Model):
 class DegreeRequirement(models.Model):
     year = models.CharField(max_length=4, default="")
     code = models.CharField(max_length=10, default="")
-    name = models.TextField(default="",blank=True, editable=False)
-    units = models.CharField(max_length=10,default="")
+    name = models.TextField(default="", blank=True, editable=False)
+    units = models.CharField(max_length=10, default="")
     required = JSONField(default=list)
 
     def __str__(self):
@@ -264,4 +264,24 @@ class DegreeRequirement(models.Model):
         return json.dumps(to_return)
 
 
+class studyoption(models.Model):
+    code_year = models.CharField(max_length=40, default="", editable=True)
+    option = models.TextField(default="", blank=True, editable=True)
 
+
+class degree_requirement(models.Model):
+    year = models.CharField(max_length=4, default="")
+    code = models.CharField(max_length=10, default="")
+    name = models.TextField(default="", blank=True, editable=False)
+    units = models.CharField(max_length=10, default="")
+    required = models.TextField(default="", blank=True, editable=True)
+
+    def _json(self):
+        to_return = {}
+        to_return["year"] =self.year
+        to_return["code"] = self.code
+        to_return["name"] = self.name
+        to_return["units"] = self.units
+        to_return["required"] = json.loads(self.required)
+
+        return json.dumps(to_return)

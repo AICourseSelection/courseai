@@ -1,123 +1,152 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
+    <section id="bc" class="mt-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fa fa-home"></i> Home </a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ bc_param }}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">
+            <strong>Search Course</strong>
+        </h1>
+        {% include 'staff_pages/partials/_alerts.html' %}
 
-     <div style="margin-top: 15px; flex-wrap: nowrap" >
-    <div style="width: 100%; text-align: center">
-<table class="table">
-    <tr>
-        <td>
-        <input type="text" id = "search" name="courseName" required placeholder="Search Course"
-               autocomplete="off" data-toggle="popover" style="width:30%">
-        <button onclick="showCourse()" class="btn btn-primary btn-lg">Show Course</button>
-        </td>
-        </tr>
-    <tr>
-        <td>
-        <label>Academic year: </label>
-              <select id="year" >
-    <option value="2014" selected="selected">2014</option>
-    <option value="2015">2015</option>
-    <option value="2016">2016</option>
-    <option value="2017">2017</option>
-    <option value="2018">2018</option>
-    <option value="2019">2019</option>
-    <option value="2020">2020</option>
-</select>
-        </td>
-    </tr>
-    </table>
-        <div>&nbsp</div>
-        <div class="table-responsive">
-            <table class="table" style="width: 50%; margin: auto">
-                    <tbody id="Table">
-                    </tbody>
-                </table>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="sr-only">Year</label>
+
+            </div>
+            <div class="col-md-4 mb-3">
+
+            </div>
+
         </div>
     </div>
-</div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-4">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Course Code"
+                       onkeydown="if(event.keyCode==13) {showCourse()}">
+            </div>
+            <div class="col-md-auto">
+                <select id="year" name='year' class="form-control">
+                    {% for year in years %}
+                        {% if year == year_now %}
+                            <option selected value="{{ year }}">{{ year }}</option>
+                        {% else %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col col-lg-2">
+                <button onclick="showCourse()" class="btn btn-outline-primary">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 100%; text-align: center">
+        <div>&nbsp</div>
+        <div class="table-responsive">
+            <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+
+            </table>
+        </div>
+    </div>
+    </div>
     <script>
-    var year;
+
         var courseCodes;
         var courseVersions;
-        function showCourse() {
-        let courses = document.getElementById("search").value;
-        let tableData = "<tr>";
-        courseCodes = [];
-        courseVersions = [];
-        const courseUnits = [];
-        const courseTitles = [];
-        var versions = "";
-        $.ajax({
-            url: '../search/coursesearch/',
-            data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": "Undergraduate"}},
-            success: function (data) {
-                year=document.getElementById("year").value;
-                for (let i = 0; i < data.response.length; i++) {
-                    if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase())==true) {
-                        versions = JSON.stringify(data.response[i].versions);
-                        if (versions != undefined) {
-                            courseCodes.push(data.response[i].course_code);
-                            versions = JSON.stringify(data.response[i].versions);
-                            courseVersions.push(versions.toString());
-                            courseUnits.push(str_substr("units\":\"","\"",versions));
-                            courseTitles.push(str_substr("title\":",",",versions).replace(/\"/g,""));
-                        }
-                    }
-                }
-                if (courseCodes.length == 0) {
-                    tableData += "<th>" + "No such course" + "</th>" + "</tr>";
-                } else {
-                    for (let i = 0; i < courseCodes.length + 1; i++) {
-                        for (let j = 0; j < 3; j++) {
-                            if (i == 0) {
-                                if (j == 0) {
-                                    tableData += "<th>" + "course code" + "</th>";
-                                } else if (j==1) {
-                                    tableData += "<th>" + "course units" + "</th>";
-                                }
-                                else if(j==2){
-                                    tableData += "<th>" + "course title" + "</th>";
-                                }
 
-                            } else {
-                                if (j == 0) {
-                                    tableData += "<td>" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">"
-                                        + courseCodes[i - 1] +
-                                            "</a>" +
-                                            "</td>";
-                                } else if(j==1){
-                                    tableData += "<td>" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">"
-                                        + courseUnits[i - 1] + "</a>" + "</td>";
-                                }
-                                else if(j==2){
-                                    tableData += "<td>" + "<a href=\"course_detail?code=" + courseCodes[i - 1] + "&year=" + year + "&title=" + courseTitles[i - 1] + "\" onClick=\"saveData('" + (i - 1) + "')\">" +
-                                        courseTitles[i - 1] + "</a>" + "</td>";
-                                }
+        function showCourse() {
+            var year = document.getElementById("year").value;
+            let courses = document.getElementById("search").value;
+            let tableData = "<thead class = \"thead-light\">\n" +
+                "                    <tr>\n" +
+                "                      <th scope=\"col\" width=\"20%\">Course Code</th>\n" +
+                "                      <th scope=\"col\" width=\"70%\">Course Name</th>\n" +
+                "                      <th scope=\"col\" width=\"10%\">Unit</th>\n" +
+                "                    </tr>\n" +
+                "                  </thead>";
+            tableData += "<tbody>\n" +
+                "    <tr>";
+            courseCodes = [];
+            courseVersions = [];
+            const courseUnits = [];
+            const courseTitles = [];
+            var versions = "";
+            if(courses!=""){
+            $.ajax({
+                url: '../search/coursesearch/',
+                data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+                success: function (data) {
+                    year = document.getElementById("year").value;
+                    for (let i = 0; i < data.response.length; i++) {
+                        if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase()) == true) {
+                            versions = data.response[i].versions[year];
+                            if (versions != undefined) {
+                                console.log(versions);
+                                courseCodes.push(data.response[i].course_code);
+                                courseUnits.push(versions.units);
+                                courseTitles.push(versions.title);
                             }
                         }
-                        tableData += "</tr>" + "<tr>";
                     }
+                    if (courseCodes.length == 0) {
+                        tableData="<strong>No such Course</strong><br /> "
+                         $("#Table").html(tableData);
+                        return;
+                    } else {
+                        for (let i = 0; i < courseCodes.length; i++) {
+                            for (let j = 0; j < 3; j++) {
+                                if (j == 0) {
+                                    tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
+                                        + courseCodes[i] +
+                                        "</a>" +
+                                        "</td>";
+                                } else if (j == 1) {
+                                    tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
+                                        courseTitles[i] + "</a>" + "</td>";
+                                } else if (j == 2) {
+                                    tableData += "<td>" + courseUnits[i] + "</td>";
+                                }
+                            }
+                            tableData += "</tr>" + "<tr>";
+                        }
+                        tableData += "</tbody>";
+                    }
+                    $("#Table").html(tableData);
                 }
-                $("#Table").html(tableData);
+            });
             }
-        });
-    }
+            else{
+                tableData="<strong>No such Course</strong><br /> "
+                         $("#Table").html(tableData);
+            }
+        }
 
 
-    function saveData(i){
-         //alert("success");
-        sessionStorage.setItem("version",courseVersions[i]);
-        sessionStorage.setItem("code",courseCodes[i]);
-    }
-     function str_substr(start, end, str) {
-       try{
-            temp = str.split(start, 2);
-            content = temp[1].split(end, 2);
+        function str_substr(start, end, str) {
+            try {
+                temp = str.split(start, 2);
+                content = temp[1].split(end, 2);
+            } catch (e) {
+                console.log(e.name + ":" + e.message);
+            }
+            return content[0];
         }
-        catch (e) {
-            console.log(e.name + ":" + e.message);
-        }
-        return content[0];
-    }
     </script>
 {% endblock %}

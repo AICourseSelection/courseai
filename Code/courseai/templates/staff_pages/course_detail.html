@@ -1,64 +1,101 @@
 
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
+    <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+              <a href="{% url 'index' %}">
+            <i class="fa fa-home"></i> Home </a>
+          </li>
+            <li class="breadcrumb-item">
+              <a href="{% url 'course' %}"> Course </a>
+          </li>
+            <li class="breadcrumb-item active">{{ bc_param }}</li>
+        </ol>
+      </nav>
+    </div>
+    </section>
     <script type="javascript">
         $("textarea#spec").val().replace("<br>", "&#10;");
     </script>
-<form id="forms"></form>
-    <div class="container-fluid">
-        <table style="width: 100%">
-            <tr>
-                <td style="width: 90%"><h1 class="text-center">{{ c_name }} ({{ c_year }})</h1></td>
-                <td><button id="btnEdit">Edit</button> <button>Delete</button></td>
-            </tr>
-        </table>
+
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body alert-danger text-center">
+          <h4><strong>Warning! Delete action is permanent! You will back to the search page after clicking the
+                        delete button.</strong></h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirmDeleteButtonModal"
+                  onclick=deleteData()>
+          Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+         <div class="container text-center">
+         <div id="alert">
+        </div>
+        <h1 id="pageTitle"></h1>
 
     </div>
+        <div class="container">
+            <button id="btnSave" class="btn btn-outline-success float-left">Save</button>
+            <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+        </div>
 
     <div class="container h-100">
     <table class="table table-striped">
         <tr>
             <td style="text-align: right; width: 20%">Code:</td>
-            <td style="text-align: left">{{ c_code }}</td>
+            <td style="text-align: left;width: 80%" id="code"></td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Year:</td>
-            <td style="text-align: left">{{ c_year }}</td>
+            <td style="text-align: left;width: 80%" id="year"></td>
         </tr>
         <tr>
-            <td style="text-align: right; width: 20%">Name:</td>
-           <td style="text-align: left">
-               <input type="text" id = "name" disabled="disabled" value="{{ c_name }}" style="width: 100%">
+            <td style="text-align: right; width: 20%">Title:</td>
+            <td style="text-align: left;width: 80%" id="title">
            </td>
         </tr>
         <tr>
             <td style="text-align: right; width: 20%">Units:</td>
            <td style="text-align: left">
-               <input type="text" id = "units" disabled="disabled"  style="width: 100%">
+               <input type="text" id="units" style="width: 100%">
            </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Sessions:</td>
             <td style="text-align: left">
-                <input type="text" id="sessions" disabled="disabled"  style="width: 100%"><br>
+                <input type="text" id="sessions" style="width: 100%"><br>
             </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Description:</td>
             <td style="text-align: left">
-                <textarea rows="5" type="text" id="description" disabled="disabled"  style="width: 100%">    </textarea><br>
+                <textarea rows="5" type="text" id="description" style="width: 100%">    </textarea><br>
             </td>
         </tr>
         <tr>
              <td style="text-align: right; width: 20%">Learning outcome:</td>
             <td style="text-align: left">
-                <textarea rows="6" type="text" id="learningOutcome" disabled="disabled"  style="width: 100%"></textarea><br>
+                <textarea rows="6" type="text" id="learningOutcome" style="width: 100%"></textarea><br>
             </td>
         </tr>
         <tr>
-             <td style="text-align: right; width: 20%">Prerequisites:</td>
-            <td style="text-align: left">
-                <textarea rows="2"  type="text" id="prerequisites" disabled="disabled"  style="width: 100%"></textarea><br>
+            <td style="text-align: right; width: 20%">Incompatible Course:</td>
+            <td style=" text-align: left" id="incompatible">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 20%">Pre-requisite Course:</td>
+            <td style=" text-align: left" id="prerequisite">
             </td>
         </tr>
     <br>
@@ -69,41 +106,137 @@
     </div>
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
-    let code = sessionStorage.getItem("code");
-    let version = sessionStorage.getItem("version");
-    let jsonObject = JSON.parse(version);
-    var year={{ c_year }};
-    console.log(year);
-    console.log(jsonObject);
-    console.log(jsonObject[year].sessions);
-    document.getElementById("sessions").value=jsonObject[year].sessions;
-    document.getElementById("units").value=jsonObject[year].units;
-    document.getElementById("description").value=jsonObject[year].description;
-    document.getElementById("learningOutcome").value=jsonObject[year].learning_outcomes;
-    document.getElementById("prerequisites").value=jsonObject[year].prerequisite_text;
-        $(document).ready(function () {
-            $('#btnEdit').click(function () {
-                if ($("#btnEdit").html() == 'Edit') {
-                    $("#name").prop("disabled", false);
-                    $("#units").prop("disabled", false);
-                    $("#sessions").prop("disabled", false);
-                    $("#description").prop("disabled", false);
-                    $("#learningOutcome").prop("disabled", false);
-                    $("#prerequisites").prop("disabled", false);
-                    $("#btnEdit").html('Save');
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return (r[2]);
+            return null;
+        }
+
+        var codeS = getQueryString("code");
+        var yearS = getQueryString("year");
+        var courseUrl = window.location.origin+"/staff"+"/course_detail?"
+        document.getElementById("code").innerText = codeS;
+        document.getElementById("year").innerText = yearS;
+        var incompatible = "";
+        var incompatibleList = [];
+        let incompatibleTable = document.getElementById("incompatible");
+        var prerequisite = "";
+        var prerequisiteList = [];
+        let prerequisiteTable = document.getElementById("prerequisite");
+        $.ajax({
+            url: '../search/coursesearch/',
+            data: {"query": codeS, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+            success: function (data) {
+                data = data.response[0].versions[yearS];
+                console.log(data);
+                document.getElementById("units").value = data.units;
+                titleS = data.title;
+                document.getElementById("pageTitle").innerText = titleS + " (" + yearS + ")";
+                document.getElementById("title").innerText = titleS;
+                if (data.sessions == undefined) {
+                    document.getElementById("sessions").value = "Empty";
+                } else {
+                    document.getElementById("sessions").value = data.sessions;
                 }
-                else {
-                    $("#name").prop("disabled", true);
-                    $("#units").prop("disabled", true);
-                    $("#sessions").prop("disabled", true);
-                    $("#description").prop("disabled", true);
-                    $("#learningOutcome").prop("disabled", true);
-                    $("#prerequisites").prop("disabled", true);
-                    $("#btnEdit").html('Edit');
+                document.getElementById("description").value = data.description;
+                document.getElementById("learningOutcome").value = data.learning_outcomes;
+                if (data.hasOwnProperty("prerequisites")) {
+                    if (data.prerequisites.incompatible != undefined) {
+                        for (let j = 0; j < data.prerequisites.incompatible.length; j++) {
+                            incompatibleList.push(data.prerequisites.incompatible[j].toString().replace(/\s*/g,""));
+                        }
+                    }
+                    if (data.prerequisites["pre-requisite"] != undefined) {
+                        for (let i = 0; i < data.prerequisites["pre-requisite"].length; i++) {
+                            if (i > 0) {
+                                prerequisiteList.push("and");
+                            }
+                            for (let j = 0; j < data.prerequisites["pre-requisite"][i].length; j++) {
+                                if (j > 0) {
+                                    prerequisiteList.push("or");
+                                }
+                                console.log(data.prerequisites["pre-requisite"][i][j].toString().substring(0, 1) == "{")
+                                if (data.prerequisites["pre-requisite"][i][j].toString().substring(0, 1) == "{") {
+                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString().replace(/\s*/g,"").substring(12, 20));
+                                } else {
+                                    prerequisiteList.push(data.prerequisites["pre-requisite"][i][j].toString().replace(/\s*/g,""));
+                                }
+                            }
+                        }
+                    }
                 }
-            });
+                for (let i = 0; i < incompatibleList.length; i++) {
+                    let link = courseUrl + "code=" + incompatibleList[i] + "&year=" + yearS;
+                    incompatible +=  "<input type=\"text\" id=\"incompatible" + i + "\"value=\"" + incompatibleList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";
+                }
+                for (let i = 0; i < prerequisiteList.length; i++) {
+                    if (data.prerequisites["pre-requisite"].length > 1 && prerequisiteList[i] == "and") {
+                        prerequisite += "<strong>And</strong><br>";
+                    } else if (prerequisiteList[i] == "or") {
+                        prerequisite += "<strong>Or</strong><br>";
+                    } else if (prerequisiteList[i] != "and") {
+                        let link = courseUrl + "code=" + prerequisiteList[i] + "&year=" + yearS;
+                        prerequisite +=  "<input type=\"text\" id=\"prerequisite" + i + "\"value=\"" + prerequisiteList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";
+                    }
+                }
+                console.log(prerequisite)
+                incompatibleTable.innerHTML = incompatible;
+                prerequisiteTable.innerHTML = prerequisite;
+            }
+
         });
 
+        $(document).ready(function () {
+            $('#btnSave').click(function () {
+                boot4.confirm({
+                    msg: "Are you sure you want to save " + titleS + " (" + yearS + ")" + " ?",
+                    callback: function (result) {
+                        if (result) {
+                            let units=document.getElementById("units").value;
+                            let sessions=document.getElementById("sessions").value;
+                            let description=document.getElementById("description").value;
+                            let outcome=document.getElementById("learningOutcome").value;
+                            for (let i = 0; i < prerequisiteList.length; i++) {
+
+                                        prerequisiteList[i]=document.getElementById("prerequisite" + i).value;
+                                    }
+                                     for (let i = 0; i < incompatibleList.length; i++) {
+                                         console.log(incompatibleList.length);
+                                        incompatibleList[i]=document.getElementById("incompatible" + i).value;
+                                    }
+                            let postPrerequisite= JSON.stringify(prerequisiteList);
+                            let postIncompatible= JSON.stringify(incompatibleList);
+                            $.ajax({
+                                        url: '../degree/saveCourse',
+                                        data: {"code": codeS, "year": yearS,"units":units,"sessions":sessions,"description":description,"prerequisite":postPrerequisite,"incompatible":postIncompatible},
+                                        dataType:"json",
+                                        success: function (data) {
+                                            console.log(data)
+                                        }
+
+                                    });
+                            console.log("save success");
+                        } else {
+                            console.log("cancel");
+                        }
+                    }
+                });
+
+            });
+        });
+    function deleteData() {
+            console.log(codeS + yearS);
+            $.ajax({
+                url: '../degree/delete',
+                data: {"code": codeS, "type": "course", "year": yearS},
+                success: function (data) {
+                    console.log(data)
+                }
+
+            });
+            window.location.href='course';
+        }
     </script>
 
 {% endblock %}

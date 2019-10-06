@@ -1,6 +1,8 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import json
+
+from django.views.decorators.csrf import csrf_exempt
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import MultiMatch
 import ast
@@ -8,6 +10,12 @@ import sys
 import degree.views as degree
 from degree import degree_plan_helper
 import pandas as pd
+from datetime import date
+from django.contrib import messages
+from .forms import BookFormset
+from django import forms;
+from django.forms.formsets import formset_factory;
+from django.shortcuts import render_to_response
 
 # Create your views here.
 def index(request):
@@ -31,7 +39,15 @@ def get_name():
 
 
 def degree(request):
-    return render(request, 'staff_pages/degree.html')
+    bc_param = 'Degree'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
+    }
+    return render(request, 'staff_pages/degree.html', context=context)
 
 
 def degree_detail(request):
@@ -39,101 +55,60 @@ def degree_detail(request):
     year = request.GET.get('year')
     d_name = request.GET.get('title')
     d_year = year
-    plan1 = get_plan1(code,year)
 
-    specs = get_spec(request)
-    spec_row = len(specs)
 
-    comps = get_comp(request)
-    comp_row = len(comps)
-
+    bc_param = d_name + ' (' + year + ')'
+    delete = request.GET.get('delete')
+    safe = request.GET.get('safe')
     context = {
         'd_code': code,
         'd_name': d_name,
         'd_year': d_year,
-        'comps': comps,
-        'specs': specs,
-        'plan1': plan1,
-        'spec_row': spec_row,
-        'comp_row': comp_row,
+        'bc_param': bc_param,
+
     }
+    if delete == 'false':
+        messages.success(request, 'You have successfully restore ' + bc_param + '!')
+    elif safe == 'true':
+        messages.success(request, 'You have successfully update ' + bc_param + '!')
+
     return render(request, 'staff_pages/degree_detail.html', context=context)
-
-def get_comp(request):
-    code = request.GET.get('code')
-    response = degree_plan_helper.get_degree_requirements(code)
-    complusoryCourse=json.loads(response)
-    comps =complusoryCourse['required']['compulsory_courses']
-
-    return comps
-
-
-def get_spec(request):
-    code = request.GET.get('code')
-    response = degree_plan_helper.get_degree_requirements(code)
-    complusoryCourse = json.loads(response)
-    specs = complusoryCourse['required']['required_m/m/s']
-    return specs
-
-
-def get_plan1(code,year):
-    with open('static/json/study_options/{}.json'.format(code)) as f:
-        study_options_str = f.read()
-        study_options_dict = ast.literal_eval(study_options_str)
-        print(study_options_dict[year])
-        plan=Plan1()
-        plan.str="Plan1"
-        plan.course1 = study_options_dict[year][0][0]['code']
-        plan.course2 = study_options_dict[year][0][1]['code']
-        plan.course3 = study_options_dict[year][0][2]['code']
-        plan.course4 = study_options_dict[year][0][3]['code']
-        plan.course5 = study_options_dict[year][1][0]['code']
-        plan.course6 = study_options_dict[year][1][1]['code']
-        plan.course7 = study_options_dict[year][1][2]['code']
-        plan.course8 = study_options_dict[year][1][3]['code']
-        plan.course9 = study_options_dict[year][2][0]['code']
-        plan.course10 = study_options_dict[year][2][1]['code']
-        plan.course11 = study_options_dict[year][2][2]['code']
-        plan.course12 = study_options_dict[year][2][3]['code']
-        plan.course13 = study_options_dict[year][3][0]['code']
-        plan.course14 = study_options_dict[year][3][1]['code']
-        plan.course15 = study_options_dict[year][3][2]['code']
-        plan.course16 = study_options_dict[year][3][3]['code']
-    return plan
-
-
-class Plan1:
-    def __init__(self):
-        self.str = "Plan1"
-        self.course1 = "COMP-A"
-        self.course2 = "COMP-B"
-        self.course3 = "COMP-C"
-        self.course4 = "COMP-D"
-        self.course5 = "COMP-E"
-        self.course6 = "COMP-F"
-        self.course7 = "COMP-G"
-        self.course8 = "COMP-H"
-        self.course9 = "COMP-I"
-        self.course10 = "COMP-J"
-        self.course11 = "COMP-K"
-        self.course12 = "COMP-L"
-        self.course13 = "COMP-M"
-        self.course14 = "COMP-N"
-        self.course15 = "COMP-O"
-        self.course16 = "COMP-P"
-
-
 
 
 
 
 
 def degree_add(request):
-    return render(request, 'staff_pages/degree_add.html')
+    if request.method == 'POST':
+        # params
+        code = request.POST['code']
+        # Validation goes here
+        # sample
+        if len(code) > 5:
+            messages.error(request, 'Code can\'t be more than 5 char!')
+        return redirect('degree_add')
+    else:
+        bc_param = 'Course'
+        year_now = date.today().year
+        years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+        context = {
+            'bc_param': bc_param,
+            'year_now': year_now,
+            'years': years,
+        }
+        return render(request, 'staff_pages/degree_add.html', context=context)
 
 
 def course(request):
-    return render(request, 'staff_pages/course.html')
+    bc_param = 'Course'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/course.html', context=context)
 
 
 
@@ -141,70 +116,128 @@ def course_detail(request):
     code = request.GET.get('code')
     c_name = request.GET.get('title')
     c_year = request.GET.get('year')
+    bc_param = code + ' (' + c_year + ')'
     context = {
         'c_code': code,
         'c_year': c_year,
         'c_name': c_name,
+        'bc_param': bc_param,
     }
     return render(request, 'staff_pages/course_detail.html', context=context)
 
 
 def course_add(request):
-    return render(request, 'staff_pages/course_add.html')
+    bc_param = 'Course (Add)'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/course_add.html', context=context)
 
 
 def major(request):
-    return render(request, 'staff_pages/major.html')
+    bc_param = 'Major'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
+    }
+    return render(request, 'staff_pages/major.html', context=context)
 
 
 def major_detail(request):
     code = request.GET.get('code')
     year = request.GET.get('year')
+    bc_param = code + ' (' + year + ')'
     context = {
         'major_code': code,
         'major_year': year,
+        'bc_param': bc_param,
     }
     return render(request, 'staff_pages/major_detail.html', context=context)
 
 
 def major_add(request):
-    return render(request, 'staff_pages/major_add.html')
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/major_add.html',context=context)
 
 
 def minor(request):
-    return render(request, 'staff_pages/minor.html')
+    bc_param = 'Minor'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
+    }
+    return render(request, 'staff_pages/minor.html', context=context)
 
 
 def minor_detail(request):
     code = request.GET.get('code')
     year = request.GET.get('year')
+    bc_param = code + ' (' + year + ')'
     context = {
         'minor_code': code,
         'minor_year': year,
+        'bc_param': bc_param
     }
     return render(request, 'staff_pages/minor_detail.html', context=context)
 
 
 def minor_add(request):
-    return render(request, 'staff_pages/minor_add.html')
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/minor_add.html',context=context)
 
 
 def specialisation(request):
-    return render(request, 'staff_pages/specialisation.html')
+    bc_param = 'Specialisation'
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'bc_param': bc_param,
+        'years': years,
+        'year_now': year_now
+    }
+    return render(request, 'staff_pages/specialisation.html', context=context)
 
 
 def specialisation_detail(request):
     code = request.GET.get('code')
     year = request.GET.get('year')
+    bc_param = code + ' (' + year + ')'
     context = {
         'spec_code': code,
         'spec_year': year,
+        'bc_param': bc_param,
     }
     return render(request, 'staff_pages/specialisation_detail.html', context=context)
 
 
 def specialisation_add(request):
-    return render(request, 'staff_pages/specialisation_add.html')
+    year_now = date.today().year
+    years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    context = {
+        'year_now': year_now,
+        'years': years,
+    }
+    return render(request, 'staff_pages/specialisation_add.html',context=context)
 
 
 def all_degrees(request):
@@ -220,9 +253,50 @@ def about(request):
     return render(request, 'staff_pages/about.html')
 
 
-def saveCourses(request):
-    print(request)
-    print(request.GET.get("course_code"));
-    print(request.GET.get("year"));
-    print(request.GET.get("description"));
-    return JsonResponse({"response": "Success"})
+def save_degree(request):
+    return render(request, 'staff_pages/about.html')
+
+
+@csrf_exempt
+def save_course(request):
+    # initiation
+    response = 'success'
+    msg = ''
+    element = ''
+    code = request.POST.get('code')
+    year = request.POST.get('year')
+    name = request.POST.get('name')
+    session = request.POST.get('session')
+    units = request.POST.get('units')
+    descriptions = request.POST.get('description').splitlines()
+    prerequisites = request.POST.get('prerequisite').splitlines()
+    outcomes = request.POST.get('outcome').splitlines()
+
+    # validation goes here
+    # all validation error must have response = 'validation' and msg = actual error message
+    if len(code) > 5:
+        response = 'validation'
+        msg = 'Course Code Must be Less Than 6 Char!'
+        element = 'code'
+
+    # insert database goes here
+    if not insert_db():
+        response = 'database'
+
+    return JsonResponse({'response': response, 'msg': msg, 'element': element})
+
+
+def get_all_url(urlparrentens, prev, is_first=False, result=[]):
+    if is_first:
+        result.clear()
+    for item in urlparrentens:
+        v = item._regex.strip('^$')  # 去掉url中的^和$
+        if isinstance(item, RegexURLPattern):
+            result.append(prev + v)
+        else:
+            get_all_url(item.urlconf_name, prev + v)
+    return result
+
+def insert_db():
+    # insert db function goes here
+    return True

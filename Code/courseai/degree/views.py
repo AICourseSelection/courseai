@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from recommendations import jsonhelper
 from . import course_data_helper
 from . import degree_plan_helper
-from .models import Degree, PreviousStudentDegree, DegreePlanStore, DegreeRequirement
+from .models import Degree, PreviousStudentDegree, DegreePlanStore, degree_requirement, studyoption
 
 
 def all_degrees(request):
@@ -21,7 +21,7 @@ def all_degrees(request):
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
-    #return render(request, 'dynamic_pages/staff_staff.html', {'degree': results})
+
     return JsonResponse({"response": results})
 
 
@@ -36,7 +36,8 @@ def degree_plan(request):
                 study_options_dict = ast.literal_eval(study_options_str)
             return JsonResponse({"response": study_options_dict[year]})
         except Exception:
-            res = JsonResponse({"response": "Default options of the requested degree-year combination could not be found. "})
+            res = JsonResponse(
+                {"response": "Default options of the requested degree-year combination could not be found. "})
             return HttpResponseBadRequest(res)
     elif request.method == "PUT":
         data = request.body.decode('utf-8')
@@ -73,6 +74,7 @@ def degree_reqs(request):
     try:
         code = request.GET['query']
         response = degree_plan_helper.get_degree_requirements(code)
+        print(response)
         return HttpResponse(response, content_type="application/json")
     except Exception:
         res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
@@ -97,7 +99,7 @@ def store_plan(request):
     proc = QueryDict(data)
     # generate a random code
     code = get_random_string(length=10)
-    code = code.replace(" ","c")
+    code = code.replace(" ", "c")
     plan = DegreePlanStore(code=code, plan=proc['plan'])
     plan.save()
     res = JsonResponse({"response": code})
@@ -133,56 +135,108 @@ def update_plan(request):
     return HttpResponse(res)
 
 
-root_path = "/Users/please/PycharmProjects/courseai/Code/courseai/static/json"
+def update_degree_requirement(request):
+    # Find the matching data
+    year = request.GET['year']
+    code = request.GET['code']
+
+    dg_req = degree_requirement.objects.filter(code=code, year=year)[0]
+
+    # Get the modified data and update the relative field
+    dg_req.name = request.GET['name']
+    dg_req.units = request.GET['units']
+    compulsory_courses = request.GET['compulsory_courses']
+    x_from_here = request.GET['x_from_here']
+
+    # convert the string into json structure and assign new values
+    dg_r = dg_req.required.replace("'", "\"")
+    dg_r["compulsory_courses"] = compulsory_courses
+    dg_r["x_from_here"] = x_from_here
+    # convert the json into string and assign it to the field we are going to update
+    dg_req.required = dg_r
+
+    dg_req.save()
+
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
 
-def add_to_db(data):
+def delete(request):
+    code = request.GET['code']
+    type = request.GET['type']
+    year = request.GET['year']
+    print(code, type, year)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
-    year = data["year"]
-    code = data["code"]
-    name = data["name"]
-    required = data["required"]
-    units = data["units"]
-    print(year)
-    DegreeRequirement.objects.create(code=code, name=name, units=units, required=required, year=year)
+def saveDegree(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    planList=request.GET['planList']
+    compulsoryList = request.GET['compulsoryList']
+    print(planList)
+    list_data = json.loads(planList)
+    for i in list_data:
+        print(i)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def saveCourse(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    units = request.GET['units']
+    session = request.GET['sessions']
+    description=request.GET['description']
+    prerequisite=request.GET['prerequisite']
+    incompatible=request.GET['incompatible']
+    print(code,year,units,session,description,prerequisite,incompatible)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
-def readJsonDir(rootpath):
-    list = os.listdir(rootpath)
-    print(len(list))
-    for i in range(0, len(list)):
-        path = os.path.join(rootpath, list[i])
-        if os.path.isfile(path):
-            readJsonOutside(path)
-        else:
-            readfile(path)
+def saveMajor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def saveMinor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
-def readfile(filepath):
-    list = os.listdir(filepath)
-    for i in range(0, len(list)):
-        path = os.path.join(filepath, list[i])
-        if os.path.isfile(path):
-            readJsonInsideside(path)
+def saveSpec(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def addDegree(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    title = request.GET['title']
+    planList = request.GET['planList']
+    compulsoryList = request.GET['compulsoryList']
+    print(code,year,planList,compulsoryList,title)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
-def readJsonInsideside(filePath):
-    if filePath.find(".json") == -1:
-        return
-    with open(filePath, "r+", encoding='utf-8') as one_file:
-        try:
-            f=json.load(one_file)
-        finally:
-            return
+def addCourse(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    title = request.GET['title']
+    unit = request.GET['unit']
+    session = request.GET['session']
+    description= request.GET['description']
+    outcome = request.GET['outcome']
+    prerequisiteList = request.GET['prerequisiteList']
+    incompatibleList = request.GET['incompatibleList']
+    print(code,year,title,unit,session,description,outcome,prerequisiteList,incompatibleList)
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
+def addMajor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
 
-def readJsonOutside(filePath):
-    if filePath.find(".json") == -1:
-        return
-    if filePath.find(".study_options"):
-        with open(filePath, "r+", encoding='utf-8') as one_file:
-            try:
-                f = json.load(one_file)
-                add_to_db(f)
-            finally:
-                return
+def addMinor(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)
+
+def addSpec(request):
+    res = JsonResponse({"response": "success"})
+    return HttpResponse(res)

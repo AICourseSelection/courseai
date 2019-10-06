@@ -1,7 +1,13 @@
 import os
 import json
+<<<<<<< HEAD
+#from .models import StudyOption
+rootpath = "/Users/please/PycharmProjects/courseai/Code/courseai/static/json"
+
+=======
 
 rootpath = "/Users/please/PycharmProjects/courseai/Code/courseai/static/json"
+>>>>>>> f285b0e3d6765c51f35b94bdc6a5c03e5dee99f4
 
 def readJsonDir(rootpath):
     list = os.listdir(rootpath)
@@ -18,7 +24,10 @@ def readfile(filepath):
     for i in range(0, len(list)):
         path = os.path.join(filepath, list[i])
         if os.path.isfile(path):
-            readJsonInsideside(path)
+            if i == 1:
+                print("is 1")
+                readJsonInsideside(path)
+
 
 
 def readJsonInsideside(filePath):
@@ -26,9 +35,17 @@ def readJsonInsideside(filePath):
         return
     with open(filePath, "r+", encoding='utf-8') as one_file:
         try:
+<<<<<<< HEAD
+            f = json.load(one_file)
+            print("inside", f['code'])
+            print("")
+            #s = StudyOption()
+            print("inside", f)
+=======
             f=json.load(one_file)
             #add_to_db(f)
             print("inside",f)
+>>>>>>> f285b0e3d6765c51f35b94bdc6a5c03e5dee99f4
         finally:
             return
 
@@ -40,7 +57,7 @@ def readJsonOutside(filePath):
         with open(filePath, "r+", encoding='utf-8') as one_file:
             try:
                 f=json.load(one_file)
-                print("outside",f)
+                #print("outside",f)
             finally:
                 return
 
