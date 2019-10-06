@@ -38,22 +38,81 @@
         </div>
     </div>
 
+    <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
+         aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body alert-success text-center">
+                    <h4><strong>Are you Sure?</strong></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
+                            id="confirmSaveButtonModal" onclick=saveData()>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container text-center">
         <div id="alert">
         </div>
         <h1 id="pageTitle"></h1>
 
     </div>
-    <div class="container">
-        <button id="btnSave" class="btn btn-outline-success float-left">Save</button>
-        <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal"
-                data-target="#confirmDeleteModal">Delete
-        </button>
+    <div class="container" id="deleteMode">
+        <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
+        <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+    </div>
+    <div class="container" id="editMode" style="display: none">
+        <button id="btnEditCancel" class="btn btn-outline-info float-left">Cancel</button>
+        <button id="btnSave" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#confirmSaveModal">Save</button>
     </div>
 
     <div>&nbsp</div>
     <div>&nbsp</div>
-    <div class="container h-100">
+
+    <div class="container h-100" id="queryContainer">
+        <table class="table table-striped">
+            <tr>
+                <td style="text-align: right; width: 20%">Code:</td>
+                <td style="text-align: left" id="code_q"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Year:</td>
+                <td style="text-align: left" id="year_q"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Title:</td>
+                <td style="text-align: left" id="title_q">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Units:</td>
+                <td id="Units_q" style="text-align: left">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Compulsory Course:</td>
+                <td id="compulsory_q" style="text-align: left">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; width: 20%">Study Plan:</td>
+                <td id="plan_q" style="text-align: left">
+                    <table id="planTable_q" class="table table-hover" style="width: 100%; margin: auto">
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="container h-100" id="editContainer" style="display: none">
         <table class="table table-striped">
             <tr>
                 <td style="text-align: right; width: 20%">Code:</td>
@@ -114,8 +173,12 @@
         document.getElementById('code').innerText = codeS;
         document.getElementById('year').innerText = yearS;
         document.getElementById('title').innerText = titleS;
+        $('#code_q').text(codeS);
+        $('#year_q').text(yearS);
+        $('#title_q').text(titleS);
         var courseUrl = window.location.origin + "/staff" + "/course_detail?"
         var compulsory = "";
+        let compulsory_q = "";
         var compulsoryList = [];
         var specList = [];
         var compulsoryTable = document.getElementById("compulsory");
@@ -123,17 +186,13 @@
         let specTable = document.getElementById("specialisation");
         var planList = [];
         let planTable = document.getElementById("planTable");
-        let planString = "<thead class = \"thead-light\">\n" +
-            "                    <tr>\n" +
-            "                      <th scope=\"col\" width=\"20%\">Year</th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                    </tr>\n" +
-            "                  </thead>";
-        planString += "<tbody>\n" +
+
+        let planString = "<tbody>\n" +
             "    <tr>";
+        let planString_q = "<tbody>\n" +
+            "    <tr>";
+
+
         $.ajax({
             url: '../degree/degreeplan',
             data: {"degree_code": codeS, "year": yearS},
@@ -156,32 +215,41 @@
                 //console.log(yearLength);
                 for (let i = 0; i < yearLength; i++) {
                     planString += "<td>" + "Year" + (i + 1) + "</td>";
+                    planString_q += "<td>" + "Year" + (i + 1) + "</td>";
                     for (let j = 0; j < 4; j++) {
                         if (planList[length].length == 8) {
                             let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<a href=\"" + link + "\" target=\"_Blank\">Course detail</a>" + "<br>" + "</td>";
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                            planString_q += "<td>" + "<a href=\"" + link + "\" target=\"_Blank\">" + planList[length] + "</a>" + "<br>" + "</td>";
                         } else {
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<br>" + "</td>";
-
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                            planString_q += "<td>" + planList[length] + "<br>" + "</td>";
                         }
                         length++;
                     }
                     planString += "</tr>" + "<tr>";
                     planString += "<td>" + "" + "</td>";
+                    planString_q += "</tr>" + "<tr>";
+                    planString_q += "<td>" + "" + "</td>";
                     for (let j = 0; j < 4; j++) {
                         if (planList[length].length == 8) {
                             let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<a href=\"" + link + "\" target=\"_Blank\">Course detail</a>" + "<br>" + "</td>";
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                            planString_q += "<td>" + "<a href=\"" + link + "\" target=\"_Blank\">" + planList[length] + "</a>" + "<br>" + "</td>";
                         } else {
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "<br>" + "</td>";
+                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                            planString_q += "<td>" + planList[length] + "<br>" + "</td>";
 
                         }
                         length++;
                     }
                     planString += "</tr>" + "<tr>";
+                    planString_q += "</tr>" + "<tr>";
                 }
                 planString += "</tbody>";
+                planString_q += "</tbody>";
                 planTable.innerHTML = planString;
+                $('#planTable_q').html(planString_q);
             }
         });
         $.ajax({
@@ -191,6 +259,7 @@
                 versions = data;
                 console.log("degreereqs success");
                 document.getElementById('Units').innerText = data.units;
+                $('#Units_q').text(data.units);
                 if (data.required.compulsory_courses != undefined) {
                     for (let i = 0; i < data.required.compulsory_courses.length; i++) {
                         compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g, ""))
@@ -202,50 +271,68 @@
                         specList.push(specArray[j].toString().replace(/\s*/g, ""));
                     }
                 }{% endcomment %}
+                {#<textarea rows="3" class="form-control" id="outcome" placeholder="Learning Outcome" name="outcome" ></textarea>#}
+                compulsory += "<textarea cols = \"20\" rows=\"" + compulsoryList.length + "\" id=\"compulsories\" >";
                 for (let i = 0; i < compulsoryList.length; i++) {
                     let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
-                    compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";
+                    if(i == compulsoryList.length - 1){
+                        compulsory += compulsoryList[i];
+                    }
+                    else {
+                        compulsory += compulsoryList[i] + "&#10";
+                    }
+                    {#compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";#}
+                    compulsory_q += "<a href =" + link + ">" + compulsoryList[i] +  "<a>" + "<br>";
                 }
+                compulsory += "</textarea>";
                 {% comment %}for (let i = 0; i < specList.length; i++) {
                     spec += "<input type=\"text\" id=\"spec" + i + "\"value=\"" + specList[i] + "\">" + "<br>";
                 }
                 specTable.innerHTML = spec;{% endcomment %}
                 compulsoryTable.innerHTML = compulsory;
+                $('#compulsory_q').html(compulsory_q);
 
                 $(document).ready(function () {
-                    $('#btnSave').click(function () {
-                        boot4.confirm({
-                            msg: "Are you sure you want to update {{ bc_param }} ?",
-                            callback: function (result) {
-                                if (result) {
-                                    for (let i = 0; i < compulsoryList.length; i++) {
-                                        compulsoryList[i]=document.getElementById("compulsory" + i).value.toString();
-                                    }
+                    $('#btnEdit').click(function () {
+                        $('#deleteMode').hide();
+                        $('#editMode').show();
+                        $('#queryContainer').hide();
+                        $('#editContainer').show();
+                    });
+                    $('#btnEditCancel').click(function () {
+                        $('#deleteMode').show();
+                        $('#editMode').hide();
+                        $('#queryContainer').show();
+                        $('#editContainer').hide();
+                    });
+                });
+            }
+        });
+
+        function saveData() {
+                                    {#for (let i = 0; i < compulsoryList.length; i++) {#}
+                                    {#    compulsoryList[i]=document.getElementById("compulsory" + i).value.toString();#}
+                                    {#}#}
                                      for (let i = 0; i < planList.length; i++) {
                                         planList[i]=document.getElementById("plan" + i).value.toString();
                                     }
+
+                                    let compulsories = $('#compulsories').text().split("\n");
+
                                     let postPlan= JSON.stringify(planList);
-                                    let postCompulsory= JSON.stringify(compulsoryList);
+                                    {#let postCompulsory= JSON.stringify(compulsoryList);#}
+                                    let postCompulsory= JSON.stringify(compulsories);
                                     $.ajax({
                                         url: '../degree/saveDegree',
                                         data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
                                         dataType:"json",
                                         success: function (data) {
                                             console.log(data)
+                                            $('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
                                         }
 
                                     });
-                                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
-                                } else {
-                                    console.log("cancel");
-                                }
-                            }
-                        });
-                    });
-
-                });
-            }
-        });
+        }
 
         function deleteData() {
             console.log(codeS + yearS);
