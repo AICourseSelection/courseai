@@ -14,6 +14,25 @@
         </div>
     </section>
 
+    <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
+         aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body alert-success text-center">
+                    <h4><strong>Are you Sure?</strong></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
+                            id="confirmSaveButtonModal" onclick=saveDegree()>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <h1 class="display-6 text-center">Add A New Degree</h1>
     <div class="container text-center" id="alert">
     </div>
@@ -43,7 +62,7 @@
     </div>
     <div class="form-group row">
         <label class="control-label col-2 text-right">Title:</label>
-        <div class="col-8">
+        <div class="col-sm-9">
             <input type="text" class="form-control" id="title" placeholder="Degree Title" name="title">
         </div>
     </div>
@@ -64,18 +83,18 @@
         </div>
         <div class="col text-center">
 
-                <button id="addYear" type="button" class="btn btn-outline-info float-left btn-sm" onclick="addTable()">Add Year</button>
-                <button id="deleteYear" type="button" class="btn btn-outline-secondary float-right btn-sm" onclick="deleteTable()" style="display: none">Delete Year</button>
+            <button id="addYear" type="button" class="btn btn-outline-info float-left btn-sm" onclick="addTable()">Add Year</button>
+            <button id="deleteYear" type="button" class="btn btn-outline-secondary float-right btn-sm" onclick="deleteTable()" style="display: none">Delete Year</button>
 
 
-                <table id="planTable" class="table table-hover">
-                </table>
+            <table id="planTable" class="table table-hover">
+            </table>
 
         </div>
     </div>
     <div class="form-group row">
         <div class="col text-center">
-            <button type="submit" class="btn btn-outline-success btn-lg" onclick="saveDegree()" id="btnSave">Save Degree</button>
+            <button id="btnSave" class="btn btn-outline-success btn-lg" data-toggle="modal" data-target="#confirmSaveModal">Save</button>
         </div>
     </div>
     <div class="form-group row">
@@ -283,7 +302,6 @@
                         },
                         dataType: "json",
                         success: function (data) {
-
                             if (data.response == 'success') {
                                 //reset param
                                 $('#code').val('');
@@ -338,7 +356,7 @@
             setTimeout(hideMessage, 5000);
             $('#' + id).removeClass().addClass("form-control is-invalid");
         }
-        
+
         function checkPlan() {
             for (let i = 0; i < length; i++) {
                 if($('#plan' + i).val() == ''){

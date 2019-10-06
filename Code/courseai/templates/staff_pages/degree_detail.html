@@ -130,7 +130,8 @@
             </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Units:</td>
-                <td id="Units" style="text-align: left">
+                <td style="text-align: left">
+                    <input type="text" id="Units" class="form-control" >
                 </td>
             </tr>
             <tr>
@@ -212,7 +213,6 @@
             data: {"degree_code": codeS, "year": yearS},
             method: 'GET',
             success: function (data) {
-                console.log("degreeplan success");
                 for (let i = 0; i < data.response.length; i++) {
                     //console.log(data.response)
                     for (let j = 0; j < data.response[i].length; j++) {
@@ -226,7 +226,6 @@
                 }
                 let yearLength = planList.length / 8;
                 let length = 0;
-                //console.log(yearLength);
                 for (let i = 0; i < yearLength; i++) {
                     planString += "<td>" + "Year" + (i + 1) + "</td>";
                     planString_q += "<td>" + "Year" + (i + 1) + "</td>";
@@ -271,8 +270,8 @@
             data: {"query": codeS + "-" + yearS},
             success: function (data) {
                 versions = data;
-                console.log("degreereqs success");
-                document.getElementById('Units').innerText = data.units;
+                //document.getElementById('Units').innerText = data.units;
+                $('#Units').val(data.units);
                 $('#Units_q').text(data.units);
                 if (data.required.compulsory_courses != undefined) {
                     for (let i = 0; i < data.required.compulsory_courses.length; i++) {
@@ -311,9 +310,11 @@
 
             let postPlan= JSON.stringify(planList);
             let postCompulsory= JSON.stringify(compulsories);
+
+            let postUnit = JSON.stringify($('#Units').val());
             $.ajax({
                 url: '../degree/saveDegree',
-                data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
+                data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS, "unit": postUnit},
                 dataType:"json",
                 success: function (data) {
                     if(data.response === 'success'){
@@ -362,12 +363,12 @@
         }
 
         function deleteData() {
-            console.log(codeS + yearS);
             $.ajax({
                 url: '../degree/delete',
                 data: {"code": codeS, "type": "degree", "year": yearS},
+                dataType:"json",
                 success: function (data) {
-                    if(data.stage === success){
+                    if(data.response === 'success'){
                         window.location.href='degree';
                     }
                     else {
