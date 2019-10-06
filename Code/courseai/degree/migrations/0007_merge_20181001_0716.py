@@ -6,7 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('degree', '0006_course_degreeplanstore_degreerequirement'),
         ('degree', '0006_degreeplanstore'),
     ]
 

@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('degree', '0023_auto_20190921_0637'),
+        ('degree', '0007_merge_20181001_0716'),
     ]
 
     operations = [
@@ -19,6 +19,14 @@ class Migration(migrations.Migration):
                 ('name', models.TextField(blank=True, default='', editable=False)),
                 ('units', models.CharField(default='', max_length=10)),
                 ('required', models.TextField(blank=True, default='')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='studyoption',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('code_year', models.CharField(default='', max_length=40)),
+                ('option', models.TextField(blank=True, default='')),
             ],
         ),
     ]
