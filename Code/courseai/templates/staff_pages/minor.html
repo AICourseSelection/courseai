@@ -36,8 +36,8 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Minor Code"
-                       onkeydown="if(event.keyCode==13) {showMinors()}">
+                <input type="text" id="search" name="search" class="form-control" placeholder="minor Code"
+                       onkeydown="if(event.keyCode==13) {showminors()}">
             </div>
             <div class="col-md-auto">
                 <select id="year" name='year' class="form-control">
@@ -51,16 +51,16 @@
                 </select>
             </div>
             <div class="col col-lg-2">
-                <button onclick="showMinors()" class="btn btn-outline-primary">Search</button>
+                <button onclick="showminors()" class="btn btn-outline-primary">Search</button>
             </div>
         </div>
-        <div style="width: 100%; text-align: center">
-            <div>&nbsp</div>
-            <div class="table-responsive">
-                <table id="Table" class="table table-hover" style="width: 80%; margin: auto">
+    </div>
+    <div style="width: 100%; text-align: center">
+        <div>&nbsp</div>
+        <div class="table-responsive">
+            <table id="Table" class="table table-hover" style="width: 80%; margin: auto">
 
-                </table>
-            </div>
+            </table>
         </div>
     </div>
     <script>
@@ -86,20 +86,22 @@
 
         let level = "undergraduate";
         let description = "";
-        var minorsVersion = [];
         var minorsCodes = [];
+        var minorsVersions = [];
 
-        function showMinors() {
-            minorsVersion = [];
+
+        function showminors() {
             minorsCodes = [];
+            minorsVersions = [];
+            minorLevel=[];
             let minors = document.getElementById("search").value;
             //let level = document.getElementById("level").value;
             let year = document.getElementById("year").value;
-            let tableData = "<thead class = \"thead-light\">\n" +
+           let tableData = "<thead class = \"thead-light\">\n" +
                 "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"15%\">Minor Code</th>\n" +
-                "                      <th scope=\"col\" width=\"30%\">Minor Title</th>\n" +
-                   "                      <th scope=\"col\" width=\"55%\">Minor Description</th>\n" +
+                "                      <th scope=\"col\" width=\"15%\">minor Code</th>\n" +
+                "                      <th scope=\"col\" width=\"25%\">minor Title</th>\n" +
+                   "                      <th scope=\"col\" width=\"60%\">minor Description</th>\n" +
                 "                    </tr>\n" +
                 "                  </thead>";
             tableData += "<tbody>\n" +
@@ -110,11 +112,14 @@
                 url: '../search/minors',
                 data: {"query": minors, "level": level},
                 success: function (data) {
+                    console.log(data.responses)
+                    let i;
                     for (i in data.responses) {
                         if (data.responses[i].versions[year] != undefined) {
                             if (data.responses[i].versions[year].description != undefined) {
                                 minorsCodes.push(data.responses[i].code);
-                                minorsVersion.push(JSON.stringify(data.responses[i].versions));
+                                minorLevel.push(data.responses[i].level);
+                                minorsVersions.push(JSON.stringify(data.responses[i].versions));
                                 description = JSON.stringify(data.responses[i].versions[year].description);
                                 description = str_substr("\"", ".", description);
                                 minorDescription.push(description + "......");
@@ -123,28 +128,29 @@
                         }
                     }
                     if (minorsCodes.length == 0) {
-                        tableData="<strong>No such Minor</strong><br /> "
+                        tableData="<strong>No such minor</strong><br /> "
                          $("#Table").html(tableData);
                         return;
                     } else {
-                        for (var i = 0; i < minorsCodes.length; i++) {
-                            for (var j = 0; j < 3; j++) {
+                        for (i = 0; i < minorsCodes.length; i++) {
+                            for (let j = 0; j < 3; j++) {
+
                                     if (j == 0) {
                                         tableData += "<td>" +
-                                            "<a href=\"minor_detail?code=" + minorsCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i ] + "&year=" + year + "&level=" + minorLevel[i] + "\" >" +
                                             minorsCodes[i ] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 2) {
                                         tableData += "<td>" +
-                                            "<a href=\"minor_detail?code=" + minorsCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
-                                            minorDescription[i ] +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i ] + "&year=" + year + "&level=" + minorLevel[i] + "\" >" +
+                                            minorDescription[i] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 1) {
                                         tableData += "<td>" +
-                                            "<a href=\"minor_detail?code=" + minorsCodes[i ] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
-                                            minorsTitle[i ] +
+                                            "<a href=\"minor_detail?code=" + minorsCodes[i] + "&year=" + year + "&level=" + minorLevel[i] + "\" >" +
+                                            minorsTitle[i] +
                                             "</a>" +
                                             "</td>";
                                     }
@@ -159,10 +165,6 @@
         }
 
 
-        function saveData(i) {
-            //alert("success");
-            sessionStorage.setItem("minorVersion", minorsVersion[i]);
-            sessionStorage.setItem("minorCode", minorsCodes[i]);
-        }
+
     </script>
 {% endblock %}

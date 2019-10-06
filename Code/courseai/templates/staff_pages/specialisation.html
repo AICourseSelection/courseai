@@ -32,13 +32,12 @@
             </div>
 
         </div>
-
     </div>
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-4">
                 <input type="text" id="search" name="search" class="form-control" placeholder="Specialisation Code"
-                       onkeydown="if(event.keyCode==13) {showSpecs()}">
+                       onkeydown="if(event.keyCode==13) {showspecs()}">
             </div>
             <div class="col-md-auto">
                 <select id="year" name='year' class="form-control">
@@ -52,17 +51,16 @@
                 </select>
             </div>
             <div class="col col-lg-2">
-                <button onclick="showSpecs()" class="btn btn-outline-primary">Search</button>
+                <button onclick="showspecs()" class="btn btn-outline-primary">Search</button>
             </div>
         </div>
+    </div>
+    <div style="width: 100%; text-align: center">
+        <div>&nbsp</div>
+        <div class="table-responsive">
+            <table id="Table" class="table table-hover" style="width: 80%; margin: auto">
 
-        <div style="width: 100%; text-align: center">
-            <div>&nbsp</div>
-            <div class="table-responsive">
-                <table id="Table" class="table table-hover" style="width: 90%; margin: auto">
-
-                </table>
-            </div>
+            </table>
         </div>
     </div>
     <script>
@@ -88,20 +86,22 @@
 
         let level = "undergraduate";
         let description = "";
-        var specCodes = [];
-        var specVersion = [];
+        var specsCodes = [];
+        var specsVersions = [];
 
-        function showSpecs() {
-            specCodes = [];
-            specVersion = [];
+
+        function showspecs() {
+            specsCodes = [];
+            specsVersions = [];
+            specLevel=[];
             let specs = document.getElementById("search").value;
-            let year = document.getElementById("year").value;
             //let level = document.getElementById("level").value;
-            let tableData = "<thead class = \"thead-light\">\n" +
+            let year = document.getElementById("year").value;
+           let tableData = "<thead class = \"thead-light\">\n" +
                 "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"25%\">Specialisataion Code</th>\n" +
-                "                      <th scope=\"col\" width=\"25%\">Specialisataion Title</th>\n" +
-                   "                      <th scope=\"col\" width=\"50%\">Specialisataion Description</th>\n" +
+                "                      <th scope=\"col\" width=\"15%\">Specialisation Code</th>\n" +
+                "                      <th scope=\"col\" width=\"25%\">Specialisation Title</th>\n" +
+                   "                      <th scope=\"col\" width=\"60%\">Specialisation Description</th>\n" +
                 "                    </tr>\n" +
                 "                  </thead>";
             tableData += "<tbody>\n" +
@@ -112,43 +112,44 @@
                 url: '../search/specs',
                 data: {"query": specs, "level": level},
                 success: function (data) {
+                    console.log(data.responses)
+                    let i;
                     for (i in data.responses) {
-
                         if (data.responses[i].versions[year] != undefined) {
-                            description = JSON.stringify(data.responses[i].versions[year].description);
-                            if (description != undefined) {
-                                specCodes.push(data.responses[i].code);
-                                specVersion.push(JSON.stringify(data.responses[i].versions));
+                            if (data.responses[i].versions[year].description != undefined) {
+                                specsCodes.push(data.responses[i].code);
+                                specLevel.push(data.responses[i].level);
+                                specsVersions.push(JSON.stringify(data.responses[i].versions));
+                                description = JSON.stringify(data.responses[i].versions[year].description);
                                 description = str_substr("\"", ".", description);
-                                specDescription.push(description + ".......");
+                                specDescription.push(description + "......");
                                 specsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g, ""));
-
                             }
-
                         }
                     }
-                    if (specCodes.length == 0) {
-                        tableData="<strong>No such Specialisation</strong><br /> "
+                    if (specsCodes.length == 0) {
+                        tableData="<strong>No such spec</strong><br /> "
                          $("#Table").html(tableData);
                         return;
                     } else {
-                        for (var i = 0; i < specCodes.length; i++) {
-                            for (var j = 0; j < 3; j++) {
+                        for (i = 0; i < specsCodes.length; i++) {
+                            for (let j = 0; j < 3; j++) {
+
                                     if (j == 0) {
                                         tableData += "<td>" +
-                                            "<a href=\"specialisation_detail?code=" + specCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i) + "')\">" +
-                                            specCodes[i] +
+                                            "<a href=\"specialisation_detail?code=" + specsCodes[i ] + "&year=" + year + "&level=" + specLevel[i] + "\" >" +
+                                            specsCodes[i ] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 2) {
                                         tableData += "<td>" +
-                                            "<a href=\"specialisation_detail?code=" + specCodes[i ] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            "<a href=\"specialisation_detail?code=" + specsCodes[i ] + "&year=" + year + "&level=" + specLevel[i] + "\" >" +
                                             specDescription[i] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 1) {
                                         tableData += "<td>" +
-                                            "<a href=\"specialisation_detail?code=" + specCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            "<a href=\"specialisation_detail?code=" + specsCodes[i] + "&year=" + year + "&level=" + specLevel[i] + "\" >" +
                                             specsTitle[i] +
                                             "</a>" +
                                             "</td>";
@@ -159,16 +160,11 @@
                         }
                     }
                     $("#Table").html(tableData);
-                    console.log(specCodes)
                 }
             });
         }
 
 
-        function saveData(i) {
-            //alert("success");
-            sessionStorage.setItem("specVersion", specVersion[i]);
-            sessionStorage.setItem("specCode", specCodes[i]);
-        }
+
     </script>
 {% endblock %}
