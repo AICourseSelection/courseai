@@ -93,6 +93,7 @@
         function showMajors() {
             majorsCodes = [];
             majorsVersions = [];
+            majorLevel=[];
             let majors = document.getElementById("search").value;
             //let level = document.getElementById("level").value;
             let year = document.getElementById("year").value;
@@ -111,14 +112,15 @@
                 url: '../search/majors',
                 data: {"query": majors, "level": level},
                 success: function (data) {
+                    console.log(data.responses)
                     let i;
                     for (i in data.responses) {
                         if (data.responses[i].versions[year] != undefined) {
                             if (data.responses[i].versions[year].description != undefined) {
                                 majorsCodes.push(data.responses[i].code);
+                                majorLevel.push(data.responses[i].level);
                                 majorsVersions.push(JSON.stringify(data.responses[i].versions));
                                 description = JSON.stringify(data.responses[i].versions[year].description);
-                                console.log(description)
                                 description = str_substr("\"", ".", description);
                                 majorDescription.push(description + "......");
                                 majorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g, ""));
@@ -135,19 +137,19 @@
 
                                     if (j == 0) {
                                         tableData += "<td>" +
-                                            "<a href=\"major_detail?code=" + majorsCodes[i ] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            "<a href=\"major_detail?code=" + majorsCodes[i ] + "&year=" + year + "&level=" + majorLevel[i] + "\" >" +
                                             majorsCodes[i ] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 2) {
                                         tableData += "<td>" +
-                                            "<a href=\"major_detail?code=" + majorsCodes[i ] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            "<a href=\"major_detail?code=" + majorsCodes[i ] + "&year=" + year + "&level=" + majorLevel[i] + "\" >" +
                                             majorDescription[i] +
                                             "</a>" +
                                             "</td>";
                                     } else if (j == 1) {
                                         tableData += "<td>" +
-                                            "<a href=\"major_detail?code=" + majorsCodes[i] + "&year=" + year + "\" onClick=\"saveData('" + (i ) + "')\">" +
+                                            "<a href=\"major_detail?code=" + majorsCodes[i] + "&year=" + year + "&level=" + majorLevel[i] + "\" >" +
                                             majorsTitle[i] +
                                             "</a>" +
                                             "</td>";
@@ -162,11 +164,7 @@
             });
         }
 
-        function saveData(i) {
-            //alert("success");
-            sessionStorage.setItem("majorVersion", majorsVersions[i]);
-            sessionStorage.setItem("majorCode", majorsCodes[i]);
-        }
+
 
     </script>
 {% endblock %}
