@@ -4,6 +4,8 @@ from elasticsearch_dsl import Search
 from elasticsearch_dsl import Q
 from elasticsearch_dsl.query import MultiMatch
 
+from degree.models import Course
+
 
 def area_filter(areas):
     """
@@ -256,4 +258,8 @@ def execute_code_search(es_conn, phrase):
 
     resp = {'query': phrase, 'response': response}
     return JsonResponse(resp)
+
+
+def course_update(es_conn, course):
+
 

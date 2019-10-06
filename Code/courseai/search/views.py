@@ -89,8 +89,8 @@ def mms_by_code(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        index_name = request.GET['index_name']  # majors or minors
+        type = request.GET['type']  # majors， minors or specialisaions
 
-        return mms.mms_by_name(es_conn, name, index_name, level=level)
+        return mms.mms_by_code(es_conn, name, type, level=level)
     except KeyError:
         raise Exception("Malformed JSON as input. Expects a field called query.")
