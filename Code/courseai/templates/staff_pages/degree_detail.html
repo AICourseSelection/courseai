@@ -156,6 +156,19 @@
 
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
+        $('#btnEdit').click(function () {
+            $('#deleteMode').hide();
+            $('#editMode').show();
+            $('#queryContainer').hide();
+            $('#editContainer').show();
+        });
+        $('#btnEditCancel').click(function () {
+            $('#deleteMode').show();
+            $('#editMode').hide();
+            $('#queryContainer').show();
+            $('#editContainer').hide();
+        });
+
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = location.search.substr(1).match(reg);
@@ -206,7 +219,7 @@
                             planList.push(data.response[i][j].code.toString().replace(/\s*/g, ""));
                         }
                         else{
-                        planList.push(data.response[i][j].code.toString());
+                            planList.push(data.response[i][j].code.toString());
                         }
                     }
                 }
@@ -265,13 +278,7 @@
                         compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g, ""))
                     }
                 }
-                {% comment %}for (let i = 0; i < data.required["one_from_m/m/s"].length; i++) {
-                    let specArray = data.required["one_from_m/m/s"][i].toString().split(",");
-                    for (let j = 0; j < specArray.length; j++) {
-                        specList.push(specArray[j].toString().replace(/\s*/g, ""));
-                    }
-                }{% endcomment %}
-                {#<textarea rows="3" class="form-control" id="outcome" placeholder="Learning Outcome" name="outcome" ></textarea>#}
+
                 compulsory += "<textarea cols = \"20\" rows=\"" + compulsoryList.length + "\" id=\"compulsories\" >";
                 for (let i = 0; i < compulsoryList.length; i++) {
                     let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
@@ -281,57 +288,33 @@
                     else {
                         compulsory += compulsoryList[i] + "&#10";
                     }
-                    {#compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";#}
                     compulsory_q += "<a href =" + link + ">" + compulsoryList[i] +  "<a>" + "<br>";
                 }
                 compulsory += "</textarea>";
-                {% comment %}for (let i = 0; i < specList.length; i++) {
-                    spec += "<input type=\"text\" id=\"spec" + i + "\"value=\"" + specList[i] + "\">" + "<br>";
-                }
-                specTable.innerHTML = spec;{% endcomment %}
+
                 compulsoryTable.innerHTML = compulsory;
                 $('#compulsory_q').html(compulsory_q);
-
-                $(document).ready(function () {
-                    $('#btnEdit').click(function () {
-                        $('#deleteMode').hide();
-                        $('#editMode').show();
-                        $('#queryContainer').hide();
-                        $('#editContainer').show();
-                    });
-                    $('#btnEditCancel').click(function () {
-                        $('#deleteMode').show();
-                        $('#editMode').hide();
-                        $('#queryContainer').show();
-                        $('#editContainer').hide();
-                    });
-                });
             }
         });
 
         function saveData() {
-                                    {#for (let i = 0; i < compulsoryList.length; i++) {#}
-                                    {#    compulsoryList[i]=document.getElementById("compulsory" + i).value.toString();#}
-                                    {#}#}
-                                     for (let i = 0; i < planList.length; i++) {
-                                        planList[i]=document.getElementById("plan" + i).value.toString();
-                                    }
+            for (let i = 0; i < planList.length; i++) {
+                planList[i]=document.getElementById("plan" + i).value.toString();
+            }
 
-                                    let compulsories = $('#compulsories').text().split("\n");
+            let compulsories = $('#compulsories').text().split("\n");
 
-                                    let postPlan= JSON.stringify(planList);
-                                    {#let postCompulsory= JSON.stringify(compulsoryList);#}
-                                    let postCompulsory= JSON.stringify(compulsories);
-                                    $.ajax({
-                                        url: '../degree/saveDegree',
-                                        data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
-                                        dataType:"json",
-                                        success: function (data) {
-                                            console.log(data)
-                                            $('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
-                                        }
-
-                                    });
+            let postPlan= JSON.stringify(planList);
+            let postCompulsory= JSON.stringify(compulsories);
+            $.ajax({
+                url: '../degree/saveDegree',
+                data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
+                dataType:"json",
+                success: function (data) {
+                    console.log(data)
+                    $('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
+                }
+            });
         }
 
         function deleteData() {
