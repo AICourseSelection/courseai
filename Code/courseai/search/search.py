@@ -259,7 +259,3 @@ def execute_code_search(es_conn, phrase):
     resp = {'query': phrase, 'response': response}
     return JsonResponse(resp)
 
-
-def course_update(es_conn, course):
-
-
