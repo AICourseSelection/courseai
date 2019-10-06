@@ -52,8 +52,9 @@
     </div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Compulsory Courses:</label>
-        <div class="col-sm-2" id="compulsory">
+        <div class="col-sm-8" id="compulsory">
             <div class="form-group row">
+                <strong>Use search to add Compulsory Courses.</strong>
                 <table id="compulsoryTable" class="table table-hover" style="width: 70%; margin: auto">
                 </table>
             </div>
@@ -205,7 +206,7 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addComplulsory(courseCodes[" + i + "])\">Add complulsory course</button>" + "</td>";
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addCompulsory(courseCodes[" + i + "])\">Add complulsory course</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
