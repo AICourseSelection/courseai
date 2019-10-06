@@ -193,7 +193,6 @@
                     msg: "Are you sure you want to save " + titleS + " (" + yearS + ")" + " ?",
                     callback: function (result) {
                         if (result) {
-                            let units=document.getElementById("units").value;
                             let sessions=document.getElementById("sessions").value;
                             let description=document.getElementById("description").value;
                             let outcome=document.getElementById("learningOutcome").value;
@@ -212,7 +211,8 @@
                                         data: {"code": codeS, "year": yearS,"units":units,"sessions":sessions,"description":description,"prerequisite":postPrerequisite,"incompatible":postIncompatible},
                                         dataType:"json",
                                         success: function (data) {
-                                            console.log(data)
+                                            console.log(data);
+                                            $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
                                         }
 
                                     });

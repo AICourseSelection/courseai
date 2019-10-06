@@ -92,6 +92,6 @@ def mms_by_code(request):
         type = request.GET['type']
         year=request.GET['year']
         print(name,level,type)
-        return mms.mms_by_code(es_conn, name, type, level=level)
+        return mms.mms_by_code(es_conn, name, type, level)
     except KeyError:
         raise Exception("Malformed JSON as input. Expects a field called query.")

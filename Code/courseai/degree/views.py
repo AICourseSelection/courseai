@@ -194,6 +194,11 @@ def saveCourse(request):
     return HttpResponse(res)
 
 def saveMajor(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    title = request.GET['title']
+    requirement= request.GET['requirement']
+    print(code,year,title,requirement)
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 

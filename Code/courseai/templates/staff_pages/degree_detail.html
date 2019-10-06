@@ -231,11 +231,12 @@
                                         data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
                                         dataType:"json",
                                         success: function (data) {
-                                            console.log(data)
+                                            $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                            console.log(data);
                                         }
 
                                     });
-                                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+
                                 } else {
                                     console.log("cancel");
                                 }
