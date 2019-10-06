@@ -182,6 +182,14 @@ def saveDegree(request):
     return HttpResponse(res)
 
 def saveCourse(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    units = request.GET['units']
+    session = request.GET['sessions']
+    description=request.GET['description']
+    prerequisite=request.GET['prerequisite']
+    incompatible=request.GET['incompatible']
+    print(code,year,units,session,description,prerequisite,incompatible)
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 
@@ -208,6 +216,16 @@ def addDegree(request):
     return HttpResponse(res)
 
 def addCourse(request):
+    code = request.GET['code']
+    year = request.GET['year']
+    title = request.GET['title']
+    unit = request.GET['unit']
+    session = request.GET['session']
+    description= request.GET['description']
+    outcome = request.GET['outcome']
+    prerequisiteList = request.GET['prerequisiteList']
+    incompatibleList = request.GET['incompatibleList']
+    print(code,year,title,unit,session,description,outcome,prerequisiteList,incompatibleList)
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 

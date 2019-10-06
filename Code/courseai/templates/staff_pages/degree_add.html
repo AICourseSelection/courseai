@@ -20,7 +20,7 @@
     <h1 class="display-6 text-center">Add A New Degree</h1>
     <br>
     <div class="col-sm-11">
-        <button type="submit" class="btn btn-outline-info pull-right" onclick="saveCourse()" id="btnSave">Save</button>
+        <button type="submit" class="btn btn-outline-info pull-right" onclick="saveDegree()" id="btnSave">Save</button>
     </div>
     <div>&nbsp</div>
     <div>&nbsp</div>
@@ -77,7 +77,7 @@
         </table>
     </div>
     <div class="form-group row">
-        <label class="control-label col-sm-2 text-right" for="prerequisite">Search:</label>
+        <label class="control-label col-sm-2 text-right" >Search:</label>
         <div class="col col-lg-4">
             <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
         </div>
@@ -230,7 +230,7 @@
             document.getElementById("compulsoryTable").innerHTML = complulsoryString;
         }
 
-        function saveCourse() {
+        function saveDegree() {
             if (document.getElementById("code").value == ""||document.getElementById("title").value =="") {
                 boot4.confirm({
                     msg: "Please input available code and title."
