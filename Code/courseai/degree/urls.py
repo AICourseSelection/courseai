@@ -10,7 +10,7 @@ urlpatterns = [
     path('stored_plans', views.stored_plans),
     path('update_degree_requirement', views.update_degree_requirement),
     path('delete_degree', views.delete_degree),
-    path('create_degree', views.create_degree)
+    path('create_degree', views.create_degree),
     path('update_degree_requirement', views.update_degree_requirement),
     path('delete', views.delete),
     path('saveDegree', views.saveDegree),

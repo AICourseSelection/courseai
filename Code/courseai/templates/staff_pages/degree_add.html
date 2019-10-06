@@ -15,12 +15,15 @@
             </nav>
         </div>
     </section>
-    <div class="container text-center" id="alert">
-        </div>
+
     <h1 class="display-6 text-center">Add A New Degree</h1>
+    <div class="container text-center" id="alert">
+    </div>
+    {% include 'staff_pages/partials/_message.html' %}
+    {% include 'staff_pages/partials/_modal.html' %}
     <br>
     <div class="col-sm-11">
-        <button type="submit" class="btn btn-outline-info pull-right" onclick="saveDegree()" id="btnSave">Save</button>
+        <button type="submit" class="btn btn-outline-success pull-right" onclick="saveDegree()" id="btnSave">Save</button>
     </div>
     <div>&nbsp</div>
     <div>&nbsp</div>
@@ -47,7 +50,7 @@
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Title:</label>
         <div class="col-sm-2">
-            <input type="text" class="form-control" id="title" placeholder="Title" name=>
+            <input type="text" class="form-control" id="title" placeholder="Degree Title" name="title">
         </div>
     </div>
     <div class="form-group row">
@@ -61,20 +64,26 @@
     </div>
 
     <div class="form-group row">
-        <label class="control-label col-sm-2 text-right">Study Plan:</label>
-        <div class="col-sm-2">
-            <select class="custom-select" id="planYear" onchange="drawTable()">
-                <option value="1" selected>1 Year</option>
-                <option value="2">2 Years</option>
-                <option value="3">3 Years</option>
-                <option value="4">4 Years</option>
-                <option value="5">5 Years</option>
-            </select>
+        <div class="control-label col-sm-2 text-right">
+            Study Plan:
+        </div>
+        <div class="col">
+            <div class="container text-center">
+
+                <button id="addYear" type="button" class="btn btn-outline-info float-left" onclick="addTable()">Add Year</button>
+                <button id="deleteYear" type="button" class="btn btn-outline-secondary float-right" onclick="deleteTable()" style="display: none">Delete Year</button>
+
+            </div>
+            <div class="container">
+
+                <table id="planTable" class="table table-hover">
+                </table>
+            </div>
+
         </div>
     </div>
     <div class="form-group row">
-        <table id="planTable" class="table table-hover" style="width: 70%; margin: auto">
-        </table>
+
     </div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right" >Search:</label>
@@ -97,50 +106,30 @@
     </form>
     <script>
         var length = 0;
-        let planString = "<thead class = \"thead-light\">\n" +
-            "                    <tr>\n" +
-            "                      <th scope=\"col\" width=\"20%\">Year</th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-            "                    </tr>\n" +
-            "                  </thead>";
-        planString += "<tbody>\n" +
-            "    <tr>";
-        let planYear = document.getElementById("planYear").value;
-        for (let i = 0; i < planYear; i++) {
-            planString += "<td>" + "Year " + (i + 1) + "</td>";
-            for (let j = 0; j < 4; j++) {
-                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
-                length++;
+        let planString = "";
+        let yearPlan = 0;
+
+        function deleteTable() {
+            yearPlan--;
+            drawTable();
+            if(yearPlan == 0){
+                $('#deleteYear').hide();
             }
-            planString += "</tr>" + "<tr>";
-            planString += "<td>" + "" + "</td>";
-            for (let j = 0; j < 4; j++) {
-                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
-                length++;
-            }
-            planString += "</tr>" + "<tr>";
         }
-        planString += "</tbody>";
-        $("#planTable").html(planString);
+
+        function addTable() {
+            yearPlan++;
+            drawTable();
+            $('#deleteYear').show();
+        }
 
         function drawTable() {
             length = 0;
             let planString = "";
-            planString = "<thead class = \"thead-light\">\n" +
-                "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"20%\">Year</th>\n" +
-                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-                "                      <th scope=\"col\" width=\"20%\"></th>\n" +
-                "                    </tr>\n" +
-                "                  </thead>";
             planString += "<tbody>\n" +
                 "    <tr>";
-            let planYear = document.getElementById("planYear").value;
+            //let planYear = document.getElementById("planYear").value;
+            let planYear = yearPlan
             for (let i = 0; i < planYear; i++) {
                 planString += "<td>" + "Year " + (i + 1) + "</td>";
                 for (let j = 0; j < 4; j++) {
@@ -230,7 +219,86 @@
             document.getElementById("compulsoryTable").innerHTML = complulsoryString;
         }
 
+        var hideMessage = function(){
+            $('#message').fadeOut('slow');
+        };
+
         function saveDegree() {
+            //reset attribute
+            $('#code').removeClass().addClass("form-control");
+            $('#title').removeClass().addClass("form-control");
+            if($('#code').val() == ''){
+                $('#msg_header').text('Error: ');
+                $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                $('#msg').text('Degree Code Cannot be Empty');
+                $('#message').show();
+                setTimeout(hideMessage, 5000);
+                $('#code').removeClass().addClass("form-control is-invalid");
+            }
+            else if($('#title').val() == ''){
+                $('#msg_header').text('Error: ');
+                $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                $('#msg').text('Degree Title Cannot be Empty');
+                $('#message').show();
+                setTimeout(hideMessage, 5000);
+                $('#title').removeClass().addClass("form-control is-invalid");
+            }
+            else{
+                let plan = [];
+                let code = document.getElementById("code").value;
+                let year = document.getElementById("year").value;
+                let title = document.getElementById("title").value;
+                for (let i = 0; i < length; i++) {
+                    plan.push(document.getElementById("plan" + i).value);
+                }
+                let postPlan= JSON.stringify(plan);
+                let postCompulsory= JSON.stringify(compulsoryList);
+                console.log(code, year, title, plan, compulsoryList);
+
+                $.ajax({
+                    url: '../degree/addDegree',
+                    data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
+                    dataType: "json",
+                    success: function (data) {
+
+                        if(data.response == 'success') {
+                            //reset param
+                            $('#code').val('');
+                            $('#title').val('');
+
+                            //show message
+                            $('#msg_header').text('Success: ');
+                            $('#msg_class').removeClass().addClass("alert alert-success text-center");
+
+                            $('#msg').text('Save Success');
+                            $('#message').show();
+                            setTimeout(hideMessage, 5000);
+                        }
+                        else if(data.response == 'validation') {
+                            $('#msg_header').text('Error: ');
+                            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                            $('#msg').text(data.msg);
+                            $('#message').show();
+                            setTimeout(hideMessage, 5000);
+                            $('#' + data.element).removeClass().addClass('form-control is-invalid');
+                        }
+                        else {
+                            var mesej = 'Oops, something wrong, please try again in a few moments!';
+                            $('#modal-body').html(mesej);
+                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                            $('#modal-title').html('Error!');
+                            $('#error-modal').modal('show');
+                        }
+                    }
+
+                });
+            }
+        }
+
+        function saveDegree_() {
             if (document.getElementById("code").value == ""||document.getElementById("title").value =="") {
                 boot4.confirm({
                     msg: "Please input available code and title."
@@ -255,7 +323,7 @@
                                 data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
                                 dataType: "json",
                                 success: function (data) {
-                                     $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
                                 }
 
                             });
