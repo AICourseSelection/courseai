@@ -19,6 +19,7 @@ def all_degrees(request):
     degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
     results = []
 
+
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
 
@@ -160,6 +161,50 @@ def update_degree_requirement(request):
 
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
+
+
+def delete_degree(request):
+
+    # Find the matching data
+
+    year = request.GET['year']
+    code = request.GET['code']
+
+    dg_dg = degree_requirement.objects.filter(code=code, year=year)[0]
+
+    # Delete all the data of this degree
+    dg_dg.delete()
+
+    res = JsonResponse({"response": "success"})
+
+    return HttpResponse(res)
+
+
+def create_degree(request):
+
+    # Check if there is any same degree in the database
+    year = request.GET['year']
+    code = request.GET['code']
+
+    dg_dg = degree_requirement.objects.filter(code=code, year=year)
+
+    if len(dg_dg) == 0:
+
+        # Create new degree when there is no same degree in the database
+        dg_r = {}
+        dg_r["compulsory_courses"] = request.GET['compulsory_courses']
+        dg_r["x_from_here"] = request.GET['x_from_here']
+        dg = degree_requirement(year=request.GET['year'], code=request.GET['code'],
+                                name=request.GET['name'], units=request.GET['units'], required=dg_r)
+
+        dg.save()
+
+        res = JsonResponse({"response": "success"})
+
+        return HttpResponse(res)
+
+
+
 
 
 
