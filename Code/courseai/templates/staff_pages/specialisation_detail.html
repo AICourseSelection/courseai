@@ -19,21 +19,47 @@
         $("textarea#spec").val().replace("<br>", "&#10;");
     </script>
 
-    <form id="forms"></form>
+
     <div class="container-fluid">
         <table style="width: 100%">
             <tr>
                 <td id=pageTitle style="width: 90%"><h1 class="text-center">{{ spec_code }} ({{ spec_year }})</h1>
                 </td>
-                <td>
-                    <button id="btnEdit">Edit</button>
-                    <button>Delete</button>
-                </td>
             </tr>
         </table>
 
     </div>
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog"
+             aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body alert-danger text-center">
+                        <h4><strong>Warning! Delete action is permanent!</strong></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
+                        <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
+                                id="confirmDeleteButtonModal"
+                                onclick="javascript:window.location.href='specialisation'"/>
+                        Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center">
+            <h1 id="pageTitle"></h1>
+
+        </div>
+        <div class="container">
+            <button id="btnSave" class="btn btn-outline-success float-left">Save</button>
+            <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal"
+                    data-target="#confirmDeleteModal">Delete
+            </button>
+        </div>
+        <div>&nbsp</div>
+        <div>&nbsp</div>
     <div class="container h-100">
         <table class="table table-striped">
             <tr>
@@ -47,13 +73,13 @@
             <tr>
                 <td style="text-align: right; width: 20%">Title:</td>
                 <td style="text-align: left">
-                    <input type="text" id="title" disabled="disabled" style="width: 100%">
+                    <input type="text" id="title" style="width: 100%">
                 </td>
             </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Description:</td>
                 <td style="text-align: left">
-                    <textarea rows="5" type="text" id="description" disabled="disabled"
+                    <textarea rows="5" type="text" id="description"
                               style="width: 100%">    </textarea><br>
                 </td>
             </tr>
@@ -75,26 +101,24 @@
         let version = sessionStorage.getItem("specVersion");
         let jsonObject = JSON.parse(version);
         var requirement = "";
+        let yearS = year;
+        var courseUrl = "http://127.0.0.1:8000/staff/course_detail?";
         //console.log(jsonObject);
         document.getElementById("title").value = jsonObject[year].title;
         document.getElementById("description").value = jsonObject[year].description;
         //console.log(jsonObject[year].requirements.x_from_here);
         for (let i = 0; i < jsonObject[year].requirements.x_from_here.length; i++) {
             for (j in jsonObject[year].requirements.x_from_here[i].courses) {
+                let link = courseUrl + "code=" + jsonObject[year].requirements.x_from_here[i].courses[j][0].code + "&year=" + yearS;
                 let string = jsonObject[year].requirements.x_from_here[i].courses[j][0].code + "-" + jsonObject[year].requirements.x_from_here[i].courses[j][0].title;
-                requirement += "<input type=\"text\" disabled=\"disabled\" style=\"width: 100%\" value=\"" + string + "\">" + "<br>";
+                requirement += "<input type=\"text\"  style=\"width: 60%\" value=\"" + string + "\">" +
+                    "<a href=\"" + link + "\" target=\"_Blank\">Course deatil</a>" + "<br>";
             }
         }
         requirementTable.innerHTML = requirement;
         $(document).ready(function () {
-            $('#btnEdit').click(function () {
-                if ($("#btnEdit").html() == 'Edit') {
-                    $("#name").prop("disabled", false);
-                    $("#btnEdit").html('Save');
-                } else {
-                    $("#name").prop("disabled", true);
-                    $("#btnEdit").html('Edit');
-                }
+            $('#btnSave').click(function () {
+
             });
         });
 

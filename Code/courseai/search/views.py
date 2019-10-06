@@ -47,8 +47,7 @@ def all_majors(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        print(name)
-        print("in all majors")
+
         return mms.mms_by_name(es_conn, name, 'majors', level=level)
     except KeyError:
         return mms.search_all(es_conn, "MAJ")
@@ -58,8 +57,7 @@ def all_minors(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        print(name)
-        print("in all minors")
+
         return mms.mms_by_name(es_conn, name, 'minors', level=level)
     except KeyError:
         return mms.search_all(es_conn, "MIN")
@@ -69,8 +67,7 @@ def all_specs(request):
     try:
         name = request.GET['query']
         level = request.GET['level'] if 'level' in request.GET else None
-        print(name)
-        print("in all specs")
+
         return mms.mms_by_name(es_conn, name, 'specialisations', level=level)
     except KeyError:
         return mms.search_all(es_conn, "SPEC")
@@ -86,3 +83,14 @@ def degree_course_list(request):
     name = request.GET['query']
 
     return search.execute_code_search(es_conn, name)
+
+
+def mms_by_code(request):
+    try:
+        name = request.GET['query']
+        level = request.GET['level'] if 'level' in request.GET else None
+        type = request.GET['type']  # majors， minors or specialisaions
+
+        return mms.mms_by_code(es_conn, name, type, level=level)
+    except KeyError:
+        raise Exception("Malformed JSON as input. Expects a field called query.")

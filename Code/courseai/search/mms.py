@@ -89,3 +89,36 @@ def course_lists(es_conn, query):
         response = responses
     res = {'response': response}
     return JsonResponse(res)
+
+
+def mms_by_code(es_conn, name, index_name, level=None):
+    should = []
+
+    fields = []
+    for i in range(2014, 2020):
+        fields.append('versions.' + str(i) + '.title')
+    fields2 = ['code^4']
+
+    should.append(MultiMatch(query=name, type="phrase_prefix", fields=fields))
+    should.append(MultiMatch(query=name, type="phrase_prefix", fields=fields2))
+    q = Q('bool', should=should, minimum_should_match=1)
+
+    if level is None:
+        response = Search(using=es_conn, index=index_name).query(q).execute().to_dict()
+
+    else:
+        if len(level) > 2:
+            level = level.lower()
+        if level not in ['undergraduate', 'postgraduate']:
+            return JsonResponse({'response': 'Level' + level + 'not recognised'})
+        response = Search(using=es_conn, index=index_name).query(q).query(
+            Q('match', level=level)
+        ).execute().to_dict()
+
+    responses = response['hits']['hits']
+
+    responses = [r['_source'] for r in responses if '_source' in r]
+
+    res = {'responses': responses}
+
+    return JsonResponse(res)
