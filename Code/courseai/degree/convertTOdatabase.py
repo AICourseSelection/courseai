@@ -3,11 +3,6 @@ import json
 #from .models import StudyOption
 rootpath = "/Users/please/PycharmProjects/courseai/Code/courseai/static/json"
 
-
-
-
-
-
 def readJsonDir(rootpath):
     list = os.listdir(rootpath)
     for i in range(0, len(list)):

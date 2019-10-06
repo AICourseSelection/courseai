@@ -260,6 +260,6 @@ def execute_code_search(es_conn, phrase):
     return JsonResponse(resp)
 
 
-def course_update(es_conn, course):
+#def course_update(es_conn, course):
 
 
