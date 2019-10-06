@@ -134,7 +134,7 @@
                                 requrirement += "<strong>Choose "+requirementList[j]+"units from follow courses</strong><br>";
                             }
                             else{
-                                let link = courseUrl + "code=" + requirementList[j] + "&year=" + yearS;
+                                let link = courseUrl + "code=" + requirementList[j][0].code  + "&year=" + yearS;
                                 requrirement +=  "<input type=\"text\" id=\"requrirement" + j+ "\"value=\"" + requirementList[j][0].code + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";
                             length++;
                             }
