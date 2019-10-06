@@ -16,19 +16,20 @@
       </nav>
     </div>
   </section>
-
+     <div class="container text-center" id="alert">
+        </div>
     <h1 class="display-6 text-center">Add A New Minor</h1>
 
 
     <div class="col-sm-11">
-        <button type="submit" class="btn btn-outline-info pull-right" onclick="save" id="btnSave">Save</button>
+        <button type="submit" class="btn btn-outline-info pull-right" onclick="save()" id="btnSave">Save</button>
     </div>
     <div>&nbsp</div>
     <div>&nbsp</div>
     <div class="form-group row">
       <label class="control-label col-sm-2 text-right" for="code">Code:</label>
       <div class="col-sm-2">
-        <input type="text" class="form-control" id="code" placeholder="Major Code" name="code" >
+        <input type="text" class="form-control" id="code" placeholder="Minor Code" name="code" >
       </div>
     </div>
     <div class="form-group row">
@@ -52,16 +53,21 @@
       </div>
     </div>
   <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" for="description">Description:</label>
+      <label class="control-label col-sm-2 text-right" >Description:</label>
       <div class="col-sm-9">
         <textarea rows="3" class="form-control" id="description" placeholder="Description" name="description" ></textarea>
       </div>
     </div>
       <div class="form-group row">
           <label class="control-label col-sm-2 text-right" for="prerequisite">Requirements:</label>
-          <div class="col-sm-9">
-              <strong>Use search to add requirements.</strong>
-          </div>
+          <div class="col-sm-8">
+         <strong>Use search to add Requirements.</strong>
+            <div class="form-group row">
+
+                <table id="requirementsTable" class="table table-hover" style="width: 70%; margin: auto">
+                </table>
+            </div>
+        </div>
       </div>
       <div class="form-group row">
           <label class="control-label col-sm-2 text-right" for="prerequisite">Search:</label>
@@ -128,7 +134,7 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\">Add requirentments</button>" + "</td>";
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addRequirement(courseCodes[" + i + "])\">Add requirentments</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
@@ -139,23 +145,51 @@
                 }
             });
         }
+        var requirementList = [];
+    function addRequirement(course) {
+            requirementList.push(course);
 
-        function saveDegree() {
-            boot4.confirm({
-                msg: "Are you sure to save ?",
-                callback: function (result) {
-                    if (result) {
-                        console.log("save success");
-                    } else {
-                        console.log("cancel");
+            let requirementString = "<tbody>\n";
+            for (let i = 0; i < requirementList.length; i++) {
+                requirementString = requirementString + "<tr>" + requirementList[i] + "</tr><br>";
+            }
+            requirementString += "</tbody>";
+            document.getElementById("requirementsTable").innerHTML = requirementString;
+        }
+        function save() {
+            if (document.getElementById("code").value == "" || document.getElementById("title").value == "") {
+                boot4.confirm({
+                    msg: "Please input available code and title."
+                });
+            } else {
+                boot4.confirm({
+                    msg: "Are you sure to save ?",
+                    callback: function (result) {
+                        if (result) {
+                            let code = document.getElementById("code").value;
+                            let year = document.getElementById("year").value;
+                            let title = document.getElementById("title").value;
+                            let description=document.getElementById("description").value;
+                            let postRequirement=JSON.stringify(requirementList);
+                             $.ajax({
+                                url: '../degree/addMinor',
+                                data: {"code": code, "year": year,"title":title,"description":description,"requirement":postRequirement},
+                                dataType: "json",
+                                success: function (data) {
+                                    console.log("save success");
+                                     $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                }
+
+                            });
+                        } else {
+                            console.log("cancel");
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
-        function addIncompatibal() {
 
-        }
     </script>
 
 {% endblock %}
