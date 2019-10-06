@@ -20,11 +20,7 @@
     {% include 'staff_pages/partials/_message.html' %}
     {% include 'staff_pages/partials/_modal.html' %}
     <br>
-    <div class="col-sm-11">
-        <button type="submit" class="btn btn-outline-success pull-right" onclick="saveDegree()" id="btnSave">Save</button>
-    </div>
-    <div>&nbsp</div>
-    <div>&nbsp</div>
+
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Code:</label>
         <div class="col-sm-2">
@@ -46,8 +42,8 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="control-label col-sm-2 text-right">Title:</label>
-        <div class="col-sm-2">
+        <label class="control-label col-2 text-right">Title:</label>
+        <div class="col-8">
             <input type="text" class="form-control" id="title" placeholder="Degree Title" name="title">
         </div>
     </div>
@@ -66,23 +62,21 @@
         <div class="control-label col-sm-2 text-right">
             Study Plan:
         </div>
-        <div class="col">
-            <div class="container text-center">
+        <div class="col text-center">
 
-                <button id="addYear" type="button" class="btn btn-outline-info float-left" onclick="addTable()">Add Year</button>
-                <button id="deleteYear" type="button" class="btn btn-outline-secondary float-right" onclick="deleteTable()" style="display: none">Delete Year</button>
+                <button id="addYear" type="button" class="btn btn-outline-info float-left btn-sm" onclick="addTable()">Add Year</button>
+                <button id="deleteYear" type="button" class="btn btn-outline-secondary float-right btn-sm" onclick="deleteTable()" style="display: none">Delete Year</button>
 
-            </div>
-            <div class="container">
 
                 <table id="planTable" class="table table-hover">
                 </table>
-            </div>
 
         </div>
     </div>
     <div class="form-group row">
-
+        <div class="col text-center">
+            <button type="submit" class="btn btn-outline-success btn-lg" onclick="saveDegree()" id="btnSave">Save Degree</button>
+        </div>
     </div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right" >Search:</label>
@@ -90,7 +84,9 @@
             <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
         </div>
         <div class="col col-lg-2">
-            <button onclick="showCourse()" class="btn btn-outline-primary" id="search">Search</button>
+            <a class="btn btn-outline-dark logout" href="#" onclick="showCourse()">
+                <i class="fa fa-search"></i>
+            </a>
         </div>
     </div>
     <div style="width: 100%; text-align: center">
@@ -106,21 +102,51 @@
     <script>
         var length = 0;
         let planString = "";
-        let yearPlan = 0;
+
+        let yearPlan = 1;
+        planString += "<tbody>\n" +
+            "    <tr>";
+        //let planYear = document.getElementById("planYear").value;
+        let planYear = yearPlan;
+        for (let i = 0; i < planYear; i++) {
+            planString += "<td>" + "Year " + (i + 1) + "</td>";
+            for (let j = 0; j < 4; j++) {
+                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
+                length++;
+            }
+            planString += "</tr>" + "<tr>";
+            planString += "<td>" + "" + "</td>";
+            for (let j = 0; j < 4; j++) {
+                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
+                length++;
+            }
+            if(i == planYear-1){
+                planString += "</tr>"
+            }
+        }
+        planString += "</tbody>";
+
+        document.getElementById("planTable").innerHTML = planString;
+
 
         function deleteTable() {
+            savePlan();
             yearPlan--;
             drawTable();
-            if(yearPlan == 0){
+            if(yearPlan == 1){
                 $('#deleteYear').hide();
             }
+            loadPlan();
         }
 
         function addTable() {
+            savePlan();
             yearPlan++;
             drawTable();
             $('#deleteYear').show();
+            loadPlan();
         }
+
 
         function drawTable() {
             length = 0;
@@ -144,7 +170,6 @@
                 planString += "</tr>" + "<tr>";
             }
             planString += "</tbody>";
-            console.log(length);
             $("#planTable").html(planString);
         }
 
@@ -171,7 +196,7 @@
                 success: function (data) {
 
                     year = document.getElementById("year").value;
-                    console.log(year);
+
                     for (let i = 0; i < data.response.length; i++) {
                         versions = data.response[i].versions[year];
                         if (versions != undefined) {
@@ -209,7 +234,7 @@
 
         function addCompulsory(course) {
             compulsoryList.push(course);
-            console.log(compulsoryList);
+
             let complulsoryString = "<tbody>\n";
             for (let i = 0; i < compulsoryList.length; i++) {
                 complulsoryString = complulsoryString + "<tr>" + compulsoryList[i] + "</tr><br>";
@@ -224,76 +249,117 @@
 
         function saveDegree() {
             //reset attribute
-            $('#code').removeClass().addClass("form-control");
-            $('#title').removeClass().addClass("form-control");
+            resetClass();
             if($('#code').val() == ''){
-                $('#msg_header').text('Error: ');
-                $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-                $('#msg').text('Degree Code Cannot be Empty');
-                $('#message').show();
-                setTimeout(hideMessage, 5000);
-                $('#code').removeClass().addClass("form-control is-invalid");
+                setMessageError('Degree Code Cannot be Empty', 'code');
             }
             else if($('#title').val() == ''){
-                $('#msg_header').text('Error: ');
-                $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-                $('#msg').text('Degree Title Cannot be Empty');
-                $('#message').show();
-                setTimeout(hideMessage, 5000);
-                $('#title').removeClass().addClass("form-control is-invalid");
+                setMessageError('Degree Title Cannot be Empty', 'title');
             }
             else{
-                let plan = [];
-                let code = document.getElementById("code").value;
-                let year = document.getElementById("year").value;
-                let title = document.getElementById("title").value;
-                for (let i = 0; i < length; i++) {
-                    plan.push(document.getElementById("plan" + i).value);
+                let param = checkPlan();
+                if(param > -1){
+                    setMessageError('Plan Cannot be Empty', 'plan' + param);
                 }
-                let postPlan= JSON.stringify(plan);
-                let postCompulsory= JSON.stringify(compulsoryList);
-                console.log(code, year, title, plan, compulsoryList);
-
-                $.ajax({
-                    url: '../degree/addDegree',
-                    data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
-                    dataType: "json",
-                    success: function (data) {
-
-                        if(data.response == 'success') {
-                            //reset param
-                            $('#code').val('');
-                            $('#title').val('');
-
-                            //show message
-                            $('#msg_header').text('Success: ');
-                            $('#msg_class').removeClass().addClass("alert alert-success text-center");
-                            let link = 'degree_detail' + '?code=' + code + '&title=' + title + '' + '&year=' + year;
-                            $('#msg').html('Create ' + '<a href=\"'+ link + '\">' + title + ' ' + year + '</a> Successful!');
-                            $('#message').show();
-                            setTimeout(hideMessage, 15000);
-                        }
-                        else if(data.response == 'validation') {
-                            $('#msg_header').text('Error: ');
-                            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-                            $('#msg').text(data.msg);
-                            $('#message').show();
-                            setTimeout(hideMessage, 5000);
-                            $('#' + data.element).removeClass().addClass('form-control is-invalid');
-                        }
-                        else {
-                            var mesej = 'Oops, something wrong, please try again in a few moments!';
-                            $('#modal-body').html(mesej);
-                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
-                            $('#modal-title').html('Error!');
-                            $('#error-modal').modal('show');
-                        }
+                else {
+                    let plan = [];
+                    let code = document.getElementById("code").value;
+                    let year = document.getElementById("year").value;
+                    let title = document.getElementById("title").value;
+                    for (let i = 0; i < length; i++) {
+                        plan.push(document.getElementById("plan" + i).value);
                     }
+                    let postPlan = JSON.stringify(plan);
+                    let postCompulsory = JSON.stringify(compulsoryList);
 
-                });
+                    $.ajax({
+                        url: '../degree/addDegree',
+                        data: {
+                            "code": code,
+                            "year": year,
+                            "title": title,
+                            "planList": postPlan,
+                            "compulsoryList": postCompulsory
+                        },
+                        dataType: "json",
+                        success: function (data) {
+
+                            if (data.response == 'success') {
+                                //reset param
+                                $('#code').val('');
+                                $('#title').val('');
+                                for (let i = 0; i < length; i++) {
+                                    $('#plan' + i).val('');
+                                }
+
+                                //show message
+                                $('#msg_header').text('Success: ');
+                                $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                                let link = 'degree_detail' + '?code=' + code + '&title=' + title + '' + '&year=' + year;
+                                $('#msg').html('Create ' + '<a href=\"' + link + '\">' + title + ' ' + year + '</a> Successful!');
+                                $('#message').show();
+                                setTimeout(hideMessage, 15000);
+                            } else if (data.response == 'validation') {
+                                $('#msg_header').text('Error: ');
+                                $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                                $('#msg').text(data.msg);
+                                $('#message').show();
+                                setTimeout(hideMessage, 5000);
+                                $('#' + data.element).removeClass().addClass('form-control is-invalid');
+                            } else {
+                                var mesej = 'Oops, something wrong, please try again in a few moments!';
+                                $('#modal-body').html(mesej);
+                                $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                                $('#modal-title').html('Error!');
+                                $('#error-modal').modal('show');
+                            }
+                        }
+
+                    });
+                }
+            }
+        }
+
+        function resetClass() {
+            $('#code').removeClass().addClass("form-control");
+            $('#title').removeClass().addClass("form-control");
+            for (let i = 0; i < length; i++) {
+                $('#plan' + i).removeClass().addClass("form-control");
+            }
+        }
+
+        function setMessageError(msg, id){
+            $('#msg_header').text('Error: ');
+            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+            $('#msg').text(msg);
+            $('#message').show();
+            setTimeout(hideMessage, 5000);
+            $('#' + id).removeClass().addClass("form-control is-invalid");
+        }
+        
+        function checkPlan() {
+            for (let i = 0; i < length; i++) {
+                if($('#plan' + i).val() == ''){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        let plans = [];
+
+        function savePlan(){
+            plans = [];
+            for (let i = 0; i < length; i++) {
+                plans.push($('#plan' + i).val());
+            }
+        }
+
+        function loadPlan() {
+            for (let i = 0; i < length; i++) {
+                $('#plan' + i).val(plans[i]);
             }
         }
 
