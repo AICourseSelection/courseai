@@ -61,7 +61,8 @@
         <div id="alert">
         </div>
         <h1 id="pageTitle"></h1>
-
+        {% include 'staff_pages/partials/_message.html' %}
+        {% include 'staff_pages/partials/_modal.html' %}
     </div>
     <div class="container" id="deleteMode">
         <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
@@ -297,6 +298,10 @@
             }
         });
 
+        var hideMessage = function(){
+            $('#message').fadeOut('slow');
+        };
+
         function saveData() {
             for (let i = 0; i < planList.length; i++) {
                 planList[i]=document.getElementById("plan" + i).value.toString();
@@ -311,8 +316,47 @@
                 data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
                 dataType:"json",
                 success: function (data) {
-                    console.log(data)
-                    $('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
+                    if(data.response === 'success'){
+                        //show message
+                        $('#msg_header').text('Success: ');
+                        $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                        $('#msg').html('Update Degree Successful! Refresh Page in 5 Seconds');
+                        $('#message').show();
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 4 Seconds');
+                            $('#message').show();
+                        }, 1000);
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 3 Seconds');
+                            $('#message').show();
+                        }, 2000);
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 2 Seconds');
+                            $('#message').show();
+                        }, 3000);
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 1 Seconds');
+                            $('#message').show();
+                        }, 4000);
+                        setTimeout(function(){
+                            location.reload();
+                        }, 5000);
+                    } else if (data.response === 'validation') {
+                        $('#msg_header').text('Error: ');
+                        $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                        $('#msg').text(data.msg);
+                        $('#message').show();
+                        setTimeout(hideMessage, 5000);
+                        $('#' + data.element).removeClass().addClass('form-control is-invalid');
+                    } else {
+                        var mesej = 'Oops, something wrong, please try again in a few moments!';
+                        $('#modal-body').html(mesej);
+                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                        $('#modal-title').html('Error!');
+                        $('#error-modal').modal('show');
+                    }
+                    //$('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
                 }
             });
         }
@@ -323,11 +367,19 @@
                 url: '../degree/delete',
                 data: {"code": codeS, "type": "degree", "year": yearS},
                 success: function (data) {
-                    console.log(data)
+                    if(data.stage === success){
+                        window.location.href='degree';
+                    }
+                    else {
+                        var mesej = 'Oops, something wrong, please try again in a few moments!';
+                        $('#modal-body').html(mesej);
+                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                        $('#modal-title').html('Error!');
+                        $('#error-modal').modal('show');
+                    }
                 }
 
             });
-            window.location.href='degree';
         }
     </script>
 
