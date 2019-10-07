@@ -1,5 +1,3 @@
-
-
 {% extends 'staff_pages/staff_base.html' %}
 
 {% block content %}
@@ -21,14 +19,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body alert-success text-center">
-                    <h4><strong>Are you Sure?</strong></h4>
+                    <h4><strong>Create New Course?</strong></h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-                    <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
-                            id="confirmSaveButtonModal" onclick=saveDegree()>
-                        Save
+                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                            id="confirmSaveButtonModal" onclick=save()>
+                        Create
                     </button>
                 </div>
             </div>
@@ -39,8 +37,6 @@
     {% include 'staff_pages/partials/_message.html' %}
     {% include 'staff_pages/partials/_modal.html' %}
 
-    <div>&nbsp</div>
-    <div>&nbsp</div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right" for="code">Code:</label>
         <div class="col-sm-4">
@@ -88,7 +84,7 @@
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right" >Learning Outcome:</label>
         <div class="col-sm-9">
-            <textarea rows="3" class="form-control" id="outcome" placeholder="Learning Outcome" name="outcome" ></textarea>
+            <textarea rows="3" class="form-control" id="learningOutcome" placeholder="Learning Outcome" name="learningOutcome" ></textarea>
         </div>
     </div>
     <div class="form-group row">
@@ -96,7 +92,7 @@
         <div class="col-sm-8" id="incompatible">
             <strong>Use search to add Incompatible Course.</strong>
             <div class="form-group row">
-                <table id="incompatibleTable" class="table table-hover" style="width: 70%; margin: auto">
+                <table id="incompatibleTable" class="table table-striped table-sm" style="width: 70%;">
                 </table>
             </div>
         </div>
@@ -106,14 +102,14 @@
         <div class="col-sm-8" id="prerequisite">
             <strong>Use search to add Pre-requisite Course.</strong>
             <div class="form-group row">
-                <table id="prerequisiteTable" class="table table-hover" style="width: 70%; margin: auto">
+                <table id="prerequisiteTable" class="table table-striped table-sm" style="width: 70%;">
                 </table>
             </div>
         </div>
     </div>
     <div class="form-group row">
         <div class="col text-center">
-            <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Save Course</button>
+            <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Create Course</button>
         </div>
     </div>
     <div class="form-group row">
@@ -122,7 +118,7 @@
             <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
         </div>
         <div class="col col-sm-2">
-            <a class="btn btn-outline-dark logout" href="#" onclick="showCourse()">
+            <a class="btn btn-outline-dark" onclick="showCourse()">
                 <i class="fa fa-search"></i>
             </a>
         </div>
@@ -130,7 +126,7 @@
     <div style="width: 100%; text-align: center">
         <div>&nbsp</div>
         <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+            <table id="Table" class="table table-hover table-sm" style="width: 65%; margin: auto">
 
             </table>
         </div>
@@ -138,6 +134,14 @@
 
     </div>
     <script>
+        let incompatibleCodeList = [];
+        let incompatibleNameList = [];
+        let prerequisiteCodeList = [];
+        let prerequisiteNameList = [];
+
+        var courseNames;
+        var courseCodes;
+
         function showCourse() {
             var year = document.getElementById("year").value;
             let courses = document.getElementById("search").value;
@@ -152,7 +156,7 @@
             tableData += "<tbody>\n" +
                 "    <tr>";
             courseCodes = [];
-            courseVersions = [];
+            courseNames = [];
             const courseUnits = [];
             const courseTitles = [];
             var versions = "";
@@ -167,7 +171,7 @@
                         if (versions != undefined) {
                             courseCodes.push(data.response[i].course_code);
                             courseTitles.push(versions.title);
-
+                            courseNames.push(versions.title);
                         }
                     }
                     if (courseCodes.length == 0) {
@@ -184,9 +188,11 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addIncompatible(courseCodes[" + i + "])\">Add incompatible course</button>" + "</td>";
+                                    tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addIncompatible(courseCodes[" + i + "],courseNames[" + i + "])\">Add Incompatible</button>" + "</td>";
+                                    //tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addIncompatible(courseCodes[" + i + "])\">Add incompatible course</button>" + "</td>";
                                 } else if (j == 3) {
-                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addPrerequisite(courseCodes[" + i + "])\">Add prerequisite course</button>" + "</td>";
+                                    tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addPrerequisite(courseCodes[" + i + "],courseNames[" + i + "])\">Add Pre-requisite</button>" + "</td>";
+                                    //tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addPrerequisite(courseCodes[" + i + "])\">Add prerequisite course</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
@@ -198,28 +204,52 @@
             });
         }
 
-
-
-        function saveDegree() {
-            let plan = [];
-            let code = document.getElementById("code").value;
-            let year = document.getElementById("year").value;
-            let title = document.getElementById("title").value;
-            for (let i = 0; i < length; i++) {
-                plan.push(document.getElementById("plan" + i).value);
+        function addIncompatible(course, name) {
+            if (!incompatibleCodeList.includes(course)) {
+                incompatibleCodeList.push(course);
+                incompatibleNameList.push(name);
+                drawIncompatible();
             }
-            let postPlan= JSON.stringify(plan);
-            let postCompulsory= JSON.stringify(compulsoryList);
-            console.log(code, year, title, plan, compulsoryList);
-            $.ajax({
-                url: '../degree/addDegree',
-                data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
-                dataType: "json",
-                success: function (data) {
-                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
-                }
-            });
         }
+
+        function deleteIncompatible(index){
+            incompatibleCodeList.splice(index, 1);
+            incompatibleNameList.splice(index, 1);
+            drawIncompatible();
+        }
+
+        function drawIncompatible(){
+            let str = "<tbody>";
+            for (let i = 0; i < incompatibleCodeList.length; i++) {
+                str += "<tr><td>" + incompatibleCodeList[i] + "</td><td>" + incompatibleNameList[i] + "</td><td><button onclick=\"deleteIncompatible(" + i + ")\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i></button></td></tr>";
+            }
+            str += "</tbody>";
+            $('#incompatibleTable').html(str);
+        }
+
+        function addPrerequisite(course, name) {
+            if (!prerequisiteCodeList.includes(course)) {
+                prerequisiteCodeList.push(course);
+                prerequisiteNameList.push(name);
+                drawPrerequisite();
+            }
+        }
+
+        function deletePrerequisite(index){
+            prerequisiteCodeList.splice(index, 1);
+            prerequisiteNameList.splice(index, 1);
+            drawPrerequisite();
+        }
+
+        function drawPrerequisite(){
+            let str = "<tbody>";
+            for (let i = 0; i < prerequisiteCodeList.length; i++) {
+                str += "<tr><td>" + prerequisiteCodeList[i] + "</td><td>" + prerequisiteNameList[i] + "</td><td><button onclick=\"deletePrerequisite(" + i + ")\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i></button></td></tr>";
+            }
+            str += "</tbody>";
+            $('#prerequisiteTable').html(str);
+        }
+
 
         function resetParam() {
             $('#code').val('');
@@ -229,6 +259,15 @@
             $('#description').val('');
             $('#learningOutcome').val('');
 
+            incompatibleCodeList = [];
+            incompatibleNameList = [];
+            prerequisiteCodeList = [];
+            prerequisiteNameList = [];
+
+            $('#Table').html('');
+            $('#incompatibleTable').html('');
+            $('#prerequisiteTable').html('');
+            $('#search').val('');
         }
 
         function resetClass() {
@@ -260,77 +299,70 @@
                 setMessageError('Course Title Cannot be Empty', 'title');
             }
             else if($('#units').val() == ''){
-                setMessageError('Course Units Cannot be Empty', 'title');
+                setMessageError('Course Units Cannot be Empty', 'units');
             }
             else if($('#sessions').val() == ''){
-                setMessageError('Course Session Cannot be Empty', 'title');
+                setMessageError('Course Session Cannot be Empty', 'sessions');
             }
             else if($('#description').val() == ''){
-                setMessageError('Course Description Cannot be Empty', 'title');
+                setMessageError('Course Description Cannot be Empty', 'description');
             }
             else if($('#learningOutcome').val() == ''){
-                setMessageError('Course Outcome Cannot be Empty', 'title');
+                setMessageError('Course Outcome Cannot be Empty', 'learningOutcome');
             }
             else {
                 $('#confirmSaveModal').modal('show');
             }
         }
 
-        function saveDegree_() {
-            boot4.confirm({
-                msg: "Are you sure to save ?",
-                callback: function (result) {
-                    if (result) {
-                        let plan = [];
-                        let code = document.getElementById("code").value;
-                        let year = document.getElementById("year").value;
-                        let title = document.getElementById("title").value;
-                        for (let i = 0; i < length; i++) {
-                            plan.push(document.getElementById("plan" + i).value);
-                        }
-                        let postPlan= JSON.stringify(plan);
-                        let postCompulsory= JSON.stringify(compulsoryList);
-                        console.log(code, year, title, plan, compulsoryList);
-                        $.ajax({
-                            url: '../degree/addDegree',
-                            data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
-                            dataType: "json",
-                            success: function (data) {
-                                $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
-                            }
+        function save(){
+            let code = document.getElementById("code").value;
+            let year = document.getElementById("year").value;
+            let title = document.getElementById("title").value;
+            let unit=document.getElementById("units").value;
+            let sessions=document.getElementById("sessions").value;
+            let description=document.getElementById("description").value;
+            let outcome=document.getElementById("learningOutcome").value;
+            let postPrerequisiteList = JSON.stringify(prerequisiteCodeList);
+            let postIncompatibleList = JSON.stringify(incompatibleCodeList);
+            $.ajax({
+                url: '../degree/addCourse',
+                data: {"code": code, "year": year,"title":title,"unit":unit,"session":sessions,"description":description,
+                    "outcome":outcome,"prerequisiteList":postPrerequisiteList,"incompatibleList":postIncompatibleList},
+                dataType: "json",
+                success: function (data) {
+                    if (data.response == 'success') {
+                        //reset param
+                        resetParam();
 
-                        });
-                        console.log("save success");
+                        //show message
+                        $('#msg_header').text('Success: ');
+                        $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                        let link = 'course_detail' + '?code=' + code + '&year=' + year;
+                        $('#msg').html('Create ' + '<a href=\"' + link + '\">' + title + ' ' + year + '</a> Successful!');
+                        $('#message').show();
+                        setTimeout(hideMessage, 15000);
+                    } else if (data.response == 'validation') {
+                        $('#msg_header').text('Error: ');
+                        $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                        $('#msg').text(data.msg);
+                        $('#message').show();
+                        setTimeout(hideMessage, 5000);
+                        $('#' + data.element).removeClass().addClass('form-control is-invalid');
                     } else {
-                        console.log("cancel");
+                        var mesej = 'Oops, something wrong, please try again in a few moments!';
+                        $('#modal-body').html(mesej);
+                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                        $('#modal-title').html('Error!');
+                        $('#error-modal').modal('show');
                     }
                 }
+
             });
         }
 
-        var incompatibleList = [];
-        function addIncompatible(course) {
-            incompatibleList.push(course);
-
-            let incompatibleString = "<tbody>\n";
-            for (let i = 0; i < incompatibleList.length; i++) {
-                incompatibleString = incompatibleString + "<tr>" + incompatibleList[i] + "</tr><br>";
-            }
-            incompatibleString += "</tbody>";
-            document.getElementById("incompatibleTable").innerHTML = incompatibleString;
-        }
-        var prerequisiteList = [];
-        function addPrerequisite(course) {
-            prerequisiteList.push(course);
-
-            let prerequisiteString = "<tbody>\n";
-            for (let i = 0; i < prerequisiteList.length; i++) {
-                prerequisiteString = prerequisiteString + "<tr>" + prerequisiteList[i] + "</tr><br>";
-            }
-            prerequisiteString += "</tbody>";
-            document.getElementById("prerequisiteTable").innerHTML = prerequisiteString;
-        }
-        function saveCourse() {
+        function saveCourse_() {
             if (document.getElementById("code").value == ""||document.getElementById("title").value =="") {
                 boot4.confirm({
                     msg: "Please input available code and title."

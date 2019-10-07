@@ -25,7 +25,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
                     <button type="button" class="btn btn-success" data-dismiss="modal"
-                            id="confirmSaveButtonModal" onclick=saveDegree()>
+                            id="confirmSaveButtonModal" onclick=save()>
                         Create
                     </button>
                 </div>
@@ -36,7 +36,6 @@
     <h1 class="display-6 text-center">Add A New Degree</h1>
     {% include 'staff_pages/partials/_message.html' %}
     {% include 'staff_pages/partials/_modal.html' %}
-    <br>
 
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Code:</label>
@@ -80,19 +79,14 @@
             Study Plan:
         </div>
         <div class="col text-center">
-
             <button id="addYear" type="button" class="btn btn-outline-info float-left btn-sm" onclick="addTable()">Add Year</button>
             <button id="deleteYear" type="button" class="btn btn-outline-secondary float-right btn-sm" onclick="deleteTable()" style="display: none">Delete Year</button>
-
-
-            <table id="planTable" class="table table-hover">
-            </table>
-
+            <table id="planTable" class="table table-hover"></table>
         </div>
     </div>
     <div class="form-group row">
         <div class="col text-center">
-            <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Save Degree</button>
+            <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Create Degree</button>
         </div>
     </div>
     <div class="form-group row">
@@ -117,78 +111,8 @@
     </div>
     </form>
     <script>
-        var length = 0;
-        let planString = "";
-
-        let yearPlan = 1;
-        planString += "<tbody>\n" +
-            "    <tr>";
-        //let planYear = document.getElementById("planYear").value;
-        let planYear = yearPlan;
-        for (let i = 0; i < planYear; i++) {
-            planString += "<td>" + "Year " + (i + 1) + "</td>";
-            for (let j = 0; j < 4; j++) {
-                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
-                length++;
-            }
-            planString += "</tr>" + "<tr>";
-            planString += "<td>" + "" + "</td>";
-            for (let j = 0; j < 4; j++) {
-                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
-                length++;
-            }
-            if(i == planYear-1){
-                planString += "</tr>"
-            }
-        }
-        planString += "</tbody>";
-
-        document.getElementById("planTable").innerHTML = planString;
-
-
-        function deleteTable() {
-            savePlan();
-            yearPlan--;
-            drawTable();
-            if(yearPlan == 1){
-                $('#deleteYear').hide();
-            }
-            loadPlan();
-        }
-
-        function addTable() {
-            savePlan();
-            yearPlan++;
-            drawTable();
-            $('#deleteYear').show();
-            loadPlan();
-        }
-
-
-        function drawTable() {
-            length = 0;
-            let planString = "";
-            planString += "<tbody>\n" +
-                "    <tr>";
-            //let planYear = document.getElementById("planYear").value;
-            let planYear = yearPlan
-            for (let i = 0; i < planYear; i++) {
-                planString += "<td>" + "Year " + (i + 1) + "</td>";
-                for (let j = 0; j < 4; j++) {
-                    planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
-                    length++;
-                }
-                planString += "</tr>" + "<tr>";
-                planString += "<td>" + "" + "</td>";
-                for (let j = 0; j < 4; j++) {
-                    planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
-                    length++;
-                }
-                planString += "</tr>" + "<tr>";
-            }
-            planString += "</tbody>";
-            $("#planTable").html(planString);
-        }
+        let compulsoryCodeList = [];
+        let compulsoryNameList = [];
 
         var courseNames;
         var courseCodes;
@@ -239,8 +163,8 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addCompulsory(courseCodes[" + i + "],courseNames[" + i + "])\"><i class=\"fa fa-plus\"></i>Add</button>" + "</td>";
-                                    //tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addCompulsory(courseCodes[" + i + "],courseNames[" + i + "])\">Add Compulsory Course</button>" + "</td>";
+                                    //tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addCompulsory(courseCodes[" + i + "],courseNames[" + i + "])\"><i class=\"fa fa-plus\"></i>Add Compulsory</button>" + "</td>";
+                                    tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addCompulsory(courseCodes[" + i + "],courseNames[" + i + "])\">Add Compulsory</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
@@ -252,37 +176,85 @@
             });
         }
 
-        let compulsoryList = [];
-        let nameList = [];
+        function checkData() {
+            //reset attribute
+            resetClass();
+            if($('#code').val() == ''){
+                setMessageError('Degree Code Cannot be Empty', 'code');
+            }
+            else if($('#title').val() == ''){
+                setMessageError('Degree Title Cannot be Empty', 'title');
+            }
+            else {
+                let param = checkPlan();
+                if (param > -1) {
+                    setMessageError('Plan Cannot be Empty', 'plan' + param);
+                }
+                else {
+                    $('#confirmSaveModal').modal('show');
+                }
+            }
+        }
 
         function addCompulsory(course, name) {
-            if (!compulsoryList.includes(course)) {
-                compulsoryList.push(course);
-                nameList.push(name);
-                drawCompulsoryTable();
+            if (!compulsoryCodeList.includes(course)) {
+                compulsoryCodeList.push(course);
+                compulsoryNameList.push(name);
+                drawCompulsory();
             }
         }
 
-        function drawCompulsoryTable(){
-            let compulsoryString = "<tbody>";
-            for (let i = 0; i < compulsoryList.length; i++) {
-                compulsoryString += "<tr><td>" + compulsoryList[i] + "</td><td>" + nameList[i] + "</td><td><button onclick=\"deleteRow(" + i + ")\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i></button></td></tr>";
-            }
-            compulsoryString += "</tbody>";
-            $('#compulsoryTable').html(compulsoryString);
+        function deleteCompulsory(index){
+            compulsoryCodeList.splice(index, 1);
+            compulsoryNameList.splice(index, 1);
+            drawCompulsory();
         }
 
-        function deleteRow(index){
-            compulsoryList.splice(index, 1);
-            nameList.splice(index, 1);
-            drawCompulsoryTable();
+        function drawCompulsory(){
+            let str = "<tbody>";
+            for (let i = 0; i < compulsoryCodeList.length; i++) {
+                str += "<tr><td>" + compulsoryCodeList[i] + "</td><td>" + compulsoryNameList[i] + "</td><td><button onclick=\"deleteCompulsory(" + i + ")\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i></button></td></tr>";
+            }
+            str += "</tbody>";
+            $('#compulsoryTable').html(str);
+        }
+
+        function resetParam() {
+            $('#code').val('');
+            $('#title').val('');
+            for (let i = 0; i < length; i++) {
+                $('#plan' + i).val('');
+            }
+            compulsoryCodeList = [];
+            compulsoryNameList = [];
+            $('#Table').html('');
+            $('#compulsoryTable').html('');
+            $('#search').val('');
+        }
+
+        function resetClass() {
+            $('#code').removeClass().addClass("form-control");
+            $('#title').removeClass().addClass("form-control");
+            for (let i = 0; i < length; i++) {
+                $('#plan' + i).removeClass().addClass("form-control");
+            }
+        }
+
+        function setMessageError(msg, id){
+            $('#msg_header').text('Error: ');
+            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+            $('#msg').text(msg);
+            $('#message').show();
+            setTimeout(hideMessage, 5000);
+            $('#' + id).removeClass().addClass("form-control is-invalid");
         }
 
         var hideMessage = function(){
             $('#message').fadeOut('slow');
         };
 
-        function saveDegree() {
+        function save() {
             let plan = [];
             let code = document.getElementById("code").value;
             let year = document.getElementById("year").value;
@@ -334,36 +306,7 @@
             });
         }
 
-        function resetParam() {
-            $('#code').val('');
-            $('#title').val('');
-            for (let i = 0; i < length; i++) {
-                $('#plan' + i).val('');
-            }
-            compulsoryList = [];
-            nameList = [];
-            $('#Table').html('');
-            $('#compulsoryTable').html('');
-            $('#search').val('');
-        }
-
-        function resetClass() {
-            $('#code').removeClass().addClass("form-control");
-            $('#title').removeClass().addClass("form-control");
-            for (let i = 0; i < length; i++) {
-                $('#plan' + i).removeClass().addClass("form-control");
-            }
-        }
-
-        function setMessageError(msg, id){
-            $('#msg_header').text('Error: ');
-            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-            $('#msg').text(msg);
-            $('#message').show();
-            setTimeout(hideMessage, 5000);
-            $('#' + id).removeClass().addClass("form-control is-invalid");
-        }
+        //all about plan
 
         function checkPlan() {
             for (let i = 0; i < length; i++) {
@@ -389,24 +332,75 @@
             }
         }
 
-        function checkData() {
-            //reset attribute
-            resetClass();
-            if($('#code').val() == ''){
-                setMessageError('Degree Code Cannot be Empty', 'code');
+        var length = 0;
+        let planString = "";
+        let yearPlan = 1;
+
+        planString += "<tbody>" +
+            "    <tr>";
+        let planYear = yearPlan;
+        for (let i = 0; i < planYear; i++) {
+            planString += "<td>" + "Year " + (i + 1) + "</td>";
+            for (let j = 0; j < 4; j++) {
+                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
+                length++;
             }
-            else if($('#title').val() == ''){
-                setMessageError('Degree Title Cannot be Empty', 'title');
+            planString += "</tr>" + "<tr>";
+            planString += "<td>" + "" + "</td>";
+            for (let j = 0; j < 4; j++) {
+                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
+                length++;
             }
-            else {
-                let param = checkPlan();
-                if (param > -1) {
-                    setMessageError('Plan Cannot be Empty', 'plan' + param);
+            if(i == planYear-1){
+                planString += "</tr>"
+            }
+        }
+        planString += "</tbody>";
+
+        document.getElementById("planTable").innerHTML = planString;
+
+        function deleteTable() {
+            savePlan();
+            yearPlan--;
+            drawTable();
+            if(yearPlan == 1){
+                $('#deleteYear').hide();
+            }
+            loadPlan();
+        }
+
+        function addTable() {
+            savePlan();
+            yearPlan++;
+            drawTable();
+            $('#deleteYear').show();
+            loadPlan();
+        }
+
+
+        function drawTable() {
+            length = 0;
+            let planString = "";
+            planString += "<tbody>\n" +
+                "    <tr>";
+            //let planYear = document.getElementById("planYear").value;
+            let planYear = yearPlan
+            for (let i = 0; i < planYear; i++) {
+                planString += "<td>" + "Year " + (i + 1) + "</td>";
+                for (let j = 0; j < 4; j++) {
+                    planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"  class=\"form-control\" >" + "</td>";
+                    length++;
                 }
-                else {
-                    $('#confirmSaveModal').modal('show');
+                planString += "</tr>" + "<tr>";
+                planString += "<td>" + "" + "</td>";
+                for (let j = 0; j < 4; j++) {
+                    planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\" class=\"form-control\" >" + "</td>";
+                    length++;
                 }
+                planString += "</tr>" + "<tr>";
             }
+            planString += "</tbody>";
+            $("#planTable").html(planString);
         }
 
         function saveDegree_() {
