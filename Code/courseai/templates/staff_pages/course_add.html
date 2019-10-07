@@ -4,119 +4,139 @@
 
 {% block content %}
     <section id="bc" class="mt-3">
-    <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-              <a href="{% url 'index' %}">
-            <i class="fa fa-home"></i> Home </a>
-          </li>
-            <li class="breadcrumb-item active">{{ bc_param }}</li>
-        </ol>
-      </nav>
-    </div>
-  </section>
-    <div class="container text-center" id="alert">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">
+                            <i class="fa fa-home"></i> Home </a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ bc_param }}</li>
+                </ol>
+            </nav>
         </div>
+    </section>
+    <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
+         aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body alert-success text-center">
+                    <h4><strong>Are you Sure?</strong></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
+                            id="confirmSaveButtonModal" onclick=saveDegree()>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <h1 class="display-6 text-center">Add A New Course</h1>
 
+    {% include 'staff_pages/partials/_message.html' %}
+    {% include 'staff_pages/partials/_modal.html' %}
 
-    <div class="col-sm-11">
-        <button type="submit" class="btn btn-outline-info pull-right" onclick="saveCourse()" id="btnSave">Save</button>
-    </div>
     <div>&nbsp</div>
     <div>&nbsp</div>
     <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" for="code">Code:</label>
-      <div class="col-sm-2">
-        <input type="text" class="form-control" id="code" placeholder="Course Code" name="code" >
-      </div>
+        <label class="control-label col-sm-2 text-right" for="code">Code:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="code" placeholder="Course Code" name="code" >
+        </div>
     </div>
     <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" for="year">Academic Year:</label>
-      <div class="col-sm-2">
-        <select id = "year" class="custom-select">
-            {% for year in years %}
-                        {% if year == year_now %}
-                            <option selected value="{{ year }}">{{ year }}</option>
-                        {% else %}
-                            <option value="{{ year }}">{{ year }}</option>
-                        {% endif %}
-                    {% endfor %}
-        </select>
-      </div>
+        <label class="control-label col-sm-2 text-right" for="year">Year:</label>
+        <div class="col-sm-2">
+            <select id = "year" class="custom-select">
+                {% for year in years %}
+                    {% if year == year_now %}
+                        <option selected value="{{ year }}">{{ year }}</option>
+                    {% else %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
     </div>
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Title:</label>
-      <div class="col-sm-9">
-          <input type="text" class="form-control" id="title" placeholder="Title">
-      </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="title" placeholder="Course Title">
+        </div>
     </div>
     <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" for="units">Units:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="units" placeholder="Units" name="units" >
-      </div>
+        <label class="control-label col-sm-2 text-right" for="units">Units:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="units" placeholder="Course Units" name="units" >
+        </div>
     </div>
-  <div class="form-group row">
-      <label class="control-label col-sm-2 text-right">Session:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="sessions" placeholder="Session" name="session" >
-      </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Session:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="sessions" placeholder="Course Session" name="session" >
+        </div>
     </div>
-  <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" for="description">Description:</label>
-      <div class="col-sm-9">
-        <textarea rows="3" class="form-control" id="description" placeholder="Description" name="description" ></textarea>
-      </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right" for="description">Description:</label>
+        <div class="col-sm-9">
+            <textarea rows="3" class="form-control" id="description" placeholder="Course Description" name="description" ></textarea>
+        </div>
     </div>
-  <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" >Learning Outcome:</label>
-      <div class="col-sm-9">
-        <textarea rows="3" class="form-control" id="outcome" placeholder="Learning Outcome" name="outcome" ></textarea>
-      </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right" >Learning Outcome:</label>
+        <div class="col-sm-9">
+            <textarea rows="3" class="form-control" id="outcome" placeholder="Learning Outcome" name="outcome" ></textarea>
+        </div>
     </div>
-  <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" for="prerequisite">Incompatible Course:</label>
-     <div class="col-sm-8" id="compulsory">
-         <strong>Use search to add Incompatible Course.</strong>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right" for="incompatible">Incompatible Course:</label>
+        <div class="col-sm-8" id="incompatible">
+            <strong>Use search to add Incompatible Course.</strong>
             <div class="form-group row">
-
                 <table id="incompatibleTable" class="table table-hover" style="width: 70%; margin: auto">
                 </table>
             </div>
         </div>
-  </div>
-      <div class="form-group row">
-          <label class="control-label col-sm-2 text-right" for="prerequisite">Pre-requisite Course:</label>
-
-          <div class="col-sm-8" id="compulsory">
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right" for="prerequisite">Pre-requisite Course:</label>
+        <div class="col-sm-8" id="prerequisite">
+            <strong>Use search to add Pre-requisite Course.</strong>
             <div class="form-group row">
-                 <strong>Use search to add Pre-requisite Course.</strong>
                 <table id="prerequisiteTable" class="table table-hover" style="width: 70%; margin: auto">
                 </table>
             </div>
         </div>
-      </div>
-      <div class="form-group row">
-          <label class="control-label col-sm-2 text-right" for="prerequisite">Search:</label>
-          <div class="col col-lg-4">
-              <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
-          </div>
-          <div class="col col-lg-2">
-              <button onclick="showCourse()" class="btn btn-outline-primary" id="search">Search</button>
-          </div>
-      </div>
-      <div style="width: 100%; text-align: center">
-          <div>&nbsp</div>
-          <div class="table-responsive">
-              <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+    </div>
+    <div class="form-group row">
+        <div class="col text-center">
+            <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Save Course</button>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right" for="prerequisite">Search:</label>
+        <div class="col col-sm-4">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
+        </div>
+        <div class="col col-sm-2">
+            <a class="btn btn-outline-dark logout" href="#" onclick="showCourse()">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+    </div>
+    <div style="width: 100%; text-align: center">
+        <div>&nbsp</div>
+        <div class="table-responsive">
+            <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
 
-              </table>
-          </div>
+            </table>
+        </div>
     </div>
 
-      </div>
+    </div>
     <script>
         function showCourse() {
             var year = document.getElementById("year").value;
@@ -164,9 +184,9 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                   tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addIncompatible(courseCodes[" + i + "])\">Add incompatible course</button>" + "</td>";
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addIncompatible(courseCodes[" + i + "])\">Add incompatible course</button>" + "</td>";
                                 } else if (j == 3) {
-                                      tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addPrerequisite(courseCodes[" + i + "])\">Add prerequisite course</button>" + "</td>";
+                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addPrerequisite(courseCodes[" + i + "])\">Add prerequisite course</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
@@ -178,30 +198,108 @@
             });
         }
 
+
+
         function saveDegree() {
+            let plan = [];
+            let code = document.getElementById("code").value;
+            let year = document.getElementById("year").value;
+            let title = document.getElementById("title").value;
+            for (let i = 0; i < length; i++) {
+                plan.push(document.getElementById("plan" + i).value);
+            }
+            let postPlan= JSON.stringify(plan);
+            let postCompulsory= JSON.stringify(compulsoryList);
+            console.log(code, year, title, plan, compulsoryList);
+            $.ajax({
+                url: '../degree/addDegree',
+                data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
+                dataType: "json",
+                success: function (data) {
+                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                }
+            });
+        }
+
+        function resetParam() {
+            $('#code').val('');
+            $('#title').val('');
+            $('#units').val('');
+            $('#sessions').val('');
+            $('#description').val('');
+            $('#learningOutcome').val('');
+
+        }
+
+        function resetClass() {
+            $('#code').removeClass().addClass("form-control");
+            $('#title').removeClass().addClass("form-control");
+            $('#units').removeClass().addClass("form-control");
+            $('#sessions').removeClass().addClass("form-control");
+            $('#description').removeClass().addClass("form-control");
+            $('#learningOutcome').removeClass().addClass("form-control");
+        }
+
+        function setMessageError(msg, id){
+            $('#msg_header').text('Error: ');
+            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+            $('#msg').text(msg);
+            $('#message').show();
+            setTimeout(hideMessage, 5000);
+            $('#' + id).removeClass().addClass("form-control is-invalid");
+        }
+
+        function checkData() {
+            //reset attribute
+            resetClass();
+            if($('#code').val() == ''){
+                setMessageError('Course Code Cannot be Empty', 'code');
+            }
+            else if($('#title').val() == ''){
+                setMessageError('Course Title Cannot be Empty', 'title');
+            }
+            else if($('#units').val() == ''){
+                setMessageError('Course Units Cannot be Empty', 'title');
+            }
+            else if($('#sessions').val() == ''){
+                setMessageError('Course Session Cannot be Empty', 'title');
+            }
+            else if($('#description').val() == ''){
+                setMessageError('Course Description Cannot be Empty', 'title');
+            }
+            else if($('#learningOutcome').val() == ''){
+                setMessageError('Course Outcome Cannot be Empty', 'title');
+            }
+            else {
+                $('#confirmSaveModal').modal('show');
+            }
+        }
+
+        function saveDegree_() {
             boot4.confirm({
                 msg: "Are you sure to save ?",
                 callback: function (result) {
                     if (result) {
-                         let plan = [];
-                            let code = document.getElementById("code").value;
-                            let year = document.getElementById("year").value;
-                            let title = document.getElementById("title").value;
-                            for (let i = 0; i < length; i++) {
-                                plan.push(document.getElementById("plan" + i).value);
+                        let plan = [];
+                        let code = document.getElementById("code").value;
+                        let year = document.getElementById("year").value;
+                        let title = document.getElementById("title").value;
+                        for (let i = 0; i < length; i++) {
+                            plan.push(document.getElementById("plan" + i).value);
+                        }
+                        let postPlan= JSON.stringify(plan);
+                        let postCompulsory= JSON.stringify(compulsoryList);
+                        console.log(code, year, title, plan, compulsoryList);
+                        $.ajax({
+                            url: '../degree/addDegree',
+                            data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
+                            dataType: "json",
+                            success: function (data) {
+                                $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
                             }
-                            let postPlan= JSON.stringify(plan);
-                            let postCompulsory= JSON.stringify(compulsoryList);
-                            console.log(code, year, title, plan, compulsoryList);
-                            $.ajax({
-                                url: '../degree/addDegree',
-                                data: {"code": code, "year": year,"title":title,"planList":postPlan,"compulsoryList":postCompulsory},
-                                dataType: "json",
-                                success: function (data) {
-                                     $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
-                                }
 
-                            });
+                        });
                         console.log("save success");
                     } else {
                         console.log("cancel");
@@ -209,8 +307,9 @@
                 }
             });
         }
+
         var incompatibleList = [];
-    function addIncompatible(course) {
+        function addIncompatible(course) {
             incompatibleList.push(course);
 
             let incompatibleString = "<tbody>\n";
@@ -221,7 +320,7 @@
             document.getElementById("incompatibleTable").innerHTML = incompatibleString;
         }
         var prerequisiteList = [];
-     function addPrerequisite(course) {
+        function addPrerequisite(course) {
             prerequisiteList.push(course);
 
             let prerequisiteString = "<tbody>\n";
@@ -254,10 +353,10 @@
                             $.ajax({
                                 url: '../degree/addCourse',
                                 data: {"code": code, "year": year,"title":title,"unit":unit,"session":sessions,"description":description,
-                                "outcome":outcome,"prerequisiteList":postPrerequisiteList,"incompatibleList":postIncompatibleList},
+                                    "outcome":outcome,"prerequisiteList":postPrerequisiteList,"incompatibleList":postIncompatibleList},
                                 dataType: "json",
                                 success: function (data) {
-                                     $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
                                 }
 
                             });
