@@ -9,11 +9,7 @@ urlpatterns = [
     path('coursedata', views.course_data),
     path('stored_plans', views.stored_plans),
     path('update_degree_requirement', views.update_degree_requirement),
-<<<<<<< HEAD
-=======
-    path('delete_degree', views.delete_degree),
-    path('create_degree', views.create_degree),
->>>>>>> b78d38fc87476e9ea92d4117f0c3e45485727a35
+
     path('delete', views.delete),
     path('saveDegree', views.update_degree_requirement),
     path('saveCourse', views.saveCourse),
