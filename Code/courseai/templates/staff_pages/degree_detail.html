@@ -58,11 +58,10 @@
     </div>
 
     <div class="container text-center">
-        <div id="alert">
-        </div>
         <h1 id="pageTitle"></h1>
-
     </div>
+    {% include 'staff_pages/partials/_message.html' %}
+    {% include 'staff_pages/partials/_modal.html' %}
     <div class="container" id="deleteMode">
         <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
         <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
@@ -87,8 +86,7 @@
             </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Title:</td>
-                <td style="text-align: left" id="title_q">
-                </td>
+                <td style="text-align: left" id="title_q"></td>
             </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Units:</td>
@@ -129,7 +127,8 @@
             </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Units:</td>
-                <td id="Units" style="text-align: left">
+                <td style="text-align: left">
+                    <input type="text" id="Units" class="form-control" >
                 </td>
             </tr>
             <tr>
@@ -137,11 +136,6 @@
                 <td id="compulsory" style="text-align: left">
                 </td>
             </tr>
-            {#            <tr>#}
-            {#                <td style="text-align: right; width: 20%">Specialisation:</td>#}
-            {#                <td id="specialisation" style="text-align: left">#}
-            {#                </td>#}
-            {#            </tr>#}
             <tr>
                 <td style="text-align: right; width: 20%">Study Plan:</td>
                 <td id="plan" style="text-align: left">
@@ -156,6 +150,19 @@
 
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
     <script>
+        $('#btnEdit').click(function () {
+            $('#deleteMode').hide();
+            $('#editMode').show();
+            $('#queryContainer').hide();
+            $('#editContainer').show();
+        });
+        $('#btnEditCancel').click(function () {
+            $('#deleteMode').show();
+            $('#editMode').hide();
+            $('#queryContainer').show();
+            $('#editContainer').hide();
+        });
+
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = location.search.substr(1).match(reg);
@@ -198,7 +205,6 @@
             data: {"degree_code": codeS, "year": yearS},
             method: 'GET',
             success: function (data) {
-                console.log("degreeplan success");
                 for (let i = 0; i < data.response.length; i++) {
                     //console.log(data.response)
                     for (let j = 0; j < data.response[i].length; j++) {
@@ -206,13 +212,12 @@
                             planList.push(data.response[i][j].code.toString().replace(/\s*/g, ""));
                         }
                         else{
-                        planList.push(data.response[i][j].code.toString());
+                            planList.push(data.response[i][j].code.toString());
                         }
                     }
                 }
                 let yearLength = planList.length / 8;
                 let length = 0;
-                //console.log(yearLength);
                 for (let i = 0; i < yearLength; i++) {
                     planString += "<td>" + "Year" + (i + 1) + "</td>";
                     planString_q += "<td>" + "Year" + (i + 1) + "</td>";
@@ -257,21 +262,15 @@
             data: {"query": codeS + "-" + yearS},
             success: function (data) {
                 versions = data;
-                console.log("degreereqs success");
-                document.getElementById('Units').innerText = data.units;
+                //document.getElementById('Units').innerText = data.units;
+                $('#Units').val(data.units);
                 $('#Units_q').text(data.units);
                 if (data.required.compulsory_courses != undefined) {
                     for (let i = 0; i < data.required.compulsory_courses.length; i++) {
                         compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g, ""))
                     }
                 }
-                {% comment %}for (let i = 0; i < data.required["one_from_m/m/s"].length; i++) {
-                    let specArray = data.required["one_from_m/m/s"][i].toString().split(",");
-                    for (let j = 0; j < specArray.length; j++) {
-                        specList.push(specArray[j].toString().replace(/\s*/g, ""));
-                    }
-                }{% endcomment %}
-                {#<textarea rows="3" class="form-control" id="outcome" placeholder="Learning Outcome" name="outcome" ></textarea>#}
+
                 compulsory += "<textarea cols = \"20\" rows=\"" + compulsoryList.length + "\" id=\"compulsories\" >";
                 for (let i = 0; i < compulsoryList.length; i++) {
                     let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
@@ -281,70 +280,99 @@
                     else {
                         compulsory += compulsoryList[i] + "&#10";
                     }
-                    {#compulsory += "<input type=\"text\" id=\"compulsory" + i + "\"value=\"" + compulsoryList[i] + "\">" + "<a href =" + link + ">  Course detail<a>" + "<br>";#}
                     compulsory_q += "<a href =" + link + ">" + compulsoryList[i] +  "<a>" + "<br>";
                 }
                 compulsory += "</textarea>";
-                {% comment %}for (let i = 0; i < specList.length; i++) {
-                    spec += "<input type=\"text\" id=\"spec" + i + "\"value=\"" + specList[i] + "\">" + "<br>";
-                }
-                specTable.innerHTML = spec;{% endcomment %}
+
                 compulsoryTable.innerHTML = compulsory;
                 $('#compulsory_q').html(compulsory_q);
-
-                $(document).ready(function () {
-                    $('#btnEdit').click(function () {
-                        $('#deleteMode').hide();
-                        $('#editMode').show();
-                        $('#queryContainer').hide();
-                        $('#editContainer').show();
-                    });
-                    $('#btnEditCancel').click(function () {
-                        $('#deleteMode').show();
-                        $('#editMode').hide();
-                        $('#queryContainer').show();
-                        $('#editContainer').hide();
-                    });
-                });
             }
         });
 
+        var hideMessage = function(){
+            $('#message').fadeOut('slow');
+        };
+
         function saveData() {
-                                    {#for (let i = 0; i < compulsoryList.length; i++) {#}
-                                    {#    compulsoryList[i]=document.getElementById("compulsory" + i).value.toString();#}
-                                    {#}#}
-                                     for (let i = 0; i < planList.length; i++) {
-                                        planList[i]=document.getElementById("plan" + i).value.toString();
-                                    }
+            for (let i = 0; i < planList.length; i++) {
+                planList[i]=document.getElementById("plan" + i).value.toString();
+            }
 
-                                    let compulsories = $('#compulsories').text().split("\n");
+            let compulsories = $('#compulsories').text().split("\n");
 
-                                    let postPlan= JSON.stringify(planList);
-                                    {#let postCompulsory= JSON.stringify(compulsoryList);#}
-                                    let postCompulsory= JSON.stringify(compulsories);
-                                    $.ajax({
-                                        url: '../degree/saveDegree',
-                                        data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS},
-                                        dataType:"json",
-                                        success: function (data) {
-                                            console.log(data)
-                                            $('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
-                                        }
+            let postPlan= JSON.stringify(planList);
+            let postCompulsory= JSON.stringify(compulsories);
 
-                                    });
+            let postUnit = JSON.stringify($('#Units').val());
+            $.ajax({
+                url: '../degree/saveDegree',
+                data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS, "unit": postUnit},
+                dataType:"json",
+                success: function (data) {
+                    if(data.response === 'success'){
+                        //show message
+                        $('#msg_header').text('Success: ');
+                        $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                        $('#msg').html('Update Degree Successful! Refresh Page in 5 Seconds');
+                        $('#message').show();
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 4 Seconds');
+                            $('#message').show();
+                        }, 1000);
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 3 Seconds');
+                            $('#message').show();
+                        }, 2000);
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 2 Seconds');
+                            $('#message').show();
+                        }, 3000);
+                        setTimeout(function(){
+                            $('#msg').html('Update Degree Successful! Refresh Page in 1 Seconds');
+                            $('#message').show();
+                        }, 4000);
+                        setTimeout(function(){
+                            location.reload();
+                        }, 5000);
+                    } else if (data.response === 'validation') {
+                        $('#msg_header').text('Error: ');
+                        $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                        $('#msg').text(data.msg);
+                        $('#message').show();
+                        setTimeout(hideMessage, 5000);
+                        $('#' + data.element).removeClass().addClass('form-control is-invalid');
+                    } else {
+                        var mesej = 'Oops, something wrong, please try again in a few moments!';
+                        $('#modal-body').html(mesej);
+                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                        $('#modal-title').html('Error!');
+                        $('#error-modal').modal('show');
+                    }
+                    //$('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
+                }
+            });
         }
 
         function deleteData() {
-            console.log(codeS + yearS);
             $.ajax({
                 url: '../degree/delete',
                 data: {"code": codeS, "type": "degree", "year": yearS},
+                dataType:"json",
                 success: function (data) {
-                    console.log(data)
+                    if(data.response === 'success'){
+                        window.location.href='degree';
+                    }
+                    else {
+                        var mesej = 'Oops, something wrong, please try again in a few moments!';
+                        $('#modal-body').html(mesej);
+                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                        $('#modal-title').html('Error!');
+                        $('#error-modal').modal('show');
+                    }
                 }
 
             });
-            window.location.href='degree';
         }
     </script>
 

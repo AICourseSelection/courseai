@@ -58,7 +58,7 @@
     <div style="width: 100%; text-align: center">
         <div>&nbsp</div>
         <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 80%; margin: auto">
+            <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
 
             </table>
         </div>
@@ -99,9 +99,8 @@
             let year = document.getElementById("year").value;
            let tableData = "<thead class = \"thead-light\">\n" +
                 "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"15%\">Specialisation Code</th>\n" +
-                "                      <th scope=\"col\" width=\"25%\">Specialisation Title</th>\n" +
-                   "                      <th scope=\"col\" width=\"60%\">Specialisation Description</th>\n" +
+                "                      <th scope=\"col\" width=\"30%\">Specialisation Code</th>\n" +
+                "                      <th scope=\"col\" width=\"70%\">Specialisation Title</th>\n" +
                 "                    </tr>\n" +
                 "                  </thead>";
             tableData += "<tbody>\n" +
@@ -133,22 +132,16 @@
                         return;
                     } else {
                         for (i = 0; i < specsCodes.length; i++) {
-                            for (let j = 0; j < 3; j++) {
+                            for (let j = 0; j < 2; j++) {
 
                                     if (j == 0) {
-                                        tableData += "<td>" +
+                                        tableData += "<td style=\"text-align:center\">" +
                                             "<a href=\"specialisation_detail?code=" + specsCodes[i ] + "&year=" + year + "&level=" + specLevel[i] + "\" >" +
                                             specsCodes[i ] +
                                             "</a>" +
                                             "</td>";
-                                    } else if (j == 2) {
-                                        tableData += "<td>" +
-                                            "<a href=\"specialisation_detail?code=" + specsCodes[i ] + "&year=" + year + "&level=" + specLevel[i] + "\" >" +
-                                            specDescription[i] +
-                                            "</a>" +
-                                            "</td>";
                                     } else if (j == 1) {
-                                        tableData += "<td>" +
+                                        tableData += "<td style=\"text-align:left\">" +
                                             "<a href=\"specialisation_detail?code=" + specsCodes[i] + "&year=" + year + "&level=" + specLevel[i] + "\" >" +
                                             specsTitle[i] +
                                             "</a>" +
