@@ -1,6 +1,7 @@
 {% extends 'staff_pages/staff_base.html' %}
 
 {% block content %}
+    {% if user.is_authenticated and user.is_staff%}
     <section id="bc" class="mt-3">
     <div class="container">
       <nav aria-label="breadcrumb">
@@ -330,5 +331,10 @@
 
 
     </script>
+    {% else %}
+    <div class="container">
+      <h1 class="text-center">Warning! You don't enter correct password and username</h1>
+  </div>
+    {% endif%}
 
 {% endblock %}

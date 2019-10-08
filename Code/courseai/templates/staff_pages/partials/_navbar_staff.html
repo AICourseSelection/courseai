@@ -10,10 +10,14 @@
                     class="nav-item mr-3"
                   {% endif %}
           >
+
             <a class="nav-link" href="{% url 'index' %}">Home</a>
           </li>
-          <li class="nav-item mr-3">
-            <a class="nav-link" href="#">User Manual</a>
+           <li class="nav-item mr-3">
+            <a class="nav-link" href="../">
+              <i class="fas fa-sign-in-alt"></i>
+
+              Back to ICS</a>
           </li>
           <li
                   {% if 'about' in request.path %}
@@ -28,12 +32,7 @@
 
         <ul class="navbar-nav ml-auto">
 
-          <li class="nav-item mr-3">
-            <a class="nav-link" href="../">
-              <i class="fas fa-sign-in-alt"></i>
 
-              Back to ICS</a>
-          </li>
         </ul>
       </div>
     </div>
