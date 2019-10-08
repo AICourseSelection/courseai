@@ -285,3 +285,8 @@ class degree_requirement(models.Model):
         to_return["required"] = json.loads(self.required)
 
         return json.dumps(to_return)
+
+
+class all_program(models.Model):
+    code = models.CharField(max_length=10, default="")
+    title = models.TextField(default="", blank=True, editable=True)
