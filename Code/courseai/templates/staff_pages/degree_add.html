@@ -264,7 +264,7 @@
                 plan.push(document.getElementById("plan" + i).value);
             }
             let postPlan = JSON.stringify(plan);
-            let postCompulsory = JSON.stringify(compulsoryList);
+            let postCompulsory = JSON.stringify(compulsoryCodeList);
             $.ajax({
                 url: '../degree/addDegree',
                 data: {
