@@ -1,5 +1,3 @@
-
-
 {% extends 'staff_pages/staff_base.html' %}
 
 {% block content %}
@@ -11,21 +9,33 @@
               <a href="{% url 'index' %}">
             <i class="fa fa-home"></i> Home </a>
           </li>
-            <li class="breadcrumb-item active">Specialisation(Add)</li>
+            <li class="breadcrumb-item active">Specialisation (Add)</li>
         </ol>
       </nav>
     </div>
   </section>
-     <div class="container text-center" id="alert">
+    <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
+         aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body alert-success text-center">
+                    <h4><strong>Create New Specialisation?</strong></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                            id="confirmSaveButtonModal" onclick=save()>
+                        Create
+                    </button>
+                </div>
+            </div>
         </div>
-    <h1 class="display-6 text-center">Add A New Specialisation</h1>
-
-
-    <div class="col-sm-11">
-        <button type="submit" class="btn btn-outline-info pull-right" onclick="save()" id="btnSave">Save</button>
     </div>
-    <div>&nbsp</div>
-    <div>&nbsp</div>
+    <h1 class="display-6 text-center">Add A New Specialisation</h1>
+{% include 'staff_pages/partials/_message.html' %}
+    {% include 'staff_pages/partials/_modal.html' %}
+
     <div class="form-group row">
       <label class="control-label col-sm-2 text-right" for="code">Code:</label>
       <div class="col-sm-2">
@@ -33,7 +43,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="control-label col-sm-2 text-right" >Academic Year:</label>
+      <label class="control-label col-sm-2 text-right" >Year:</label>
       <div class="col-sm-2">
         <select id = "year" class="custom-select">
             {% for year in years %}
@@ -49,35 +59,48 @@
     <div class="form-group row">
         <label class="control-label col-sm-2 text-right">Title:</label>
       <div class="col-sm-9">
-          <input type="text" class="form-control" id="title" placeholder="Title">
+          <input type="text" class="form-control" id="title" placeholder="Specialisation Title">
       </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right">Level:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="level" placeholder="Specialisation Level">
+        </div>
     </div>
   <div class="form-group row">
       <label class="control-label col-sm-2 text-right" >Description:</label>
       <div class="col-sm-9">
-        <textarea rows="3" class="form-control" id="description" placeholder="Description" name="description" ></textarea>
+        <textarea rows="3" class="form-control" id="description" placeholder="Specialisation Description" name="description" ></textarea>
       </div>
     </div>
       <div class="form-group row">
-          <label class="control-label col-sm-2 text-right" for="prerequisite">Requirements:</label>
-          <div class="col-sm-8">
-         <strong>Use search to add Requirements.</strong>
+        <label class="control-label col-sm-2 text-right" for="prerequisite">Requirements:</label>
+        <div class="col-sm-8">
+            <strong>Use search to add Requirements.</strong>
             <div class="form-group row">
 
-                <table id="requirementsTable" class="table table-hover" style="width: 70%; margin: auto">
+                <table id="requirementTable" class="table table-hover" style="width: 70%;">
                 </table>
             </div>
         </div>
-      </div>
-      <div class="form-group row">
-          <label class="control-label col-sm-2 text-right" for="prerequisite">Search:</label>
-          <div class="col col-lg-4">
-              <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
-          </div>
-          <div class="col col-lg-2">
-              <button onclick="showCourse()" class="btn btn-outline-primary" id="search">Search</button>
-          </div>
-      </div>
+    </div>
+    <div class="form-group row">
+        <div class="col text-center">
+            <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Create Specialisation</button>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2 text-right" >Search:</label>
+        <div class="col col-sm-4">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
+        </div>
+        <div class="col col-sm-2">
+            <a class="btn btn-outline-dark logout" href="#" onclick="showCourse()">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+    </div>
       <div style="width: 100%; text-align: center">
           <div>&nbsp</div>
           <div class="table-responsive">
@@ -89,6 +112,11 @@
 
       </div>
     <script>
+        let requirementCodeList = [];
+        let requirementNameList = [];
+        var courseNames;
+        var courseCodes;
+
         function showCourse() {
             var year = document.getElementById("year").value;
             let courses = document.getElementById("search").value;
@@ -102,7 +130,7 @@
             tableData += "<tbody>\n" +
                 "    <tr>";
             courseCodes = [];
-            courseVersions = [];
+            courseNames = [];
             const courseUnits = [];
             const courseTitles = [];
             var versions = "";
@@ -117,7 +145,7 @@
                         if (versions != undefined) {
                             courseCodes.push(data.response[i].course_code);
                             courseTitles.push(versions.title);
-
+                            courseNames.push(versions.title);
                         }
                     }
                     if (courseCodes.length == 0) {
@@ -134,7 +162,7 @@
                                     tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
                                         courseTitles[i] + "</a>" + "</td>";
                                 } else if (j == 2) {
-                                    tableData += "<td>" + "<button  class=\"btn btn-outline-primary\" id=\"search\" onclick=\"addRequirement(courseCodes[" + i + "])\">Add requirentments</button>" + "</td>";
+                                    tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addRequirement(courseCodes[" + i + "],courseNames[" + i + "])\">Add Requirement</button>" + "</td>";
                                 }
                             }
                             tableData += "</tr>" + "<tr>";
@@ -145,18 +173,128 @@
                 }
             });
         }
-        var requirementList = [];
-    function addRequirement(course) {
-            requirementList.push(course);
 
-            let requirementString = "<tbody>\n";
-            for (let i = 0; i < requirementList.length; i++) {
-                requirementString = requirementString + "<tr>" + requirementList[i] + "</tr><br>";
+        function checkData() {
+            //reset attribute
+            resetClass();
+            if($('#code').val() == ''){
+                setMessageError('Specialisation Code Cannot be Empty', 'code');
             }
-            requirementString += "</tbody>";
-            document.getElementById("requirementsTable").innerHTML = requirementString;
+            else if($('#title').val() == ''){
+                setMessageError('Specialisation Title Cannot be Empty', 'title');
+            }
+            else if($('#level').val() == ''){
+                setMessageError('Specialisation Level Cannot be Empty', 'level');
+            }
+            else if($('#description').val() == ''){
+                setMessageError('Specialisation Description Cannot be Empty', 'description');
+            }
+            else {
+                $('#confirmSaveModal').modal('show');
+            }
         }
+
+        function addRequirement(course, name) {
+            if (!requirementCodeList.includes(course)) {
+                requirementCodeList.push(course);
+                requirementNameList.push(name);
+                drawRequirement();
+            }
+        }
+
+        function deleteRequirement(index){
+            requirementCodeList.splice(index, 1);
+            requirementNameList.splice(index, 1);
+            drawRequirement();
+        }
+
+        function drawRequirement(){
+            let str = "<tbody>";
+            for (let i = 0; i < requirementCodeList.length; i++) {
+                str += "<tr><td>" + requirementCodeList[i] + "</td><td>" + requirementNameList[i] + "</td><td><button onclick=\"deleteRequirement(" + i + ")\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i></button></td></tr>";
+            }
+            str += "</tbody>";
+            $('#requirementTable').html(str);
+        }
+
+        function resetParam() {
+            $('#code').val('');
+            $('#title').val('');
+            $('#level').val('');
+            $('#description').val('');
+
+            requirementCodeList = [];
+            requirementNameList = [];
+            $('#Table').html('');
+            $('#requirementTable').html('');
+            $('#search').val('');
+        }
+
+        function resetClass() {
+            $('#code').removeClass().addClass("form-control");
+            $('#title').removeClass().addClass("form-control");
+            $('#level').removeClass().addClass("form-control");
+            $('#description').removeClass().addClass("form-control");
+        }
+
+        function setMessageError(msg, id){
+            $('#msg_header').text('Error: ');
+            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+            $('#msg').text(msg);
+            $('#message').show();
+            setTimeout(hideMessage, 5000);
+            $('#' + id).removeClass().addClass("form-control is-invalid");
+        }
+
+        var hideMessage = function(){
+            $('#message').fadeOut('slow');
+        };
         function save() {
+            let code = document.getElementById("code").value;
+            let year = document.getElementById("year").value;
+            let title = document.getElementById("title").value;
+            let level = document.getElementById("level").value;
+            let description=document.getElementById("description").value;
+            let postRequirement=JSON.stringify(requirementCodeList);
+
+            $.ajax({
+                url: '../degree/addSpec',
+                data: {"code": code, "year": year,"title":title,"description":description,"requirement":postRequirement,"level":level},
+                dataType: "json",
+                success: function (data) {
+                    if (data.response == 'success') {
+                        //reset param
+                        resetParam();
+
+                        //show message
+                        $('#msg_header').text('Success: ');
+                        $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                        let link = 'specialisation_detail' + '?code=' + code + '' + '&year=' + year + '&level=' + level;
+                        $('#msg').html('Create ' + '<a href=\"' + link + '\">' + title + ' ' + year + '</a> Successful!');
+                        $('#message').show();
+                        setTimeout(hideMessage, 15000);
+                    } else if (data.response == 'validation') {
+                        $('#msg_header').text('Error: ');
+                        $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                        $('#msg').text(data.msg);
+                        $('#message').show();
+                        setTimeout(hideMessage, 5000);
+                        $('#' + data.element).removeClass().addClass('form-control is-invalid');
+                    } else {
+                        var mesej = 'Oops, something wrong, please try again in a few moments!';
+                        $('#modal-body').html(mesej);
+                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                        $('#modal-title').html('Error!');
+                        $('#error-modal').modal('show');
+                    }
+                }
+
+            });
+        }
+
+        function save_() {
             if (document.getElementById("code").value == "" || document.getElementById("title").value == "") {
                 boot4.confirm({
                     msg: "Please input available code and title."
