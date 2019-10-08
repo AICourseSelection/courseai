@@ -58,12 +58,10 @@
     </div>
 
     <div class="container text-center">
-        <div id="alert">
-        </div>
         <h1 id="pageTitle"></h1>
-        {% include 'staff_pages/partials/_message.html' %}
-        {% include 'staff_pages/partials/_modal.html' %}
     </div>
+    {% include 'staff_pages/partials/_message.html' %}
+    {% include 'staff_pages/partials/_modal.html' %}
     <div class="container" id="deleteMode">
         <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
         <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
@@ -88,8 +86,7 @@
             </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Title:</td>
-                <td style="text-align: left" id="title_q">
-                </td>
+                <td style="text-align: left" id="title_q"></td>
             </tr>
             <tr>
                 <td style="text-align: right; width: 20%">Units:</td>
@@ -139,11 +136,6 @@
                 <td id="compulsory" style="text-align: left">
                 </td>
             </tr>
-            {#            <tr>#}
-            {#                <td style="text-align: right; width: 20%">Specialisation:</td>#}
-            {#                <td id="specialisation" style="text-align: left">#}
-            {#                </td>#}
-            {#            </tr>#}
             <tr>
                 <td style="text-align: right; width: 20%">Study Plan:</td>
                 <td id="plan" style="text-align: left">
