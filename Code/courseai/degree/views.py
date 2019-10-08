@@ -155,6 +155,7 @@ def update_degree_requirement(request):
 
     # Get the modified data and update the relative field
     compulsory_courses = request.GET['compulsoryList']
+    print(compulsory_courses)
     # planList = request.GET['planList']
 
     # convert the string into json structure and assign new values
