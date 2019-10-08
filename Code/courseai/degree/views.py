@@ -16,11 +16,15 @@ from .models import Degree, PreviousStudentDegree, DegreePlanStore, degree_requi
 
 
 def all_degrees(request):
-    degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
+    # degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
+    degree_list = all_program.objects.filter()
+    # degree_list = pd.r(all_program)
     results = []
 
-    for index, degree in degree_list.iterrows():
-        results.append({"code": degree[0], "title": degree[1]})
+
+
+    for degree in degree_list:
+        results.append({"code": degree.code, "title": degree.title})
 
     return JsonResponse({"response": results})
 
@@ -170,10 +174,43 @@ def update_degree_requirement(request):
 def delete(request):
     code = request.GET['code']
     type = request.GET['type']
+
     year = request.GET['year']
     print(code, type, year)
+    dg_dg = degree_requirement.objects.filter(code=code, year=year)[0]
+    dg_all = all_program.objects.filter(code=code)[0]
+    dg_all.delete()
+    # Delete all the data of this degree
+    dg_dg.delete()
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
+
+
+# def saveDegree(request):
+#     code = request.GET['code']
+#     year = request.GET['year']
+#     title = request.GET['title']
+#     planList = request.GET['planList']
+#     units_list = json.loads(planList)
+#     units = len(units_list) * 6
+#     compulsoryList = request.GET['compulsoryList']
+#     print(planList)
+#     # list_data = json.loads(planList)
+#     list_data = json.loads(compulsoryList)
+#
+#     # for i in list_data:
+#     #     print(i)
+#
+#     dg_req = degree_requirement.objects.filter(code=code, year=year)[0]
+#     dg_req.name = title
+#     dg_req.units = units
+#     dg_req.required = list_data
+#
+#     dg_req.save()
+#
+#     res = JsonResponse({"response": "success"})
+#     return HttpResponse(res)
+
 
 
 def saveCourse(request):
@@ -215,17 +252,23 @@ def addDegree(request):
     code_year = code + "" + year
     title = request.GET['title']
     planList = request.GET['planList']
+    plan_list = json.loads(planList)
     compulsoryList = request.GET['compulsoryList']
+    CompulsoryList = json.loads(compulsoryList)
+    print(code, year, planList, compulsoryList, title)
+    units = len(plan_list) * 6
+    dg_dg = degree_requirement.objects.filter(code=code, year=year)
 
-    requirement = []
-    requirement["compulsory_courses"] = compulsoryList
+    if len(dg_dg) == 0:
+        # Create degree
 
-    st = studyoption(code_year=code_year, option=planList)
-    ob = all_program(code=code, title=title)
-    de = degree_requirement(code=code, year=year, name=title, required=requirement)
-    st.save()
-    ob.save()
-    de.save()
+        st = studyoption(code_year=code_year, option=planList)
+        ob = all_program(code=code, title=title)
+        dg = degree_requirement(year=year, code=code,
+                                name=title, units=units, required=CompulsoryList)
+        st.save()
+        ob.save()
+        dg.save()
 
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
@@ -261,45 +304,7 @@ def addMinor(request):
 def addSpec(request):
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
-def delete_degree(request):
 
-    # Find the matching data
-
-    year = request.GET['year']
-    code = request.GET['code']
-
-    dg_dg = degree_requirement.objects.filter(code=code, year=year)[0]
-
-    # Delete all the data of this degree
-    dg_dg.delete()
-
-    res = JsonResponse({"response": "success"})
-
-    return HttpResponse(res)
-
-
-def create_degree(request):
-
-    # Check if there is any same degree in the database
-    year = request.GET['year']
-    code = request.GET['code']
-
-    dg_dg = degree_requirement.objects.filter(code=code, year=year)
-
-    if len(dg_dg) == 0:
-
-        # Create new degree when there is no same degree in the database
-        dg_r = {}
-        dg_r["compulsory_courses"] = request.GET['compulsory_courses']
-        dg_r["x_from_here"] = request.GET['x_from_here']
-        dg = degree_requirement(year=request.GET['year'], code=request.GET['code'],
-                                name=request.GET['name'], units=request.GET['units'], required=dg_r)
-
-        dg.save()
-
-        res = JsonResponse({"response": "success"})
-
-        return HttpResponse(res)
 
 
 
