@@ -303,7 +303,7 @@
 
             let postPlan= JSON.stringify(planList);
             let postCompulsory= JSON.stringify(compulsories);
-
+            console.log(postPlan,postCompulsory)
             let postUnit = JSON.stringify($('#Units').val());
             $.ajax({
                 url: '../degree/saveDegree',
