@@ -58,7 +58,7 @@
     <div style="width: 100%; text-align: center">
         <div>&nbsp</div>
         <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 80%; margin: auto">
+            <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
 
             </table>
         </div>
@@ -99,9 +99,8 @@
             let year = document.getElementById("year").value;
            let tableData = "<thead class = \"thead-light\">\n" +
                 "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"15%\">Major Code</th>\n" +
-                "                      <th scope=\"col\" width=\"25%\">Major Title</th>\n" +
-                   "                      <th scope=\"col\" width=\"60%\">Major Description</th>\n" +
+                "                      <th scope=\"col\" width=\"30%\">Major Code</th>\n" +
+                "                      <th scope=\"col\" width=\"70%\">Major Title</th>\n" +
                 "                    </tr>\n" +
                 "                  </thead>";
             tableData += "<tbody>\n" +
@@ -133,22 +132,16 @@
                         return;
                     } else {
                         for (i = 0; i < majorsCodes.length; i++) {
-                            for (let j = 0; j < 3; j++) {
+                            for (let j = 0; j < 2; j++) {
 
                                     if (j == 0) {
-                                        tableData += "<td>" +
+                                        tableData += "<td style=\"text-align:center\">" +
                                             "<a href=\"major_detail?code=" + majorsCodes[i ] + "&year=" + year + "&level=" + majorLevel[i] + "\" >" +
                                             majorsCodes[i ] +
                                             "</a>" +
                                             "</td>";
-                                    } else if (j == 2) {
-                                        tableData += "<td>" +
-                                            "<a href=\"major_detail?code=" + majorsCodes[i ] + "&year=" + year + "&level=" + majorLevel[i] + "\" >" +
-                                            majorDescription[i] +
-                                            "</a>" +
-                                            "</td>";
                                     } else if (j == 1) {
-                                        tableData += "<td>" +
+                                        tableData += "<td style=\"text-align:left\">" +
                                             "<a href=\"major_detail?code=" + majorsCodes[i] + "&year=" + year + "&level=" + majorLevel[i] + "\" >" +
                                             majorsTitle[i] +
                                             "</a>" +

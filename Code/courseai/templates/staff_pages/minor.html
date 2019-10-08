@@ -36,7 +36,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="minor Code"
+                <input type="text" id="search" name="search" class="form-control" placeholder="Minor Code"
                        onkeydown="if(event.keyCode==13) {showminors()}">
             </div>
             <div class="col-md-auto">
@@ -58,7 +58,7 @@
     <div style="width: 100%; text-align: center">
         <div>&nbsp</div>
         <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 80%; margin: auto">
+            <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
 
             </table>
         </div>
@@ -99,9 +99,8 @@
             let year = document.getElementById("year").value;
            let tableData = "<thead class = \"thead-light\">\n" +
                 "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"15%\">minor Code</th>\n" +
-                "                      <th scope=\"col\" width=\"25%\">minor Title</th>\n" +
-                   "                      <th scope=\"col\" width=\"60%\">minor Description</th>\n" +
+                "                      <th scope=\"col\" width=\"30%\">Minor Code</th>\n" +
+                "                      <th scope=\"col\" width=\"70%\">Minor Title</th>\n" +
                 "                    </tr>\n" +
                 "                  </thead>";
             tableData += "<tbody>\n" +
@@ -133,22 +132,16 @@
                         return;
                     } else {
                         for (i = 0; i < minorsCodes.length; i++) {
-                            for (let j = 0; j < 3; j++) {
+                            for (let j = 0; j < 2; j++) {
 
                                     if (j == 0) {
-                                        tableData += "<td>" +
+                                        tableData += "<td style=\"text-align:center\">" +
                                             "<a href=\"minor_detail?code=" + minorsCodes[i ] + "&year=" + year + "&level=" + minorLevel[i] + "\" >" +
                                             minorsCodes[i ] +
                                             "</a>" +
                                             "</td>";
-                                    } else if (j == 2) {
-                                        tableData += "<td>" +
-                                            "<a href=\"minor_detail?code=" + minorsCodes[i ] + "&year=" + year + "&level=" + minorLevel[i] + "\" >" +
-                                            minorDescription[i] +
-                                            "</a>" +
-                                            "</td>";
                                     } else if (j == 1) {
-                                        tableData += "<td>" +
+                                        tableData += "<td style=\"text-align:left\">" +
                                             "<a href=\"minor_detail?code=" + minorsCodes[i] + "&year=" + year + "&level=" + minorLevel[i] + "\" >" +
                                             minorsTitle[i] +
                                             "</a>" +
