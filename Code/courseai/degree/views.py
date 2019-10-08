@@ -156,11 +156,12 @@ def update_degree_requirement(request):
 
     # convert the string into json structure and assign new values
     st_op.option = planList
-    dg_r = dg_req.required.replace("'", "\"")
+    dg_r = json.loads(dg_req.required.replace("'", "\""))
+
     dg_r["compulsory_courses"] = compulsory_courses
 
     # convert the json into string and assign it to the field we are going to update
-    dg_req.required = dg_r
+    dg_req.required = json.dumps(dg_r)
 
     dg_req.save()
     #st_op.save()
