@@ -12,13 +12,12 @@ from django.views.decorators.csrf import csrf_exempt
 from recommendations import jsonhelper
 from . import course_data_helper
 from . import degree_plan_helper
-from .models import Degree, PreviousStudentDegree, DegreePlanStore, degree_requirement, studyoption
+from .models import Degree, PreviousStudentDegree, DegreePlanStore, degree_requirement, studyoption, Course, all_program
 
 
 def all_degrees(request):
     degree_list = pd.read_csv('degree/data/all_programs.csv', usecols=['code', 'title'])
     results = []
-
 
     for index, degree in degree_list.iterrows():
         results.append({"code": degree[0], "title": degree[1]})
@@ -32,10 +31,15 @@ def degree_plan(request):
         try:
             code = request.GET['degree_code']
             year = request.GET['year']
-            with open('static/json/study_options/{}.json'.format(code)) as f:
-                study_options_str = f.read()
-                study_options_dict = ast.literal_eval(study_options_str)
-            return JsonResponse({"response": study_options_dict[year]})
+            code_year = code + '' + year
+
+            st_op = studyoption.objects.filter(code_year=code_year)[0]
+            study_options_dict = ast.literal_eval(st_op.option)
+            #with open('static/json/study_options/{}.json'.format(code)) as f:
+            #    study_options_str = f.read()
+            #    study_options_dict = ast.literal_eval(study_options_str)
+            #    print(study_options_dict[year])
+            return JsonResponse({"response": study_options_dict})
         except Exception:
             res = JsonResponse(
                 {"response": "Default options of the requested degree-year combination could not be found. "})
@@ -75,7 +79,7 @@ def degree_reqs(request):
     try:
         code = request.GET['query']
         response = degree_plan_helper.get_degree_requirements(code)
-        print(response)
+
         return HttpResponse(response, content_type="application/json")
     except Exception:
         res = JsonResponse({"response": "Requirements of the requested degree could not be found. "})
@@ -140,19 +144,20 @@ def update_degree_requirement(request):
     # Find the matching data
     year = request.GET['year']
     code = request.GET['code']
+    code_year = code + '' + year
 
     dg_req = degree_requirement.objects.filter(code=code, year=year)[0]
+    st_op = studyoption.objects.filter(code_year=code_year)[0]
 
     # Get the modified data and update the relative field
-    dg_req.name = request.GET['name']
-    dg_req.units = request.GET['units']
-    compulsory_courses = request.GET['compulsory_courses']
-    x_from_here = request.GET['x_from_here']
+    compulsory_courses = request.GET['compulsoryList']
+    planList = request.GET['planList']
 
     # convert the string into json structure and assign new values
     dg_r = dg_req.required.replace("'", "\"")
     dg_r["compulsory_courses"] = compulsory_courses
-    dg_r["x_from_here"] = x_from_here
+
+
     # convert the json into string and assign it to the field we are going to update
     dg_req.required = dg_r
 
@@ -170,27 +175,19 @@ def delete(request):
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 
-def saveDegree(request):
-    code = request.GET['code']
-    year = request.GET['year']
-    planList=request.GET['planList']
-    compulsoryList = request.GET['compulsoryList']
-    print(planList)
-    list_data = json.loads(planList)
-    for i in list_data:
-        print(i)
-    res = JsonResponse({"response": "success"})
-    return HttpResponse(res)
 
 def saveCourse(request):
     code = request.GET['code']
     year = request.GET['year']
     units = request.GET['units']
     session = request.GET['sessions']
-    description=request.GET['description']
-    prerequisite=request.GET['prerequisite']
-    incompatible=request.GET['incompatible']
-    print(code,year,units,session,description,prerequisite,incompatible)
+    description = request.GET['description']
+    prerequisite = request.GET['prerequisite']
+    incompatible = request.GET['incompatible']
+    c = Course(code=code, year=year, units=units,semesters=session, description=description,
+              prerequisites=prerequisite, incompatible=incompatible)
+    c.save()
+    print("saved")
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 
@@ -211,13 +208,25 @@ def saveSpec(request):
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 
+
 def addDegree(request):
     code = request.GET['code']
     year = request.GET['year']
+    code_year = code + "" + year
     title = request.GET['title']
     planList = request.GET['planList']
     compulsoryList = request.GET['compulsoryList']
-    print(code,year,planList,compulsoryList,title)
+
+    requirement = []
+    requirement["compulsory_courses"] = compulsoryList
+
+    st = studyoption(code_year=code_year, option=planList)
+    ob = all_program(code=code, title=title)
+    de = degree_requirement(code=code, year=year, name=title, required=requirement)
+    st.save()
+    ob.save()
+    de.save()
+
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 
@@ -231,7 +240,13 @@ def addCourse(request):
     outcome = request.GET['outcome']
     prerequisiteList = request.GET['prerequisiteList']
     incompatibleList = request.GET['incompatibleList']
-    print(code,year,title,unit,session,description,outcome,prerequisiteList,incompatibleList)
+    c = Course(code=code, year=year, units=unit, semesters=session, description=description,
+               prerequisites=prerequisiteList, incompatible=incompatibleList, name=title, learning_outcomes=outcome)
+
+    print(c.creation_id)
+    print(c)
+    c.save()
+    print("saved")
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 
