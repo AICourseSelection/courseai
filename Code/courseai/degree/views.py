@@ -152,16 +152,18 @@ def update_degree_requirement(request):
     # Get the modified data and update the relative field
     compulsory_courses = request.GET['compulsoryList']
     planList = request.GET['planList']
+    print(planList)
 
     # convert the string into json structure and assign new values
+    st_op.option = planList
     dg_r = dg_req.required.replace("'", "\"")
     dg_r["compulsory_courses"] = compulsory_courses
-
 
     # convert the json into string and assign it to the field we are going to update
     dg_req.required = dg_r
 
     dg_req.save()
+    #st_op.save()
 
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
