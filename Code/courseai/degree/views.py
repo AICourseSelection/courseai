@@ -148,27 +148,25 @@ def update_degree_requirement(request):
     # Find the matching data
     year = request.GET['year']
     code = request.GET['code']
-    code_year = code + '' + year
+    # code_year = code + '' + year
 
     dg_req = degree_requirement.objects.filter(code=code, year=year)[0]
-    st_op = studyoption.objects.filter(code_year=code_year)[0]
+    # st_op = studyoption.objects.filter(code_year=code_year)[0]
 
     # Get the modified data and update the relative field
     compulsory_courses = request.GET['compulsoryList']
-    planList = request.GET['planList']
-    print(planList)
+    print(compulsory_courses)
+    # planList = request.GET['planList']
 
     # convert the string into json structure and assign new values
-    st_op.option = planList
-    dg_r = json.loads(dg_req.required.replace("'", "\""))
-
-    dg_r["compulsory_courses"] = compulsory_courses
-
+    # st_op.option = planList
+    dg_r = json.loads(dg_req.required)
+    dg_r['compulsory_courses'] = ast.literal_eval(compulsory_courses)
     # convert the json into string and assign it to the field we are going to update
     dg_req.required = json.dumps(dg_r)
 
     dg_req.save()
-    #st_op.save()
+    # st_op.save()
 
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)

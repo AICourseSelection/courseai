@@ -190,8 +190,6 @@
         var compulsoryList = [];
         var specList = [];
         var compulsoryTable = document.getElementById("compulsory");
-        var spec = "";
-        let specTable = document.getElementById("specialisation");
         var planList = [];
         let planTable = document.getElementById("planTable");
 
@@ -299,11 +297,10 @@
                 planList[i]=document.getElementById("plan" + i).value.toString();
             }
 
-            let compulsories = $('#compulsories').text().split("\n");
-
+            let compulsories = document.getElementById("compulsories").value.split("\n");
+            console.log(compulsories);
             let postPlan= JSON.stringify(planList);
             let postCompulsory= JSON.stringify(compulsories);
-
             let postUnit = JSON.stringify($('#Units').val());
             $.ajax({
                 url: '../degree/saveDegree',
