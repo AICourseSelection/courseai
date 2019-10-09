@@ -15,6 +15,16 @@
             </nav>
         </div>
     </section>
+        {% if show_message %}
+        <div id="messagex" class="container">
+            <div id="msg_class" class="alert alert-success text-center" role="alert">
+                <strong>
+                    <label id="msg_header"></label>
+                </strong>
+                <label id="msg">Delete <strong>{{ msg_param }} </strong>Successful!</label>
+            </div>
+        </div>
+        {% endif %}
     <div class="container text-center">
         <h1 class="display-4 mb-4">
             <strong>Search Degree</strong>

@@ -114,10 +114,8 @@
     <script>
         let compulsoryCodeList = [];
         let compulsoryNameList = [];
-
         var courseNames;
         var courseCodes;
-
         function showCourse() {
             var year = document.getElementById("year").value;
             let courses = document.getElementById("search").value;
@@ -139,9 +137,7 @@
                 url: '../search/coursesearch/',
                 data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
                 success: function (data) {
-
                     year = document.getElementById("year").value;
-
                     for (let i = 0; i < data.response.length; i++) {
                         versions = data.response[i].versions[year];
                         if (versions != undefined) {
@@ -176,7 +172,6 @@
                 }
             });
         }
-
         function checkData() {
             //reset attribute
             resetClass();
@@ -196,7 +191,6 @@
                 }
             }
         }
-
         function addCompulsory(course, name) {
             if (!compulsoryCodeList.includes(course)) {
                 compulsoryCodeList.push(course);
@@ -204,13 +198,11 @@
                 drawCompulsory();
             }
         }
-
         function deleteCompulsory(index){
             compulsoryCodeList.splice(index, 1);
             compulsoryNameList.splice(index, 1);
             drawCompulsory();
         }
-
         function drawCompulsory(){
             let str = "<tbody>";
             for (let i = 0; i < compulsoryCodeList.length; i++) {
@@ -219,7 +211,6 @@
             str += "</tbody>";
             $('#compulsoryTable').html(str);
         }
-
         function resetParam() {
             $('#code').val('');
             $('#title').val('');
@@ -232,7 +223,6 @@
             $('#compulsoryTable').html('');
             $('#search').val('');
         }
-
         function resetClass() {
             $('#code').removeClass().addClass("form-control");
             $('#title').removeClass().addClass("form-control");
@@ -240,21 +230,17 @@
                 $('#plan' + i).removeClass().addClass("form-control");
             }
         }
-
         function setMessageError(msg, id){
             $('#msg_header').text('Error: ');
             $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
             $('#msg').text(msg);
             $('#message').show();
             setTimeout(hideMessage, 5000);
             $('#' + id).removeClass().addClass("form-control is-invalid");
         }
-
         var hideMessage = function(){
             $('#message').fadeOut('slow');
         };
-
         function save() {
             let plan = [];
             let code = document.getElementById("code").value;
@@ -279,7 +265,6 @@
                     if (data.response == 'success') {
                         //reset param
                         resetParam();
-
                         //show message
                         $('#msg_header').text('Success: ');
                         $('#msg_class').removeClass().addClass("alert alert-success text-center");
@@ -290,7 +275,6 @@
                     } else if (data.response == 'validation') {
                         $('#msg_header').text('Error: ');
                         $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
                         $('#msg').text(data.msg);
                         $('#message').show();
                         setTimeout(hideMessage, 5000);
@@ -303,12 +287,9 @@
                         $('#error-modal').modal('show');
                     }
                 }
-
             });
         }
-
         //all about plan
-
         function checkPlan() {
             for (let i = 0; i < length; i++) {
                 if($('#plan' + i).val() == ''){
@@ -317,26 +298,21 @@
             }
             return -1;
         }
-
         let plans = [];
-
         function savePlan(){
             plans = [];
             for (let i = 0; i < length; i++) {
                 plans.push($('#plan' + i).val());
             }
         }
-
         function loadPlan() {
             for (let i = 0; i < length; i++) {
                 $('#plan' + i).val(plans[i]);
             }
         }
-
         var length = 0;
         let planString = "";
         let yearPlan = 1;
-
         planString += "<tbody>" +
             "    <tr>";
         let planYear = yearPlan;
@@ -357,9 +333,7 @@
             }
         }
         planString += "</tbody>";
-
         document.getElementById("planTable").innerHTML = planString;
-
         function deleteTable() {
             savePlan();
             yearPlan--;
@@ -369,7 +343,6 @@
             }
             loadPlan();
         }
-
         function addTable() {
             savePlan();
             yearPlan++;
@@ -377,8 +350,6 @@
             $('#deleteYear').show();
             loadPlan();
         }
-
-
         function drawTable() {
             length = 0;
             let planString = "";
@@ -403,7 +374,6 @@
             planString += "</tbody>";
             $("#planTable").html(planString);
         }
-
         function saveDegree_() {
             if (document.getElementById("code").value == ""||document.getElementById("title").value =="") {
                 boot4.confirm({
@@ -431,7 +401,6 @@
                                 success: function (data) {
                                     $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
                                 }
-
                             });
                             console.log("save success");
                         } else {
@@ -441,7 +410,6 @@
                 });
             }
         }
-
     </script>
     {% else %}
     <div class="container">
