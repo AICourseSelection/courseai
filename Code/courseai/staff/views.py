@@ -42,10 +42,19 @@ def degree(request):
     bc_param = 'Degree'
     year_now = date.today().year
     years = [year_now - 5, year_now - 4, year_now - 3, year_now - 2, year_now - 1, year_now, year_now + 1]
+    msg_param = ''
+    show_message = False
+
+    if request.method == 'GET' and 'msg_param' in request.GET:
+        show_message = True
+        msg_param = request.GET.get('msg_param')
+
     context = {
         'bc_param': bc_param,
         'years': years,
-        'year_now': year_now
+        'year_now': year_now,
+        'show_message': show_message,
+        'msg_param': msg_param
     }
     return render(request, 'staff_pages/degree.html', context=context)
 

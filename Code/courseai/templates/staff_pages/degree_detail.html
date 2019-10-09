@@ -24,8 +24,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body alert-danger text-center">
-                    <h4><strong>Warning! Delete action is permanent! You will back to the search page after clicking the
-                        delete button.</strong></h4>
+                    <h4><strong>Warning! Delete action is permanent!</strong></h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -362,7 +361,7 @@
                 dataType:"json",
                 success: function (data) {
                     if(data.response === 'success'){
-                        window.location.href='degree';
+                        window.location.href='degree' + '?msg_param=' + $('#pageTitle').text();
                     }
                     else {
                         var mesej = 'Oops, something wrong, please try again in a few moments!';
