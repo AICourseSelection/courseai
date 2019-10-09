@@ -2,380 +2,380 @@
 
 {% block content %}
     {% if user.is_authenticated and user.is_staff%}
-    <section id="bc" class="mt-3">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'index' %}">
-                            <i class="fa fa-home"></i> Home </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'degree' %}"> Degree </a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ bc_param }}</li>
-                </ol>
-            </nav>
-        </div>
-    </section>
+        <section id="bc" class="mt-3">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fa fa-home"></i> Home </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'degree' %}">Degree</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ bc_param }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog"
-         aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body alert-danger text-center">
-                    <h4><strong>Warning! Delete action is permanent!</strong></h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog"
+             aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body alert-danger text-center">
+                        <h4><strong>Warning! Delete action is permanent!</strong></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-                    <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
-                            id="confirmDeleteButtonModal" onclick=deleteData()>
-                        Delete
-                    </button>
+                        <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
+                                id="confirmDeleteButtonModal" onclick=deleteData()>
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
-         aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body alert-success text-center">
-                    <h4><strong>Are you Sure?</strong></h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
+             aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body alert-success text-center">
+                        <h4><strong>Are you Sure?</strong></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-                    <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
-                            id="confirmSaveButtonModal" onclick=saveData()>
-                        Save
-                    </button>
+                        <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
+                                id="confirmSaveButtonModal" onclick=saveData()>
+                            Save
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container text-center">
-        <h1 id="pageTitle"></h1>
-    </div>
-    {% include 'staff_pages/partials/_message.html' %}
-    {% include 'staff_pages/partials/_modal.html' %}
-    <div class="container" id="deleteMode">
-        <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
-        <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
-    </div>
-    <div class="container" id="editMode" style="display: none">
-        <button id="btnEditCancel" class="btn btn-outline-info float-left">Cancel</button>
-        <button id="btnSave" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#confirmSaveModal">Save</button>
-    </div>
+        <div class="container text-center">
+            <h1 id="pageTitle"></h1>
+        </div>
+        {% include 'staff_pages/partials/_message.html' %}
+        {% include 'staff_pages/partials/_modal.html' %}
+        <div class="container" id="deleteMode">
+            <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
+            <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+        </div>
+        <div class="container" id="editMode" style="display: none">
+            <button id="btnEditCancel" class="btn btn-outline-info float-left">Cancel</button>
+            <button id="btnSave" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#confirmSaveModal">Save</button>
+        </div>
 
-    <div>&nbsp</div>
-    <div>&nbsp</div>
+        <div>&nbsp</div>
+        <div>&nbsp</div>
 
-    <div class="container h-100" id="queryContainer">
-        <table class="table table-striped">
-            <tr>
-                <td style="text-align: right; width: 20%">Code:</td>
-                <td style="text-align: left" id="code_q"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Year:</td>
-                <td style="text-align: left" id="year_q"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Title:</td>
-                <td style="text-align: left" id="title_q"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Units:</td>
-                <td id="Units_q" style="text-align: left">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Compulsory Course:</td>
-                <td id="compulsory_q" style="text-align: left">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Study Plan:</td>
-                <td id="plan_q" style="text-align: left">
-                    <table id="planTable_q" class="table table-hover" style="width: 100%; margin: auto">
+        <div class="container h-100" id="queryContainer">
+            <table class="table table-striped">
+                <tr>
+                    <td style="text-align: right; width: 20%">Code:</td>
+                    <td style="text-align: left" id="code_q"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Year:</td>
+                    <td style="text-align: left" id="year_q"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Title:</td>
+                    <td style="text-align: left" id="title_q"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Units:</td>
+                    <td id="Units_q" style="text-align: left">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Compulsory Course:</td>
+                    <td id="compulsory_q" style="text-align: left">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Study Plan:</td>
+                    <td id="plan_q" style="text-align: left">
+                        <table id="planTable_q" class="table table-hover" style="width: 100%; margin: auto">
 
-                    </table>
-                </td>
-            </tr>
-        </table>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 
-    </div>
+        </div>
 
-    <div class="container h-100" id="editContainer" style="display: none">
-        <table class="table table-striped">
-            <tr>
-                <td style="text-align: right; width: 20%">Code:</td>
-                <td style="text-align: left" id="code"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Year:</td>
-                <td style="text-align: left" id="year"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Title:</td>
-                <td style="text-align: left" id="title">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Units:</td>
-                <td style="text-align: left">
-                    <input type="text" id="Units" class="form-control" >
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Compulsory Course:</td>
-                <td id="compulsory" style="text-align: left">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Study Plan:</td>
-                <td id="plan" style="text-align: left">
-                    <table id="planTable" class="table table-hover" style="width: 100%; margin: auto">
+        <div class="container h-100" id="editContainer" style="display: none">
+            <table class="table table-striped">
+                <tr>
+                    <td style="text-align: right; width: 20%">Code:</td>
+                    <td style="text-align: left" id="code"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Year:</td>
+                    <td style="text-align: left" id="year"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Title:</td>
+                    <td style="text-align: left" id="title">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Units:</td>
+                    <td style="text-align: left">
+                        <input type="text" id="Units" class="form-control" >
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Compulsory Course:</td>
+                    <td id="compulsory" style="text-align: left">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Study Plan:</td>
+                    <td id="plan" style="text-align: left">
+                        <table id="planTable" class="table table-hover" style="width: 100%; margin: auto">
 
-                    </table>
-                </td>
-            </tr>
-        </table>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 
-    </div>
+        </div>
 
-    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-    <script>
-        $('#btnEdit').click(function () {
-            $('#deleteMode').hide();
-            $('#editMode').show();
-            $('#queryContainer').hide();
-            $('#editContainer').show();
-        });
-        $('#btnEditCancel').click(function () {
-            $('#deleteMode').show();
-            $('#editMode').hide();
-            $('#queryContainer').show();
-            $('#editContainer').hide();
-        });
+        <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+        <script>
+            $('#btnEdit').click(function () {
+                $('#deleteMode').hide();
+                $('#editMode').show();
+                $('#queryContainer').hide();
+                $('#editContainer').show();
+            });
+            $('#btnEditCancel').click(function () {
+                $('#deleteMode').show();
+                $('#editMode').hide();
+                $('#queryContainer').show();
+                $('#editContainer').hide();
+            });
 
-        function getQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = location.search.substr(1).match(reg);
-            if (r != null) return (r[2]);
-            return null;
-        }
-
-        var versions;
-        var codeS = getQueryString("code");
-        var yearS = getQueryString("year");
-        var titleS = getQueryString("title");
-        titleS = titleS.replace(/%20/g, " ");
-        pageTitleS = titleS + " (" + yearS + ")";
-        pageTitle.innerHTML = pageTitleS;
-        document.getElementById('code').innerText = codeS;
-        document.getElementById('year').innerText = yearS;
-        document.getElementById('title').innerText = titleS;
-        $('#code_q').text(codeS);
-        $('#year_q').text(yearS);
-        $('#title_q').text(titleS);
-        var courseUrl = window.location.origin + "/staff" + "/course_detail?"
-        var compulsory = "";
-        let compulsory_q = "";
-        var compulsoryList = [];
-        var specList = [];
-        var compulsoryTable = document.getElementById("compulsory");
-        var planList = [];
-        let planTable = document.getElementById("planTable");
-
-        let planString = "<tbody>\n" +
-            "    <tr>";
-        let planString_q = "<tbody>\n" +
-            "    <tr>";
-
-
-        $.ajax({
-            url: '../degree/degreeplan',
-            data: {"degree_code": codeS, "year": yearS},
-            method: 'GET',
-            success: function (data) {
-                for (let i = 0; i < data.response.length; i++) {
-                    //console.log(data.response)
-                    for (let j = 0; j < data.response[i].length; j++) {
-                        if(data.response[i][j].code.toString().length==9){
-                            planList.push(data.response[i][j].code.toString().replace(/\s*/g, ""));
-                        }
-                        else{
-                            planList.push(data.response[i][j].code.toString());
-                        }
-                    }
-                }
-                let yearLength = planList.length / 8;
-                let length = 0;
-                for (let i = 0; i < yearLength; i++) {
-                    planString += "<td>" + "Year" + (i + 1) + "</td>";
-                    planString_q += "<td>" + "Year" + (i + 1) + "</td>";
-                    for (let j = 0; j < 4; j++) {
-                        if (planList[length].length == 8) {
-                            let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
-                            planString_q += "<td>" + "<a href=\"" + link + "\" target=\"_Blank\">" + planList[length] + "</a>" + "<br>" + "</td>";
-                        } else {
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
-                            planString_q += "<td>" + planList[length] + "<br>" + "</td>";
-                        }
-                        length++;
-                    }
-                    planString += "</tr>" + "<tr>";
-                    planString += "<td>" + "" + "</td>";
-                    planString_q += "</tr>" + "<tr>";
-                    planString_q += "<td>" + "" + "</td>";
-                    for (let j = 0; j < 4; j++) {
-                        if (planList[length].length == 8) {
-                            let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
-                            planString_q += "<td>" + "<a href=\"" + link + "\" target=\"_Blank\">" + planList[length] + "</a>" + "<br>" + "</td>";
-                        } else {
-                            planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
-                            planString_q += "<td>" + planList[length] + "<br>" + "</td>";
-
-                        }
-                        length++;
-                    }
-                    planString += "</tr>" + "<tr>";
-                    planString_q += "</tr>" + "<tr>";
-                }
-                planString += "</tbody>";
-                planString_q += "</tbody>";
-                planTable.innerHTML = planString;
-                $('#planTable_q').html(planString_q);
-            }
-        });
-        $.ajax({
-            url: '../degree/degreereqs',
-            data: {"query": codeS + "-" + yearS},
-            success: function (data) {
-                versions = data;
-                //document.getElementById('Units').innerText = data.units;
-                $('#Units').val(data.units);
-                $('#Units_q').text(data.units);
-                if (data.required.compulsory_courses != undefined) {
-                    for (let i = 0; i < data.required.compulsory_courses.length; i++) {
-                        compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g, ""))
-                    }
-                }
-
-                compulsory += "<textarea cols = \"20\" rows=\"" + compulsoryList.length + "\" id=\"compulsories\" >";
-                for (let i = 0; i < compulsoryList.length; i++) {
-                    let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
-                    if(i == compulsoryList.length - 1){
-                        compulsory += compulsoryList[i];
-                    }
-                    else {
-                        compulsory += compulsoryList[i] + "&#10";
-                    }
-                    compulsory_q += "<a href =" + link + ">" + compulsoryList[i] +  "<a>" + "<br>";
-                }
-                compulsory += "</textarea>";
-
-                compulsoryTable.innerHTML = compulsory;
-                $('#compulsory_q').html(compulsory_q);
-            }
-        });
-
-        var hideMessage = function(){
-            $('#message').fadeOut('slow');
-        };
-
-        function saveData() {
-            for (let i = 0; i < planList.length; i++) {
-                planList[i]=document.getElementById("plan" + i).value.toString();
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return (r[2]);
+                return null;
             }
 
-            let compulsories = document.getElementById("compulsories").value.split("\n");
-            console.log(compulsories);
-            let postPlan= JSON.stringify(planList);
-            let postCompulsory= JSON.stringify(compulsories);
-            let postUnit = JSON.stringify($('#Units').val());
+            var versions;
+            var codeS = getQueryString("code");
+            var yearS = getQueryString("year");
+            var titleS = getQueryString("title");
+            titleS = titleS.replace(/%20/g, " ");
+            pageTitleS = titleS + " (" + yearS + ")";
+            pageTitle.innerHTML = pageTitleS;
+            document.getElementById('code').innerText = codeS;
+            document.getElementById('year').innerText = yearS;
+            document.getElementById('title').innerText = titleS;
+            $('#code_q').text(codeS);
+            $('#year_q').text(yearS);
+            $('#title_q').text(titleS);
+            var courseUrl = window.location.origin + "/staff" + "/course_detail?"
+            var compulsory = "";
+            let compulsory_q = "";
+            var compulsoryList = [];
+            var specList = [];
+            var compulsoryTable = document.getElementById("compulsory");
+            var planList = [];
+            let planTable = document.getElementById("planTable");
+
+            let planString = "<tbody>\n" +
+                "    <tr>";
+            let planString_q = "<tbody>\n" +
+                "    <tr>";
+
+
             $.ajax({
-                url: '../degree/saveDegree',
-                data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS, "unit": postUnit},
-                dataType:"json",
+                url: '../degree/degreeplan',
+                data: {"degree_code": codeS, "year": yearS},
+                method: 'GET',
                 success: function (data) {
-                    if(data.response === 'success'){
-                        //show message
-                        $('#msg_header').text('Success: ');
-                        $('#msg_class').removeClass().addClass("alert alert-success text-center");
-                        $('#msg').html('Update Degree Successful! Refresh Page in 5 Seconds');
-                        $('#message').show();
-                        setTimeout(function(){
-                            $('#msg').html('Update Degree Successful! Refresh Page in 4 Seconds');
-                            $('#message').show();
-                        }, 1000);
-                        setTimeout(function(){
-                            $('#msg').html('Update Degree Successful! Refresh Page in 3 Seconds');
-                            $('#message').show();
-                        }, 2000);
-                        setTimeout(function(){
-                            $('#msg').html('Update Degree Successful! Refresh Page in 2 Seconds');
-                            $('#message').show();
-                        }, 3000);
-                        setTimeout(function(){
-                            $('#msg').html('Update Degree Successful! Refresh Page in 1 Seconds');
-                            $('#message').show();
-                        }, 4000);
-                        setTimeout(function(){
-                            location.reload();
-                        }, 5000);
-                    } else if (data.response === 'validation') {
-                        $('#msg_header').text('Error: ');
-                        $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-                        $('#msg').text(data.msg);
-                        $('#message').show();
-                        setTimeout(hideMessage, 5000);
-                        $('#' + data.element).removeClass().addClass('form-control is-invalid');
-                    } else {
-                        var mesej = 'Oops, something wrong, please try again in a few moments!';
-                        $('#modal-body').html(mesej);
-                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
-                        $('#modal-title').html('Error!');
-                        $('#error-modal').modal('show');
+                    for (let i = 0; i < data.response.length; i++) {
+                        //console.log(data.response)
+                        for (let j = 0; j < data.response[i].length; j++) {
+                            if(data.response[i][j].code.toString().length==9){
+                                planList.push(data.response[i][j].code.toString().replace(/\s*/g, ""));
+                            }
+                            else{
+                                planList.push(data.response[i][j].code.toString());
+                            }
+                        }
                     }
-                    //$('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
+                    let yearLength = planList.length / 8;
+                    let length = 0;
+                    for (let i = 0; i < yearLength; i++) {
+                        planString += "<td>" + "Year" + (i + 1) + "</td>";
+                        planString_q += "<td>" + "Year" + (i + 1) + "</td>";
+                        for (let j = 0; j < 4; j++) {
+                            if (planList[length].length == 8) {
+                                let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
+                                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                                planString_q += "<td>" + "<a href=\"" + link + "\" target=\"_Blank\">" + planList[length] + "</a>" + "<br>" + "</td>";
+                            } else {
+                                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                                planString_q += "<td>" + planList[length] + "<br>" + "</td>";
+                            }
+                            length++;
+                        }
+                        planString += "</tr>" + "<tr>";
+                        planString += "<td>" + "" + "</td>";
+                        planString_q += "</tr>" + "<tr>";
+                        planString_q += "<td>" + "" + "</td>";
+                        for (let j = 0; j < 4; j++) {
+                            if (planList[length].length == 8) {
+                                let link = courseUrl + "code=" + planList[length] + "&year=" + yearS;
+                                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                                planString_q += "<td>" + "<a href=\"" + link + "\" target=\"_Blank\">" + planList[length] + "</a>" + "<br>" + "</td>";
+                            } else {
+                                planString += "<td>" + "<input type=\"text\" id=\"plan" + length + "\"value=\"" + planList[length] + "\" class=\"form-control\" >" + "</td>";
+                                planString_q += "<td>" + planList[length] + "<br>" + "</td>";
+
+                            }
+                            length++;
+                        }
+                        planString += "</tr>" + "<tr>";
+                        planString_q += "</tr>" + "<tr>";
+                    }
+                    planString += "</tbody>";
+                    planString_q += "</tbody>";
+                    planTable.innerHTML = planString;
+                    $('#planTable_q').html(planString_q);
                 }
             });
-        }
-
-        function deleteData() {
             $.ajax({
-                url: '../degree/delete',
-                data: {"code": codeS, "type": "degree", "year": yearS},
-                dataType:"json",
+                url: '../degree/degreereqs',
+                data: {"query": codeS + "-" + yearS},
                 success: function (data) {
-                    if(data.response === 'success'){
-                        window.location.href='degree' + '?msg_param=' + $('#pageTitle').text();
+                    versions = data;
+                    //document.getElementById('Units').innerText = data.units;
+                    $('#Units').val(data.units);
+                    $('#Units_q').text(data.units);
+                    if (data.required.compulsory_courses != undefined) {
+                        for (let i = 0; i < data.required.compulsory_courses.length; i++) {
+                            compulsoryList.push(data.required.compulsory_courses[i].toString().replace(/\s*/g, ""))
+                        }
                     }
-                    else {
-                        var mesej = 'Oops, something wrong, please try again in a few moments!';
-                        $('#modal-body').html(mesej);
-                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
-                        $('#modal-title').html('Error!');
-                        $('#error-modal').modal('show');
+
+                    compulsory += "<textarea cols = \"20\" rows=\"" + compulsoryList.length + "\" id=\"compulsories\" >";
+                    for (let i = 0; i < compulsoryList.length; i++) {
+                        let link = courseUrl + "code=" + compulsoryList[i] + "&year=" + yearS;
+                        if(i == compulsoryList.length - 1){
+                            compulsory += compulsoryList[i];
+                        }
+                        else {
+                            compulsory += compulsoryList[i] + "&#10";
+                        }
+                        compulsory_q += "<a href =" + link + ">" + compulsoryList[i] +  "<a>" + "<br>";
                     }
+                    compulsory += "</textarea>";
+
+                    compulsoryTable.innerHTML = compulsory;
+                    $('#compulsory_q').html(compulsory_q);
+                }
+            });
+
+            var hideMessage = function(){
+                $('#message').fadeOut('slow');
+            };
+
+            function saveData() {
+                for (let i = 0; i < planList.length; i++) {
+                    planList[i]=document.getElementById("plan" + i).value.toString();
                 }
 
-            });
-        }
-    </script>
+                let compulsories = document.getElementById("compulsories").value.split("\n");
+                console.log(compulsories);
+                let postPlan= JSON.stringify(planList);
+                let postCompulsory= JSON.stringify(compulsories);
+                let postUnit = JSON.stringify($('#Units').val());
+                $.ajax({
+                    url: '../degree/saveDegree',
+                    data: {"code": codeS, "compulsoryList":postCompulsory, "planList":postPlan,"year": yearS, "unit": postUnit},
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.response === 'success'){
+                            //show message
+                            $('#msg_header').text('Success: ');
+                            $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                            $('#msg').html('Update Degree Successful! Refresh Page in 5 Seconds');
+                            $('#message').show();
+                            setTimeout(function(){
+                                $('#msg').html('Update Degree Successful! Refresh Page in 4 Seconds');
+                                $('#message').show();
+                            }, 1000);
+                            setTimeout(function(){
+                                $('#msg').html('Update Degree Successful! Refresh Page in 3 Seconds');
+                                $('#message').show();
+                            }, 2000);
+                            setTimeout(function(){
+                                $('#msg').html('Update Degree Successful! Refresh Page in 2 Seconds');
+                                $('#message').show();
+                            }, 3000);
+                            setTimeout(function(){
+                                $('#msg').html('Update Degree Successful! Refresh Page in 1 Seconds');
+                                $('#message').show();
+                            }, 4000);
+                            setTimeout(function(){
+                                location.reload();
+                            }, 5000);
+                        } else if (data.response === 'validation') {
+                            $('#msg_header').text('Error: ');
+                            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                            $('#msg').text(data.msg);
+                            $('#message').show();
+                            setTimeout(hideMessage, 5000);
+                            $('#' + data.element).removeClass().addClass('form-control is-invalid');
+                        } else {
+                            var mesej = 'Oops, something wrong, please try again in a few moments!';
+                            $('#modal-body').html(mesej);
+                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                            $('#modal-title').html('Error!');
+                            $('#error-modal').modal('show');
+                        }
+                        //$('#alert').html('Save success').addClass('alert-success').show().delay(10000).fadeOut();
+                    }
+                });
+            }
+
+            function deleteData() {
+                $.ajax({
+                    url: '../degree/delete',
+                    data: {"code": codeS, "type": "degree", "year": yearS},
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.response === 'success'){
+                            window.location.href='degree' + '?msg_param=' + $('#pageTitle').text();
+                        }
+                        else {
+                            var mesej = 'Oops, something wrong, please try again in a few moments!';
+                            $('#modal-body').html(mesej);
+                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                            $('#modal-title').html('Error!');
+                            $('#error-modal').modal('show');
+                        }
+                    }
+
+                });
+            }
+        </script>
     {% else %}
-    <div class="container">
-      <h1 class="text-center">Warning! You don't enter correct password and username</h1>
-  </div>
+        <div class="container">
+            <h1 class="text-center">Warning! You don't enter correct password and username</h1>
+        </div>
     {% endif%}
 
 {% endblock %}

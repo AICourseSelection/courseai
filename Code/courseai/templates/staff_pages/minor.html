@@ -1,139 +1,149 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
     {% if user.is_authenticated and user.is_staff%}
-    <section id="bc" class="mt-3">
+        <section id="bc" class="mt-3">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fa fa-home"></i> Home </a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ bc_param }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+        {% if show_message %}
+            <div id="messagex" class="container">
+                <div id="msg_class" class="alert alert-success text-center" role="alert">
+                    <strong>
+                        <label id="msg_header"></label>
+                    </strong>
+                    <label id="msg">Delete <strong>{{ msg_param }} </strong>Successful!</label>
+                </div>
+            </div>
+        {% endif %}
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">
+                <strong>Search Minor</strong>
+            </h1>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="sr-only">Year</label>
+
+                </div>
+                <div class="col-md-4 mb-3">
+
+                </div>
+
+            </div>
+        </div>
         <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'index' %}">
-                            <i class="fa fa-home"></i> Home </a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ bc_param }}</li>
-                </ol>
-            </nav>
-        </div>
-    </section>
-    <div class="container text-center">
-        <h1 class="display-4 mb-4">
-            <strong>Search Minor</strong>
-        </h1>
-
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="sr-only">Year</label>
-
-            </div>
-            <div class="col-md-4 mb-3">
-
-            </div>
-
-        </div>
-    </div>
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Minor Code"
-                       onkeydown="if(event.keyCode==13) {showminors()}">
-            </div>
-            <div class="col-md-auto">
-                <select id="year" name='year' class="form-control">
-                    {% for year in years %}
-                        {% if year == year_now %}
-                            <option selected value="{{ year }}">{{ year }}</option>
-                        {% else %}
-                            <option value="{{ year }}">{{ year }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col col-lg-2">
-                <button onclick="showminors()" class="btn btn-outline-primary">Search</button>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-4">
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Minor Code"
+                           onkeydown="if(event.keyCode==13) {showminors()}">
+                </div>
+                <div class="col-md-auto">
+                    <select id="year" name='year' class="form-control">
+                        {% for year in years %}
+                            {% if year == year_now %}
+                                <option selected value="{{ year }}">{{ year }}</option>
+                            {% else %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-2">
+                    <button onclick="showminors()" class="btn btn-outline-primary">Search</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div style="width: 100%; text-align: center">
-        <div>&nbsp</div>
-        <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
+        <div style="width: 100%; text-align: center">
+            <div>&nbsp</div>
+            <div class="table-responsive">
+                <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
 
-            </table>
+                </table>
+            </div>
         </div>
-    </div>
-    <script>
-        function str_substr(start, end, str) {
-            content = [];
-            string="";
-            try {
-                temp = str.split(start, 2);
-                content = temp[1].split(end, 2);
+        <script>
+            function str_substr(start, end, str) {
+                content = [];
+                string="";
+                try {
+                    temp = str.split(start, 2);
+                    content = temp[1].split(end, 2);
 
-            } catch (e) {
-                console.log(e.name + ":" + e.message);
+                } catch (e) {
+                    console.log(e.name + ":" + e.message);
+                }
+                if (content == undefined) {
+                    return null;
+                }
+                description=content[0].split(" ");
+                for (let i=0;i<7;i++){
+                    string=string+" "+description[i];
+                }
+                return string;
             }
-            if (content == undefined) {
-                return null;
-            }
-            description=content[0].split(" ");
-            for (let i=0;i<7;i++){
-                string=string+" "+description[i];
-            }
-            return string;
-        }
 
-        let level = "undergraduate";
-        let description = "";
-        var minorsCodes = [];
-        var minorsVersions = [];
+            let level = "undergraduate";
+            let description = "";
+            var minorsCodes = [];
+            var minorsVersions = [];
 
 
-        function showminors() {
-            minorsCodes = [];
-            minorsVersions = [];
-            minorLevel=[];
-            let minors = document.getElementById("search").value;
-            //let level = document.getElementById("level").value;
-            let year = document.getElementById("year").value;
-           let tableData = "<thead class = \"thead-light\">\n" +
-                "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"30%\">Minor Code</th>\n" +
-                "                      <th scope=\"col\" width=\"70%\">Minor Title</th>\n" +
-                "                    </tr>\n" +
-                "                  </thead>";
-            tableData += "<tbody>\n" +
-                "    <tr>";
-            const minorDescription = [];
-            const minorsTitle = [];
-            $.ajax({
-                url: '../search/minors',
-                data: {"query": minors, "level": level},
-                success: function (data) {
-                    console.log(data.responses)
-                    let i;
-                    for (i in data.responses) {
-                        if (data.responses[i].versions[year] != undefined) {
-                            if (data.responses[i].versions[year].description != undefined) {
-                                minorsCodes.push(data.responses[i].code);
-                                minorLevel.push(data.responses[i].level);
-                                minorsVersions.push(JSON.stringify(data.responses[i].versions));
-                                description = JSON.stringify(data.responses[i].versions[year].description);
-                                description = str_substr("\"", ".", description);
-                                minorDescription.push(description + "......");
-                                minorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g, ""));
+            function showminors() {
+                minorsCodes = [];
+                minorsVersions = [];
+                minorLevel=[];
+                let minors = document.getElementById("search").value;
+                //let level = document.getElementById("level").value;
+                let year = document.getElementById("year").value;
+                let tableData = "<thead class = \"thead-light\">\n" +
+                    "                    <tr>\n" +
+                    "                      <th scope=\"col\" width=\"30%\">Minor Code</th>\n" +
+                    "                      <th scope=\"col\" width=\"70%\">Minor Title</th>\n" +
+                    "                    </tr>\n" +
+                    "                  </thead>";
+                tableData += "<tbody>\n" +
+                    "    <tr>";
+                const minorDescription = [];
+                const minorsTitle = [];
+                $.ajax({
+                    url: '../search/minors',
+                    data: {"query": minors, "level": level},
+                    success: function (data) {
+                        console.log(data.responses)
+                        let i;
+                        for (i in data.responses) {
+                            if (data.responses[i].versions[year] != undefined) {
+                                if (data.responses[i].versions[year].description != undefined) {
+                                    minorsCodes.push(data.responses[i].code);
+                                    minorLevel.push(data.responses[i].level);
+                                    minorsVersions.push(JSON.stringify(data.responses[i].versions));
+                                    description = JSON.stringify(data.responses[i].versions[year].description);
+                                    description = str_substr("\"", ".", description);
+                                    minorDescription.push(description + "......");
+                                    minorsTitle.push(JSON.stringify(data.responses[i].versions[year].title).replace(/\"/g, ""));
+                                }
                             }
                         }
-                    }
-                    if (minorsCodes.length == 0) {
-                        tableData="<strong>No such minor</strong><br /> "
-                         $("#Table").html(tableData);
-                        return;
-                    } else {
-                        for (i = 0; i < minorsCodes.length; i++) {
-                            for (let j = 0; j < 2; j++) {
+                        if (minorsCodes.length == 0) {
+                            tableData="<strong>No such minor</strong><br /> "
+                            $("#Table").html(tableData);
+                            return;
+                        } else {
+                            for (i = 0; i < minorsCodes.length; i++) {
+                                for (let j = 0; j < 2; j++) {
 
                                     if (j == 0) {
                                         tableData += "<td style=\"text-align:center\">" +
@@ -149,22 +159,22 @@
                                             "</td>";
                                     }
 
+                                }
+                                tableData += "</tr>" + "<tr>";
                             }
-                            tableData += "</tr>" + "<tr>";
                         }
+                        $("#Table").html(tableData);
                     }
-                    $("#Table").html(tableData);
-                }
-            });
-        }
+                });
+            }
 
 
 
-    </script>
+        </script>
 
     {% else %}
-    <div class="container">
-      <h1 class="text-center">Warning! You don't enter correct password and username</h1>
-  </div>
+        <div class="container">
+            <h1 class="text-center">Warning! You don't enter correct password and username</h1>
+        </div>
     {% endif%}
 {% endblock %}

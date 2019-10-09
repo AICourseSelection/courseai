@@ -177,12 +177,12 @@ def delete(request):
     type = request.GET['type']
 
     year = request.GET['year']
-    print(code, type, year)
-    dg_dg = degree_requirement.objects.filter(code=code, year=year)[0]
-    dg_all = all_program.objects.filter(code=code)[0]
-    dg_all.delete()
+    # print(code, type, year)
+    # dg_dg = degree_requirement.objects.filter(code=code, year=year)[0]
+    # dg_all = all_program.objects.filter(code=code)[0]
+    # dg_all.delete()
     # Delete all the data of this degree
-    dg_dg.delete()
+    # dg_dg.delete()
     res = JsonResponse({"response": "success"})
     return HttpResponse(res)
 

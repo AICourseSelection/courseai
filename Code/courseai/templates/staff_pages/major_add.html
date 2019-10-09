@@ -2,339 +2,339 @@
 
 {% block content %}
     {% if user.is_authenticated and user.is_staff%}
-    <section id="bc" class="mt-3">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'index' %}">
-                            <i class="fa fa-home"></i> Home </a>
-                    </li>
-                    <li class="breadcrumb-item active">Major (Add)</li>
-                </ol>
-            </nav>
-        </div>
-    </section>
-    <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
-         aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body alert-success text-center">
-                    <h4><strong>Create New Major?</strong></h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <section id="bc" class="mt-3">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fa fa-home"></i> Home </a>
+                        </li>
+                        <li class="breadcrumb-item active">Major (Add)</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+        <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
+             aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body alert-success text-center">
+                        <h4><strong>Create New Major?</strong></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-                    <button type="button" class="btn btn-success" data-dismiss="modal"
-                            id="confirmSaveButtonModal" onclick=save()>
-                        Create
-                    </button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal"
+                                id="confirmSaveButtonModal" onclick=save()>
+                            Create
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <h1 class="display-6 text-center">Add A New Major</h1>
-    {% include 'staff_pages/partials/_message.html' %}
-    {% include 'staff_pages/partials/_modal.html' %}
+        <h1 class="display-6 text-center">Add A New Major</h1>
+        {% include 'staff_pages/partials/_message.html' %}
+        {% include 'staff_pages/partials/_modal.html' %}
 
-    <div class="form-group row">
-        <label class="control-label col-sm-2 text-right" for="code">Code:</label>
-        <div class="col-sm-2">
-            <input type="text" class="form-control" id="code" placeholder="Major Code" name="code" >
+        <div class="form-group row">
+            <label class="control-label col-sm-2 text-right" for="code">Code:</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="code" placeholder="Major Code" name="code" >
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-sm-2 text-right" >Year:</label>
-        <div class="col-sm-2">
-            <select id = "year" class="custom-select">
-                {% for year in years %}
-                    {% if year == year_now %}
-                        <option selected value="{{ year }}">{{ year }}</option>
-                    {% else %}
-                        <option value="{{ year }}">{{ year }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
+        <div class="form-group row">
+            <label class="control-label col-sm-2 text-right" >Year:</label>
+            <div class="col-sm-2">
+                <select id = "year" class="custom-select">
+                    {% for year in years %}
+                        {% if year == year_now %}
+                            <option selected value="{{ year }}">{{ year }}</option>
+                        {% else %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-sm-2 text-right">Title:</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" id="title" placeholder="Major Title">
+        <div class="form-group row">
+            <label class="control-label col-sm-2 text-right">Title:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="title" placeholder="Major Title">
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-sm-2 text-right">Level:</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" id="level" placeholder="Major Level">
+        <div class="form-group row">
+            <label class="control-label col-sm-2 text-right">Level:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="level" placeholder="Major Level">
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-sm-2 text-right" >Description:</label>
-        <div class="col-sm-9">
-            <textarea rows="3" class="form-control" id="description" placeholder="Major Description" name="description" ></textarea>
+        <div class="form-group row">
+            <label class="control-label col-sm-2 text-right" >Description:</label>
+            <div class="col-sm-9">
+                <textarea rows="3" class="form-control" id="description" placeholder="Major Description" name="description" ></textarea>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-sm-2 text-right" for="prerequisite">Requirements:</label>
-        <div class="col-sm-8">
-            <strong>Use search to add Requirements.</strong>
-            <div class="form-group row">
+        <div class="form-group row">
+            <label class="control-label col-sm-2 text-right" for="prerequisite">Requirements:</label>
+            <div class="col-sm-8">
+                <strong>Use search to add Requirements.</strong>
+                <div class="form-group row">
 
-                <table id="requirementTable" class="table table-hover" style="width: 70%;">
+                    <table id="requirementTable" class="table table-hover" style="width: 70%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col text-center">
+                <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Create Major</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2 text-right" >Search:</label>
+            <div class="col col-sm-4">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
+            </div>
+            <div class="col col-sm-2">
+                <a class="btn btn-outline-dark logout" href="#" onclick="showCourse()">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+        </div>
+        <div style="width: 100%; text-align: center">
+            <div>&nbsp</div>
+            <div class="table-responsive">
+                <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+
                 </table>
             </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col text-center">
-            <button id="btnSave" class="btn btn-outline-success btn-lg" onclick="checkData()">Create Major</button>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-sm-2 text-right" >Search:</label>
-        <div class="col col-sm-4">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Course Code ">
-        </div>
-        <div class="col col-sm-2">
-            <a class="btn btn-outline-dark logout" href="#" onclick="showCourse()">
-                <i class="fa fa-search"></i>
-            </a>
-        </div>
-    </div>
-    <div style="width: 100%; text-align: center">
-        <div>&nbsp</div>
-        <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
 
-            </table>
         </div>
-    </div>
+        <script>
+            let requirementCodeList = [];
+            let requirementNameList = [];
+            var courseNames;
+            var courseCodes;
 
-    </div>
-    <script>
-        let requirementCodeList = [];
-        let requirementNameList = [];
-        var courseNames;
-        var courseCodes;
+            function showCourse() {
+                var year = document.getElementById("year").value;
+                let courses = document.getElementById("search").value;
+                let tableData = "<thead class = \"thead-light\">\n" +
+                    "                    <tr>\n" +
+                    "                      <th scope=\"col\" width=\"25%\">Course Code</th>\n" +
+                    "                      <th scope=\"col\" width=\"50%\">Course Title</th>\n" +
+                    "                      <th scope=\"col\" width=\"25%\"></th>\n" +
+                    "                    </tr>\n" +
+                    "                  </thead>";
+                tableData += "<tbody>\n" +
+                    "    <tr>";
+                courseCodes = [];
+                courseNames = [];
+                const courseUnits = [];
+                const courseTitles = [];
+                var versions = "";
+                $.ajax({
+                    url: '../search/coursesearch/',
+                    data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+                    success: function (data) {
+                        year = document.getElementById("year").value;
+                        for (let i = 0; i < data.response.length; i++) {
 
-        function showCourse() {
-            var year = document.getElementById("year").value;
-            let courses = document.getElementById("search").value;
-            let tableData = "<thead class = \"thead-light\">\n" +
-                "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"25%\">Course Code</th>\n" +
-                "                      <th scope=\"col\" width=\"50%\">Course Title</th>\n" +
-                "                      <th scope=\"col\" width=\"25%\"></th>\n" +
-                "                    </tr>\n" +
-                "                  </thead>";
-            tableData += "<tbody>\n" +
-                "    <tr>";
-            courseCodes = [];
-            courseNames = [];
-            const courseUnits = [];
-            const courseTitles = [];
-            var versions = "";
-            $.ajax({
-                url: '../search/coursesearch/',
-                data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
-                success: function (data) {
-                    year = document.getElementById("year").value;
-                    for (let i = 0; i < data.response.length; i++) {
-
-                        versions = data.response[i].versions[year];
-                        if (versions != undefined) {
-                            courseCodes.push(data.response[i].course_code);
-                            courseTitles.push(versions.title);
-                            courseNames.push(versions.title);
-                        }
-                    }
-                    if (courseCodes.length == 0) {
-                        tableData += "<td colspan=\"3\">No Such Course</td></tr>";
-                    } else {
-                        for (let i = 0; i < courseCodes.length; i++) {
-                            for (let j = 0; j < 3; j++) {
-                                if (j == 0) {
-                                    tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
-                                        + courseCodes[i] +
-                                        "</a>" +
-                                        "</td>";
-                                } else if (j == 1) {
-                                    tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
-                                        courseTitles[i] + "</a>" + "</td>";
-                                } else if (j == 2) {
-                                    tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addRequirement(courseCodes[" + i + "],courseNames[" + i + "])\">Add Requirement</button>" + "</td>";
-                                }
+                            versions = data.response[i].versions[year];
+                            if (versions != undefined) {
+                                courseCodes.push(data.response[i].course_code);
+                                courseTitles.push(versions.title);
+                                courseNames.push(versions.title);
                             }
-                            tableData += "</tr>" + "<tr>";
                         }
-                        tableData += "</tbody>";
+                        if (courseCodes.length == 0) {
+                            tableData += "<td colspan=\"3\">No Such Course</td></tr>";
+                        } else {
+                            for (let i = 0; i < courseCodes.length; i++) {
+                                for (let j = 0; j < 3; j++) {
+                                    if (j == 0) {
+                                        tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
+                                            + courseCodes[i] +
+                                            "</a>" +
+                                            "</td>";
+                                    } else if (j == 1) {
+                                        tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
+                                            courseTitles[i] + "</a>" + "</td>";
+                                    } else if (j == 2) {
+                                        tableData += "<td>" + "<button class=\"btn btn-sm btn-info add-new\" id=\"search\" onclick=\"addRequirement(courseCodes[" + i + "],courseNames[" + i + "])\">Add Requirement</button>" + "</td>";
+                                    }
+                                }
+                                tableData += "</tr>" + "<tr>";
+                            }
+                            tableData += "</tbody>";
+                        }
+                        $("#Table").html(tableData);
                     }
-                    $("#Table").html(tableData);
+                });
+            }
+
+            function checkData() {
+                //reset attribute
+                resetClass();
+                if($('#code').val() == ''){
+                    setMessageError('Major Code Cannot be Empty', 'code');
                 }
-            });
-        }
+                else if($('#title').val() == ''){
+                    setMessageError('Major Title Cannot be Empty', 'title');
+                }
+                else if($('#level').val() == ''){
+                    setMessageError('Major Level Cannot be Empty', 'level');
+                }
+                else if($('#description').val() == ''){
+                    setMessageError('Major Description Cannot be Empty', 'description');
+                }
+                else {
+                    $('#confirmSaveModal').modal('show');
+                }
+            }
 
-        function checkData() {
-            //reset attribute
-            resetClass();
-            if($('#code').val() == ''){
-                setMessageError('Major Code Cannot be Empty', 'code');
+            function addRequirement(course, name) {
+                if (!requirementCodeList.includes(course)) {
+                    requirementCodeList.push(course);
+                    requirementNameList.push(name);
+                    drawRequirement();
+                }
             }
-            else if($('#title').val() == ''){
-                setMessageError('Major Title Cannot be Empty', 'title');
-            }
-            else if($('#level').val() == ''){
-                setMessageError('Major Level Cannot be Empty', 'level');
-            }
-            else if($('#description').val() == ''){
-                setMessageError('Major Description Cannot be Empty', 'description');
-            }
-            else {
-                $('#confirmSaveModal').modal('show');
-            }
-        }
 
-        function addRequirement(course, name) {
-            if (!requirementCodeList.includes(course)) {
-                requirementCodeList.push(course);
-                requirementNameList.push(name);
+            function deleteRequirement(index){
+                requirementCodeList.splice(index, 1);
+                requirementNameList.splice(index, 1);
                 drawRequirement();
             }
-        }
 
-        function deleteRequirement(index){
-            requirementCodeList.splice(index, 1);
-            requirementNameList.splice(index, 1);
-            drawRequirement();
-        }
-
-        function drawRequirement(){
-            let str = "<tbody>";
-            for (let i = 0; i < requirementCodeList.length; i++) {
-                str += "<tr><td>" + requirementCodeList[i] + "</td><td>" + requirementNameList[i] + "</td><td><button onclick=\"deleteRequirement(" + i + ")\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i></button></td></tr>";
-            }
-            str += "</tbody>";
-            $('#requirementTable').html(str);
-        }
-
-        function resetParam() {
-            $('#code').val('');
-            $('#title').val('');
-            $('#level').val('');
-            $('#description').val('');
-
-            requirementCodeList = [];
-            requirementNameList = [];
-            $('#Table').html('');
-            $('#requirementTable').html('');
-            $('#search').val('');
-        }
-
-        function resetClass() {
-            $('#code').removeClass().addClass("form-control");
-            $('#title').removeClass().addClass("form-control");
-            $('#level').removeClass().addClass("form-control");
-            $('#description').removeClass().addClass("form-control");
-        }
-
-        function setMessageError(msg, id){
-            $('#msg_header').text('Error: ');
-            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-            $('#msg').text(msg);
-            $('#message').show();
-            setTimeout(hideMessage, 5000);
-            $('#' + id).removeClass().addClass("form-control is-invalid");
-        }
-
-        var hideMessage = function(){
-            $('#message').fadeOut('slow');
-        };
-
-        function save() {
-            let code = document.getElementById("code").value;
-            let year = document.getElementById("year").value;
-            let title = document.getElementById("title").value;
-            let level = document.getElementById("level").value;
-            let description=document.getElementById("description").value;
-            let postRequirement=JSON.stringify(requirementCodeList);
-
-            $.ajax({
-                url: '../degree/addMajor',
-                data: {"code": code, "year": year,"title":title,"description":description,"requirement":postRequirement,"level":level},
-                dataType: "json",
-                success: function (data) {
-                    if (data.response == 'success') {
-                        //reset param
-                        resetParam();
-
-                        //show message
-                        $('#msg_header').text('Success: ');
-                        $('#msg_class').removeClass().addClass("alert alert-success text-center");
-                        let link = 'major_detail' + '?code=' + code + '' + '&year=' + year + '&level=' + level;
-                        $('#msg').html('Create ' + '<a href=\"' + link + '\">' + title + ' ' + year + '</a> Successful!');
-                        $('#message').show();
-                        setTimeout(hideMessage, 15000);
-                    } else if (data.response == 'validation') {
-                        $('#msg_header').text('Error: ');
-                        $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-                        $('#msg').text(data.msg);
-                        $('#message').show();
-                        setTimeout(hideMessage, 5000);
-                        $('#' + data.element).removeClass().addClass('form-control is-invalid');
-                    } else {
-                        var mesej = 'Oops, something wrong, please try again in a few moments!';
-                        $('#modal-body').html(mesej);
-                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
-                        $('#modal-title').html('Error!');
-                        $('#error-modal').modal('show');
-                    }
+            function drawRequirement(){
+                let str = "<tbody>";
+                for (let i = 0; i < requirementCodeList.length; i++) {
+                    str += "<tr><td>" + requirementCodeList[i] + "</td><td>" + requirementNameList[i] + "</td><td><button onclick=\"deleteRequirement(" + i + ")\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i></button></td></tr>";
                 }
+                str += "</tbody>";
+                $('#requirementTable').html(str);
+            }
 
-            });
-        }
+            function resetParam() {
+                $('#code').val('');
+                $('#title').val('');
+                $('#level').val('');
+                $('#description').val('');
 
-        function save_() {
-            if (document.getElementById("code").value == "" || document.getElementById("title").value == "") {
-                boot4.confirm({
-                    msg: "Please input available code and title."
-                });
-            } else {
-                boot4.confirm({
-                    msg: "Are you sure to save ?",
-                    callback: function (result) {
-                        if (result) {
-                            let code = document.getElementById("code").value;
-                            let year = document.getElementById("year").value;
-                            let title = document.getElementById("title").value;
-                            let description=document.getElementById("description").value;
-                            let postRequirement=JSON.stringify(requirementList);
-                            console.log("save success");
-                            $.ajax({
-                                url: '../degree/addMajor',
-                                data: {"code": code, "year": year,"title":title,"description":description,"requirement":postRequirement},
-                                dataType: "json",
-                                success: function (data) {
-                                    $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
-                                }
+                requirementCodeList = [];
+                requirementNameList = [];
+                $('#Table').html('');
+                $('#requirementTable').html('');
+                $('#search').val('');
+            }
 
-                            });
+            function resetClass() {
+                $('#code').removeClass().addClass("form-control");
+                $('#title').removeClass().addClass("form-control");
+                $('#level').removeClass().addClass("form-control");
+                $('#description').removeClass().addClass("form-control");
+            }
+
+            function setMessageError(msg, id){
+                $('#msg_header').text('Error: ');
+                $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                $('#msg').text(msg);
+                $('#message').show();
+                setTimeout(hideMessage, 5000);
+                $('#' + id).removeClass().addClass("form-control is-invalid");
+            }
+
+            var hideMessage = function(){
+                $('#message').fadeOut('slow');
+            };
+
+            function save() {
+                let code = document.getElementById("code").value;
+                let year = document.getElementById("year").value;
+                let title = document.getElementById("title").value;
+                let level = document.getElementById("level").value;
+                let description=document.getElementById("description").value;
+                let postRequirement=JSON.stringify(requirementCodeList);
+
+                $.ajax({
+                    url: '../degree/addMajor',
+                    data: {"code": code, "year": year,"title":title,"description":description,"requirement":postRequirement,"level":level},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.response == 'success') {
+                            //reset param
+                            resetParam();
+
+                            //show message
+                            $('#msg_header').text('Success: ');
+                            $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                            let link = 'major_detail' + '?code=' + code + '' + '&year=' + year + '&level=' + level;
+                            $('#msg').html('Create ' + '<a href=\"' + link + '\">' + title + ' ' + year + '</a> Successful!');
+                            $('#message').show();
+                            setTimeout(hideMessage, 15000);
+                        } else if (data.response == 'validation') {
+                            $('#msg_header').text('Error: ');
+                            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                            $('#msg').text(data.msg);
+                            $('#message').show();
+                            setTimeout(hideMessage, 5000);
+                            $('#' + data.element).removeClass().addClass('form-control is-invalid');
                         } else {
-                            console.log("cancel");
+                            var mesej = 'Oops, something wrong, please try again in a few moments!';
+                            $('#modal-body').html(mesej);
+                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                            $('#modal-title').html('Error!');
+                            $('#error-modal').modal('show');
                         }
                     }
+
                 });
             }
-        }
+
+            function save_() {
+                if (document.getElementById("code").value == "" || document.getElementById("title").value == "") {
+                    boot4.confirm({
+                        msg: "Please input available code and title."
+                    });
+                } else {
+                    boot4.confirm({
+                        msg: "Are you sure to save ?",
+                        callback: function (result) {
+                            if (result) {
+                                let code = document.getElementById("code").value;
+                                let year = document.getElementById("year").value;
+                                let title = document.getElementById("title").value;
+                                let description=document.getElementById("description").value;
+                                let postRequirement=JSON.stringify(requirementList);
+                                console.log("save success");
+                                $.ajax({
+                                    url: '../degree/addMajor',
+                                    data: {"code": code, "year": year,"title":title,"description":description,"requirement":postRequirement},
+                                    dataType: "json",
+                                    success: function (data) {
+                                        $('#alert').html('Save success').addClass('alert-success').show().delay(1500).fadeOut();
+                                    }
+
+                                });
+                            } else {
+                                console.log("cancel");
+                            }
+                        }
+                    });
+                }
+            }
 
 
-    </script>
+        </script>
     {% else %}
-    <div class="container">
-      <h1 class="text-center">Warning! You don't enter correct password and username</h1>
-  </div>
+        <div class="container">
+            <h1 class="text-center">Warning! You don't enter correct password and username</h1>
+        </div>
     {% endif%}
 
 {% endblock %}

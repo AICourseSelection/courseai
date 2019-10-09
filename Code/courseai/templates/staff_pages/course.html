@@ -1,160 +1,170 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
     {% if user.is_authenticated and user.is_staff%}
-    <section id="bc" class="mt-3">
+        <section id="bc" class="mt-3">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fa fa-home"></i> Home </a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ bc_param }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+        {% if show_message %}
+            <div id="messagex" class="container">
+                <div id="msg_class" class="alert alert-success text-center" role="alert">
+                    <strong>
+                        <label id="msg_header"></label>
+                    </strong>
+                    <label id="msg">Delete <strong>{{ msg_param }} </strong>Successful!</label>
+                </div>
+            </div>
+        {% endif %}
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">
+                <strong>Search Course</strong>
+            </h1>
+            {% include 'staff_pages/partials/_alerts.html' %}
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="sr-only">Year</label>
+
+                </div>
+                <div class="col-md-4 mb-3">
+
+                </div>
+
+            </div>
+        </div>
         <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'index' %}">
-                            <i class="fa fa-home"></i> Home </a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ bc_param }}</li>
-                </ol>
-            </nav>
-        </div>
-    </section>
-    <div class="container text-center">
-        <h1 class="display-4 mb-4">
-            <strong>Search Course</strong>
-        </h1>
-        {% include 'staff_pages/partials/_alerts.html' %}
-
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="sr-only">Year</label>
-
-            </div>
-            <div class="col-md-4 mb-3">
-
-            </div>
-
-        </div>
-    </div>
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Course Code"
-                       onkeydown="if(event.keyCode==13) {showCourse()}">
-            </div>
-            <div class="col-md-auto">
-                <select id="year" name='year' class="form-control">
-                    {% for year in years %}
-                        {% if year == year_now %}
-                            <option selected value="{{ year }}">{{ year }}</option>
-                        {% else %}
-                            <option value="{{ year }}">{{ year }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col col-lg-2">
-                <button onclick="showCourse()" class="btn btn-outline-primary">Search</button>
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-4">
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Course Code"
+                           onkeydown="if(event.keyCode==13) {showCourse()}">
+                </div>
+                <div class="col-md-auto">
+                    <select id="year" name='year' class="form-control">
+                        {% for year in years %}
+                            {% if year == year_now %}
+                                <option selected value="{{ year }}">{{ year }}</option>
+                            {% else %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-2">
+                    <button onclick="showCourse()" class="btn btn-outline-primary">Search</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div style="width: 100%; text-align: center">
-        <div>&nbsp</div>
-        <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
+        <div style="width: 100%; text-align: center">
+            <div>&nbsp</div>
+            <div class="table-responsive">
+                <table id="Table" class="table table-hover" style="width: 65%; margin: auto">
 
-            </table>
+                </table>
+            </div>
         </div>
-    </div>
-    </div>
-    <script>
+        </div>
+        <script>
 
-        var courseCodes;
-        var courseVersions;
+            var courseCodes;
+            var courseVersions;
 
-        function showCourse() {
-            var year = document.getElementById("year").value;
-            let courses = document.getElementById("search").value;
-            let tableData = "<thead class = \"thead-light\">\n" +
-                "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"20%\">Course Code</th>\n" +
-                "                      <th scope=\"col\" width=\"70%\">Course Name</th>\n" +
-                "                      <th scope=\"col\" width=\"10%\">Unit</th>\n" +
-                "                    </tr>\n" +
-                "                  </thead>";
-            tableData += "<tbody>\n" +
-                "    <tr>";
-            courseCodes = [];
-            courseVersions = [];
-            const courseUnits = [];
-            const courseTitles = [];
-            var versions = "";
-            if(courses!=""){
-            $.ajax({
-                url: '../search/coursesearch/',
-                data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
-                success: function (data) {
-                    year = document.getElementById("year").value;
-                    for (let i = 0; i < data.response.length; i++) {
-                        if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase()) == true) {
-                            versions = data.response[i].versions[year];
-                            if (versions != undefined) {
-                                console.log(versions);
-                                courseCodes.push(data.response[i].course_code);
-                                courseUnits.push(versions.units);
-                                courseTitles.push(versions.title);
-                            }
-                        }
-                    }
-                    if (courseCodes.length == 0) {
-                        tableData="<strong>No such Course</strong><br /> "
-                         $("#Table").html(tableData);
-                        return;
-                    } else {
-                        for (let i = 0; i < courseCodes.length; i++) {
-                            for (let j = 0; j < 3; j++) {
-                                if (j == 0) {
-                                    tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
-                                        + courseCodes[i] +
-                                        "</a>" +
-                                        "</td>";
-                                } else if (j == 1) {
-                                    tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
-                                        courseTitles[i] + "</a>" + "</td>";
-                                } else if (j == 2) {
-                                    tableData += "<td>" + courseUnits[i] + "</td>";
+            function showCourse() {
+                var year = document.getElementById("year").value;
+                let courses = document.getElementById("search").value;
+                let tableData = "<thead class = \"thead-light\">\n" +
+                    "                    <tr>\n" +
+                    "                      <th scope=\"col\" width=\"20%\">Course Code</th>\n" +
+                    "                      <th scope=\"col\" width=\"70%\">Course Name</th>\n" +
+                    "                      <th scope=\"col\" width=\"10%\">Unit</th>\n" +
+                    "                    </tr>\n" +
+                    "                  </thead>";
+                tableData += "<tbody>\n" +
+                    "    <tr>";
+                courseCodes = [];
+                courseVersions = [];
+                const courseUnits = [];
+                const courseTitles = [];
+                var versions = "";
+                if(courses!=""){
+                    $.ajax({
+                        url: '../search/coursesearch/',
+                        data: {"query": courses, "filters": {"codes": [], "levels": [], "sessions": [], "level": ""}},
+                        success: function (data) {
+                            year = document.getElementById("year").value;
+                            for (let i = 0; i < data.response.length; i++) {
+                                if (data.response[i].course_code.toString().toLowerCase().includes(courses.toString().toLowerCase()) == true) {
+                                    versions = data.response[i].versions[year];
+                                    if (versions != undefined) {
+                                        console.log(versions);
+                                        courseCodes.push(data.response[i].course_code);
+                                        courseUnits.push(versions.units);
+                                        courseTitles.push(versions.title);
+                                    }
                                 }
                             }
-                            tableData += "</tr>" + "<tr>";
+                            if (courseCodes.length == 0) {
+                                tableData="<strong>No such Course</strong><br /> "
+                                $("#Table").html(tableData);
+                                return;
+                            } else {
+                                for (let i = 0; i < courseCodes.length; i++) {
+                                    for (let j = 0; j < 3; j++) {
+                                        if (j == 0) {
+                                            tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
+                                                + courseCodes[i] +
+                                                "</a>" +
+                                                "</td>";
+                                        } else if (j == 1) {
+                                            tableData += "<td class=\"text-left\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >" +
+                                                courseTitles[i] + "</a>" + "</td>";
+                                        } else if (j == 2) {
+                                            tableData += "<td>" + courseUnits[i] + "</td>";
+                                        }
+                                    }
+                                    tableData += "</tr>" + "<tr>";
+                                }
+                                tableData += "</tbody>";
+                            }
+                            $("#Table").html(tableData);
                         }
-                        tableData += "</tbody>";
-                    }
+                    });
+                }
+                else{
+                    tableData="<strong>No such Course</strong><br /> "
                     $("#Table").html(tableData);
                 }
-            });
             }
-            else{
-                tableData="<strong>No such Course</strong><br /> "
-                         $("#Table").html(tableData);
+
+
+            function str_substr(start, end, str) {
+                try {
+                    temp = str.split(start, 2);
+                    content = temp[1].split(end, 2);
+                } catch (e) {
+                    console.log(e.name + ":" + e.message);
+                }
+                return content[0];
             }
-        }
+        </script>
 
 
-        function str_substr(start, end, str) {
-            try {
-                temp = str.split(start, 2);
-                content = temp[1].split(end, 2);
-            } catch (e) {
-                console.log(e.name + ":" + e.message);
-            }
-            return content[0];
-        }
-    </script>
-
-
-{% else %}
-    <div class="container">
-      <h1 class="text-center">Warning! You don't enter correct password and username</h1>
-  </div>
+    {% else %}
+        <div class="container">
+            <h1 class="text-center">Warning! You don't enter correct password and username</h1>
+        </div>
     {% endif%}
 {% endblock %}

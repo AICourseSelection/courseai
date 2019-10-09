@@ -30,11 +30,11 @@
             <!-- /END Separator -->
             <!-- Menu with submenu -->
             <a href="#submenu1" data-toggle="collapse"
-               {% if 'degree' in request.path  or 'degree_add' in request.path%}
-                   aria-expanded="true"
-               {% else %}
-                    aria-expanded="false"
-               {% endif %}
+                    {% if 'degree' in request.path  or 'degree_add' in request.path%}
+               aria-expanded="true"
+                    {% else %}
+               aria-expanded="false"
+                    {% endif %}
                class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-graduation-cap fa-fw mr-3"></span>
@@ -45,10 +45,10 @@
             <!-- Submenu content -->
             <div id="submenu1"
                     {% if 'degree' in request.path  or 'degree_add' in request.path%}
-                       class="collapse show sidebar-submenu"
-                   {% else %}
-                        class="collapse sidebar-submenu"
-                   {% endif %}
+                 class="collapse show sidebar-submenu"
+                    {% else %}
+                 class="collapse sidebar-submenu"
+                    {% endif %}
             >
                 <a href="degree" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
@@ -59,11 +59,11 @@
             </div>
 
             <a href="#submenu2" data-toggle="collapse"
-               {% if 'course' in request.path  or 'course_add' in request.path%}
-                   aria-expanded="true"
-               {% else %}
-                    aria-expanded="false"
-               {% endif %}
+                    {% if 'course' in request.path  or 'course_add' in request.path%}
+               aria-expanded="true"
+                    {% else %}
+               aria-expanded="false"
+                    {% endif %}
                class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-book fa-fw mr-3"></span>
@@ -73,11 +73,11 @@
             </a>
             <!-- Submenu content -->
             <div id="submenu2"
-                 {% if 'course' in request.path  or 'course_add' in request.path%}
-                       class="collapse show sidebar-submenu"
-                   {% else %}
-                        class="collapse sidebar-submenu"
-                   {% endif %}
+                    {% if 'course' in request.path  or 'course_add' in request.path%}
+                 class="collapse show sidebar-submenu"
+                    {% else %}
+                 class="collapse sidebar-submenu"
+                    {% endif %}
             >
                 <a href="course" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
@@ -87,11 +87,11 @@
                 </a>
             </div>
             <a href="#submenu3" data-toggle="collapse"
-               {% if 'major' in request.path  or 'major_add' in request.path%}
-                   aria-expanded="true"
-               {% else %}
-                    aria-expanded="false"
-               {% endif %}
+                    {% if 'major' in request.path  or 'major_add' in request.path%}
+               aria-expanded="true"
+                    {% else %}
+               aria-expanded="false"
+                    {% endif %}
                class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-user-circle-o fa-fw mr-3"></span>
@@ -102,10 +102,10 @@
             <!-- Submenu content -->
             <div id="submenu3"
                     {% if 'major' in request.path  or 'major_add' in request.path%}
-                       class="collapse show sidebar-submenu"
-                   {% else %}
-                        class="collapse sidebar-submenu"
-                   {% endif %}
+                 class="collapse show sidebar-submenu"
+                    {% else %}
+                 class="collapse sidebar-submenu"
+                    {% endif %}
             >
                 <a href="major" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
@@ -117,11 +117,11 @@
 
 
             <a href="#submenu4" data-toggle="collapse"
-               {% if 'minor' in request.path  or 'minor_add' in request.path%}
-                   aria-expanded="true"
-               {% else %}
-                    aria-expanded="false"
-               {% endif %}
+                    {% if 'minor' in request.path  or 'minor_add' in request.path%}
+               aria-expanded="true"
+                    {% else %}
+               aria-expanded="false"
+                    {% endif %}
                class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-user-circle fa-fw mr-3"></span>
@@ -131,11 +131,11 @@
             </a>
             <!-- Submenu content -->
             <div id="submenu4"
-                {% if 'minor' in request.path  or 'minor_add' in request.path%}
-                       class="collapse show sidebar-submenu"
-                   {% else %}
-                        class="collapse sidebar-submenu"
-                   {% endif %}
+                    {% if 'minor' in request.path  or 'minor_add' in request.path%}
+                 class="collapse show sidebar-submenu"
+                    {% else %}
+                 class="collapse sidebar-submenu"
+                    {% endif %}
             >
                 <a href="minor" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
@@ -146,11 +146,11 @@
             </div>
 
             <a href="#submenu5" data-toggle="collapse"
-               {% if 'specialisation' in request.path  or 'specialisation_add' in request.path%}
-                   aria-expanded="true"
-               {% else %}
-                    aria-expanded="false"
-               {% endif %}
+                    {% if 'specialisation' in request.path  or 'specialisation_add' in request.path%}
+               aria-expanded="true"
+                    {% else %}
+               aria-expanded="false"
+                    {% endif %}
                class="text-white bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-user-o fa-fw mr-3"></span>
@@ -160,11 +160,11 @@
             </a>
             <!-- Submenu content -->
             <div id="submenu5"
-                {% if 'specialisation' in request.path  or 'specialisation_add' in request.path%}
-                       class="collapse show sidebar-submenu"
-                   {% else %}
-                        class="collapse sidebar-submenu"
-                   {% endif %}
+                    {% if 'specialisation' in request.path  or 'specialisation_add' in request.path%}
+                 class="collapse show sidebar-submenu"
+                    {% else %}
+                 class="collapse sidebar-submenu"
+                    {% endif %}
             >
                 <a href="specialisation" class="list-group-item list-group-item-action bg-dark text-white-50">
                     <span class="menu-collapsed">Query/Edit</span>
@@ -185,7 +185,7 @@
 
     <!-- MAIN -->
     <div class="col py-3">
-       {% block content %} {% endblock %}
+        {% block content %} {% endblock %}
 
     </div>
     <!-- Main Col END -->

@@ -2,149 +2,149 @@
 
 {% block content %}
     {% if user.is_authenticated and user.is_staff%}
-    <section id="bc" class="mt-3">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'index' %}">
-                            <i class="fa fa-home"></i> Home </a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ bc_param }}</li>
-                </ol>
-            </nav>
-        </div>
-    </section>
+        <section id="bc" class="mt-3">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fa fa-home"></i> Home </a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ bc_param }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
         {% if show_message %}
-        <div id="messagex" class="container">
-            <div id="msg_class" class="alert alert-success text-center" role="alert">
-                <strong>
-                    <label id="msg_header"></label>
-                </strong>
-                <label id="msg">Delete <strong>{{ msg_param }} </strong>Successful!</label>
+            <div id="messagex" class="container">
+                <div id="msg_class" class="alert alert-success text-center" role="alert">
+                    <strong>
+                        <label id="msg_header"></label>
+                    </strong>
+                    <label id="msg">Delete <strong>{{ msg_param }} </strong>Successful!</label>
+                </div>
             </div>
-        </div>
         {% endif %}
-    <div class="container text-center">
-        <h1 class="display-4 mb-4">
-            <strong>Search Degree</strong>
-        </h1>
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">
+                <strong>Search Degree</strong>
+            </h1>
 
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
 
-            </div>
+                </div>
 
-            <div class="col-md-4 mb-3">
-                <label class="sr-only">Year</label>
+                <div class="col-md-4 mb-3">
+                    <label class="sr-only">Year</label>
 
-            </div>
-            <div class="col-md-4 mb-3">
+                </div>
+                <div class="col-md-4 mb-3">
 
-            </div>
+                </div>
 
-        </div>
-    </div>
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col col-lg-4">
-                <input type="text" id="search" name="search" class="form-control" placeholder="Degree Code"
-                       onkeydown="if(event.keyCode==13) {showDegree()}">
-            </div>
-            <div class="col-md-auto">
-                <select id="year" name='year' class="form-control">
-                    {% for year in years %}
-                        {% if year == year_now %}
-                            <option selected value="{{ year }}">{{ year }}</option>
-                        {% else %}
-                            <option value="{{ year }}">{{ year }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col col-lg-2">
-                <button onclick="showDegree()" class="btn btn-outline-primary">Search</button>
             </div>
         </div>
-    </div>
-
-    <div style="width: 100%; text-align: center">
-        <div>&nbsp</div>
-        <div class="table-responsive">
-            <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
-
-            </table>
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-4">
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Degree Code"
+                           onkeydown="if(event.keyCode==13) {showDegree()}">
+                </div>
+                <div class="col-md-auto">
+                    <select id="year" name='year' class="form-control">
+                        {% for year in years %}
+                            {% if year == year_now %}
+                                <option selected value="{{ year }}">{{ year }}</option>
+                            {% else %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col col-lg-2">
+                    <button onclick="showDegree()" class="btn btn-outline-primary">Search</button>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
-    <script>
-        let level = "undergraduate";
-        let description = "";
 
-        function showDegree() {
-            let year = document.getElementById("year").value;
-            let degree = document.getElementById("search").value;
-            let tableData = "<thead class = \"thead-light\">\n" +
-                "                    <tr>\n" +
-                "                      <th scope=\"col\" width=\"20%\">Degree Code</th>\n" +
-                "                      <th scope=\"col\" width=\"80%\">Degree Title</th>\n" +
-                "                    </tr>\n" +
-                "                  </thead>";
-            tableData += "<tbody>\n" +
-                "    <tr>";
-            const degreeCodes = [];
-            const degreeDicts = [];
-            console.log(degree)
-            if(degree!=""){
-            $.ajax({
-                url: '../degree/all',
-                success: function (data) {
-                    for (i in data.response) {
-                        if (data.response[i].title.toString().toLowerCase().indexOf(degree.toLowerCase()) != -1) {
-                            degreeDicts.push(data.response[i].title);
-                            degreeCodes.push(data.response[i].code);
-                        }
-                    }
-                    if (degreeDicts.length == 0) {
-                        tableData="<strong>No such Degree</strong><br /> "
-                         $("#Table").html(tableData);
-                        return;
-                    } else {
-                        for (var i = 0; i < degreeDicts.length; i++) {
-                            for (var j = 0; j < 2; j++) {
+        <div style="width: 100%; text-align: center">
+            <div>&nbsp</div>
+            <div class="table-responsive">
+                <table id="Table" class="table table-hover" style="width: 45%; margin: auto">
 
-                                if (j == 0) {
-                                    tableData += "<td style=\"text-align:center\">" + "<a href=\"degree_detail?code="
-                                        + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
-                                        degreeCodes[i] + "</a>" + "</td>";
-                                } else if (j == 1) {
-                                    tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
-                                        + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
-                                        degreeDicts[i] + "</a>" + "</td>";
+                </table>
+            </div>
+        </div>
+        </div>
+        <script>
+            let level = "undergraduate";
+            let description = "";
+
+            function showDegree() {
+                let year = document.getElementById("year").value;
+                let degree = document.getElementById("search").value;
+                let tableData = "<thead class = \"thead-light\">\n" +
+                    "                    <tr>\n" +
+                    "                      <th scope=\"col\" width=\"20%\">Degree Code</th>\n" +
+                    "                      <th scope=\"col\" width=\"80%\">Degree Title</th>\n" +
+                    "                    </tr>\n" +
+                    "                  </thead>";
+                tableData += "<tbody>\n" +
+                    "    <tr>";
+                const degreeCodes = [];
+                const degreeDicts = [];
+                console.log(degree)
+                if(degree!=""){
+                    $.ajax({
+                        url: '../degree/all',
+                        success: function (data) {
+                            for (i in data.response) {
+                                if (data.response[i].title.toString().toLowerCase().indexOf(degree.toLowerCase()) != -1) {
+                                    degreeDicts.push(data.response[i].title);
+                                    degreeCodes.push(data.response[i].code);
                                 }
-
-
                             }
-                            tableData += "</tr>" + "<tr>";
+                            if (degreeDicts.length == 0) {
+                                tableData="<strong>No such Degree</strong><br /> "
+                                $("#Table").html(tableData);
+                                return;
+                            } else {
+                                for (var i = 0; i < degreeDicts.length; i++) {
+                                    for (var j = 0; j < 2; j++) {
+
+                                        if (j == 0) {
+                                            tableData += "<td style=\"text-align:center\">" + "<a href=\"degree_detail?code="
+                                                + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
+                                                degreeCodes[i] + "</a>" + "</td>";
+                                        } else if (j == 1) {
+                                            tableData += "<td style=\"text-align:left\">" + "<a href=\"degree_detail?code="
+                                                + degreeCodes[i] + "&title=" + degreeDicts[i] + "&year=" + year + "\">" +
+                                                degreeDicts[i] + "</a>" + "</td>";
+                                        }
+
+
+                                    }
+                                    tableData += "</tr>" + "<tr>";
+                                }
+                            }
+                            $("#Table").html(tableData);
                         }
-                    }
+                    });
+                }
+                else{
+                    tableData="<strong>No such Degree</strong><br /> "
                     $("#Table").html(tableData);
                 }
-            });
             }
-            else{
-                tableData="<strong>No such Degree</strong><br /> "
-                $("#Table").html(tableData);
-            }
-        }
-    </script>
-    {#<h1>Degree</h1>#}
+        </script>
+        {#<h1>Degree</h1>#}
 
 
-{% else %}
-    <div class="container">
-      <h1 class="text-center">Warning! You don't enter correct password and username</h1>
-  </div>
+    {% else %}
+        <div class="container">
+            <h1 class="text-center">Warning! You don't enter correct password and username</h1>
+        </div>
     {% endif%}
 
 {% endblock %}

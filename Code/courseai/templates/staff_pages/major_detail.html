@@ -1,299 +1,301 @@
 {% extends 'staff_pages/staff_base.html' %}
 {% block content %}
     {% if user.is_authenticated and user.is_staff%}
-    <section id="bc" class="mt-3">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'index' %}">
-                            <i class="fa fa-home"></i> Home </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'major' %}"> Major </a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ bc_param }}</li>
-                </ol>
-            </nav>
-        </div>
-    </section>
+        <section id="bc" class="mt-3">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                                <i class="fa fa-home"></i> Home </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'major' %}">Major</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ bc_param }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog"
-         aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body alert-danger text-center">
-                    <h4><strong>Warning! Delete action is permanent! You will back to the search page after clicking the
-                        delete button.</strong></h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" caller-id="" role="dialog"
+             aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body alert-danger text-center">
+                        <h4><strong>Warning! Delete action is permanent!</strong></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-                    <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
-                            id="confirmDeleteButtonModal" onclick=deleteData()>
-                        Delete
-                    </button>
+                        <button type="button" id="delete" class="btn btn-danger" data-dismiss="modal"
+                                id="confirmDeleteButtonModal" onclick=deleteData()>
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
-         aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body alert-success text-center">
-                    <h4><strong>Update Major?</strong></h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <div class="modal fade" id="confirmSaveModal" tabindex="-1" caller-id="" role="dialog"
+             aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body alert-success text-center">
+                        <h4><strong>Update Major?</strong></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-                    <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
-                            id="confirmSaveButtonModal" onclick=saveData()>
-                        Save
-                    </button>
+                        <button type="button" id="save" class="btn btn-success" data-dismiss="modal"
+                                id="confirmSaveButtonModal" onclick=saveData()>
+                            Save
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container text-center">
-        <h1 id="pageTitle"></h1>
-    </div>
-    {% include 'staff_pages/partials/_message.html' %}
-    {% include 'staff_pages/partials/_modal.html' %}
-    <div class="container" id="deleteMode">
-        <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
-        <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
-    </div>
-    <div class="container" id="editMode" style="display: none">
-        <button id="btnEditCancel" class="btn btn-outline-info float-left">Cancel</button>
-        <button id="btnSave" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#confirmSaveModal">Save</button>
-    </div>
+        <div class="container text-center">
+            <h1 id="pageTitle"></h1>
+        </div>
+        {% include 'staff_pages/partials/_message.html' %}
+        {% include 'staff_pages/partials/_modal.html' %}
+        <div class="container" id="deleteMode">
+            <button id="btnEdit" class="btn btn-outline-info float-left">Edit</button>
+            <button id="btnDelete" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+        </div>
+        <div class="container" id="editMode" style="display: none">
+            <button id="btnEditCancel" class="btn btn-outline-info float-left">Cancel</button>
+            <button id="btnSave" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#confirmSaveModal">Save</button>
+        </div>
 
-    <div class="container h-100" id="queryContainer">
-        <table class="table table-striped">
-            <tr>
-                <td style="text-align: right; width: 20%">Code:</td>
-                <td style="text-align: left">{{ major_code }}</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Year:</td>
-                <td style="text-align: left">{{ major_year }}</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Title:</td>
-                <td style="text-align: left;width: 80%" id="title_q"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Description:</td>
-                <td style="text-align: left;width: 80%" id="description_q"></td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Requirement:</td>
-                <td style=" text-align: left" id="requirement_q">
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="container h-100" id="editContainer">
-        <table class="table table-striped">
-            <tr>
-                <td style="text-align: right; width: 20%">Code:</td>
-                <td style="text-align: left">{{ major_code }}</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Year:</td>
-                <td style="text-align: left">{{ major_year }}</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Title:</td>
-                <td style="text-align: left">
-                    <input type="text" id="title" style="width: 100%">
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Description:</td>
-                <td style="text-align: left">
+        <div>&nbsp</div>
+        <div>&nbsp</div>
+
+        <div class="container h-100" id="queryContainer">
+            <table class="table table-striped">
+                <tr>
+                    <td style="text-align: right; width: 20%">Code:</td>
+                    <td style="text-align: left">{{ major_code }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Year:</td>
+                    <td style="text-align: left">{{ major_year }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Title:</td>
+                    <td style="text-align: left;width: 80%" id="title_q"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Description:</td>
+                    <td style="text-align: left;width: 80%" id="description_q"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Requirement:</td>
+                    <td style=" text-align: left" id="requirement_q">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="container h-100" id="editContainer" style="display: none">
+            <table class="table table-striped">
+                <tr>
+                    <td style="text-align: right; width: 20%">Code:</td>
+                    <td style="text-align: left">{{ major_code }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Year:</td>
+                    <td style="text-align: left">{{ major_year }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Title:</td>
+                    <td style="text-align: left">
+                        <input type="text" id="title" style="width: 100%">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Description:</td>
+                    <td style="text-align: left">
                     <textarea rows="5" type="text" id="description"
                               style="width: 100%">    </textarea><br>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; width: 20%">Requirement:</td>
-                <td style=" text-align: left" id="requirement">
-                </td>
-            </tr>
-            <tbody id="majorTable">
-        </table>
-    </div>
-    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-    <script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; width: 20%">Requirement:</td>
+                    <td style=" text-align: left" id="requirement">
+                    </td>
+                </tr>
+                <tbody id="majorTable">
+            </table>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+        <script>
 
-        $('#btnEdit').click(function () {
-            $('#deleteMode').hide();
-            $('#editMode').show();
-            $('#queryContainer').hide();
-            $('#editContainer').show();
-        });
-        $('#btnEditCancel').click(function () {
-            $('#deleteMode').show();
-            $('#editMode').hide();
-            $('#queryContainer').show();
-            $('#editContainer').hide();
-        });
-
-        function getQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = location.search.substr(1).match(reg);
-            if (r != null) return (r[2]);
-            return null;
-        }
-
-        var codeS = getQueryString("code");
-        var yearS = getQueryString("year");
-        var levelS = getQueryString("level");
-        var titleS;
-        var discription;
-        var requirementList = []    ;
-        var requirement = "";
-        var requirement_q = "";
-        var length=0;
-        var courseUrl = window.location.origin+"/staff"+"/course_detail?";
-        let requirementTable = document.getElementById("requirement");
-        $.ajax({
-            url: '../search/mms_by_code',
-            data: {"query": codeS, "level": levelS, "type": "majors", "year": yearS},
-            success: function (data) {
-                titleS = data.responses[0].versions[yearS].title;
-                document.getElementById("title").value = titleS;
-                discription = data.responses[0].versions[yearS].description;
-                document.getElementById("description").value = discription;
-                document.getElementById("pageTitle").innerText = titleS + " (" + yearS + ")";
-                $('#title_q').text(titleS);
-                $('#description_q').html(discription.split('\n').join('<br>'));
-                if (data.responses[0].versions[yearS].requirements["x_from_here"] != undefined) {
-                    let requirementData = data.responses[0].versions[yearS].requirements["x_from_here"];
-                    for (let j = 0; j < requirementData.length; j++) {
-                        requirementList.push(requirementData[j].units)
-                        for (let i = 0; i < requirementData[j].courses.length; i++) {
-                            requirementList.push(requirementData[j].courses[i])
-                        }
-                    }
-                    for (let j = 0; j < requirementList.length; j++) {
-                        let unitLength=0;
-                        if(typeof requirementList[j]=="number"){
-                            requirement += "<strong>Choose "+requirementList[j]+"units from follow courses</strong><br>";
-                            requirement_q += "<strong>Choose "+requirementList[j]+"units from follow courses</strong><br>";
-                        }
-                        else{
-                            let link = courseUrl + "code=" + requirementList[j][0].code  + "&year=" + yearS;
-                            requirement +=  "<input type=\"text\" id=\"requirement" + j+ "\"value=\"" + requirementList[j][0].code + "\">" + "<br>";
-                            requirement_q += "<a href =" + link + ">" + requirementList[j][0].code +  "<a>" + "<br>";
-                            length++;
-                        }
-                    }
-                    requirementTable.innerHTML = requirement;
-                    $('#requirement_q').html(requirement_q);
-                }
-            }
-
-        });
-
-        function saveData() {
-            let postList=[];
-            let title = document.getElementById("title").value;
-            let description = document.getElementById("description").value;
-            for (let i = 0; i < length; i++) {
-                if(document.getElementById("requirement" + i)!=null)
-                {
-                    postList.push(document.getElementById("requirement" + i).value);
-                }
-            }
-            let postListString=JSON.stringify(postList);
-            $.ajax({
-                url: '../degree/saveMajor',
-                data: {
-                    "code": codeS,
-                    "year": yearS,
-                    "title":title,
-                    "requirement":postListString
-                },
-                dataType: "json",
-                success: function (data) {
-                    if(data.response === 'success'){
-                        //show message
-                        $('#msg_header').text('Success: ');
-                        $('#msg_class').removeClass().addClass("alert alert-success text-center");
-                        $('#msg').html('Update Major Successful! Refresh Page in 5 Seconds');
-                        $('#message').show();
-                        setTimeout(function(){
-                            $('#msg').html('Update Major Successful! Refresh Page in 4 Seconds');
-                            $('#message').show();
-                        }, 1000);
-                        setTimeout(function(){
-                            $('#msg').html('Update Major Successful! Refresh Page in 3 Seconds');
-                            $('#message').show();
-                        }, 2000);
-                        setTimeout(function(){
-                            $('#msg').html('Update Major Successful! Refresh Page in 2 Seconds');
-                            $('#message').show();
-                        }, 3000);
-                        setTimeout(function(){
-                            $('#msg').html('Update Major Successful! Refresh Page in 1 Seconds');
-                            $('#message').show();
-                        }, 4000);
-                        setTimeout(function(){
-                            location.reload();
-                        }, 5000);
-                    } else if (data.response === 'validation') {
-                        $('#msg_header').text('Error: ');
-                        $('#msg_class').removeClass().addClass("alert alert-danger text-center");
-
-                        $('#msg').text(data.msg);
-                        $('#message').show();
-                        setTimeout(hideMessage, 5000);
-                        $('#' + data.element).removeClass().addClass('form-control is-invalid');
-                    } else {
-                        var mesej = 'Oops, something wrong, please try again in a few moments!';
-                        $('#modal-body').html(mesej);
-                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
-                        $('#modal-title').html('Error!');
-                        $('#error-modal').modal('show');
-                    }
-                }
+            $('#btnEdit').click(function () {
+                $('#deleteMode').hide();
+                $('#editMode').show();
+                $('#queryContainer').hide();
+                $('#editContainer').show();
             });
-        }
+            $('#btnEditCancel').click(function () {
+                $('#deleteMode').show();
+                $('#editMode').hide();
+                $('#queryContainer').show();
+                $('#editContainer').hide();
+            });
 
-        function deleteData() {
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return (r[2]);
+                return null;
+            }
+
+            var codeS = getQueryString("code");
+            var yearS = getQueryString("year");
+            var levelS = getQueryString("level");
+            var titleS;
+            var discription;
+            var requirementList = []    ;
+            var requirement = "";
+            var requirement_q = "";
+            var length=0;
+            var courseUrl = window.location.origin+"/staff"+"/course_detail?";
+            let requirementTable = document.getElementById("requirement");
             $.ajax({
-                url: '../degree/delete',
-                data: {"code": codeS, "type": "degree", "year": yearS},
-                dataType:"json",
+                url: '../search/mms_by_code',
+                data: {"query": codeS, "level": levelS, "type": "majors", "year": yearS},
                 success: function (data) {
-                    if(data.response === 'success'){
-                        window.location.href='major';
-                    }
-                    else {
-                        var mesej = 'Oops, something wrong, please try again in a few moments!';
-                        $('#modal-body').html(mesej);
-                        $('#modal-header').removeClass().addClass('modal-header alert-danger');
-                        $('#modal-title').html('Error!');
-                        $('#error-modal').modal('show');
+                    titleS = data.responses[0].versions[yearS].title;
+                    document.getElementById("title").value = titleS;
+                    discription = data.responses[0].versions[yearS].description;
+                    document.getElementById("description").value = discription;
+                    document.getElementById("pageTitle").innerText = titleS + " (" + yearS + ")";
+                    $('#title_q').text(titleS);
+                    $('#description_q').html(discription.split('\n').join('<br>'));
+                    if (data.responses[0].versions[yearS].requirements["x_from_here"] != undefined) {
+                        let requirementData = data.responses[0].versions[yearS].requirements["x_from_here"];
+                        for (let j = 0; j < requirementData.length; j++) {
+                            requirementList.push(requirementData[j].units)
+                            for (let i = 0; i < requirementData[j].courses.length; i++) {
+                                requirementList.push(requirementData[j].courses[i])
+                            }
+                        }
+                        for (let j = 0; j < requirementList.length; j++) {
+                            let unitLength=0;
+                            if(typeof requirementList[j]=="number"){
+                                requirement += "<strong>Choose "+requirementList[j]+"units from follow courses</strong><br>";
+                                requirement_q += "<strong>Choose "+requirementList[j]+"units from follow courses</strong><br>";
+                            }
+                            else{
+                                let link = courseUrl + "code=" + requirementList[j][0].code  + "&year=" + yearS;
+                                requirement +=  "<input type=\"text\" id=\"requirement" + j+ "\"value=\"" + requirementList[j][0].code + "\">" + "<br>";
+                                requirement_q += "<a href =" + link + ">" + requirementList[j][0].code +  "<a>" + "<br>";
+                                length++;
+                            }
+                        }
+                        requirementTable.innerHTML = requirement;
+                        $('#requirement_q').html(requirement_q);
                     }
                 }
 
             });
-        }
+
+            function saveData() {
+                let postList=[];
+                let title = document.getElementById("title").value;
+                let description = document.getElementById("description").value;
+                for (let i = 0; i < length; i++) {
+                    if(document.getElementById("requirement" + i)!=null)
+                    {
+                        postList.push(document.getElementById("requirement" + i).value);
+                    }
+                }
+                let postListString=JSON.stringify(postList);
+                $.ajax({
+                    url: '../degree/saveMajor',
+                    data: {
+                        "code": codeS,
+                        "year": yearS,
+                        "title":title,
+                        "requirement":postListString
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.response === 'success'){
+                            //show message
+                            $('#msg_header').text('Success: ');
+                            $('#msg_class').removeClass().addClass("alert alert-success text-center");
+                            $('#msg').html('Update Major Successful! Refresh Page in 5 Seconds');
+                            $('#message').show();
+                            setTimeout(function(){
+                                $('#msg').html('Update Major Successful! Refresh Page in 4 Seconds');
+                                $('#message').show();
+                            }, 1000);
+                            setTimeout(function(){
+                                $('#msg').html('Update Major Successful! Refresh Page in 3 Seconds');
+                                $('#message').show();
+                            }, 2000);
+                            setTimeout(function(){
+                                $('#msg').html('Update Major Successful! Refresh Page in 2 Seconds');
+                                $('#message').show();
+                            }, 3000);
+                            setTimeout(function(){
+                                $('#msg').html('Update Major Successful! Refresh Page in 1 Seconds');
+                                $('#message').show();
+                            }, 4000);
+                            setTimeout(function(){
+                                location.reload();
+                            }, 5000);
+                        } else if (data.response === 'validation') {
+                            $('#msg_header').text('Error: ');
+                            $('#msg_class').removeClass().addClass("alert alert-danger text-center");
+
+                            $('#msg').text(data.msg);
+                            $('#message').show();
+                            setTimeout(hideMessage, 5000);
+                            $('#' + data.element).removeClass().addClass('form-control is-invalid');
+                        } else {
+                            var mesej = 'Oops, something wrong, please try again in a few moments!';
+                            $('#modal-body').html(mesej);
+                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                            $('#modal-title').html('Error!');
+                            $('#error-modal').modal('show');
+                        }
+                    }
+                });
+            }
+
+            function deleteData() {
+                $.ajax({
+                    url: '../degree/delete',
+                    data: {"code": codeS, "type": "degree", "year": yearS},
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.response === 'success'){
+                            window.location.href='major' + '?msg_param=' + $('#pageTitle').text();
+                        }
+                        else {
+                            var mesej = 'Oops, something wrong, please try again in a few moments!';
+                            $('#modal-body').html(mesej);
+                            $('#modal-header').removeClass().addClass('modal-header alert-danger');
+                            $('#modal-title').html('Error!');
+                            $('#error-modal').modal('show');
+                        }
+                    }
+
+                });
+            }
 
 
 
 
-    </script>
+        </script>
     {% else %}
-    <div class="container">
-      <h1 class="text-center">Warning! You don't enter correct password and username</h1>
-  </div>
+        <div class="container">
+            <h1 class="text-center">Warning! You don't enter correct password and username</h1>
+        </div>
     {% endif%}
 
 {% endblock %}
