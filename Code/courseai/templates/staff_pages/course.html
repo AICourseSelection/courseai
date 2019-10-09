@@ -87,9 +87,8 @@
                 let courses = document.getElementById("search").value;
                 let tableData = "<thead class = \"thead-light\">\n" +
                     "                    <tr>\n" +
-                    "                      <th scope=\"col\" width=\"20%\">Course Code</th>\n" +
-                    "                      <th scope=\"col\" width=\"70%\">Course Name</th>\n" +
-                    "                      <th scope=\"col\" width=\"10%\">Unit</th>\n" +
+                    "                      <th scope=\"col\">Course Code</th>\n" +
+                    "                      <th scope=\"col\">Course Name</th>\n" +
                     "                    </tr>\n" +
                     "                  </thead>";
                 tableData += "<tbody>\n" +
@@ -122,7 +121,7 @@
                                 return;
                             } else {
                                 for (let i = 0; i < courseCodes.length; i++) {
-                                    for (let j = 0; j < 3; j++) {
+                                    for (let j = 0; j < 2; j++) {
                                         if (j == 0) {
                                             tableData += "<td width=\"20%\">" + "<a href=\"course_detail?code=" + courseCodes[i] + "&year=" + year + "\" >"
                                                 + courseCodes[i] +
