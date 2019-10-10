@@ -249,6 +249,7 @@ def saveSpec(request):
 
 
 def addDegree(request):
+
     code = request.GET['code']
     year = request.GET['year']
     code_year = code + "" + year
@@ -256,18 +257,19 @@ def addDegree(request):
     planList = request.GET['planList']
     plan_list = json.loads(planList)
     compulsoryList = request.GET['compulsoryList']
-    CompulsoryList = json.loads(compulsoryList)
-    print(code, year, planList, compulsoryList, title)
+
     units = len(plan_list) * 6
     dg_dg = degree_requirement.objects.filter(code=code, year=year)
 
     if len(dg_dg) == 0:
         # Create degree
+        dg_r = {}
+        dg_r['compulsory_courses'] = ast.literal_eval(compulsoryList)
 
         st = studyoption(code_year=code_year, option=planList)
         ob = all_program(code=code, title=title)
         dg = degree_requirement(year=year, code=code,
-                                name=title, units=units, required=CompulsoryList)
+                                name=title, units=units, required=json.dumps(dg_r))
         st.save()
         ob.save()
         dg.save()
