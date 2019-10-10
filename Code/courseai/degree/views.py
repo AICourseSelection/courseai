@@ -178,7 +178,8 @@ def delete(request):
 
     year = request.GET['year']
     print(code, type, year)
-    if(code=="degree"):
+    if(type=="degree"):
+        print(type)
         dg_dg = degree_requirement.objects.filter(code=code, year=year)[0]
         dg_all = all_program.objects.filter(code=code)[0]
         dg_all.delete()
