@@ -182,13 +182,7 @@
                     setMessageError('Degree Title Cannot be Empty', 'title');
                 }
                 else {
-                    let param = checkPlan();
-                    if (param > -1) {
-                        setMessageError('Plan Cannot be Empty', 'plan' + param);
-                    }
-                    else {
                         $('#confirmSaveModal').modal('show');
-                    }
                 }
             }
             function addCompulsory(course, name) {
