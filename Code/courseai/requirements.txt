@@ -1,5 +1,5 @@
 certifi==2018.4.16
-Django==2.0.7
+Django==2.2.10
 elasticsearch==6.3.0
 elasticsearch-dsl==6.2.1
 future==0.16.0
